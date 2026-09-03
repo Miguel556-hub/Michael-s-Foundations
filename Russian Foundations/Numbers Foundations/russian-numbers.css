@@ -1,0 +1,159 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* GRID: LEFT RAIL | CENTER CONTENT | RIGHT TABS */
+.layout-grid {
+    display: grid;
+    grid-template-columns: 200px 1.8fr 100px;
+    /* wider center */
+    min-height: 100vh;
+}
+
+
+/* LEFT JOURNEY RAIL */
+.journey-rail {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: #EEF2EF;
+    padding: 16px 24px;
+    box-sizing: border-box;
+}
+
+.rail-header {
+    margin-bottom: 16px;
+}
+
+.rail-language {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.rail-language-ru {
+    font-size: 0.9rem;
+}
+
+.rail-block {
+    margin-bottom: 16px;
+}
+
+.rail-block-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.rail-block-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.rail-block-section-title {
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.rail-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 4px 0 0 0;
+}
+
+.rail-list li {
+    font-size: 0.8rem;
+}
+
+/* CENTER CONTENT */
+.lesson-content {
+    background-color: #FFFFFF;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+
+.lesson-header {
+    margin-bottom: 4px;
+    padding-bottom: 0;
+}
+
+.lesson-title {
+    display: block;
+    margin: 0;
+    /* no default margins */
+    padding: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    /* tighter title line spacing */
+}
+
+.section-title {
+    margin: 0;
+    /* removes default h2 margin */
+    padding: 0;
+    line-height: 1.2;
+    /* optional: tighter vertical rhythm */
+}
+
+.section-description {
+    margin: 2px 0 0 0;
+    /* tiny gap above subtitle only */
+    padding: 0;
+    line-height: 1.2;
+    /* tighter subtitle line spacing */
+}
+
+/* RIGHT‑SIDE LESSON TABS */
+.lesson-tabs {
+    position: sticky;
+    top: 88px;
+    /* was 0 — pushes tabs down slightly */
+    height: 100vh;
+    background-color: #EEF2EF;
+    padding: 16px, 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* push buttons to the right side */
+    gap: 6px;
+}
+
+/* INDIVIDUAL TAB BUTTONS */
+.tab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    min-height: 86px;
+    padding: 8px 6px;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    color: #4A6F63;
+    /* primary accent */
+    background-color: #FFFFFF;
+    border: 1px solid #4A6F63;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.10);
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+/* ACTIVE TAB STATE */
+.tab-button.active {
+    color: #FFFFFF;
+    background-color: #4A6F63;
+}
+
+/* HOVER EFFECT */
+.tab-button:hover {
+    background-color: #7FA69A;
+    color: #FFFFFF;
+}

@@ -1,0 +1,290 @@
+/* =====================================================
+   MICHAEL'S FOUNDATIONS
+   Portfolio Website Stylesheet
+   Home Page to Michael's Foundations
+   Version 0.2
+===================================================== */
+
+/* =====================================================
+   DESIGN TOKENS
+===================================================== */
+
+:root {
+    /* Colors */
+    --primary-blue: #0B5FA5;
+    --secondary-blue: #2D7DD2;
+    --background-light: #F5F7FA;
+    --text-dark: #333333;
+    --white: #FFFFFF;
+
+    /* Typography */
+    --font-primary: Arial, Helvetica, sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 20px;
+    --spacing-large: 40px;
+    --spacing-xl: 56px;
+}
+
+
+/* =====================================================
+   GLOBAL STYLES
+===================================================== */
+
+body {
+    margin: 0;
+    font-family: var(--font-primary);
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+/* =====================================================
+   PAGE CONTAINER
+===================================================== */
+
+header,
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: var(--spacing-large);
+    padding-right: var(--spacing-large);
+}
+
+/* =====================================================
+   INTRODUCTION
+===================================================== */
+
+.introduction {
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-medium);
+}
+
+.introduction h1 {
+    margin-top: 0;
+    padding-bottom: var(--spacing-large);
+
+    font-size: 3rem;
+    color: var(--primary-blue);
+}
+
+.profile-photo {
+    width: 250px;
+    height: auto;
+
+    display: block;
+    margin-top: -40px;
+    margin-bottom: var(--spacing-medium);
+
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.personal-quote {
+    max-width: 800px;
+
+    margin-top: 0;
+    margin-bottom: var(--spacing-medium);
+
+    font-size: 1.2rem;
+    line-height: 1.7;
+
+    color: var(--text-dark);
+}
+
+.button-primary {
+    display: inline-block;
+
+    padding: 12px 24px;
+
+    font-weight: 700;
+    text-decoration: none;
+
+    color: var(--white);
+    background-color: var(--primary-blue);
+
+    border: 2px solid var(--primary-blue);
+    border-radius: 8px;
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.button-primary:hover {
+    background-color: var(--secondary-blue);
+    border-color: var(--secondary-blue);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   ABOUT ME
+========================================================= */
+
+#about {
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-large);
+
+    border-top: 1px solid #D9E1E8;
+}
+
+#about h2 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-medium);
+
+    font-size: 2.25rem;
+    color: var(--primary-blue);
+}
+
+#about p {
+    max-width: 900px;
+
+    margin-top: 0;
+    margin-bottom: var(--spacing-medium);
+
+    font-size: 1.05rem;
+    line-height: 1.75;
+
+    color: var(--text-dark);
+}
+
+#about p:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   THE LEARNING EXPERIENCE I BUILT
+========================================================= */
+
+#learning-experience {
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-large);
+
+    border-top: 1px solid #D9E1E8;
+}
+
+#learning-experience h2 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-large);
+
+    font-size: 2.25rem;
+    color: var(--primary-blue);
+}
+
+.learning-experience-item {
+    max-width: 900px;
+
+    margin-bottom: var(--spacing-medium);
+    padding: var(--spacing-medium);
+
+    background-color: var(--white);
+
+    border-left: 4px solid var(--secondary-blue);
+    border-radius: 8px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.learning-experience-item h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-small);
+
+    font-size: 1.3rem;
+    color: var(--primary-blue);
+}
+
+.learning-experience-item p {
+    margin: 0;
+
+    font-size: 1.05rem;
+    line-height: 1.7;
+
+    color: var(--text-dark);
+}
+
+.learning-experience-item:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   EXPLORE MICHAEL'S FOUNDATIONS
+========================================================= */
+
+#projects {
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-large);
+
+    border-top: 1px solid #D9E1E8;
+}
+
+#projects h2 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-large);
+
+    font-size: 2.25rem;
+    color: var(--primary-blue);
+}
+
+#projects .project-category {
+    max-width: 900px;
+
+    margin-bottom: var(--spacing-medium);
+    padding: var(--spacing-medium);
+
+    background-color: #F5F9FD;
+
+    border: 1px solid #D9E3EC;
+    border-radius: 10px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+#projects .project-category:hover {
+    transform: translateY(-3px);
+
+    background-color: var(--white);
+
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+#projects .project-category h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-small);
+
+    font-size: 1.35rem;
+}
+
+#projects .project-category h3 a {
+    color: var(--primary-blue);
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+#projects .project-category:hover h3 a {
+    color: var(--secondary-blue);
+}
+
+#projects .project-category p {
+    margin: 0;
+
+    font-size: 1.05rem;
+    line-height: 1.7;
+
+    color: var(--text-dark);
+}
+
+#projects .project-category:last-child {
+    margin-bottom: 0;
+}
