@@ -7647,6 +7647,8 @@ button:hover {
     margin-top: 20px;
     padding-top: 18px;
     border-top: 1px solid #dfd2ea;
+
+    min-height: 640px;
 }
 
 .grammar-candy-card {

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listening Room | Days of the Week</title>
+  <link rel="stylesheet" href="listening-room.css">
+</head>
+<body>
+  <main class="listening-room" id="listeningRoom">
+
+    <!-- Listening Room Landing -->
+    <section class="room-screen room-screen--landing" id="landingScreen" aria-labelledby="landingTitle">
+      <div class="room-shell">
+        <div class="room-overlay"></div>
+
+        <div class="room-content room-content--landing">
+          <p class="room-eyebrow">🎧 Listening Room • Days of the Week</p>
+
+          <h1 id="landingTitle">The Listening Room</h1>
+
+          <p class="room-tagline">
+            Listen for meaning before listening for perfection.
+          </p>
+
+          <div class="room-welcome">
+            <div class="room-welcome__icon" aria-hidden="true">👂</div>
+            <div>
+              <h2>Welcome to the Listening Room.</h2>
+              <p>
+                You do not need to understand every word.
+                Listen for what you <strong>do</strong> understand.
+              </p>
+            </div>
+          </div>
+
+          <button class="room-button room-button--primary" id="enterButton" type="button">
+            Enter the Listening Room
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- End Listening Room Landing -->
+
+    <!-- Listening Room Experience -->
+    <section class="room-screen" id="experienceScreen" hidden aria-labelledby="encounterTitle">
+      <div class="room-shell">
+        <div class="room-overlay room-overlay--experience"></div>
+
+        <div class="room-content room-content--experience">
+          <header class="encounter-header">
+            <div>
+              <p class="room-eyebrow">Listening Room • Days of the Week</p>
+              <h2 id="encounterTitle">Listening Encounter</h2>
+            </div>
+
+            <div class="encounter-progress" aria-live="polite">
+              <span id="encounterProgress">Encounter 1 of 6</span>
+            </div>
+          </header>
+
+          <section class="encounter-card" aria-labelledby="movePrompt">
+            <p class="encounter-move" id="moveLabel">HEAR</p>
+            <h3 id="movePrompt">Listen once. Do not try to catch every word.</h3>
+            <p class="encounter-purpose" id="movePurpose">
+              First, listen for the overall shape of the message.
+            </p>
+
+            <div class="audio-row">
+              <button class="room-button room-button--primary" id="listenButton" type="button">
+                ▶ Listen
+              </button>
+
+              <button class="room-button room-button--secondary" id="slowerButton" type="button" hidden>
+                Say It Slower
+              </button>
+
+              <p class="audio-status" id="audioStatus" role="status" aria-live="polite">
+                Ready when you are.
+              </p>
+            </div>
+
+            <!-- Catch Panel -->
+            <section class="response-panel" id="catchPanel" hidden aria-labelledby="catchTitle">
+              <h4 id="catchTitle">What did you catch?</h4>
+              <p>Select anything you remember hearing. You do not need the whole sentence.</p>
+              <div class="chip-grid" id="catchGrid"></div>
+              <button class="room-button room-button--primary" id="catchContinueButton" type="button">
+                Continue
+              </button>
+            </section>
+            <!-- End Catch Panel -->
+
+            <!-- Meaning Panel -->
+            <section class="response-panel" id="meaningPanel" hidden aria-labelledby="meaningTitle">
+              <h4 id="meaningTitle">Build the meaning</h4>
+              <p id="meaningQuestion"></p>
+              <div class="choice-grid" id="meaningChoices"></div>
+              <p class="feedback" id="meaningFeedback" role="status" aria-live="polite"></p>
+            </section>
+            <!-- End Meaning Panel -->
+
+            <!-- Infer Panel -->
+            <section class="response-panel" id="inferPanel" hidden aria-labelledby="inferTitle">
+              <h4 id="inferTitle">Listen for the change</h4>
+              <p id="inferQuestion"></p>
+              <div class="choice-grid" id="inferChoices"></div>
+              <p class="feedback" id="inferFeedback" role="status" aria-live="polite"></p>
+            </section>
+            <!-- End Infer Panel -->
+
+            <!-- Respond Panel -->
+            <section class="response-panel" id="respondPanel" hidden aria-labelledby="respondTitle">
+              <h4 id="respondTitle">Respond to what you understood</h4>
+              <p id="respondQuestion"></p>
+              <div class="choice-grid" id="respondChoices"></div>
+              <p class="feedback" id="respondFeedback" role="status" aria-live="polite"></p>
+            </section>
+            <!-- End Respond Panel -->
+
+            <!-- Progressive Support -->
+            <aside class="support-panel" id="supportPanel" hidden aria-labelledby="supportTitle">
+              <h4 id="supportTitle">Need a little support?</h4>
+              <p id="supportText"></p>
+              <button class="room-button room-button--secondary" id="revealTranscriptButton" type="button">
+                Reveal Russian transcript
+              </button>
+              <p class="transcript" id="transcriptText" hidden></p>
+            </aside>
+            <!-- End Progressive Support -->
+
+            <footer class="encounter-controls">
+              <button class="room-button room-button--secondary" id="supportButton" type="button" hidden>
+                Give Me a Clue
+              </button>
+
+              <button class="room-button room-button--primary" id="nextMoveButton" type="button" hidden>
+                Next Listening Move
+              </button>
+
+              <button class="room-button room-button--primary" id="nextEncounterButton" type="button" hidden>
+                Next Encounter
+              </button>
+
+              <button class="room-button room-button--secondary" id="resetButton" type="button">
+                Reset Listening Room
+              </button>
+            </footer>
+          </section>
+        </div>
+      </div>
+    </section>
+    <!-- End Listening Room Experience -->
+
+    <!-- Listening Room Completion -->
+    <section class="room-screen" id="completionScreen" hidden aria-labelledby="completionTitle">
+      <div class="room-shell">
+        <div class="room-overlay"></div>
+
+        <div class="room-content room-content--landing">
+          <p class="room-eyebrow">Listening Room • Complete</p>
+
+          <h2 id="completionTitle">Look what you understood.</h2>
+
+          <p class="completion-copy">
+            You listened for meaning, caught familiar Russian, listened again with a purpose,
+            followed changes, inferred meaning, and responded to connected Russian.
+          </p>
+
+          <p class="room-tagline">
+            You did not need every word. You understood what was happening.
+          </p>
+
+          <button class="room-button room-button--primary" id="restartButton" type="button">
+            Listen Again
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- End Listening Room Completion -->
+
+  </main>
+
+  <script src="listening-room.js"></script>
+</body>
+</html>
