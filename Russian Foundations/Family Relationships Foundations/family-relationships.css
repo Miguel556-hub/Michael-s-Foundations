@@ -8082,3 +8082,69 @@ button:hover {
 .learning-stage--build .pass3-input {
     width: 160px;
 }
+
+/* ==========================================
+   PRACTICE PHASE — ACTIVITY 1 ROWS
+   TYPE WHAT YOU KNOW
+========================================== */
+
+.practice1-rows {
+    display: grid;
+    gap: 14px;
+}
+
+.practice1-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.practice1-row label {
+    font-weight: 700;
+}
+
+.practice1-input {
+    padding: 10px;
+    border: 1px solid #9eb4c8;
+    border-radius: 5px;
+}
+
+.practice1-row .memory-response__feedback {
+    grid-column: 1 / -1;
+}
+
+/* ==========================================
+   PRACTICE PHASE — ACTIVITY 2
+   MATCH WHAT YOU KNOW — LISTEN BUTTON PER ITEM
+========================================== */
+
+.match-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.match-item button:first-child {
+    flex: 1;
+}
+
+.match-item .listen {
+    flex: 0 0 auto;
+    padding: 6px 10px;
+}
+
+/* ==========================================
+   PRACTICE PHASE — ACTIVITY 3
+   CURVE-BALL SEGMENT INTRO
+========================================== */
+
+.practice3-curveball-intro {
+    margin: 22px 0 4px;
+    font-weight: 700;
+    color: #174e7f;
+}

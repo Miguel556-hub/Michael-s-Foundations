@@ -580,154 +580,132 @@ document
 
 
 // ==================================================
-// PRACTICE — TYPE FROM MEMORY CHECK
+// PRACTICE ACTIVITY 1 — TYPE WHAT YOU KNOW
+// Per-item checking: each row checks itself on
+// blur or Enter. No batch "Check" button.
 // ==================================================
 
 document
-    .querySelector(".check-typing")
-    ?.addEventListener("click", () => {
+    .querySelectorAll(".practice1-input")
+    .forEach((input) => {
 
-        const inputs =
-            [
-                ...document.querySelectorAll(
-                    "#practice-1 input"
-                )
-            ];
-
-        // Find the individual feedback area for each typed response.
-        const memoryFeedback1 =
-            document.querySelector("#memory-feedback-1");
-
-        const memoryFeedback2 =
-            document.querySelector("#memory-feedback-2");
-
-        const memoryFeedback3 =
-            document.querySelector("#memory-feedback-3");
-
-        const ok =
-            inputs.every(
-                (i) =>
-                    normalize(i.value) ===
-                    normalize(i.dataset.answer)
-            );
-
-        // Check each typed response individually.
-        if (
-            normalize(inputs[0].value) ===
-            normalize(inputs[0].dataset.answer)
-        ) {
-
-            memoryFeedback1.textContent =
-                "Excellent! You remembered it.";
-
-            memoryFeedback1.classList.remove(
-                "memory-response__feedback--try-again"
-            );
-
-            memoryFeedback1.classList.add(
-                "memory-response__feedback--success"
-            );
-
-        } else {
-
-            memoryFeedback1.textContent =
-                "Almost! Take another look and try again.";
-
-            memoryFeedback1.classList.remove(
-                "memory-response__feedback--success"
-            );
-
-            memoryFeedback1.classList.add(
-                "memory-response__feedback--try-again"
-            );
-        }
-
-
-        if (
-            normalize(inputs[1].value) ===
-            normalize(inputs[1].dataset.answer)
-        ) {
-
-            memoryFeedback2.textContent =
-                "Excellent! You remembered it.";
-
-            memoryFeedback2.classList.remove(
-                "memory-response__feedback--try-again"
-            );
-
-            memoryFeedback2.classList.add(
-                "memory-response__feedback--success"
-            );
-
-        } else {
-
-            memoryFeedback2.textContent =
-                "Almost! Take another look and try again.";
-
-            memoryFeedback2.classList.remove(
-                "memory-response__feedback--success"
-            );
-
-            memoryFeedback2.classList.add(
-                "memory-response__feedback--try-again"
-            );
-        }
-
-
-        if (
-            normalize(inputs[2].value) ===
-            normalize(inputs[2].dataset.answer)
-        ) {
-
-            memoryFeedback3.textContent =
-                "Excellent! You remembered it.";
-
-            memoryFeedback3.classList.remove(
-                "memory-response__feedback--try-again"
-            );
-
-            memoryFeedback3.classList.add(
-                "memory-response__feedback--success"
-            );
-
-        } else {
-
-            memoryFeedback3.textContent =
-                "Almost! Take another look and try again.";
-
-            memoryFeedback3.classList.remove(
-                "memory-response__feedback--success"
-            );
-
-            memoryFeedback3.classList.add(
-                "memory-response__feedback--try-again"
-            );
-        }
+        const row =
+            input.closest(".practice1-row");
 
         const fb =
-            document.querySelector(
-                "#practice-1 .feedback"
+            row?.querySelector(
+                ".memory-response__feedback"
             );
 
+        function checkRow() {
 
-        fb.textContent =
-            ok
-                ? "Excellent — you recalled all three from memory."
-                : "Good attempt. Compare the answers that need another try, then practice them again.";
+            if (!fb) {
+                return;
+            }
 
-        fb.className =
-            "feedback " +
-            (ok ? "good" : "bad");
+            if (!input.value.trim()) {
+
+                fb.textContent = "";
+
+                fb.classList.remove(
+                    "memory-response__feedback--success",
+                    "memory-response__feedback--try-again"
+                );
+
+                return;
+            }
+
+            const ok =
+                normalize(input.value) ===
+                normalize(input.dataset.answer);
+
+            fb.textContent =
+                ok
+                    ? "Excellent! You remembered it."
+                    : "Not quite — try again, or press Listen to hear it.";
+
+            fb.classList.toggle(
+                "memory-response__feedback--success",
+                ok
+            );
+
+            fb.classList.toggle(
+                "memory-response__feedback--try-again",
+                !ok
+            );
+
+        }
+
+        input.addEventListener("blur", checkRow);
+
+        input.addEventListener("keydown", (e) => {
+
+            if (e.key === "Enter") {
+
+                e.preventDefault();
+                checkRow();
+
+            }
+
+        });
+
+    });
 
 
-        inputs.forEach((i) => {
+// ==================================================
+// PRACTICE ACTIVITY 3 — ESCALATING SAY-IT FEEDBACK
+// The shared .say handler above (used by Build too)
+// always shows the same "Not quite" message. Activity
+// 3's Outline calls for a different message on the
+// 2nd+ miss. Rather than change that shared handler —
+// which would also change Build's already-approved
+// wording — this watches each row's own feedback text
+// and swaps the wording in afterward, only inside
+// Activity 3. Build is never touched.
+// ==================================================
 
-            i.style.borderColor =
-                normalize(i.value) ===
-                    normalize(i.dataset.answer)
-                    ? "#55a56a"
-                    : "#d38a38";
+document
+    .querySelectorAll("#practice-3 .say")
+    .forEach((btn) => {
 
+        const container =
+            btn.closest(".phrase-card") ||
+            btn.parentElement;
+
+        const fb =
+            container?.querySelector(".speech-feedback");
+
+        if (!fb) {
+            return;
+        }
+
+        let missCount = 0;
+
+        const watchFeedback = new MutationObserver(() => {
+
+            if (fb.classList.contains("good")) {
+
+                missCount = 0;
+                return;
+            }
+
+            if (fb.classList.contains("bad")) {
+
+                missCount++;
+
+                fb.textContent =
+                    missCount === 1
+                        ? "Not quite — try again."
+                        : "Still not quite — press Listen and try repeating it.";
+
+            }
+
+        });
+
+        watchFeedback.observe(fb, {
+            attributes: true,
+            attributeFilter: ["class"],
+            childList: true
         });
 
     });
@@ -738,14 +716,15 @@ document
 // ==================================================
 
 const pairs = [
-    ["Как дела?", "How Are You?"],
-    ["Здравствуйте!", "Hello"],
-    ["Хорошо, спасибо", "I'm Fine, Thank You"],
-    ["Привет", "Hi"],
-    ["Отлично!", "Excellent! / Great!"],
-    ["Нормально", "Fine / Okay"],
-    ["Всё хорошо", "Everything is Good"],
-    ["Неплохо", "Not Bad"]
+    ["Это мой брат.", "This is my brother."],
+    ["Это моя сестра.", "This is my sister."],
+    ["Это моя мама и мой папа.", "This is my mom and my dad."],
+    ["Это не мой брат, но это моя сестра.", "That's not my brother, but that's my sister."],
+    ["Это мои родители.", "These are my parents."],
+    ["Это моё имя.", "This is my name."],
+    ["Это моя мать.", "This is my mother."],
+    ["Это мой отец.", "This is my father."],
+    ["Это моя семья.", "This is my family."]
 ];
 
 
@@ -785,9 +764,18 @@ function buildMatch() {
 
     shuffle(pairs).forEach(([r]) => {
 
+        // Each Russian card is now a phrase button plus its
+        // own always-on Listen button, wrapped together so
+        // the two can sit side by side.
+        const item =
+            document.createElement("div");
+
+        item.className = "match-item";
+
         const b =
             document.createElement("button");
 
+        b.type = "button";
         b.textContent = r;
         b.dataset.key = r;
 
@@ -815,8 +803,17 @@ function buildMatch() {
 
         };
 
+        const listenButton =
+            document.createElement("button");
 
-        ru.appendChild(b);
+        listenButton.type = "button";
+        listenButton.className = "listen";
+        listenButton.dataset.speak = r;
+        listenButton.textContent = "🔊";
+
+        item.append(b, listenButton);
+
+        ru.appendChild(item);
 
     });
 

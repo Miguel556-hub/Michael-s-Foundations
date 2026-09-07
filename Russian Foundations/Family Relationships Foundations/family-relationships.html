@@ -57,7 +57,7 @@
       <div class="journey-rail__progress-label">Put the Pieces Together</div>
 
       <nav>
-        <a href="#pass-1"><span class="journey-check"></span>Pass 1 — Turn the Dials</a>
+        <a href="#pass-1"><span class="journey-check"></span>Pass 1 — Turn the Dial</a>
         <a href="#pass-2"><span class="journey-check"></span>Pass 2 — Type It Yourself</a>
         <a href="#pass-3"><span class="journey-check"></span>Pass 3 — Inside a Real Sentence</a>
 
@@ -1369,54 +1369,79 @@ LESSON 2 — EXTENDED FAMILY
       <section class="practice-card" id="practice-1">
         <div class="exercise__label">Activity 1 — Задание первое</div>
         <h2>Type What You Know</h2>
-        <p>Now try it without a word bank. Read each English phrase and type what you remember in Russian.</p>
+        <p>Read the English, type the Russian. No word bank this time — if you get stuck, press Listen and hear it
+          before you try again.</p>
 
         <!-- =========================
-     TYPED RESPONSE 1 — NOT BAD
-========================= -->
+             PRACTICE 1 — EIGHT ROWS
+             English cue → typed Russian answer.
+             Checked per-row on blur/Enter — no
+             batch "Check" button.
+        ========================= -->
 
-        <div class="typing-prompts">
+        <div class="practice1-rows">
 
-          <label>
-            Not Bad
-            <input data-answer="Неплохо">
+          <div class="practice1-row">
+            <label for="practice1-brother">my brother</label>
+            <input type="text" id="practice1-brother" class="practice1-input" data-answer="мой брат">
+            <button type="button" class="listen" data-speak="мой брат">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
-            <div class="memory-response__feedback" id="memory-feedback-1" aria-live="polite">
-            </div>
-          </label>
+          <div class="practice1-row">
+            <label for="practice1-mom">my mom</label>
+            <input type="text" id="practice1-mom" class="practice1-input" data-answer="моя мама">
+            <button type="button" class="listen" data-speak="моя мама">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
+          <div class="practice1-row">
+            <label for="practice1-sister">my sister</label>
+            <input type="text" id="practice1-sister" class="practice1-input" data-answer="моя сестра">
+            <button type="button" class="listen" data-speak="моя сестра">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
-          <!-- =========================
-       TYPED RESPONSE 2 — I'M FINE, THANK YOU
-  ========================= -->
+          <div class="practice1-row">
+            <label for="practice1-dad">my dad</label>
+            <input type="text" id="practice1-dad" class="practice1-input" data-answer="мой папа">
+            <button type="button" class="listen" data-speak="мой папа">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
-          <label>
-            I'm fine, thank you
-            <input data-answer="Хорошо, спасибо">
+          <div class="practice1-row">
+            <label for="practice1-mother">my mother</label>
+            <input type="text" id="practice1-mother" class="practice1-input" data-answer="моя мать">
+            <button type="button" class="listen" data-speak="моя мать">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
-            <div class="memory-response__feedback" id="memory-feedback-2" aria-live="polite">
-            </div>
-          </label>
+          <div class="practice1-row">
+            <label for="practice1-father">my father</label>
+            <input type="text" id="practice1-father" class="practice1-input" data-answer="мой отец">
+            <button type="button" class="listen" data-speak="мой отец">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
+          <div class="practice1-row">
+            <label for="practice1-name">my name</label>
+            <input type="text" id="practice1-name" class="practice1-input" data-answer="моё имя">
+            <button type="button" class="listen" data-speak="моё имя">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
-          <!-- =========================
-       TYPED RESPONSE 3 — I FEEL GOOD TODAY
-  ========================= -->
+          <div class="practice1-row">
+            <label for="practice1-parents">my parents</label>
+            <input type="text" id="practice1-parents" class="practice1-input" data-answer="мои родители">
+            <button type="button" class="listen" data-speak="мои родители">🔊 Listen</button>
+            <div class="memory-response__feedback" aria-live="polite"></div>
+          </div>
 
-          <label>
-            I Feel Good Today
-            <input data-answer="Я чувствую себя хорошо сегодня">
+        </div> <!-- END Activity 1 rows -->
 
-            <div class="memory-response__feedback" id="memory-feedback-3" aria-live="polite">
-            </div>
-          </label>
-
-        </div>
-
-        <div class="russian-keyboard" aria-label="Russian keyboard"></div><button class="check-typing">Check My
-          Answers</button>
-        <div class="feedback"></div><label class="completion"><input type="checkbox" class="practice-complete"
-            data-practice="1"> Mark Activity 1 Complete</label>
+        <div class="russian-keyboard" aria-label="Russian keyboard"></div>
+        <label class="completion"><input type="checkbox" class="practice-complete" data-practice="1"> Mark Activity 1
+          Complete</label>
       </section>
 
       <!-- ==================================================
@@ -1426,7 +1451,7 @@ LESSON 2 — EXTENDED FAMILY
       <section class="practice-card" id="practice-2">
         <div class="exercise__label">Activity 2 — Задание второе</div>
         <h2>Match What You Know</h2>
-        <p>Choose one Russian phrase, then choose its English meaning.</p>
+        <p>Match each Russian phrase to what it means in English.</p>
         <div class="match-grid">
           <div class="match-col russian"></div>
           <div class="match-col english"></div>
@@ -1442,55 +1467,112 @@ LESSON 2 — EXTENDED FAMILY
       <section class="practice-card" id="practice-3">
         <div class="exercise__label">Activity 3 — Задание третье</div>
         <h2>Say What You Know</h2>
-        <p>Read the English phrase and say it in Russian <strong>before</strong> you listen. Then listen, compare, and
-          say it again. Repetition will help build confidence and speaking fluency.</p>
+        <p>Read the English, say the Russian out loud. Not sure how it sounds? Press Listen first.</p>
+
+        <!-- =========================
+             SEGMENT 1 — INDIVIDUAL ITEMS
+             Same eight items as Activity 1,
+             spoken instead of typed.
+        ========================= -->
 
         <div class="recall-list">
-          <div><strong>1. How are you?</strong><button class="say" data-target="Как дела">🎙️ Say It Here</button>
 
-            <button class="listen" data-speak="Как дела?">🔊 Listen</button>
+          <div><strong>my brother</strong><button class="say" data-target="мой брат">🎙️ Say It</button>
+            <button class="listen" data-speak="мой брат">🔊 Listen</button>
             <span class="speech-heard"></span>
             <span class="speech-feedback"></span>
           </div>
 
-          <div><strong>2. I feel good today</strong><button class="say" data-target="Я чувствую себя хорошо сегодня">🎙️
-              Say It Here</button>
-
-            <button class="listen" data-speak="Я чувствую себя хорошо сегодня">🔊 Listen</button>
+          <div><strong>my mom</strong><button class="say" data-target="моя мама">🎙️ Say It</button>
+            <button class="listen" data-speak="моя мама">🔊 Listen</button>
             <span class="speech-heard"></span>
             <span class="speech-feedback"></span>
           </div>
 
-          <div><strong>3. Fine, thank you</strong><button class="say" data-target="Хорошо спасибо">🎙️ Say It
-              Here</button>
-
-            <button class="listen" data-speak="Хорошо, спасибо">🔊 Listen</button>
+          <div><strong>my sister</strong><button class="say" data-target="моя сестра">🎙️ Say It</button>
+            <button class="listen" data-speak="моя сестра">🔊 Listen</button>
             <span class="speech-heard"></span>
             <span class="speech-feedback"></span>
           </div>
 
-          <div><strong>4. I don't feel well today</strong>
-
-            <button class="say" data-target="Я плохо себя чувствую сегодня">🎙️ Say It Here
-
-            </button><button class="listen" data-speak="Я плохо себя чувствую сегодня">🔊 Listen</button>
+          <div><strong>my dad</strong><button class="say" data-target="мой папа">🎙️ Say It</button>
+            <button class="listen" data-speak="мой папа">🔊 Listen</button>
             <span class="speech-heard"></span>
             <span class="speech-feedback"></span>
           </div>
 
-          <div><strong>5. What is your name?</strong><button class="say" data-target="Как вас зовут">🎙️ Say It
-              Here</button><button class="listen" data-speak="Как вас зовут?">🔊 Listen</button>
+          <div><strong>my mother</strong><button class="say" data-target="моя мать">🎙️ Say It</button>
+            <button class="listen" data-speak="моя мать">🔊 Listen</button>
             <span class="speech-heard"></span>
             <span class="speech-feedback"></span>
           </div>
 
-          <div><strong>6. My name is… (+ your name)</strong><button class="say" data-target="Меня зовут">🎙️ Say It
-              Here</button><button class="listen" data-speak="Меня зовут Майкл">🔊 Listen</button>
+          <div><strong>my father</strong><button class="say" data-target="мой отец">🎙️ Say It</button>
+            <button class="listen" data-speak="мой отец">🔊 Listen</button>
             <span class="speech-heard"></span>
             <span class="speech-feedback"></span>
           </div>
 
-        </div> <!-- END Practice Activity 3 content -->
+          <div><strong>my name</strong><button class="say" data-target="моё имя">🎙️ Say It</button>
+            <button class="listen" data-speak="моё имя">🔊 Listen</button>
+            <span class="speech-heard"></span>
+            <span class="speech-feedback"></span>
+          </div>
+
+          <div><strong>my parents</strong><button class="say" data-target="мои родители">🎙️ Say It</button>
+            <button class="listen" data-speak="мои родители">🔊 Listen</button>
+            <span class="speech-heard"></span>
+            <span class="speech-feedback"></span>
+          </div>
+
+        </div> <!-- END Activity 3 Segment 1 -->
+
+        <!-- =========================
+             SEAM — GRAMMAR CANDY
+             и (adds) / но (contrasts) / или (gives a choice)
+             This is where these three words get promoted
+             from ambient exposure to something the learner
+             is actually asked to produce.
+        ========================= -->
+
+        <figure class="grammar-candy-card">
+          <img src="../../Images/grammar-candy-и-но-или.svg"
+            alt="Grammar Candy showing how и (and), но (but), and или (or) connect Russian ideas in different ways.">
+        </figure>
+
+        <!-- =========================
+             SEGMENT 2 — CURVE BALL
+             Connect two things you know, using the
+             connector shown. Same say/listen mechanic
+             as Segment 1.
+        ========================= -->
+
+        <p class="practice3-curveball-intro">Now connect two things you know. Say the whole sentence out loud.</p>
+
+        <div class="recall-list">
+
+          <div><strong>my brother <em lang="ru">и</em> my sister</strong><button class="say"
+              data-target="мой брат и моя сестра">🎙️ Say It</button>
+            <button class="listen" data-speak="мой брат и моя сестра">🔊 Listen</button>
+            <span class="speech-heard"></span>
+            <span class="speech-feedback"></span>
+          </div>
+
+          <div><strong>not my dad, <em lang="ru">но</em> my brother</strong><button class="say"
+              data-target="не мой папа, но мой брат">🎙️ Say It</button>
+            <button class="listen" data-speak="не мой папа, но мой брат">🔊 Listen</button>
+            <span class="speech-heard"></span>
+            <span class="speech-feedback"></span>
+          </div>
+
+          <div><strong>my brother <em lang="ru">или</em> my sister?</strong><button class="say"
+              data-target="мой брат или моя сестра">🎙️ Say It</button>
+            <button class="listen" data-speak="мой брат или моя сестра">🔊 Listen</button>
+            <span class="speech-heard"></span>
+            <span class="speech-feedback"></span>
+          </div>
+
+        </div> <!-- END Activity 3 Segment 2 -->
 
         <label class="completion"><input type="checkbox" class="practice-complete" data-practice="3"> Mark Activity 3
           Complete
