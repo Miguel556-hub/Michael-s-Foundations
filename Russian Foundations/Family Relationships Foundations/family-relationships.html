@@ -58,6 +58,7 @@
 
       <nav>
         <a href="#pass-1"><span class="journey-check"></span>Pass 1 — The Combinator</a>
+        <a href="#pass-2"><span class="journey-check"></span>Pass 2 — Type It Yourself</a>
 
     </div> <!-- END BUILD journey-rail__section -->
 
@@ -1126,135 +1127,73 @@ LESSON 2 — EXTENDED FAMILY
 
       </section> <!-- END Pass 1 -->
 
+      <!-- ==================================================
+           PASS 2 — TYPE IT YOURSELF
+      ================================================== -->
 
-      <!-- =========================
-             BUILD EXERCISE 1 — CHOOSE WHAT FITS
-        ========================= -->
+      <section class="lesson" id="pass-2">
 
-      <div class="exercise" id="build-1">
+        <div class="lesson__header"><span>Pass 2 — Проход второй</span>
 
-        <div class="exercise__label">Exercise 1 - Упражнение первое</div>
-        <h3>Choose What Fits</h3>
-        <p>Someone asks you: <strong>Как дела?</strong> You're doing okay—not great, not bad. Which response fits
-          best?</p>
-        <div class="choice-set" data-answer="Нормально">
-          <button>Нормально</button><button>Отлично</button><button>Привет</button>
+          <h2>Type It Yourself</h2>
         </div>
 
-        <div class="feedback"></div>
+        <p class="lesson__intro">No dial to click this time. Read each family member below, then type the possessive
+          that fits before it.</p>
 
-      </div>
+        <div class="exercise" id="pass-2-typing">
 
-      <!-- =========================
-             BUILD EXERCISE 2 — COMPLETE THE CONVERSATION
+          <div class="exercise__label">Type It — Напиши сам</div>
+          <h3>Fill in the Possessive</h3>
+          <p>Type the word for "my" that belongs with each family member below.</p>
+
+          <div class="typing-prompts" id="pass2-rows">
+
+            <div class="pass2-row" data-noun="мать" data-gender="моя">
+              <label>
+                мать
+                <input type="text" class="pass2-input">
+              </label>
+              <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
+              <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
+              <div class="feedback"></div>
+            </div>
+
+            <div class="pass2-row" data-noun="отец" data-gender="мой">
+              <label>
+                отец
+                <input type="text" class="pass2-input">
+              </label>
+              <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
+              <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
+              <div class="feedback"></div>
+            </div>
+
+            <div class="pass2-row" data-noun="семья" data-gender="моя">
+              <label>
+                семья
+                <input type="text" class="pass2-input">
+              </label>
+              <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
+              <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
+              <div class="feedback"></div>
+            </div>
+
+          </div> <!-- END pass2-rows -->
+
+          <div class="russian-keyboard"></div>
+
+        </div> <!-- END pass-2-typing -->
+
+        <!-- =========================
+             PASS 2 COMPLETION
         ========================= -->
 
-      <div class="exercise" id="build-2">
+        <label class="completion"><input type="checkbox" class="pass-complete" data-pass="2"> Mark Pass 2
+          Complete</label>
 
-        <div class="exercise__label">Exercise 2 - Упражнение второе</div>
+      </section> <!-- END Pass 2 -->
 
-        <h3>Complete the Conversation</h3>
-
-        <div class="conversation">
-          <p>Person A: Привет!</p>
-          <p>Person B: Как дела?</p>
-          <p>Person A: _________</p>
-        </div>
-
-        <p>You're already having a really good day. Which response completes the conversation best?</p>
-        <div class="choice-set" data-answer="Отлично">
-
-          <button>Нормально</button><button>Отлично</button><button>Привет</button>
-        </div>
-
-        <div class="feedback"></div>
-
-      </div>
-
-      <!-- =========================
-             BUILD EXERCISE 3 — WHAT DOES IT MEAN?
-        ========================= -->
-
-      <div class="exercise" id="build-3">
-
-        <div class="exercise__label">Exercise 3 - Упражнение третье</div>
-        <h3>What Does It Mean?</h3>
-        <p>You hear someone say: <strong>Я плохо себя чувствую сегодня.</strong> What are they telling you?</p>
-
-        <div class="choice-set" data-answer="I don't feel good today"><button>I feel good today</button><button>I
-            don't feel good today</button><button>Everything is good</button></div>
-
-        <div class="feedback"></div>
-
-      </div>
-
-      <!-- =========================
-             BUILD EXERCISE 4 — BUILD THE INTRODUCTION
-        ========================= -->
-
-      <div class="exercise" id="build-4">
-
-        <div class="exercise__label">Build the Introduction</div>
-
-        <h3>Round 1 — Раунд первый — Formal / Polite</h3>
-        <p>Build: <strong>What is your name?</strong></p>
-
-        <div class="builder" data-answer="Как вас зовут?">
-
-          <div class="builder__answer"></div>
-          <div class="word-bank">
-            <button>зовут?</button><button>вас</button><button>Как</button><button>тебя</button><button>Меня</button>
-          </div><button class="check-builder">Check My Answer</button>
-          <div class="feedback"></div>
-        </div> <!-- END Round 1 builder -->
-
-        <h3>Round 2 — Раунд второй — Introduce Yourself</h3>
-        <p>Build the beginning of <strong>My name is + your name</strong>.</p>
-
-        <div class="builder name-builder" data-answer="Меня зовут">
-
-          <div class="builder__answer"></div>
-          <div class="word-bank"><button>вас</button><button>зовут</button><button>тебя</button><button>Меня</button>
-          </div><input class="name-input" placeholder="Type Your First Name Here"><button class="check-builder">Check
-            My Answer</button>
-
-          <div class="feedback"></div>
-
-        </div> <!-- END Round 2 name-builder -->
-
-      </div> <!-- END build-4 exercise -->
-
-      <!-- =========================
-             BUILD EXERCISE 5 — BUILD THE CONVERSATION
-        ========================= -->
-
-      <div class="exercise" id="build-5">
-        <div class="exercise__label">Round 3 — Раунд третий</div>
-        <h3>Build the Conversation</h3>
-        <p>Complete the conversation by choosing the phrase that fits each blank.</p>
-        <div class="conversation-builder" data-answers="Здравствуйте!|Как дела?|Хорошо, спасибо|Меня зовут Майкл">
-          <p>Person A: <button class="blank">________</button></p>
-          <p>Person B: Здравствуйте!</p>
-          <p>Person A: <button class="blank">________</button></p>
-          <p>Person B: <button class="blank">________</button></p>
-          <p>Person A: Как вас зовут?</p>
-          <p>Person B: <button class="blank">________</button></p>
-          <div class="phrase-bank"><button>Здравствуйте!</button><button>Как дела?</button><button>Хорошо,
-              спасибо</button><button>Меня зовут Майкл</button><button>Привет!</button><button>тебя зовут
-              Майкл</button></div><button class="check-conversation">Check My Answer</button>
-          <div class="feedback"></div>
-        </div> <!-- END conversation-builder -->
-
-      </div> <!-- END build-5 exercise -->
-
-      <!-- =========================
-             LESSON 5 COMPLETION
-        ========================= -->
-
-      <label class="completion"><input type="checkbox" class="lesson-complete" data-lesson="5"> Mark Lesson 5
-        Complete</label>
-
-    </section> <!-- END Lesson 5 -->
 
     </section> <!-- END BUILD phase -->
 

@@ -463,7 +463,7 @@ document
         let target = null;
 
         document
-            .querySelectorAll("#practice-1 input")
+            .querySelectorAll("input")
             .forEach((i) => {
 
                 i.addEventListener("focus", () => {
@@ -494,6 +494,10 @@ document
                 );
 
                 keyButton.textContent = letter;
+
+                keyButton.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                });
 
                 keyButton.addEventListener("click", () => {
 
@@ -1012,7 +1016,6 @@ function updateProgress() {
 
 }
 
-
 document
     .querySelectorAll(
         ".lesson-complete,.practice-complete,.variation-complete,.pass-complete"
@@ -1026,9 +1029,7 @@ document
 
     });
 
-
 updateProgress();
-
 
 // ==================================================
 // STAGE TABS + JOURNEY RAIL — SCROLL TRACKING
@@ -5636,6 +5637,122 @@ familyLiveChoices.forEach((button) => {
             updatePhrase();
 
         });
+
+    });
+
+})();
+
+// ==================================================
+// PASS 2 — TYPE IT YOURSELF
+// Typed possessive blanks: мать, отец, семья
+// ==================================================
+
+(() => {
+
+    const container =
+        document.querySelector("#pass2-rows");
+
+    if (!container) {
+        return;
+    }
+
+    const rows =
+        [...container.querySelectorAll(".pass2-row")];
+
+    // Reuse the same shuffle() already defined for
+    // the Match What You Know practice activity.
+    shuffle(rows).forEach((row) => {
+        container.appendChild(row);
+    });
+
+
+    const wrongAttemptsByNoun = {};
+
+
+    rows.forEach((row) => {
+
+        const noun =
+            row.dataset.noun;
+
+        const gender =
+            row.dataset.gender;
+
+        const input =
+            row.querySelector(".pass2-input");
+
+        const listenBtn =
+            row.querySelector(".listen");
+
+        const sayBtn =
+            row.querySelector(".say");
+
+        const feedback =
+            row.querySelector(".feedback");
+
+
+        function checkAnswer() {
+
+            const typed =
+                normalize(input.value);
+
+            if (!typed) {
+                return;
+            }
+
+
+            listenBtn.disabled = false;
+            listenBtn.dataset.speak =
+                `${input.value.trim()} ${noun}`;
+
+
+            const isCorrect =
+                typed === normalize(gender);
+
+
+            if (isCorrect) {
+
+                sayBtn.disabled = false;
+                sayBtn.dataset.target =
+                    `${gender} ${noun}`;
+
+                feedback.textContent =
+                    "That's right!";
+
+                feedback.className =
+                    "feedback good";
+
+                return;
+            }
+
+
+            sayBtn.disabled = true;
+            sayBtn.dataset.target = "";
+
+            const attempts =
+                (wrongAttemptsByNoun[noun] || 0) + 1;
+
+            wrongAttemptsByNoun[noun] = attempts;
+
+            feedback.textContent =
+                attempts === 1
+                    ? "Does that sound right to you? Have you chosen the right pronoun?"
+                    : `${noun} is a word that needs ${gender} — try typing it again.`;
+
+            feedback.className =
+                "feedback bad";
+
+        }
+
+
+        input.addEventListener("keydown", (e) => {
+
+            if (e.key === "Enter") {
+                checkAnswer();
+            }
+
+        });
+
+        input.addEventListener("blur", checkAnswer);
 
     });
 
