@@ -930,16 +930,32 @@ function updateProgress() {
         ).length;
 
 
+    const passes =
+        [
+            ...document.querySelectorAll(
+                ".pass-complete"
+            )
+        ].filter(
+            (x) => x.checked
+        ).length;
+
+
     document.querySelector(
         "#lesson-progress-count"
     ).textContent =
-        `${lessons}/5`;
+        `${lessons}/3`;
 
 
     document.querySelector(
         "#practice-progress-count"
     ).textContent =
         `${practice}/3`;
+
+
+    document.querySelector(
+        "#pass-progress-count"
+    ).textContent =
+        `${passes}/3`;
 
     // Show or remove Journey Rail completion checkmarks.
     document.querySelectorAll(".lesson-complete").forEach((box) => {
@@ -970,6 +986,20 @@ function updateProgress() {
 
     });
 
+    document.querySelectorAll(".pass-complete").forEach((box) => {
+
+        const link = document.querySelector(
+            `.journey-rail a[href="#pass-${box.dataset.pass}"]`
+        );
+
+        const check = link?.querySelector(".journey-check");
+
+        if (check) {
+            check.textContent = box.checked ? "✓" : "";
+        }
+
+    });
+
     document.querySelectorAll(".variation-complete").forEach((box) => {
         const link = document.querySelector(
             `.journey-rail a[href="#variation-${box.dataset.variation}"]`
@@ -985,7 +1015,7 @@ function updateProgress() {
 
 document
     .querySelectorAll(
-        ".lesson-complete,.practice-complete,.variation-complete"
+        ".lesson-complete,.practice-complete,.variation-complete,.pass-complete"
     )
     .forEach((x) => {
 
@@ -5462,3 +5492,151 @@ familyLiveChoices.forEach((button) => {
     });
 
 });
+
+
+
+// ==================================================
+// PASS 1 — THE COMBINATOR
+// Two independent dials: possessive + family noun
+// ==================================================
+
+(() => {
+
+    const root =
+        document.querySelector("#pass-1-combinator");
+
+    if (!root) {
+        return;
+    }
+
+    const dialButtons =
+        [...root.querySelectorAll(".owner-choice[data-dial]")];
+
+    const livePhrase =
+        root.querySelector("#pass1-live-phrase");
+
+    const listenBtn =
+        root.querySelector("#pass1-listen");
+
+    const sayBtn =
+        root.querySelector("#pass1-say");
+
+    const feedback =
+        root.querySelector("#pass1-feedback");
+
+    let selectedPossessive = null;
+    let selectedNoun = null;
+    let selectedNounGender = null;
+
+    const wrongAttemptsByNoun = {};
+
+
+    function updatePhrase() {
+
+        const possessiveText =
+            selectedPossessive || "___";
+
+        const nounText =
+            selectedNoun || "___";
+
+        livePhrase.textContent =
+            `${possessiveText} ${nounText}`;
+
+
+        if (!selectedPossessive || !selectedNoun) {
+
+            listenBtn.disabled = true;
+            listenBtn.dataset.speak = "";
+
+            sayBtn.disabled = true;
+            sayBtn.dataset.target = "";
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+
+            return;
+        }
+
+
+        listenBtn.disabled = false;
+        listenBtn.dataset.speak =
+            `${selectedPossessive} ${selectedNoun}`;
+
+
+        const isCorrect =
+            selectedPossessive === selectedNounGender;
+
+
+        if (isCorrect) {
+
+            sayBtn.disabled = false;
+            sayBtn.dataset.target =
+                `${selectedPossessive} ${selectedNoun}`;
+
+            feedback.textContent =
+                "That's right!";
+
+            feedback.className =
+                "feedback good";
+
+            return;
+        }
+
+
+        sayBtn.disabled = true;
+        sayBtn.dataset.target = "";
+
+        const attempts =
+            (wrongAttemptsByNoun[selectedNoun] || 0) + 1;
+
+        wrongAttemptsByNoun[selectedNoun] = attempts;
+
+        feedback.textContent =
+            attempts === 1
+                ? "Does that sound right to you? Have you chosen the right pronoun?"
+                : `${selectedNoun} is a word that needs ${selectedNounGender} — try choosing it again.`;
+
+        feedback.className =
+            "feedback bad";
+
+    }
+
+
+    dialButtons.forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const dial =
+                button.dataset.dial;
+
+            root
+                .querySelectorAll(`.owner-choice[data-dial="${dial}"]`)
+                .forEach((choice) => {
+                    choice.classList.remove("is-active");
+                });
+
+            button.classList.add("is-active");
+
+
+            if (dial === "possessive") {
+
+                selectedPossessive =
+                    button.dataset.value;
+
+            } else {
+
+                selectedNoun =
+                    button.dataset.value;
+
+                selectedNounGender =
+                    button.dataset.gender;
+
+            }
+
+            updatePhrase();
+
+        });
+
+    });
+
+})();
