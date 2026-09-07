@@ -111,6 +111,7 @@ document.querySelectorAll(".say").forEach((btn) => {
         btn.textContent = "🎙️ Listening…";
 
         r.onresult = (ev) => {
+            console.log("SAY IT RESULT:", ev.results[0][0].transcript);
 
             const heard =
                 [...ev.results[0]].map(
@@ -160,7 +161,8 @@ document.querySelectorAll(".say").forEach((btn) => {
 
         };
 
-        r.onerror = () => {
+        r.onerror = (event) => {
+            console.log("SAY IT ERROR:", event.error);
 
             if (fb) {
 

@@ -8052,3 +8052,34 @@ button:hover {
         justify-self: center;
     }
 }
+
+/* ==========================================
+   BUILD PHASE — PASS 1/2/3 REFINEMENTS
+========================================== */
+
+.learning-stage--build .listen,
+.learning-stage--build .say {
+    justify-self: start;
+    width: fit-content;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+.learning-stage--build .speech-heard {
+    display: block;
+    margin-top: 4px;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: #52677d;
+}
+
+.learning-stage--build .owner-live-sentence strong[lang="ru"],
+.learning-stage--build .pass2-row label,
+.learning-stage--build .pass3-reveal p[lang="ru"] {
+    font-size: 1.8rem;
+}
+
+.learning-stage--build .pass2-input,
+.learning-stage--build .pass3-input {
+    width: 160px;
+}
