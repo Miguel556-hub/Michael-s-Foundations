@@ -5757,3 +5757,139 @@ familyLiveChoices.forEach((button) => {
     });
 
 })();
+
+
+
+// ==================================================
+// PASS 3 — INSIDE A REAL SENTENCE
+// Predict -> Reveal -> Produce, one item at a time
+// ==================================================
+
+(() => {
+
+    const root =
+        document.querySelector("#pass-3");
+
+    if (!root) {
+        return;
+    }
+
+    root.querySelectorAll(".reveal-btn").forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const box =
+                button.nextElementSibling;
+
+            if (box) {
+                box.hidden = false;
+            }
+
+            button.disabled = true;
+
+        });
+
+    });
+
+
+    root.querySelectorAll(".pass3-reveal").forEach((box) => {
+
+        const input =
+            box.querySelector(".pass3-input");
+
+        const answer =
+            input.dataset.answer;
+
+        const rule =
+            box.dataset.rule;
+
+        const listenBtn =
+            box.querySelector(".listen");
+
+        const sayBtn =
+            box.querySelector(".say");
+
+        const feedback =
+            box.querySelector(".feedback");
+
+        let attempts = 0;
+
+
+        function fullSentence() {
+
+            const before =
+                input.previousSibling ? input.previousSibling.textContent : "";
+
+            const after =
+                input.nextSibling ? input.nextSibling.textContent : "";
+
+            return `${before}${input.value.trim()}${after}`.trim();
+
+        }
+
+
+        function checkAnswer() {
+
+            const typed =
+                normalize(input.value);
+
+            if (!typed) {
+                return;
+            }
+
+
+            listenBtn.disabled = false;
+            listenBtn.dataset.speak =
+                fullSentence();
+
+
+            const isCorrect =
+                typed === normalize(answer);
+
+
+            if (isCorrect) {
+
+                sayBtn.disabled = false;
+                sayBtn.dataset.target =
+                    fullSentence();
+
+                feedback.textContent =
+                    "That's right!";
+
+                feedback.className =
+                    "feedback good";
+
+                return;
+            }
+
+
+            sayBtn.disabled = true;
+            sayBtn.dataset.target = "";
+
+            attempts++;
+
+            feedback.textContent =
+                attempts === 1
+                    ? "Does that sound right to you? Have you chosen the right pronoun?"
+                    : rule;
+
+            feedback.className =
+                "feedback bad";
+
+        }
+
+
+        input.addEventListener("keydown", (e) => {
+
+            if (e.key === "Enter") {
+                checkAnswer();
+            }
+
+        });
+
+        input.addEventListener("blur", checkAnswer);
+
+    });
+
+})();
+
