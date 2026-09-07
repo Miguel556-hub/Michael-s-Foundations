@@ -8068,7 +8068,6 @@ button:hover {
 .learning-stage--build .speech-heard {
     display: block;
     margin-top: 4px;
-    font-style: italic;
     font-size: 0.85rem;
     color: #52677d;
 }
