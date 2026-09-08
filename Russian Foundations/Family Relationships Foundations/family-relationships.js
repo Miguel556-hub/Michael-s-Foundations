@@ -5737,6 +5737,116 @@ familyLiveChoices.forEach((button) => {
 });
 
 
+// --------------------------------------------------
+// LESSON 3 — WATCH ЛЮБИТЬ CHANGE WITH EVERY SUBJECT
+// Same owner-choice mechanic as Lesson 2 Discovery 2,
+// except the object is fixed (свою семью) so only the
+// subject/verb pair changes on screen.
+// --------------------------------------------------
+
+const lyubitChoices =
+    document.querySelectorAll(
+        "#lyubit-subject-discovery .owner-choice"
+    );
+
+const lyubitLiveRussian =
+    document.querySelector("#lyubit-live-russian");
+
+const lyubitLiveEnglish =
+    document.querySelector("#lyubit-live-english");
+
+const lyubitLiveListen =
+    document.querySelector("#lyubit-live-listen");
+
+
+lyubitChoices.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        lyubitChoices.forEach((choice) => {
+            choice.classList.remove("is-active");
+        });
+
+
+        button.classList.add("is-active");
+
+
+        const sentence =
+            button.dataset.lyubitSentence;
+
+        const english =
+            button.dataset.lyubitEnglish;
+
+
+        if (lyubitLiveRussian) {
+            lyubitLiveRussian.textContent = sentence;
+        }
+
+
+        if (lyubitLiveEnglish) {
+            lyubitLiveEnglish.textContent = english;
+        }
+
+
+        if (lyubitLiveListen) {
+            lyubitLiveListen.dataset.speak = sentence;
+            lyubitLiveListen.disabled = false;
+        }
+
+    });
+
+});
+
+
+// Quick Try — они любят свою семью
+document
+    .querySelectorAll(
+        "#lyubit-subject-discovery [data-lyubit-answer]"
+    )
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const feedback =
+                document.querySelector(
+                    "#lyubit-challenge-feedback"
+                );
+
+            const buttons =
+                document.querySelectorAll(
+                    "#lyubit-subject-discovery [data-lyubit-answer]"
+                );
+
+
+            buttons.forEach((choice) => {
+                choice.classList.remove("selected");
+            });
+
+
+            button.classList.add("selected");
+
+
+            const isCorrect =
+                button.dataset.lyubitAnswer === "любят";
+
+
+            if (feedback) {
+
+                feedback.textContent =
+                    isCorrect
+                        ? "Exactly — они (they) takes любят."
+                        : "Not quite. The subject is они (they). Which ending goes with они?";
+
+                feedback.className =
+                    "feedback " +
+                    (isCorrect ? "good" : "bad");
+
+            }
+
+        });
+
+    });
+
 
 // ==================================================
 // PASS 1 — THE COMBINATOR
