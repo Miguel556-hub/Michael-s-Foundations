@@ -2142,31 +2142,31 @@ tabs.forEach((t) => {
             <div class="listening-reveal__label">
                 What you heard
             </div>
- 
+
             <p class="listening-reveal__russian">
                 ${item.russian}
             </p>
- 
+
             <p class="listening-reveal__meaning">
                 ${item.meaning}
             </p>
- 
+
             <div class="listening-reveal__actions">
- 
+
                 <button
                     type="button"
                     class="listening-hear-again"
                 >
                     🔊 Hear It Again
                 </button>
- 
+
                 <button
                     type="button"
                     class="listening-next"
                 >
                     Next
                 </button>
- 
+
             </div>
         `;
 
@@ -2248,15 +2248,15 @@ tabs.forEach((t) => {
 
             revealBox.innerHTML = `
                 <div class="listening-complete">
- 
+
                     <h4>
                         You understood spoken Russian
                     </h4>
- 
+
                     <p>
                         You listened without seeing the Russian first
                     </p>
- 
+
                 </div>
             `;
         }
@@ -5225,6 +5225,240 @@ document
 
     });
 
+
+// ==================================================
+// LESSON 3 — IN-LAW & MARITAL STATUS GRAMMAR CANDY
+// Four choice buttons; one shared display area.
+// Click the active Candy again to close it.
+// Same pattern as the Lesson 2 cousin Grammar Candy
+// above — only the id/data-attribute names change.
+// ==================================================
+
+const inlawGrammarCandy =
+    document.querySelector("#lesson-3-inlaw-grammar-candy");
+
+const inlawGrammarCandyDisplay =
+    document.querySelector("#lesson-3-inlaw-grammar-candy-display");
+
+
+inlawGrammarCandy
+    ?.querySelectorAll("[data-inlaw-candy]")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const candyKey =
+                button.dataset.inlawCandy;
+
+            const wasActive =
+                button.classList.contains("is-active");
+
+
+            // Clear all four buttons first.
+            inlawGrammarCandy
+                .querySelectorAll("[data-inlaw-candy]")
+                .forEach((choice) => {
+
+                    choice.classList.remove("is-active");
+                    choice.setAttribute("aria-pressed", "false");
+
+                });
+
+
+            // Hide all four graphics first.
+            inlawGrammarCandy
+                .querySelectorAll("[data-inlaw-candy-panel]")
+                .forEach((panel) => {
+
+                    panel.hidden = true;
+
+                });
+
+
+            // Clicking the currently open Candy closes the display.
+            if (wasActive) {
+
+                if (inlawGrammarCandyDisplay) {
+                    inlawGrammarCandyDisplay.hidden = true;
+                }
+
+                return;
+            }
+
+
+            // Find the graphic that belongs to the selected Candy.
+            const selectedPanel =
+                inlawGrammarCandy.querySelector(
+                    `[data-inlaw-candy-panel="${candyKey}"]`
+                );
+
+
+            button.classList.add("is-active");
+            button.setAttribute("aria-pressed", "true");
+
+
+            if (selectedPanel) {
+                selectedPanel.hidden = false;
+            }
+
+
+            if (inlawGrammarCandyDisplay) {
+                inlawGrammarCandyDisplay.hidden = false;
+            }
+
+        });
+
+    });
+
+
+// One universal control closes whichever in-law Grammar Candy is open.
+document
+    .querySelector("#lesson-3-inlaw-grammar-candy-collapse")
+    ?.addEventListener("click", () => {
+
+        inlawGrammarCandy
+            ?.querySelectorAll("[data-inlaw-candy]")
+            .forEach((choice) => {
+
+                choice.classList.remove("is-active");
+                choice.setAttribute("aria-pressed", "false");
+
+            });
+
+
+        inlawGrammarCandy
+            ?.querySelectorAll("[data-inlaw-candy-panel]")
+            .forEach((panel) => {
+
+                panel.hidden = true;
+
+            });
+
+
+        if (inlawGrammarCandyDisplay) {
+            inlawGrammarCandyDisplay.hidden = true;
+        }
+
+    });
+
+
+// ==================================================
+// LESSON 1 — GRAMMAR CANDY
+// Four choice buttons; one shared display area.
+// Click the active Candy again to close it.
+// Same pattern as the Lesson 2 cousin and Lesson 3
+// in-law Grammar Candy above — only the id/data-
+// attribute names change.
+// ==================================================
+
+const lesson1GrammarCandy =
+    document.querySelector("#lesson-1-grammar-candy");
+
+const lesson1GrammarCandyDisplay =
+    document.querySelector("#lesson-1-grammar-candy-display");
+
+
+lesson1GrammarCandy
+    ?.querySelectorAll("[data-lesson1-candy]")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const candyKey =
+                button.dataset.lesson1Candy;
+
+            const wasActive =
+                button.classList.contains("is-active");
+
+
+            // Clear all four buttons first.
+            lesson1GrammarCandy
+                .querySelectorAll("[data-lesson1-candy]")
+                .forEach((choice) => {
+
+                    choice.classList.remove("is-active");
+                    choice.setAttribute("aria-pressed", "false");
+
+                });
+
+
+            // Hide all four graphics first.
+            lesson1GrammarCandy
+                .querySelectorAll("[data-lesson1-candy-panel]")
+                .forEach((panel) => {
+
+                    panel.hidden = true;
+
+                });
+
+
+            // Clicking the currently open Candy closes the display.
+            if (wasActive) {
+
+                if (lesson1GrammarCandyDisplay) {
+                    lesson1GrammarCandyDisplay.hidden = true;
+                }
+
+                return;
+            }
+
+
+            // Find the graphic that belongs to the selected Candy.
+            const selectedPanel =
+                lesson1GrammarCandy.querySelector(
+                    `[data-lesson1-candy-panel="${candyKey}"]`
+                );
+
+
+            button.classList.add("is-active");
+            button.setAttribute("aria-pressed", "true");
+
+
+            if (selectedPanel) {
+                selectedPanel.hidden = false;
+            }
+
+
+            if (lesson1GrammarCandyDisplay) {
+                lesson1GrammarCandyDisplay.hidden = false;
+            }
+
+        });
+
+    });
+
+
+// One universal control closes whichever Lesson 1 Grammar Candy is open.
+document
+    .querySelector("#lesson-1-grammar-candy-collapse")
+    ?.addEventListener("click", () => {
+
+        lesson1GrammarCandy
+            ?.querySelectorAll("[data-lesson1-candy]")
+            .forEach((choice) => {
+
+                choice.classList.remove("is-active");
+                choice.setAttribute("aria-pressed", "false");
+
+            });
+
+
+        lesson1GrammarCandy
+            ?.querySelectorAll("[data-lesson1-candy-panel]")
+            .forEach((panel) => {
+
+                panel.hidden = true;
+
+            });
+
+
+        if (lesson1GrammarCandyDisplay) {
+            lesson1GrammarCandyDisplay.hidden = true;
+        }
+
+    });
+
+
 // ==================================================
 // LESSON 2 — EMBEDDED LANGUAGE DISCOVERIES
 // Notice → Try → Understand
@@ -5900,9 +6134,4 @@ familyLiveChoices.forEach((button) => {
     });
 
 })();
-
-
-
-
-
 

@@ -7728,6 +7728,66 @@ button:hover {
 }
 
 /* ==========================================
+   LESSON 3 — IN-LAW & MARITAL STATUS GRAMMAR CANDY
+   Uses the existing Grammar Candy button system —
+   four choices instead of the cousins' two.
+   ========================================== */
+
+.grammar-candy-landing--inlaws {
+    margin: 24px 0;
+}
+
+/* Four Candy choices — a clean 2x2 grid instead of the default 3-column layout. */
+.grammar-candy-landing--inlaws .grammar-candy-landing__buttons--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* A quiet instructional bridge before the learner opens any graphic. */
+.grammar-candy-landing--inlaws .grammar-candy-landing__direction {
+    margin-top: -4px;
+    margin-bottom: 18px;
+    color: #5d248f;
+    font-weight: 700;
+}
+
+/* Preserve the existing one-column mobile behavior. */
+@media (max-width: 850px) {
+    .grammar-candy-landing--inlaws .grammar-candy-landing__buttons--four {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   LESSON 1 — GRAMMAR CANDY
+   Uses the existing Grammar Candy button system —
+   same four-choice layout as the Lesson 3 in-laws set.
+   ========================================== */
+
+.grammar-candy-landing--lesson1 {
+    margin: 24px 0;
+}
+
+/* Four Candy choices — a clean 2x2 grid instead of the default 3-column layout. */
+.grammar-candy-landing--lesson1 .grammar-candy-landing__buttons--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* A quiet instructional bridge before the learner opens any graphic. */
+.grammar-candy-landing--lesson1 .grammar-candy-landing__direction {
+    margin-top: -4px;
+    margin-bottom: 18px;
+    color: #5d248f;
+    font-weight: 700;
+}
+
+/* Preserve the existing one-column mobile behavior. */
+@media (max-width: 850px) {
+    .grammar-candy-landing--lesson1 .grammar-candy-landing__buttons--four {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
    LESSON 2 — EMBEDDED LANGUAGE DISCOVERIES
    Notice → Try → Understand
    NOT Grammar Candy
