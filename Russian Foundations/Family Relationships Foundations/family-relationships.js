@@ -543,6 +543,15 @@ document
 
             controlButton.textContent = label;
 
+            // Same focus-protection the individual letter
+            // keys already have above — without this, clicking
+            // Back/SPACE/Clear blurs the input a moment before
+            // the click itself runs, which can fire an input's
+            // own blur-triggered checker too early.
+            controlButton.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+            });
+
             controlButton.addEventListener("click", () => {
 
                 if (!target) {
@@ -2133,31 +2142,31 @@ tabs.forEach((t) => {
             <div class="listening-reveal__label">
                 What you heard
             </div>
-
+ 
             <p class="listening-reveal__russian">
                 ${item.russian}
             </p>
-
+ 
             <p class="listening-reveal__meaning">
                 ${item.meaning}
             </p>
-
+ 
             <div class="listening-reveal__actions">
-
+ 
                 <button
                     type="button"
                     class="listening-hear-again"
                 >
                     🔊 Hear It Again
                 </button>
-
+ 
                 <button
                     type="button"
                     class="listening-next"
                 >
                     Next
                 </button>
-
+ 
             </div>
         `;
 
@@ -2239,15 +2248,15 @@ tabs.forEach((t) => {
 
             revealBox.innerHTML = `
                 <div class="listening-complete">
-
+ 
                     <h4>
                         You understood spoken Russian
                     </h4>
-
+ 
                     <p>
                         You listened without seeing the Russian first
                     </p>
-
+ 
                 </div>
             `;
         }
@@ -5891,4 +5900,9 @@ familyLiveChoices.forEach((button) => {
     });
 
 })();
+
+
+
+
+
 
