@@ -1,0 +1,542 @@
+:root {
+  --lr-navy-950: #08111f;
+  --lr-navy-900: #0d192b;
+  --lr-navy-800: #14263f;
+  --lr-navy-700: #1e3858;
+  --lr-text: #f6f4ee;
+  --lr-muted: #c9d3df;
+  --lr-warm: #f2d6a2;
+  --lr-warm-strong: #eabf76;
+  --lr-panel: rgba(12, 25, 43, 0.92);
+  --lr-panel-soft: rgba(22, 43, 69, 0.78);
+  --lr-border: rgba(255, 255, 255, 0.16);
+  --lr-success: #b7e7c2;
+  --lr-amber: #f4d28e;
+  --lr-shadow: 0 20px 60px rgba(0, 0, 0, 0.38);
+  --lr-radius: 22px;
+  --lr-shell-max-width: 1840px;
+  --lr-page-padding: 0.5rem;
+  --lr-shell-radius: 42px;
+}
+
+
+/* ==========================================
+   LISTENING ROOM — PORTABLE COMPONENT SHELL
+========================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--lr-navy-950);
+  color: var(--lr-text);
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--lr-warm);
+  outline-offset: 4px;
+}
+
+.listening-room {
+  min-height: 100vh;
+}
+
+.listening-room h1,
+.listening-room h2,
+.listening-room h3,
+.listening-room h4,
+.listening-room p {
+  margin-top: 0;
+}
+
+
+/* ==========================================
+   SHARED LISTENING ROOM PAGE GEOMETRY
+========================================== */
+
+.listening-room__landing,
+.listening-room__experience,
+.listening-room__completion {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--lr-page-padding);
+  background: var(--lr-navy-950);
+}
+
+.listening-room__landing-shell,
+.listening-room__experience-shell,
+.listening-room__completion-shell {
+  position: relative;
+  width: min(96vw, var(--lr-shell-max-width));
+  height: clamp(620px, 72vh, 820px);
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--lr-border);
+  border-radius: var(--lr-shell-radius);
+  box-shadow: var(--lr-shadow);
+
+  /*
+    SHELL NOTE:
+    The proven ACTUAL Listening Room uses its environmental SVG here.
+    The clean shell deliberately uses CSS atmosphere only so these
+    three files can move together with no external asset dependency.
+  */
+  background:
+    radial-gradient(circle at 82% 30%, rgba(234, 191, 118, 0.10), transparent 18%),
+    radial-gradient(circle at 76% 72%, rgba(49, 92, 137, 0.18), transparent 24%),
+    linear-gradient(90deg,
+      rgba(4, 11, 22, 0.99) 0%,
+      rgba(4, 11, 22, 0.96) 42%,
+      rgba(8, 27, 48, 0.88) 68%,
+      rgba(12, 40, 70, 0.76) 100%),
+    var(--lr-navy-950);
+}
+
+/* END Shared Listening Room Page Geometry */
+
+
+/* ==========================================
+   LISTENING ROOM LANDING
+========================================== */
+
+.listening-room__landing-copy {
+  width: min(58%, 720px);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 5vw, 5rem);
+}
+
+.listening-room__eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--lr-warm);
+}
+
+.listening-room__landing h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.listening-room__tagline {
+  max-width: 620px;
+  margin-bottom: 2rem;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  line-height: 1.5;
+  color: var(--lr-muted);
+}
+
+.listening-room__welcome-card {
+  max-width: 620px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.1rem;
+  align-items: start;
+  margin-bottom: 1.5rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--lr-border);
+  border-radius: 18px;
+  background: rgba(20, 38, 63, 0.72);
+}
+
+.listening-room__welcome-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.listening-room__welcome-card h2 {
+  margin-bottom: 0.4rem;
+  font-size: 1.25rem;
+  color: #9bd8ff;
+}
+
+.listening-room__welcome-card p {
+  margin-bottom: 0;
+  line-height: 1.6;
+  color: var(--lr-muted);
+}
+
+/* END Listening Room Landing */
+
+
+/* ==========================================
+   SHARED BUTTONS
+========================================== */
+
+.listening-room__enter-button,
+.listening-room__action-button,
+.listening-room__listen-button,
+.listening-room__quiet-button,
+.listening-room__support-button {
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    opacity 160ms ease;
+}
+
+.listening-room__enter-button,
+.listening-room__action-button,
+.listening-room__listen-button {
+  background: var(--lr-warm-strong);
+  color: #182131;
+  font-weight: 800;
+}
+
+.listening-room__enter-button {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 1rem 1.5rem;
+}
+
+.listening-room__enter-button:hover,
+.listening-room__action-button:hover,
+.listening-room__listen-button:hover {
+  transform: translateY(-2px);
+}
+
+/* END Shared Buttons */
+
+
+/* ==========================================
+   LISTENING ROOM EXPERIENCE
+========================================== */
+
+.listening-room__experience-shell {
+  display: flex;
+  align-items: stretch;
+}
+
+.listening-room__experience-content {
+  width: min(74%, 1020px);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  overflow-y: auto;
+  background: linear-gradient(90deg,
+      rgba(8, 17, 31, 0.98) 0%,
+      rgba(8, 17, 31, 0.96) 76%,
+      rgba(8, 17, 31, 0.82) 100%);
+}
+
+.listening-room__header,
+.listening-room__stage {
+  width: 100%;
+  margin: 0;
+}
+
+.listening-room__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 0 0 1.5rem;
+}
+
+.listening-room__header h2 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.listening-room__progress {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--lr-border);
+  border-radius: 999px;
+  color: var(--lr-muted);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.listening-room__stage {
+  flex: 1;
+  min-height: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border: 1px solid var(--lr-border);
+  border-radius: var(--lr-radius);
+  background: var(--lr-panel);
+  box-shadow: var(--lr-shadow);
+}
+
+.listening-room__move {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: var(--lr-warm);
+}
+
+.listening-room__prompt {
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+}
+
+.listening-room__purpose {
+  max-width: 760px;
+  margin-bottom: 2rem;
+  color: var(--lr-muted);
+  line-height: 1.65;
+}
+
+.listening-room__audio-focus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.listening-room__listen-button {
+  min-width: 150px;
+  padding: 1rem 1.4rem;
+}
+
+.listening-room__listen-button--secondary {
+  background: transparent;
+  color: var(--lr-text);
+  border: 1px solid var(--lr-border);
+}
+
+.listening-room__audio-status {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--lr-muted);
+}
+
+
+/* ==========================================
+   LISTENING ROOM PANELS
+========================================== */
+
+.listening-room__panel,
+.listening-room__support {
+  margin-top: 1.25rem;
+  padding: 1.3rem;
+  border: 1px solid var(--lr-border);
+  border-radius: 18px;
+  background: var(--lr-panel-soft);
+}
+
+.listening-room__panel h4,
+.listening-room__support h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.listening-room__panel p,
+.listening-room__support p {
+  color: var(--lr-muted);
+  line-height: 1.6;
+}
+
+.listening-room__catch-grid,
+.listening-room__choice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.listening-room__catch-chip,
+.listening-room__choice {
+  border: 1px solid var(--lr-border);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  color: var(--lr-text);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.listening-room__catch-chip[aria-pressed="true"] {
+  border-color: var(--lr-warm-strong);
+  background: rgba(234, 191, 118, 0.14);
+}
+
+.listening-room__choice:hover,
+.listening-room__catch-chip:hover {
+  border-color: rgba(255, 255, 255, 0.36);
+}
+
+.listening-room__feedback {
+  min-height: 1.5rem;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.listening-room__feedback--success {
+  color: var(--lr-success) !important;
+}
+
+.listening-room__feedback--try-again {
+  color: var(--lr-amber) !important;
+}
+
+/* END Listening Room Panels */
+
+
+/* ==========================================
+   LISTENING ROOM SUPPORT
+========================================== */
+
+.listening-room__support {
+  border-style: dashed;
+}
+
+.listening-room__support-button,
+.listening-room__quiet-button {
+  padding: 0.75rem 1rem;
+  color: var(--lr-text);
+  border: 1px solid var(--lr-border);
+  background: transparent;
+}
+
+.listening-room__transcript {
+  margin-top: 1rem !important;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lr-border);
+  font-size: 1.2rem;
+  color: var(--lr-text) !important;
+}
+
+/* END Listening Room Support */
+
+
+/* ==========================================
+   LISTENING ROOM CONTROLS
+========================================== */
+
+.listening-room__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.listening-room__action-button {
+  padding: 0.8rem 1.15rem;
+}
+
+.listening-room__controls #resetButton {
+  margin-left: auto;
+}
+
+/* END Listening Room Controls */
+
+
+/* ==========================================
+   LISTENING ROOM COMPLETION
+========================================== */
+
+.listening-room__completion-copy {
+  width: min(58%, 720px);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 5vw, 5rem);
+}
+
+.listening-room__completion h2 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1;
+}
+
+.listening-room__completion p {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--lr-muted);
+}
+
+/* END Listening Room Completion */
+
+
+/* ==========================================
+   RESPONSIVE BEHAVIOR
+========================================== */
+
+@media (max-width: 980px) {
+
+  .listening-room__landing-shell,
+  .listening-room__experience-shell,
+  .listening-room__completion-shell {
+    width: calc(100vw - 2rem);
+    height: auto;
+    min-height: 680px;
+  }
+
+  .listening-room__landing-copy,
+  .listening-room__completion-copy,
+  .listening-room__experience-content {
+    width: 100%;
+    min-height: auto;
+    background: linear-gradient(180deg,
+        rgba(8, 17, 31, 0.98) 0%,
+        rgba(8, 17, 31, 0.94) 72%,
+        rgba(8, 17, 31, 0.84) 100%);
+  }
+
+  .listening-room__landing-copy,
+  .listening-room__completion-copy {
+    padding: 3rem 2rem;
+  }
+
+  .listening-room__experience-content {
+    padding: 2rem;
+  }
+}
+
+
+@media (max-width: 760px) {
+
+  :root {
+    --lr-page-padding: 1rem;
+    --lr-shell-radius: 26px;
+  }
+
+  .listening-room__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .listening-room__controls #resetButton {
+    margin-left: 0;
+  }
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* END LISTENING ROOM — PORTABLE COMPONENT SHELL */

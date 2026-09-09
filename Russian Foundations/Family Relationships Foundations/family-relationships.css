@@ -1385,6 +1385,76 @@ button:hover {
     border-color: #1d7b3a;
 }
 
+/* A finished Stage stays visible but shrinks out of the way once the next
+   Stage begins — the tree so far is still there to look at, it just isn't
+   the thing you're working on anymore. */
+.tree-stage--done .tree-grid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+}
+
+.tree-stage--done .tree-box {
+    padding: 8px;
+}
+
+.tree-stage--done .tree-box__clue {
+    font-size: .8rem;
+    margin-bottom: 4px;
+}
+
+.tree-stage--done .use-word-bank,
+.tree-stage--done .tree-challenge,
+.tree-stage--done .tree-box__help {
+    display: none;
+}
+
+.tree-stage__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tree-stage__reset {
+    flex-shrink: 0;
+    border: 1px solid #d3dfeb;
+    border-radius: 6px;
+    background: #fff;
+    color: #7a7f87;
+    padding: 6px 12px;
+    font-size: .82rem;
+    cursor: pointer;
+}
+
+.tree-stage-lock {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 2px solid #f0dfb5;
+    text-align: center;
+}
+
+.tree-stage-lock__note {
+    color: #7a7f87;
+    margin: 10px 0 16px;
+}
+
+.tree-stage-lock__button {
+    border: 1px solid #0962ac;
+    border-radius: 8px;
+    background: #0962ac;
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tree-stage-lock__button:disabled {
+    border-color: #d3dfeb;
+    background: #f2f4f7;
+    color: #a6adb6;
+    cursor: not-allowed;
+}
+
 .tree-box__clue {
     font-weight: 700;
     color: #0962ac;

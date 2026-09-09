@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ==================================================
+       LISTENING ROOM — PORTABLE COMPONENT SHELL
+       Foundation-independent test shell
+  ================================================== -->
+  <title>Listening Room | Portable Component Shell</title>
+
+  <link rel="stylesheet" href="listening-room.css">
+</head>
+
+<body>
+
+  <main class="listening-room" id="listeningRoom">
+
+    <!-- ==================================================
+         LISTENING ROOM LANDING
+    ================================================== -->
+    <section class="listening-room__landing"
+      id="listeningLanding"
+      aria-labelledby="listeningRoomTitle">
+
+      <div class="listening-room__landing-shell">
+
+        <div class="listening-room__landing-copy">
+
+          <p class="listening-room__eyebrow">
+            🎧 Listening Room
+          </p>
+
+          <h1 id="listeningRoomTitle">The Listening Room</h1>
+
+          <p class="listening-room__tagline">
+            Hear first. Build meaning from what you understand.
+          </p>
+
+          <div class="listening-room__welcome-card">
+
+            <div class="listening-room__welcome-icon" aria-hidden="true">👂</div>
+
+            <div>
+              <h2>Welcome to the Listening Room.</h2>
+
+              <p>
+                You do not need to understand every word.
+                Listen for what you <strong>do</strong> understand.
+              </p>
+            </div>
+
+          </div>
+
+          <button class="listening-room__enter-button"
+            id="enterListeningRoom"
+            type="button">
+            Enter the Listening Room
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- END Listening Room Landing -->
+
+
+    <!-- ==================================================
+         LISTENING ROOM EXPERIENCE
+    ================================================== -->
+    <section class="listening-room__experience"
+      id="listeningExperience"
+      hidden
+      aria-labelledby="encounterTitle">
+
+      <div class="listening-room__experience-shell">
+
+        <div class="listening-room__experience-content">
+
+          <header class="listening-room__header">
+
+            <div>
+              <p class="listening-room__eyebrow">Listening Room</p>
+              <h2 id="encounterTitle">Listening Encounter</h2>
+            </div>
+
+            <div class="listening-room__progress" aria-live="polite">
+              <span id="encounterProgress">Encounter 1 of 1</span>
+            </div>
+
+          </header>
+
+
+          <div class="listening-room__stage" id="listeningStage">
+
+            <p class="listening-room__move" id="listeningMove">HEAR</p>
+
+            <h3 class="listening-room__prompt" id="listeningPrompt">
+              Listen once. Do not try to catch every word.
+            </h3>
+
+            <p class="listening-room__purpose" id="listeningPurpose">
+              First, listen for the overall shape of the message.
+            </p>
+
+
+            <!-- =========================
+                 AUDIO FOCUS
+            ========================= -->
+            <div class="listening-room__audio-focus">
+
+              <button class="listening-room__listen-button"
+                id="listenButton"
+                type="button"
+                aria-describedby="audioStatus">
+                <span aria-hidden="true">▶</span>
+                Listen
+              </button>
+
+              <button class="listening-room__listen-button listening-room__listen-button--secondary"
+                id="slowerButton"
+                type="button"
+                aria-describedby="audioStatus"
+                hidden>
+                Say It Slower
+              </button>
+
+              <p class="listening-room__audio-status"
+                id="audioStatus"
+                role="status"
+                aria-live="polite">
+                Ready when you are.
+              </p>
+
+            </div>
+            <!-- END Audio Focus -->
+
+
+            <!-- =========================
+                 CATCH PANEL
+            ========================= -->
+            <section class="listening-room__panel"
+              id="catchPanel"
+              hidden
+              aria-labelledby="catchTitle">
+
+              <h4 id="catchTitle">What did you catch?</h4>
+
+              <p>
+                Select anything you remember hearing.
+                You do not need the whole sentence.
+              </p>
+
+              <div class="listening-room__catch-grid" id="catchGrid"></div>
+
+              <button class="listening-room__action-button"
+                id="catchContinueButton"
+                type="button">
+                Continue
+              </button>
+
+            </section>
+            <!-- END Catch Panel -->
+
+
+            <!-- =========================
+                 BUILD MEANING PANEL
+            ========================= -->
+            <section class="listening-room__panel"
+              id="meaningPanel"
+              hidden
+              aria-labelledby="meaningTitle">
+
+              <h4 id="meaningTitle">Build the meaning</h4>
+
+              <p id="meaningQuestion">What happened?</p>
+
+              <div class="listening-room__choice-grid" id="meaningChoices"></div>
+
+              <p class="listening-room__feedback"
+                id="meaningFeedback"
+                role="status"
+                aria-live="polite"></p>
+
+            </section>
+            <!-- END Build Meaning Panel -->
+
+
+            <!-- =========================
+                 INFER PANEL
+            ========================= -->
+            <section class="listening-room__panel"
+              id="inferPanel"
+              hidden
+              aria-labelledby="inferTitle">
+
+              <h4 id="inferTitle">Listen for the change</h4>
+
+              <p id="inferQuestion">
+                Something changed. What changed the meaning?
+              </p>
+
+              <div class="listening-room__choice-grid" id="inferChoices"></div>
+
+              <p class="listening-room__feedback"
+                id="inferFeedback"
+                role="status"
+                aria-live="polite"></p>
+
+            </section>
+            <!-- END Infer Panel -->
+
+
+            <!-- =========================
+                 RESPOND PANEL
+            ========================= -->
+            <section class="listening-room__panel"
+              id="respondPanel"
+              hidden
+              aria-labelledby="respondTitle">
+
+              <h4 id="respondTitle">Respond to what you understood</h4>
+
+              <p id="respondQuestion">
+                Choose the response that fits what you heard.
+              </p>
+
+              <div class="listening-room__choice-grid" id="respondChoices"></div>
+
+              <p class="listening-room__feedback"
+                id="respondFeedback"
+                role="status"
+                aria-live="polite"></p>
+
+            </section>
+            <!-- END Respond Panel -->
+
+
+            <!-- =========================
+                 PROGRESSIVE SUPPORT
+            ========================= -->
+            <aside class="listening-room__support"
+              id="supportPanel"
+              hidden
+              aria-labelledby="supportTitle">
+
+              <h4 id="supportTitle">Need a little support?</h4>
+
+              <p id="supportText"></p>
+
+              <button class="listening-room__support-button"
+                id="revealTranscriptButton"
+                type="button">
+                Reveal transcript
+              </button>
+
+              <p class="listening-room__transcript"
+                id="transcriptText"
+                hidden></p>
+
+            </aside>
+            <!-- END Progressive Support -->
+
+
+            <!-- =========================
+                 LISTENING ROOM CONTROLS
+            ========================= -->
+            <footer class="listening-room__controls">
+
+              <button class="listening-room__quiet-button"
+                id="supportButton"
+                type="button"
+                hidden>
+                Give Me a Clue
+              </button>
+
+              <button class="listening-room__action-button"
+                id="nextMoveButton"
+                type="button"
+                hidden>
+                Next Listening Move
+              </button>
+
+              <button class="listening-room__action-button"
+                id="nextEncounterButton"
+                type="button"
+                hidden>
+                Next Encounter
+              </button>
+
+              <button class="listening-room__quiet-button"
+                id="resetButton"
+                type="button">
+                Reset Listening Room
+              </button>
+
+            </footer>
+            <!-- END Listening Room Controls -->
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- END Listening Room Experience -->
+
+
+    <!-- ==================================================
+         LISTENING ROOM COMPLETION
+    ================================================== -->
+    <section class="listening-room__completion"
+      id="listeningCompletion"
+      hidden
+      tabindex="-1"
+      aria-labelledby="completionTitle">
+
+      <div class="listening-room__completion-shell">
+
+        <div class="listening-room__completion-copy">
+
+          <p class="listening-room__eyebrow">
+            Listening Room • Complete
+          </p>
+
+          <h2 id="completionTitle">
+            Look what you understood.
+          </h2>
+
+          <p>
+            You listened for meaning, caught familiar language,
+            returned with a purpose, followed changes, inferred meaning,
+            and responded.
+          </p>
+
+          <p class="listening-room__tagline">
+            You did not need every word.
+            You understood what was happening.
+          </p>
+
+          <button class="listening-room__enter-button"
+            id="restartButton"
+            type="button">
+            Listen Again
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- END Listening Room Completion -->
+
+  </main>
+
+
+  <!-- ==================================================
+       LISTENING ROOM JAVASCRIPT
+  ================================================== -->
+  <script src="listening-room.js"></script>
+
+</body>
+</html>

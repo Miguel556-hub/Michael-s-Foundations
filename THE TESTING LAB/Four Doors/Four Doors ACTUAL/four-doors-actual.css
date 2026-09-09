@@ -1,0 +1,5128 @@
+/* ==================================================
+   MICHAEL'S FOUNDATIONS
+   FOUR DOORS ACTUAL — G&I REFERENCE IMPLEMENTATION
+   ================================================== */
+
+:root {
+  --ink: #172235;
+  --line: #d8e1eb;
+  --paper: #ffffff;
+  --bg: #f4f7fa;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+button, input, select, textarea { font: inherit; }
+button {
+  border: 1px solid #0d6fc2;
+  background: #fff;
+  color: #0b65ad;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+button:hover { background: #eef7ff; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+}
+.listen { background: #f5f8fc; }
+.feedback { min-height: 26px; margin-top: 10px; font-weight: 700; }
+.feedback.good { color: #1d7b3a; }
+.feedback.bad { color: #b05c00; }
+.eyebrow {
+  text-transform: uppercase;
+  color: #1666ad;
+  font-weight: 800;
+  letter-spacing: .1em;
+  font-size: .8rem;
+}
+.four-doors-actual-main { width: 100%; }
+[hidden] { display: none !important; }
+
+   EXPLORE PHASE
+========================================== */
+
+/* Journey Rail — EXPLORE */
+.journey-rail__section[data-stage="explore"] {
+    background: #eef8f6;
+    border-left-color: #7eb9ad;
+}
+
+.journey-rail__section[data-stage="explore"].journey-rail__section--current {
+    background: #176c63;
+    border-left-color: #176c63;
+}
+
+
+/* Right-side EXPLORE tab */
+.stage-tab--explore {
+    color: #176c63;
+    border: 1px solid #176c63;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--explore.stage-tab--active {
+    background: #176c63;
+    color: white;
+}
+
+
+/* EXPLORE banner */
+.phase-banner--explore {
+    color: #176c63;
+    background: linear-gradient(90deg, #f1fbf8, #d9eee9);
+    border-color: #68a99d;
+}
+
+
+/* ==========================================
+   EXPLORE HALLWAY
+========================================== */
+
+.explore-hallway {
+    max-width: 1100px;
+    margin: 40px auto 50px;
+    padding: 38px;
+    background: #ffffff;
+    border: 1px solid #d7e5e2;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+.explore-hallway__intro {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 36px;
+}
+
+.explore-hallway__intro .eyebrow {
+    color: #176c63;
+}
+
+.explore-hallway__intro h2 {
+    margin: 8px 0 12px;
+    font-size: 2.15rem;
+    color: #174f4a;
+}
+
+.explore-hallway__intro p {
+    font-size: 1.05rem;
+    color: #52677d;
+}
+
+
+/* ==========================================
+   EXPLORE — FOUR DOOR GRID
+========================================== */
+
+.explore-doors {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    align-items: end;
+}
+
+/* ==========================================
+   EXPLORE — REAL DOORS
+========================================== */
+
+.explore-door {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    min-height: 400px;
+    padding: 0;
+
+    display: block;
+
+    background:
+        linear-gradient(90deg,
+            #f1e8d8 0%,
+            #fffaf0 48%,
+            #eee2cf 100%);
+
+    border: 7px solid #72583d;
+    border-bottom-width: 11px;
+
+    border-radius: 3px 3px 2px 2px;
+
+    color: #3d3023;
+
+    box-shadow:
+        inset 0 0 0 3px #c8a985,
+        inset 0 0 18px rgba(80, 55, 30, 0.08),
+        0 10px 18px rgba(0, 0, 0, 0.18);
+
+    cursor: pointer;
+
+    transform-origin: left center;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* ==========================================
+   RECESSED DOOR PANELS
+========================================== */
+
+.explore-door::before,
+.explore-door::after {
+    content: "";
+    position: absolute;
+
+    left: 18%;
+    width: 64%;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.42),
+            rgba(214, 195, 166, 0.10));
+
+    border: 2px solid rgba(115, 88, 55, 0.34);
+
+    box-shadow:
+        inset 0 0 0 5px rgba(255, 255, 255, 0.28),
+        inset 0 5px 10px rgba(90, 65, 40, 0.07);
+}
+
+.explore-door::before {
+    top: 27%;
+    height: 27%;
+}
+
+.explore-door::after {
+    bottom: 8%;
+    height: 27%;
+}
+
+
+/* ==========================================
+   BRASS DOORKNOB
+========================================== */
+
+.explore-door__symbol {
+    position: absolute;
+    z-index: 4;
+
+    top: 55%;
+    right: 7%;
+
+    width: 23px;
+    height: 23px;
+    padding: 0;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at 34% 28%,
+            #fff5bd 0%,
+            #e5b64d 30%,
+            #b5791e 62%,
+            #714510 100%);
+
+    border: 2px solid #76501c;
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.35),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.8);
+
+    font-size: 0;
+}
+
+
+/* Small knob base */
+
+.explore-door__symbol::after {
+    content: "";
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    right: -5px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border-radius: 2px;
+
+    background: #9d671c;
+
+    z-index: -1;
+}
+
+
+/* ==========================================
+   BRASS OFFICE DOOR SIGN
+========================================== */
+
+.explore-door__title {
+    position: absolute;
+    z-index: 4;
+
+    top: 7%;
+    left: 11%;
+
+    width: 78%;
+    min-height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 15px;
+
+    background:
+        linear-gradient(180deg,
+            #f8d778 0%,
+            #d6a747 52%,
+            #bd872e 100%);
+
+    border: 2px solid #8c621f;
+    border-radius: 5px;
+
+    color: #21180d;
+
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.15;
+    text-align: center;
+
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.35);
+
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.24),
+        inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+
+/* Four mounting screws */
+
+.explore-door__title::before,
+.explore-door__title::after {
+    content: "•";
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: #684714;
+    font-size: 0.8rem;
+}
+
+.explore-door__title::before {
+    left: 6px;
+}
+
+.explore-door__title::after {
+    right: 6px;
+}
+
+
+/* ==========================================
+   DOOR INTERACTION
+========================================== */
+
+.explore-door:hover,
+.explore-door:focus-visible {
+    transform: translateY(-5px);
+
+    filter: brightness(1.025);
+
+    box-shadow:
+        inset 0 0 0 3px #c8a985,
+        inset 0 0 18px rgba(80, 55, 30, 0.08),
+        0 16px 26px rgba(0, 0, 0, 0.23);
+}
+
+
+/* Small mounting screws on the office sign */
+
+.explore-door__title::before,
+.explore-door__title::after {
+    content: "";
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #8c672d;
+
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.55);
+}
+
+.explore-door__title::before {
+    left: 6px;
+}
+
+.explore-door__title::after {
+    right: 6px;
+}
+
+
+/* Door interaction */
+.explore-door:hover,
+.explore-door:focus-visible {
+    transform: translateY(-6px);
+
+    background:
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.22),
+            transparent 18%,
+            transparent 82%,
+            rgba(0, 0, 0, 0.06)),
+        #f7f3e8;
+
+    box-shadow:
+        inset 0 0 0 3px #d6c6aa,
+        0 16px 28px rgba(0, 0, 0, 0.20);
+}
+
+
+/* Give Door 3 the feeling that something is beyond it */
+.explore-door[data-door="conversation"] {
+    box-shadow:
+        inset -12px 0 16px rgba(255, 218, 117, 0.20),
+        inset 0 0 0 3px #c8b89e,
+        0 10px 18px rgba(0, 0, 0, 0.16);
+}
+
+
+/* Responsive layout */
+@media (max-width: 1050px) {
+    .explore-doors {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .explore-doors {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .explore-door {
+        min-height: 260px;
+    }
+}
+
+/* ==========================================
+   EXPLORE ROOM — SHARED SHELL
+========================================== */
+
+.explore-room {
+    max-width: 1100px;
+    margin: 40px auto 55px;
+}
+
+.explore-room__header {
+    padding: 36px;
+    background: #ffffff;
+    border: 1px solid #d6e5e2;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+.explore-room__identity {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 390px;
+    gap: 42px;
+    align-items: center;
+}
+
+.explore-room__identity-text .eyebrow {
+    color: #176c63;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.explore-room__identity-text h2 {
+    margin: 8px 0 14px;
+    color: #174f4a;
+    font-size: 2.25rem;
+}
+
+.explore-room__identity-text p {
+    max-width: 570px;
+    color: #52677d;
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+
+/* ==========================================
+   DOOR 1 — RUSSIAN ID BADGE
+========================================== */
+
+.russian-id-badge {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #a9c7c1;
+    border-radius: 14px;
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.16),
+        inset 0 0 0 4px rgba(255, 255, 255, .55);
+
+    transform: rotate(1deg);
+}
+
+.russian-id-badge__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 11px 16px;
+
+    background: #176c63;
+    color: #ffffff;
+
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.russian-id-badge__body {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 18px;
+
+    padding: 22px 20px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(23, 108, 99, .06),
+            transparent 55%),
+        #ffffff;
+}
+
+.russian-id-badge__photo {
+    width: 92px;
+    height: 112px;
+
+    display: grid;
+    place-items: center;
+
+    background: #e9f3f1;
+    border: 2px solid #b8d3ce;
+    border-radius: 8px;
+
+    font-size: 3rem;
+}
+
+.russian-id-badge__details {
+    min-width: 0;
+}
+
+.russian-id-badge__label {
+    color: #68817d;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+.russian-id-badge__name {
+    margin: 3px 0 16px;
+
+    color: #174f4a;
+    font-size: 1.65rem;
+    font-weight: 900;
+}
+
+.russian-id-badge__line {
+    margin-top: 10px;
+}
+
+.russian-id-badge__line span {
+    display: block;
+    margin-bottom: 2px;
+
+    color: #70837f;
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+}
+
+.russian-id-badge__line strong {
+    color: #263f3b;
+    font-size: .9rem;
+}
+
+.russian-id-badge__footer {
+    padding: 9px 14px;
+
+    background: #e8f3f1;
+    border-top: 1px solid #c5dcd7;
+
+    color: #42645e;
+
+    font-size: .62rem;
+    font-weight: 900;
+    letter-spacing: .07em;
+
+    text-align: center;
+}
+
+
+/* ==========================================
+   EXPLORE ROOM NAVIGATION
+========================================== */
+
+.explore-room__navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+
+    margin: 22px 0;
+}
+
+.explore-room__navigation button {
+    padding: 10px 16px;
+
+    background: #ffffff;
+    color: #176c63;
+
+    border: 1px solid #78aaa1;
+    border-radius: 8px;
+
+    font-weight: 800;
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.explore-room__navigation button:hover,
+.explore-room__navigation button:focus-visible {
+    background: #edf8f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 9px rgba(0, 0, 0, .09);
+}
+
+.explore-room__navigation--bottom {
+    margin-top: 32px;
+}
+
+
+/* Responsive */
+@media (max-width: 900px) {
+
+    .explore-room__identity {
+        grid-template-columns: 1fr;
+    }
+
+    .russian-id-badge {
+        max-width: 430px;
+        margin: 0 auto;
+    }
+}
+
+/* ==========================================
+   EXPLORE — DISCOVERY EXPERIENCE
+========================================== */
+
+.explore-room__content {
+    margin-top: 26px;
+}
+
+.explore-discovery {
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #d4e5e1;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+
+/* Discovery introduction */
+.explore-discovery__heading {
+    padding: 30px 34px 24px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(23, 108, 99, .08),
+            transparent 65%),
+        #ffffff;
+
+    border-bottom: 1px solid #dbe8e5;
+}
+
+.explore-discovery__heading .eyebrow {
+    color: #176c63;
+}
+
+.explore-discovery__heading h3 {
+    margin: 7px 0 8px;
+
+    color: #174f4a;
+    font-size: 1.75rem;
+}
+
+.explore-discovery__heading p {
+    margin: 0;
+
+    color: #536c67;
+    font-size: 1.03rem;
+}
+
+
+/* ==========================================
+   HEAR IT
+========================================== */
+
+.explore-encounter {
+    padding: 34px;
+
+    text-align: center;
+
+    background: #f6fbfa;
+    border-bottom: 1px solid #dceae7;
+}
+
+.explore-encounter__label {
+    margin-bottom: 12px;
+
+    color: #5e7772;
+
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+
+    text-transform: uppercase;
+}
+
+.explore-encounter__russian {
+    margin-bottom: 20px;
+
+    color: #173f3a;
+
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+
+/* ==========================================
+   WHAT YOU ALREADY KNOW
+========================================== */
+
+.explore-clues {
+    padding: 32px 34px;
+
+    border-bottom: 1px solid #dceae7;
+}
+
+.explore-clues__heading {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+.explore-clues__heading>span {
+    font-size: 1.8rem;
+}
+
+.explore-clues__heading .eyebrow {
+    color: #176c63;
+}
+
+.explore-clues__heading h4 {
+    margin: 3px 0 0;
+
+    color: #254b46;
+    font-size: 1.25rem;
+}
+
+.explore-clue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.explore-clue {
+    padding: 20px;
+
+    text-align: center;
+
+    background: #f4faf8;
+
+    border: 1px solid #c9dfda;
+    border-radius: 12px;
+}
+
+.explore-clue strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #176c63;
+    font-size: 1.4rem;
+}
+
+.explore-clue span {
+    color: #536a66;
+}
+
+
+/* ==========================================
+   LOOK CLOSER
+========================================== */
+
+.explore-look-closer {
+    padding: 32px 34px;
+
+    background: #fffdf7;
+
+    border-bottom: 1px solid #e7e1d2;
+}
+
+.explore-look-closer>.eyebrow {
+    color: #92702e;
+}
+
+.explore-look-closer h4 {
+    margin: 5px 0 8px;
+
+    color: #51432b;
+    font-size: 1.3rem;
+}
+
+.explore-look-closer>p {
+    margin-bottom: 24px;
+
+    color: #665c48;
+}
+
+.explore-word-change {
+    max-width: 650px;
+
+    margin: 14px auto;
+
+    display: grid;
+    grid-template-columns: 1fr 55px 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Door 2 — center the single "One New Clue" tile */
+#people-discovery-3 .explore-word-change {
+    grid-template-columns: minmax(0, 255px);
+    justify-content: center;
+}
+
+.explore-word-change>div:not(.explore-word-change__arrow) {
+    padding: 16px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #dfd4b9;
+    border-radius: 10px;
+}
+
+.explore-word-change span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #81765e;
+    font-size: .72rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.explore-word-change strong {
+    color: #55401d;
+    font-size: 1.5rem;
+}
+
+.explore-word-change__arrow {
+    text-align: center;
+
+    color: #a17a2e;
+
+    font-size: 1.7rem;
+    font-weight: 900;
+}
+
+
+/* ==========================================
+   MAKE A PREDICTION
+========================================== */
+
+.explore-prediction {
+    padding: 34px;
+
+    background: #f7f8fc;
+}
+
+.explore-prediction .eyebrow {
+    color: #53679b;
+}
+
+.explore-prediction h4 {
+    margin: 5px 0 8px;
+
+    color: #303e67;
+    font-size: 1.3rem;
+}
+
+.explore-prediction p {
+    color: #59647d;
+}
+
+.explore-prediction textarea {
+    display: block;
+
+    width: 100%;
+    min-height: 90px;
+
+    margin: 18px 0;
+
+    padding: 14px 16px;
+
+    resize: vertical;
+
+    background: #ffffff;
+
+    border: 1px solid #aeb9d1;
+    border-radius: 10px;
+
+    color: #24334f;
+
+    font: inherit;
+    line-height: 1.5;
+
+    box-sizing: border-box;
+}
+
+.explore-reveal {
+    padding: 11px 18px;
+
+    background: #405a91;
+    color: #ffffff;
+
+    border: 1px solid #405a91;
+    border-radius: 8px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.explore-reveal:hover,
+.explore-reveal:focus-visible {
+    background: #324a7b;
+}
+
+
+/* ==========================================
+   MEANING REVEAL
+========================================== */
+
+.explore-meaning-reveal {
+    padding: 34px;
+
+    text-align: center;
+
+    background: #edf8f2;
+
+    border-top: 1px solid #c5dfd1;
+}
+
+.explore-meaning-reveal .eyebrow {
+    color: #317052;
+}
+
+.explore-meaning-reveal__russian {
+    margin: 10px 0 4px;
+
+    color: #205c43;
+
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.explore-meaning-reveal__english {
+    margin-bottom: 18px;
+
+    color: #2e5143;
+
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.explore-meaning-reveal p {
+    max-width: 720px;
+    margin: 0 auto 20px;
+
+    color: #53695f;
+}
+
+.explore-grammar-candy {
+    padding: 10px 17px;
+
+    background: #ffffff;
+    color: #765619;
+
+    border: 1px solid #d2b56d;
+    border-radius: 999px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+
+/* Responsive */
+@media (max-width: 750px) {
+
+    .explore-clue-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .explore-word-change {
+        grid-template-columns: 1fr;
+    }
+
+    .explore-word-change__arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* ==========================================
+   EXPLORE — UNIFIED DISCOVERY HEADINGS
+========================================== */
+
+.explore-discovery__heading h3,
+.explore-section-heading {
+    margin: 5px 0 10px;
+    color: #174f4a;
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+/* EXPLORE — Hear the Russian */
+.explore-encounter .listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.explore-encounter .listen:hover,
+.explore-encounter .listen:focus-visible {
+    background: #12574f;
+    border-color: #12574f;
+}
+
+
+/* EXPLORE — See What It Means */
+.explore-reveal {
+    background: #55447f;
+    border-color: #55447f;
+    color: #ffffff;
+}
+
+.explore-reveal:hover,
+.explore-reveal:focus-visible {
+    background: #443568;
+    border-color: #443568;
+}
+
+/* ==========================================
+   EXPLORE — PREDICTION REVEAL REFINEMENTS
+========================================== */
+
+.explore-compare__russian {
+    margin-top: 4px;
+    color: #55447f;
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+
+
+/* Grammar Candy — Prediction Section */
+.explore-prediction .explore-grammar-candy {
+    background: #55447f;
+    border-color: #55447f;
+    color: #ffffff;
+}
+
+.explore-prediction .explore-grammar-candy:hover,
+.explore-prediction .explore-grammar-candy:focus-visible {
+    background: #443568;
+    border-color: #443568;
+    color: #ffffff;
+}
+
+/* ==========================================
+   EXPLORE — GRAMMAR CANDY GRAPHIC
+========================================== */
+
+.explore-grammar-candy-graphic {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-top: 14px;
+    border-radius: 12px;
+}
+
+.explore-grammar-explanation {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   DOOR 2 — EXPLORE MORE
+========================================== */
+
+.explore-more {
+    margin-top: 28px;
+    padding: 24px;
+
+    background: #f7f4fb;
+    border: 1px solid #d8cdea;
+    border-radius: 14px;
+
+    box-shadow: 0 3px 10px rgba(67, 48, 92, 0.08);
+}
+
+.explore-more__intro {
+    text-align: center;
+}
+
+.explore-more__intro p {
+    max-width: 700px;
+    margin: 8px auto 18px;
+
+    color: #53606d;
+    line-height: 1.6;
+}
+
+.explore-more__button {
+    padding: 11px 20px;
+
+    background: #55447f;
+    color: #ffffff;
+
+    border: 1px solid #55447f;
+    border-radius: 999px;
+
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.explore-more__button:hover,
+.explore-more__button:focus-visible {
+    background: #443568;
+    border-color: #443568;
+}
+
+.explore-more__reveal {
+    margin-top: 22px;
+}
+
+.explore-more__graphic {
+    display: block;
+
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+
+    margin: 0 auto;
+
+    border-radius: 12px;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 1 NAVIGATION CONTROLS
+========================================== */
+
+.explore-prediction .explore-control-nav {
+    background: #ffffff;
+    border: 2px solid #65439a;
+    color: #553485;
+    font-weight: 700;
+}
+
+.explore-prediction .explore-control-nav:hover,
+.explore-prediction .explore-control-nav:focus-visible {
+    background: #f3eef9;
+    border-color: #553485;
+    color: #44276f;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2 -    PEOPLE PROFILE CARDS
+========================================== */
+
+.people-profiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+
+    margin: 26px 0 30px;
+    padding: 26px;
+
+    background: #ffffff;
+
+    border: 1px solid #d6e5e2;
+    border-radius: 16px;
+
+    box-shadow: none;
+}
+
+
+/* Individual person card */
+
+.people-profile {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 18px;
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(23, 108, 99, 0.06),
+            transparent 65%),
+        #ffffff;
+
+    border: 1px solid #c9dfda;
+    border-radius: 10px;
+
+    box-shadow: none;
+}
+
+/* Person / photo area */
+
+.people-profile__photo {
+    width: 92px;
+    height: 92px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(145deg,
+            #d9edf2,
+            #f7fbfc);
+
+    border: 3px solid #6ea5b4;
+
+    font-size: 3rem;
+
+    box-shadow:
+        inset 0 0 0 4px rgba(255, 255, 255, 0.65),
+        0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Small identity label */
+
+.people-profile__label {
+    margin-bottom: 3px;
+
+    color: #397788;
+
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+
+/* Russian name */
+
+.people-profile__name {
+    margin-bottom: 10px;
+
+    color: #164f5c;
+
+    font-size: 1.7rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+
+/* First-name information */
+
+.people-profile__line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding-top: 9px;
+
+    border-top: 1px solid #d3e2e7;
+
+    color: #53656b;
+
+    font-size: 0.9rem;
+}
+
+.people-profile__line strong {
+    color: #164f5c;
+    font-size: 1rem;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .people-profiles {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   DISCOVERY ONE — PEOPLE ENCOUNTERS
+========================================== */
+
+.people-identify {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+
+    padding: 22px 26px;
+}
+
+
+/* Individual Russian encounter */
+
+.people-identify__example {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    min-height: 150px;
+    padding: 20px;
+
+    background:
+        linear-gradient(145deg,
+            #f7fbfc 0%,
+            #edf5f7 100%);
+
+    border: 1px solid #a9cbd3;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.07);
+}
+
+
+/* Russian sentence */
+
+.people-identify__russian {
+    color: #164f5c;
+
+    font-size: 1.65rem;
+    font-weight: 900;
+    line-height: 1.2;
+
+    text-align: center;
+}
+
+
+/* Listen button belongs to Door 2 */
+
+.people-identify__example .listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.people-identify__example .listen:hover,
+.people-identify__example .listen:focus-visible {
+    background: #12574f;
+    border-color: #12574f;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .people-identify {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   DISCOVERY QUESTION
+========================================== */
+
+.people-discovery-question {
+    margin: 22px 26px 26px;
+    padding: 22px 24px;
+
+    background:
+        linear-gradient(135deg,
+            #f4effa 0%,
+            #fbf9fd 100%);
+
+    border: 1px solid #c9b8dc;
+    border-left: 5px solid #65439a;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.people-discovery-question .eyebrow {
+    color: #65439a;
+}
+
+.people-discovery-question .explore-section-heading {
+    color: #4f3478;
+}
+
+.people-discovery-question p {
+    margin-bottom: 0;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   TEST YOUR IDEA — SERGEI
+========================================== */
+
+.people-test-idea {
+    margin: 22px 26px 26px;
+    padding: 22px 24px;
+
+    background:
+        linear-gradient(135deg,
+            #eef8f6 0%,
+            #f9fcfb 100%);
+
+    border: 1px solid #9fcfc5;
+    border-left: 5px solid #176c63;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.people-test-idea .eyebrow {
+    color: #176c63;
+}
+
+.people-test-idea .explore-section-heading {
+    color: #164f5c;
+}
+
+
+/* Sergei encounter */
+
+.people-test-person {
+    margin-top: 18px;
+    padding: 18px 20px;
+
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto;
+    gap: 22px;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #b8d8d1;
+    border-radius: 12px;
+}
+
+
+/* Sergei profile */
+
+.people-test-person__profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.people-test-person__photo {
+    width: 68px;
+    height: 68px;
+
+    flex: 0 0 68px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(145deg,
+            #d9edf2,
+            #f7fbfc);
+
+    border: 3px solid #6ea5b4;
+
+    font-size: 2.2rem;
+
+    box-shadow:
+        inset 0 0 0 3px rgba(255, 255, 255, 0.65),
+        0 3px 8px rgba(0, 0, 0, 0.10);
+}
+
+
+/* Russian evidence */
+
+.people-test-person__russian {
+    color: #164f5c;
+
+    font-size: 1.55rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+
+/* Listen */
+
+.people-test-person .listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.people-test-person .listen:hover,
+.people-test-person .listen:focus-visible {
+    background: #12574f;
+    border-color: #12574f;
+}
+
+
+/* Responsive */
+
+@media (max-width: 760px) {
+
+    .people-test-person {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .people-test-person__profile {
+        justify-content: center;
+    }
+
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   DISCOVERY ONE REVEAL
+========================================== */
+
+.people-discovery-reveal {
+    margin: 22px 26px 26px;
+}
+
+.people-discovery-reveal__button {
+    padding: 11px 18px;
+
+    background: #55447f;
+    border: 1px solid #55447f;
+    border-radius: 7px;
+
+    color: #ffffff;
+
+    font: inherit;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.people-discovery-reveal__button:hover,
+.people-discovery-reveal__button:focus-visible {
+    background: #443568;
+    transform: translateY(-1px);
+}
+
+
+/* Revealed discovery */
+
+.people-discovery-reveal__content {
+    margin-top: 16px;
+    padding: 22px 24px;
+
+    background:
+        linear-gradient(135deg,
+            #fff8e7 0%,
+            #fffdf7 100%);
+
+    border: 1px solid #d9bd72;
+    border-left: 5px solid #c79327;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.people-discovery-reveal__content .eyebrow {
+    color: #9a6815;
+}
+
+.people-discovery-reveal__content .explore-section-heading {
+    color: #704c10;
+}
+
+
+/* Three pieces of evidence */
+
+.people-discovery-reveal__examples {
+    margin-top: 18px;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.people-discovery-reveal__examples>div {
+    padding: 15px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #ddc98f;
+    border-radius: 9px;
+
+    color: #164f5c;
+
+    font-size: 1.15rem;
+    font-weight: 400;
+    text-align: center;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Responsive */
+
+@media (max-width: 650px) {
+
+    .people-discovery-reveal__examples {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   DISCOVERY TWO — COMPARE
+========================================== */
+
+.people-compare {
+    margin: 24px 26px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.people-compare__example {
+    padding: 22px;
+
+    background:
+        linear-gradient(135deg,
+            #eef8f6 0%,
+            #fbfdfc 100%);
+
+    border: 1px solid #9fcfc5;
+    border-top: 5px solid #176c63;
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.people-compare__person {
+    margin-bottom: 10px;
+
+    color: #176c63;
+
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.people-compare__russian {
+    margin-bottom: 16px;
+
+    color: #164f5c;
+
+    font-size: 1.7rem;
+    font-weight: 900;
+}
+
+.people-compare__example .listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.people-compare__example .listen:hover,
+.people-compare__example .listen:focus-visible {
+    background: #12574f;
+    border-color: #12574f;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   DISCOVERY TWO — LOOK CLOSER
+========================================== */
+
+.people-compare-pattern {
+    margin: 0;
+    padding: 32px 34px;
+
+    background:
+        linear-gradient(135deg,
+            #f6f1fb 0%,
+            #fbf9fd 100%);
+
+    border: 1px solid #c9b8dc;
+    border-left: 5px solid #65439a;
+    border-radius: 12px;
+
+    box-shadow: none;
+}
+
+.people-compare-pattern .eyebrow {
+    color: #65439a;
+}
+
+.people-compare-pattern .explore-section-heading {
+    color: #4f3478;
+}
+
+/* ==========================================
+   DOOR 2 — HEADER PEOPLE LAYOUT
+========================================== */
+
+.explore-room__identity--people {
+    grid-template-columns: minmax(0, 1fr) 500px;
+    gap: 32px;
+}
+
+/* ==========================================
+   DOOR 2 — COMPACT HEADER PEOPLE CARDS
+========================================== */
+
+.explore-room__identity--people .people-profile {
+    grid-template-columns: 76px 1fr;
+    gap: 12px;
+    padding: 14px;
+}
+
+.explore-room__identity--people .people-profile__photo {
+    width: 72px;
+    height: 72px;
+
+    font-size: 2.35rem;
+}
+
+.explore-room__identity--people .people-profile__listen {
+    grid-column: 1 / -1;
+    justify-self: center;
+
+    background: #14786f;
+    color: #ffffff;
+    border: 1px solid #14786f;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 2
+   DISCOVERY ONE — LOOK FOR THE PATTERN
+   Rebuilt as one unified discovery experience
+========================================== */
+
+.people-pattern-discovery {
+    margin: 24px 0 30px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(135deg,
+            #f6f0fb 0%,
+            #fbf8fd 100%);
+
+    border: 1px solid #cbb8df;
+    border-left: 5px solid #65439a;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.people-pattern-discovery__intro {
+    padding: 24px 28px 12px;
+}
+
+.people-pattern-discovery__intro .eyebrow {
+    color: #65439a;
+}
+
+.people-pattern-discovery__intro h3 {
+    margin: 4px 0 8px;
+
+    color: #4f3478;
+
+    font-size: 1.45rem;
+    line-height: 1.2;
+}
+
+.people-pattern-discovery__intro p {
+    margin: 0;
+
+    color: #4d4260;
+}
+
+
+/* More evidence — Katya and Sergei */
+
+.people-pattern-evidence {
+    display: grid;
+    gap: 12px;
+
+    padding: 18px 28px 8px;
+}
+
+.people-pattern-evidence__row {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(170px, .8fr) auto;
+    gap: 22px;
+    align-items: center;
+
+    padding: 10px 12px;
+}
+
+.people-pattern-evidence__person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #2d2540;
+
+    font-size: 1.05rem;
+}
+
+.people-pattern-evidence__avatar {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 48px;
+
+    background: #ffffff;
+
+    border: 3px solid #7350a8;
+    border-radius: 50%;
+
+    font-size: 1.65rem;
+}
+
+.people-pattern-evidence__russian {
+    color: #251f30;
+
+    font-size: 1.35rem;
+    font-weight: 900;
+}
+
+.people-pattern-evidence__listen {
+    min-width: 164px;
+
+    background: #5c3692;
+    border-color: #5c3692;
+    color: #ffffff;
+}
+
+.people-pattern-evidence__listen:hover,
+.people-pattern-evidence__listen:focus-visible {
+    background: #4b2c78;
+    border-color: #4b2c78;
+}
+
+
+/* Learner prediction */
+
+.people-pattern-prediction {
+    display: grid;
+    grid-template-columns: minmax(0, 420px) auto;
+    justify-content: center;
+    align-items: end;
+    gap: 14px;
+
+    padding: 14px 28px 28px;
+}
+
+.people-pattern-prediction label {
+    grid-column: 1 / -1;
+    color: #5a3b86;
+
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.people-pattern-prediction input {
+    width: 100%;
+    min-height: 48px;
+
+    padding: 10px 14px;
+
+    background: #ffffff;
+    color: #352645;
+
+    border: 2px solid #66507f;
+    border-radius: 0;
+
+    font-size: 1rem;
+    text-align: center;
+}
+
+.people-pattern-prediction input:focus {
+    outline: 3px solid rgba(101, 67, 154, 0.18);
+    outline-offset: 2px;
+}
+
+.people-pattern-prediction button {
+    justify-self: stretch;
+
+    padding: 11px 18px;
+
+    background: #5c3692;
+    border-color: #5c3692;
+    color: #ffffff;
+}
+
+.people-pattern-prediction__feedback {
+    grid-column: 1 / -1;
+}
+
+.people-pattern-prediction button:hover,
+.people-pattern-prediction button:focus-visible {
+    background: #4b2c78;
+    border-color: #4b2c78;
+}
+
+.people-pattern-prediction__feedback {
+    min-height: 22px;
+
+    color: #5a3b86;
+
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+
+/* Discovery result belongs directly to the purple investigation */
+
+/* ==========================================
+   DOOR 2 — DISCOVERY RESULT
+   Shared by Discovery One and Discovery Two
+========================================== */
+
+.people-pattern-result {
+    margin: 18px 26px 26px;
+    padding: 24px 26px;
+
+    background:
+        linear-gradient(135deg,
+            #fff8e7 0%,
+            #fffdf7 100%);
+
+    border: 1px solid #d9bd72;
+    border-left: 5px solid #c79327;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==========================================
+   DISCOVERY TWO — MALE / FEMALE COMPARISON
+========================================== */
+
+.people-pattern-result__comparison {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+
+    margin: 20px 0;
+}
+
+.people-pattern-result__person {
+    padding: 18px;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    border: 1px solid #c9b8dc;
+    border-radius: 10px;
+}
+
+.people-pattern-result__person-label {
+    margin-bottom: 14px;
+
+    color: #5c3692;
+
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.people-pattern-result__sequence {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    color: #352645;
+
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.people-pattern-result__sequence span {
+    color: #65439a;
+}
+
+.people-pattern-result__meaning {
+    margin-top: 8px;
+
+    color: #4e5561;
+
+    font-size: .95rem;
+}
+
+
+/* ==========================================
+   DISCOVERY TWO — ДРУГ / ПОДРУГА
+========================================== */
+
+.people-pattern-result__friend-note {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 24px;
+    align-items: center;
+
+    margin-top: 22px;
+    padding-top: 18px;
+
+    border-top: 1px solid #ddc98f;
+}
+
+.people-pattern-result__friend-note h5 {
+    grid-column: 1;
+    margin: 0 0 10px;
+
+    color: #4f3478;
+
+    font-size: 1.05rem;
+}
+
+.people-pattern-result__friend-note>p:first-of-type {
+    grid-column: 1;
+    margin-top: 0;
+}
+
+.people-pattern-result__friend-pair {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 180px));
+    gap: 0;
+
+    margin: 0;
+    align-self: center;
+}
+
+.people-pattern-result__friend-note>p:last-of-type {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+}
+
+.people-pattern-result__friend-pair>div {
+    display: grid;
+    gap: 3px;
+
+    padding: 12px 16px;
+
+    background: rgba(255, 255, 255, 0.7);
+
+    border: 1px solid #c9b8dc;
+
+    text-align: center;
+}
+
+.people-pattern-result__friend-pair strong {
+    color: #5c3692;
+
+    font-size: 1.15rem;
+}
+
+.people-pattern-result__friend-pair span {
+    color: #4e5561;
+
+    font-size: .9rem;
+}
+
+
+/* ==========================================
+   DISCOVERY RESULT — BIGGER PATTERN
+========================================== */
+
+.people-pattern-result__reminder {
+    margin-top: 22px;
+    padding-top: 18px;
+
+    border-top: 1px dashed #c79327;
+}
+
+.people-pattern-result__reminder strong {
+    color: #5c3692;
+}
+
+
+/* Door 2 header Hear buttons */
+
+.explore-room__identity--people .people-profile__listen {
+    background: #14786f;
+    border-color: #14786f;
+    color: #ffffff;
+}
+
+.explore-room__identity--people .people-profile__listen:hover,
+.explore-room__identity--people .people-profile__listen:focus-visible {
+    background: #105f58;
+    border-color: #105f58;
+    color: #ffffff;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .people-pattern-evidence__row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+
+        text-align: center;
+    }
+
+    .people-pattern-evidence__person {
+        justify-content: center;
+    }
+
+    .people-pattern-evidence__listen {
+        justify-self: center;
+    }
+
+}
+
+/* ==========================================
+   DOOR 2 — DISCOVERY TWO PROFILE CARDS
+========================================== */
+
+.people-compare {
+    margin: 24px 26px;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.people-compare__profile {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 14px;
+    align-items: center;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(23, 108, 99, 0.06),
+            transparent 65%),
+        #ffffff;
+
+    border: 1px solid #c9dfda;
+    border-radius: 10px;
+}
+
+.people-compare__photo {
+    width: 72px;
+    height: 72px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 2.35rem;
+
+    background: #f8fcfb;
+    border: 2px solid #79b6c8;
+    border-radius: 50%;
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.12);
+}
+
+.people-compare__details {
+    min-width: 0;
+}
+
+.people-compare__label {
+    color: #176c63;
+
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.people-compare__name {
+    margin-top: 2px;
+
+    color: #164f5c;
+
+    font-size: 1.45rem;
+    font-weight: 900;
+}
+
+.people-compare__statement {
+    margin: 10px 0 14px;
+    padding-top: 8px;
+
+    color: #164f5c;
+
+    font-size: 1.2rem;
+    font-weight: 800;
+
+    border-top: 1px solid #d5e4e1;
+}
+
+.people-compare__listen {
+    background: #14786f;
+    color: #ffffff;
+    border-color: #14786f;
+}
+
+.people-compare__listen:hover,
+.people-compare__listen:focus-visible {
+    background: #12574f;
+    border-color: #12574f;
+}
+
+/* ==========================================
+   DOOR 2 — DISCOVERY TWO PATTERN EVIDENCE
+========================================== */
+
+.people-compare-pattern__evidence {
+    display: grid;
+    gap: 14px;
+
+    margin-top: 22px;
+}
+
+.people-compare-pattern__row {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: center;
+
+    padding: 12px 14px;
+
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 10px;
+}
+
+.people-compare-pattern__person {
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 1.8rem;
+
+    background: #ffffff;
+    border: 2px solid #7a4db0;
+    border-radius: 50%;
+}
+
+.people-compare-pattern__sentence {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    color: #352645;
+}
+
+.people-compare-pattern__sentence strong {
+    min-width: 70px;
+
+    font-size: 1rem;
+}
+
+.people-compare-pattern__sentence span {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.people-compare-pattern__listen {
+    background: #5c3692;
+    color: #ffffff;
+    border-color: #5c3692;
+}
+
+.people-compare-pattern__listen:hover,
+.people-compare-pattern__listen:focus-visible {
+    background: #4b2c78;
+    border-color: #4b2c78;
+}
+
+/* ==================================================
+   EXPLORE — DOOR 2
+   DISCOVERY THREE — GRAMMAR CANDY
+   ЕМУ / МНЕ PATTERN
+================================================== */
+
+.grammar-candy-people {
+    margin-top: 18px;
+    padding: 26px;
+
+    background:
+        linear-gradient(135deg,
+            #fff8e7 0%,
+            #fffdf7 100%);
+
+    border: 1px solid #d9bd72;
+    border-left: 5px solid #c79327;
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+
+/* ---------- HEADER ---------- */
+
+.grammar-candy-people__header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2cf98;
+}
+
+.grammar-candy-people__header .eyebrow {
+    color: #9a6815;
+}
+
+.grammar-candy-people__header h5 {
+    margin: 6px 0 8px;
+
+    color: #4f3478;
+
+    font-size: 1.45rem;
+    font-weight: 900;
+}
+
+.grammar-candy-people__header p {
+    margin: 0 auto;
+    max-width: 700px;
+
+    color: #5a5261;
+}
+
+
+/* ---------- SENTENCE COMPARISON ---------- */
+
+.grammar-candy-people__comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 18px;
+    align-items: stretch;
+
+    margin-top: 24px;
+}
+
+.grammar-candy-people__example {
+    padding: 20px;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    border: 1px solid #c9b8dc;
+    border-radius: 10px;
+}
+
+.grammar-candy-people__label {
+    margin-bottom: 12px;
+
+    color: #65439a;
+
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.grammar-candy-people__sentence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    color: #352645;
+
+    font-size: 1.18rem;
+    line-height: 1.5;
+}
+
+.grammar-candy-people__sentence strong {
+    color: #5c3692;
+    font-size: 1.35rem;
+}
+
+.grammar-candy-people__meaning {
+    margin-top: 10px;
+
+    color: #4e5561;
+
+    font-size: .95rem;
+    font-style: italic;
+}
+
+.grammar-candy-people__arrow {
+    align-self: center;
+
+    color: #c79327;
+
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+
+/* ---------- МНЕ / ЕМУ ---------- */
+
+.grammar-candy-people__change {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 220px));
+    justify-content: center;
+    gap: 18px;
+
+    margin: 24px 0;
+}
+
+.grammar-candy-people__change-item {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 20px;
+
+    background: #f6f1fb;
+
+    border: 1px solid #c9b8dc;
+    border-radius: 10px;
+
+    color: #4e5561;
+}
+
+.grammar-candy-people__change-item strong {
+    color: #5c3692;
+
+    font-size: 1.35rem;
+}
+
+.grammar-candy-people__change-arrow {
+    color: #c79327;
+
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+
+/* ---------- WHY? ---------- */
+
+.grammar-candy-people__idea {
+    margin-top: 24px;
+    padding: 20px 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfd2ad;
+    border-radius: 10px;
+}
+
+.grammar-candy-people__idea-label {
+    margin-bottom: 8px;
+
+    color: #9a6815;
+
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.grammar-candy-people__language-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 18px;
+    align-items: start;
+
+    margin-top: 12px;
+    padding-top: 12px;
+
+    border-top: 1px solid #eee5cd;
+}
+
+.grammar-candy-people__language-row strong {
+    color: #5c3692;
+}
+
+
+/* ---------- THE PATTERN ---------- */
+
+.grammar-candy-people__pattern {
+    margin-top: 24px;
+    padding: 22px;
+
+    background:
+        linear-gradient(135deg,
+            #f6f1fb,
+            #fbf9fd);
+
+    border: 1px solid #c9b8dc;
+    border-left: 5px solid #65439a;
+    border-radius: 10px;
+}
+
+.grammar-candy-people__pattern-label {
+    margin-bottom: 16px;
+
+    color: #65439a;
+
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.grammar-candy-people__pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.grammar-candy-people__pattern-grid>div {
+    display: grid;
+    gap: 6px;
+
+    padding: 18px;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    border: 1px solid #d6c9e4;
+    border-radius: 9px;
+}
+
+.grammar-candy-people__pattern-grid strong {
+    color: #5c3692;
+
+    font-size: 1.25rem;
+}
+
+.grammar-candy-people__pattern-grid span {
+    color: #4e5561;
+}
+
+.grammar-candy-people__pattern-grid em {
+    color: #176c63;
+
+    font-style: normal;
+    font-weight: 800;
+}
+
+
+/* ---------- DISCOVERIES COME TOGETHER ---------- */
+
+.grammar-candy-people__connections {
+    display: grid;
+    gap: 9px;
+
+    margin-top: 24px;
+    padding: 22px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #dfd2ad;
+    border-radius: 10px;
+}
+
+.grammar-candy-people__connections-label {
+    margin-bottom: 6px;
+
+    color: #9a6815;
+
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.grammar-candy-people__connection {
+    width: min(100%, 520px);
+    margin: 0 auto;
+    padding: 10px 16px;
+
+    color: #4f3478;
+    background: #f6f1fb;
+
+    border: 1px solid #c9b8dc;
+    border-radius: 8px;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.grammar-candy-people__connection-arrow {
+    color: #c79327;
+
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.grammar-candy-people__connection--result {
+    color: #ffffff;
+    background: #5c3692;
+    border-color: #5c3692;
+}
+
+
+/* ---------- TAKEAWAY ---------- */
+
+.grammar-candy-people__takeaway {
+    display: grid;
+    gap: 5px;
+
+    margin-top: 24px;
+    padding: 18px 20px;
+
+    background: #fff4cf;
+
+    border-left: 5px solid #c79327;
+    border-radius: 8px;
+}
+
+.grammar-candy-people__takeaway strong {
+    color: #704c10;
+
+    font-size: 1.05rem;
+}
+
+
+/* ---------- CURIOUS? ---------- */
+
+.grammar-candy-people__curious {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+
+    margin-top: 16px;
+    padding: 14px 18px;
+
+    background: #f8f5fb;
+
+    border: 1px dashed #9b7abb;
+    border-radius: 8px;
+
+    color: #51485c;
+}
+
+.grammar-candy-people__curious strong {
+    color: #5c3692;
+}
+
+/* ==========================================
+   DOOR 2 — EXPLORE MORE
+   FINAL OVERRIDES
+========================================== */
+
+.explore-more {
+    margin: 28px 0 10px;
+    padding: 26px 28px;
+
+    background: #f7f4fb;
+    border: 1px solid #d8cdea;
+    border-radius: 16px;
+
+    box-shadow: 0 4px 12px rgba(67, 48, 92, 0.10);
+}
+
+.explore-more__intro {
+    text-align: center;
+}
+
+.explore-more__intro .eyebrow {
+    color: #55447f;
+}
+
+.explore-more__intro .explore-section-heading {
+    margin: 6px 0 8px;
+    color: #174f4a;
+}
+
+.explore-more__intro p {
+    max-width: 700px;
+    margin: 0 auto 18px;
+
+    color: #53606d;
+    line-height: 1.6;
+}
+
+.explore-more .explore-more__button {
+    display: inline-block;
+    padding: 11px 22px;
+
+    background: #55447f;
+    color: #ffffff;
+
+    border: 1px solid #55447f;
+    border-radius: 999px;
+
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.explore-more .explore-more__button:hover,
+.explore-more .explore-more__button:focus-visible {
+    background: #443568;
+    border-color: #443568;
+    color: #ffffff;
+}
+
+.explore-more__reveal {
+    margin-top: 24px;
+}
+
+.explore-more__graphic {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 3
+   WHERE COULD THE CONVERSATION GO?
+========================================== */
+
+.explore-room--conversation .explore-room__header {
+    background:
+        linear-gradient(135deg, rgba(23, 108, 99, 0.10), transparent 60%),
+        #ffffff;
+}
+
+.explore-room__identity--conversation {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 500px);
+    gap: 32px;
+    align-items: center;
+}
+
+.conversation-door__discovery-prompt {
+    margin-top: 16px;
+    color: #536c67;
+    font-weight: 700;
+}
+
+.conversation-route {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 8px;
+    align-items: center;
+
+    padding: 22px;
+
+    background: #f7fbfa;
+    border: 1px solid #c9dfda;
+    border-radius: 14px;
+}
+
+.conversation-route__stop {
+    min-height: 92px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 7px;
+
+    padding: 12px 8px;
+
+    background: #ffffff;
+    border: 1px solid #b9d6d0;
+    border-radius: 10px;
+
+    color: #176c63;
+    font-size: .76rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-align: center;
+}
+
+.conversation-route__stop--open {
+    background: #f3eef9;
+    border-color: #c7b5dc;
+    color: #65439a;
+}
+
+.conversation-route__icon {
+    font-size: 1.75rem;
+}
+
+.conversation-route__arrow {
+    color: #8ba8a2;
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.conversation-discovery {
+    margin: 28px 0;
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #d4e4e1;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+}
+
+/* Discovery One — compare the familiar and new questions */
+
+.conversation-question-compare {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+
+    padding: 28px 34px;
+
+    background: #f7fbfa;
+    border-bottom: 1px solid #dceae7;
+}
+
+.conversation-question-card {
+    padding: 22px;
+
+    text-align: center;
+
+    background: #ffffff;
+    border: 1px solid #c9dfda;
+    border-radius: 12px;
+}
+
+.conversation-question-card--new {
+    border-top: 5px solid #65439a;
+}
+
+.conversation-question-card--known {
+    border-top: 5px solid #176c63;
+}
+
+.conversation-question-card__label {
+    margin-bottom: 10px;
+
+    color: #60766f;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.conversation-question-card__russian {
+    margin-bottom: 10px;
+
+    color: #164f5c;
+    font-size: 1.65rem;
+    font-weight: 900;
+}
+
+.conversation-question-card__context {
+    min-height: 32px;
+    margin-bottom: 14px;
+
+    color: #596d68;
+}
+
+.conversation-question-card .listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.conversation-question-card .listen:hover,
+.conversation-question-card .listen:focus-visible {
+    background: #12574f;
+    border-color: #12574f;
+}
+
+.conversation-look-closer {
+    margin: 0;
+}
+
+.conversation-clue-pairs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+
+    max-width: 720px;
+    margin: 18px auto 0;
+}
+
+.conversation-clue-pair {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 12px;
+    align-items: center;
+
+    padding: 16px;
+
+    background: #ffffff;
+    border: 1px solid #dfd4b9;
+    border-radius: 10px;
+}
+
+.conversation-clue-pair>span:first-child {
+    color: #81765e;
+    font-size: .72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.conversation-clue-pair strong {
+    color: #55401d;
+    font-size: 1.35rem;
+}
+
+.conversation-discovery__controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    margin-top: 14px;
+}
+
+.conversation-meaning {
+    margin-top: 22px;
+}
+
+.conversation-meaning__russian {
+    margin: 8px 0 3px;
+
+    color: #164f5c;
+    font-size: 1.7rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+.conversation-meaning__english {
+    margin-bottom: 14px;
+
+    color: #4f3478;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.conversation-meaning>p {
+    text-align: center;
+}
+
+.conversation-meaning .explore-more__button,
+.conversation-meaning .explore-grammar-candy {
+    display: block;
+    margin: 18px auto 0;
+}
+
+.conversation-mini-discovery {
+    margin: 18px auto 0;
+    padding: 18px 20px;
+    max-width: 760px;
+
+    background: #f7f4fb;
+    border: 1px solid #d8cdea;
+    border-radius: 12px;
+
+    color: #504365;
+    line-height: 1.55;
+}
+
+.conversation-mini-discovery>strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #55447f;
+}
+
+.conversation-mini-discovery--grammar {
+    background: #fffaf0;
+    border-color: #e1cc97;
+    color: #66552f;
+}
+
+.conversation-mini-discovery--grammar>strong {
+    color: #765619;
+}
+
+/* Discovery Two — follow the answer */
+
+.conversation-context-clue {
+    margin-top: 24px;
+}
+
+/* Discovery Three — language and authentic response */
+
+.conversation-language-cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: -6px 0 16px;
+    padding: 7px 12px;
+
+    background: #ffffff;
+    border: 1px solid #c9dfda;
+    border-radius: 999px;
+
+    color: #536c67;
+    font-size: .85rem;
+    font-weight: 800;
+}
+
+.conversation-clue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+
+    margin-top: 18px;
+}
+
+.conversation-clue-grid>div {
+    padding: 17px;
+
+    text-align: center;
+
+    background: #ffffff;
+    border: 1px solid #dfd4b9;
+    border-radius: 10px;
+}
+
+.conversation-clue-grid strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #55401d;
+    font-size: 1.35rem;
+}
+
+.conversation-clue-grid span {
+    color: #706650;
+}
+
+.conversation-ability {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+
+    margin: 22px 0;
+}
+
+.conversation-ability__choice {
+    min-height: 96px;
+    padding: 14px;
+
+    background: #ffffff;
+    border: 1px solid #9fcfc5;
+    border-radius: 10px;
+
+    color: #164f5c;
+}
+
+.conversation-ability__choice span {
+    display: block;
+
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.conversation-ability__choice small {
+    display: block;
+    margin-top: 6px;
+
+    color: #62736f;
+}
+
+.conversation-ability__choice.selected {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.conversation-ability__choice.selected small {
+    color: #ffffff;
+}
+
+.conversation-personal-response {
+    max-width: 620px;
+    margin: 20px auto;
+    padding: 20px;
+
+    text-align: center;
+
+    background: #edf8f2;
+    border: 1px solid #b6d9c4;
+    border-radius: 12px;
+}
+
+.conversation-personal-response__label {
+    color: #537164;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.conversation-personal-response__russian {
+    margin: 6px 0 2px;
+
+    color: #205c43;
+    font-size: 1.55rem;
+    font-weight: 900;
+}
+
+.conversation-personal-response__english {
+    margin-bottom: 12px;
+
+    color: #4e685d;
+    font-weight: 700;
+}
+
+.conversation-personal-response .listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.conversation-verb-compare {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    margin: 14px 0;
+}
+
+.conversation-verb-compare>div {
+    padding: 14px;
+
+    background: #ffffff;
+    border: 1px solid #dfcfaa;
+    border-radius: 9px;
+}
+
+.conversation-verb-compare span,
+.conversation-verb-compare small {
+    display: block;
+}
+
+.conversation-verb-compare span {
+    color: #765619;
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+.conversation-verb-compare small {
+    margin-top: 4px;
+    color: #75684b;
+}
+
+/* Door 3 payoff */
+
+.conversation-payoff {
+    margin: 30px 0 10px;
+    padding: 32px;
+
+    background:
+        linear-gradient(135deg, rgba(101, 67, 154, .08), transparent 58%),
+        #ffffff;
+
+    border: 1px solid #cbb8df;
+    border-top: 6px solid #65439a;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .07);
+}
+
+.conversation-payoff>.eyebrow {
+    color: #65439a;
+    text-align: center;
+}
+
+.conversation-payoff h3 {
+    margin: 5px 0 8px;
+
+    color: #174f4a;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.conversation-payoff__intro {
+    max-width: 760px;
+    margin: 0 auto 24px;
+
+    color: #59647d;
+    text-align: center;
+}
+
+.conversation-payoff__dialogue {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px;
+
+    display: grid;
+    gap: 9px;
+
+    background: #f7f8fc;
+    border: 1px solid #d9deea;
+    border-radius: 12px;
+}
+
+.conversation-payoff__turn {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    align-items: center;
+
+    max-width: 78%;
+    padding: 10px 14px;
+
+    background: #ffffff;
+    border: 1px solid #d4dfdc;
+    border-radius: 10px;
+
+    color: #164f5c;
+    font-size: 1.08rem;
+    font-weight: 800;
+}
+
+.conversation-payoff__turn--b {
+    justify-self: end;
+    width: 78%;
+
+    background: #f4effa;
+    border-color: #d4c4e5;
+    color: #4f3478;
+}
+
+.conversation-payoff__speaker {
+    width: 28px;
+    height: 28px;
+
+    display: grid;
+    place-items: center;
+
+    background: #176c63;
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: .74rem;
+    font-weight: 900;
+}
+
+.conversation-payoff__turn--b .conversation-payoff__speaker {
+    background: #65439a;
+}
+
+.conversation-payoff__actions {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 18px;
+}
+
+.conversation-payoff__listen {
+    background: #176c63;
+    border-color: #176c63;
+    color: #ffffff;
+}
+
+.conversation-payoff__reflection {
+    max-width: 780px;
+    margin: 24px auto 0;
+    padding: 20px 22px;
+
+    background: #fffaf0;
+    border: 1px solid #dfcfaa;
+    border-radius: 12px;
+
+    color: #66552f;
+}
+
+.conversation-payoff__reflection>strong {
+    color: #765619;
+    font-size: 1.1rem;
+}
+
+.conversation-payoff__reflection p {
+    margin: 6px 0 16px;
+}
+
+.conversation-payoff__path {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    color: #55447f;
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .04em;
+}
+
+.conversation-door-controls {
+    margin-top: 24px;
+}
+
+@media (max-width: 820px) {
+
+    .explore-room__identity--conversation {
+        grid-template-columns: 1fr;
+    }
+
+    .conversation-route {
+        grid-template-columns: 1fr;
+    }
+
+    .conversation-route__arrow {
+        transform: rotate(90deg);
+        text-align: center;
+    }
+
+    .conversation-question-compare,
+    .conversation-clue-pairs,
+    .conversation-pattern-notice,
+    .conversation-verb-compare {
+        grid-template-columns: 1fr;
+    }
+
+    .conversation-clue-pair {
+        grid-template-columns: 1fr auto auto auto;
+    }
+
+    .conversation-ability,
+    .conversation-clue-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conversation-payoff__turn,
+    .conversation-payoff__turn--b {
+        max-width: 94%;
+        width: 94%;
+    }
+}
+
+
+
+/* ==================================================
+   DOOR 3 — REUSABLE QUESTION WORDS + ГДЕ GRAMMAR CANDY
+================================================== */
+.question-words-explorer {
+    max-width: 900px;
+    padding: 24px;
+}
+
+.question-words-explorer__header {
+    text-align: center;
+}
+
+.question-words-explorer__header h4 {
+    margin: .25rem 0 .35rem;
+    color: #55447f;
+    font-size: 1.55rem;
+}
+
+.question-words-explorer__header p {
+    max-width: 700px;
+    margin: 0 auto 20px;
+}
+
+.question-words-explorer__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(250px, .8fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+.question-word-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.question-word-tile {
+    position: relative;
+    min-height: 92px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    border: 1px solid #cfc4df;
+    border-radius: 12px;
+    background: #fff;
+    color: #55447f;
+    box-shadow: 0 2px 7px #0000000d;
+}
+
+.question-word-tile strong {
+    font-size: 1.45rem;
+}
+
+.question-word-tile span {
+    font-size: .78rem;
+    color: #6e6380;
+}
+
+.question-word-tile:hover,
+.question-word-tile.selected {
+    background: #f1ebf8;
+    border-color: #8a6bb0;
+}
+
+.question-word-tile--featured {
+    border: 2px solid #d0a12d;
+    background: #fff9e8;
+}
+
+.question-word-tile--featured:hover,
+.question-word-tile--featured.selected {
+    background: #fff2c8;
+    border-color: #b98610;
+}
+
+.question-word-tile__featured {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    font-size: .56rem !important;
+    font-weight: 900;
+    letter-spacing: .08em;
+    color: #8a6410 !important;
+}
+
+.question-word-tile__candy {
+    position: absolute;
+    right: 7px;
+    top: 5px;
+    font-size: 1rem !important;
+}
+
+.question-word-info {
+    min-height: 296px;
+    padding: 20px;
+    border: 1px solid #d8cdea;
+    border-radius: 14px;
+    background: #fff;
+    display: grid;
+    align-items: center;
+}
+
+.question-word-info__prompt {
+    text-align: center;
+    color: #5c4d70;
+}
+
+.question-word-info__icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 10px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f1ebf8;
+    color: #65439a;
+    font-size: 1.7rem;
+    font-weight: 900;
+}
+
+.question-word-info__prompt strong {
+    display: block;
+    color: #55447f;
+    font-size: 1.15rem;
+}
+
+.question-word-info__detail {
+    align-self: start;
+}
+
+.question-word-info__detail h5 {
+    margin: 0;
+    color: #55447f;
+    font-size: 2rem;
+}
+
+.question-word-info__meaning {
+    margin: 0 0 14px;
+    color: #6d5b80;
+    font-weight: 800;
+}
+
+.question-word-info__example {
+    padding: 12px;
+    background: #f7f4fb;
+    border-radius: 9px;
+}
+
+.question-word-info__example strong {
+    display: block;
+    color: #176c63;
+    font-size: 1.1rem;
+}
+
+.question-word-info__note {
+    margin-bottom: 0;
+    font-size: .9rem;
+}
+
+.question-word-info__candy-button {
+    width: 100%;
+    margin-top: 14px;
+    background: #fff4ce;
+    border-color: #c99922;
+    color: #72530d;
+}
+
+.where-grammar-candy {
+    margin-top: 24px;
+    overflow: hidden;
+    border: 1px solid #d7c6e7;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 4px 14px #00000012;
+}
+
+.where-grammar-candy__banner {
+    padding: 12px 18px;
+    text-align: center;
+    background: linear-gradient(90deg, #5b3d91, #7755a8);
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: .06em;
+}
+
+.where-grammar-candy__banner span {
+    margin-left: 10px;
+    font-size: .72rem;
+    opacity: .9;
+}
+
+.where-grammar-candy>h4 {
+    margin: 18px 0 4px;
+    text-align: center;
+    color: #55447f;
+    font-size: 1.65rem;
+}
+
+.where-grammar-candy__question {
+    margin: 14px auto 20px;
+    max-width: 520px;
+    padding: 14px;
+    display: grid;
+    text-align: center;
+    border-radius: 12px;
+    background: #f7f4fb;
+}
+
+.where-grammar-candy__question .label {
+    color: #7755a8;
+}
+
+.where-grammar-candy__question strong {
+    color: #176c63;
+    font-size: 1.55rem;
+}
+
+.where-grammar-candy__section-label {
+    display: block;
+    margin: 16px 0 8px;
+    text-align: center;
+    color: #6b5980;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.where-person-choices,
+.where-place-choices {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 18px;
+}
+
+.where-person-choice {
+    min-width: 110px;
+    display: grid;
+}
+
+.where-person-choice strong {
+    font-size: 1.25rem;
+}
+
+.where-person-choice.selected,
+.where-candy-place.selected {
+    background: #65439a;
+    border-color: #65439a;
+    color: #fff;
+}
+
+.where-person-choice.selected span {
+    color: #fff;
+}
+
+.where-grammar-candy__watch {
+    max-width: 610px;
+    margin: 18px auto;
+    padding: 16px;
+    text-align: center;
+    background: #f4fbfa;
+    border: 1px solid #b9d8d3;
+    border-radius: 12px;
+}
+
+.where-live-pattern {
+    display: flex;
+    justify-content: center;
+    gap: .38em;
+    flex-wrap: wrap;
+    font-size: 1.75rem;
+    color: #176c63;
+}
+
+.where-live-pattern strong {
+    transition: transform .2s ease, background-color .2s ease;
+}
+
+.where-live-pattern .where-pattern-change {
+    animation: wherePatternPulse .45s ease;
+}
+
+@keyframes wherePatternPulse {
+    0% {
+        transform: scale(1)
+    }
+
+    45% {
+        transform: scale(1.12);
+        background: #fff0b9
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+.where-live-english {
+    margin-top: 4px;
+    color: #5c4d70;
+    font-weight: 700;
+}
+
+.where-grammar-candy__notice {
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 16px;
+    background: #fff9e8;
+    border: 1px solid #e5cd87;
+    border-radius: 12px;
+    text-align: center;
+    color: #66552f;
+}
+
+.where-grammar-candy__notice>strong {
+    color: #765619;
+}
+
+.where-grammar-candy__notice p {
+    margin: 5px 0 10px;
+}
+
+.where-grammar-candy__notice div {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-weight: 900;
+    color: #176c63;
+}
+
+.where-grammar-candy__notice small {
+    display: block;
+    margin-top: 10px;
+}
+
+.where-grammar-candy__result {
+    padding: 18px;
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    background: #f1ebf8;
+}
+
+.where-grammar-candy__result>span {
+    color: #65439a;
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.where-grammar-candy__result>strong {
+    color: #176c63;
+    font-size: 1.55rem;
+}
+
+.where-live-listen {
+    margin-top: 4px;
+}
+
+.where-candy-reset {
+    margin-top: 4px;
+    background: #fff;
+    border-color: #7755a8;
+    color: #65439a;
+}
+
+.where-candy-reset:hover {
+    background: #f7f4fb;
+}
+
+@media (max-width: 760px) {
+    .question-words-explorer__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .question-word-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==========================================
+   DOOR 3 — WHERE GRAMMAR CANDY
+   BOTTOM ACTION BUTTONS
+========================================== */
+
+.where-grammar-candy__actions {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+.where-grammar-candy__actions button {
+    min-height: 38px;
+    margin: 0;
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Primary action — Hear Your Russian */
+.where-grammar-candy__actions .where-live-listen {
+    background: #6c32a3;
+    color: #ffffff;
+    border: 1px solid #6c32a3;
+}
+
+.where-grammar-candy__actions .where-live-listen:hover {
+    background: #572783;
+    color: #ffffff;
+    border-color: #572783;
+}
+
+/* Secondary action — Reset Grammar Candy */
+.where-grammar-candy__actions #where-candy-reset {
+    background: #ffffff;
+    color: #6c32a3;
+    border: 1px solid #6c32a3;
+}
+
+.where-grammar-candy__actions #where-candy-reset:hover {
+    background: #f5effb;
+    color: #572783;
+    border-color: #572783;
+}
+
+/* ==================================================
+   DOOR 3 — ESSENTIAL VERBS + ГОВОРИТЬ GRAMMAR CANDY
+================================================== */
+.essential-verbs-explorer {
+    margin-top: 20px;
+    padding: 0 0 18px;
+    overflow: hidden;
+    border: 1px solid #d7c6e7;
+    border-radius: 16px;
+    background: #fbf9fe;
+}
+
+.essential-verbs-explorer__banner {
+    padding: 12px 18px;
+    text-align: center;
+    background: linear-gradient(90deg, #5b3d91, #7755a8);
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: .06em;
+}
+
+.essential-verbs-explorer__banner span {
+    margin-left: 10px;
+    font-size: .72rem;
+    opacity: .9;
+}
+
+.essential-verbs-explorer__header h4 {
+    margin: 18px 0 4px;
+    text-align: center;
+    color: #55447f;
+    font-size: 1.65rem;
+}
+
+.essential-verbs-explorer__header p {
+    max-width: 680px;
+    margin: 0 auto 20px;
+    padding: 0 18px;
+    text-align: center;
+    color: #5c4d70;
+}
+
+.essential-verbs-explorer__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(250px, .8fr);
+    gap: 18px;
+    padding: 0 20px;
+    align-items: stretch;
+}
+
+.essential-verb-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.essential-verb-tile {
+    position: relative;
+    min-height: 92px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    border: 1px solid #cfc4df;
+    border-radius: 12px;
+    background: #fff;
+    color: #55447f;
+    box-shadow: 0 2px 7px #0000000d;
+}
+
+.essential-verb-tile strong {
+    font-size: 1.25rem;
+}
+
+.essential-verb-tile span {
+    font-size: .76rem;
+    color: #6e6380;
+}
+
+.essential-verb-tile:hover,
+.essential-verb-tile.selected {
+    background: #f1ebf8;
+    border-color: #8a6bb0;
+}
+
+.essential-verb-tile--featured {
+    border: 2px solid #d0a12d;
+    background: #fff9e8;
+}
+
+.essential-verb-tile--featured:hover,
+.essential-verb-tile--featured.selected {
+    background: #fff2c8;
+    border-color: #b98610;
+}
+
+.essential-verb-tile__featured {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    font-size: .56rem !important;
+    font-weight: 900;
+    letter-spacing: .08em;
+    color: #8a6410 !important;
+}
+
+.essential-verb-tile__candy {
+    position: absolute;
+    right: 7px;
+    top: 5px;
+    font-size: 1rem !important;
+}
+
+.essential-verb-info {
+    min-height: 296px;
+    padding: 20px;
+    border: 1px solid #d8cdea;
+    border-radius: 14px;
+    background: #fff;
+    display: grid;
+    align-items: center;
+}
+
+.essential-verb-info__prompt {
+    text-align: center;
+    color: #5c4d70;
+}
+
+.essential-verb-info__icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 10px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f1ebf8;
+    color: #65439a;
+    font-size: 1.7rem;
+    font-weight: 900;
+}
+
+.essential-verb-info__prompt strong {
+    display: block;
+    color: #55447f;
+    font-size: 1.15rem;
+}
+
+.essential-verb-info__detail {
+    align-self: start;
+}
+
+.essential-verb-info__detail h5 {
+    margin: 0;
+    color: #55447f;
+    font-size: 2rem;
+}
+
+.essential-verb-info__meaning {
+    margin: 0 0 14px;
+    color: #6d5b80;
+    font-weight: 800;
+}
+
+.essential-verb-info__example {
+    padding: 12px;
+    background: #f7f4fb;
+    border-radius: 9px;
+}
+
+.essential-verb-info__example strong {
+    display: block;
+    color: #176c63;
+    font-size: 1.1rem;
+}
+
+.essential-verb-info__note {
+    margin-bottom: 0;
+    font-size: .9rem;
+}
+
+.essential-verb-info__candy-button {
+    width: 100%;
+    margin-top: 14px;
+    background: #fff4ce;
+    border-color: #c99922;
+    color: #72530d;
+}
+
+.speak-grammar-candy {
+    margin: 24px 20px 0;
+    overflow: hidden;
+    border: 1px solid #d7c6e7;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 4px 14px #00000012;
+}
+
+.speak-grammar-candy__banner {
+    padding: 12px 18px;
+    text-align: center;
+    background: linear-gradient(90deg, #5b3d91, #7755a8);
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: .06em;
+}
+
+.speak-grammar-candy__banner span {
+    margin-left: 10px;
+    font-size: .78rem;
+    opacity: .95;
+}
+
+.speak-grammar-candy>h4 {
+    margin: 18px 0 4px;
+    text-align: center;
+    color: #55447f;
+    font-size: 1.65rem;
+}
+
+.speak-grammar-candy__intro {
+    margin: 0 auto 14px;
+    text-align: center;
+    color: #6d5b80;
+}
+
+.speak-grammar-candy__section-label {
+    display: block;
+    margin: 16px 0 8px;
+    text-align: center;
+    color: #6b5980;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+
+.speak-person-choices,
+.speak-language-choices {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 18px;
+}
+
+.speak-person-choice {
+    min-width: 105px;
+    display: grid;
+}
+
+.speak-person-choice strong {
+    font-size: 1.25rem;
+}
+
+.speak-person-choice.selected,
+.speak-language-choice.selected {
+    background: #65439a;
+    border-color: #65439a;
+    color: #fff;
+}
+
+.speak-person-choice.selected span {
+    color: #fff;
+}
+
+.speak-grammar-candy__watch {
+    max-width: 650px;
+    margin: 18px auto;
+    padding: 16px;
+    text-align: center;
+    background: #f4fbfa;
+    border: 1px solid #b9d8d3;
+    border-radius: 12px;
+}
+
+.speak-live-pattern {
+    display: flex;
+    justify-content: center;
+    gap: .38em;
+    flex-wrap: wrap;
+    font-size: 1.8rem;
+    color: #176c63;
+}
+
+.speak-live-pattern strong {
+    transition: transform .2s ease, background-color .2s ease;
+}
+
+.speak-live-pattern .speak-pattern-change {
+    animation: speakPatternPulse .45s ease;
+}
+
+@keyframes speakPatternPulse {
+    0% {
+        transform: scale(1)
+    }
+
+    45% {
+        transform: scale(1.12);
+        background: #fff0b9
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+.speak-live-english {
+    margin-top: 4px;
+    color: #5c4d70;
+    font-weight: 700;
+}
+
+.speak-grammar-candy__notice {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 16px;
+    background: #fff9e8;
+    border: 1px solid #e5cd87;
+    border-radius: 12px;
+    text-align: center;
+    color: #66552f;
+}
+
+.speak-grammar-candy__notice>strong {
+    color: #765619;
+}
+
+.speak-grammar-candy__notice p {
+    margin: 5px 0 10px;
+}
+
+.speak-grammar-candy__notice div {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-weight: 900;
+    color: #176c63;
+}
+
+.speak-grammar-candy__notice small {
+    display: block;
+    margin-top: 10px;
+}
+
+.speak-grammar-candy__actions {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    margin: 10px 0 12px;
+    padding: 0 18px;
+    flex-wrap: wrap;
+}
+
+.speak-grammar-candy__actions button {
+    min-height: 38px;
+    margin: 0;
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.speak-grammar-candy__actions .speak-live-listen {
+    background: #6c32a3;
+    color: #fff;
+    border: 1px solid #6c32a3;
+}
+
+.speak-grammar-candy__actions .speak-live-listen:hover {
+    background: #572783;
+    color: #fff;
+    border-color: #572783;
+}
+
+.speak-grammar-candy__actions #speak-candy-reset {
+    background: #fff;
+    color: #6c32a3;
+    border: 1px solid #6c32a3;
+}
+
+.speak-grammar-candy__actions #speak-candy-reset:hover {
+    background: #f5effb;
+    color: #572783;
+    border-color: #572783;
+}
+
+@media (max-width: 760px) {
+    .essential-verbs-explorer__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .essential-verb-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .speak-grammar-candy {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+/* ==========================================
+   DOOR 3 — BOTTOM NAVIGATION BUTTONS
+========================================== */
+
+.conversation-door-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.conversation-door-controls .explore-return-hallway,
+.conversation-door-controls .explore-reset-room {
+    min-height: 40px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+/* Back to the Doors — secondary action */
+.conversation-door-controls .explore-return-hallway {
+    background: #ffffff;
+    color: #6c32a3;
+    border: 1px solid #6c32a3;
+}
+
+.conversation-door-controls .explore-return-hallway:hover {
+    background: #f5effb;
+    color: #572783;
+    border-color: #572783;
+}
+
+/* Restore This Door — primary utility action */
+.conversation-door-controls .explore-reset-room {
+    background: #6c32a3;
+    color: #ffffff;
+    border: 1px solid #6c32a3;
+}
+
+.conversation-door-controls .explore-reset-room:hover {
+    background: #572783;
+    color: #ffffff;
+    border-color: #572783;
+}
+
+/* ==========================================
+   DOOR 1 — КАК? GRAMMAR CANDY
+   Question Words uses the existing reusable
+   Door 3 Question Words styles above.
+========================================== */
+
+#personal-question-words-explorer {
+    margin-top: 20px;
+}
+
+.personal-kak-candy {
+    margin-top: 22px;
+    padding: 18px;
+    border: 1px solid #d7c7ef;
+    border-radius: 12px;
+    background: #fbf8ff;
+    text-align: center;
+}
+
+.personal-kak-candy__banner {
+    margin: -18px -18px 16px;
+    padding: 9px 14px;
+    border-radius: 12px 12px 0 0;
+    background: #6c32a3;
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: .08em;
+}
+
+.personal-kak-candy__banner span {
+    margin-left: 8px;
+    font-size: .78rem;
+    font-weight: 700;
+    opacity: .9;
+}
+
+.personal-kak-candy h4 {
+    margin: 6px 0;
+    color: #54308c;
+    font-size: 1.35rem;
+}
+
+.personal-kak-candy__intro {
+    margin: 0 auto 16px;
+    max-width: 680px;
+    color: #46546a;
+}
+
+.personal-kak-candy__switch {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.personal-kak-choice {
+    min-width: 180px;
+    border-color: #6c32a3;
+    color: #6c32a3;
+    background: #fff;
+}
+
+.personal-kak-choice.selected {
+    background: #6c32a3;
+    color: #fff;
+}
+
+.personal-kak-candy__graphic-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #e1d7ef;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.personal-kak-candy__graphic-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+.personal-kak-candy__graphic-wrap img.is-changing {
+    opacity: .2;
+    transform: scale(.985);
+}
+
+.personal-kak-candy__notice {
+    max-width: 720px;
+    margin: 16px auto 0;
+    padding: 14px 16px;
+    border: 1px solid #e4bd62;
+    border-radius: 9px;
+    background: #fff9ea;
+    color: #54401d;
+}
+
+.personal-kak-candy__notice>strong {
+    display: block;
+    color: #6c32a3;
+}
+
+.personal-kak-candy__notice p {
+    margin: 6px 0;
+}
+
+.personal-kak-candy__notice div {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-weight: 800;
+}
+
+.personal-kak-candy__notice small {
+    display: block;
+    margin-top: 8px;
+}
+
+.personal-kak-candy__actions {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.personal-kak-candy__actions button {
+    min-height: 38px;
+    margin: 0;
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.personal-kak-candy__actions .personal-kak-listen {
+    background: #6c32a3;
+    color: #fff;
+    border-color: #6c32a3;
+}
+
+.personal-kak-candy__actions .personal-kak-listen:hover {
+    background: #572783;
+    color: #fff;
+    border-color: #572783;
+}
+
+.personal-kak-candy__actions #personal-kak-reset {
+    background: #fff;
+    color: #6c32a3;
+    border-color: #6c32a3;
+}
+
+.personal-kak-candy__actions #personal-kak-reset:hover {
+    background: #f5effb;
+    color: #572783;
+    border-color: #572783;
+}
+
+@media (max-width: 700px) {
+    .personal-kak-candy__actions {
+        flex-direction: column;
+    }
+
+    .personal-kak-candy__actions button {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   DOOR 1 — KAK GRAMMAR CANDY
+   GRAPHIC DISPLAY SIZE
+========================================== */
+
+.personal-kak-candy__graphic-wrap img {
+    display: block;
+    width: 88%;
+    max-width: 620px;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* ==========================================
+   DOOR 1 — EXPLORE MORE BUTTON POSITION
+========================================== */
+
+#personal-explore-more-1 {
+    display: block;
+    width: fit-content;
+    margin: 14px auto 20px;
+}
+
+/* ==========================================
+   EXPLORE — DOOR 4
+   THE LANGUAGE LABORATORY — CORE
+========================================== */
+
+.explore-room__header--laboratory {
+    background: linear-gradient(135deg, #24124f, #4b2387);
+    color: #fff;
+}
+
+.explore-room__identity--laboratory {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: center;
+}
+
+.explore-room__header--laboratory .eyebrow,
+.explore-room__header--laboratory h2,
+.explore-room__header--laboratory p {
+    color: #fff;
+}
+
+.language-lab__opening-question {
+    font-size: 1.12rem;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.language-lab__symbol {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 330px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .1);
+}
+
+.language-lab__symbol span {
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .94);
+    color: #3c1d72;
+    font-weight: 900;
+}
+
+.language-lab__symbol strong {
+    color: #f4db73;
+}
+
+.language-lab__discovery {
+    border-top: 5px solid #6c32a3;
+}
+
+.language-lab__situation {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: #f7f2fc;
+    border: 1px solid #d9c9eb;
+    border-radius: 10px;
+}
+
+.language-lab__situation-label,
+.language-lab__because-label {
+    margin-bottom: 6px;
+    color: #6c32a3;
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+.language-lab__situation p {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 700;
+}
+
+.language-lab__pieces {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.language-lab__pieces span {
+    padding: 13px 15px;
+    border: 1px solid #d7dce5;
+    border-radius: 8px;
+    background: #fff;
+    color: #2c1c52;
+    font-size: 1.08rem;
+    font-weight: 800;
+}
+
+.language-lab__controls {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 4px;
+}
+
+.language-lab__reveal-button,
+.language-lab__final-button {
+    border-color: #6c32a3;
+    background: #6c32a3;
+    color: #fff;
+    padding: 10px 18px;
+}
+
+.language-lab__reveal-button:hover,
+.language-lab__final-button:hover {
+    background: #582789;
+}
+
+.language-lab__result {
+    margin-top: 20px;
+    padding: 22px;
+    border: 1px solid #cdb8e4;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fbf9fe, #f1e8fa);
+}
+
+.language-lab__russian {
+    margin: 8px 0 16px;
+    color: #351565;
+    font-size: 1.32rem;
+    line-height: 1.65;
+    font-weight: 800;
+}
+
+.language-lab__notice {
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid #dacbea;
+}
+
+.language-lab__because {
+    display: grid;
+    place-items: center;
+    margin: 20px auto;
+    padding: 18px;
+    max-width: 420px;
+    border: 2px solid #6c32a3;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.language-lab__because strong {
+    color: #6c32a3;
+    font-size: 2rem;
+}
+
+.language-lab__because span {
+    font-weight: 800;
+    color: #4f5b67;
+}
+
+.language-lab__equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin: 22px 0;
+}
+
+.language-lab__equation span {
+    padding: 10px 12px;
+    border: 1px solid #d4dce6;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 800;
+}
+
+.language-lab__equation .language-lab__equation-highlight {
+    border-color: #6c32a3;
+    background: #f0e5fa;
+    color: #55227f;
+}
+
+.language-lab__final {
+    max-width: 980px;
+    margin: 36px auto;
+    padding: 34px;
+    border: 2px solid #6c32a3;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(45, 20, 78, .12);
+}
+
+.language-lab__final>h3 {
+    margin: .2em 0;
+    color: #4c2178;
+    font-size: 2rem;
+}
+
+.language-lab__final-button {
+    display: block;
+    margin: 24px auto;
+    font-size: 1.05rem;
+}
+
+.language-lab__paragraph-stage {
+    margin-top: 26px;
+}
+
+.language-lab__you-can-read {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.language-lab__you-can-read span {
+    display: block;
+    color: #6c32a3;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: .05em;
+}
+
+.language-lab__you-can-read strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 1.25rem;
+}
+
+.language-lab__paragraph {
+    padding: 24px;
+    border-left: 6px solid #6c32a3;
+    border-radius: 10px;
+    background: #f8f4fc;
+}
+
+.language-lab__paragraph p {
+    margin: 0;
+    color: #29154a;
+    font-size: 1.35rem;
+    line-height: 1.75;
+    font-weight: 700;
+}
+
+.language-lab__paragraph-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+/* ==========================================
+   DOOR 4 — FINAL LABORATORY REVEAL BUTTONS
+========================================== */
+
+/* Paragraph actions — Hear the Paragraph / See What It Means */
+.language-lab__paragraph-actions button {
+    background: #ffffff;
+    color: #6c32a3;
+    border: 2px solid #6c32a3;
+    border-radius: 7px;
+    padding: 9px 16px;
+    font-weight: 800;
+}
+
+.language-lab__paragraph-actions button:hover,
+.language-lab__paragraph-actions button:focus-visible {
+    background: #f3ebfa;
+    color: #572783;
+    border-color: #572783;
+}
+
+.language-lab__meaning {
+    padding: 20px;
+    border-radius: 10px;
+    background: #f6f8fb;
+    border: 1px solid #d9e0e8;
+}
+
+.language-lab__meaning p {
+    margin-bottom: 0;
+    font-size: 1.08rem;
+}
+
+.language-lab__achievement {
+    display: grid;
+    gap: 5px;
+    margin-top: 22px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    background: #f0e5fa;
+    color: #3d1765;
+}
+
+.language-lab__achievement strong {
+    font-size: 1.3rem;
+}
+
+.language-lab__door-controls {
+    margin-top: 30px;
+}
+
+/* Door 4 navigation controls — quieter than learning actions */
+.language-lab__door-controls .explore-control-nav {
+    background: #ffffff;
+    color: #572783;
+    border: 1px solid #7b3db2;
+    border-radius: 7px;
+    padding: 9px 15px;
+    font-weight: 700;
+}
+
+.language-lab__door-controls .explore-control-nav:hover,
+.language-lab__door-controls .explore-control-nav:focus-visible {
+    background: #f5effb;
+    color: #4b1f70;
+    border-color: #572783;
+}
+
+@media (max-width: 760px) {
+    .explore-room__identity--laboratory {
+        grid-template-columns: 1fr;
+    }
+
+    .language-lab__pieces {
+        grid-template-columns: 1fr;
+    }
+
+    .language-lab__paragraph p {
+        font-size: 1.15rem;
+    }
+}
+
+
+
+/* ==========================================
+   EXPLORE — DOOR 4
+   LANGUAGE LABORATORY — ORDERING CHALLENGES
+========================================== */
+
+.language-lab__ordering {
+    margin: 22px 0 10px;
+    padding: 18px;
+    border: 1px solid #d9c9eb;
+    border-radius: 12px;
+    background: #fcfaff;
+}
+
+.language-lab__ordering-instructions {
+    display: grid;
+    gap: 3px;
+    margin-bottom: 14px;
+}
+
+.language-lab__ordering-instructions strong {
+    color: #4c2178;
+    font-size: 1.08rem;
+}
+
+.language-lab__ordering-instructions span {
+    color: #52606d;
+}
+
+.language-lab__piece-bank,
+.language-lab__drop-zone {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    min-height: 72px;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.language-lab__piece-bank {
+    border: 1px solid #d7dce5;
+    background: #fff;
+}
+
+.language-lab__drop-zone {
+    margin-top: 14px;
+    border: 2px dashed #a986ca;
+    background: #f6f0fb;
+    transition: border-color .16s ease, background-color .16s ease;
+}
+
+.language-lab__drop-zone.is-drag-over,
+.language-lab__piece-bank.is-drag-over {
+    border-color: #6c32a3;
+    background: #efe3f8;
+}
+
+.language-lab__drop-placeholder {
+    grid-column: 1 / -1;
+    align-self: center;
+    justify-self: center;
+    color: #735d87;
+    font-weight: 700;
+    text-align: center;
+}
+
+.language-lab__drag-piece {
+    width: 94%;
+    justify-self: center;
+    padding: 13px 15px;
+    border: 1px solid #cfc3dc;
+    border-radius: 8px;
+    background: #fff;
+    color: #2c1c52;
+    font-size: 1.08rem;
+    font-weight: 800;
+    text-align: left;
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(45, 20, 78, .06);
+    touch-action: none;
+}
+
+.language-lab__drag-piece:hover {
+    background: #f8f2fc;
+    border-color: #a986ca;
+}
+
+.language-lab__drag-piece:active,
+.language-lab__drag-piece.is-dragging {
+    cursor: grabbing;
+    opacity: .58;
+}
+
+.language-lab__drag-piece.is-correct {
+    border-color: #6aa278;
+    background: #f1f8f3;
+}
+
+.language-lab__ordering-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.language-lab__check-order {
+    border-color: #6c32a3;
+    background: #6c32a3;
+    color: #fff;
+}
+
+.language-lab__check-order:hover {
+    background: #582789;
+}
+
+.language-lab__show-order {
+    border-color: #8a72a3;
+    color: #5b3f73;
+    background: #fff;
+}
+
+.language-lab__ordering-feedback {
+    min-height: 26px;
+    margin-top: 12px;
+    text-align: center;
+    font-weight: 800;
+}
+
+.language-lab__ordering-feedback.good {
+    color: #1d7b3a;
+}
+
+.language-lab__ordering-feedback.bad {
+    color: #a85b00;
+}
+
+.language-lab__reveal-button:disabled {
+    opacity: .48;
+    cursor: not-allowed;
+}
+
+.language-lab__reveal-button:disabled:hover {
+    background: #6c32a3;
+}
+
+@media (max-width: 760px) {
+
+    .language-lab__piece-bank,
+    .language-lab__drop-zone {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   DOOR 4 — CONNECTED RUSSIAN LISTEN BUTTON
+========================================== */
+
+.language-lab__connected .listen {
+    display: block;
+    width: fit-content;
+    margin: 16px auto 4px;
+
+    background: #6f2da8;
+    color: #ffffff;
+    border: 1px solid #6f2da8;
+    border-radius: 7px;
+
+    padding: 9px 18px;
+    font-weight: 700;
+}
+
+.language-lab__connected .listen:hover {
+    background: #5d248f;
+    color: #ffffff;
+    border-color: #5d248f;
+}
+
+/* ==========================================
+   DOOR 4 — HEAR CONNECTED RUSSIAN BUTTONS
+========================================== */
+
+#explore-door-4 .language-lab__result>.listen {
+    display: block;
+    width: fit-content;
+    margin: 16px auto 8px;
+
+    background: #6f2da8;
+    color: #ffffff;
+    border: 1px solid #6f2da8;
+    border-radius: 7px;
+
+    padding: 9px 18px;
+    font-weight: 700;
+}
+
+#explore-door-4 .language-lab__result>.listen:hover {
+    background: #5d248f;
+    color: #ffffff;
+    border-color: #5d248f;
+}
+
+/* ==========================================
+   DOOR 4 — HEAR CONNECTED RUSSIAN
+========================================== */
+
+.language-lab__result .listen {
+    display: block;
+    width: fit-content;
+    margin: 16px auto 8px !important;
+
+    background: #6f2da8 !important;
+    color: #ffffff !important;
+    border: 1px solid #6f2da8 !important;
+    border-radius: 7px;
+
+    padding: 9px 18px;
+    font-weight: 700;
+}
+
+.language-lab__result .listen:hover {
+    background: #5d248f !important;
+    color: #ffffff !important;
+    border-color: #5d248f !important;
+}
+
+/* ==========================================
+   DOOR 4 — DISCOVERY 1 — GRAMMAR CANDY LANDING SPOT
+========================================== */
+
+.grammar-candy-landing {
+    margin-top: 24px;
+    padding: 22px;
+    border: 1px solid #d9c7ea;
+    border-top: 5px solid #6c32a3;
+    border-radius: 12px;
+    background: #fffaf0;
+    box-shadow: 0 3px 10px #00000010;
+}
+
+.grammar-candy-landing__header {
+    text-align: center;
+}
+
+.grammar-candy-landing__header .eyebrow {
+    color: #6c32a3;
+}
+
+.grammar-candy-landing__header h4 {
+    margin: 4px 0 6px;
+    color: #54237f;
+    font-size: 1.55rem;
+}
+
+.grammar-candy-landing__header p {
+    max-width: 760px;
+    margin: 0 auto 18px;
+    color: #4f5260;
+}
+
+.grammar-candy-landing__buttons {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.grammar-candy-choice {
+    min-height: 66px;
+    padding: 12px 14px;
+    border: 2px solid #6f2da8;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #5d248f;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.grammar-candy-choice:hover {
+    background: #f5edfb;
+}
+
+.grammar-candy-choice.is-active,
+.grammar-candy-choice[aria-pressed="true"] {
+    background: #6f2da8;
+    color: #ffffff;
+    border-color: #6f2da8;
+    box-shadow: 0 3px 8px #6f2da833;
+}
+
+.grammar-candy-display {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #dfd2ea;
+}
+
+.grammar-candy-card {
+    margin: 0;
+}
+
+.grammar-candy-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid #d9c7ea;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px #00000018;
+}
+
+/* Discovery 1 — one universal control closes whichever Grammar Candy is open. */
+.grammar-candy-collapse {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    border: 2px solid #6f2da8;
+    border-radius: 8px;
+    background: #6f2da8;
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 3px 8px #6f2da833;
+}
+
+.grammar-candy-collapse:hover,
+.grammar-candy-collapse:focus-visible {
+    background: #5d248f;
+    color: #ffffff;
+    border-color: #5d248f;
+}
+
+@media (max-width: 850px) {
+    .grammar-candy-landing__buttons {
+        grid-template-columns: 1fr;
+    }
+}

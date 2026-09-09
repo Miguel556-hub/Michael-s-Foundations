@@ -1179,8 +1179,8 @@ tabs.forEach((t) => {
     const challenge =
         stage.querySelector("#tree-1-challenge");
 
-    const completeCheckbox =
-        stage.querySelector("#tree-1-complete-checkbox");
+    const resetButton =
+        stage.querySelector("#tree-1-reset");
 
     const bankRoot =
         stage.querySelector("#tree-1-word-bank");
@@ -1303,8 +1303,9 @@ tabs.forEach((t) => {
     // The full tree is visible from the start (every box shows its clue),
     // but only one box at a time accepts clicks. The order is randomized
     // on every load — since all the clues are already on screen, the order
-    // solved doesn't change what there is to understand.
-    const order =
+    // solved doesn't change what there is to understand. `order` is `let`,
+    // not `const`, because Reset Stage reshuffles a fresh one.
+    let order =
         shuffle([...boxes]);
 
     let current = 0;
@@ -1404,6 +1405,54 @@ tabs.forEach((t) => {
 
 
     activateNext();
+
+
+    // Puts this Stage back to exactly how it looked on page load: every
+    // box unsolved with a fresh random order, the Кто это? step hidden
+    // again, and this Stage's own "done" styling removed. Doesn't touch
+    // any other Stage.
+    function resetStage() {
+
+        boxes.forEach((box) => {
+
+            box.classList.remove("tree-box--active", "tree-box--solved");
+            box.classList.add("tree-box--pending");
+            box.dataset.attempts = "0";
+
+            box.querySelector(".tree-box__help").hidden = true;
+
+            const feedback =
+                box.querySelector(".feedback");
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+
+            blanksOf(box).forEach((blank) => {
+                blank.classList.remove("is-filled");
+                blank.textContent = "______";
+            });
+
+        });
+
+        stage.classList.remove("tree-stage--done");
+
+        challenge.hidden = true;
+        challenge.querySelector("#tree-1-challenge-blanks").innerHTML = "";
+
+        challengeHandler = null;
+        activeBox = null;
+        current = 0;
+        order = shuffle([...boxes]);
+
+        activateNext();
+
+        document.dispatchEvent(
+            new CustomEvent("tree-stage-reset", { detail: { stage: 1 } })
+        );
+
+    }
+
+    resetButton?.addEventListener("click", resetStage);
 
 
     // ==================================================
@@ -1522,17 +1571,22 @@ tabs.forEach((t) => {
                 }
 
                 feedback.textContent =
-                    "That's right!";
+                    "That's right! On to the next part of your family.";
 
                 feedback.className =
                     "feedback good";
 
                 challengeHandler = null;
 
-                if (completeCheckbox) {
-                    completeCheckbox.checked = true;
-                    completeCheckbox.dispatchEvent(new Event("change"));
-                }
+                // This Stage is done — shrink it out of the way (the tree
+                // stays visible, just smaller). Stage 2 is already visible
+                // (Stages 1 and 2 don't depend on each other), so we just
+                // announce completion for the Stage 3 lock to hear.
+                stage.classList.add("tree-stage--done");
+
+                document.dispatchEvent(
+                    new CustomEvent("tree-stage-complete", { detail: { stage: 1 } })
+                );
 
             }
 
@@ -1616,6 +1670,1094 @@ tabs.forEach((t) => {
     }
 
 })();
+
+// ==================================================
+// USE — FAMILY TREE PUZZLE — STAGE 2: EXTENDED FAMILY
+// Same mechanic as Stage 1 — click-to-fill, one box active at a time in
+// random order, then prove it with a masculine and a feminine Кто это?.
+// ==================================================
+
+(() => {
+
+    const stage =
+        document.querySelector("#tree-stage-2");
+
+    if (!stage) {
+        return;
+    }
+
+    const boxes =
+        [...stage.querySelectorAll(".tree-box")];
+
+    const challenge =
+        stage.querySelector("#tree-2-challenge");
+
+    const resetButton =
+        stage.querySelector("#tree-2-reset");
+
+    const bankRoot =
+        stage.querySelector("#tree-2-word-bank");
+
+
+    function shuffle(arr) {
+
+        for (let i = arr.length - 1; i > 0; i--) {
+
+            const j =
+                Math.floor(Math.random() * (i + 1));
+
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+
+        }
+
+        return arr;
+
+    }
+
+
+    // дедушка and бабушка each answer two boxes here (father's father /
+    // mother's father both go to дедушка) — the bank buttons are reusable,
+    // so that's not a problem. Distractors follow the same two flavors as
+    // Stage 1: a plain look-alike typo (дедушока, бабушока).
+    const PIECES =
+        ["дедушка", "дедушока", "бабушка", "бабушока", "мой", "моя"];
+
+
+    let challengeHandler = null;
+
+    let activeBox = null;
+
+
+    function handleBankClick(word) {
+
+        if (challengeHandler) {
+            challengeHandler(word);
+            return;
+        }
+
+        if (!activeBox) {
+            return;
+        }
+
+        const blanks =
+            blanksOf(activeBox);
+
+        const openBlank =
+            blanks.find(
+                (b) => !b.classList.contains("is-filled") && b.dataset.accept === word
+            );
+
+        if (openBlank) {
+
+            openBlank.textContent = word;
+            openBlank.classList.add("is-filled");
+
+            if (isBoxSolved(activeBox)) {
+                lockBoxSolved(activeBox);
+            }
+
+            return;
+
+        }
+
+        const alreadySatisfied =
+            blanks.some(
+                (b) => b.classList.contains("is-filled") && b.dataset.accept === word
+            );
+
+        if (alreadySatisfied) {
+            return;
+        }
+
+        registerWrongAttempt(activeBox);
+
+    }
+
+
+    shuffle([...PIECES]).forEach((word) => {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+        button.dataset.value = word;
+        button.textContent = word;
+
+        button.addEventListener("click", () => {
+            handleBankClick(word);
+        });
+
+        bankRoot.appendChild(button);
+
+    });
+
+
+    function blanksOf(box) {
+        return [...box.querySelectorAll(".use-blank")];
+    }
+
+
+    function isBoxSolved(box) {
+        return blanksOf(box).every((b) => b.classList.contains("is-filled"));
+    }
+
+
+    // `order` is `let`, not `const`, because Reset Stage reshuffles a
+    // fresh one.
+    let order =
+        shuffle([...boxes]);
+
+    let current = 0;
+
+
+    function activateNext() {
+
+        if (current >= order.length) {
+
+            activeBox = null;
+            startChallenge();
+            return;
+
+        }
+
+        activeBox = order[current];
+
+        activeBox.classList.remove("tree-box--pending");
+        activeBox.classList.add("tree-box--active");
+
+    }
+
+
+    function lockBoxSolved(box) {
+
+        box.classList.remove("tree-box--active");
+        box.classList.add("tree-box--solved");
+
+        box.querySelector(".tree-box__help").hidden = true;
+        box.querySelector(".feedback").textContent = "";
+
+        current++;
+        activateNext();
+
+    }
+
+
+    function registerWrongAttempt(box) {
+
+        const attempts =
+            Number(box.dataset.attempts) + 1;
+
+        box.dataset.attempts = String(attempts);
+
+        const feedback =
+            box.querySelector(".feedback");
+
+        feedback.textContent =
+            "Not quite — try again.";
+
+        feedback.className =
+            "feedback bad";
+
+        if (attempts >= 2) {
+            box.querySelector(".tree-box__help").hidden = false;
+        }
+
+    }
+
+
+    boxes.forEach((box) => {
+
+        box.classList.add("tree-box--pending");
+        box.dataset.attempts = "0";
+
+        box.querySelector(".tree-box__hint")
+            ?.addEventListener("click", () => {
+
+                const feedback =
+                    box.querySelector(".feedback");
+
+                feedback.textContent =
+                    box.dataset.hint || "";
+
+                feedback.className =
+                    "feedback hint";
+
+            });
+
+        box.querySelector(".tree-box__escape")
+            ?.addEventListener("click", () => {
+
+                blanksOf(box).forEach((blank) => {
+
+                    if (!blank.classList.contains("is-filled")) {
+                        blank.textContent = blank.dataset.accept;
+                        blank.classList.add("is-filled");
+                    }
+
+                });
+
+                lockBoxSolved(box);
+
+            });
+
+    });
+
+
+    activateNext();
+
+
+    // Puts this Stage back to exactly how it looked on page load: every
+    // box unsolved with a fresh random order, the Кто это? step hidden
+    // again, and this Stage's own "done" styling removed. Doesn't touch
+    // any other Stage.
+    function resetStage() {
+
+        boxes.forEach((box) => {
+
+            box.classList.remove("tree-box--active", "tree-box--solved");
+            box.classList.add("tree-box--pending");
+            box.dataset.attempts = "0";
+
+            box.querySelector(".tree-box__help").hidden = true;
+
+            const feedback =
+                box.querySelector(".feedback");
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+
+            blanksOf(box).forEach((blank) => {
+                blank.classList.remove("is-filled");
+                blank.textContent = "______";
+            });
+
+        });
+
+        stage.classList.remove("tree-stage--done");
+
+        challenge.hidden = true;
+        challenge.querySelector("#tree-2-challenge-blanks").innerHTML = "";
+
+        challengeHandler = null;
+        activeBox = null;
+        current = 0;
+        order = shuffle([...boxes]);
+
+        activateNext();
+
+        document.dispatchEvent(
+            new CustomEvent("tree-stage-reset", { detail: { stage: 2 } })
+        );
+
+    }
+
+    resetButton?.addEventListener("click", resetStage);
+
+
+    function startChallenge() {
+
+        challenge.hidden = false;
+
+        const masculine =
+            boxes.filter((b) => b.dataset.possessive === "мой");
+
+        const feminine =
+            boxes.filter((b) => b.dataset.possessive === "моя");
+
+        const pickOne =
+            (list) => list[Math.floor(Math.random() * list.length)];
+
+        const targets =
+            shuffle([pickOne(masculine), pickOne(feminine)]);
+
+        let round = 0;
+
+
+        function runRound() {
+
+            const target =
+                targets[round];
+
+            round++;
+
+            challenge.querySelector("#tree-2-round").textContent =
+                `Question ${round} of ${targets.length}`;
+
+            const targetClue =
+                target.querySelector(".tree-box__clue").textContent;
+
+            challenge.querySelector("#tree-2-target").textContent =
+                `→ ${targetClue}`;
+
+            const possessive =
+                target.dataset.possessive;
+
+            const phraseWords =
+                blanksOf(target).map((b) => b.dataset.accept);
+
+            const blanksHost =
+                challenge.querySelector("#tree-2-challenge-blanks");
+
+            blanksHost.innerHTML = "";
+
+            function makeBlank(accept) {
+
+                const blank =
+                    document.createElement("button");
+
+                blank.type = "button";
+                blank.className = "use-blank";
+                blank.dataset.accept = accept;
+                blank.textContent = "______";
+
+                blanksHost.appendChild(blank);
+
+                return blank;
+
+            }
+
+            const possBlank =
+                makeBlank(possessive);
+
+            const phraseBlanks =
+                phraseWords.map(makeBlank);
+
+            const challengeBlanks =
+                [possBlank, ...phraseBlanks];
+
+            const feedback =
+                challenge.querySelector(".feedback");
+
+            const help =
+                challenge.querySelector(".tree-challenge__help");
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+            help.hidden = true;
+
+            let attempts = 0;
+
+
+            function checkComplete() {
+
+                if (!challengeBlanks.every((b) => b.classList.contains("is-filled"))) {
+                    return;
+                }
+
+                help.hidden = true;
+
+                if (round < targets.length) {
+
+                    feedback.textContent =
+                        "Right! Now the other one.";
+
+                    feedback.className =
+                        "feedback good";
+
+                    runRound();
+                    return;
+
+                }
+
+                feedback.textContent =
+                    "That's right! Stage 2 complete.";
+
+                feedback.className =
+                    "feedback good";
+
+                challengeHandler = null;
+
+                // This Stage is done — shrink it out of the way (the tree
+                // stays visible, just smaller). Stage 3 stays locked until
+                // Stage 1 is ALSO done — the lock panel's own listener
+                // handles that, we just announce completion here.
+                stage.classList.add("tree-stage--done");
+
+                document.dispatchEvent(
+                    new CustomEvent("tree-stage-complete", { detail: { stage: 2 } })
+                );
+
+            }
+
+
+            challengeHandler = (word) => {
+
+                const openBlank =
+                    challengeBlanks.find(
+                        (b) => !b.classList.contains("is-filled") && b.dataset.accept === word
+                    );
+
+                if (openBlank) {
+
+                    openBlank.textContent = word;
+                    openBlank.classList.add("is-filled");
+
+                    checkComplete();
+                    return;
+
+                }
+
+                const alreadySatisfied =
+                    challengeBlanks.some(
+                        (b) => b.classList.contains("is-filled") && b.dataset.accept === word
+                    );
+
+                if (alreadySatisfied) {
+                    return;
+                }
+
+                attempts++;
+
+                feedback.textContent =
+                    "Not quite — try again.";
+
+                feedback.className =
+                    "feedback bad";
+
+                if (attempts >= 2) {
+                    help.hidden = false;
+                }
+
+            };
+
+
+            help.querySelector(".tree-challenge__hint").onclick = () => {
+
+                const genderWord =
+                    possessive === "мой" ? "masculine" : "feminine";
+
+                feedback.textContent =
+                    `Hint: “${phraseWords.join(" ")}” is ${genderWord} — that decides мой or моя.`;
+
+                feedback.className =
+                    "feedback hint";
+
+            };
+
+            help.querySelector(".tree-challenge__escape").onclick = () => {
+
+                challengeBlanks.forEach((blank) => {
+
+                    if (!blank.classList.contains("is-filled")) {
+                        blank.textContent = blank.dataset.accept;
+                        blank.classList.add("is-filled");
+                    }
+
+                });
+
+                checkComplete();
+
+            };
+
+        }
+
+        runRound();
+
+    }
+
+})();
+
+
+// ==================================================
+// USE — FAMILY TREE PUZZLE — STAGE 3: YOUR DAD'S FAMILY
+// (TOTAL RECALL CAPSTONE)
+// Same mechanic again. This is the last Stage — solving it checks the
+// overall "Family Tree Puzzle" completion box, which lives at the end
+// of this Stage's markup rather than its own.
+// ==================================================
+
+(() => {
+
+    const stage =
+        document.querySelector("#tree-stage-3");
+
+    if (!stage) {
+        return;
+    }
+
+    const boxes =
+        [...stage.querySelectorAll(".tree-box")];
+
+    const challenge =
+        stage.querySelector("#tree-3-challenge");
+
+    const completeCheckbox =
+        stage.querySelector("#tree-complete-checkbox");
+
+    const resetButton =
+        stage.querySelector("#tree-3-reset");
+
+    const bankRoot =
+        stage.querySelector("#tree-3-word-bank");
+
+
+    function shuffle(arr) {
+
+        for (let i = arr.length - 1; i > 0; i--) {
+
+            const j =
+                Math.floor(Math.random() * (i + 1));
+
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+
+        }
+
+        return arr;
+
+    }
+
+
+    // брат/сестра reuse the exact same distractors as Stage 1 (брать,
+    // сестора) — same words, same confusion, no reason to invent new ones.
+    // двоюродный/двоюродная get an akanye-style distractor (о written as
+    // а) — a real, common beginner spelling slip in unstressed syllables,
+    // not just a random typo.
+    const PIECES =
+        ["дядя", "дяддя", "тётя", "тёття",
+            "двоюродный", "двоюрадный", "двоюродная", "двоюрадная",
+            "брат", "брать", "сестра", "сестора",
+            "мой", "моя"];
+
+
+    let challengeHandler = null;
+
+    let activeBox = null;
+
+
+    function handleBankClick(word) {
+
+        if (challengeHandler) {
+            challengeHandler(word);
+            return;
+        }
+
+        if (!activeBox) {
+            return;
+        }
+
+        const blanks =
+            blanksOf(activeBox);
+
+        const openBlank =
+            blanks.find(
+                (b) => !b.classList.contains("is-filled") && b.dataset.accept === word
+            );
+
+        if (openBlank) {
+
+            openBlank.textContent = word;
+            openBlank.classList.add("is-filled");
+
+            if (isBoxSolved(activeBox)) {
+                lockBoxSolved(activeBox);
+            }
+
+            return;
+
+        }
+
+        const alreadySatisfied =
+            blanks.some(
+                (b) => b.classList.contains("is-filled") && b.dataset.accept === word
+            );
+
+        if (alreadySatisfied) {
+            return;
+        }
+
+        registerWrongAttempt(activeBox);
+
+    }
+
+
+    shuffle([...PIECES]).forEach((word) => {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+        button.dataset.value = word;
+        button.textContent = word;
+
+        button.addEventListener("click", () => {
+            handleBankClick(word);
+        });
+
+        bankRoot.appendChild(button);
+
+    });
+
+
+    function blanksOf(box) {
+        return [...box.querySelectorAll(".use-blank")];
+    }
+
+
+    function isBoxSolved(box) {
+        return blanksOf(box).every((b) => b.classList.contains("is-filled"));
+    }
+
+
+    // `order` is `let`, not `const`, because Reset Stage reshuffles a
+    // fresh one.
+    let order =
+        shuffle([...boxes]);
+
+    let current = 0;
+
+
+    function activateNext() {
+
+        if (current >= order.length) {
+
+            activeBox = null;
+            startChallenge();
+            return;
+
+        }
+
+        activeBox = order[current];
+
+        activeBox.classList.remove("tree-box--pending");
+        activeBox.classList.add("tree-box--active");
+
+    }
+
+
+    function lockBoxSolved(box) {
+
+        box.classList.remove("tree-box--active");
+        box.classList.add("tree-box--solved");
+
+        box.querySelector(".tree-box__help").hidden = true;
+        box.querySelector(".feedback").textContent = "";
+
+        current++;
+        activateNext();
+
+    }
+
+
+    function registerWrongAttempt(box) {
+
+        const attempts =
+            Number(box.dataset.attempts) + 1;
+
+        box.dataset.attempts = String(attempts);
+
+        const feedback =
+            box.querySelector(".feedback");
+
+        feedback.textContent =
+            "Not quite — try again.";
+
+        feedback.className =
+            "feedback bad";
+
+        if (attempts >= 2) {
+            box.querySelector(".tree-box__help").hidden = false;
+        }
+
+    }
+
+
+    boxes.forEach((box) => {
+
+        box.classList.add("tree-box--pending");
+        box.dataset.attempts = "0";
+
+        box.querySelector(".tree-box__hint")
+            ?.addEventListener("click", () => {
+
+                const feedback =
+                    box.querySelector(".feedback");
+
+                feedback.textContent =
+                    box.dataset.hint || "";
+
+                feedback.className =
+                    "feedback hint";
+
+            });
+
+        box.querySelector(".tree-box__escape")
+            ?.addEventListener("click", () => {
+
+                blanksOf(box).forEach((blank) => {
+
+                    if (!blank.classList.contains("is-filled")) {
+                        blank.textContent = blank.dataset.accept;
+                        blank.classList.add("is-filled");
+                    }
+
+                });
+
+                lockBoxSolved(box);
+
+            });
+
+    });
+
+
+    activateNext();
+
+
+    // Puts this Stage back to exactly how it looked on page load: every
+    // box unsolved with a fresh random order, the Кто это? step hidden
+    // again, and this Stage's own "done" styling removed. Doesn't touch
+    // any other Stage. Stage 3's reset also unchecks the overall "Family
+    // Tree Puzzle Complete" checkbox if it was checked — resetting the
+    // capstone means the puzzle genuinely isn't complete anymore.
+    function resetStage() {
+
+        boxes.forEach((box) => {
+
+            box.classList.remove("tree-box--active", "tree-box--solved");
+            box.classList.add("tree-box--pending");
+            box.dataset.attempts = "0";
+
+            box.querySelector(".tree-box__help").hidden = true;
+
+            const feedback =
+                box.querySelector(".feedback");
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+
+            blanksOf(box).forEach((blank) => {
+                blank.classList.remove("is-filled");
+                blank.textContent = "______";
+            });
+
+        });
+
+        stage.classList.remove("tree-stage--done");
+
+        challenge.hidden = true;
+        challenge.querySelector("#tree-3-challenge-blanks").innerHTML = "";
+
+        challengeHandler = null;
+        activeBox = null;
+        current = 0;
+        order = shuffle([...boxes]);
+
+        activateNext();
+
+        if (completeCheckbox && completeCheckbox.checked) {
+            completeCheckbox.checked = false;
+            completeCheckbox.dispatchEvent(new Event("change"));
+        }
+
+        document.dispatchEvent(
+            new CustomEvent("tree-stage-reset", { detail: { stage: 3 } })
+        );
+
+    }
+
+    resetButton?.addEventListener("click", resetStage);
+
+
+    function startChallenge() {
+
+        challenge.hidden = false;
+
+        const masculine =
+            boxes.filter((b) => b.dataset.possessive === "мой");
+
+        const feminine =
+            boxes.filter((b) => b.dataset.possessive === "моя");
+
+        const pickOne =
+            (list) => list[Math.floor(Math.random() * list.length)];
+
+        const targets =
+            shuffle([pickOne(masculine), pickOne(feminine)]);
+
+        let round = 0;
+
+
+        function runRound() {
+
+            const target =
+                targets[round];
+
+            round++;
+
+            challenge.querySelector("#tree-3-round").textContent =
+                `Question ${round} of ${targets.length}`;
+
+            const targetClue =
+                target.querySelector(".tree-box__clue").textContent;
+
+            challenge.querySelector("#tree-3-target").textContent =
+                `→ ${targetClue}`;
+
+            const possessive =
+                target.dataset.possessive;
+
+            const phraseWords =
+                blanksOf(target).map((b) => b.dataset.accept);
+
+            const blanksHost =
+                challenge.querySelector("#tree-3-challenge-blanks");
+
+            blanksHost.innerHTML = "";
+
+            function makeBlank(accept) {
+
+                const blank =
+                    document.createElement("button");
+
+                blank.type = "button";
+                blank.className = "use-blank";
+                blank.dataset.accept = accept;
+                blank.textContent = "______";
+
+                blanksHost.appendChild(blank);
+
+                return blank;
+
+            }
+
+            const possBlank =
+                makeBlank(possessive);
+
+            const phraseBlanks =
+                phraseWords.map(makeBlank);
+
+            const challengeBlanks =
+                [possBlank, ...phraseBlanks];
+
+            const feedback =
+                challenge.querySelector(".feedback");
+
+            const help =
+                challenge.querySelector(".tree-challenge__help");
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+            help.hidden = true;
+
+            let attempts = 0;
+
+
+            function checkComplete() {
+
+                if (!challengeBlanks.every((b) => b.classList.contains("is-filled"))) {
+                    return;
+                }
+
+                help.hidden = true;
+
+                if (round < targets.length) {
+
+                    feedback.textContent =
+                        "Right! Now the other one.";
+
+                    feedback.className =
+                        "feedback good";
+
+                    runRound();
+                    return;
+
+                }
+
+                feedback.textContent =
+                    "That's right! You've built the whole family tree.";
+
+                feedback.className =
+                    "feedback good";
+
+                challengeHandler = null;
+
+                stage.classList.add("tree-stage--done");
+
+                if (completeCheckbox) {
+                    completeCheckbox.checked = true;
+                    completeCheckbox.dispatchEvent(new Event("change"));
+                }
+
+                document.dispatchEvent(
+                    new CustomEvent("tree-stage-complete", { detail: { stage: 3 } })
+                );
+
+            }
+
+
+            challengeHandler = (word) => {
+
+                const openBlank =
+                    challengeBlanks.find(
+                        (b) => !b.classList.contains("is-filled") && b.dataset.accept === word
+                    );
+
+                if (openBlank) {
+
+                    openBlank.textContent = word;
+                    openBlank.classList.add("is-filled");
+
+                    checkComplete();
+                    return;
+
+                }
+
+                const alreadySatisfied =
+                    challengeBlanks.some(
+                        (b) => b.classList.contains("is-filled") && b.dataset.accept === word
+                    );
+
+                if (alreadySatisfied) {
+                    return;
+                }
+
+                attempts++;
+
+                feedback.textContent =
+                    "Not quite — try again.";
+
+                feedback.className =
+                    "feedback bad";
+
+                if (attempts >= 2) {
+                    help.hidden = false;
+                }
+
+            };
+
+
+            help.querySelector(".tree-challenge__hint").onclick = () => {
+
+                const genderWord =
+                    possessive === "мой" ? "masculine" : "feminine";
+
+                feedback.textContent =
+                    `Hint: “${phraseWords.join(" ")}” is ${genderWord} — that decides мой or моя.`;
+
+                feedback.className =
+                    "feedback hint";
+
+            };
+
+            help.querySelector(".tree-challenge__escape").onclick = () => {
+
+                challengeBlanks.forEach((blank) => {
+
+                    if (!blank.classList.contains("is-filled")) {
+                        blank.textContent = blank.dataset.accept;
+                        blank.classList.add("is-filled");
+                    }
+
+                });
+
+                checkComplete();
+
+            };
+
+        }
+
+        runRound();
+
+    }
+
+})();
+
+
+// ==================================================
+// USE — VARIATION 1 COORDINATOR
+// Stage 1 and Stage 2 are independent and both visible
+// from page load. Stage 3 (the capstone) stays behind a
+// manual "Reveal Stage 3" button, which unlocks only once
+// BOTH Stage 1 and Stage 2 have been completed. Once
+// revealed, Stage 3 stays revealed even if Stage 1 or 2 is
+// later reset — this only tracks whether the button itself
+// should be enabled, and unchecks the overall "complete"
+// checkbox whenever any stage is reset.
+// ==================================================
+
+(() => {
+
+    const lockPanel =
+        document.querySelector("#tree-3-lock");
+
+    const revealButton =
+        document.querySelector("#tree-3-reveal");
+
+    const lockNote =
+        document.querySelector("#tree-3-lock-note");
+
+    const stage3 =
+        document.querySelector("#tree-stage-3");
+
+    const completeCheckbox =
+        document.querySelector("#tree-complete-checkbox");
+
+    if (!lockPanel || !revealButton || !stage3) {
+        return;
+    }
+
+    const done = { 1: false, 2: false };
+
+
+    function updateLock() {
+
+        const ready = done[1] && done[2];
+
+        revealButton.disabled = !ready;
+
+        if (lockNote) {
+            lockNote.textContent = ready
+                ? "Ready — click to begin the capstone."
+                : "Complete Stage 1 and Stage 2 to unlock this stage.";
+        }
+
+    }
+
+
+    document.addEventListener("tree-stage-complete", (event) => {
+
+        const stageNum = event.detail?.stage;
+
+        if (stageNum === 1 || stageNum === 2) {
+            done[stageNum] = true;
+            updateLock();
+        }
+
+    });
+
+
+    document.addEventListener("tree-stage-reset", (event) => {
+
+        const stageNum = event.detail?.stage;
+
+        if (stageNum === 1 || stageNum === 2) {
+            done[stageNum] = false;
+            updateLock();
+        }
+
+        // Any stage resetting means the whole puzzle is genuinely no
+        // longer complete — uncheck the overall box if it was checked.
+        if (completeCheckbox && completeCheckbox.checked) {
+            completeCheckbox.checked = false;
+            completeCheckbox.dispatchEvent(new Event("change"));
+        }
+
+    });
+
+
+    revealButton.addEventListener("click", () => {
+
+        lockPanel.hidden = true;
+        stage3.hidden = false;
+        stage3.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    });
+
+
+    updateLock();
+
+})();
+
+
 
 
 

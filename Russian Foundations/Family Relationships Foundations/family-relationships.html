@@ -1247,8 +1247,7 @@ LESSON 2 — EXTENDED FAMILY
             </button>
 
             <button type="button" class="owner-choice" data-lyubit-subject="он/она"
-              data-lyubit-sentence="Он/Она любит свою семью."
-              data-lyubit-english="He/She loves his/her own family.">
+              data-lyubit-sentence="Он/Она любит свою семью." data-lyubit-english="He/She loves his/her own family.">
               он/она <span>he/she</span>
             </button>
 
@@ -1875,8 +1874,13 @@ LESSON 2 — EXTENDED FAMILY
           tree in Russian, one relationship at a time, then prove you understand it.</p>
 
         <article class="use-variation tree-stage" id="variation-1">
-          <div class="use-variation__eyebrow">Stage 1 — Immediate Family</div>
-          <h3>Immediate Family</h3>
+          <div class="tree-stage__header">
+            <div>
+              <div class="use-variation__eyebrow">Stage 1 — Immediate Family</div>
+              <h3>Immediate Family</h3>
+            </div>
+            <button type="button" class="tree-stage__reset" id="tree-1-reset">Reset Stage 1</button>
+          </div>
           <p class="use-variation__identity">Every box below is part of your family. Solve them one at a time — in
             whatever order they light up — by clicking the right piece out of the word bank below. Watch for
             words that look right but aren't.</p>
@@ -1990,16 +1994,201 @@ LESSON 2 — EXTENDED FAMILY
             </div>
           </div> <!-- END tree-1-challenge -->
 
-          <label class="completion">
-            <input type="checkbox" class="variation-complete" data-variation="1" id="tree-1-complete-checkbox">
-            Mark Family Tree Puzzle Complete
-          </label>
-
         </article> <!-- END Stage 1 — Immediate Family -->
 
-        <!-- NEXT: Stage 2 (Extended Family) and Stage 3 (Your Dad's Family) build here,
-             as sibling <article class="use-variation tree-stage"> elements using the same
-             tree-grid / tree-box / tree-challenge pattern. Not built yet. -->
+        <article class="use-variation tree-stage" id="tree-stage-2">
+          <div class="tree-stage__header">
+            <div>
+              <div class="use-variation__eyebrow">Stage 2 — Extended Family</div>
+              <h3>Extended Family</h3>
+            </div>
+            <button type="button" class="tree-stage__reset" id="tree-2-reset">Reset Stage 2</button>
+          </div>
+          <p class="use-variation__identity">Each grandparent is labeled by whose side of the family they're
+            on — trace it back one generation to work out what they are to you. Stage 1 and Stage 2 don't
+            depend on each other — solve them in either order.</p>
+
+          <div class="tree-grid" id="tree-2-grid" aria-label="Family tree — Extended Family">
+
+            <div class="tree-box" data-possessive="мой"
+              data-hint="This is your father's father — that makes him your дедушка.">
+              <div class="tree-box__clue">Отец's Father</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="дедушка">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+            <div class="tree-box" data-possessive="моя"
+              data-hint="This is your father's mother — that makes her your бабушка.">
+              <div class="tree-box__clue">Отец's Mother</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="бабушка">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+            <div class="tree-box" data-possessive="мой"
+              data-hint="This is your mother's father — that makes him your дедушка too.">
+              <div class="tree-box__clue">Мать's Father</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="дедушка">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+            <div class="tree-box" data-possessive="моя"
+              data-hint="This is your mother's mother — that makes her your бабушка too.">
+              <div class="tree-box__clue">Мать's Mother</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="бабушка">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+          </div> <!-- END tree-2-grid -->
+
+          <div class="use-word-bank" aria-label="Russian word bank">
+            <div class="use-word-bank__title">Word Bank</div>
+            <p class="use-word-bank__note">Some of these look right but aren't — read carefully before you
+              click.</p>
+            <div class="use-word-bank__buttons" id="tree-2-word-bank"></div>
+          </div> <!-- END tree-2 word bank -->
+
+          <div class="tree-challenge" id="tree-2-challenge" hidden>
+            <h4>Кто это?</h4>
+            <div class="tree-challenge__round" id="tree-2-round"></div>
+            <div class="tree-challenge__arrow" id="tree-2-target"></div>
+            <p class="tree-challenge__prompt">Это <span id="tree-2-challenge-blanks"></span><span
+                class="use-punctuation">?</span></p>
+            <div class="feedback" aria-live="polite"></div>
+            <div class="tree-challenge__help" hidden>
+              <button type="button" class="tree-challenge__hint">Hint</button>
+              <button type="button" class="tree-challenge__escape">Escape Hatch</button>
+            </div>
+          </div> <!-- END tree-2-challenge -->
+
+        </article> <!-- END Stage 2 — Extended Family -->
+
+        <div class="tree-stage-lock" id="tree-3-lock">
+          <div class="use-variation__eyebrow">Stage 3 — Your Dad's Family (Total Recall Capstone)</div>
+          <h3>Your Dad's Family</h3>
+          <p class="tree-stage-lock__note" id="tree-3-lock-note">Complete Stage 1 and Stage 2 to unlock this
+            stage.</p>
+          <button type="button" class="tree-stage-lock__button" id="tree-3-reveal" disabled>Reveal Stage 3</button>
+        </div> <!-- END tree-3-lock -->
+
+        <article class="use-variation tree-stage" id="tree-stage-3" hidden>
+          <div class="tree-stage__header">
+            <div>
+              <div class="use-variation__eyebrow">Stage 3 — Your Dad's Family (Total Recall Capstone)</div>
+              <h3>Your Dad's Family</h3>
+            </div>
+            <button type="button" class="tree-stage__reset" id="tree-3-reset">Reset Stage 3</button>
+          </div>
+          <p class="use-variation__identity">Same tracing logic, one generation further — and the cousin boxes
+            belong to дядя, not тётя.</p>
+
+          <div class="tree-grid" id="tree-3-grid" aria-label="Family tree — Your Dad's Family">
+
+            <div class="tree-box" data-possessive="мой"
+              data-hint="This is your father's brother — that makes him your дядя.">
+              <div class="tree-box__clue">Отец's Brother</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="дядя">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+            <div class="tree-box" data-possessive="моя"
+              data-hint="This is your father's sister — that makes her your тётя.">
+              <div class="tree-box__clue">Отец's Sister</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="тётя">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+            <div class="tree-box" data-possessive="мой"
+              data-hint="This is дядя's son — not your son, your cousin. Combine “cousin” (двоюродный) with “brother” (брат).">
+              <div class="tree-box__clue">Дядя's Son</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="двоюродный">______</button>
+                <button type="button" class="use-blank" data-accept="брат">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+            <div class="tree-box" data-possessive="моя"
+              data-hint="This is дядя's daughter — your cousin. Combine “cousin” (двоюродная) with “sister” (сестра).">
+              <div class="tree-box__clue">Дядя's Daughter</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="двоюродная">______</button>
+                <button type="button" class="use-blank" data-accept="сестра">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+          </div> <!-- END tree-3-grid -->
+
+          <div class="use-word-bank" aria-label="Russian word bank">
+            <div class="use-word-bank__title">Word Bank</div>
+            <p class="use-word-bank__note">Some of these look right but aren't — read carefully before you
+              click.</p>
+            <div class="use-word-bank__buttons" id="tree-3-word-bank"></div>
+          </div> <!-- END tree-3 word bank -->
+
+          <div class="tree-challenge" id="tree-3-challenge" hidden>
+            <h4>Кто это?</h4>
+            <div class="tree-challenge__round" id="tree-3-round"></div>
+            <div class="tree-challenge__arrow" id="tree-3-target"></div>
+            <p class="tree-challenge__prompt">Это <span id="tree-3-challenge-blanks"></span><span
+                class="use-punctuation">?</span></p>
+            <div class="feedback" aria-live="polite"></div>
+            <div class="tree-challenge__help" hidden>
+              <button type="button" class="tree-challenge__hint">Hint</button>
+              <button type="button" class="tree-challenge__escape">Escape Hatch</button>
+            </div>
+          </div> <!-- END tree-3-challenge -->
+
+          <label class="completion">
+            <input type="checkbox" class="variation-complete" data-variation="1" id="tree-complete-checkbox">
+            Mark Family Tree Puzzles Complete
+          </label>
+
+        </article> <!-- END Stage 3 — Your Dad's Family -->
 
         <!-- ==================================================
              VARIATION 2 — THE LISTENING ROOM

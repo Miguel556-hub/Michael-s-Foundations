@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Four Doors | Michael's Foundations</title>
+    <link rel="stylesheet" href="four-doors.css">
+</head>
+<body>
+
+    <!-- ==================================================
+         MICHAEL'S FOUNDATIONS
+         FOUR DOORS — PORTABLE COMPONENT
+         Reference architecture extracted from
+         Greetings & Introductions EXPLORE
+    ================================================== -->
+
+    <main class="four-doors" id="four-doors-component">
+
+        <!-- ==================================================
+             FOUR DOORS — THRESHOLD / HALLWAY
+        ================================================== -->
+        <section class="four-doors__threshold" id="four-doors-threshold" aria-labelledby="four-doors-heading">
+
+            <div class="four-doors__intro">
+                <div class="four-doors__eyebrow">What Else Can I Discover?</div>
+                <h1 id="four-doors-heading">You've learned a lot. Now you're free to explore.</h1>
+                <p>
+                    Choose any door that makes you curious. You can explore one,
+                    several, all of them, come back later, or leave whenever you're satisfied.
+                </p>
+            </div>
+
+            <div class="four-doors__grid" aria-label="Four exploration doors">
+
+                <button type="button"
+                    class="four-doors__door"
+                    data-four-door="1"
+                    aria-controls="four-doors-room-1"
+                    aria-expanded="false">
+                    <span class="four-doors__knob" aria-hidden="true"></span>
+                    <span class="four-doors__door-title">Door 1</span>
+                </button>
+
+                <button type="button"
+                    class="four-doors__door"
+                    data-four-door="2"
+                    aria-controls="four-doors-room-2"
+                    aria-expanded="false">
+                    <span class="four-doors__knob" aria-hidden="true"></span>
+                    <span class="four-doors__door-title">Door 2</span>
+                </button>
+
+                <button type="button"
+                    class="four-doors__door"
+                    data-four-door="3"
+                    aria-controls="four-doors-room-3"
+                    aria-expanded="false">
+                    <span class="four-doors__knob" aria-hidden="true"></span>
+                    <span class="four-doors__door-title">Door 3</span>
+                </button>
+
+                <button type="button"
+                    class="four-doors__door"
+                    data-four-door="4"
+                    aria-controls="four-doors-room-4"
+                    aria-expanded="false">
+                    <span class="four-doors__knob" aria-hidden="true"></span>
+                    <span class="four-doors__door-title">Door 4</span>
+                </button>
+
+            </div> <!-- END Four Doors grid -->
+
+            <p class="four-doors__status" id="four-doors-status" aria-live="polite"></p>
+
+        </section> <!-- END Four Doors threshold -->
+
+
+        <!-- ==================================================
+             FOUR DOORS — ROOM 1 CONTENT SLOT
+             Replace only the content inside .four-doors__room-content
+             when integrating into a Foundation.
+        ================================================== -->
+        <section class="four-doors__room" id="four-doors-room-1" data-four-room="1" tabindex="-1" hidden>
+            <header class="four-doors__room-header">
+                <div class="four-doors__eyebrow">DOOR 1</div>
+                <h2>Door 1 Content</h2>
+                <p>This is the Foundation-specific content area for Door 1.</p>
+            </header>
+
+            <div class="four-doors__room-content">
+                <p>Replace this placeholder with the learning experience assigned to Door 1.</p>
+            </div>
+
+            <div class="four-doors__room-controls">
+                <button type="button" class="four-doors__return">← Back to the Doors</button>
+            </div>
+        </section> <!-- END Four Doors Room 1 -->
+
+
+        <!-- ==================================================
+             FOUR DOORS — ROOM 2 CONTENT SLOT
+        ================================================== -->
+        <section class="four-doors__room" id="four-doors-room-2" data-four-room="2" tabindex="-1" hidden>
+            <header class="four-doors__room-header">
+                <div class="four-doors__eyebrow">DOOR 2</div>
+                <h2>Door 2 Content</h2>
+                <p>This is the Foundation-specific content area for Door 2.</p>
+            </header>
+
+            <div class="four-doors__room-content">
+                <p>Replace this placeholder with the learning experience assigned to Door 2.</p>
+            </div>
+
+            <div class="four-doors__room-controls">
+                <button type="button" class="four-doors__return">← Back to the Doors</button>
+            </div>
+        </section> <!-- END Four Doors Room 2 -->
+
+
+        <!-- ==================================================
+             FOUR DOORS — ROOM 3 CONTENT SLOT
+        ================================================== -->
+        <section class="four-doors__room" id="four-doors-room-3" data-four-room="3" tabindex="-1" hidden>
+            <header class="four-doors__room-header">
+                <div class="four-doors__eyebrow">DOOR 3</div>
+                <h2>Door 3 Content</h2>
+                <p>This is the Foundation-specific content area for Door 3.</p>
+            </header>
+
+            <div class="four-doors__room-content">
+                <p>Replace this placeholder with the learning experience assigned to Door 3.</p>
+            </div>
+
+            <div class="four-doors__room-controls">
+                <button type="button" class="four-doors__return">← Back to the Doors</button>
+            </div>
+        </section> <!-- END Four Doors Room 3 -->
+
+
+        <!-- ==================================================
+             FOUR DOORS — ROOM 4 CONTENT SLOT
+        ================================================== -->
+        <section class="four-doors__room" id="four-doors-room-4" data-four-room="4" tabindex="-1" hidden>
+            <header class="four-doors__room-header">
+                <div class="four-doors__eyebrow">DOOR 4</div>
+                <h2>Door 4 Content</h2>
+                <p>This is the Foundation-specific content area for Door 4.</p>
+            </header>
+
+            <div class="four-doors__room-content">
+                <p>Replace this placeholder with the learning experience assigned to Door 4.</p>
+            </div>
+
+            <div class="four-doors__room-controls">
+                <button type="button" class="four-doors__return">← Back to the Doors</button>
+            </div>
+        </section> <!-- END Four Doors Room 4 -->
+
+    </main> <!-- END Four Doors portable component -->
+
+    <script src="four-doors.js"></script>
+</body>
+</html>
