@@ -1158,772 +1158,466 @@ tabs.forEach((t) => {
 
 
 // ==================================================
-// USE — VARIATION 1: YOU MEET SOMEONE
-// BUILD → CHECK → HEAR → BE MICHAEL → CHANGE
+// USE — FAMILY TREE PUZZLE — STAGE 1: IMMEDIATE FAMILY
+// REVEAL THE EVIDENCE -> SOLVE THE RELATIONSHIP -> PROVE YOU UNDERSTAND THE TREE
+// Click-to-fill word bank — no typing, so spelling and Cyrillic input
+// are never the obstacle. The reasoning is still the whole exercise.
 // ==================================================
 
 (() => {
 
-    const root =
+    const stage =
         document.querySelector("#variation-1");
 
-    if (!root) {
+    if (!stage) {
         return;
     }
 
-    const blanks =
-        [...root.querySelectorAll(".use-blank")];
+    const boxes =
+        [...stage.querySelectorAll(".tree-box")];
 
-    const bankButtons =
-        [...root.querySelectorAll(".use-word-bank__buttons button")];
+    const challenge =
+        stage.querySelector("#tree-1-challenge");
 
-    const nameInput =
-        root.querySelector("#use-learner-name");
+    const completeCheckbox =
+        stage.querySelector("#tree-1-complete-checkbox");
 
-    const nameOutputs =
-        [...root.querySelectorAll("[data-name-output]")];
-
-    const feedback =
-        root.querySelector("#variation-1-feedback");
-
-    const builderStep =
-        root.querySelector("#variation-1-builder");
-
-    const revealStep =
-        root.querySelector("#variation-1-reveal");
-
-    const finishedBox =
-        root.querySelector("#use-finished-conversation");
-
-    const roleplayStep =
-        root.querySelector("#variation-1-roleplay");
-
-    const roleplayStatus =
-        root.querySelector("#use-roleplay-status");
-
-    const roleplayLine =
-        root.querySelector("#use-roleplay-line");
-
-    const roleplayNext =
-        root.querySelector(".use-roleplay-next");
-
-    const roleplayStop =
-        root.querySelector(".use-roleplay-stop");
-
-    let activeBlank = null;
-    let roleplayTurns = [];
-    let roleplayIndex = 0;
-    let roleplayRunning = false;
+    const bankRoot =
+        stage.querySelector("#tree-1-word-bank");
 
 
-    // ------------------------------------------
-    // PERSONAL NAME
-    // ------------------------------------------
+    function shuffle(arr) {
 
-    function updatePersonalName() {
+        for (let i = arr.length - 1; i > 0; i--) {
 
-        const learnerName =
-            nameInput.value.trim() || "Michael";
+            const j =
+                Math.floor(Math.random() * (i + 1));
 
-        nameOutputs.forEach((node) => {
-            node.textContent = learnerName;
-        });
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+
+        }
+
+        return arr;
 
     }
 
-    nameInput.addEventListener(
-        "input",
-        updatePersonalName
-    );
 
-    updatePersonalName();
+    // Every real piece the tree needs, each paired with a distractor that
+    // looks right but isn't — either a real Russian word one letter off
+    // (мать/мат, брат/брать), or a spelling that breaks an actual rule
+    // (младшый instead of младший). Both flavors train close reading,
+    // not just recall.
+    const PIECES =
+        ["отец", "отес", "мать", "мат", "брат", "брать", "сестра", "сестора",
+            "старший", "старшый", "младший", "младшый",
+            "старшая", "старшыя", "младшая", "младшыя",
+            "мой", "моя"];
 
 
-    // ------------------------------------------
-    // BLANK SELECTION
-    // ------------------------------------------
+    // Set once Stage 1's boxes are all solved — while it's non-null, bank
+    // clicks route to the Кто это? challenge instead of to a tree box.
+    let challengeHandler = null;
 
-    function selectBlank(blank) {
+    let activeBox = null;
 
-        activeBlank = blank;
 
-        blanks.forEach((b) => {
-            b.classList.toggle(
-                "is-active",
-                b === blank
+    // A bank click either fills the current target's next open blank
+    // (correct), does nothing (the piece is already satisfied there — no
+    // penalty for a redundant click), or counts as a wrong attempt.
+    function handleBankClick(word) {
+
+        if (challengeHandler) {
+            challengeHandler(word);
+            return;
+        }
+
+        if (!activeBox) {
+            return;
+        }
+
+        const blanks =
+            blanksOf(activeBox);
+
+        const openBlank =
+            blanks.find(
+                (b) => !b.classList.contains("is-filled") && b.dataset.accept === word
             );
-        });
+
+        if (openBlank) {
+
+            openBlank.textContent = word;
+            openBlank.classList.add("is-filled");
+
+            if (isBoxSolved(activeBox)) {
+                lockBoxSolved(activeBox);
+            }
+
+            return;
+
+        }
+
+        const alreadySatisfied =
+            blanks.some(
+                (b) => b.classList.contains("is-filled") && b.dataset.accept === word
+            );
+
+        if (alreadySatisfied) {
+            return;
+        }
+
+        registerWrongAttempt(activeBox);
 
     }
 
-    blanks.forEach((blank) => {
 
-        blank.addEventListener("click", () => {
-            selectBlank(blank);
-        });
+    // ---- Build the shared word bank (shuffled once per page load) ----
 
-    });
+    shuffle([...PIECES]).forEach((word) => {
 
+        const button =
+            document.createElement("button");
 
-    // ------------------------------------------
-    // WORD BANK → ACTIVE BLANK
-    // ------------------------------------------
-
-    bankButtons.forEach((button) => {
+        button.type = "button";
+        button.dataset.value = word;
+        button.textContent = word;
 
         button.addEventListener("click", () => {
-
-            if (!activeBlank) {
-
-                feedback.textContent =
-                    "Choose a blank in the conversation first.";
-
-                feedback.className =
-                    "use-feedback bad";
-
-                return;
-            }
-
-            const value =
-                button.dataset.value;
-
-            const accepted =
-                activeBlank.dataset.accept
-                    .split("|")
-                    .map((x) => normalize(x));
-
-            // A bank item may only be placed where it can make sense.
-            if (!accepted.includes(normalize(value))) {
-
-                feedback.textContent =
-                    "That word belongs somewhere else in the conversation. Try another blank.";
-
-                feedback.className =
-                    "use-feedback bad";
-
-                activeBlank.classList.add("is-error");
-
-                return;
-            }
-
-            activeBlank.textContent = value;
-            activeBlank.dataset.value = value;
-
-            activeBlank.classList.remove(
-                "is-error",
-                "is-good",
-                "is-active"
-            );
-
-            activeBlank.classList.add("is-filled");
-
-            feedback.textContent = "";
-            feedback.className = "use-feedback";
-
-            activeBlank = null;
-
+            handleBankClick(word);
         });
+
+        bankRoot.appendChild(button);
 
     });
 
 
-    // ------------------------------------------
-    // CLEAR ONE BLANK
-    // ------------------------------------------
+    function blanksOf(box) {
+        return [...box.querySelectorAll(".use-blank")];
+    }
 
-    root
-        .querySelector(".use-clear-selection")
-        .addEventListener("click", () => {
 
-            if (!activeBlank) {
+    function isBoxSolved(box) {
+        return blanksOf(box).every((b) => b.classList.contains("is-filled"));
+    }
+
+
+    // The full tree is visible from the start (every box shows its clue),
+    // but only one box at a time accepts clicks. The order is randomized
+    // on every load — since all the clues are already on screen, the order
+    // solved doesn't change what there is to understand.
+    const order =
+        shuffle([...boxes]);
+
+    let current = 0;
+
+
+    function activateNext() {
+
+        if (current >= order.length) {
+
+            activeBox = null;
+            startChallenge();
+            return;
+
+        }
+
+        activeBox = order[current];
+
+        activeBox.classList.remove("tree-box--pending");
+        activeBox.classList.add("tree-box--active");
+
+    }
+
+
+    function lockBoxSolved(box) {
+
+        box.classList.remove("tree-box--active");
+        box.classList.add("tree-box--solved");
+
+        box.querySelector(".tree-box__help").hidden = true;
+        box.querySelector(".feedback").textContent = "";
+
+        current++;
+        activateNext();
+
+    }
+
+
+    function registerWrongAttempt(box) {
+
+        const attempts =
+            Number(box.dataset.attempts) + 1;
+
+        box.dataset.attempts = String(attempts);
+
+        const feedback =
+            box.querySelector(".feedback");
+
+        feedback.textContent =
+            "Not quite — try again.";
+
+        feedback.className =
+            "feedback bad";
+
+        if (attempts >= 2) {
+            box.querySelector(".tree-box__help").hidden = false;
+        }
+
+    }
+
+
+    boxes.forEach((box) => {
+
+        box.classList.add("tree-box--pending");
+        box.dataset.attempts = "0";
+
+        box.querySelector(".tree-box__hint")
+            ?.addEventListener("click", () => {
+
+                const feedback =
+                    box.querySelector(".feedback");
 
                 feedback.textContent =
-                    "Choose the blank you want to clear.";
+                    box.dataset.hint || "";
 
                 feedback.className =
-                    "use-feedback bad";
+                    "feedback hint";
 
-                return;
-            }
-
-            activeBlank.textContent =
-                activeBlank.dataset.optional === "true"
-                    ? "optional"
-                    : "__________";
-
-            delete activeBlank.dataset.value;
-
-            activeBlank.classList.remove(
-                "is-filled",
-                "is-error",
-                "is-good",
-                "is-active"
-            );
-
-            activeBlank = null;
-
-            feedback.textContent = "";
-            feedback.className = "use-feedback";
-
-        });
-
-
-    // ------------------------------------------
-    // VALIDATION
-    // ------------------------------------------
-
-    function blankValue(slot) {
-
-        const blank =
-            root.querySelector(
-                `.use-blank[data-slot="${slot}"]`
-            );
-
-        return blank?.dataset.value || "";
-
-    }
-
-
-    function validateConversation() {
-
-        let ok = true;
-
-        blanks.forEach((blank) => {
-
-            blank.classList.remove(
-                "is-error",
-                "is-good"
-            );
-
-            const value =
-                blank.dataset.value || "";
-
-            const optional =
-                blank.dataset.optional === "true";
-
-            const accepted =
-                blank.dataset.accept
-                    .split("|")
-                    .map((x) => normalize(x));
-
-            if (!value && optional) {
-                return;
-            }
-
-            const valid =
-                value &&
-                accepted.includes(
-                    normalize(value)
-                );
-
-            blank.classList.add(
-                valid ? "is-good" : "is-error"
-            );
-
-            if (!valid) {
-                ok = false;
-            }
-
-        });
-
-
-        // "Всё" must be completed as "Всё хорошо".
-        const firstResponse =
-            normalize(
-                blankValue("how-response")
-            );
-
-        const secondResponse =
-            normalize(
-                blankValue("response-second")
-            );
-
-        const secondBlank =
-            root.querySelector(
-                '.use-blank[data-slot="response-second"]'
-            );
-
-        if (
-            firstResponse === normalize("Всё") &&
-            secondResponse !== normalize("хорошо")
-        ) {
-
-            secondBlank.classList.add("is-error");
-            secondBlank.classList.remove("is-good");
-            ok = false;
-
-        }
-
-        if (
-            firstResponse !== normalize("Всё") &&
-            secondResponse
-        ) {
-
-            secondBlank.classList.add("is-error");
-            secondBlank.classList.remove("is-good");
-            ok = false;
-
-        }
-
-
-        // Keep the fuller "с вами" introduction on the formal path.
-        const register =
-            normalize(
-                blankValue("name-register")
-            );
-
-        const meetResponse =
-            normalize(
-                blankValue("meet-response")
-            );
-
-        const meetBlank =
-            root.querySelector(
-                '.use-blank[data-slot="meet-response"]'
-            );
-
-        if (
-            register === normalize("тебя") &&
-            meetResponse ===
-            normalize("Приятно с вами познакомиться")
-        ) {
-
-            meetBlank.classList.add("is-error");
-            meetBlank.classList.remove("is-good");
-            ok = false;
-
-        }
-
-
-        if (!nameInput.value.trim()) {
-            ok = false;
-            nameInput.focus();
-        }
-
-        return ok;
-
-    }
-
-
-    // ------------------------------------------
-    // CONVERSATION MODEL
-    // The learner's stored choices drive reveal,
-    // listening, role play, and later changes.
-    // ------------------------------------------
-
-    function buildConversationModel() {
-
-        const learnerName =
-            nameInput.value.trim() || "Michael";
-
-        const response1 =
-            blankValue("how-response");
-
-        const response2 =
-            blankValue("response-second");
-
-        const thanks =
-            blankValue("thanks");
-
-        const responsePieces =
-            [response1, response2]
-                .filter(Boolean)
-                .join(" ");
-
-        const responseText =
-            thanks
-                ? `${responsePieces}, ${thanks}.`
-                : `${responsePieces}.`;
-
-        return [
-            {
-                speaker: "person",
-                label: "Ваня",
-                text:
-                    `${blankValue("person-greeting")}!`
-            },
-            {
-                speaker: "learner",
-                label: "You",
-                text:
-                    `${blankValue("learner-greeting")}!`
-            },
-            {
-                speaker: "person",
-                label: "Ваня",
-                text:
-                    `Как ${blankValue("name-register")} зовут?`
-            },
-            {
-                speaker: "learner",
-                label: "You",
-                text:
-                    `Меня зовут ${learnerName}.`
-            },
-            {
-                speaker: "person",
-                label: "Ваня",
-                text:
-                    "Меня зовут Ваня."
-            },
-            {
-                speaker: "person",
-                label: "Ваня",
-                text:
-                    "Как дела?"
-            },
-            {
-                speaker: "learner",
-                label: "You",
-                text:
-                    responseText
-            },
-            {
-                speaker: "person",
-                label: "Ваня",
-                text:
-                    `${blankValue("meet-response")}!`
-            },
-            {
-                speaker: "learner",
-                label: "You",
-                text:
-                    `${blankValue("learner-meet-response")}!`
-            },
-            {
-                speaker: "learner",
-                label: "You",
-                text:
-                    `${blankValue("closing")}!`
-            },
-            {
-                speaker: "person",
-                label: "Ваня",
-                text:
-                    `${blankValue("person-closing")}!`
-            }
-        ];
-
-    }
-
-
-    function renderFinishedConversation(model) {
-
-        finishedBox.innerHTML = "";
-
-        model.forEach((turn) => {
-
-            const row =
-                document.createElement("div");
-
-            row.className =
-                "use-finished-line";
-
-            row.dataset.speaker =
-                turn.speaker;
-
-            const who =
-                document.createElement("strong");
-
-            who.textContent =
-                turn.label;
-
-            const line =
-                document.createElement("span");
-
-            line.textContent =
-                turn.text;
-
-            row.append(
-                who,
-                line
-            );
-
-            finishedBox.appendChild(row);
-
-        });
-
-    }
-
-
-    // ------------------------------------------
-    // CHECK MY CONVERSATION
-    // ------------------------------------------
-
-    root
-        .querySelector(".use-check-conversation")
-        .addEventListener("click", () => {
-
-            const ok =
-                validateConversation();
-
-            if (!ok) {
-
-                feedback.textContent =
-                    "Almost. The orange blanks need another look. Remember: if you choose Всё, build Всё хорошо. Also keep с вами on the polite/formal path.";
-
-                feedback.className =
-                    "use-feedback bad";
-
-                return;
-            }
-
-            const model =
-                buildConversationModel();
-
-            renderFinishedConversation(model);
-
-            feedback.textContent =
-                "Your conversation works. You built a complete exchange that makes sense.";
-
-            feedback.className =
-                "use-feedback good";
-
-            revealStep.hidden = false;
-
-            revealStep.scrollIntoView(
-                {
-                    behavior: "smooth",
-                    block: "start"
-                }
-            );
-
-        });
-
-
-    // ------------------------------------------
-    // HEAR MY CONVERSATION
-    // ------------------------------------------
-
-    root
-        .querySelector(".use-hear-conversation")
-        .addEventListener("click", async () => {
-
-            const model =
-                buildConversationModel();
-
-            if (!("speechSynthesis" in window)) {
-                return;
-            }
-
-            speechSynthesis.cancel();
-
-            const speakOne =
-                (text) =>
-                    new Promise((resolve) => {
-
-                        const u =
-                            new SpeechSynthesisUtterance(
-                                text
-                            );
-
-                        u.lang = "ru-RU";
-                        u.rate = 0.86;
-
-                        const voices =
-                            speechSynthesis.getVoices();
-
-                        const russianVoice =
-                            voices.find(
-                                (voice) =>
-                                    voice.lang &&
-                                    voice.lang
-                                        .toLowerCase()
-                                        .startsWith("ru")
-                            );
-
-                        if (russianVoice) {
-                            u.voice = russianVoice;
-                        }
-
-                        u.onend = resolve;
-                        u.onerror = resolve;
-
-                        speechSynthesis.speak(u);
-
-                    });
-
-            for (const turn of model) {
-
-                await speakOne(
-                    turn.text
-                );
-
-            }
-
-        });
-
-
-    // ------------------------------------------
-    // CHANGE MY CONVERSATION
-    // Keep the learner's current version visible
-    // so they can deliberately revise it.
-    // ------------------------------------------
-
-    root
-        .querySelector(".use-change-conversation")
-        .addEventListener("click", () => {
-
-            window.speechSynthesis?.cancel?.();
-
-            roleplayRunning = false;
-            roleplayStep.hidden = true;
-
-            blanks.forEach((blank) => {
-                blank.classList.remove(
-                    "is-good",
-                    "is-error"
-                );
             });
 
-            feedback.textContent =
-                "Change any choices you want, then check your new conversation.";
+        box.querySelector(".tree-box__escape")
+            ?.addEventListener("click", () => {
 
-            feedback.className =
-                "use-feedback";
+                blanksOf(box).forEach((blank) => {
 
-            builderStep.scrollIntoView(
-                {
-                    behavior: "smooth",
-                    block: "start"
+                    if (!blank.classList.contains("is-filled")) {
+                        blank.textContent = blank.dataset.accept;
+                        blank.classList.add("is-filled");
+                    }
+
+                });
+
+                lockBoxSolved(box);
+
+            });
+
+    });
+
+
+    activateNext();
+
+
+    // ==================================================
+    // "PROVE YOU UNDERSTAND THE TREE" — Кто это?
+    // Runs once, after every box in this Stage is solved.
+    // Reuses the same word bank — no typing here either.
+    // ==================================================
+
+    // One masculine example and one feminine example, every time — so the
+    // learner always practices both мой and моя, instead of leaving it to
+    // chance which gender a single random pick would land on. Which one
+    // comes first is still randomized.
+    function startChallenge() {
+
+        challenge.hidden = false;
+
+        const masculine =
+            boxes.filter((b) => b.dataset.possessive === "мой");
+
+        const feminine =
+            boxes.filter((b) => b.dataset.possessive === "моя");
+
+        const pickOne =
+            (list) => list[Math.floor(Math.random() * list.length)];
+
+        const targets =
+            shuffle([pickOne(masculine), pickOne(feminine)]);
+
+        let round = 0;
+
+
+        function runRound() {
+
+            const target =
+                targets[round];
+
+            round++;
+
+            challenge.querySelector("#tree-1-round").textContent =
+                `Question ${round} of ${targets.length}`;
+
+            const targetClue =
+                target.querySelector(".tree-box__clue").textContent;
+
+            challenge.querySelector("#tree-1-target").textContent =
+                `→ ${targetClue}`;
+
+            const possessive =
+                target.dataset.possessive;
+
+            const phraseWords =
+                blanksOf(target).map((b) => b.dataset.accept);
+
+            const blanksHost =
+                challenge.querySelector("#tree-1-challenge-blanks");
+
+            blanksHost.innerHTML = "";
+
+            function makeBlank(accept) {
+
+                const blank =
+                    document.createElement("button");
+
+                blank.type = "button";
+                blank.className = "use-blank";
+                blank.dataset.accept = accept;
+                blank.textContent = "______";
+
+                blanksHost.appendChild(blank);
+
+                return blank;
+
+            }
+
+            const possBlank =
+                makeBlank(possessive);
+
+            const phraseBlanks =
+                phraseWords.map(makeBlank);
+
+            const challengeBlanks =
+                [possBlank, ...phraseBlanks];
+
+            const feedback =
+                challenge.querySelector(".feedback");
+
+            const help =
+                challenge.querySelector(".tree-challenge__help");
+
+            feedback.textContent = "";
+            feedback.className = "feedback";
+            help.hidden = true;
+
+            let attempts = 0;
+
+
+            function checkComplete() {
+
+                if (!challengeBlanks.every((b) => b.classList.contains("is-filled"))) {
+                    return;
                 }
-            );
 
-        });
+                help.hidden = true;
 
+                if (round < targets.length) {
 
-    // ------------------------------------------
-    // BE MICHAEL
-    // Computer reads only Vanya's lines.
-    // Learner speaks their own stored lines.
-    // ------------------------------------------
+                    feedback.textContent =
+                        "Right! Now the other one.";
 
-    root
-        .querySelector(".use-be-michael")
-        .addEventListener("click", () => {
+                    feedback.className =
+                        "feedback good";
 
-            roleplayTurns =
-                buildConversationModel();
+                    runRound();
+                    return;
 
-            roleplayIndex = 0;
-            roleplayRunning = true;
-
-            roleplayStep.hidden = false;
-
-            roleplayStatus.textContent =
-                "Ready. The computer is Ваня. You are yourself.";
-
-            roleplayLine.textContent = "";
-            roleplayLine.classList.remove(
-                "is-your-turn"
-            );
-
-            roleplayNext.textContent =
-                "Start Conversation";
-
-            roleplayStep.scrollIntoView(
-                {
-                    behavior: "smooth",
-                    block: "start"
                 }
-            );
 
-        });
+                feedback.textContent =
+                    "That's right!";
 
+                feedback.className =
+                    "feedback good";
 
-    roleplayNext.addEventListener(
-        "click",
-        () => {
+                challengeHandler = null;
 
-            if (!roleplayRunning) {
-                return;
-            }
-
-            if (
-                roleplayIndex >=
-                roleplayTurns.length
-            ) {
-
-                roleplayStatus.textContent =
-                    "You just had the conversation you built. Change it and try another path.";
-
-                roleplayLine.textContent =
-                    "🏅 Conversation complete!";
-
-                roleplayNext.textContent =
-                    "Conversation Complete";
-
-                roleplayRunning = false;
-
-                return;
-            }
-
-            const turn =
-                roleplayTurns[
-                roleplayIndex
-                ];
-
-            roleplayLine.textContent =
-                `${turn.label}: ${turn.text}`;
-
-            if (
-                turn.speaker === "person"
-            ) {
-
-                roleplayLine.classList.remove(
-                    "is-your-turn"
-                );
-
-                roleplayStatus.textContent =
-                    "Listen to Ваня.";
-
-                speakRussian(
-                    turn.text
-                );
-
-            } else {
-
-                roleplayLine.classList.add(
-                    "is-your-turn"
-                );
-
-                roleplayStatus.textContent =
-                    "Your turn — say your line aloud.";
+                if (completeCheckbox) {
+                    completeCheckbox.checked = true;
+                    completeCheckbox.dispatchEvent(new Event("change"));
+                }
 
             }
 
-            roleplayIndex++;
 
-            roleplayNext.textContent =
-                roleplayIndex <
-                    roleplayTurns.length
-                    ? "Continue"
-                    : "Finish Conversation";
+            challengeHandler = (word) => {
+
+                const openBlank =
+                    challengeBlanks.find(
+                        (b) => !b.classList.contains("is-filled") && b.dataset.accept === word
+                    );
+
+                if (openBlank) {
+
+                    openBlank.textContent = word;
+                    openBlank.classList.add("is-filled");
+
+                    checkComplete();
+                    return;
+
+                }
+
+                const alreadySatisfied =
+                    challengeBlanks.some(
+                        (b) => b.classList.contains("is-filled") && b.dataset.accept === word
+                    );
+
+                if (alreadySatisfied) {
+                    return;
+                }
+
+                attempts++;
+
+                feedback.textContent =
+                    "Not quite — try again.";
+
+                feedback.className =
+                    "feedback bad";
+
+                if (attempts >= 2) {
+                    help.hidden = false;
+                }
+
+            };
+
+
+            // .onclick (not addEventListener) — these buttons are static
+            // and reused every round, so this replaces last round's
+            // handler instead of stacking a new one on top of it.
+            help.querySelector(".tree-challenge__hint").onclick = () => {
+
+                const genderWord =
+                    possessive === "мой" ? "masculine" : "feminine";
+
+                feedback.textContent =
+                    `Hint: “${phraseWords.join(" ")}” is ${genderWord} — that decides мой or моя.`;
+
+                feedback.className =
+                    "feedback hint";
+
+            };
+
+            help.querySelector(".tree-challenge__escape").onclick = () => {
+
+                challengeBlanks.forEach((blank) => {
+
+                    if (!blank.classList.contains("is-filled")) {
+                        blank.textContent = blank.dataset.accept;
+                        blank.classList.add("is-filled");
+                    }
+
+                });
+
+                checkComplete();
+
+            };
 
         }
-    );
 
+        runRound();
 
-    roleplayStop.addEventListener(
-        "click",
-        () => {
-
-            window.speechSynthesis?.cancel?.();
-
-            roleplayRunning = false;
-
-            roleplayStatus.textContent =
-                "Conversation stopped. You can start again whenever you are ready.";
-
-            roleplayLine.textContent = "";
-
-            roleplayNext.textContent =
-                "Start Conversation";
-
-        }
-    );
+    }
 
 })();
+
+
 
 // ==================================================
 // USE — VARIATION 2: THE LISTENING ROOM

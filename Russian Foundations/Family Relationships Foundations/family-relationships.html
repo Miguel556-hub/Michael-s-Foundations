@@ -86,7 +86,7 @@
       <div class="journey-rail__progress-label">Real Conversations</div>
 
       <nav>
-        <a href="#variation-1"><span class="journey-check"></span>Variation 1 — Вариант первый</a>
+        <a href="#variation-1"><span class="journey-check"></span>Family Tree Puzzle</a>
         <a href="#variation-2"><span class="journey-check"></span>Variation 2 — Вариант второй</a>
       </nav>
 
@@ -1868,238 +1868,138 @@ LESSON 2 — EXTENDED FAMILY
            CONVERSATION CHALLENGE
       ================================================== -->
 
-      <section class="use-placeholder use-challenge" id="conversation-challenge">
-        <div class="exercise__label">Conversation Challenge</div>
-        <h2>Take Your Russian to the Next Level!</h2>
-        <p class="use-challenge__intro">You already know the Russian you need. Now use it in different ways.
-          Each variation asks you to do something new with the language you have learned.</p>
+      <section class="use-placeholder use-challenge" id="family-tree-puzzle">
+        <div class="exercise__label">Family Tree Puzzle</div>
+        <h2>Build the Family Tree</h2>
+        <p class="use-challenge__intro">You already know the words. Now use them for real — build your own family
+          tree in Russian, one relationship at a time, then prove you understand it.</p>
 
-        <article class="use-variation" id="variation-1">
-          <div class="use-variation__eyebrow">Variation 1 — Вариант первый</div>
-          <h3>You Meet Someone</h3>
-          <p class="use-variation__identity">Choose what you want to say. The conversation will adapt to the path you
-            build.</p>
+        <article class="use-variation tree-stage" id="variation-1">
+          <div class="use-variation__eyebrow">Stage 1 — Immediate Family</div>
+          <h3>Immediate Family</h3>
+          <p class="use-variation__identity">Every box below is part of your family. Solve them one at a time — in
+            whatever order they light up — by clicking the right piece out of the word bank below. Watch for
+            words that look right but aren't.</p>
 
-          <div class="use-directions" aria-label="How to build the conversation">
-            <div><strong>1</strong><span>Click a blank</span></div>
-            <div><strong>2</strong><span>Choose what you want to say</span></div>
-            <div><strong>3</strong><span>Check your conversation</span></div>
+          <div class="tree-anchor">
+            <p>You were born in <strong>2008</strong>. These are your siblings. Predict their relationship to
+              you.</p>
           </div>
 
-          <div class="use-step use-step--builder" id="variation-1-builder">
-            <div class="use-step__heading">
-              <span class="use-step__number">A</span>
-              <div>
-                <h4>Build Your Conversation</h4>
-                <p>Some blanks take one word. Other turns can become short or longer depending on what you choose.
-                  There is more than one conversation that works.</p>
+          <div class="tree-grid" id="tree-1-grid" aria-label="Family tree — Immediate Family">
+
+            <div class="tree-box" data-possessive="мой" data-hint="отец is the Russian word for father.">
+              <div class="tree-box__clue">Father</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="отец">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
               </div>
             </div>
 
-            <label class="use-name">
-              <span>Your first name</span>
-              <input id="use-learner-name" type="text" value="Michael" autocomplete="given-name"
-                aria-label="Your first name for the conversation">
-            </label>
-
-            <div class="use-conversation use-conversation--worksheet" aria-label="Build your Russian conversation">
-
-              <div class="use-turn use-turn--person">
-                <span class="use-speaker">Person</span>
-                <p>Здравствуйте<span class="use-punctuation">!</span></p>
+            <div class="tree-box" data-possessive="моя" data-hint="мать is the Russian word for mother.">
+              <div class="tree-box__clue">Mother</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="мать">______</button>
               </div>
-
-              <div class="use-turn use-turn--learner">
-                <span class="use-speaker">You</span>
-                <p>Здравствуйте<span class="use-punctuation">!</span>
-                  <button type="button" class="use-blank" data-slot="good-morning-1"
-                    data-accept="Доброе">______</button>
-                  утро<span class="use-punctuation">!</span>
-                </p>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
               </div>
-
-              <div class="use-turn use-turn--person">
-                <span class="use-speaker">Person</span>
-                <p>Доброе
-                  <button type="button" class="use-blank" data-slot="morning-word"
-                    data-accept="утро">______</button><span class="use-punctuation">!</span>
-                  Как
-                  <button type="button" class="use-blank use-blank--short" data-slot="name-register"
-                    data-accept="вас|тебя">_____</button>
-                  зовут<span class="use-punctuation">?</span>
-                </p>
-              </div>
-
-              <div class="use-turn use-turn--learner">
-                <span class="use-speaker">You</span>
-                <p>
-                  <button type="button" class="use-blank" data-slot="my-name-word" data-accept="Меня">______</button>
-                  зовут <span class="use-personal-name" data-name-output>Michael</span><span
-                    class="use-punctuation">;</span>
-                  А
-                  <button type="button" class="use-blank use-blank--short" data-slot="return-name-register"
-                    data-accept="вас|тебя">_____</button><span class="use-punctuation">?</span>
-                </p>
-              </div>
-
-              <div class="use-turn use-turn--person">
-                <span class="use-speaker">Person</span>
-                <p>Меня
-                  <button type="button" class="use-blank" data-slot="person-name-verb"
-                    data-accept="зовут">______</button>
-                  Ваня
-                </p>
-              </div>
-
-              <div class="use-turn use-turn--person">
-                <span class="use-speaker">Person</span>
-                <p>Как
-                  <button type="button" class="use-blank" data-slot="how-are-you" data-accept="дела">______</button>
-                  сегодня<span class="use-punctuation">?</span>
-                </p>
-              </div>
-
-              <div class="use-turn use-turn--learner use-adaptive-turn">
-                <span class="use-speaker">You</span>
-                <div>
-                  <button type="button" class="use-blank use-blank--wide" data-slot="how-response"
-                    data-accept="Хорошо|Нормально|Неплохо|Отлично|Потихоньку|Всё хорошо|Я чувствую себя хорошо сегодня|Я плохо себя чувствую сегодня">________________</button><span
-                    class="use-punctuation">,</span>
-                  <button type="button" class="use-blank" data-slot="thanks-word"
-                    data-accept="Спасибо">______</button><span class="use-punctuation">.</span>
-                  <div class="use-path-hint">Choose a short response or a complete response you already know.</div>
-                </div>
-              </div>
-
-              <div class="use-turn use-turn--person">
-                <span class="use-speaker">Person</span>
-                <p>
-                  <button type="button" class="use-blank" data-slot="very-word" data-accept="Очень">________</button>
-                  хорошо<span class="use-punctuation">,</span>
-                  <button type="button" class="use-blank" data-slot="nice-word" data-accept="Приятно">________</button>
-                  с
-                  <button type="button" class="use-blank" data-slot="with-you-word" data-accept="вами">_____</button>
-                  познакомиться<span class="use-punctuation">!</span>
-                </p>
-              </div> <!-- END Person introduction turn -->
-
-              <div class="use-turn use-turn--learner use-adaptive-turn">
-                <span class="use-speaker">You</span>
-                <div>
-                  <button type="button" class="use-blank use-blank--wide" data-slot="learner-closing"
-                    data-accept="Пока|Увидимся|До свидания|До завтра">________________</button>
-                  <span class="use-punctuation">!</span>
-                </div>
-              </div> <!-- END Learner closing turn -->
-
-              <div class="use-turn use-turn--person use-adaptive-turn">
-                <span class="use-speaker">Person</span>
-                <div>
-                  <button type="button" class="use-blank use-blank--wide" data-slot="person-closing"
-                    data-accept="Пока|Увидимся|До свидания|До завтра">________________</button>
-                  <span class="use-punctuation">!</span>
-                </div>
-              </div> <!-- END Person closing turn -->
-
             </div>
 
-            <div class="use-word-bank" aria-label="Russian word bank">
-              <div class="use-word-bank__title">Word Bank</div>
-              <p class="use-word-bank__note">Most choices are individual words. Complete expressions such as
-                <strong>До свидания</strong> and <strong>До завтра</strong> stay together because they function as a
-                complete choice here.
-              </p>
-
-              <div class="use-word-bank__buttons">
-                <button type="button" data-value="тебя">тебя</button>
-                <button type="button" data-value="вас">вас</button>
-                <button type="button" data-value="Меня">Меня</button>
-                <button type="button" data-value="утро">утро</button>
-                <button type="button" data-value="зовут">зовут</button>
-                <button type="button" data-value="дела">дела</button>
-                <button type="button" data-value="Очень">Очень</button>
-                <button type="button" data-value="вами">вами</button>
-                <button type="button" data-value="Приятно">Приятно</button>
-                <button type="button" data-value="Спасибо">Спасибо</button>
-
-                <button type="button" data-value="Хорошо">Хорошо</button>
-                <button type="button" data-value="Нормально">Нормально</button>
-                <button type="button" data-value="Неплохо">Неплохо</button>
-                <button type="button" data-value="Отлично">Отлично</button>
-                <button type="button" data-value="Потихоньку">Потихоньку</button>
-                <button type="button" data-value="Всё хорошо">Всё хорошо</button>
-                <button type="button" data-value="Я чувствую себя хорошо сегодня">Я чувствую себя хорошо
-                  сегодня</button>
-                <button type="button" data-value="Я плохо себя чувствую сегодня">Я плохо себя чувствую сегодня</button>
-
-                <button type="button" data-value="Пока">Пока</button>
-                <button type="button" data-value="Увидимся">Увидимся</button>
-                <button type="button" data-value="До свидания">До свидания</button>
-                <button type="button" data-value="До завтра">До завтра</button>
-
-                <button type="button" data-value="Доброе">Доброе</button>
+            <div class="tree-box" data-possessive="мой"
+              data-hint="2005 is before 2008, so this brother is older than you — combine “older” (старший) with “brother” (брат).">
+              <div class="tree-box__clue">Born in 2005 — Brother</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="старший">______</button>
+                <button type="button" class="use-blank" data-accept="брат">______</button>
               </div>
-
-            </div> <!-- END use word bank -->
-
-            <div class="use-builder-actions">
-              <button type="button" class="use-clear-selection">Clear Selected Blank</button>
-              <button type="button" class="use-reset-conversation">Reset Conversation</button>
-              <button type="button" class="use-check-conversation">Check My Conversation</button>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
             </div>
 
-            <div class="use-feedback" id="variation-1-feedback" aria-live="polite">
-
-            </div> <!-- END Variation 1 feedback -->
-
-          </div> <!-- END conversation builder step -->
-
-          <div class="use-step use-step--reveal" id="variation-1-reveal" hidden>
-            <div class="use-step__heading">
-              <span class="use-step__number">B</span>
-              <div>
-                <h4>Look What You Just Built!</h4>
-                <p>This is the conversation you created from the choices you made.</p>
+            <div class="tree-box" data-possessive="мой"
+              data-hint="2011 is after 2008, so this brother is younger than you — combine “younger” (младший) with “brother” (брат).">
+              <div class="tree-box__clue">Born in 2011 — Brother</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="младший">______</button>
+                <button type="button" class="use-blank" data-accept="брат">______</button>
               </div>
-
-            </div> <!-- END Variation 1 reveal heading -->
-
-            <div class="use-finished-conversation" id="use-finished-conversation"></div>
-
-            <div class="use-reveal-actions">
-              <button type="button" class="use-hear-conversation">🔊 Hear My Conversation</button>
-              <button type="button" class="use-be-michael">🎙️ Be Michael</button>
-              <button type="button" class="use-change-conversation">🔄 Change My Conversation</button>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
             </div>
 
-          </div> <!-- END Variation 1 reveal -->
-
-          <div class="use-step use-step--roleplay" id="variation-1-roleplay" hidden>
-            <div class="use-step__heading">
-              <span class="use-step__number">C</span>
-              <div>
-                <h4>Be Michael</h4>
-                <p>The computer reads the other person's lines. When you see Your turn, say the line you built.</p>
+            <div class="tree-box" data-possessive="моя"
+              data-hint="2003 is before 2008, so this sister is older than you — combine “older” (старшая) with “sister” (сестра).">
+              <div class="tree-box__clue">Born in 2003 — Sister</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="старшая">______</button>
+                <button type="button" class="use-blank" data-accept="сестра">______</button>
               </div>
-
-            </div> <!-- END Variation 1 roleplay heading -->
-
-            <div class="use-roleplay-status" id="use-roleplay-status" aria-live="polite"></div>
-            <div class="use-roleplay-line" id="use-roleplay-line"></div>
-            <div class="use-roleplay-heard" id="use-roleplay-heard" aria-live="polite"></div>
-            <div class="use-roleplay-actions">
-              <button type="button" class="use-roleplay-next">Start Conversation</button>
-              <button type="button" class="use-roleplay-stop">Stop</button>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
             </div>
 
-          </div> <!-- END Variation 1 roleplay -->
+            <div class="tree-box" data-possessive="моя"
+              data-hint="2014 is after 2008, so this sister is younger than you — combine “younger” (младшая) with “sister” (сестра).">
+              <div class="tree-box__clue">Born in 2014 — Sister</div>
+              <div class="tree-box__blanks">
+                <button type="button" class="use-blank" data-accept="младшая">______</button>
+                <button type="button" class="use-blank" data-accept="сестра">______</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+              <div class="tree-box__help" hidden>
+                <button type="button" class="tree-box__hint">Hint</button>
+                <button type="button" class="tree-box__escape">Escape Hatch</button>
+              </div>
+            </div>
+
+          </div> <!-- END tree-1-grid -->
+
+          <div class="use-word-bank" aria-label="Russian word bank">
+            <div class="use-word-bank__title">Word Bank</div>
+            <p class="use-word-bank__note">Some of these look right but aren't — read carefully before you
+              click.</p>
+            <div class="use-word-bank__buttons" id="tree-1-word-bank"></div>
+          </div> <!-- END tree-1 word bank -->
+
+          <div class="tree-challenge" id="tree-1-challenge" hidden>
+            <h4>Кто это?</h4>
+            <div class="tree-challenge__round" id="tree-1-round"></div>
+            <div class="tree-challenge__arrow" id="tree-1-target"></div>
+            <p class="tree-challenge__prompt">Это <span id="tree-1-challenge-blanks"></span><span
+                class="use-punctuation">?</span></p>
+            <div class="feedback" aria-live="polite"></div>
+            <div class="tree-challenge__help" hidden>
+              <button type="button" class="tree-challenge__hint">Hint</button>
+              <button type="button" class="tree-challenge__escape">Escape Hatch</button>
+            </div>
+          </div> <!-- END tree-1-challenge -->
 
           <label class="completion">
-            <input type="checkbox" class="variation-complete" data-variation="1">
-            Mark Variation 1 Complete
+            <input type="checkbox" class="variation-complete" data-variation="1" id="tree-1-complete-checkbox">
+            Mark Family Tree Puzzle Complete
           </label>
 
-        </article> <!-- END Variation 1 -->
+        </article> <!-- END Stage 1 — Immediate Family -->
+
+        <!-- NEXT: Stage 2 (Extended Family) and Stage 3 (Your Dad's Family) build here,
+             as sibling <article class="use-variation tree-stage"> elements using the same
+             tree-grid / tree-box / tree-challenge pattern. Not built yet. -->
 
         <!-- ==================================================
              VARIATION 2 — THE LISTENING ROOM

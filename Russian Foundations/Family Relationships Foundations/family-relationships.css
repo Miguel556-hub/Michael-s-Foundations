@@ -1343,6 +1343,158 @@ button:hover {
 }
 
 /* ==========================================
+   USE — FAMILY TREE PUZZLE — STAGE 1
+========================================== */
+
+.tree-anchor {
+    background: #eef5fc;
+    border-left: 4px solid #0962ac;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0 20px;
+    font-weight: 600;
+    color: #1c2b3a;
+}
+
+.tree-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.tree-box {
+    border: 1px solid #d3dfeb;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+    transition: opacity .2s, border-color .2s, box-shadow .2s;
+}
+
+.tree-box--pending {
+    opacity: .45;
+}
+
+.tree-box--active {
+    border-color: #0962ac;
+    box-shadow: 0 0 0 2px rgba(9, 98, 172, .15);
+}
+
+.tree-box--solved {
+    background: #f3faf5;
+    border-color: #1d7b3a;
+}
+
+.tree-box__clue {
+    font-weight: 700;
+    color: #0962ac;
+    margin-bottom: 10px;
+}
+
+.tree-box__input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #c3cfdb;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.tree-box__input:disabled {
+    background: #f2f4f7;
+}
+
+.tree-box__solved-answer {
+    font-weight: 700;
+    color: #1d7b3a;
+    font-size: 1.1rem;
+}
+
+.tree-box__help {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tree-box__hint,
+.tree-box__escape,
+.tree-challenge__hint,
+.tree-challenge__escape {
+    border: 1px solid #d3dfeb;
+    border-radius: 6px;
+    background: #fff;
+    padding: 6px 12px;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.tree-box__escape,
+.tree-challenge__escape {
+    color: #7a7f87;
+    font-size: .82rem;
+    padding: 5px 10px;
+}
+
+.feedback.hint {
+    color: #6a3fb0;
+}
+
+.tree-challenge {
+    border: 1px solid #d3dfeb;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 24px;
+    background: #fbfaff;
+}
+
+.tree-challenge__round {
+    font-size: .85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: #7a7f87;
+    margin-bottom: 6px;
+}
+
+.tree-challenge__arrow {
+    font-weight: 700;
+    color: #0962ac;
+    margin-bottom: 10px;
+}
+
+.tree-challenge__prompt {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.tree-challenge__blank {
+    border: 1px solid #c3cfdb;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 1rem;
+    margin: 0 4px;
+}
+
+.tree-challenge__blank--possessive {
+    width: 70px;
+}
+
+.tree-challenge__blank--phrase {
+    width: 170px;
+}
+
+.tree-challenge__help {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+@media (max-width: 720px) {
+    .tree-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
    USE — VARIATION 2: THE LISTENING ROOM
    PART A — LISTEN AND FIND THE MEANING
 ========================================== */
