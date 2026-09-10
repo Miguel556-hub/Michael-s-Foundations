@@ -32,10 +32,8 @@ const encounters = [
     inferChoices: ["The size of the family", "Where the family lives", "Who is the oldest"],
     inferAnswer: 0,
     respondQuestion: "Сколько человек в твоей семье?",
-    respondChoices: ["В моей семье ___ человек."],
-    respondAnswer: 0,
-    // NOTE: this is a free-response item — the learner fills in their own number.
-    // No single correct index applies; respondAnswer is a placeholder only.
+    respondChoices: ["один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять", "10+"],
+    respondAcceptsAny: true,
     support: "Listen for Сколько человек...? Then listen for the number in the response.",
     transcript: "Сколько человек в вашей семье? В моей семье шесть человек."
   },
@@ -103,7 +101,7 @@ const encounters = [
     inferQuestion: "How does the answer avoid repeating бабушку и дедушку?",
     inferChoices: ["It uses их", "It uses я", "It uses ты"],
     inferAnswer: 0,
-    respondQuestion: "Ты любишь свою семью?",
+    respondQuestion: "Ты любишь твою семью?",
     respondChoices: ["Да, я очень люблю мою семью.", "Да, очень.", "Конечно."],
     respondAnswer: 0,
     support: "Listen to the people named in the question. Then ask yourself who их replaces in the answer.",
@@ -246,7 +244,7 @@ function clearPanels() {
   el.respondFeedback.className = "feedback";
 }
 
-function makeChoiceButtons(container, choices, answerIndex, feedbackEl, successText) {
+function makeChoiceButtons(container, choices, answerIndex, feedbackEl, successText, acceptAny = false) {
   container.innerHTML = "";
 
   choices.forEach((choice, index) => {
@@ -256,7 +254,7 @@ function makeChoiceButtons(container, choices, answerIndex, feedbackEl, successT
     button.textContent = choice;
 
     button.addEventListener("click", () => {
-      if (index === answerIndex) {
+      if (acceptAny || index === answerIndex) {
         feedbackEl.textContent = successText;
         feedbackEl.className = "feedback feedback--success";
         [...container.querySelectorAll("button")].forEach((item) => {
@@ -365,7 +363,8 @@ function renderMove() {
       encounter.respondChoices,
       encounter.respondAnswer,
       el.respondFeedback,
-      "Well done. You responded to what you understood."
+      "Well done. You responded to what you understood.",
+      Boolean(encounter.respondAcceptsAny)
     );
     el.listen.onclick = () => speak(encounter.variation, 0.86);
     el.supportButton.hidden = false;
