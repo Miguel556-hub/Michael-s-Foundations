@@ -1,119 +1,113 @@
 const encounters = [
   {
-    primary: "В понедельник я работаю, а во вторник я отдыхаю.",
-    variation: "Я работаю в понедельник, а во вторник отдыхаю.",
-    catch: ["понедельник", "работаю", "вторник", "отдыхаю", "суббота", "учусь"],
-    meaningQuestion: "What is the speaker telling you?",
+    // Encounter 1 — Lesson 1: любить + possessives
+    primary: "Я очень люблю мою семью, а моя семья любит меня.",
+    variation: "Моя семья любит меня, и я люблю мою семью.",
+    catch: ["я", "меня", "моя семья", "мою семью", "любит", "люблю", "родители", "брат", "сестра"],
+    meaningQuestion: "Who loves whom?",
     meaningChoices: [
-      "They work Monday and rest Tuesday.",
-      "They rest Monday and work Tuesday.",
-      "They work on the weekend."
+      "I love my family, and my family loves me.",
+      "My family loves me, but I do not love my family.",
+      "My family loves another family."
     ],
     meaningAnswer: 0,
-    inferQuestion: "The word order changed. Did the basic meaning change?",
-    inferChoices: ["No. The same two activities happen on the same days.", "Yes. Monday and Tuesday switched."],
+    inferQuestion: "Did the direction of the love change when the people were mentioned in a different order?",
+    inferChoices: ["No.", "Yes.", "The speaker does not say."],
     inferAnswer: 0,
-    respondQuestion: "When does the speaker rest?",
-    respondChoices: ["В понедельник.", "Во вторник.", "На выходных."],
-    respondAnswer: 1,
-    support: "Listen for the day words and the two activity verbs.",
-    transcript: "В понедельник я работаю, а во вторник я отдыхаю."
-  },
-  {
-    primary: "По понедельникам я работаю, а по субботам отдыхаю.",
-    variation: "Ты работаешь по субботам или отдыхаешь?",
-    catch: ["понедельникам", "работаю", "субботам", "отдыхаю", "или", "среда"],
-    meaningQuestion: "What weekly pattern did you hear?",
-    meaningChoices: [
-      "The speaker regularly works Mondays and rests Saturdays.",
-      "The speaker worked one Monday and one Saturday.",
-      "The speaker rests every Monday."
-    ],
-    meaningAnswer: 0,
-    inferQuestion: "In the variation, what is или doing?",
-    inferChoices: ["Offering an alternative: work or rest.", "Adding two actions together.", "Showing a contrast like но."],
-    inferAnswer: 0,
-    respondQuestion: "Which expression sounds like a repeated weekly pattern?",
-    respondChoices: ["В понедельник.", "По понедельникам.", "Сегодня понедельник."],
-    respondAnswer: 1,
-    support: "Listen for по + the day form. That pattern points to something recurring.",
-    transcript: "По понедельникам я работаю, а по субботам отдыхаю."
-  },
-  {
-    primary: "Сегодня среда. Вчера был вторник, а завтра четверг.",
-    variation: "Завтра пятница. Какой сегодня день?",
-    catch: ["сегодня", "среда", "вчера", "вторник", "завтра", "четверг"],
-    meaningQuestion: "Where are we in the week?",
-    meaningChoices: ["Today is Wednesday.", "Today is Tuesday.", "Today is Thursday."],
-    meaningAnswer: 0,
-    inferQuestion: "If tomorrow is Friday, what is today?",
-    inferChoices: ["среда", "четверг", "суббота"],
-    inferAnswer: 1,
-    respondQuestion: "What comes after среда?",
-    respondChoices: ["вторник", "четверг", "пятница"],
-    respondAnswer: 1,
-    support: "Use the week sequence rather than translating every word.",
-    transcript: "Сегодня среда. Вчера был вторник, а завтра четверг."
-  },
-  {
-    primary: "В будни я работаю и учусь, а на выходных отдыхаю.",
-    variation: "На выходных ты работаешь или отдыхаешь?",
-    catch: ["будни", "работаю", "учусь", "выходных", "отдыхаю", "или"],
-    meaningQuestion: "What is different about weekdays and weekends?",
-    meaningChoices: [
-      "The speaker works and studies on weekdays, then rests on weekends.",
-      "The speaker rests on weekdays and studies on weekends.",
-      "The speaker works every day."
-    ],
-    meaningAnswer: 0,
-    inferQuestion: "What question is the variation asking?",
-    inferChoices: ["Do you work or rest on weekends?", "Where do you live?", "What day is today?"],
-    inferAnswer: 0,
-    respondQuestion: "When does the speaker rest?",
-    respondChoices: ["В будни.", "На выходных.", "По понедельникам."],
-    respondAnswer: 1,
-    support: "Listen for the larger week chunks: будни and выходные.",
-    transcript: "В будни я работаю и учусь, а на выходных отдыхаю."
-  },
-  {
-    primary: "Когда ты работаешь? Я работаю в понедельник, среду и пятницу.",
-    variation: "Во вторник я не работаю. Я учусь.",
-    catch: ["когда", "работаешь", "понедельник", "среду", "пятницу", "учусь"],
-    meaningQuestion: "Which days does the speaker work?",
-    meaningChoices: [
-      "Monday, Wednesday, and Friday.",
-      "Tuesday and Thursday.",
-      "Saturday and Sunday."
-    ],
-    meaningAnswer: 0,
-    inferQuestion: "What changed in the variation?",
-    inferChoices: ["Tuesday is a study day, not a work day.", "Tuesday became a weekend.", "The speaker stopped studying."],
-    inferAnswer: 0,
-    respondQuestion: "When does the speaker study in the variation?",
-    respondChoices: ["Во вторник.", "В пятницу.", "В воскресенье."],
+    respondQuestion: "Кого ты любишь?",
+    respondChoices: ["Я люблю мою семью.", "Я люблю маму.", "Я люблю папу."],
     respondAnswer: 0,
-    support: "Listen for the list of day names after the work question.",
-    transcript: "Когда ты работаешь? Я работаю в понедельник, среду и пятницу."
+    support: "Listen for я люблю = \"I love\" and любит меня = \"loves me.\"",
+    transcript: "Я очень люблю мою семью, а моя семья любит меня."
   },
   {
-    primary: "В субботу я хочу отдыхать, но в воскресенье хочу работать.",
-    variation: "Ты хочешь отдыхать в субботу или в воскресенье?",
-    catch: ["субботу", "хочу", "отдыхать", "но", "воскресенье", "работать", "или"],
-    meaningQuestion: "What does the speaker want to do?",
-    meaningChoices: [
-      "Rest Saturday but work Sunday.",
-      "Work Saturday and rest Sunday.",
-      "Rest both days."
-    ],
-    meaningAnswer: 0,
-    inferQuestion: "What does или do in the variation?",
-    inferChoices: ["It offers Saturday or Sunday as alternatives.", "It means both days.", "It means because."],
+    // Encounter 2 — Lesson 2: Сколько? + family size
+    primary: "Сколько человек в вашей семье? В моей семье шесть человек.",
+    variation: "Сколько человек в вашей семье? Нас в семье шестеро.",
+    catch: ["сколько", "человек", "семье", "шесть", "три", "четыре", "пять", "семь", "девять", "десять"],
+    meaningQuestion: "How many people are in the speaker's family?",
+    meaningChoices: ["Four", "Six", "Seven"],
+    meaningAnswer: 1,
+    inferQuestion: "What information was the first speaker asking for?",
+    inferChoices: ["The size of the family", "Where the family lives", "Who is the oldest"],
     inferAnswer: 0,
-    respondQuestion: "When does the speaker want to rest?",
-    respondChoices: ["В субботу.", "В воскресенье.", "В будни."],
+    respondQuestion: "Сколько человек в твоей семье?",
+    respondChoices: ["В моей семье ___ человек."],
     respondAnswer: 0,
-    support: "Listen for хочу + the activity and then the day attached to it.",
-    transcript: "В субботу я хочу отдыхать, но в воскресенье хочу работать."
+    // NOTE: this is a free-response item — the learner fills in their own number.
+    // No single correct index applies; respondAnswer is a placeholder only.
+    support: "Listen for Сколько человек...? Then listen for the number in the response.",
+    transcript: "Сколько человек в вашей семье? В моей семье шесть человек."
+  },
+  {
+    // Encounter 3 — Lesson 2: counting siblings
+    primary: "У меня есть два брата и одна сестра.",
+    variation: "У меня одна сестра и два брата.",
+    catch: ["один брат", "два брата", "три брата", "одна сестра", "две сестры", "четыре сестры"],
+    meaningQuestion: "Who does the speaker have in the family?",
+    meaningChoices: ["Two brothers and one sister", "One brother and two sisters", "Two brothers and two sisters"],
+    meaningAnswer: 0,
+    inferQuestion: "If the speaker says the sister first, does the family information change?",
+    inferChoices: ["No, the same siblings are described", "Yes, the family changes", "We cannot tell"],
+    inferAnswer: 0,
+    respondQuestion: "У тебя есть брат или сестра?",
+    respondChoices: ["Да, у меня есть брат.", "Да, у меня есть сестра.", "Да, у меня есть братья и сёстры.", "Нет."],
+    respondAnswer: 0,
+    // NOTE: also a free-response-style item in spirit — learner picks whichever is true for them.
+    support: "Listen separately for the number and the family word.",
+    transcript: "У меня есть два брата и одна сестра."
+  },
+  {
+    // Encounter 4 — Lesson 2: identification dialogue
+    primary: "Кто это? Твой брат? — Нет, это моя сестра.",
+    variation: "Это твоя сестра? — Нет, это мой брат.",
+    catch: ["брат", "сестра", "мама", "папа", "дедушка", "дядя"],
+    meaningQuestion: "Who is the person?",
+    meaningChoices: ["The speaker's brother", "The speaker's sister", "The speaker's mother"],
+    meaningAnswer: 1,
+    inferQuestion: "Was the first speaker's guess correct?",
+    inferChoices: ["No", "Yes", "We don't know"],
+    inferAnswer: 0,
+    respondQuestion: "Кто это?",
+    respondChoices: ["Это мой брат.", "Это моя сестра.", "Это моя мама.", "Это мой папа."],
+    respondAnswer: 1,
+    support: "Don't stop when you hear брат. Listen for what comes after нет.",
+    transcript: "Кто это? Твой брат? — Нет, это моя сестра."
+  },
+  {
+    // Encounter 5 — Lesson 2: жить + location contrast
+    primary: "Мои бабушка и дедушка живут в Москве, а я живу здесь.",
+    variation: "Я живу здесь, а мои бабушка с дедушкой — в Москве.",
+    catch: ["Москва", "здесь", "бабушка и дедушка", "я", "Санкт-Петербург", "дядя", "тётя"],
+    meaningQuestion: "Where do the grandparents live?",
+    meaningChoices: ["In Moscow", "Here with the speaker", "The speaker doesn't say"],
+    meaningAnswer: 0,
+    inferQuestion: "Does the speaker live in the same place as the grandparents?",
+    inferChoices: ["No", "Yes", "We cannot tell"],
+    inferAnswer: 0,
+    respondQuestion: "Где живут твои бабушка и дедушка?",
+    respondChoices: ["Они живут в ___.", "Они живут здесь.", "Я не знаю."],
+    respondAnswer: 0,
+    // NOTE: free-response fill-in for the blank.
+    support: "Listen for живут with бабушка и дедушка and живу with я.",
+    transcript: "Мои бабушка и дедушка живут в Москве, а я живу здесь."
+  },
+  {
+    // Encounter 6 — Lesson 3: любить (completed forms) + pronoun их
+    primary: "Ты любишь бабушку и дедушку? Да, я их очень люблю.",
+    variation: "Ты любишь бабушку и дедушку? Конечно. Я их очень люблю.",
+    catch: ["я", "их", "бабушку", "дедушку", "люблю", "дядя", "тётя", "родители"],
+    meaningQuestion: "Who does их refer to?",
+    meaningChoices: ["The grandmother and grandfather", "The speaker", "The speaker's whole family"],
+    meaningAnswer: 0,
+    inferQuestion: "How does the answer avoid repeating бабушку и дедушку?",
+    inferChoices: ["It uses их", "It uses я", "It uses ты"],
+    inferAnswer: 0,
+    respondQuestion: "Ты любишь свою семью?",
+    respondChoices: ["Да, я очень люблю мою семью.", "Да, очень.", "Конечно."],
+    respondAnswer: 0,
+    support: "Listen to the people named in the question. Then ask yourself who их replaces in the answer.",
+    transcript: "Ты любишь бабушку и дедушку? Да, я их очень люблю."
   }
 ];
 
