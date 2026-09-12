@@ -2196,232 +2196,183 @@ LESSON 2 — EXTENDED FAMILY
         ================================================== -->
 
         <article class="use-variation listening-room" id="variation-2">
-          <div class="listening-room__header">
-            <div class="listening-room__eyebrow">Variation 2 — Вариант второй</div>
-            <h3>The Listening Room</h3>
-            <p>Hear the Russian first and let your ears do the work</p>
-          </div>
-
-          <section class="listening-part" id="variation-2-part-a" aria-labelledby="variation-2-part-a-title">
-            <div class="listening-part__intro">
-              <span class="listening-part__label">Part A</span>
-              <h4 id="variation-2-part-a-title">Listen and Find the Meaning</h4>
-              <p>The Russian stays hidden until you understand what you heard</p>
-            </div>
-
-            <div class="listening-progress" aria-label="Listening progress">
-              <span id="listening-round-label">Listen 1 of 6</span>
-              <div class="listening-progress__track" aria-hidden="true">
-                <span id="listening-progress-fill"></span>
-              </div>
-
-            </div> <!-- END listening progress -->
-
-            <div class="listening-stage" id="listening-stage">
-              <div class="listening-orbit" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div> <!-- END listening orbit -->
-
-              <p class="listening-stage__cue">Listen closely</p>
-              <button type="button" class="listening-play" id="listening-play">
-                <span class="listening-play__icon" aria-hidden="true">🔊</span>
-                <span>Hear the Russian</span>
-              </button>
-
-              <p class="listening-stage__note">The Russian is hidden</p>
-            </div>
-
-            <div class="listening-choices" id="listening-choices" hidden aria-live="polite"></div>
-
-            <div class="listening-feedback" id="listening-feedback" aria-live="polite"></div>
-
-            <div class="listening-reveal" id="listening-reveal" hidden>
-              <div class="listening-reveal__label">What you heard</div>
-              <div class="listening-reveal__russian" id="listening-reveal-russian" lang="ru"></div>
-              <div class="listening-reveal__meaning" id="listening-reveal-meaning"></div>
-              <div class="listening-reveal__actions">
-                <button type="button" id="listening-hear-again">🔊 Hear it again</button>
-                <button type="button" id="listening-next">Next listen</button>
-              </div>
-
-            </div> <!-- END listening reveal -->
-
-            <div class="listening-complete" id="listening-complete" hidden>
-              <div class="listening-complete__signal" aria-hidden="true">◉</div>
-              <h4>You understood spoken Russian without seeing the Russian first</h4>
-              <p>Your ears did the work</p>
-            </div>
-
-            <div class="listening-part-controls">
-              <button type="button" class="listening-reset" id="listening-reset-part-a">↻ Reset Activity</button>
-            </div>
-
-          </section> <!-- END Variation 2 Part A -->
-
           <!-- ==================================================
-               VARIATION 2 — THE LISTENING ROOM
-               PART B — READ THE SITUATION AND CHOOSE THE RUSSIAN
+               THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
+               Replaces the old Part A/B/C Listening Room (removed during
+               integration). See integration notes for what changed.
           ================================================== -->
 
-          <section class="listening-part listening-part--b" id="variation-2-part-b"
-            aria-labelledby="variation-2-part-b-title" hidden>
+          <!-- Listening Room Landing -->
+          <section class="room-screen room-screen--landing" id="landingScreen" aria-labelledby="landingTitle">
+            <div class="room-shell">
+              <div class="room-overlay"></div>
 
-            <div class="listening-part__intro listening-part__intro--b">
-              <span class="listening-part__label">Part B</span>
-              <h4 id="variation-2-part-b-title">Read the Situation and Choose the Russian</h4>
-              <p>Now the situation gives you the meaning and you decide what Russian belongs there</p>
-            </div>
+              <div class="room-content room-content--landing">
+                <p class="room-eyebrow">🎧 Listening Room • Family Relationships</p>
 
-            <div class="situation-progress" aria-label="Situation progress">
-              <span id="situation-round-label">Situation 1 of 6</span>
-              <div class="situation-progress__track" aria-hidden="true">
-                <span id="situation-progress-fill"></span>
-              </div>
+                <h1 id="landingTitle">The Listening Room</h1>
 
-            </div> <!-- END situation progress -->
+                <p class="room-tagline">
+                  Listen for meaning, and not so much to word-for-word perfection.
+                </p>
 
-            <div class="situation-stage">
-              <div class="situation-stage__signal" aria-hidden="true">◆</div>
-              <div class="situation-stage__label">THE SITUATION</div>
-              <p class="situation-stage__prompt" id="situation-prompt"></p>
-            </div>
-
-            <div class="situation-choices" id="situation-choices" aria-live="polite"></div>
-
-            <div class="situation-feedback" id="situation-feedback" aria-live="polite"></div>
-
-            <div class="situation-reveal" id="situation-reveal" hidden>
-              <div class="situation-reveal__label">Russian that fits</div>
-              <div class="situation-reveal__russian" id="situation-reveal-russian" lang="ru"></div>
-              <div class="situation-reveal__meaning" id="situation-reveal-meaning"></div>
-              <div class="situation-reveal__actions">
-                <button type="button" id="situation-hear">🔊 Hear the Russian</button>
-                <button type="button" id="situation-next">Next situation</button>
-              </div>
-
-            </div> <!-- END situation reveal -->
-
-            <div class="situation-complete" id="situation-complete" hidden>
-              <div class="situation-complete__signal" aria-hidden="true">◆</div>
-              <h4>You chose Russian from meaning and context</h4>
-              <p>You were not translating word by word you were deciding what fits the moment</p>
-            </div>
-
-            <div class="listening-part-controls listening-part-controls--b">
-              <button type="button" class="listening-back" id="listening-back-to-part-a">← Back to Part A</button>
-              <button type="button" class="listening-reset" id="listening-reset-part-b">↻ Reset Activity</button>
-            </div>
-
-          </section> <!-- END Variation 2 Part B -->
-
-          <!-- ==================================================
-               VARIATION 2 — THE LISTENING ROOM
-               PART C — HEAR THE CONVERSATION
-          ================================================== -->
-
-          <section class="listening-part listening-part--c" id="variation-2-part-c"
-            aria-labelledby="variation-2-part-c-title" hidden>
-
-            <div class="listening-part__intro listening-part__intro--c">
-              <span class="listening-part__label">Part C</span>
-              <h4 id="variation-2-part-c-title">Hear the Conversation</h4>
-              <p>Now the whole conversation is hidden and your ears have to put the meaning together</p>
-            </div>
-
-            <div class="conversation-progress" aria-label="Conversation progress">
-              <span id="conversation-round-label">Conversation 1 of 3</span>
-              <div class="conversation-progress__track" aria-hidden="true">
-                <span id="conversation-progress-fill"></span>
-              </div>
-
-            </div> <!-- END conversation progress -->
-
-            <div class="conversation-theater" id="conversation-theater">
-              <div class="conversation-speakers" aria-hidden="true">
-                <div class="conversation-speaker" id="conversation-speaker-a">
-                  <span class="conversation-speaker__light"></span>
-                  <span>Speaker A</span>
+                <div class="room-welcome">
+                  <div class="room-welcome__icon" aria-hidden="true">👂</div>
+                  <div>
+                    <h2>Welcome to the Listening Room.</h2>
+                    <p>
+                      You do not need to understand every word.
+                      Listen for what you <strong>do</strong> understand.
+                    </p>
+                  </div>
                 </div>
 
-                <div class="conversation-soundwave">
-                  <span></span><span></span><span></span><span></span><span></span>
-                </div>
-
-                <div class="conversation-speaker" id="conversation-speaker-b">
-                  <span class="conversation-speaker__light"></span>
-                  <span>Speaker B</span>
-                </div>
-
-              </div> <!-- END conversation theater speakers -->
-
-              <div class="conversation-theater__cue">NO TRANSCRIPT YET</div>
-              <h5>Listen for the meaning of the whole exchange</h5>
-
-              <button type="button" class="conversation-play" id="conversation-play">
-                <span aria-hidden="true">▶</span>
-                Play the Conversation
-              </button>
-
-              <p class="conversation-theater__note" id="conversation-audio-note">
-                The Russian stays hidden until you tell us what you understood
-              </p>
-
-            </div> <!-- END conversation theater -->
-
-            <div class="conversation-response">
-              <label for="conversation-understanding">What did you understand</label>
-              <textarea id="conversation-understanding" rows="4"
-                placeholder="Type the meaning in your own English words"></textarea>
-
-              <button type="button" id="conversation-check">
-                Check What I Understood
-              </button>
-
-              <div class="conversation-feedback" id="conversation-feedback" aria-live="polite"></div>
-
-            </div> <!-- END conversation response -->
-
-            <div class="conversation-reveal" id="conversation-reveal" hidden>
-              <div class="conversation-reveal__column">
-                <div class="conversation-reveal__label">WHAT YOU HEARD</div>
-                <div class="conversation-transcript" id="conversation-transcript" lang="ru"></div>
-
-              </div> <!-- END conversation reveal Russian column -->
-
-              <div class="conversation-reveal__column">
-                <div class="conversation-reveal__label">WHAT IT MEANS</div>
-                <div class="conversation-meaning" id="conversation-meaning"></div>
+                <button class="room-button room-button--primary" id="enterButton" type="button">
+                  Enter the Listening Room
+                </button>
               </div>
-
-              <div class="conversation-reveal__column conversation-reveal__column--you">
-                <div class="conversation-reveal__label">WHAT YOU UNDERSTOOD</div>
-                <div class="conversation-you" id="conversation-you"></div>
-              </div>
-
-              <div class="conversation-reveal__actions">
-                <button type="button" id="conversation-hear-again">🔊 Hear It Again</button>
-                <button type="button" id="conversation-next">Next Conversation</button>
-              </div>
-
-            </div> <!-- END conversation reveal -->
-
-            <div class="conversation-complete" id="conversation-complete" hidden>
-              <div class="conversation-complete__rings" aria-hidden="true">
-                <span></span><span></span><span></span>
-
-              </div> <!-- END conversation complete rings -->
-
-              <div class="conversation-complete__eyebrow">THE LISTENING ROOM</div>
-              <h4>You understood a whole Russian conversation</h4>
-              <p>You listened for meaning instead of waiting for the words to appear</p>
             </div>
+          </section>
+          <!-- End Listening Room Landing -->
 
-            <div class="listening-part-controls listening-part-controls--c">
-              <button type="button" class="listening-back" id="listening-back-to-part-b">← Back to Part B</button>
-              <button type="button" class="listening-reset" id="listening-reset-part-c">↻ Reset Activity</button>
+          <!-- Listening Room Experience -->
+          <section class="room-screen" id="experienceScreen" hidden aria-labelledby="encounterTitle">
+            <div class="room-shell">
+              <div class="room-overlay room-overlay--experience"></div>
+
+              <div class="room-content room-content--experience">
+                <header class="encounter-header">
+                  <div>
+                    <p class="room-eyebrow">Listening Room • Family Relationships</p>
+                    <h2 id="encounterTitle">Listening Encounter</h2>
+                  </div>
+
+                  <div class="encounter-progress" aria-live="polite">
+                    <span id="encounterProgress">Encounter 1 of 6</span>
+                  </div>
+                </header>
+
+                <section class="encounter-card" aria-labelledby="movePrompt">
+                  <p class="encounter-move" id="moveLabel">HEAR</p>
+                  <h3 id="movePrompt">Listen once. Do not try to catch every word.</h3>
+                  <p class="encounter-purpose" id="movePurpose">
+                    First, listen for the overall shape of the message.
+                  </p>
+
+                  <div class="audio-row">
+                    <button class="room-button room-button--primary" id="listenButton" type="button">
+                      ▶ Listen
+                    </button>
+
+                    <button class="room-button room-button--secondary" id="slowerButton" type="button" hidden>
+                      Say It Slower
+                    </button>
+
+                    <p class="audio-status" id="audioStatus" role="status" aria-live="polite">
+                      Ready when you are.
+                    </p>
+                  </div>
+
+                  <!-- Catch Panel -->
+                  <section class="response-panel" id="catchPanel" hidden aria-labelledby="catchTitle">
+                    <h4 id="catchTitle">What did you catch?</h4>
+                    <p>Select anything you remember hearing. You do not need the whole sentence.</p>
+                    <div class="chip-grid" id="catchGrid"></div>
+                    <button class="room-button room-button--primary" id="catchContinueButton" type="button">
+                      Continue
+                    </button>
+                  </section>
+                  <!-- End Catch Panel -->
+
+                  <!-- Meaning Panel -->
+                  <section class="response-panel" id="meaningPanel" hidden aria-labelledby="meaningTitle">
+                    <h4 id="meaningTitle">Build the meaning</h4>
+                    <p id="meaningQuestion"></p>
+                    <div class="choice-grid" id="meaningChoices"></div>
+                    <p class="feedback" id="meaningFeedback" role="status" aria-live="polite"></p>
+                  </section>
+                  <!-- End Meaning Panel -->
+
+                  <!-- Infer Panel -->
+                  <section class="response-panel" id="inferPanel" hidden aria-labelledby="inferTitle">
+                    <h4 id="inferTitle">Listen for the change</h4>
+                    <p id="inferQuestion"></p>
+                    <div class="choice-grid" id="inferChoices"></div>
+                    <p class="feedback" id="inferFeedback" role="status" aria-live="polite"></p>
+                  </section>
+                  <!-- End Infer Panel -->
+
+                  <!-- Respond Panel -->
+                  <section class="response-panel" id="respondPanel" hidden aria-labelledby="respondTitle">
+                    <h4 id="respondTitle">Respond to what you understood</h4>
+                    <p id="respondQuestion"></p>
+                    <div class="choice-grid" id="respondChoices"></div>
+                    <p class="feedback" id="respondFeedback" role="status" aria-live="polite"></p>
+                  </section>
+                  <!-- End Respond Panel -->
+
+                  <!-- Progressive Support -->
+                  <aside class="support-panel" id="supportPanel" hidden aria-labelledby="supportTitle">
+                    <h4 id="supportTitle">Need a little support?</h4>
+                    <p id="supportText"></p>
+                    <button class="room-button room-button--secondary" id="revealTranscriptButton" type="button">
+                      Reveal Russian transcript
+                    </button>
+                    <p class="transcript" id="transcriptText" hidden></p>
+                  </aside>
+                  <!-- End Progressive Support -->
+
+                  <footer class="encounter-controls">
+                    <button class="room-button room-button--secondary" id="supportButton" type="button" hidden>
+                      Give Me a Clue
+                    </button>
+
+                    <button class="room-button room-button--primary" id="nextMoveButton" type="button" hidden>
+                      Next Listening Move
+                    </button>
+
+                    <button class="room-button room-button--primary" id="nextEncounterButton" type="button" hidden>
+                      Next Encounter
+                    </button>
+
+                    <button class="room-button room-button--secondary" id="resetButton" type="button">
+                      Reset Listening Room
+                    </button>
+                  </footer>
+                </section>
+              </div>
             </div>
+          </section>
+          <!-- End Listening Room Experience -->
 
-          </section> <!-- END Variation 2 Part C -->
+          <!-- Listening Room Completion -->
+          <section class="room-screen" id="completionScreen" hidden aria-labelledby="completionTitle">
+            <div class="room-shell">
+              <div class="room-overlay"></div>
+
+              <div class="room-content room-content--landing">
+                <p class="room-eyebrow">Listening Room • Complete</p>
+
+                <h2 id="completionTitle">Look what you understood.</h2>
+
+                <p class="completion-copy">
+                  You listened for meaning, caught familiar Russian, listened again with a purpose,
+                  followed changes, inferred meaning, and responded to connected Russian.
+                </p>
+
+                <p class="room-tagline">
+                  You did not need every word. You understood what was happening.
+                </p>
+
+                <button class="room-button room-button--primary" id="restartButton" type="button">
+                  Listen Again
+                </button>
+              </div>
+            </div>
+          </section>
+          <!-- End Listening Room Completion -->
+
+          <!-- END THE LISTENING ROOM -->
 
           <label class="completion">
             <input type="checkbox" class="variation-complete" data-variation="2">

@@ -1565,1273 +1565,424 @@ button:hover {
 }
 
 /* ==========================================
-   USE — VARIATION 2: THE LISTENING ROOM
-   PART A — LISTEN AND FIND THE MEANING
+   THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
+   Replaces the old "Part A/B/C" Listening Room CSS.
+   NOTE 1: .feedback renamed to .encounter-feedback throughout this
+   block to avoid colliding with the site-wide .feedback class used
+   by tree-challenge / phrase-bank activities elsewhere on this page.
+   NOTE 2 (2026-09-10 fix): html/body/button rules scoped to
+   .listening-room, and --shell-width changed from vw to % — see
+   integration notes for why.
 ========================================== */
+
+:root {
+  --navy-950: #07111f;
+  --navy-900: #0d192b;
+  --navy-800: #14263f;
+  --text: #f7f4ed;
+  --muted: #c9d3df;
+  --warm: #f2d6a2;
+  --warm-strong: #eabf76;
+  --panel: rgba(9, 20, 35, 0.90);
+  --panel-soft: rgba(21, 39, 63, 0.86);
+  --border: rgba(255, 255, 255, 0.16);
+  --success: #b7e7c2;
+  --amber: #f4d28e;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+
+  /* Shared page geometry */
+  --page-gap: 20px;
+  --shell-width: min(100%, 2000px);
+  --shell-height: min(88vh, 1000px);
+  --shell-radius: 34px;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 .listening-room {
-    margin-top: 38px;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #26384d;
-    border-radius: 18px;
-    background: #101a28;
-    box-shadow: 0 14px 32px rgba(14, 25, 39, 0.22);
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--navy-950);
+  color: var(--text);
 }
 
-.listening-room__header {
-    padding: 32px 36px 28px;
-    color: #ffffff;
-    background:
-        radial-gradient(circle at 82% 20%, rgba(73, 142, 196, 0.22), transparent 32%),
-        linear-gradient(135deg, #101a28, #172b40);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+.listening-room button {
+  font: inherit;
 }
-
-.listening-room__eyebrow {
-    margin: 0 0 8px;
-    color: #9fc7e6;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-}
-
-.listening-room__header h3 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 2.15rem;
-}
-
-.listening-room__identity {
-    max-width: 650px;
-    margin: 8px 0 0;
-    color: #c9d8e6;
-    font-size: 1.05rem;
-}
-
-.listening-room__part {
-    padding: 30px 36px 38px;
-    color: #eaf2f8;
-}
-
-.listening-room__part-label {
-    display: inline-block;
-    margin-bottom: 8px;
-    color: #8fc1e8;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-.listening-room__part h4 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 1.65rem;
-}
-
-.listening-room__directions {
-    max-width: 670px;
-    margin: 8px 0 24px;
-    color: #b9cad8;
-}
-
-.listening-room__progress {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    margin-bottom: 18px;
-}
-
-.listening-room__counter {
-    color: #b7c9d8;
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-}
-
-.listening-room__dots {
-    display: flex;
-    gap: 8px;
-}
-
-.listening-room__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #40546a;
-}
-
-.listening-room__dot--active {
-    background: #8fc9f2;
-    box-shadow: 0 0 0 4px rgba(143, 201, 242, 0.12);
-}
-
-.listening-room__dot--complete {
-    background: #7db89a;
-}
-
-.listening-room__audio-stage {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 240px;
-    padding: 30px;
-    overflow: hidden;
-    text-align: center;
-    background:
-        radial-gradient(circle at center, rgba(74, 139, 190, 0.16), transparent 45%),
-        #0c1521;
-    border: 1px solid #2c4258;
-    border-radius: 16px;
-}
-
-.listening-room__audio-stage::before,
-.listening-room__audio-stage::after {
-    content: "";
-    position: absolute;
-    width: 240px;
-    height: 240px;
-    border: 1px solid rgba(129, 186, 229, 0.12);
-    border-radius: 50%;
-}
-
-.listening-room__audio-stage::after {
-    width: 170px;
-    height: 170px;
-}
-
-.listening-room__audio-content {
-    position: relative;
-    z-index: 1;
-}
-
-.listening-room__prompt {
-    margin: 0 0 18px;
-    color: #d8e5ef;
-    font-size: 1.05rem;
-    font-weight: 700;
-}
-
-.listening-room__listen {
-    min-width: 210px;
-    padding: 14px 24px;
-    color: #10243a;
-    background: #d9edfb;
-    border: 2px solid #9ccbec;
-    border-radius: 999px;
-    font-size: 1.05rem;
-    font-weight: 900;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
-}
-
-.listening-room__listen:hover {
-    color: #0b1d30;
-    background: #eef8ff;
-}
-
-.listening-room__hidden-note {
-    margin: 16px 0 0;
-    color: #8298aa;
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-.listening-room__choices {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 22px;
-}
-
-.listening-room__choice {
-    min-height: 68px;
-    padding: 14px 18px;
-    color: #dbe8f2;
-    background: #182738;
-    border: 1px solid #3c5369;
-    border-radius: 10px;
-    text-align: left;
-    font-weight: 700;
-    transition:
-        transform 0.15s ease,
-        background-color 0.15s ease,
-        border-color 0.15s ease;
-}
-
-.listening-room__choice:hover {
-    color: #ffffff;
-    background: #21364b;
-    border-color: #719abd;
-    transform: translateY(-1px);
-}
-
-.listening-room__choice--try-again {
-    color: #f3d5bd;
-    background: #38271d;
-    border-color: #9a6949;
-}
-
-.listening-room__choice--correct {
-    color: #e7f5ec;
-    background: #1e3b2e;
-    border-color: #69a27f;
-}
-
-.listening-room__feedback {
-    min-height: 26px;
-    margin-top: 16px;
-    color: #d5e1ea;
-    font-weight: 700;
-}
-
-.listening-room__reveal {
-    margin-top: 22px;
-    padding: 22px;
-    background: #f4f8fb;
-    border: 1px solid #b9d2e5;
-    border-radius: 14px;
-    color: #172235;
-}
-
-.listening-room__reveal-label {
-    margin-bottom: 8px;
-    color: #56758e;
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-}
-
-.listening-room__russian {
-    margin: 0;
-    color: #123f65;
-    font-size: 1.7rem;
-    font-weight: 800;
-}
-
-.listening-room__meaning {
-    margin: 5px 0 0;
-    color: #40576a;
-    font-size: 1.05rem;
-}
-
-.listening-room__reveal-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-}
-
-.listening-room__hear-again,
-.listening-room__next {
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 800;
-}
-
-.listening-room__hear-again {
-    color: #174f7a;
-    background: #ffffff;
-    border: 1px solid #6da1c7;
-}
-
-.listening-room__next {
-    color: #ffffff;
-    background: #174f7a;
-    border: 1px solid #174f7a;
-}
-
-.listening-room__hear-again:hover {
-    background: #edf6fc;
-}
-
-.listening-room__next:hover {
-    color: #ffffff;
-    background: #0e3d61;
-}
-
-.listening-room__complete {
-    margin-top: 24px;
-    padding: 28px;
-    text-align: center;
-    color: #eaf5ee;
-    background: #173427;
-    border: 1px solid #4d8666;
-    border-radius: 14px;
-}
-
-.listening-room__complete h4 {
-    margin: 0 0 8px;
-    color: #ffffff;
-    font-size: 1.55rem;
-}
-
-.listening-room__complete p {
-    margin: 0;
-    color: #c4dfce;
-}
-
-@media (max-width: 700px) {
-
-    .listening-room__header,
-    .listening-room__part {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .listening-room__choices {
-        grid-template-columns: 1fr;
-    }
-
-    .listening-room__progress {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .listening-room__audio-stage {
-        min-height: 210px;
-        padding: 22px 16px;
-    }
-}
-
-/* ==========================================
-   VARIATION 2 — LISTENING ROOM
-   HTML CLASS NAME CORRECTIONS
-========================================== */
-
-.listening-part {
-    padding: 30px 36px 38px;
-    color: #eaf2f8;
-}
-
-.listening-part__intro {
-    color: #eaf2f8;
-}
-
-.listening-part__label {
-    display: inline-block;
-    margin-bottom: 8px;
-    color: #8fc1e8;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-.listening-part__intro h4 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 1.65rem;
-}
-
-.listening-part__intro p {
-    color: #b9cad8;
-}
-
-.listening-progress {
-    margin: 22px 0;
-    color: #b7c9d8;
-    font-weight: 800;
-}
-
-.listening-progress__track {
-    height: 6px;
-    margin-top: 10px;
-    overflow: hidden;
-    background: #35495d;
-    border-radius: 999px;
-}
-
-#listening-progress-fill {
-    display: block;
-    width: 16.666%;
-    height: 100%;
-    background: #8fc9f2;
-}
-
-.listening-stage {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 240px;
-    padding: 30px;
-    overflow: hidden;
-    text-align: center;
-    background:
-        radial-gradient(circle at center, rgba(74, 139, 190, 0.16), transparent 45%),
-        #0c1521;
-    border: 1px solid #2c4258;
-    border-radius: 16px;
-}
-
-.listening-stage__cue {
-    color: #d8e5ef;
-    font-size: 1.05rem;
-    font-weight: 700;
-}
-
-.listening-play {
-    min-width: 210px;
-    padding: 14px 24px;
-    color: #10243a;
-    background: #d9edfb;
-    border: 2px solid #9ccbec;
-    border-radius: 999px;
-    font-size: 1.05rem;
-    font-weight: 900;
-}
-
-.listening-play:hover {
-    color: #0b1d30;
-    background: #eef8ff;
-}
-
-.listening-stage__note {
-    color: #8298aa;
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-/* Variation 2 — Revealed Russian */
-
-.listening-reveal__russian {
-    font-size: 2rem;
-    font-weight: 600;
-}
-
-/* ==========================================
-   USE — VARIATION 2: THE LISTENING ROOM
-   PART B — SITUATION TO RUSSIAN
-========================================== */
-
-.listening-part--b {
-    margin: 0 28px 34px;
-    padding: 30px;
-    color: #eaf2f8;
-    background:
-        linear-gradient(135deg, rgba(33, 67, 88, 0.96), rgba(18, 40, 58, 0.98));
-    border: 1px solid #55788f;
-    border-radius: 16px;
-    box-shadow: inset 0 0 32px rgba(129, 195, 224, 0.06);
-}
-
-.listening-part__intro--b {
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(180, 218, 235, 0.2);
-}
-
-.listening-part__intro--b .listening-part__label {
-    color: #a9d9e9;
-}
-
-.listening-part__intro--b h4 {
-    margin: 4px 0 6px;
-    color: #ffffff;
-    font-size: 1.65rem;
-}
-
-.listening-part__intro--b p {
-    margin: 0;
-    color: #c7dce6;
-}
-
-.situation-progress {
-    margin: 22px 0;
-    color: #d5e7ef;
-    font-weight: 800;
-}
-
-.situation-progress__track {
-    height: 6px;
-    margin-top: 10px;
-    overflow: hidden;
-    background: #345568;
-    border-radius: 999px;
-}
-
-#situation-progress-fill {
-    display: block;
-    width: 16.666%;
-    height: 100%;
-    background: #a8d9e7;
-    border-radius: inherit;
-    transition: width 0.25s ease;
-}
-
-.situation-stage {
-    position: relative;
-    min-height: 190px;
-    padding: 34px 32px;
-    display: grid;
-    align-content: center;
-    justify-items: center;
-    text-align: center;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 50% 0%, rgba(150, 211, 228, 0.13), transparent 48%),
-        #122638;
-    border: 1px solid #4c7187;
-    border-radius: 14px;
-}
-
-.situation-stage__signal {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 12px;
-    display: grid;
-    place-items: center;
-    color: #b7e3ef;
-    border: 1px solid #6f9eb1;
-    border-radius: 50%;
-    font-size: 1.1rem;
-}
-
-.situation-stage__label {
-    color: #9cc9d9;
-    font-size: 0.76rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-}
-
-.situation-stage__prompt {
-    max-width: 680px;
-    margin: 12px 0 0;
-    color: #ffffff;
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.45;
-}
-
-.situation-choices {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 18px;
-}
-
-.situation-choice {
-    min-height: 74px;
-    padding: 16px 18px;
-    color: #eaf6fa;
-    background: #183246;
-    border: 1px solid #5c8195;
-    border-radius: 12px;
-    font-size: 1.18rem;
-    font-weight: 700;
-    text-align: center;
-    transition:
-        transform 0.15s ease,
-        background-color 0.15s ease,
-        border-color 0.15s ease;
-}
-
-.situation-choice:hover {
-    color: #ffffff;
-    background: #23465d;
-    border-color: #9bcddd;
-    transform: translateY(-2px);
-}
-
-.situation-choice--try-again {
-    color: #f1d9c8;
-    background: #463024;
-    border-color: #a77558;
-}
-
-.situation-choice--correct {
-    color: #e9f6ee;
-    background: #244737;
-    border-color: #77aa8b;
-}
-
-.situation-feedback {
-    min-height: 28px;
-    margin-top: 14px;
-    color: #d6e6ed;
-    font-weight: 700;
-}
-
-.situation-reveal {
-    margin-top: 18px;
-    padding: 22px;
-    color: #172235;
-    background: #f4fafc;
-    border: 1px solid #a9cedb;
-    border-radius: 14px;
-}
-
-.situation-reveal__label {
-    color: #56798a;
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-}
-
-.situation-reveal__russian {
-    margin-top: 7px;
-    color: #123f65;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.situation-reveal__meaning {
-    margin-top: 5px;
-    color: #496271;
-    font-size: 1.05rem;
-}
-
-.situation-reveal__actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-}
-
-.situation-reveal__actions button {
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 800;
+
+button:focus-visible {
+  outline: 3px solid var(--warm);
+  outline-offset: 4px;
 }
 
-#situation-hear {
-    color: #174f7a;
-    background: #ffffff;
-    border: 1px solid #6da1c7;
-}
+[hidden] {
+  display: none !important;
+}
 
-#situation-next {
-    color: #ffffff;
-    background: #174f7a;
-    border: 1px solid #174f7a;
+/* Shared Listening Room Environment */
+.room-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--page-gap);
+}
+
+.room-shell {
+  position: relative;
+  width: var(--shell-width);
+  height: var(--shell-height);
+  min-height: 620px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--shell-radius);
+  box-shadow: var(--shadow);
+  background:
+    url("../../Images/listening-room.svg") center center / cover no-repeat,
+    var(--navy-950);
 }
 
-.situation-complete {
-    margin-top: 22px;
-    padding: 28px;
-    text-align: center;
-    color: #eaf5ee;
-    background: #173427;
-    border: 1px solid #4d8666;
-    border-radius: 14px;
+.room-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(4, 11, 22, 0.96) 0%,
+      rgba(4, 11, 22, 0.90) 42%,
+      rgba(4, 11, 22, 0.58) 68%,
+      rgba(4, 11, 22, 0.26) 100%);
+  pointer-events: none;
 }
 
-.situation-complete__signal {
-    margin-bottom: 8px;
-    font-size: 1.4rem;
+.room-overlay--experience {
+  background:
+    linear-gradient(90deg,
+      rgba(4, 11, 22, 0.97) 0%,
+      rgba(4, 11, 22, 0.94) 56%,
+      rgba(4, 11, 22, 0.66) 78%,
+      rgba(4, 11, 22, 0.32) 100%);
 }
 
-.situation-complete h4 {
-    margin: 0 0 8px;
-    color: #ffffff;
-    font-size: 1.5rem;
+.room-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
 }
 
-.situation-complete p {
-    margin: 0;
-    color: #c4dfce;
+.room-content--landing {
+  width: min(54%, 760px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 5vw, 5rem);
 }
-
-@media (max-width: 700px) {
-    .listening-part--b {
-        margin-left: 14px;
-        margin-right: 14px;
-        padding: 22px 18px;
-    }
-
-    .situation-choices {
-        grid-template-columns: 1fr;
-    }
 
-    .situation-stage {
-        padding: 28px 18px;
-    }
+.room-content--experience {
+  width: min(72%, 1120px);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3vw, 3rem);
+  overflow-y: auto;
 }
-
-
-
-/* ==========================================
-   USE — VARIATION 2
-   LEARNER CONTROLS — BACK / RESET
-========================================== */
 
-.listening-part-controls {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 22px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(180, 218, 235, 0.18);
-}
+/* End Shared Listening Room Environment */
 
-.listening-part-controls button {
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 800;
+/* Shared Type */
+.room-eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--warm);
 }
 
-.listening-reset {
-    color: #dcecf3;
-    background: transparent;
-    border: 1px solid #7897a8;
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
 }
 
-.listening-reset:hover {
-    color: #ffffff;
-    background: #29475a;
-    border-color: #a5c8d7;
+h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 
-.listening-back {
-    color: #173f5b;
-    background: #eef8fb;
-    border: 1px solid #91bdcd;
+.room-tagline {
+  max-width: 680px;
+  margin-bottom: 2rem;
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  line-height: 1.5;
+  color: var(--warm);
 }
 
-.listening-back:hover {
-    color: #102f45;
-    background: #ffffff;
-    border-color: #b5d7e2;
+.room-welcome {
+  max-width: 650px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  padding: 1.35rem 1.45rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(18, 39, 64, 0.78);
 }
-
-@media (max-width: 700px) {
-    .listening-part-controls {
-        justify-content: stretch;
-    }
 
-    .listening-part-controls button {
-        flex: 1 1 100%;
-    }
+.room-welcome__icon {
+  font-size: 2.4rem;
 }
 
-
-/* ==========================================
-   USE — VARIATION 2: THE LISTENING ROOM
-   PART C — THE CONVERSATION THEATER
-========================================== */
-
-.listening-part--c {
-    position: relative;
-    margin: 0 28px 36px;
-    padding: 32px;
-    overflow: hidden;
-    color: #edf3fb;
-    background:
-        radial-gradient(circle at 50% -10%, rgba(107, 84, 180, 0.28), transparent 36%),
-        linear-gradient(145deg, #17182b 0%, #101523 58%, #151c2b 100%);
-    border: 1px solid #5f648f;
-    border-radius: 18px;
-    box-shadow:
-        inset 0 0 42px rgba(125, 118, 210, 0.08),
-        0 14px 28px rgba(9, 14, 28, 0.18);
+.room-welcome h2 {
+  margin-bottom: 0.35rem;
+  font-size: 1.25rem;
+  color: #a7ddff;
 }
 
-.listening-part--c::before,
-.listening-part--c::after {
-    content: "";
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    border: 1px solid rgba(132, 129, 210, 0.12);
-    border-radius: 50%;
-    pointer-events: none;
+.room-welcome p,
+.completion-copy {
+  margin-bottom: 0;
+  line-height: 1.65;
+  color: var(--muted);
 }
 
-.listening-part--c::before {
-    top: -105px;
-    left: -70px;
-}
+/* End Shared Type */
 
-.listening-part--c::after {
-    right: -65px;
-    bottom: -110px;
+/* Buttons */
+.room-button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.9rem 1.25rem;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
 }
 
-.listening-part__intro--c {
-    position: relative;
-    z-index: 1;
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(177, 183, 230, 0.18);
+.room-button--primary {
+  background: var(--warm-strong);
+  color: #182131;
+  font-weight: 800;
 }
 
-.listening-part__intro--c .listening-part__label {
-    color: #c7bdf8;
+.room-button--secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border-color: var(--border);
 }
 
-.listening-part__intro--c h4 {
-    margin: 4px 0 6px;
-    color: #ffffff;
-    font-size: 1.72rem;
+.room-button:hover {
+  transform: translateY(-2px);
 }
 
-.listening-part__intro--c p {
-    margin: 0;
-    color: #c6cce0;
+.room-content--landing>.room-button {
+  align-self: flex-start;
 }
 
-.conversation-progress {
-    position: relative;
-    z-index: 1;
-    margin: 22px 0;
-    color: #d9dcef;
-    font-weight: 800;
-}
+/* End Buttons */
 
-.conversation-progress__track {
-    height: 6px;
-    margin-top: 10px;
-    overflow: hidden;
-    background: #32354d;
-    border-radius: 999px;
+/* Encounter */
+.encounter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-#conversation-progress-fill {
-    display: block;
-    width: 33.333%;
-    height: 100%;
-    background: linear-gradient(90deg, #9f97e9, #74bfd3);
-    border-radius: inherit;
-    transition: width 0.3s ease;
+.encounter-header h2 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
 }
 
-.conversation-theater {
-    position: relative;
-    z-index: 1;
-    min-height: 300px;
-    padding: 32px;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 50% 46%, rgba(104, 126, 205, 0.15), transparent 32%),
-        #0b0f1d;
-    border: 1px solid #4f557a;
-    border-radius: 16px;
+.encounter-progress {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.conversation-theater::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.32;
-    background-image:
-        linear-gradient(rgba(132, 143, 194, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(132, 143, 194, 0.05) 1px, transparent 1px);
-    background-size: 28px 28px;
-    pointer-events: none;
+.encounter-card {
+  flex: 1;
+  min-height: 0;
+  padding: clamp(1.4rem, 2.6vw, 2.4rem);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
 }
 
-.conversation-speakers {
-    position: relative;
-    z-index: 1;
-    width: min(620px, 100%);
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 22px;
-    margin-bottom: 22px;
+.encounter-move {
+  margin-bottom: 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: var(--warm);
 }
 
-.conversation-speaker {
-    min-height: 82px;
-    display: grid;
-    place-items: center;
-    align-content: center;
-    gap: 8px;
-    color: #737991;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+.encounter-card h3 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
 }
 
-.conversation-speaker__light {
-    width: 18px;
-    height: 18px;
-    background: #272c42;
-    border: 1px solid #555d7d;
-    border-radius: 50%;
-    box-shadow: 0 0 0 7px rgba(77, 83, 122, 0.08);
-    transition:
-        background-color 0.2s ease,
-        box-shadow 0.2s ease;
+.encounter-purpose {
+  max-width: 800px;
+  margin-bottom: 1.5rem;
+  line-height: 1.65;
+  color: var(--muted);
 }
 
-.conversation-speaker--active {
-    color: #e7e9ff;
-    transform: translateY(-2px);
+.audio-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.conversation-speaker--active .conversation-speaker__light {
-    background: #c3bafd;
-    border-color: #e1ddff;
-    box-shadow:
-        0 0 0 8px rgba(165, 154, 244, 0.13),
-        0 0 24px rgba(177, 165, 255, 0.58);
+.audio-status {
+  flex-basis: 100%;
+  margin-bottom: 0;
+  color: var(--muted);
 }
 
-.conversation-soundwave {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.response-panel,
+.support-panel {
+  margin-top: 1rem;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel-soft);
 }
 
-.conversation-soundwave span {
-    width: 4px;
-    height: 12px;
-    background: #6f779f;
-    border-radius: 999px;
-    animation: listeningRoomWave 1.2s ease-in-out infinite;
+.support-panel {
+  border-style: dashed;
 }
 
-.conversation-soundwave span:nth-child(2) {
-    animation-delay: 0.12s;
+.response-panel p,
+.support-panel p {
+  color: var(--muted);
+  line-height: 1.55;
 }
 
-.conversation-soundwave span:nth-child(3) {
-    animation-delay: 0.24s;
+.chip-grid,
+.choice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 1rem 0;
 }
 
-.conversation-soundwave span:nth-child(4) {
-    animation-delay: 0.36s;
+.catch-chip,
+.choice-button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
 }
 
-.conversation-soundwave span:nth-child(5) {
-    animation-delay: 0.48s;
+.catch-chip[aria-pressed="true"] {
+  border-color: var(--warm-strong);
+  background: rgba(234, 191, 118, 0.14);
 }
-
-@keyframes listeningRoomWave {
-
-    0%,
-    100% {
-        height: 12px;
-        opacity: 0.45;
-    }
 
-    50% {
-        height: 42px;
-        opacity: 1;
-    }
+.encounter-feedback {
+  min-height: 1.5rem;
+  margin-bottom: 0;
+  font-weight: 700;
 }
 
-.conversation-theater__cue {
-    position: relative;
-    z-index: 1;
-    color: #8f96b8;
-    font-size: 0.73rem;
-    font-weight: 900;
-    letter-spacing: 0.18em;
+.encounter-feedback--success {
+  color: var(--success) !important;
 }
 
-.conversation-theater h5 {
-    position: relative;
-    z-index: 1;
-    max-width: 620px;
-    margin: 8px 0 20px;
-    color: #ffffff;
-    font-size: 1.35rem;
-    line-height: 1.4;
+.encounter-feedback--try {
+  color: var(--amber) !important;
 }
 
-.conversation-play {
-    position: relative;
-    z-index: 1;
-    min-width: 230px;
-    padding: 13px 20px;
-    color: #11162a;
-    background: #dcd8ff;
-    border: 1px solid #efedff;
-    border-radius: 999px;
-    font-weight: 900;
+.transcript {
+  margin-top: 1rem !important;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--text) !important;
+  font-size: 1.15rem;
 }
 
-.conversation-play:hover {
-    background: #ffffff;
+.encounter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
 }
 
-.conversation-play:disabled {
-    opacity: 0.65;
-    cursor: wait;
+#resetButton {
+  margin-left: auto;
 }
 
-.conversation-theater__note {
-    position: relative;
-    z-index: 1;
-    max-width: 560px;
-    margin: 16px 0 0;
-    color: #9ba2bd;
-    font-size: 0.92rem;
-}
+/* End Encounter */
 
-.conversation-response {
-    position: relative;
-    z-index: 1;
-    margin-top: 18px;
-    padding: 22px;
-    background: rgba(26, 30, 50, 0.72);
-    border: 1px solid #4d5576;
-    border-radius: 14px;
-}
+/* Responsive */
+@media (max-width: 980px) {
+  :root {
+    --shell-width: 100%;
+    --shell-height: auto;
+  }
 
-.conversation-response label {
-    display: block;
-    margin-bottom: 10px;
-    color: #f1f2ff;
-    font-weight: 900;
-}
+  .room-shell {
+    min-height: 760px;
+    height: auto;
+    background-position: 66% center;
+  }
 
-#conversation-understanding {
+  .room-content--landing,
+  .room-content--experience {
     width: 100%;
-    min-height: 112px;
-    resize: vertical;
-    padding: 14px 16px;
-    color: #172034;
-    background: #f7f8fc;
-    border: 1px solid #adb5d2;
-    border-radius: 10px;
-    font: inherit;
-    line-height: 1.5;
-}
-
-#conversation-understanding:focus {
-    outline: 3px solid rgba(171, 161, 244, 0.25);
-    border-color: #a79eeb;
-}
-
-#conversation-check {
-    margin-top: 12px;
-    padding: 11px 17px;
-    color: #ffffff;
-    background: #655aa9;
-    border: 1px solid #8278c7;
-    border-radius: 9px;
-    font-weight: 900;
-}
-
-#conversation-check:hover {
-    background: #7569bd;
-}
-
-.conversation-feedback {
-    min-height: 28px;
-    margin-top: 12px;
-    font-weight: 800;
-}
-
-.conversation-feedback--strong {
-    color: #bce8ca;
-}
-
-.conversation-feedback--partial {
-    color: #eadba9;
-}
-
-.conversation-feedback--notice {
-    color: #cbd0e3;
-}
-
-.conversation-reveal {
-    position: relative;
-    z-index: 1;
-    margin-top: 20px;
-    padding: 22px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-    color: #172035;
-    background: #f4f5fb;
-    border: 1px solid #b4b8d5;
-    border-radius: 15px;
-}
-
-.conversation-reveal__column {
-    min-height: 190px;
-    padding: 18px;
-    background: #ffffff;
-    border: 1px solid #d8dbea;
-    border-radius: 11px;
-}
-
-.conversation-reveal__column--you {
-    background: #f0effa;
-    border-color: #c8c2e8;
-}
-
-.conversation-reveal__label {
-    margin-bottom: 12px;
-    color: #6b7190;
-    font-size: 0.72rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-}
-
-.conversation-transcript__line {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 8px;
-    align-items: baseline;
-    margin-bottom: 9px;
-}
-
-.conversation-transcript__line span {
-    color: #7d82a0;
-    font-size: 0.75rem;
-    font-weight: 900;
-}
-
-.conversation-transcript__line strong {
-    color: #21395f;
-    font-size: 1.05rem;
-}
-
-.conversation-meaning,
-.conversation-you {
-    color: #3e4960;
-    line-height: 1.65;
-}
-
-.conversation-reveal__actions {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 4px;
-}
-
-.conversation-reveal__actions button {
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 900;
-}
-
-#conversation-hear-again {
-    color: #3f3a73;
-    background: #ffffff;
-    border: 1px solid #8e86c8;
-}
-
-#conversation-next {
-    color: #ffffff;
-    background: #4f477f;
-    border: 1px solid #655c98;
-}
-
-.conversation-complete {
-    position: relative;
-    z-index: 1;
-    margin-top: 22px;
-    padding: 38px 28px;
-    overflow: hidden;
-    text-align: center;
-    color: #e8f4f5;
     background:
-        radial-gradient(circle at 50% 50%, rgba(104, 191, 196, 0.16), transparent 40%),
-        #111f2a;
-    border: 1px solid #537f8b;
-    border-radius: 16px;
+      linear-gradient(180deg,
+        rgba(4, 11, 22, 0.98) 0%,
+        rgba(4, 11, 22, 0.92) 72%,
+        rgba(4, 11, 22, 0.78) 100%);
+  }
+
+  .room-content--experience {
+    overflow-y: visible;
+  }
 }
 
-.conversation-complete__rings {
-    position: absolute;
-    inset: 50% auto auto 50%;
-    width: 210px;
-    height: 210px;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
+@media (max-width: 760px) {
+  :root {
+    --page-gap: 1rem;
+    --shell-radius: 24px;
+  }
+
+  .encounter-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #resetButton {
+    margin-left: 0;
+  }
 }
 
-.conversation-complete__rings span {
-    position: absolute;
-    inset: 50%;
-    border: 1px solid rgba(115, 204, 207, 0.18);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
-.conversation-complete__rings span:nth-child(1) {
-    width: 75px;
-    height: 75px;
-}
-
-.conversation-complete__rings span:nth-child(2) {
-    width: 135px;
-    height: 135px;
-}
-
-.conversation-complete__rings span:nth-child(3) {
-    width: 200px;
-    height: 200px;
-}
-
-.conversation-complete__eyebrow,
-.conversation-complete h4,
-.conversation-complete p {
-    position: relative;
-    z-index: 1;
-}
-
-.conversation-complete__eyebrow {
-    color: #8bcbd1;
-    font-size: 0.72rem;
-    font-weight: 900;
-    letter-spacing: 0.18em;
-}
-
-.conversation-complete h4 {
-    margin: 8px 0 8px;
-    color: #ffffff;
-    font-size: 1.65rem;
-}
-
-.conversation-complete p {
-    max-width: 650px;
-    margin: 0 auto;
-    color: #b9d5d9;
-}
-
-@media (max-width: 800px) {
-
-    .listening-part--c {
-        margin-left: 14px;
-        margin-right: 14px;
-        padding: 22px 18px;
-    }
-
-    .conversation-reveal {
-        grid-template-columns: 1fr;
-    }
-
-    .conversation-reveal__actions {
-        grid-column: 1;
-    }
-}
-
-@media (max-width: 560px) {
-
-    .conversation-theater {
-        padding: 26px 16px;
-    }
-
-    .conversation-speakers {
-        grid-template-columns: 1fr;
-        gap: 6px;
-    }
-
-    .conversation-soundwave {
-        justify-content: center;
-    }
-}
-
+/* END THE LISTENING ROOM */
 /* ==========================================
    EXPLORE PHASE
 ========================================== */

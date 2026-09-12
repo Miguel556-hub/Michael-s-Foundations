@@ -2762,1336 +2762,477 @@ tabs.forEach((t) => {
 
 
 // ==================================================
-// USE — VARIATION 2: THE LISTENING ROOM
-// PART A — LISTEN AND FIND THE MEANING
+// THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
+// Replaces the old "Part A/B/C" Listening Room JS.
+// Wrapped in an IIFE to match this file's existing scoping convention.
+// NOTE 1: .feedback class renamed to .encounter-feedback throughout to
+// avoid colliding with the site-wide .feedback class used elsewhere.
+// NOTE 2 (2026-09-10 fix): scrollTo(top:0) calls changed to scroll the
+// .listening-room wrapper into view instead of the whole page — see
+// integration notes for why.
 // ==================================================
-
 (() => {
+  const encounters = [
+    {
+      // Encounter 1 — Lesson 1: любить + possessives
+      primary: "Я очень люблю мою семью, а моя семья любит меня.",
+      variation: "Моя семья любит меня, и я люблю мою семью.",
+      catch: ["я", "меня", "моя семья", "мою семью", "любит", "люблю", "родители", "брат", "сестра"],
+      meaningQuestion: "Who loves whom?",
+      meaningChoices: [
+        "I love my family, and my family loves me.",
+        "My family loves me, but I do not love my family.",
+        "My family loves another family."
+      ],
+      meaningAnswer: 0,
+      inferQuestion: "Did the direction of the love change when the people were mentioned in a different order?",
+      inferChoices: ["No.", "Yes.", "The speaker does not say."],
+      inferAnswer: 0,
+      respondQuestion: "Кого ты любишь?",
+      respondChoices: ["Я люблю мою семью.", "Я люблю маму.", "Я люблю папу."],
+      respondAnswer: 0,
+      support: "Listen for я люблю = \"I love\" and любит меня = \"loves me.\"",
+      transcript: "Я очень люблю мою семью, а моя семья любит меня."
+    },
+    {
+      // Encounter 2 — Lesson 2: Сколько? + family size
+      primary: "Сколько человек в вашей семье? В моей семье шесть человек.",
+      variation: "Сколько человек в вашей семье? Нас в семье шестеро.",
+      catch: ["сколько", "человек", "семье", "шесть", "три", "четыре", "пять", "семь", "девять", "десять"],
+      meaningQuestion: "How many people are in the speaker's family?",
+      meaningChoices: ["Four", "Six", "Seven"],
+      meaningAnswer: 1,
+      inferQuestion: "What information was the first speaker asking for?",
+      inferChoices: ["The size of the family", "Where the family lives", "Who is the oldest"],
+      inferAnswer: 0,
+      respondQuestion: "Сколько человек в твоей семье?",
+      respondChoices: ["один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять", "10+"],
+      respondAcceptsAny: true,
+      support: "Listen for Сколько человек...? Then listen for the number in the response.",
+      transcript: "Сколько человек в вашей семье? В моей семье шесть человек."
+    },
+    {
+      // Encounter 3 — Lesson 2: counting siblings
+      primary: "У меня есть два брата и одна сестра.",
+      variation: "У меня одна сестра и два брата.",
+      catch: ["один брат", "два брата", "три брата", "одна сестра", "две сестры", "четыре сестры"],
+      meaningQuestion: "Who does the speaker have in the family?",
+      meaningChoices: ["Two brothers and one sister", "One brother and two sisters", "Two brothers and two sisters"],
+      meaningAnswer: 0,
+      inferQuestion: "If the speaker says the sister first, does the family information change?",
+      inferChoices: ["No, the same siblings are described", "Yes, the family changes", "We cannot tell"],
+      inferAnswer: 0,
+      respondQuestion: "У тебя есть брат или сестра?",
+      respondChoices: ["Да, у меня есть брат.", "Да, у меня есть сестра.", "Да, у меня есть братья и сёстры.", "Нет."],
+      respondAnswer: 0,
+      // NOTE: also a free-response-style item in spirit — learner picks whichever is true for them.
+      support: "Listen separately for the number and the family word.",
+      transcript: "У меня есть два брата и одна сестра."
+    },
+    {
+      // Encounter 4 — Lesson 2: identification dialogue
+      primary: "Кто это? Твой брат? — Нет, это моя сестра.",
+      variation: "Это твоя сестра? — Нет, это мой брат.",
+      catch: ["брат", "сестра", "мама", "папа", "дедушка", "дядя"],
+      meaningQuestion: "Who is the person?",
+      meaningChoices: ["The speaker's brother", "The speaker's sister", "The speaker's mother"],
+      meaningAnswer: 1,
+      inferQuestion: "Was the first speaker's guess correct?",
+      inferChoices: ["No", "Yes", "We don't know"],
+      inferAnswer: 0,
+      respondQuestion: "Кто это?",
+      respondChoices: ["Это мой брат.", "Это моя сестра.", "Это моя мама.", "Это мой папа."],
+      respondAnswer: 1,
+      support: "Don't stop when you hear брат. Listen for what comes after нет.",
+      transcript: "Кто это? Твой брат? — Нет, это моя сестра."
+    },
+    {
+      // Encounter 5 — Lesson 2: жить + location contrast
+      primary: "Мои бабушка и дедушка живут в Москве, а я живу здесь.",
+      variation: "Я живу здесь, а мои бабушка с дедушкой — в Москве.",
+      catch: ["Москва", "здесь", "бабушка и дедушка", "я", "Санкт-Петербург", "дядя", "тётя"],
+      meaningQuestion: "Where do the grandparents live?",
+      meaningChoices: ["In Moscow", "Here with the speaker", "The speaker doesn't say"],
+      meaningAnswer: 0,
+      inferQuestion: "Does the speaker live in the same place as the grandparents?",
+      inferChoices: ["No", "Yes", "We cannot tell"],
+      inferAnswer: 0,
+      respondQuestion: "Где живут твои бабушка и дедушка?",
+      respondChoices: ["Они живут в ___.", "Они живут здесь.", "Я не знаю."],
+      respondAnswer: 0,
+      // NOTE: free-response fill-in for the blank.
+      support: "Listen for живут with бабушка и дедушка and живу with я.",
+      transcript: "Мои бабушка и дедушка живут в Москве, а я живу здесь."
+    },
+    {
+      // Encounter 6 — Lesson 3: любить (completed forms) + pronoun их
+      primary: "Ты любишь бабушку и дедушку? Да, я их очень люблю.",
+      variation: "Ты любишь бабушку и дедушку? Конечно. Я их очень люблю.",
+      catch: ["я", "их", "бабушку", "дедушку", "люблю", "дядя", "тётя", "родители"],
+      meaningQuestion: "Who does их refer to?",
+      meaningChoices: ["The grandmother and grandfather", "The speaker", "The speaker's whole family"],
+      meaningAnswer: 0,
+      inferQuestion: "How does the answer avoid repeating бабушку и дедушку?",
+      inferChoices: ["It uses их", "It uses я", "It uses ты"],
+      inferAnswer: 0,
+      respondQuestion: "Ты любишь твою семью?",
+      respondChoices: ["Да, я очень люблю мою семью.", "Да, очень.", "Конечно."],
+      respondAnswer: 0,
+      support: "Listen to the people named in the question. Then ask yourself who их replaces in the answer.",
+      transcript: "Ты любишь бабушку и дедушку? Да, я их очень люблю."
+    }
+  ];
 
-    const root =
-        document.querySelector("#variation-2");
+  const moves = [
+    {
+      label: "HEAR",
+      prompt: "Listen once. Do not try to catch every word.",
+      purpose: "First, listen for the overall shape of the message."
+    },
+    {
+      label: "CATCH",
+      prompt: "What did your ears catch?",
+      purpose: "Recognize familiar Russian without requiring the whole sentence."
+    },
+    {
+      label: "LISTEN AGAIN",
+      prompt: "Listen again with a purpose.",
+      purpose: "This time, listen for the days and the actions."
+    },
+    {
+      label: "BUILD MEANING",
+      prompt: "Put the pieces together.",
+      purpose: "Use what you understood to decide what the message means."
+    },
+    {
+      label: "INFER",
+      prompt: "Listen for what changed.",
+      purpose: "The Russian changed naturally. Follow the meaning, not a memorized sentence."
+    },
+    {
+      label: "RESPOND",
+      prompt: "Respond to what you understood.",
+      purpose: "Use the meaning you built to choose the response that fits."
+    }
+  ];
 
-    if (!root) {
-        return;
+  const el = {
+    room: document.querySelector(".listening-room"),
+    landing: document.getElementById("landingScreen"),
+    experience: document.getElementById("experienceScreen"),
+    completion: document.getElementById("completionScreen"),
+    enter: document.getElementById("enterButton"),
+    listen: document.getElementById("listenButton"),
+    slower: document.getElementById("slowerButton"),
+    audioStatus: document.getElementById("audioStatus"),
+    progress: document.getElementById("encounterProgress"),
+    moveLabel: document.getElementById("moveLabel"),
+    movePrompt: document.getElementById("movePrompt"),
+    movePurpose: document.getElementById("movePurpose"),
+    catchPanel: document.getElementById("catchPanel"),
+    catchGrid: document.getElementById("catchGrid"),
+    catchContinue: document.getElementById("catchContinueButton"),
+    meaningPanel: document.getElementById("meaningPanel"),
+    meaningQuestion: document.getElementById("meaningQuestion"),
+    meaningChoices: document.getElementById("meaningChoices"),
+    meaningFeedback: document.getElementById("meaningFeedback"),
+    inferPanel: document.getElementById("inferPanel"),
+    inferQuestion: document.getElementById("inferQuestion"),
+    inferChoices: document.getElementById("inferChoices"),
+    inferFeedback: document.getElementById("inferFeedback"),
+    respondPanel: document.getElementById("respondPanel"),
+    respondQuestion: document.getElementById("respondQuestion"),
+    respondChoices: document.getElementById("respondChoices"),
+    respondFeedback: document.getElementById("respondFeedback"),
+    supportPanel: document.getElementById("supportPanel"),
+    supportText: document.getElementById("supportText"),
+    supportButton: document.getElementById("supportButton"),
+    revealTranscript: document.getElementById("revealTranscriptButton"),
+    transcript: document.getElementById("transcriptText"),
+    nextMove: document.getElementById("nextMoveButton"),
+    nextEncounter: document.getElementById("nextEncounterButton"),
+    reset: document.getElementById("resetButton"),
+    restart: document.getElementById("restartButton")
+  };
+
+  let encounterIndex = 0;
+  let moveIndex = 0;
+  let lastSpokenText = "";
+  let lastRate = 0.86;
+
+  function speak(text, rate = 0.86) {
+    if (!("speechSynthesis" in window)) {
+      el.audioStatus.textContent = "Speech synthesis is not available in this browser.";
+      return;
     }
 
-    const listeningItems = [
-        {
-            russian: "Как вас зовут",
-            meaning: "What is your name",
-            choices: [
-                "What is your name",
-                "How are you doing",
-                "My name is Michael",
-                "See you later"
-            ]
-        },
+    window.speechSynthesis.cancel();
 
-        {
-            russian: "Меня зовут Майкл",
-            meaning: "My name is Michael",
-            choices: [
-                "My name is Michael",
-                "What is your name",
-                "Nice to meet you",
-                "Good morning"
-            ]
-        },
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ru-RU";
+    utterance.rate = rate;
 
-        {
-            russian: "Доброе утро",
-            meaning: "Good morning",
-            choices: [
-                "Good morning",
-                "See you tomorrow",
-                "Hello",
-                "How are you doing"
-            ]
-        },
-
-        {
-            russian: "Увидимся",
-            meaning: "See you later",
-            choices: [
-                "See you later",
-                "See you tomorrow",
-                "Goodbye",
-                "Very nice to meet you"
-            ]
-        },
-
-        {
-            russian: "Очень приятно",
-            meaning: "Very nice to meet you",
-            choices: [
-                "Very nice to meet you",
-                "Nice to meet you",
-                "My name is Michael",
-                "How are you doing"
-            ]
-        },
-
-        {
-            russian: "До завтра",
-            meaning: "See you tomorrow",
-            choices: [
-                "See you tomorrow",
-                "See you later",
-                "Goodbye",
-                "Good morning"
-            ]
-        }
-    ];
-
-    let currentIndex = 0;
-    let hasListened = false;
-
-    const playButton =
-        root.querySelector(".listening-play");
-
-    const stage =
-        root.querySelector(".listening-stage");
-
-    const note =
-        root.querySelector(".listening-stage__note");
-
-    const progressText =
-        root.querySelector("#listening-round-label");
-
-    const progressFill =
-        root.querySelector("#listening-progress-fill");
-
-    let choicesBox =
-        root.querySelector(".listening-choices");
-
-    let revealBox =
-        root.querySelector(".listening-reveal");
-
-
-    function speakCurrentPhrase() {
-
-        const item =
-            listeningItems[currentIndex];
-
-        speakRussian(item.russian);
-
-        hasListened = true;
-
-        showChoices();
+    const voices = window.speechSynthesis.getVoices();
+    const russianVoice = voices.find((voice) => voice.lang && voice.lang.toLowerCase().startsWith("ru"));
+    if (russianVoice) {
+      utterance.voice = russianVoice;
     }
 
+    utterance.onstart = () => {
+      el.audioStatus.textContent = "Listening...";
+    };
 
-    function showChoices() {
+    utterance.onend = () => {
+      el.audioStatus.textContent = "Ready to listen again.";
+    };
 
-        if (!choicesBox) {
+    utterance.onerror = () => {
+      el.audioStatus.textContent = "The browser could not play this Russian audio.";
+    };
 
-            choicesBox =
-                document.createElement("div");
+    lastSpokenText = text;
+    lastRate = rate;
+    window.speechSynthesis.speak(utterance);
+  }
 
-            choicesBox.className =
-                "listening-choices";
+  function clearPanels() {
+    [
+      el.catchPanel,
+      el.meaningPanel,
+      el.inferPanel,
+      el.respondPanel,
+      el.supportPanel
+    ].forEach((panel) => {
+      panel.hidden = true;
+    });
 
-            stage.after(choicesBox);
-        }
+    el.slower.hidden = true;
+    el.supportButton.hidden = true;
+    el.nextMove.hidden = true;
+    el.nextEncounter.hidden = true;
 
-        choicesBox.innerHTML = "";
-        choicesBox.hidden = false;
+    el.meaningFeedback.textContent = "";
+    el.meaningFeedback.className = "encounter-feedback";
+    el.inferFeedback.textContent = "";
+    el.inferFeedback.className = "encounter-feedback";
+    el.respondFeedback.textContent = "";
+    el.respondFeedback.className = "encounter-feedback";
+  }
 
-        const shuffled =
-            [...listeningItems[currentIndex].choices]
-                .sort(() => Math.random() - 0.5);
+  function makeChoiceButtons(container, choices, answerIndex, feedbackEl, successText, acceptAny = false) {
+    container.innerHTML = "";
 
-        shuffled.forEach((choiceText) => {
+    choices.forEach((choice, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "choice-button";
+      button.textContent = choice;
 
-            const button =
-                document.createElement("button");
-
-            button.type = "button";
-
-            button.className =
-                "listening-choice";
-
-            button.textContent =
-                choiceText;
-
-            button.addEventListener(
-                "click",
-                () => checkChoice(button, choiceText)
-            );
-
-            choicesBox.appendChild(button);
-        });
-    }
-
-
-    function checkChoice(button, choiceText) {
-
-        if (!hasListened) {
-            return;
-        }
-
-        const item =
-            listeningItems[currentIndex];
-
-        if (
-            normalize(choiceText) ===
-            normalize(item.meaning)
-        ) {
-
-            button.classList.add(
-                "listening-choice--correct"
-            );
-
-            showReveal();
-
+      button.addEventListener("click", () => {
+        if (acceptAny || index === answerIndex) {
+          feedbackEl.textContent = successText;
+          feedbackEl.className = "encounter-feedback encounter-feedback--success";
+          [...container.querySelectorAll("button")].forEach((item) => {
+            item.disabled = true;
+          });
+          el.nextMove.hidden = false;
         } else {
-
-            button.classList.add(
-                "listening-choice--try-again"
-            );
-
-            note.textContent =
-                "Listen again and try another meaning";
+          feedbackEl.textContent = "Not quite. Listen again and use what you do understand.";
+          feedbackEl.className = "encounter-feedback encounter-feedback--try";
         }
+      });
+
+      container.appendChild(button);
+    });
+  }
+
+  function renderCatch(encounter) {
+    el.catchGrid.innerHTML = "";
+
+    encounter.catch.forEach((word) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "catch-chip";
+      button.textContent = word;
+      button.setAttribute("aria-pressed", "false");
+
+      button.addEventListener("click", () => {
+        const pressed = button.getAttribute("aria-pressed") === "true";
+        button.setAttribute("aria-pressed", String(!pressed));
+      });
+
+      el.catchGrid.appendChild(button);
+    });
+  }
+
+  function renderMove() {
+    const encounter = encounters[encounterIndex];
+    const move = moves[moveIndex];
+
+    clearPanels();
+
+    el.progress.textContent = `Encounter ${encounterIndex + 1} of ${encounters.length}`;
+    el.moveLabel.textContent = move.label;
+    el.movePrompt.textContent = move.prompt;
+    el.movePurpose.textContent = move.purpose;
+    el.audioStatus.textContent = "Ready when you are.";
+
+    if (moveIndex === 0) {
+      el.listen.onclick = () => speak(encounter.primary, 0.86);
+      el.nextMove.hidden = false;
     }
 
-
-    function showReveal() {
-
-        const item =
-            listeningItems[currentIndex];
-
-        if (!revealBox) {
-
-            revealBox =
-                document.createElement("div");
-
-            revealBox.className =
-                "listening-reveal";
-
-            choicesBox.after(revealBox);
-        }
-
-        revealBox.hidden = false;
-
-        revealBox.innerHTML = `
-            <div class="listening-reveal__label">
-                What you heard
-            </div>
-
-            <p class="listening-reveal__russian">
-                ${item.russian}
-            </p>
-
-            <p class="listening-reveal__meaning">
-                ${item.meaning}
-            </p>
-
-            <div class="listening-reveal__actions">
-
-                <button
-                    type="button"
-                    class="listening-hear-again"
-                >
-                    🔊 Hear It Again
-                </button>
-
-                <button
-                    type="button"
-                    class="listening-next"
-                >
-                    Next
-                </button>
-
-            </div>
-        `;
-
-        revealBox
-            .querySelector(".listening-hear-again")
-            .addEventListener("click", () => {
-
-                speakRussian(item.russian);
-
-            });
-
-        revealBox
-            .querySelector(".listening-next")
-            .addEventListener("click", () => {
-
-                moveNext();
-
-            });
-
-        note.textContent =
-            "You understood it";
+    if (moveIndex === 1) {
+      renderCatch(encounter);
+      el.catchPanel.hidden = false;
+      el.listen.onclick = () => speak(encounter.primary, 0.86);
+      el.catchContinue.onclick = () => {
+        moveIndex += 1;
+        renderMove();
+      };
     }
 
-
-    function moveNext() {
-
-        if (
-            currentIndex <
-            listeningItems.length - 1
-        ) {
-
-            currentIndex++;
-
-            hasListened = false;
-
-            choicesBox.innerHTML = "";
-
-            if (revealBox) {
-                revealBox.innerHTML = "";
-            }
-
-            note.textContent =
-                "The Russian is hidden";
-
-            updateProgress();
-
-        } else {
-
-            finishPartA();
-        }
+    if (moveIndex === 2) {
+      el.listen.onclick = () => speak(encounter.primary, 0.86);
+      el.slower.hidden = false;
+      el.slower.onclick = () => speak(encounter.primary, 0.68);
+      el.supportButton.hidden = false;
+      el.nextMove.hidden = false;
     }
 
-
-    function updateProgress() {
-
-        if (progressText) {
-
-            progressText.textContent =
-                `Listen ${currentIndex + 1} of ${listeningItems.length}`;
-        }
-
-        if (progressFill) {
-
-            progressFill.style.width =
-                `${((currentIndex + 1) /
-                    listeningItems.length) * 100
-                }%`;
-        }
+    if (moveIndex === 3) {
+      el.meaningPanel.hidden = false;
+      el.meaningQuestion.textContent = encounter.meaningQuestion;
+      makeChoiceButtons(
+        el.meaningChoices,
+        encounter.meaningChoices,
+        encounter.meaningAnswer,
+        el.meaningFeedback,
+        "Yes. You followed the meaning."
+      );
+      el.listen.onclick = () => speak(encounter.primary, 0.86);
+      el.supportButton.hidden = false;
     }
 
-
-    function finishPartA() {
-
-        if (choicesBox) {
-            choicesBox.innerHTML = "";
-        }
-
-        if (revealBox) {
-
-            revealBox.innerHTML = `
-                <div class="listening-complete">
-
-                    <h4>
-                        You understood spoken Russian
-                    </h4>
-
-                    <p>
-                        You listened without seeing the Russian first
-                    </p>
-
-                </div>
-            `;
-        }
-
-        note.textContent = "";
-
-        playButton.disabled = true;
-
-        playButton.textContent =
-            "Part A Complete";
-
-        const partB =
-            document.querySelector("#variation-2-part-b");
-
-        if (partB) {
-            partB.hidden = false;
-            partB.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-        }
+    if (moveIndex === 4) {
+      el.inferPanel.hidden = false;
+      el.inferQuestion.textContent = encounter.inferQuestion;
+      makeChoiceButtons(
+        el.inferChoices,
+        encounter.inferChoices,
+        encounter.inferAnswer,
+        el.inferFeedback,
+        "Exactly. You followed the change without needing the original wording."
+      );
+      el.listen.onclick = () => speak(encounter.variation, 0.86);
+      el.slower.hidden = false;
+      el.slower.onclick = () => speak(encounter.variation, 0.68);
+      el.supportButton.hidden = false;
     }
 
-
-    const resetPartAButton =
-        root.querySelector("#listening-reset-part-a");
-
-    function resetPartA() {
-
-        speechSynthesis.cancel();
-
-        currentIndex = 0;
-        hasListened = false;
-
-        if (choicesBox) {
-            choicesBox.innerHTML = "";
-            choicesBox.hidden = true;
-        }
-
-        if (revealBox) {
-            revealBox.innerHTML = "";
-            revealBox.hidden = true;
-        }
-
-        note.textContent =
-            "The Russian is hidden";
-
-        playButton.disabled = false;
-        playButton.textContent =
-            "Hear the Russian";
-
-        updateProgress();
-
-        root.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+    if (moveIndex === 5) {
+      el.respondPanel.hidden = false;
+      el.respondQuestion.textContent = encounter.respondQuestion;
+      makeChoiceButtons(
+        el.respondChoices,
+        encounter.respondChoices,
+        encounter.respondAnswer,
+        el.respondFeedback,
+        "Well done. You responded to what you understood.",
+        Boolean(encounter.respondAcceptsAny)
+      );
+      el.listen.onclick = () => speak(encounter.variation, 0.86);
+      el.supportButton.hidden = false;
     }
 
-    resetPartAButton
-        ?.addEventListener(
-            "click",
-            resetPartA
-        );
+    el.supportText.textContent = encounter.support;
+    el.transcript.textContent = encounter.transcript;
+    el.transcript.hidden = true;
 
+    if (moveIndex === 5) {
+      el.nextMove.hidden = true;
+    }
+  }
 
-    playButton
-        ?.addEventListener(
-            "click",
-            speakCurrentPhrase
-        );
+  function advanceMove() {
+    if (moveIndex < moves.length - 1) {
+      moveIndex += 1;
+      renderMove();
+      return;
+    }
 
-    updateProgress();
+    el.nextEncounter.hidden = false;
+  }
 
+  function advanceEncounter() {
+    if (encounterIndex < encounters.length - 1) {
+      encounterIndex += 1;
+      moveIndex = 0;
+      renderMove();
+      return;
+    }
+
+    showCompletion();
+  }
+
+  function showCompletion() {
+    window.speechSynthesis?.cancel();
+    el.landing.hidden = true;
+    el.experience.hidden = true;
+    el.completion.hidden = false;
+    el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function resetRoom() {
+    window.speechSynthesis?.cancel();
+    encounterIndex = 0;
+    moveIndex = 0;
+    el.completion.hidden = true;
+    el.landing.hidden = false;
+    el.experience.hidden = true;
+    el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  el.enter.addEventListener("click", () => {
+    el.landing.hidden = true;
+    el.completion.hidden = true;
+    el.experience.hidden = false;
+    encounterIndex = 0;
+    moveIndex = 0;
+    renderMove();
+    el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  el.nextMove.addEventListener("click", advanceMove);
+
+  el.nextEncounter.addEventListener("click", () => {
+    if (encounterIndex < encounters.length - 1) {
+      encounterIndex += 1;
+      moveIndex = 0;
+      renderMove();
+    } else {
+      showCompletion();
+    }
+  });
+
+  el.supportButton.addEventListener("click", () => {
+    el.supportPanel.hidden = false;
+  });
+
+  el.revealTranscript.addEventListener("click", () => {
+    el.transcript.hidden = false;
+  });
+
+  el.reset.addEventListener("click", resetRoom);
+  el.restart.addEventListener("click", resetRoom);
+
+  el.slower.addEventListener("click", () => {
+    if (lastSpokenText) {
+      speak(lastSpokenText, 0.68);
+    }
+  });
 })();
-
-// ==================================================
-// USE — VARIATION 2: THE LISTENING ROOM
-// PART B — READ THE SITUATION AND CHOOSE THE RUSSIAN
-// ==================================================
-
-(() => {
-
-    const root =
-        document.querySelector("#variation-2-part-b");
-
-    if (!root) {
-        return;
-    }
-
-    const situationItems = [
-        {
-            situation: "You meet someone for the first time and want to ask their name",
-            russian: "Как вас зовут",
-            meaning: "What is your name",
-            choices: [
-                "Как вас зовут",
-                "Меня зовут Майкл",
-                "Как дела",
-                "Очень приятно"
-            ]
-        },
-        {
-            situation: "Someone asks your name and you want to introduce yourself",
-            russian: "Меня зовут Майкл",
-            meaning: "My name is Michael",
-            choices: [
-                "Меня зовут Майкл",
-                "Как вас зовут",
-                "Доброе утро",
-                "До завтра"
-            ]
-        },
-        {
-            situation: "You want to ask someone how they are doing",
-            russian: "Как дела",
-            meaning: "How are you doing",
-            choices: [
-                "Как дела",
-                "Очень приятно",
-                "Увидимся",
-                "Нормально"
-            ]
-        },
-        {
-            situation: "Someone tells you their name and you want to respond warmly",
-            russian: "Очень приятно",
-            meaning: "Very nice to meet you",
-            choices: [
-                "Очень приятно",
-                "Как дела",
-                "До завтра",
-                "Меня зовут Майкл"
-            ]
-        },
-        {
-            situation: "You are leaving and expect to see the person again later",
-            russian: "Увидимся",
-            meaning: "See you later",
-            choices: [
-                "Увидимся",
-                "Доброе утро",
-                "Как вас зовут",
-                "Неплохо"
-            ]
-        },
-        {
-            situation: "You are leaving and know you will see the person tomorrow",
-            russian: "До завтра",
-            meaning: "See you tomorrow",
-            choices: [
-                "До завтра",
-                "Увидимся",
-                "До свидания",
-                "Доброе утро"
-            ]
-        }
-    ];
-
-    let currentIndex = 0;
-    let roundComplete = false;
-
-    const prompt =
-        root.querySelector("#situation-prompt");
-
-    const choicesBox =
-        root.querySelector("#situation-choices");
-
-    const feedback =
-        root.querySelector("#situation-feedback");
-
-    const reveal =
-        root.querySelector("#situation-reveal");
-
-    const revealRussian =
-        root.querySelector("#situation-reveal-russian");
-
-    const revealMeaning =
-        root.querySelector("#situation-reveal-meaning");
-
-    const hearButton =
-        root.querySelector("#situation-hear");
-
-    const nextButton =
-        root.querySelector("#situation-next");
-
-    const progressText =
-        root.querySelector("#situation-round-label");
-
-    const progressFill =
-        root.querySelector("#situation-progress-fill");
-
-    const completeBox =
-        root.querySelector("#situation-complete");
-
-
-    function shuffled(items) {
-        return [...items].sort(
-            () => Math.random() - 0.5
-        );
-    }
-
-
-    function renderRound() {
-
-        const item =
-            situationItems[currentIndex];
-
-        roundComplete = false;
-
-        prompt.textContent =
-            item.situation;
-
-        feedback.textContent = "";
-
-        reveal.hidden = true;
-
-        choicesBox.innerHTML = "";
-
-        shuffled(item.choices).forEach((choiceText) => {
-
-            const button =
-                document.createElement("button");
-
-            button.type = "button";
-
-            button.className =
-                "situation-choice";
-
-            button.textContent =
-                choiceText;
-
-            button.addEventListener(
-                "click",
-                () => checkChoice(button, choiceText)
-            );
-
-            choicesBox.appendChild(button);
-        });
-
-        updateProgress();
-    }
-
-
-    function checkChoice(button, choiceText) {
-
-        if (roundComplete) {
-            return;
-        }
-
-        const item =
-            situationItems[currentIndex];
-
-        if (
-            normalize(choiceText) ===
-            normalize(item.russian)
-        ) {
-
-            roundComplete = true;
-
-            button.classList.add(
-                "situation-choice--correct"
-            );
-
-            choicesBox
-                .querySelectorAll("button")
-                .forEach((choiceButton) => {
-                    choiceButton.disabled = true;
-                });
-
-            feedback.textContent =
-                "That Russian fits the situation";
-
-            showReveal();
-
-        } else {
-
-            button.classList.add(
-                "situation-choice--try-again"
-            );
-
-            feedback.textContent =
-                "Think about what you would say in this situation and try another choice";
-        }
-    }
-
-
-    function showReveal() {
-
-        const item =
-            situationItems[currentIndex];
-
-        revealRussian.textContent =
-            item.russian;
-
-        revealMeaning.textContent =
-            item.meaning;
-
-        reveal.hidden = false;
-
-        nextButton.textContent =
-            currentIndex === situationItems.length - 1
-                ? "Finish Part B"
-                : "Next situation";
-    }
-
-
-    function moveNext() {
-
-        if (!roundComplete) {
-            return;
-        }
-
-        if (
-            currentIndex <
-            situationItems.length - 1
-        ) {
-
-            currentIndex++;
-
-            renderRound();
-
-            root.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        } else {
-
-            finishPartB();
-        }
-    }
-
-
-    function updateProgress() {
-
-        progressText.textContent =
-            `Situation ${currentIndex + 1} of ${situationItems.length}`;
-
-        progressFill.style.width =
-            `${((currentIndex + 1) /
-                situationItems.length) * 100
-            }%`;
-    }
-
-
-    function finishPartB() {
-
-        choicesBox.innerHTML = "";
-
-        feedback.textContent = "";
-
-        reveal.hidden = true;
-
-        completeBox.hidden = false;
-
-        prompt.textContent =
-            "Part B Complete";
-
-        const partC =
-            document.querySelector("#variation-2-part-c");
-
-        if (partC) {
-            partC.hidden = false;
-            partC.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-        }
-    }
-
-
-    hearButton.addEventListener(
-        "click",
-        () => {
-            speakRussian(
-                situationItems[currentIndex].russian
-            );
-        }
-    );
-
-
-    nextButton.addEventListener(
-        "click",
-        moveNext
-    );
-
-
-    const resetPartBButton =
-        root.querySelector("#listening-reset-part-b");
-
-    const backToPartAButton =
-        root.querySelector("#listening-back-to-part-a");
-
-
-    function resetPartB() {
-
-        currentIndex = 0;
-        roundComplete = false;
-
-        completeBox.hidden = true;
-        reveal.hidden = true;
-
-        renderRound();
-
-        root.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-
-
-    resetPartBButton
-        ?.addEventListener(
-            "click",
-            resetPartB
-        );
-
-
-    backToPartAButton
-        ?.addEventListener(
-            "click",
-            () => {
-
-                document
-                    .querySelector("#variation-2-part-a")
-                    ?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-            }
-        );
-
-
-    renderRound();
-
-})();
-
-
-// ==================================================
-// USE — VARIATION 2: THE LISTENING ROOM
-// PART C — HEAR THE CONVERSATION
-// ==================================================
-
-(() => {
-
-    const root =
-        document.querySelector("#variation-2-part-c");
-
-    if (!root) {
-        return;
-    }
-
-    const conversations = [
-        {
-            lines: [
-                { speaker: "a", russian: "Здравствуйте" },
-                { speaker: "b", russian: "Как вас зовут" },
-                { speaker: "a", russian: "Меня зовут Майкл" },
-                { speaker: "b", russian: "Очень приятно" }
-            ],
-            meaning:
-                "Hello What is your name My name is Michael Very nice to meet you",
-            concepts: [
-                ["hello", "hi", "greetings"],
-                ["name"],
-                ["michael"],
-                ["nice", "meet"]
-            ]
-        },
-        {
-            lines: [
-                { speaker: "a", russian: "Привет" },
-                { speaker: "b", russian: "Как дела" },
-                { speaker: "a", russian: "Хорошо спасибо" },
-                { speaker: "a", russian: "А у вас" },
-                { speaker: "b", russian: "Отлично" }
-            ],
-            meaning:
-                "Hi How are you Good thank you And you Excellent",
-            concepts: [
-                ["hello", "hi"],
-                ["how are", "doing"],
-                ["good", "well"],
-                ["thank"],
-                ["and you", "you"],
-                ["excellent", "great"]
-            ]
-        },
-        {
-            lines: [
-                { speaker: "a", russian: "Доброе утро" },
-                { speaker: "b", russian: "Как вас зовут" },
-                { speaker: "a", russian: "Меня зовут Майкл" },
-                { speaker: "b", russian: "Очень приятно" },
-                { speaker: "a", russian: "Как дела" },
-                { speaker: "b", russian: "Неплохо" },
-                { speaker: "a", russian: "До завтра" }
-            ],
-            meaning:
-                "Good morning What is your name My name is Michael Very nice to meet you How are you Not bad See you tomorrow",
-            concepts: [
-                ["morning"],
-                ["name"],
-                ["michael"],
-                ["nice", "meet"],
-                ["how are", "doing"],
-                ["not bad", "okay"],
-                ["tomorrow"]
-            ]
-        }
-    ];
-
-    let currentIndex = 0;
-    let hasPlayed = false;
-    let submitted = false;
-    let playToken = 0;
-
-    const progressText =
-        root.querySelector("#conversation-round-label");
-
-    const progressFill =
-        root.querySelector("#conversation-progress-fill");
-
-    const playButton =
-        root.querySelector("#conversation-play");
-
-    const audioNote =
-        root.querySelector("#conversation-audio-note");
-
-    const input =
-        root.querySelector("#conversation-understanding");
-
-    const checkButton =
-        root.querySelector("#conversation-check");
-
-    const feedback =
-        root.querySelector("#conversation-feedback");
-
-    const reveal =
-        root.querySelector("#conversation-reveal");
-
-    const transcript =
-        root.querySelector("#conversation-transcript");
-
-    const meaning =
-        root.querySelector("#conversation-meaning");
-
-    const learnerText =
-        root.querySelector("#conversation-you");
-
-    const hearAgain =
-        root.querySelector("#conversation-hear-again");
-
-    const nextButton =
-        root.querySelector("#conversation-next");
-
-    const completeBox =
-        root.querySelector("#conversation-complete");
-
-    const speakerA =
-        root.querySelector("#conversation-speaker-a");
-
-    const speakerB =
-        root.querySelector("#conversation-speaker-b");
-
-    const resetButton =
-        root.querySelector("#listening-reset-part-c");
-
-    const backButton =
-        root.querySelector("#listening-back-to-part-b");
-
-
-    function updateProgress() {
-
-        progressText.textContent =
-            `Conversation ${currentIndex + 1} of ${conversations.length}`;
-
-        progressFill.style.width =
-            `${((currentIndex + 1) / conversations.length) * 100}%`;
-    }
-
-
-    function clearSpeakerLights() {
-
-        speakerA.classList.remove(
-            "conversation-speaker--active"
-        );
-
-        speakerB.classList.remove(
-            "conversation-speaker--active"
-        );
-    }
-
-
-    function getRussianVoices() {
-
-        const voices =
-            window.speechSynthesis?.getVoices?.() || [];
-
-        return voices.filter(
-            (voice) =>
-                voice.lang &&
-                voice.lang.toLowerCase().startsWith("ru")
-        );
-    }
-
-
-    function playConversation() {
-
-        if (!("speechSynthesis" in window)) {
-
-            audioNote.textContent =
-                "Conversation audio is not available in this browser";
-
-            return;
-        }
-
-        speechSynthesis.cancel();
-
-        const token = ++playToken;
-        const item = conversations[currentIndex];
-        const russianVoices = getRussianVoices();
-
-        hasPlayed = true;
-
-        playButton.disabled = true;
-        playButton.textContent =
-            "Listening";
-
-        audioNote.textContent =
-            "Listen for the whole meaning";
-
-        let lineIndex = 0;
-
-        const speakNextLine = () => {
-
-            if (
-                token !== playToken ||
-                lineIndex >= item.lines.length
-            ) {
-
-                clearSpeakerLights();
-
-                playButton.disabled = false;
-                playButton.innerHTML =
-                    "<span aria-hidden='true'>▶</span> Play the Conversation";
-
-                audioNote.textContent =
-                    "Type what the whole exchange meant to you";
-
-                return;
-            }
-
-            const line = item.lines[lineIndex];
-
-            clearSpeakerLights();
-
-            const activeSpeaker =
-                line.speaker === "a"
-                    ? speakerA
-                    : speakerB;
-
-            activeSpeaker.classList.add(
-                "conversation-speaker--active"
-            );
-
-            const utterance =
-                new SpeechSynthesisUtterance(
-                    line.russian
-                );
-
-            utterance.lang = "ru-RU";
-            utterance.rate = 0.86;
-
-            if (russianVoices.length > 1) {
-
-                utterance.voice =
-                    line.speaker === "a"
-                        ? russianVoices[0]
-                        : russianVoices[1];
-
-            } else if (russianVoices.length === 1) {
-
-                utterance.voice =
-                    russianVoices[0];
-
-                utterance.pitch =
-                    line.speaker === "a"
-                        ? 0.95
-                        : 1.08;
-            }
-
-            utterance.onend = () => {
-
-                lineIndex++;
-
-                setTimeout(
-                    speakNextLine,
-                    260
-                );
-            };
-
-            utterance.onerror = () => {
-
-                lineIndex++;
-
-                setTimeout(
-                    speakNextLine,
-                    120
-                );
-            };
-
-            speechSynthesis.speak(
-                utterance
-            );
-        };
-
-        speakNextLine();
-    }
-
-
-    function conceptScore(text, concepts) {
-
-        const normalized =
-            normalize(text);
-
-        let hits = 0;
-
-        concepts.forEach((group) => {
-
-            if (
-                group.some(
-                    (word) =>
-                        normalized.includes(
-                            normalize(word)
-                        )
-                )
-            ) {
-                hits++;
-            }
-        });
-
-        return hits / concepts.length;
-    }
-
-
-    function buildTranscript(lines) {
-
-        return lines
-            .map(
-                (line) =>
-                    `<div class="conversation-transcript__line">
-                        <span>${line.speaker === "a" ? "A" : "B"}</span>
-                        <strong>${line.russian}</strong>
-                    </div>`
-            )
-            .join("");
-    }
-
-
-    function checkUnderstanding() {
-
-        const response =
-            input.value.trim();
-
-        if (!hasPlayed) {
-
-            feedback.textContent =
-                "Listen to the conversation first";
-
-            feedback.className =
-                "conversation-feedback conversation-feedback--notice";
-
-            return;
-        }
-
-        if (!response) {
-
-            feedback.textContent =
-                "Tell us what you understood in your own words";
-
-            feedback.className =
-                "conversation-feedback conversation-feedback--notice";
-
-            input.focus();
-
-            return;
-        }
-
-        submitted = true;
-
-        const item =
-            conversations[currentIndex];
-
-        const score =
-            conceptScore(
-                response,
-                item.concepts
-            );
-
-        if (score >= 0.65) {
-
-            feedback.textContent =
-                "You caught the heart of the conversation";
-
-            feedback.className =
-                "conversation-feedback conversation-feedback--strong";
-
-        } else if (score >= 0.3) {
-
-            feedback.textContent =
-                "You caught important pieces Now compare them with the whole exchange";
-
-            feedback.className =
-                "conversation-feedback conversation-feedback--partial";
-
-        } else {
-
-            feedback.textContent =
-                "You caught what you could Now use the reveal to connect the sounds with the meaning";
-
-            feedback.className =
-                "conversation-feedback conversation-feedback--notice";
-        }
-
-        transcript.innerHTML =
-            buildTranscript(item.lines);
-
-        meaning.textContent =
-            item.meaning;
-
-        learnerText.textContent =
-            response;
-
-        reveal.hidden = false;
-
-        input.disabled = true;
-        checkButton.disabled = true;
-
-        nextButton.textContent =
-            currentIndex === conversations.length - 1
-                ? "Finish the Listening Room"
-                : "Next Conversation";
-
-        reveal.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
-    }
-
-
-    function renderConversation() {
-
-        speechSynthesis?.cancel?.();
-        playToken++;
-
-        hasPlayed = false;
-        submitted = false;
-
-        clearSpeakerLights();
-
-        input.disabled = false;
-        input.value = "";
-
-        checkButton.disabled = false;
-
-        feedback.textContent = "";
-        feedback.className =
-            "conversation-feedback";
-
-        reveal.hidden = true;
-        completeBox.hidden = true;
-
-        playButton.disabled = false;
-        playButton.innerHTML =
-            "<span aria-hidden='true'>▶</span> Play the Conversation";
-
-        audioNote.textContent =
-            "The Russian stays hidden until you tell us what you understood";
-
-        updateProgress();
-    }
-
-
-    function moveNext() {
-
-        if (!submitted) {
-            return;
-        }
-
-        if (
-            currentIndex <
-            conversations.length - 1
-        ) {
-
-            currentIndex++;
-            renderConversation();
-
-            root.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        } else {
-
-            finishPartC();
-        }
-    }
-
-
-    function finishPartC() {
-
-        speechSynthesis?.cancel?.();
-        playToken++;
-
-        reveal.hidden = true;
-        feedback.textContent = "";
-
-        completeBox.hidden = false;
-
-        playButton.disabled = true;
-        playButton.textContent =
-            "Part C Complete";
-
-        input.disabled = true;
-        checkButton.disabled = true;
-
-        completeBox.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    }
-
-
-    function resetPartC() {
-
-        speechSynthesis?.cancel?.();
-        playToken++;
-
-        currentIndex = 0;
-
-        renderConversation();
-
-        root.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-
-
-    playButton
-        ?.addEventListener(
-            "click",
-            playConversation
-        );
-
-    checkButton
-        ?.addEventListener(
-            "click",
-            checkUnderstanding
-        );
-
-    hearAgain
-        ?.addEventListener(
-            "click",
-            playConversation
-        );
-
-    nextButton
-        ?.addEventListener(
-            "click",
-            moveNext
-        );
-
-    resetButton
-        ?.addEventListener(
-            "click",
-            resetPartC
-        );
-
-    backButton
-        ?.addEventListener(
-            "click",
-            () => {
-
-                document
-                    .querySelector("#variation-2-part-b")
-                    ?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-            }
-        );
-
-
-    renderConversation();
-
-})();
+// END THE LISTENING ROOM
 
 // ==================================================
 // EXPLORE — DOOR NAVIGATION
