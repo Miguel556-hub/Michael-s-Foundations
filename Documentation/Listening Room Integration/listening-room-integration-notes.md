@@ -154,36 +154,57 @@ corrected source, so both stay in sync.
 
 ## Encounter Navigator added — learner freedom without losing the path (2026-09-12)
 
-The original Listening Room required learners to complete Encounter 1 → 2 → 3 → 4 → 5 → 6 in order. Testing the integrated Room raised a new instructional-design question: should the recommended path also be a required path?
+The original Listening Room required learners to complete Encounter 
+1 → 2 → 3 → 4 → 5 → 6 in order. Testing the integrated Room raised a new instructional-design 
+question: should the recommended path also be a required path?
 
-**Decision:** no. Preserve the instructional sequence as the recommended path while allowing learners to move freely among encounters.
+**Decision:** no. Preserve the instructional sequence as the recommended path while allowing 
+learners to move freely among encounters.
 
 > **The path is guidance, not a cage.**
 
 ### Pre-change Git checkpoint
 
-Before beginning this coordinated HTML/CSS/JS change, Michael made a Git commit preserving the known-good Listening Room after the layout, `200px` breathing-room, transparent-background, and white encounter-title refinements.
+Before beginning this coordinated HTML/CSS/JS change, Michael made a Git commit preserving the 
+known-good Listening Room after the layout, `200px` breathing-room, transparent-background, and 
+white encounter-title refinements.
 
-This established a safe rollback point before a larger change affecting HTML, CSS, JavaScript, navigation state, and completion logic.
+This established a safe rollback point before a larger change affecting HTML, CSS, JavaScript, 
+navigation state, and completion logic.
 
 ### What was added
 
-1. **Encounter Navigator:** added six encounter buttons so learners can jump directly to any encounter.
-2. **Current-location state:** the active encounter displays **You are here** and receives `aria-current`.
-3. **Forward and backward navigation:** learners may move to any encounter without completing the current encounter first.
-4. **Unfinished-encounter behavior:** returning to an unfinished encounter restarts it at HEAR rather than preserving every internal move.
+1. **Encounter Navigator:** added six encounter buttons so learners can jump directly to 
+any encounter.
+2. **Current-location state:** the active encounter displays **You are here** and 
+receives `aria-current`.
+3. **Forward and backward navigation:** learners may move to any encounter without completing 
+the current encounter first.
+4. **Unfinished-encounter behavior:** returning to an unfinished encounter restarts it at HEAR 
+rather than preserving every internal move.
 5. **Per-encounter completion tracking:** completion is stored independently for each encounter.
-6. **Earned completion:** visiting an encounter does not complete it; completion is earned only after successfully completing its final RESPOND step.
-7. **Completed visual state:** completed encounters receive a checkmark and remain marked during the current Listening Room session.
-8. **Navigator status:** current location and completed-count information are maintained by the navigator.
-9. **Guided path preserved:** learners who do not use the Navigator may still proceed normally through Encounter 1 → 2 → 3 → 4 → 5 → 6.
-10. **Next-unfinished routing:** if Encounter 6 is completed while earlier encounters remain unfinished, Next Encounter returns the learner to the next unfinished encounter.
-11. **Overall completion integrity:** the Listening Room completion screen is available only after all six encounters have actually been completed.
-12. **Finish state:** after the sixth earned completion, the control changes to **Finish Listening Room**.
-13. **Reset behavior:** Reset Listening Room / Listen Again clears encounter-completion state and returns the learner to Encounter 1.
-14. **Responsive Navigator:** six columns on wide screens, three on narrower screens, and two on small screens.
-15. **Existing integration fixes preserved:** the host breakout, `200px` breathing-room allowance, transparent outer background, and white encounter titles remained intact.
-16. **Existing structural comments preserved:** Navigator-specific HTML/CSS/JS comments were added without stripping the project's existing source comments.
+6. **Earned completion:** visiting an encounter does not complete it; completion is earned only 
+after successfully completing its final RESPOND step.
+7. **Completed visual state:** completed encounters receive a checkmark and remain marked during 
+the current Listening Room session.
+8. **Navigator status:** current location and completed-count information are maintained by the 
+navigator.
+9. **Guided path preserved:** learners who do not use the Navigator may still proceed normally 
+through Encounter 1 → 2 → 3 → 4 → 5 → 6.
+10. **Next-unfinished routing:** if Encounter 6 is completed while earlier encounters remain 
+unfinished, Next Encounter returns the learner to the next unfinished encounter.
+11. **Overall completion integrity:** the Listening Room completion screen is available only 
+after all six encounters have actually been completed.
+12. **Finish state:** after the sixth earned completion, the control changes 
+to **Finish Listening Room**.
+13. **Reset behavior:** Reset Listening Room / Listen Again clears encounter-completion state 
+and returns the learner to Encounter 1.
+14. **Responsive Navigator:** six columns on wide screens, three on narrower screens, 
+and two on small screens.
+15. **Existing integration fixes preserved:** the host breakout, `200px` breathing-room 
+allowance, transparent outer background, and white encounter titles remained intact.
+16. **Existing structural comments preserved:** Navigator-specific HTML/CSS/JS comments 
+were added without stripping the project's existing source comments.
 
 ### Verified before handoff
 
@@ -196,37 +217,46 @@ This established a safe rollback point before a larger change affecting HTML, CS
 ## Post-Navigator refinements found during live testing (2026-09-12)
 
 ### Refinement 1 — Navigator caused slight vertical overflow
-**Observation:** adding the Navigator pushed the Experience screen just beyond its available vertical space and introduced an internal scrollbar.
+**Observation:** adding the Navigator pushed the Experience screen just beyond its available 
+vertical space and introduced an internal scrollbar.
 
-**Instinct:** do not immediately shrink fonts, padding, or the Room itself. First determine whether the new Navigator has made any existing interface elements unnecessary.
+**Instinct:** do not immediately shrink fonts, padding, or the Room itself. First determine 
+whether the new Navigator has made any existing interface elements unnecessary.
 
-**Fix:** removed the `LISTENING ROOM • FAMILY RELATIONSHIPS` eyebrow from the Experience screen only. It remains on the Listening Room landing screen.
+**Fix:** removed the `LISTENING ROOM • FAMILY RELATIONSHIPS` eyebrow from the Experience 
+screen only. It remains on the Listening Room landing screen.
 
 **Result:** the recovered vertical space was enough to eliminate the scrollbar.
 
 ### Refinement 2 — old encounter-count badge became redundant
 **Observation:** `Encounter 1 of 6` previously provided useful location information.
 
-**Cause:** after adding the Navigator, the learner can already see all six encounters and the current encounter is explicitly marked **You are here**.
+**Cause:** after adding the Navigator, the learner can already see all six encounters and 
+the current encounter is explicitly marked **You are here**.
 
 **Fix:** removed the old encounter-count badge.
 
 ### Refinement 3 — generic Experience title lacked instructional meaning
-**Observation:** `Listening Encounter` described the interface rather than the purpose of the experience.
+**Observation:** `Listening Encounter` described the interface rather than the purpose of 
+the experience.
 
 **Fix:** changed the title to `Listen for Meaning`.
 
-**Reason:** the new title reinforces the Listening Room philosophy that learners should listen for meaning rather than expect word-for-word comprehension.
+**Reason:** the new title reinforces the Listening Room philosophy that learners should 
+listen for meaning rather than expect word-for-word comprehension.
 
 ### Refinement 4 — Experience title color
-**Observation:** the existing blue did not feel visually integrated with the Listening Room environment.
+**Observation:** the existing blue did not feel visually integrated with the Listening 
+Room environment.
 
 **Fix:** explicitly styled `.encounter-header h2` with `color: #8ac8f4`.
 
-**Reason:** Michael selected `#8ac8f4` after visual testing because it harmonizes with the cool blue tones in the Listening Room window and armchair image.
+**Reason:** Michael selected `#8ac8f4` after visual testing because it harmonizes with 
+the cool blue tones in the Listening Room window and armchair image.
 
 ### Design lesson
-The Encounter Navigator changed more than navigation. It changed the Room's information hierarchy:
+The Encounter Navigator changed more than navigation. It changed the Room's information 
+hierarchy:
 
 - Navigator = **location**
 - `Listen for Meaning` = **purpose**
@@ -234,3 +264,145 @@ The Encounter Navigator changed more than navigation. It changed the Room's info
 - Encounter prompt = **immediate instruction**
 
 > **Integration should not only add. It should also reveal what is no longer needed.**
+
+### Bug — Removing Redundant UI Left a Hidden JavaScript Dependency
+
+**Symptom:**  
+The Listening Room displayed correctly, but the Room stopped functioning when the learner 
+attempted to use it.
+
+**Initial suspicion:**  
+The failure appeared immediately after experimenting with moving the `Mark Variation 2 Complete` 
+checkbox, so the first hypothesis was that relocating the checkbox had broken the Listening Room.
+
+The checkbox was returned to its original location, but the Listening Room still did not work.
+
+**Actual cause:**  
+The earlier removal of the redundant `Encounter 1 of 6` indicator had removed the HTML element with the ID:
+
+`encounterProgress`
+
+However, JavaScript still contained two references to that deleted element:
+
+`progress: document.getElementById("encounterProgress"),`
+
+and:
+
+`el.progress.textContent = ...`
+
+When `renderMove()` attempted to update the element that no longer existed, JavaScript execution stopped.
+
+**Fix:**  
+Removed both obsolete JavaScript dependencies on `encounterProgress`:
+
+1. Removed the `progress` reference from the Listening Room `el` object.
+2. Removed the `el.progress.textContent` update from `renderMove()`.
+
+The new Encounter Navigator now owns the responsibility for showing the learner's current location.
+
+**Result:**  
+The Listening Room immediately returned to normal operation.
+
+### Debugging Lesson
+
+The most recent change is not necessarily the cause of the newest bug.
+
+In this case, timing made the completion-checkbox experiment appear responsible. Reversing that 
+change did not restore functionality, which showed that the failure originated elsewhere.
+
+Tracing the JavaScript revealed that an earlier, visually successful UI cleanup had left 
+behind a behavioral dependency.
+
+> **When removing a UI element, remove the element — then check its HTML, CSS, and JavaScript dependencies.**
+
+A component can look correct after an element is removed while still containing code that 
+expects that element to exist.
+
+
+### Bug — Family Tree Completion Control Was Attached to the Wrong Structural Level
+
+**Observation:**  
+After the Listening Room integration, the `Mark Family Tree Puzzles Complete` control 
+appeared to have disappeared.
+
+The Journey Rail still contained the Family Tree Puzzle entry, and inspection confirmed 
+that the completion control still existed in the HTML.
+
+**Initial hypothesis:**  
+Because the control should have appeared immediately before the Listening Room, the first 
+suspicion was that the expanded Listening Room was visually covering or crowding it.
+
+A temporary `margin-top: 48px` experiment was applied to the Listening Room to test that 
+hypothesis.
+
+**Result:**  
+The additional spacing produced no meaningful change.
+
+**Decision:**  
+The `48px` experiment was reversed. The problem was not the boundary spacing.
+
+### Actual Cause
+
+Inspection of the HTML revealed that the completion control was still 
+nested **inside Stage 3 — Your Dad's Family**:
+
+`Mark Family Tree Puzzles Complete`
+
+But the control does not represent completion of Stage 3 alone.
+
+It represents completion of the **entire Family Tree Puzzle**, which contains 
+Stages 1, 2, and 3.
+
+The HTML structure therefore did not match the instructional structure.
+
+### Fix
+
+The existing completion control was moved **one structural level outward**.
+
+It was moved from inside:
+
+`Stage 3 — Your Dad's Family`
+
+to immediately after the Stage 3 closing `</article>` and before:
+
+`Variation 2 — The Listening Room`
+
+No JavaScript behavior was rewritten, and the existing completion-control 
+classes, ID, and `data-variation="1"` value were preserved.
+
+The resulting structure is:
+
+`Family Tree Puzzle`
+→ `Stage 1`
+→ `Stage 2`
+→ `Stage 3`
+→ `Mark Family Tree Puzzles Complete`
+→ `Listening Room`
+
+### Result
+
+The `Mark Family Tree Puzzles Complete` control became visible again in the 
+correct transition location.
+
+The control remains connected to the existing completion system and Journey Rail.
+
+Its visual location now also matches its instructional meaning: the learner 
+completes the **whole Family Tree Puzzle**, marks that experience complete, and 
+then moves into the Listening Room.
+
+### Architecture Lesson
+
+This was not ultimately a spacing problem.
+
+It was a **parent-child ownership problem in the HTML structure**.
+
+The completion control had been attached to a child activity even though it 
+represented completion of the parent experience.
+
+> **A control should live at the structural level of the thing it controls.**
+
+When interface behavior or placement seems inexplicably wrong, inspect not 
+only CSS positioning but also the semantic ownership created by the HTML nesting.
+
+Correcting the structure can eliminate the visual problem without adding 
+compensating CSS or rewriting working JavaScript.
