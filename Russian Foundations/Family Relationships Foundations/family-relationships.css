@@ -1809,6 +1809,7 @@ h1 {
 .encounter-header h2 {
     margin-bottom: 0;
     font-size: clamp(2rem, 4vw, 3.2rem);
+    color: #8ac8f4;
 }
 
 .encounter-progress {
@@ -1819,6 +1820,120 @@ h1 {
     color: var(--muted);
     background: rgba(255, 255, 255, 0.04);
 }
+
+/* ==========================================
+   LISTENING ROOM — ENCOUNTER NAVIGATOR
+   The path is guidance, not a cage.
+   Current = where the learner is now.
+   Complete = earned only after finishing RESPOND.
+========================================== */
+.encounter-navigator {
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: rgba(7, 17, 31, 0.78);
+}
+
+.encounter-navigator__intro {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.encounter-navigator__intro strong {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.encounter-navigator__intro span {
+    color: var(--muted);
+    font-size: 0.86rem;
+    text-align: right;
+}
+
+.encounter-navigator__buttons {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+
+.encounter-nav-button {
+    min-width: 0;
+    display: grid;
+    gap: 0.18rem;
+    justify-items: center;
+    padding: 0.65rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+}
+
+.encounter-nav-button:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.10);
+}
+
+.encounter-nav-button__number {
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.encounter-nav-button__state {
+    font-size: 0.72rem;
+    line-height: 1.15;
+}
+
+.encounter-nav-button--current {
+    border-color: var(--warm-strong);
+    background: rgba(234, 191, 118, 0.16);
+    color: #fff;
+    box-shadow: 0 0 0 2px rgba(234, 191, 118, 0.10);
+}
+
+.encounter-nav-button--complete {
+    border-color: rgba(183, 231, 194, 0.72);
+    background: rgba(183, 231, 194, 0.10);
+    color: var(--success);
+}
+
+.encounter-nav-button--current.encounter-nav-button--complete {
+    border-color: var(--warm-strong);
+    color: #fff;
+}
+
+.encounter-navigator__status {
+    margin: 0.8rem 0 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+@media (max-width: 980px) {
+    .encounter-navigator__buttons {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .encounter-navigator__intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .encounter-navigator__intro span {
+        text-align: left;
+    }
+}
+
+@media (max-width: 560px) {
+    .encounter-navigator__buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* END LISTENING ROOM — ENCOUNTER NAVIGATOR */
 
 .encounter-card {
     flex: 1;
