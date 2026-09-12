@@ -1,4 +1,11 @@
-:root {
+/* ==================================================
+   THE LISTENING ROOM — AUTHORITATIVE ACTUAL
+   Embed-safe reusable component source.
+   Component tokens and base rules are scoped to .listening-room
+   so integrating this CSS does not restyle the host Foundation.
+================================================== */
+
+.listening-room {
   --navy-950: #07111f;
   --navy-900: #0d192b;
   --navy-800: #14263f;
@@ -13,39 +20,42 @@
   --amber: #f4d28e;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
 
-  /* Shared page geometry */
+  /* Shared component geometry. Host pages may override these locally. */
   --page-gap: 20px;
-  --shell-width: min(96vw, 2000px);
+  --shell-width: min(100%, 2000px);
   --shell-height: min(88vh, 1000px);
   --shell-radius: 34px;
-}
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  background: var(--navy-950);
-}
-
-body {
-  margin: 0;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--navy-950);
+  background: transparent;
   color: var(--text);
 }
 
-button {
+/* Testing Lab page scaffold only. This rule is not used by embedded copies. */
+.listening-room-test-page {
+  margin: 0;
+  min-height: 100vh;
+  background: #07111f;
+}
+
+.listening-room,
+.listening-room *,
+.listening-room *::before,
+.listening-room *::after {
+  box-sizing: border-box;
+}
+
+.listening-room button {
   font: inherit;
 }
 
-button:focus-visible {
+.listening-room button:focus-visible {
   outline: 3px solid var(--warm);
   outline-offset: 4px;
 }
 
-[hidden] {
+.listening-room [hidden] {
   display: none !important;
 }
 
@@ -126,15 +136,15 @@ button:focus-visible {
   color: var(--warm);
 }
 
-h1,
-h2,
-h3,
-h4,
-p {
+.listening-room h1,
+.listening-room h2,
+.listening-room h3,
+.listening-room h4,
+.listening-room p {
   margin-top: 0;
 }
 
-h1 {
+.listening-room h1 {
   margin-bottom: 1rem;
   font-size: clamp(3rem, 6vw, 5.6rem);
   line-height: 0.95;
@@ -213,26 +223,106 @@ h1 {
 
 /* Encounter */
 .encounter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 1rem;
   margin-bottom: 1.25rem;
 }
 
 .encounter-header h2 {
   margin-bottom: 0;
   font-size: clamp(2rem, 4vw, 3.2rem);
+  color: #8ac8f4;
 }
 
-.encounter-progress {
-  flex: 0 0 auto;
-  padding: 0.65rem 0.9rem;
+/* ==========================================
+   LISTENING ROOM — ENCOUNTER NAVIGATOR
+   The path is guidance, not a cage.
+   Current = where the learner is now.
+   Complete = earned only after finishing RESPOND.
+========================================== */
+.encounter-navigator {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.1rem;
   border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  background: rgba(7, 17, 31, 0.78);
 }
+
+.encounter-navigator__intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.encounter-navigator__intro strong {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.encounter-navigator__intro span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  text-align: right;
+}
+
+.encounter-navigator__buttons {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.encounter-nav-button {
+  min-width: 0;
+  display: grid;
+  gap: 0.18rem;
+  justify-items: center;
+  padding: 0.65rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+}
+
+.encounter-nav-button:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.encounter-nav-button__number {
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.encounter-nav-button__state {
+  font-size: 0.72rem;
+  line-height: 1.15;
+}
+
+.encounter-nav-button--current {
+  border-color: var(--warm-strong);
+  background: rgba(234, 191, 118, 0.16);
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(234, 191, 118, 0.10);
+}
+
+.encounter-nav-button--complete {
+  border-color: rgba(183, 231, 194, 0.72);
+  background: rgba(183, 231, 194, 0.10);
+  color: var(--success);
+}
+
+.encounter-nav-button--current.encounter-nav-button--complete {
+  border-color: var(--warm-strong);
+  color: #fff;
+}
+
+.encounter-navigator__status {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+/* END LISTENING ROOM — ENCOUNTER NAVIGATOR */
 
 .encounter-card {
   flex: 1;
@@ -255,6 +345,7 @@ h1 {
 .encounter-card h3 {
   margin-bottom: 0.75rem;
   font-size: clamp(1.7rem, 3vw, 2.6rem);
+  color: #fff;
 }
 
 .encounter-purpose {
@@ -320,17 +411,17 @@ h1 {
   background: rgba(234, 191, 118, 0.14);
 }
 
-.feedback {
+.encounter-feedback {
   min-height: 1.5rem;
   margin-bottom: 0;
   font-weight: 700;
 }
 
-.feedback--success {
+.encounter-feedback--success {
   color: var(--success) !important;
 }
 
-.feedback--try {
+.encounter-feedback--try {
   color: var(--amber) !important;
 }
 
@@ -357,8 +448,8 @@ h1 {
 
 /* Responsive */
 @media (max-width: 980px) {
-  :root {
-    --shell-width: calc(100vw - 2rem);
+  .listening-room {
+    --shell-width: 100%;
     --shell-height: auto;
   }
 
@@ -381,17 +472,26 @@ h1 {
   .room-content--experience {
     overflow-y: visible;
   }
+
+  .encounter-navigator__buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .encounter-navigator__intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .encounter-navigator__intro span {
+    text-align: left;
+  }
 }
 
 @media (max-width: 760px) {
-  :root {
+  .listening-room {
     --page-gap: 1rem;
     --shell-radius: 24px;
-  }
-
-  .encounter-header {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   #resetButton {
@@ -399,11 +499,17 @@ h1 {
   }
 }
 
+@media (max-width: 560px) {
+  .encounter-navigator__buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
-  *,
-  *::before,
-  *::after {
+  .listening-room *,
+  .listening-room *::before,
+  .listening-room *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

@@ -1,3 +1,10 @@
+# Architectural Ownership Principle
+
+> **ACTUAL owns the reusable Listening Room. Migration Instructions 
+> own the adaptation required to make ACTUAL live safely inside a specific 
+> Foundation.**
+
+
 # Portability & Integration Checklist — Testing Lab → Lesson
 
 Use this before integrating any Testing Lab component (Listening Room or
@@ -96,3 +103,4 @@ embedded in any lesson (where the wrapper is just one section of a
 much bigger page) — no per-integration rewriting needed, just this
 checklist to confirm it still holds for whatever's new in that
 component.
+

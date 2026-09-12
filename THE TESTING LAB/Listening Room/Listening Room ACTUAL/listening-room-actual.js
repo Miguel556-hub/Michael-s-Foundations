@@ -1,3 +1,8 @@
+// ==================================================
+// THE LISTENING ROOM — AUTHORITATIVE ACTUAL
+// Reusable 6-Encounter Listen / Build / Respond implementation
+// ==================================================
+(() => {
 const encounters = [
   {
     // Encounter 1 — Lesson 1: любить + possessives
@@ -143,6 +148,7 @@ const moves = [
 ];
 
 const el = {
+  room: document.querySelector(".listening-room"),
   landing: document.getElementById("landingScreen"),
   experience: document.getElementById("experienceScreen"),
   completion: document.getElementById("completionScreen"),
@@ -150,7 +156,9 @@ const el = {
   listen: document.getElementById("listenButton"),
   slower: document.getElementById("slowerButton"),
   audioStatus: document.getElementById("audioStatus"),
-  progress: document.getElementById("encounterProgress"),
+  navigator: document.getElementById("encounterNavigator"),
+  navigatorButtons: [...document.querySelectorAll(".encounter-nav-button")],
+  navigatorStatus: document.getElementById("encounterNavigatorStatus"),
   moveLabel: document.getElementById("moveLabel"),
   movePrompt: document.getElementById("movePrompt"),
   movePurpose: document.getElementById("movePurpose"),
@@ -184,6 +192,87 @@ let encounterIndex = 0;
 let moveIndex = 0;
 let lastSpokenText = "";
 let lastRate = 0.86;
+
+// Completion belongs to individual encounters, not to their position
+// in a forced sequence. A learner may jump around freely; an encounter
+// is earned only after its final RESPOND choice is completed successfully.
+const completedEncounters = new Set();
+
+function updateEncounterNavigator() {
+  el.navigatorButtons.forEach((button) => {
+    const index = Number(button.dataset.encounterIndex);
+    const isCurrent = index === encounterIndex;
+    const isComplete = completedEncounters.has(index);
+    const state = button.querySelector(".encounter-nav-button__state");
+
+    button.classList.toggle("encounter-nav-button--current", isCurrent);
+    button.classList.toggle("encounter-nav-button--complete", isComplete);
+
+    if (isCurrent) {
+      button.setAttribute("aria-current", "step");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+
+    if (state) {
+      if (isCurrent && isComplete) {
+        state.textContent = "✓ Complete • You are here";
+      } else if (isCurrent) {
+        state.textContent = "You are here";
+      } else if (isComplete) {
+        state.textContent = "✓ Complete";
+      } else {
+        state.textContent = "Open";
+      }
+    }
+  });
+
+  if (el.navigatorStatus) {
+    el.navigatorStatus.textContent =
+      `You are in Encounter ${encounterIndex + 1}. Completed: ${completedEncounters.size} of ${encounters.length}.`;
+  }
+}
+
+function jumpToEncounter(index) {
+  if (index < 0 || index >= encounters.length) {
+    return;
+  }
+
+  window.speechSynthesis?.cancel();
+  encounterIndex = index;
+
+  // Version 1 rule: if a learner leaves an unfinished encounter midway,
+  // returning to it restarts that encounter at HEAR rather than preserving
+  // every internal Listening Move state.
+  moveIndex = 0;
+  renderMove();
+}
+
+function markCurrentEncounterComplete() {
+  completedEncounters.add(encounterIndex);
+  updateEncounterNavigator();
+
+  el.nextMove.hidden = true;
+  el.nextEncounter.hidden = false;
+  el.nextEncounter.textContent =
+    completedEncounters.size === encounters.length
+      ? "Finish Listening Room"
+      : "Next Encounter";
+}
+
+function nextRecommendedEncounterIndex() {
+  // Keep the normal recommended forward path when possible. If the learner
+  // is at Encounter 6 but earlier encounters remain unfinished, wrap to the
+  // first unfinished encounter instead of falsely completing the Room.
+  for (let offset = 1; offset <= encounters.length; offset += 1) {
+    const candidate = (encounterIndex + offset) % encounters.length;
+    if (!completedEncounters.has(candidate)) {
+      return candidate;
+    }
+  }
+
+  return null;
+}
 
 function speak(text, rate = 0.86) {
   if (!("speechSynthesis" in window)) {
@@ -237,14 +326,23 @@ function clearPanels() {
   el.nextEncounter.hidden = true;
 
   el.meaningFeedback.textContent = "";
-  el.meaningFeedback.className = "feedback";
+  el.meaningFeedback.className = "encounter-feedback";
   el.inferFeedback.textContent = "";
-  el.inferFeedback.className = "feedback";
+  el.inferFeedback.className = "encounter-feedback";
   el.respondFeedback.textContent = "";
-  el.respondFeedback.className = "feedback";
+  el.respondFeedback.className = "encounter-feedback";
 }
 
-function makeChoiceButtons(container, choices, answerIndex, feedbackEl, successText, acceptAny = false) {
+function makeChoiceButtons(
+  container,
+  choices,
+  answerIndex,
+  feedbackEl,
+  successText,
+  acceptAny = false,
+  onSuccess = null,
+  showNextMove = true
+) {
   container.innerHTML = "";
 
   choices.forEach((choice, index) => {
@@ -256,14 +354,19 @@ function makeChoiceButtons(container, choices, answerIndex, feedbackEl, successT
     button.addEventListener("click", () => {
       if (acceptAny || index === answerIndex) {
         feedbackEl.textContent = successText;
-        feedbackEl.className = "feedback feedback--success";
+        feedbackEl.className = "encounter-feedback encounter-feedback--success";
         [...container.querySelectorAll("button")].forEach((item) => {
           item.disabled = true;
         });
-        el.nextMove.hidden = false;
+        if (showNextMove) {
+          el.nextMove.hidden = false;
+        }
+        if (onSuccess) {
+          onSuccess();
+        }
       } else {
         feedbackEl.textContent = "Not quite. Listen again and use what you do understand.";
-        feedbackEl.className = "feedback feedback--try";
+        feedbackEl.className = "encounter-feedback encounter-feedback--try";
       }
     });
 
@@ -296,7 +399,7 @@ function renderMove() {
 
   clearPanels();
 
-  el.progress.textContent = `Encounter ${encounterIndex + 1} of ${encounters.length}`;
+  updateEncounterNavigator();
   el.moveLabel.textContent = move.label;
   el.movePrompt.textContent = move.prompt;
   el.movePurpose.textContent = move.purpose;
@@ -364,7 +467,9 @@ function renderMove() {
       encounter.respondAnswer,
       el.respondFeedback,
       "Well done. You responded to what you understood.",
-      Boolean(encounter.respondAcceptsAny)
+      Boolean(encounter.respondAcceptsAny),
+      markCurrentEncounterComplete,
+      false
     );
     el.listen.onclick = () => speak(encounter.variation, 0.86);
     el.supportButton.hidden = false;
@@ -389,55 +494,56 @@ function advanceMove() {
   el.nextEncounter.hidden = false;
 }
 
-function advanceEncounter() {
-  if (encounterIndex < encounters.length - 1) {
-    encounterIndex += 1;
-    moveIndex = 0;
-    renderMove();
-    return;
-  }
-
-  showCompletion();
-}
 
 function showCompletion() {
   window.speechSynthesis?.cancel();
   el.landing.hidden = true;
   el.experience.hidden = true;
   el.completion.hidden = false;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function resetRoom() {
   window.speechSynthesis?.cancel();
+  completedEncounters.clear();
   encounterIndex = 0;
   moveIndex = 0;
+  updateEncounterNavigator();
   el.completion.hidden = true;
   el.landing.hidden = false;
   el.experience.hidden = true;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 el.enter.addEventListener("click", () => {
   el.landing.hidden = true;
   el.completion.hidden = true;
   el.experience.hidden = false;
+  completedEncounters.clear();
   encounterIndex = 0;
   moveIndex = 0;
   renderMove();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 el.nextMove.addEventListener("click", advanceMove);
 
 el.nextEncounter.addEventListener("click", () => {
-  if (encounterIndex < encounters.length - 1) {
-    encounterIndex += 1;
-    moveIndex = 0;
-    renderMove();
-  } else {
+  if (completedEncounters.size === encounters.length) {
     showCompletion();
+    return;
   }
+
+  const nextIndex = nextRecommendedEncounterIndex();
+  if (nextIndex !== null) {
+    jumpToEncounter(nextIndex);
+  }
+});
+
+el.navigatorButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    jumpToEncounter(Number(button.dataset.encounterIndex));
+  });
 });
 
 el.supportButton.addEventListener("click", () => {
@@ -456,3 +562,5 @@ el.slower.addEventListener("click", () => {
     speak(lastSpokenText, 0.68);
   }
 });
+})();
+// END THE LISTENING ROOM
