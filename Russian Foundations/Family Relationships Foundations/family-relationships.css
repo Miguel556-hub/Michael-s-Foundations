@@ -1841,6 +1841,7 @@ h1 {
 .encounter-card h3 {
     margin-bottom: 0.75rem;
     font-size: clamp(1.7rem, 3vw, 2.6rem);
+    color: white;
 }
 
 .encounter-purpose {
