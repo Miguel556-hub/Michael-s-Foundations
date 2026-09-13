@@ -2726,6 +2726,262 @@ h1 {
 }
 
 
+/* BEGIN DISCOVERY 1 ACTUAL */
+
+/* ==========================================
+   DOOR 1 — DISCOVERY ONE — WARM-UP CARDS
+========================================== */
+
+.personal-warmup-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+
+    padding: 30px 34px 34px;
+}
+
+.personal-warmup-card {
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #d4e5e1;
+    border-radius: 14px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .06);
+}
+
+.personal-warmup-card__header {
+    padding: 22px 26px 18px;
+
+    background:
+        linear-gradient(135deg, rgba(23, 108, 99, .08), transparent 65%),
+        #ffffff;
+
+    border-bottom: 1px solid #dbe8e5;
+}
+
+.personal-warmup-card__eyebrow {
+    text-transform: uppercase;
+    color: #176c63;
+    font-weight: 800;
+    letter-spacing: .1em;
+    font-size: .72rem;
+}
+
+.personal-warmup-card__russian {
+    margin: 8px 0 6px;
+
+    color: #173f3a;
+
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 1.35;
+}
+
+.personal-warmup-card__russian strong {
+    color: #a1471f;
+}
+
+.personal-warmup-card__english {
+    margin: 0 0 14px;
+
+    color: #536c67;
+    font-size: .98rem;
+}
+
+.personal-warmup-card__english strong {
+    color: #a1471f;
+}
+
+.personal-warmup-card__notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 700px) {
+    .personal-warmup-card__notes {
+        grid-template-columns: 1fr;
+    }
+}
+
+.personal-warmup-register {
+    padding: 20px 24px;
+
+    background: #fffdf7;
+
+    border-bottom: 1px solid #e7e1d2;
+    border-right: 1px solid #e7e1d2;
+}
+
+@media (max-width: 700px) {
+    .personal-warmup-register {
+        border-right: none;
+    }
+}
+
+.personal-warmup-register .eyebrow {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #92702e;
+    font-size: .7rem;
+}
+
+.personal-warmup-register p {
+    margin: 0;
+
+    color: #665c48;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.personal-warmup-register strong {
+    color: #55401d;
+}
+
+.personal-warmup-genitive {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 20px 24px;
+
+    background: #f4faf8;
+
+    border-bottom: 1px solid #dceae7;
+}
+
+.personal-warmup-genitive__word {
+    flex-shrink: 0;
+
+    padding: 9px 14px;
+
+    background: #ffffff;
+    border: 1px solid #c9dfda;
+    border-radius: 10px;
+
+    color: #176c63;
+    font-size: 1.05rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+.personal-warmup-genitive p {
+    margin: 0;
+
+    color: #536a66;
+    font-size: .85rem;
+    line-height: 1.4;
+}
+
+.personal-warmup-genitive em {
+    color: #176c63;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.personal-warmup-card__practice {
+    padding: 22px 26px 26px;
+
+    background: #f7f8fc;
+}
+
+.personal-warmup-card__prompt {
+    margin: 0 0 8px;
+
+    color: #59647d;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.personal-warmup-card__reworded {
+    margin: 0 0 14px;
+
+    color: #303e67;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.personal-warmup-card__input-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-bottom: 12px;
+}
+
+.personal-warmup-card__input-row input {
+    flex: 1 1 240px;
+
+    padding: 11px 14px;
+
+    background: #ffffff;
+    border: 1px solid #aeb9d1;
+    border-radius: 10px;
+
+    color: #24334f;
+    font: inherit;
+}
+
+.personal-warmup-card__input-row input:focus {
+    outline: 3px solid rgba(23, 108, 99, 0.18);
+    outline-offset: 2px;
+}
+
+.personal-warmup-check {
+    padding: 11px 18px;
+
+    background: #176c63;
+    border: 1px solid #176c63;
+    border-radius: 8px;
+
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.personal-warmup-check:hover,
+.personal-warmup-check:focus-visible {
+    background: #124f49;
+    border-color: #124f49;
+}
+
+.personal-warmup-card__feedback {
+    min-height: 20px;
+    margin-bottom: 6px;
+
+    color: #176c63;
+    font-size: .88rem;
+    font-weight: 700;
+}
+
+.personal-warmup-card__answer {
+    margin-top: 14px;
+    padding: 16px 18px;
+
+    background: #edf8f2;
+    border: 1px solid #c5dfd1;
+    border-radius: 10px;
+}
+
+.personal-warmup-card__answer .eyebrow {
+    display: block;
+    margin-bottom: 8px;
+
+    color: #317052;
+    font-size: .7rem;
+}
+
+.personal-warmup-card__answer-russian {
+    margin-bottom: 10px;
+
+    color: #173f3a;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+/* END DISCOVERY 1 ACTUAL */
+
+
 /* Discovery introduction */
 .explore-discovery__heading {
     padding: 30px 34px 24px;
@@ -6333,7 +6589,7 @@ h1 {
    Door 3 Question Words styles above.
 ========================================== */
 
-#personal-question-words-explorer {
+#personal-question-words-explorer-2 {
     margin-top: 20px;
 }
 
@@ -6517,7 +6773,7 @@ h1 {
    DOOR 1 — EXPLORE MORE BUTTON POSITION
 ========================================== */
 
-#personal-explore-more-1 {
+#personal-explore-more-2 {
     display: block;
     width: fit-content;
     margin: 14px auto 20px;

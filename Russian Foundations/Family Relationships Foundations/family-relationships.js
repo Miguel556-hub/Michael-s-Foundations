@@ -3392,29 +3392,100 @@ document
 
     });
 
+// BEGIN DISCOVERY 1 ACTUAL
+
 // ==================================================
 // EXPLORE — DOOR 1 DISCOVERY ONE
+// WARM-UP CARDS — CHECK MY ANSWER
+// ==================================================
+
+const personalWarmups = [1, 2, 3].map((n) => ({
+    input: document.querySelector(`#personal-warmup-${n}-input`),
+    check: document.querySelector(`#personal-warmup-${n}-check`),
+    feedback: document.querySelector(`#personal-warmup-${n}-feedback`),
+    answer: document.querySelector(`#personal-warmup-${n}-answer`)
+}));
+
+function checkPersonalWarmup(warmup) {
+
+    if (!warmup.input || !warmup.answer) {
+        return;
+    }
+
+    const response =
+        warmup.input.value.trim();
+
+    if (!response) {
+
+        if (warmup.feedback) {
+            warmup.feedback.textContent =
+                "Type your best guess first — there's no wrong way to try.";
+        }
+
+        warmup.input.focus();
+        return;
+    }
+
+    if (warmup.feedback) {
+        warmup.feedback.textContent =
+            "Nice try! Compare your answer with the Russian below.";
+    }
+
+    warmup.answer.hidden = false;
+
+    warmup.answer.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+
+}
+
+personalWarmups.forEach((warmup) => {
+
+    warmup.check?.addEventListener(
+        "click",
+        () => checkPersonalWarmup(warmup)
+    );
+
+    warmup.input?.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkPersonalWarmup(warmup);
+            }
+
+        }
+    );
+
+});
+
+// END DISCOVERY 1 ACTUAL
+
+// ==================================================
+// EXPLORE — DOOR 1 DISCOVERY TWO
 // REVEAL THE MEANING
 // ==================================================
 
-const personalReveal1 =
-    document.querySelector("#personal-reveal-1");
+const personalReveal2 =
+    document.querySelector("#personal-reveal-2");
 
-const personalMeaning1 =
-    document.querySelector("#personal-meaning-1");
+const personalMeaning2 =
+    document.querySelector("#personal-meaning-2");
 
-const personalExploreMore1 =
-    document.querySelector("#personal-explore-more-1");
+const personalExploreMore2 =
+    document.querySelector("#personal-explore-more-2");
 
-const personalQuestionWordsExplorer =
-    document.querySelector("#personal-question-words-explorer");
+const personalQuestionWordsExplorer2 =
+    document.querySelector("#personal-question-words-explorer-2");
 
-const personalPrediction1 =
-    document.querySelector("#personal-prediction-1");
+const personalPrediction2 =
+    document.querySelector("#personal-prediction-2");
 
-personalReveal1?.addEventListener("click", () => {
-    if (!personalMeaning1) return;
-    personalMeaning1.hidden = false;
+personalReveal2?.addEventListener("click", () => {
+    if (!personalMeaning2) return;
+    personalMeaning2.hidden = false;
 });
 
 // ==================================================
@@ -3422,15 +3493,15 @@ personalReveal1?.addEventListener("click", () => {
 // EXPLORE MORE — QUESTION WORD FAMILY
 // ==================================================
 
-personalExploreMore1?.addEventListener("click", () => {
-    if (!personalQuestionWordsExplorer) return;
+personalExploreMore2?.addEventListener("click", () => {
+    if (!personalQuestionWordsExplorer2) return;
 
-    const willShow = personalQuestionWordsExplorer.hidden;
-    personalQuestionWordsExplorer.hidden = !willShow;
-    personalExploreMore1.textContent = willShow ? "Close Explore More" : "🍬 Explore More";
+    const willShow = personalQuestionWordsExplorer2.hidden;
+    personalQuestionWordsExplorer2.hidden = !willShow;
+    personalExploreMore2.textContent = willShow ? "Close Explore More" : "🍬 Explore More";
 
     if (willShow) {
-        personalQuestionWordsExplorer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        personalQuestionWordsExplorer2.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 });
 
@@ -3446,18 +3517,18 @@ const personalQuestionWordDetails = {
     "сколько": { word: "Сколько?", meaning: "How many / how much?", example: "Сколько?", english: "How many? / How much?", note: "Use it when you are asking about an amount or number." }
 };
 
-const personalQuestionWordInfo =
-    document.querySelector("#personal-question-word-info");
+const personalQuestionWordInfo2 =
+    document.querySelector("#personal-question-word-info-2");
 
 const personalKakCandy =
     document.querySelector("#personal-kak-candy");
 
 document
-    .querySelectorAll("#personal-question-words-explorer .question-word-tile")
+    .querySelectorAll("#personal-question-words-explorer-2 .question-word-tile")
     .forEach((button) => {
         button.addEventListener("click", () => {
             document
-                .querySelectorAll("#personal-question-words-explorer .question-word-tile")
+                .querySelectorAll("#personal-question-words-explorer-2 .question-word-tile")
                 .forEach((tile) => tile.classList.remove("selected"));
 
             button.classList.add("selected");
@@ -3465,9 +3536,9 @@ document
             const detail =
                 personalQuestionWordDetails[button.dataset.personalQuestionWord];
 
-            if (!detail || !personalQuestionWordInfo) return;
+            if (!detail || !personalQuestionWordInfo2) return;
 
-            personalQuestionWordInfo.innerHTML = `
+            personalQuestionWordInfo2.innerHTML = `
                 <div class="question-word-info__detail">
                     <h5 lang="ru">${detail.word}</h5>
                     <p class="question-word-info__meaning">${detail.meaning}</p>
@@ -3565,24 +3636,39 @@ document
     .querySelectorAll("#explore-personal .explore-reset-room")
     .forEach((button) => {
         button.addEventListener("click", () => {
-            if (personalPrediction1) {
-                personalPrediction1.value = "";
+
+            // BEGIN DISCOVERY 1 ACTUAL
+            personalWarmups.forEach((warmup) => {
+                if (warmup.input) {
+                    warmup.input.value = "";
+                }
+                if (warmup.answer) {
+                    warmup.answer.hidden = true;
+                }
+                if (warmup.feedback) {
+                    warmup.feedback.textContent = "";
+                }
+            });
+            // END DISCOVERY 1 ACTUAL
+
+            if (personalPrediction2) {
+                personalPrediction2.value = "";
             }
 
-            if (personalMeaning1) {
-                personalMeaning1.hidden = true;
+            if (personalMeaning2) {
+                personalMeaning2.hidden = true;
             }
 
-            if (personalQuestionWordsExplorer) {
-                personalQuestionWordsExplorer.hidden = true;
+            if (personalQuestionWordsExplorer2) {
+                personalQuestionWordsExplorer2.hidden = true;
             }
 
-            if (personalExploreMore1) {
-                personalExploreMore1.textContent = "🍬 Explore More";
+            if (personalExploreMore2) {
+                personalExploreMore2.textContent = "🍬 Explore More";
             }
 
-            if (personalQuestionWordInfo) {
-                personalQuestionWordInfo.innerHTML = `
+            if (personalQuestionWordInfo2) {
+                personalQuestionWordInfo2.innerHTML = `
                     <div class="question-word-info__prompt">
                         <span class="question-word-info__icon">?</span>
                         <strong>Select a Question Word</strong>
@@ -3591,7 +3677,7 @@ document
             }
 
             document
-                .querySelectorAll("#personal-question-words-explorer .question-word-tile")
+                .querySelectorAll("#personal-question-words-explorer-2 .question-word-tile")
                 .forEach((tile) => tile.classList.remove("selected"));
 
             setPersonalKakState("informal", false);
