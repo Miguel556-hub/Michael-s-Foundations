@@ -2729,7 +2729,64 @@ h1 {
 /* BEGIN DISCOVERY 1 ACTUAL */
 
 /* ==========================================
-   DOOR 1 — DISCOVERY ONE — WARM-UP CARDS
+   DOOR 1 — DISCOVERY ONE — FIND THE PATTERN
+========================================== */
+
+.personal-pattern-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 28px 34px 8px;
+}
+
+.personal-pattern-example {
+    padding: 18px 22px;
+
+    background: #f7f8fc;
+    border: 1px solid #dde1f0;
+    border-radius: 10px;
+}
+
+.personal-pattern-example__russian {
+    color: #6b7280;
+
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+/* De-emphasized: the possessive word — not the point of this exercise */
+.personal-pattern-fade {
+    color: #a7adb8;
+    font-weight: 700;
+}
+
+/* Emphasized: the sentence-ending structure — this IS the point */
+.personal-pattern-highlight {
+    padding: 1px 6px;
+
+    background: #fdeee7;
+    border-radius: 5px;
+
+    color: #a1471f;
+    font-weight: 900;
+}
+
+.personal-pattern-example__english {
+    margin: 6px 0 10px;
+
+    color: #8b93a3;
+    font-size: 1rem;
+}
+
+.personal-pattern-highlight-en {
+    color: #a1471f;
+    font-weight: 800;
+}
+
+/* ==========================================
+   DOOR 1 — DISCOVERY ONE — STAGE 2 WARM-UP CARDS
 ========================================== */
 
 .personal-warmup-stack {
@@ -2928,23 +2985,6 @@ h1 {
     outline-offset: 2px;
 }
 
-.personal-warmup-check {
-    padding: 11px 18px;
-
-    background: #176c63;
-    border: 1px solid #176c63;
-    border-radius: 8px;
-
-    color: #ffffff;
-    font-weight: 800;
-}
-
-.personal-warmup-check:hover,
-.personal-warmup-check:focus-visible {
-    background: #124f49;
-    border-color: #124f49;
-}
-
 .personal-warmup-card__feedback {
     min-height: 20px;
     margin-bottom: 6px;
@@ -2977,6 +3017,23 @@ h1 {
     color: #173f3a;
     font-size: 1.15rem;
     font-weight: 900;
+}
+
+.personal-warmup-check {
+    padding: 11px 18px;
+
+    background: #176c63;
+    border: 1px solid #176c63;
+    border-radius: 8px;
+
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.personal-warmup-check:hover,
+.personal-warmup-check:focus-visible {
+    background: #124f49;
+    border-color: #124f49;
 }
 
 /* END DISCOVERY 1 ACTUAL */

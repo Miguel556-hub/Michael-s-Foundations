@@ -3396,7 +3396,7 @@ document
 
 // ==================================================
 // EXPLORE — DOOR 1 DISCOVERY ONE
-// WARM-UP CARDS — CHECK MY ANSWER
+// STAGE 2 — WARM-UP CARDS — CHECK MY ANSWER
 // ==================================================
 
 const personalWarmups = [1, 2, 3].map((n) => ({
