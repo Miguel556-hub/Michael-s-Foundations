@@ -804,6 +804,119 @@ of the engineering loop.
 
 ------------------------------------------------------------------------
 
+# Part VIII --- Family Relationships Explore Phase: Redesign and Recovery
+
+## 16. From Production to Recognition: A Three-Stage Discovery
+
+### Catching a Flawed "Prediction" Before It Shipped
+
+**Moment:** An early build of Family Relationships' Explore Door 1 asked
+learners to "predict" a reworded version of a Russian sentence
+immediately after seeing that exact sentence once. On reflection, this
+was not deduction --- it was paraphrasing something already on screen.
+
+**What I did / why:** I restructured the activity into three distinct
+stages instead of one guess-and-reveal step:
+
+1.  **Stage 1 --- evidence only.** Three example sentences shown
+    together, no input fields, so the learner has enough data to notice
+    a pattern before being asked to use it. Possessive words that were
+    not the point of the exercise were visually de-emphasized so
+    attention would land on the actual structural pattern instead of
+    the more visually loud but irrelevant detail.
+2.  **Stage 2 --- guided production.** The same three sentences, now
+    each with its own register explanation, a genitive-plural clue, a
+    Cyrillic on-screen keyboard, and a non-punitive "Check My Answer"
+    that reveals one correct way to say it rather than grading right or
+    wrong.
+3.  **Stage 3 --- recognition under new content.** Two rounds using
+    nouns the learner had not yet practiced, testing whether the
+    pattern generalized rather than whether the three original
+    sentences were memorized.
+
+**Interview takeaway:** I learned to tell the difference between an
+activity that *looks* like deduction and one that actually requires it.
+Evidence-then-practice-then-recognition is a stronger instructional
+sequence than a single prediction step dressed up as discovery.
+
+### Designing Distractors That Teach, Not Just Fail
+
+**Moment:** An early version of the Stage 3 recognition task had
+duplicate wrong answers with no distinct instructional purpose.
+
+**What I did / why:** I rebuilt the wrong-answer set so each option
+fails for one specific, nameable reason --- a noun-ending error or a
+possessive-agreement error --- applied symmetrically across both
+correct sentence structures, so a learner who picks a distractor can
+still learn something from the miss instead of just being told "no."
+
+**Interview takeaway:** A well-built wrong answer is itself a piece of
+instruction, not merely a way to make a question harder.
+
+------------------------------------------------------------------------
+
+## 17. Diagnosing a Silent CSS Deletion From a Screenshot
+
+**Moment:** A mid-session restructure replaced a component's HTML but
+silently dropped the entire CSS block that gave it visual structure
+--- header, notes, genitive-clue box, feedback, and answer reveal all
+lost their styling at once. This was a distinct incident from the
+earlier Portfolio Website CSS loss, but the same underlying lesson
+applied again in a new context.
+
+**What I did / why:** Rather than guessing at a fix, I worked backward
+from a screenshot: checked which CSS classes referenced in the markup
+had zero remaining rules, located the missing block in an earlier saved
+version of the file, and restored it alongside --- not in place of ---
+the newer content that had since been layered on top.
+
+**Interview takeaway:** A visual regression can come from missing CSS
+just as easily as from broken HTML. Before assuming markup is at fault,
+confirm that every class it references still resolves to a rule
+somewhere.
+
+------------------------------------------------------------------------
+
+## 18. Git Commits as a Real Safety Net, Not a Formality
+
+**Moment:** Before replacing a working set of production files with a
+riskier restructure, I committed the working version to git first.
+
+**What I did / why:** That commit is what turned the CSS-deletion
+incident above into a low-stakes fix instead of a reconstruction from
+memory --- recovery became a matter of comparing against a known-good
+version rather than guessing what had been lost.
+
+**Interview takeaway:** Version-control discipline pays off exactly at
+the moment things go wrong, not when everything is going right. A
+commit taken *before* a risky change is worth more than careful editing
+during one.
+
+------------------------------------------------------------------------
+
+## 19. Standardizing the Four Doors Naming Convention Across Foundations
+
+**Moment:** While naming Family Relationships' Door 1, I noticed that
+Greetings & Introductions' existing door names were already functional
+categories (personalize, generalize, extend, synthesize) dressed in
+introductions-specific language, not topic-locked labels as they first
+appeared.
+
+**What I did / why:** I turned that observation into an explicit,
+reusable standard: Door 1 (Personalize) and Door 2 (Generalize) get
+names customized per Foundation topic, while Door 3 ("Where Could This
+Take Me?") and Door 4 ("The Language Laboratory") stay fixed across
+every Foundation. Family Relationships is now serving as the reference
+project for this standard, with Greetings & Introductions slated for a
+later evolution pass to match it.
+
+**Interview takeaway:** Consistent with the SHELL/ACTUAL and
+promote-reusable-lessons-back-to-authority principles already
+established elsewhere in this document --- naming conventions are
+architecture too, and deserve the same reuse discipline as code.
+
+------------------------------------------------------------------------
+
 # Living Interview-Moment Template
 
 Use this structure when a new significant moment occurs:
@@ -828,4 +941,7 @@ Use this structure when a new significant moment occurs:
 
 **Current checkpoint:** September 12, 2026 --- Living Interview Moments
 consolidated from the original Day 10 Word document and subsequent
-Michael's Foundations development milestones.
+Michael's Foundations development milestones, most recently extended
+with Part VIII covering the Family Relationships Explore Door 1
+instructional redesign, the CSS-deletion recovery, and the Four Doors
+naming standardization.

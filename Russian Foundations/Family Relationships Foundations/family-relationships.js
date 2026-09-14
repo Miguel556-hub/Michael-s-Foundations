@@ -3461,6 +3461,89 @@ personalWarmups.forEach((warmup) => {
 
 });
 
+// ==================================================
+// EXPLORE — DOOR 1 DISCOVERY ONE
+// STAGE 3 — SPOT THE PATTERN (RECOGNITION ROUNDS)
+// ==================================================
+
+// Shuffle each round's options into random order on load,
+// so the correct pair never sits in a predictable position.
+document.querySelectorAll(".personal-recognize-options").forEach((group) => {
+
+    const options =
+        Array.from(group.children);
+
+    for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [options[i], options[j]] = [options[j], options[i]];
+    }
+
+    options.forEach((option) => group.appendChild(option));
+
+});
+
+// Toggle selection on click (does nothing once a round is solved).
+document.querySelectorAll(".personal-recognize-option").forEach((option) => {
+    option.addEventListener("click", () => {
+        if (option.disabled) return;
+        option.classList.toggle("selected");
+    });
+});
+
+const personalRecognizeRounds = [1, 2].map((n) => ({
+    round: document.querySelector(`#personal-recognize-${n}`),
+    check: document.querySelector(`#personal-recognize-${n}-check`),
+    feedback: document.querySelector(`#personal-recognize-${n}-feedback`)
+}));
+
+function checkPersonalRecognize(entry) {
+
+    if (!entry.round) return;
+
+    const options =
+        Array.from(entry.round.querySelectorAll(".personal-recognize-option"));
+
+    const selected =
+        options.filter((option) => option.classList.contains("selected"));
+
+    const selectedCorrectly =
+        selected.length === 2 &&
+        selected.every((option) => option.dataset.correct === "true");
+
+    if (selectedCorrectly) {
+
+        selected.forEach((option) => {
+            option.classList.add("correct");
+            option.disabled = true;
+        });
+
+        options.forEach((option) => {
+            if (!option.classList.contains("correct")) {
+                option.disabled = true;
+            }
+        });
+
+        if (entry.feedback) {
+            entry.feedback.textContent = "YES!";
+        }
+
+    } else {
+
+        if (entry.feedback) {
+            entry.feedback.textContent = "Let's try again.";
+        }
+
+    }
+
+}
+
+personalRecognizeRounds.forEach((entry) => {
+    entry.check?.addEventListener(
+        "click",
+        () => checkPersonalRecognize(entry)
+    );
+});
+
 // END DISCOVERY 1 ACTUAL
 
 // ==================================================
@@ -3647,6 +3730,17 @@ document
                 }
                 if (warmup.feedback) {
                     warmup.feedback.textContent = "";
+                }
+            });
+
+            personalRecognizeRounds.forEach((entry) => {
+                if (!entry.round) return;
+                entry.round.querySelectorAll(".personal-recognize-option").forEach((option) => {
+                    option.classList.remove("selected", "correct");
+                    option.disabled = false;
+                });
+                if (entry.feedback) {
+                    entry.feedback.textContent = "";
                 }
             });
             // END DISCOVERY 1 ACTUAL
