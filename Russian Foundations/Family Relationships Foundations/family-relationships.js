@@ -3548,6 +3548,23 @@ personalRecognizeRounds.forEach((entry) => {
 
 // ==================================================
 // EXPLORE — DOOR 1 DISCOVERY TWO
+// NEW WORDS — CLICK TO REVEAL (четыре / шесть)
+// ==================================================
+
+const personalNewWords =
+    document.querySelectorAll("#personal-discovery-2 .explore-new-word");
+
+personalNewWords.forEach((word) => {
+    word.addEventListener("click", () => {
+        const target = document.getElementById(word.dataset.revealTarget);
+        if (target) {
+            target.hidden = false;
+        }
+    });
+});
+
+// ==================================================
+// EXPLORE — DOOR 1 DISCOVERY TWO
 // REVEAL THE MEANING
 // ==================================================
 
@@ -3590,14 +3607,14 @@ personalExploreMore2?.addEventListener("click", () => {
 
 const personalQuestionWordDetails = {
     "что": { word: "Что?", meaning: "What?", example: "Что это?", english: "What is this?", note: "Use it when you are asking what something is." },
-    "как": { word: "Как?", meaning: "How?", example: "Как вас зовут?", english: "What is your name?", note: "This is the featured question word in Door 1. You already know it from asking someone's name.", featured: true },
+    "как": { word: "Как?", meaning: "How?", example: "Как вас зовут?", english: "What is your name?", note: "You already know this from asking someone's name." },
     "когда": { word: "Когда?", meaning: "When?", example: "Когда?", english: "When?", note: "Use it when you are asking about time." },
     "почему": { word: "Почему?", meaning: "Why?", example: "Почему?", english: "Why?", note: "Use it when you want to know the reason." },
     "откуда": { word: "Откуда?", meaning: "From where?", example: "Откуда вы?", english: "Where are you from?", note: "It points toward where someone or something comes from." },
     "кто": { word: "Кто?", meaning: "Who?", example: "Кто это?", english: "Who is this?", note: "Use it when you are asking about a person." },
     "куда": { word: "Куда?", meaning: "Where to?", example: "Куда?", english: "Where to?", note: "It points toward a destination or direction." },
     "где": { word: "Где?", meaning: "Where?", example: "Где вы живёте?", english: "Where do you live?", note: "Use it when you are asking where someone or something is." },
-    "сколько": { word: "Сколько?", meaning: "How many / how much?", example: "Сколько?", english: "How many? / How much?", note: "Use it when you are asking about an amount or number." }
+    "сколько": { word: "Сколько?", meaning: "How many / how much?", example: "Сколько человек в вашей семье?", english: "How many people are in your family?", note: "This is the featured question word in Family Relationships. You already used it in Discovery Two to ask how many people are in someone's family.", featured: true, candyReady: true }
 };
 
 const personalQuestionWordInfo2 =
@@ -3630,7 +3647,7 @@ document
                         <span>${detail.english}</span>
                     </div>
                     <p class="question-word-info__note">${detail.note}</p>
-                    ${detail.featured ? '<button type="button" class="question-word-info__candy-button" id="open-personal-kak-candy">🍬 Unlock the Grammar Candy</button>' : ''}
+                    ${detail.featured && detail.candyReady ? '<button type="button" class="question-word-info__candy-button" id="open-personal-kak-candy">🍬 Unlock the Grammar Candy</button>' : ''}
                 </div>`;
 
             document
@@ -3656,12 +3673,12 @@ const personalKakListen =
 
 const personalKakStates = {
     informal: {
-        src: "../../Images/grammar-candy-YOU-informal_explanation.svg",
+        src: "../../Images/grammar-candy-missing-Человека.svg",
         alt: "Informal Grammar Candy card explaining Как тебя зовут?",
         speak: "Как тебя зовут?"
     },
     formal: {
-        src: "../../Images/grammar-candy-YOU-formal_explanation.svg",
+        src: "../../Images/grammar-candy-ВАШЕЙ.svg",
         alt: "Formal Grammar Candy card explaining Как вас зовут?",
         speak: "Как вас зовут?"
     }
@@ -3744,6 +3761,13 @@ document
                 }
             });
             // END DISCOVERY 1 ACTUAL
+
+            personalNewWords.forEach((word) => {
+                const target = document.getElementById(word.dataset.revealTarget);
+                if (target) {
+                    target.hidden = true;
+                }
+            });
 
             if (personalPrediction2) {
                 personalPrediction2.value = "";

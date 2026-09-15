@@ -3364,6 +3364,69 @@ h1 {
 
 
 /* ==========================================
+   DISCOVERY TWO — NEW WORDS (CLICK TO REVEAL)
+========================================== */
+
+.explore-new-words {
+    padding: 32px 34px;
+
+    background: #fffdf7;
+
+    border-bottom: 1px solid #e7e1d2;
+}
+
+.explore-new-words__hint {
+    margin: -4px 0 20px;
+
+    color: #665c48;
+    font-size: .95rem;
+}
+
+.explore-new-words__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.explore-new-word {
+    padding: 20px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 2px solid #dfd4b9;
+    border-radius: 12px;
+
+    cursor: pointer;
+}
+
+.explore-new-word:hover {
+    background: #fbf6ea;
+}
+
+.explore-new-word strong {
+    display: block;
+
+    color: #55401d;
+    font-size: 1.4rem;
+}
+
+.explore-new-word__meaning {
+    display: block;
+
+    margin-top: 10px;
+
+    color: #92702e;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================
    MAKE A PREDICTION
 ========================================== */
 
@@ -3504,6 +3567,10 @@ h1 {
 
     .explore-word-change__arrow {
         transform: rotate(90deg);
+    }
+
+    .explore-new-words__grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -6831,7 +6898,7 @@ h1 {
 }
 
 .personal-kak-candy__graphic-wrap {
-    max-width: 720px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 10px;
     border: 1px solid #e1d7ef;
@@ -6942,8 +7009,8 @@ h1 {
 
 .personal-kak-candy__graphic-wrap img {
     display: block;
-    width: 88%;
-    max-width: 620px;
+    width: 94%;
+    max-width: 780px;
     height: auto;
     margin: 0 auto;
 }
