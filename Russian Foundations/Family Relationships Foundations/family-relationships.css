@@ -2537,6 +2537,10 @@ h1 {
     line-height: 1.7;
 }
 
+.explore-room__identity--people .explore-room__identity-text p {
+    max-width: 900px;
+}
+
 
 /* ==========================================
    DOOR 1 — RUSSIAN ID BADGE
@@ -3280,6 +3284,141 @@ h1 {
 
 
 /* ==========================================
+   DISCOVERY SIX — SHARED ENCOUNTER, TWO WORDS
+   One "Hear It First" header, both words side
+   by side — one with a clue, one without.
+========================================== */
+
+.explore-encounter--dual .explore-encounter-dual__words {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+
+    margin-top: 14px;
+}
+
+.explore-encounter-dual__word {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.explore-encounter-dual__divider {
+    width: 1px;
+    height: 64px;
+
+    background: #cfe2dd;
+}
+
+.explore-clue-grid--pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.explore-no-clue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: #ffffff;
+
+    border: 1px dashed #a8c4bd;
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.explore-no-clue strong {
+    margin-bottom: 6px;
+
+    color: #6b5a3f;
+    font-size: 1rem;
+}
+
+.explore-no-clue span {
+    color: #8a7a5e;
+    font-size: .92rem;
+}
+
+@media (max-width: 560px) {
+    .explore-encounter--dual .explore-encounter-dual__words {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .explore-encounter-dual__divider {
+        width: 64px;
+        height: 1px;
+    }
+
+    .explore-clue-grid--pair {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+
+/* ==========================================
+   DISCOVERY SIX — DETECTIVE GRID
+   Meaning + reasoning, asked separately for
+   each of the two mystery words.
+========================================== */
+
+.explore-detective-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 24px;
+
+    margin: 22px 0;
+}
+
+.explore-detective-item label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #405a91;
+    font-weight: 700;
+}
+
+.explore-detective-item input[type="text"] {
+    display: block;
+
+    width: 100%;
+
+    padding: 12px 14px;
+    margin-bottom: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #aeb9d1;
+    border-radius: 10px;
+
+    color: #24334f;
+    font: inherit;
+
+    box-sizing: border-box;
+}
+
+.explore-detective-item textarea {
+    min-height: 64px;
+    margin-bottom: 18px;
+}
+
+@media (max-width: 620px) {
+    .explore-detective-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+
+/* ==========================================
    LOOK CLOSER
 ========================================== */
 
@@ -3308,6 +3447,17 @@ h1 {
     color: #665c48;
 }
 
+.explore-look-closer>p.explore-look-closer__label {
+    margin: 0 0 10px;
+
+    color: #92702e;
+    font-size: .85rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
 .explore-word-change {
     max-width: 650px;
 
@@ -3317,12 +3467,6 @@ h1 {
     grid-template-columns: 1fr 55px 1fr;
     gap: 12px;
     align-items: center;
-}
-
-/* Door 2 — center the single "One New Clue" tile */
-#people-discovery-3 .explore-word-change {
-    grid-template-columns: minmax(0, 255px);
-    justify-content: center;
 }
 
 .explore-word-change>div:not(.explore-word-change__arrow) {
@@ -3353,6 +3497,12 @@ h1 {
     font-size: 1.5rem;
 }
 
+.explore-word-change .listen {
+    display: block;
+
+    margin: 10px auto 0;
+}
+
 .explore-word-change__arrow {
     text-align: center;
 
@@ -3360,6 +3510,17 @@ h1 {
 
     font-size: 1.7rem;
     font-weight: 900;
+}
+
+.explore-word-change strong .explore-suffix {
+    display: inline;
+
+    margin-bottom: 0;
+
+    color: #a17a2e;
+    font-size: inherit;
+    font-weight: inherit;
+    text-transform: none;
 }
 
 
@@ -3423,6 +3584,107 @@ h1 {
     color: #92702e;
     font-size: 1rem;
     font-weight: 700;
+}
+
+
+/* ==========================================
+   DISCOVERY FOUR — BUILD THE SENTENCE
+   Tap-to-place word bank with blanks
+========================================== */
+
+.explore-construct {
+    padding: 32px 34px;
+
+    background: #fdfaf5;
+
+    border-bottom: 1px solid #ece3d3;
+}
+
+.explore-construct__sentence {
+    margin-bottom: 28px;
+
+    text-align: center;
+
+    color: #33291b;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 2.2;
+}
+
+.explore-construct__blank {
+    display: inline-block;
+
+    min-width: 110px;
+    padding: 6px 14px;
+    margin: 0 4px;
+
+    background: #fff;
+
+    border: none;
+    border-bottom: 3px solid #a17a2e;
+    border-radius: 4px;
+
+    color: #a17a2e;
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+.explore-construct__blank.is-filled {
+    background: #f3eede;
+
+    border-bottom-color: #176c63;
+
+    color: #176c63;
+}
+
+.explore-construct__bank {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.explore-construct__tile {
+    padding: 12px 22px;
+
+    background: #ffffff;
+
+    border: 2px solid #dfd4b9;
+    border-radius: 999px;
+
+    color: #55401d;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+.explore-construct__tile:hover {
+    background: #fbf6ea;
+}
+
+.explore-construct__tile.is-used {
+    display: none;
+}
+
+.explore-construct__blank--nudge {
+    animation: explore-construct-nudge .5s ease;
+}
+
+@keyframes explore-construct-nudge {
+    0%, 100% {
+        border-bottom-color: #a17a2e;
+    }
+    30%, 70% {
+        border-bottom-color: #c0392b;
+    }
 }
 
 
@@ -3644,22 +3906,6 @@ h1 {
    EXPLORE — GRAMMAR CANDY GRAPHIC
 ========================================== */
 
-.explore-grammar-candy-graphic {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    margin-top: 14px;
-    border-radius: 12px;
-}
-
-.explore-grammar-explanation {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
 /* ==========================================
    DOOR 2 — EXPLORE MORE
 ========================================== */
@@ -3757,127 +4003,24 @@ h1 {
    EXPLORE — DOOR 2 -    PEOPLE PROFILE CARDS
 ========================================== */
 
-.people-profiles {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-
-    margin: 26px 0 30px;
-    padding: 26px;
-
-    background: #ffffff;
-
-    border: 1px solid #d6e5e2;
-    border-radius: 16px;
-
-    box-shadow: none;
-}
-
 
 /* Individual person card */
 
-.people-profile {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 18px;
-    align-items: center;
-
-    padding: 20px;
-
-    background:
-        linear-gradient(135deg,
-            rgba(23, 108, 99, 0.06),
-            transparent 65%),
-        #ffffff;
-
-    border: 1px solid #c9dfda;
-    border-radius: 10px;
-
-    box-shadow: none;
-}
-
 /* Person / photo area */
-
-.people-profile__photo {
-    width: 92px;
-    height: 92px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(145deg,
-            #d9edf2,
-            #f7fbfc);
-
-    border: 3px solid #6ea5b4;
-
-    font-size: 3rem;
-
-    box-shadow:
-        inset 0 0 0 4px rgba(255, 255, 255, 0.65),
-        0 3px 8px rgba(0, 0, 0, 0.12);
-}
 
 
 /* Small identity label */
 
-.people-profile__label {
-    margin-bottom: 3px;
-
-    color: #397788;
-
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-}
-
 
 /* Russian name */
 
-.people-profile__name {
-    margin-bottom: 10px;
-
-    color: #164f5c;
-
-    font-size: 1.7rem;
-    font-weight: 900;
-    line-height: 1.1;
-}
-
 
 /* First-name information */
-
-.people-profile__line {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-
-    padding-top: 9px;
-
-    border-top: 1px solid #d3e2e7;
-
-    color: #53656b;
-
-    font-size: 0.9rem;
-}
-
-.people-profile__line strong {
-    color: #164f5c;
-    font-size: 1rem;
-}
 
 
 /* Responsive */
 
 @media (max-width: 700px) {
-
-    .people-profiles {
-        grid-template-columns: 1fr;
-    }
 
 }
 
@@ -4123,35 +4266,6 @@ h1 {
    DISCOVERY ONE REVEAL
 ========================================== */
 
-.people-discovery-reveal {
-    margin: 22px 26px 26px;
-}
-
-.people-discovery-reveal__button {
-    padding: 11px 18px;
-
-    background: #55447f;
-    border: 1px solid #55447f;
-    border-radius: 7px;
-
-    color: #ffffff;
-
-    font: inherit;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.people-discovery-reveal__button:hover,
-.people-discovery-reveal__button:focus-visible {
-    background: #443568;
-    transform: translateY(-1px);
-}
-
 
 /* Revealed discovery */
 
@@ -4183,40 +4297,10 @@ h1 {
 
 /* Three pieces of evidence */
 
-.people-discovery-reveal__examples {
-    margin-top: 18px;
-
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-}
-
-.people-discovery-reveal__examples>div {
-    padding: 15px 12px;
-
-    background: #ffffff;
-
-    border: 1px solid #ddc98f;
-    border-radius: 9px;
-
-    color: #164f5c;
-
-    font-size: 1.15rem;
-    font-weight: 400;
-    text-align: center;
-
-    box-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
 
 /* Responsive */
 
 @media (max-width: 650px) {
-
-    .people-discovery-reveal__examples {
-        grid-template-columns: 1fr;
-    }
 
 }
 
@@ -4225,97 +4309,17 @@ h1 {
    DISCOVERY TWO — COMPARE
 ========================================== */
 
-.people-compare {
-    margin: 24px 26px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.people-compare__example {
-    padding: 22px;
-
-    background:
-        linear-gradient(135deg,
-            #eef8f6 0%,
-            #fbfdfc 100%);
-
-    border: 1px solid #9fcfc5;
-    border-top: 5px solid #176c63;
-    border-radius: 12px;
-
-    text-align: center;
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.06);
-}
-
-.people-compare__person {
-    margin-bottom: 10px;
-
-    color: #176c63;
-
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-}
-
-.people-compare__russian {
-    margin-bottom: 16px;
-
-    color: #164f5c;
-
-    font-size: 1.7rem;
-    font-weight: 900;
-}
-
-.people-compare__example .listen {
-    background: #176c63;
-    border-color: #176c63;
-    color: #ffffff;
-}
-
-.people-compare__example .listen:hover,
-.people-compare__example .listen:focus-visible {
-    background: #12574f;
-    border-color: #12574f;
-}
-
 /* ==========================================
    EXPLORE — DOOR 2
    DISCOVERY TWO — LOOK CLOSER
 ========================================== */
-
-.people-compare-pattern {
-    margin: 0;
-    padding: 32px 34px;
-
-    background:
-        linear-gradient(135deg,
-            #f6f1fb 0%,
-            #fbf9fd 100%);
-
-    border: 1px solid #c9b8dc;
-    border-left: 5px solid #65439a;
-    border-radius: 12px;
-
-    box-shadow: none;
-}
-
-.people-compare-pattern .eyebrow {
-    color: #65439a;
-}
-
-.people-compare-pattern .explore-section-heading {
-    color: #4f3478;
-}
 
 /* ==========================================
    DOOR 2 — HEADER PEOPLE LAYOUT
 ========================================== */
 
 .explore-room__identity--people {
-    grid-template-columns: minmax(0, 1fr) 500px;
+    grid-template-columns: minmax(0, 1fr);
     gap: 32px;
 }
 
@@ -4323,213 +4327,17 @@ h1 {
    DOOR 2 — COMPACT HEADER PEOPLE CARDS
 ========================================== */
 
-.explore-room__identity--people .people-profile {
-    grid-template-columns: 76px 1fr;
-    gap: 12px;
-    padding: 14px;
-}
-
-.explore-room__identity--people .people-profile__photo {
-    width: 72px;
-    height: 72px;
-
-    font-size: 2.35rem;
-}
-
-.explore-room__identity--people .people-profile__listen {
-    grid-column: 1 / -1;
-    justify-self: center;
-
-    background: #14786f;
-    color: #ffffff;
-    border: 1px solid #14786f;
-}
-
 /* ==========================================
    EXPLORE — DOOR 2
    DISCOVERY ONE — LOOK FOR THE PATTERN
    Rebuilt as one unified discovery experience
 ========================================== */
 
-.people-pattern-discovery {
-    margin: 24px 0 30px;
-    overflow: hidden;
-
-    background:
-        linear-gradient(135deg,
-            #f6f0fb 0%,
-            #fbf8fd 100%);
-
-    border: 1px solid #cbb8df;
-    border-left: 5px solid #65439a;
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.06);
-}
-
-.people-pattern-discovery__intro {
-    padding: 24px 28px 12px;
-}
-
-.people-pattern-discovery__intro .eyebrow {
-    color: #65439a;
-}
-
-.people-pattern-discovery__intro h3 {
-    margin: 4px 0 8px;
-
-    color: #4f3478;
-
-    font-size: 1.45rem;
-    line-height: 1.2;
-}
-
-.people-pattern-discovery__intro p {
-    margin: 0;
-
-    color: #4d4260;
-}
-
 
 /* More evidence — Katya and Sergei */
 
-.people-pattern-evidence {
-    display: grid;
-    gap: 12px;
-
-    padding: 18px 28px 8px;
-}
-
-.people-pattern-evidence__row {
-    display: grid;
-    grid-template-columns: minmax(220px, 1fr) minmax(170px, .8fr) auto;
-    gap: 22px;
-    align-items: center;
-
-    padding: 10px 12px;
-}
-
-.people-pattern-evidence__person {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    color: #2d2540;
-
-    font-size: 1.05rem;
-}
-
-.people-pattern-evidence__avatar {
-    width: 48px;
-    height: 48px;
-
-    display: grid;
-    place-items: center;
-
-    flex: 0 0 48px;
-
-    background: #ffffff;
-
-    border: 3px solid #7350a8;
-    border-radius: 50%;
-
-    font-size: 1.65rem;
-}
-
-.people-pattern-evidence__russian {
-    color: #251f30;
-
-    font-size: 1.35rem;
-    font-weight: 900;
-}
-
-.people-pattern-evidence__listen {
-    min-width: 164px;
-
-    background: #5c3692;
-    border-color: #5c3692;
-    color: #ffffff;
-}
-
-.people-pattern-evidence__listen:hover,
-.people-pattern-evidence__listen:focus-visible {
-    background: #4b2c78;
-    border-color: #4b2c78;
-}
-
 
 /* Learner prediction */
-
-.people-pattern-prediction {
-    display: grid;
-    grid-template-columns: minmax(0, 420px) auto;
-    justify-content: center;
-    align-items: end;
-    gap: 14px;
-
-    padding: 14px 28px 28px;
-}
-
-.people-pattern-prediction label {
-    grid-column: 1 / -1;
-    color: #5a3b86;
-
-    font-size: .78rem;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-}
-
-.people-pattern-prediction input {
-    width: 100%;
-    min-height: 48px;
-
-    padding: 10px 14px;
-
-    background: #ffffff;
-    color: #352645;
-
-    border: 2px solid #66507f;
-    border-radius: 0;
-
-    font-size: 1rem;
-    text-align: center;
-}
-
-.people-pattern-prediction input:focus {
-    outline: 3px solid rgba(101, 67, 154, 0.18);
-    outline-offset: 2px;
-}
-
-.people-pattern-prediction button {
-    justify-self: stretch;
-
-    padding: 11px 18px;
-
-    background: #5c3692;
-    border-color: #5c3692;
-    color: #ffffff;
-}
-
-.people-pattern-prediction__feedback {
-    grid-column: 1 / -1;
-}
-
-.people-pattern-prediction button:hover,
-.people-pattern-prediction button:focus-visible {
-    background: #4b2c78;
-    border-color: #4b2c78;
-}
-
-.people-pattern-prediction__feedback {
-    min-height: 22px;
-
-    color: #5a3b86;
-
-    font-size: .9rem;
-    font-weight: 700;
-}
 
 
 /* Discovery result belongs directly to the purple investigation */
@@ -4539,202 +4347,28 @@ h1 {
    Shared by Discovery One and Discovery Two
 ========================================== */
 
-.people-pattern-result {
-    margin: 18px 26px 26px;
-    padding: 24px 26px;
-
-    background:
-        linear-gradient(135deg,
-            #fff8e7 0%,
-            #fffdf7 100%);
-
-    border: 1px solid #d9bd72;
-    border-left: 5px solid #c79327;
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.06);
-}
-
 
 /* ==========================================
    DISCOVERY TWO — MALE / FEMALE COMPARISON
 ========================================== */
-
-.people-pattern-result__comparison {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-
-    margin: 20px 0;
-}
-
-.people-pattern-result__person {
-    padding: 18px;
-
-    background: rgba(255, 255, 255, 0.65);
-
-    border: 1px solid #c9b8dc;
-    border-radius: 10px;
-}
-
-.people-pattern-result__person-label {
-    margin-bottom: 14px;
-
-    color: #5c3692;
-
-    font-size: 1rem;
-    font-weight: 800;
-}
-
-.people-pattern-result__sequence {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-
-    color: #352645;
-
-    font-size: 1.25rem;
-    font-weight: 800;
-}
-
-.people-pattern-result__sequence span {
-    color: #65439a;
-}
-
-.people-pattern-result__meaning {
-    margin-top: 8px;
-
-    color: #4e5561;
-
-    font-size: .95rem;
-}
 
 
 /* ==========================================
    DISCOVERY TWO — ДРУГ / ПОДРУГА
 ========================================== */
 
-.people-pattern-result__friend-note {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 24px;
-    align-items: center;
-
-    margin-top: 22px;
-    padding-top: 18px;
-
-    border-top: 1px solid #ddc98f;
-}
-
-.people-pattern-result__friend-note h5 {
-    grid-column: 1;
-    margin: 0 0 10px;
-
-    color: #4f3478;
-
-    font-size: 1.05rem;
-}
-
-.people-pattern-result__friend-note>p:first-of-type {
-    grid-column: 1;
-    margin-top: 0;
-}
-
-.people-pattern-result__friend-pair {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 180px));
-    gap: 0;
-
-    margin: 0;
-    align-self: center;
-}
-
-.people-pattern-result__friend-note>p:last-of-type {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
-}
-
-.people-pattern-result__friend-pair>div {
-    display: grid;
-    gap: 3px;
-
-    padding: 12px 16px;
-
-    background: rgba(255, 255, 255, 0.7);
-
-    border: 1px solid #c9b8dc;
-
-    text-align: center;
-}
-
-.people-pattern-result__friend-pair strong {
-    color: #5c3692;
-
-    font-size: 1.15rem;
-}
-
-.people-pattern-result__friend-pair span {
-    color: #4e5561;
-
-    font-size: .9rem;
-}
-
 
 /* ==========================================
    DISCOVERY RESULT — BIGGER PATTERN
 ========================================== */
 
-.people-pattern-result__reminder {
-    margin-top: 22px;
-    padding-top: 18px;
-
-    border-top: 1px dashed #c79327;
-}
-
-.people-pattern-result__reminder strong {
-    color: #5c3692;
-}
-
 
 /* Door 2 header Hear buttons */
-
-.explore-room__identity--people .people-profile__listen {
-    background: #14786f;
-    border-color: #14786f;
-    color: #ffffff;
-}
-
-.explore-room__identity--people .people-profile__listen:hover,
-.explore-room__identity--people .people-profile__listen:focus-visible {
-    background: #105f58;
-    border-color: #105f58;
-    color: #ffffff;
-}
 
 
 /* Responsive */
 
 @media (max-width: 800px) {
-
-    .people-pattern-evidence__row {
-        grid-template-columns: 1fr;
-        gap: 10px;
-
-        text-align: center;
-    }
-
-    .people-pattern-evidence__person {
-        justify-content: center;
-    }
-
-    .people-pattern-evidence__listen {
-        justify-self: center;
-    }
 
 }
 
@@ -4742,161 +4376,9 @@ h1 {
    DOOR 2 — DISCOVERY TWO PROFILE CARDS
 ========================================== */
 
-.people-compare {
-    margin: 24px 26px;
-
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.people-compare__profile {
-    display: grid;
-    grid-template-columns: 76px 1fr;
-    gap: 14px;
-    align-items: center;
-
-    padding: 18px;
-
-    background:
-        linear-gradient(135deg,
-            rgba(23, 108, 99, 0.06),
-            transparent 65%),
-        #ffffff;
-
-    border: 1px solid #c9dfda;
-    border-radius: 10px;
-}
-
-.people-compare__photo {
-    width: 72px;
-    height: 72px;
-
-    display: grid;
-    place-items: center;
-
-    font-size: 2.35rem;
-
-    background: #f8fcfb;
-    border: 2px solid #79b6c8;
-    border-radius: 50%;
-
-    box-shadow:
-        0 3px 7px rgba(0, 0, 0, 0.12);
-}
-
-.people-compare__details {
-    min-width: 0;
-}
-
-.people-compare__label {
-    color: #176c63;
-
-    font-size: .72rem;
-    font-weight: 800;
-    letter-spacing: .08em;
-}
-
-.people-compare__name {
-    margin-top: 2px;
-
-    color: #164f5c;
-
-    font-size: 1.45rem;
-    font-weight: 900;
-}
-
-.people-compare__statement {
-    margin: 10px 0 14px;
-    padding-top: 8px;
-
-    color: #164f5c;
-
-    font-size: 1.2rem;
-    font-weight: 800;
-
-    border-top: 1px solid #d5e4e1;
-}
-
-.people-compare__listen {
-    background: #14786f;
-    color: #ffffff;
-    border-color: #14786f;
-}
-
-.people-compare__listen:hover,
-.people-compare__listen:focus-visible {
-    background: #12574f;
-    border-color: #12574f;
-}
-
 /* ==========================================
    DOOR 2 — DISCOVERY TWO PATTERN EVIDENCE
 ========================================== */
-
-.people-compare-pattern__evidence {
-    display: grid;
-    gap: 14px;
-
-    margin-top: 22px;
-}
-
-.people-compare-pattern__row {
-    display: grid;
-    grid-template-columns: 54px minmax(0, 1fr) auto;
-    gap: 14px;
-    align-items: center;
-
-    padding: 12px 14px;
-
-    background: rgba(255, 255, 255, 0.45);
-    border-radius: 10px;
-}
-
-.people-compare-pattern__person {
-    width: 44px;
-    height: 44px;
-
-    display: grid;
-    place-items: center;
-
-    font-size: 1.8rem;
-
-    background: #ffffff;
-    border: 2px solid #7a4db0;
-    border-radius: 50%;
-}
-
-.people-compare-pattern__sentence {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-
-    color: #352645;
-}
-
-.people-compare-pattern__sentence strong {
-    min-width: 70px;
-
-    font-size: 1rem;
-}
-
-.people-compare-pattern__sentence span {
-    font-size: 1.2rem;
-    font-weight: 800;
-}
-
-.people-compare-pattern__listen {
-    background: #5c3692;
-    color: #ffffff;
-    border-color: #5c3692;
-}
-
-.people-compare-pattern__listen:hover,
-.people-compare-pattern__listen:focus-visible {
-    background: #4b2c78;
-    border-color: #4b2c78;
-}
 
 /* ==================================================
    EXPLORE — DOOR 2
@@ -5329,6 +4811,49 @@ h1 {
 
     margin: 0 auto;
     border-radius: 12px;
+}
+
+/* ==========================================
+   DISCOVERY FIVE — QUIET EXPLORE MORE
+   A reveal that doesn't announce itself as bonus
+   content the way Grammar Candy does.
+========================================== */
+
+.explore-more--quiet {
+    background: transparent;
+    border: 1px dashed #cfc4e3;
+    box-shadow: none;
+}
+
+.explore-more__question {
+    margin: 0 0 14px;
+
+    color: #33291b;
+    font-size: 1.05rem;
+}
+
+.explore-more--quiet .explore-more__button {
+    background: #211c2e;
+    border-color: #211c2e;
+}
+
+.explore-more--quiet .explore-more__button:hover,
+.explore-more--quiet .explore-more__button:focus-visible {
+    background: #35304a;
+    border-color: #35304a;
+}
+
+.explore-more--quiet .explore-more__reveal p {
+    max-width: 700px;
+    margin: 0 auto 12px;
+
+    color: #52463a;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.explore-more--quiet .explore-more__reveal p:last-child {
+    margin-bottom: 0;
 }
 
 /* ==========================================

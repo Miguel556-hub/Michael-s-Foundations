@@ -3808,14 +3808,14 @@ document
 
 
 // ==================================================
-// EXPLORE — DOOR 2 - MEET SOMEONE NEW
+// EXPLORE — DOOR 2 - SAME FAMILY, DIFFERENT FEELING
 // ==================================================
 
 const explorePeopleRoom =
     document.querySelector("#explore-people");
 
 
-// Open Door 2 — Meet Someone New
+// Open Door 2 — Same Family, Different Feeling.
 document
     .querySelector('.explore-door[data-door="people"]')
     ?.addEventListener("click", () => {
@@ -3862,145 +3862,67 @@ document
 
 // ==================================================
 // EXPLORE — DOOR 2
-// DISCOVERY ONE — PREDICT AND REVEAL
+// DISCOVERY ONE — REVEAL
 // ==================================================
 
-const peoplePatternPrediction1 =
-    document.querySelector("#people-pattern-prediction-1");
+const peoplePrediction1 =
+    document.querySelector("#people-prediction-1");
 
-const peoplePatternCheck1 =
-    document.querySelector("#people-pattern-check-1");
+const peopleReveal1 =
+    document.querySelector("#people-reveal-1");
 
-const peoplePatternFeedback1 =
-    document.querySelector("#people-pattern-feedback-1");
+const peopleMeaning1 =
+    document.querySelector("#people-meaning-1");
 
-const peopleDiscoveryMeaning1 =
-    document.querySelector("#people-discovery-meaning-1");
+peopleReveal1?.addEventListener("click", () => {
 
-function revealPeoplePattern1() {
-
-    if (!peoplePatternPrediction1 || !peopleDiscoveryMeaning1) {
+    if (!peopleMeaning1) {
         return;
     }
 
-    const prediction =
-        peoplePatternPrediction1.value.trim();
+    peopleMeaning1.hidden = false;
 
-    if (!prediction) {
-
-        if (peoplePatternFeedback1) {
-            peoplePatternFeedback1.textContent =
-                "Make a prediction first. There is no penalty for being unsure.";
-        }
-
-        peoplePatternPrediction1.focus();
-        return;
-    }
-
-    if (peoplePatternFeedback1) {
-        peoplePatternFeedback1.textContent =
-            "Now compare your prediction with the pattern you discovered.";
-    }
-
-    peopleDiscoveryMeaning1.hidden = false;
-
-    peopleDiscoveryMeaning1.scrollIntoView({
+    peopleMeaning1.scrollIntoView({
         behavior: "smooth",
         block: "nearest"
     });
-}
 
-peoplePatternCheck1?.addEventListener(
-    "click",
-    revealPeoplePattern1
-);
-
-peoplePatternPrediction1?.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (event.key === "Enter") {
-            event.preventDefault();
-            revealPeoplePattern1();
-        }
-
-    }
-);
+});
 
 
 // ==================================================
 // EXPLORE — DOOR 2
-// DISCOVERY TWO — PREDICT AND REVEAL
+// DISCOVERY TWO — REVEAL
 // ==================================================
 
-const peoplePatternPrediction2 =
-    document.querySelector("#people-pattern-prediction-2");
+const peoplePrediction2 =
+    document.querySelector("#people-prediction-2");
 
-const peoplePatternCheck2 =
-    document.querySelector("#people-pattern-check-2");
+const peopleReveal2 =
+    document.querySelector("#people-reveal-2");
 
-const peoplePatternFeedback2 =
-    document.querySelector("#people-pattern-feedback-2");
+const peopleMeaning2 =
+    document.querySelector("#people-meaning-2");
 
-const peopleDiscoveryMeaning2 =
-    document.querySelector("#people-discovery-meaning-2");
+peopleReveal2?.addEventListener("click", () => {
 
-
-function revealPeoplePattern2() {
-
-    if (!peoplePatternPrediction2 || !peopleDiscoveryMeaning2) {
+    if (!peopleMeaning2) {
         return;
     }
 
-    const prediction =
-        peoplePatternPrediction2.value.trim();
+    peopleMeaning2.hidden = false;
 
-    if (!prediction) {
-
-        if (peoplePatternFeedback2) {
-            peoplePatternFeedback2.textContent =
-                "Make a prediction first. There is no penalty for being unsure.";
-        }
-
-        peoplePatternPrediction2.focus();
-        return;
-    }
-
-    if (peoplePatternFeedback2) {
-        peoplePatternFeedback2.textContent =
-            "Now compare your prediction with the pattern you discovered.";
-    }
-
-    peopleDiscoveryMeaning2.hidden = false;
-
-    peopleDiscoveryMeaning2.scrollIntoView({
+    peopleMeaning2.scrollIntoView({
         behavior: "smooth",
         block: "nearest"
     });
-}
 
+});
 
-peoplePatternCheck2?.addEventListener(
-    "click",
-    revealPeoplePattern2
-);
-
-
-peoplePatternPrediction2?.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (event.key === "Enter") {
-            event.preventDefault();
-            revealPeoplePattern2();
-        }
-
-    }
-);
 
 // ==================================================
 // EXPLORE — DOOR 2
-// DISCOVERY THREE — PREDICT AND REVEAL
+// DISCOVERY THREE — REVEAL
 // ==================================================
 
 const peoplePrediction3 =
@@ -4012,69 +3934,209 @@ const peopleReveal3 =
 const peopleMeaning3 =
     document.querySelector("#people-meaning-3");
 
-const peopleGrammarCandy3 =
-    document.querySelector("#people-grammar-candy-3");
+peopleReveal3?.addEventListener("click", () => {
 
-
-function revealPeopleDiscovery3() {
-
-    if (!peoplePrediction3 || !peopleMeaning3) {
-        return;
-    }
-
-    const prediction =
-        peoplePrediction3.value.trim();
-
-    if (!prediction) {
-
-        peoplePrediction3.placeholder =
-            "Make a prediction first. There is no penalty for being unsure.";
-
-        peoplePrediction3.focus();
+    if (!peopleMeaning3) {
         return;
     }
 
     peopleMeaning3.hidden = false;
 
-    if (peopleGrammarCandy3) {
-        peopleGrammarCandy3.hidden = false;
-    }
-
     peopleMeaning3.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest"
-    });
-}
-
-
-peopleReveal3?.addEventListener(
-    "click",
-    revealPeopleDiscovery3
-);
-
-// ==================================================
-// EXPLORE — DOOR 2
-// DISCOVERY THREE — GRAMMAR CANDY
-// ==================================================
-
-const peopleGrammarExplanation3 =
-    document.querySelector("#people-grammar-explanation-3");
-
-
-peopleGrammarCandy3?.addEventListener("click", () => {
-
-    if (!peopleGrammarExplanation3) {
-        return;
-    }
-
-    peopleGrammarExplanation3.hidden = false;
-
-    peopleGrammarExplanation3.scrollIntoView({
         behavior: "smooth",
         block: "nearest"
     });
 
 });
+
+// Discovery Three — Grammar Candy (same family, different endings)
+
+const peopleExploreMoreEndings =
+    document.querySelector("#people-explore-more-endings");
+
+const peopleExploreMoreEndingsReveal =
+    document.querySelector("#people-explore-more-endings-reveal");
+
+peopleExploreMoreEndings?.addEventListener("click", () => {
+
+    if (!peopleExploreMoreEndingsReveal) {
+        return;
+    }
+
+    const isHidden = peopleExploreMoreEndingsReveal.hasAttribute("hidden");
+
+    if (isHidden) {
+        peopleExploreMoreEndingsReveal.removeAttribute("hidden");
+        peopleExploreMoreEndings.textContent = "🍬 Hide Grammar Candy";
+    } else {
+        peopleExploreMoreEndingsReveal.setAttribute("hidden", "");
+        peopleExploreMoreEndings.textContent = "🍬 Explore More";
+    }
+
+});
+
+// Discovery Five — sneaky "why Я люблю" reveal
+
+const peopleExploreMorePronoun =
+    document.querySelector("#people-explore-more-pronoun");
+
+const peopleExploreMorePronounReveal =
+    document.querySelector("#people-explore-more-pronoun-reveal");
+
+peopleExploreMorePronoun?.addEventListener("click", () => {
+
+    if (!peopleExploreMorePronounReveal) {
+        return;
+    }
+
+    const isHidden = peopleExploreMorePronounReveal.hasAttribute("hidden");
+
+    if (isHidden) {
+        peopleExploreMorePronounReveal.removeAttribute("hidden");
+        peopleExploreMorePronoun.textContent = "Hide";
+    } else {
+        peopleExploreMorePronounReveal.setAttribute("hidden", "");
+        peopleExploreMorePronoun.textContent = "Explore More";
+    }
+
+});
+
+
+// ==================================================
+// EXPLORE — DOOR 2
+// DISCOVERY FOUR — BUILD THE SENTENCE (TAP TO PLACE)
+// ==================================================
+
+const peopleBlanks =
+    Array.from(document.querySelectorAll("#people-discovery-4 .explore-construct__blank"));
+
+const peopleConstructTiles =
+    Array.from(document.querySelectorAll("#people-discovery-4 .explore-construct__tile"));
+
+const peopleReveal4 =
+    document.querySelector("#people-reveal-4");
+
+const peopleMeaning4 =
+    document.querySelector("#people-meaning-4");
+
+// Tracks which tile element currently fills each blank, so the exact
+// tile (not just a matching word) returns to the bank when cleared.
+const peopleBlankFill = new Map();
+
+function fillPeopleBlank(blank, tile) {
+    blank.textContent = tile.dataset.word;
+    blank.classList.add("is-filled");
+    tile.classList.add("is-used");
+    peopleBlankFill.set(blank, tile);
+}
+
+function clearPeopleBlank(blank) {
+    const tile = peopleBlankFill.get(blank);
+    if (tile) {
+        tile.classList.remove("is-used");
+    }
+    peopleBlankFill.delete(blank);
+    blank.textContent = "?";
+    blank.classList.remove("is-filled");
+}
+
+peopleConstructTiles.forEach((tile) => {
+    tile.addEventListener("click", () => {
+
+        if (tile.classList.contains("is-used")) {
+            return;
+        }
+
+        const nextBlank = peopleBlanks.find((b) => !b.classList.contains("is-filled"));
+
+        if (!nextBlank) {
+            return;
+        }
+
+        fillPeopleBlank(nextBlank, tile);
+
+    });
+});
+
+peopleBlanks.forEach((blank) => {
+    blank.addEventListener("click", () => {
+
+        if (blank.classList.contains("is-filled")) {
+            clearPeopleBlank(blank);
+        }
+
+    });
+});
+
+peopleReveal4?.addEventListener("click", () => {
+
+    const unfilled = peopleBlanks.filter((b) => !b.classList.contains("is-filled"));
+
+    if (unfilled.length > 0) {
+
+        unfilled.forEach((blank) => {
+            blank.classList.add("explore-construct__blank--nudge");
+            setTimeout(() => {
+                blank.classList.remove("explore-construct__blank--nudge");
+            }, 600);
+        });
+
+        return;
+    }
+
+    if (!peopleMeaning4) {
+        return;
+    }
+
+    peopleMeaning4.hidden = false;
+
+    peopleMeaning4.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+
+});
+
+
+// ==================================================
+// EXPLORE — DOOR 2
+// DISCOVERY SIX — REVEAL
+// (Discovery Five is reflective — no reveal state to manage.)
+// ==================================================
+
+const peopleMeaningTetushka =
+    document.querySelector("#people-meaning-tetushka");
+
+const peopleReasoningTetushka =
+    document.querySelector("#people-reasoning-tetushka");
+
+const peopleMeaningDyadyushka =
+    document.querySelector("#people-meaning-dyadyushka");
+
+const peopleReasoningDyadyushka =
+    document.querySelector("#people-reasoning-dyadyushka");
+
+const peopleReveal6 =
+    document.querySelector("#people-reveal-6");
+
+const peopleMeaning6 =
+    document.querySelector("#people-meaning-6");
+
+peopleReveal6?.addEventListener("click", () => {
+
+    if (!peopleMeaning6) {
+        return;
+    }
+
+    peopleMeaning6.hidden = false;
+
+    peopleMeaning6.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+
+});
+
 
 // ==================================================
 // EXPLORE — DOOR 2
@@ -4090,63 +4152,46 @@ document
             // Stop any Russian audio that may be playing.
             window.speechSynthesis?.cancel?.();
 
+            const predictions = [
+                peoplePrediction1, peoplePrediction2, peoplePrediction3,
+                peopleMeaningTetushka, peopleReasoningTetushka,
+                peopleMeaningDyadyushka, peopleReasoningDyadyushka
+            ];
 
-            // ------------------------------------------
-            // DISCOVERY ONE
-            // ------------------------------------------
+            predictions.forEach((field) => {
+                if (field) {
+                    field.value = "";
+                }
+            });
 
-            if (peoplePatternPrediction1) {
-                peoplePatternPrediction1.value = "";
+            const meanings = [
+                peopleMeaning1, peopleMeaning2, peopleMeaning3,
+                peopleMeaning4, peopleMeaning6
+            ];
+
+            meanings.forEach((meaning) => {
+                if (meaning) {
+                    meaning.hidden = true;
+                }
+            });
+
+            peopleBlanks.forEach((blank) => clearPeopleBlank(blank));
+
+            if (peopleExploreMoreEndingsReveal) {
+                peopleExploreMoreEndingsReveal.setAttribute("hidden", "");
             }
 
-            if (peoplePatternFeedback1) {
-                peoplePatternFeedback1.textContent = "";
+            if (peopleExploreMoreEndings) {
+                peopleExploreMoreEndings.textContent = "🍬 Explore More";
             }
 
-            if (peopleDiscoveryMeaning1) {
-                peopleDiscoveryMeaning1.hidden = true;
+            if (peopleExploreMorePronounReveal) {
+                peopleExploreMorePronounReveal.setAttribute("hidden", "");
             }
 
-
-            // ------------------------------------------
-            // DISCOVERY TWO
-            // ------------------------------------------
-
-            if (peoplePatternPrediction2) {
-                peoplePatternPrediction2.value = "";
+            if (peopleExploreMorePronoun) {
+                peopleExploreMorePronoun.textContent = "Explore More";
             }
-
-            if (peoplePatternFeedback2) {
-                peoplePatternFeedback2.textContent = "";
-            }
-
-            if (peopleDiscoveryMeaning2) {
-                peopleDiscoveryMeaning2.hidden = true;
-            }
-
-
-            // ------------------------------------------
-            // DISCOVERY THREE
-            // ------------------------------------------
-
-            if (peoplePrediction3) {
-                peoplePrediction3.value = "";
-                peoplePrediction3.placeholder =
-                    "Type your prediction here";
-            }
-
-            if (peopleMeaning3) {
-                peopleMeaning3.hidden = true;
-            }
-
-            if (peopleGrammarCandy3) {
-                peopleGrammarCandy3.hidden = true;
-            }
-
-            if (peopleGrammarExplanation3) {
-                peopleGrammarExplanation3.hidden = true;
-            }
-
 
             // ------------------------------------------
             // RETURN TO THE TOP OF DOOR 2
@@ -4164,23 +4209,6 @@ document
         });
 
     });
-
-const exploreMoreIsButton = document.getElementById("people-explore-more-is");
-const exploreMoreIsReveal = document.getElementById("people-explore-more-is-reveal");
-
-if (exploreMoreIsButton && exploreMoreIsReveal) {
-    exploreMoreIsButton.addEventListener("click", () => {
-        const isHidden = exploreMoreIsReveal.hasAttribute("hidden");
-
-        if (isHidden) {
-            exploreMoreIsReveal.removeAttribute("hidden");
-            exploreMoreIsButton.textContent = "🍬 Hide Grammar";
-        } else {
-            exploreMoreIsReveal.setAttribute("hidden", "");
-            exploreMoreIsButton.textContent = "🍬 Explore More";
-        }
-    });
-}
 
 
 // ==================================================
