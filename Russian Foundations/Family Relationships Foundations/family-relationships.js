@@ -4193,6 +4193,8 @@ document
                 peopleExploreMorePronoun.textContent = "Explore More";
             }
 
+            resetDoorTwoVault();
+
             // ------------------------------------------
             // RETURN TO THE TOP OF DOOR 2
             // ------------------------------------------
@@ -6556,3 +6558,132 @@ document
 
 })();
 
+// ==================================================
+//    THE VAULT
+//    Self-contained component. State lives entirely
+//    on data-vault-view; Door 2 only knows how to
+//    open and reset it — see setVaultView() below.
+// ==================================================
+
+const doorTwoVault =
+    document.querySelector("#door2-vault");
+
+function setVaultView(view, opts = {}) {
+
+    if (!doorTwoVault) {
+        return;
+    }
+
+    doorTwoVault.dataset.vaultView = view;
+
+    if (opts.scroll !== false) {
+        doorTwoVault.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+}
+
+// Open the vault — from the door's own button, or from
+// Discovery Three's "Open the Vault" teaser.
+
+document
+    .querySelectorAll("#vault-open-button, [data-vault-open]")
+    .forEach((button) => {
+        button.addEventListener("click", () => setVaultView("menu"));
+    });
+
+// Close the vault — returns to the closed-door state.
+// Since the Vault lives inline in Door 2's own flow (not a
+// modal), collapsing back to "closed" naturally leaves the
+// learner at the same scroll position in Door 2 — no separate
+// "return to location" logic needed.
+
+document
+    .querySelector("#vault-close-button")
+    ?.addEventListener("click", () => setVaultView("closed", { scroll: false }));
+
+// Menu items — open a specific section.
+
+document
+    .querySelectorAll(".vault__menu-item")
+    .forEach((item) => {
+        item.addEventListener("click", () => {
+            setVaultView(`section-${item.dataset.vaultSection}`);
+        });
+    });
+
+// Return to Vault Menu — every section has one of these.
+
+document
+    .querySelectorAll("[data-vault-return]")
+    .forEach((button) => {
+        button.addEventListener("click", () => setVaultView("menu", { scroll: false }));
+    });
+
+
+// --------------------------------------------------
+// VAULT SECTION 3 — "DID IT GET SMALLER?" PREDICTION
+// --------------------------------------------------
+
+const vaultSection3Reveal =
+    document.querySelector("#vault-section-3-reveal");
+
+const vaultSection3Verdict =
+    document.querySelector("#vault-section-3-verdict");
+
+document
+    .querySelectorAll("#vault-section-3 .vault__predict-button")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            if (!vaultSection3Reveal) {
+                return;
+            }
+
+            const answeredYes = button.dataset.vaultAnswer === "yes";
+
+            if (vaultSection3Verdict) {
+                vaultSection3Verdict.textContent = answeredYes
+                    ? "Actually — no, it didn't."
+                    : "Right — it didn't.";
+            }
+
+            vaultSection3Reveal.hidden = false;
+
+            vaultSection3Reveal.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+
+        });
+
+    });
+
+
+// --------------------------------------------------
+// VAULT RESET — folded into Door 2's own
+// "Restore This Door" handler, further down this file.
+// Exposed here so that handler can call it without
+// needing to know the Vault's internal structure.
+// --------------------------------------------------
+
+function resetDoorTwoVault() {
+
+    setVaultView("closed", { scroll: false });
+
+    if (vaultSection3Reveal) {
+        vaultSection3Reveal.hidden = true;
+    }
+
+    if (peopleExploreMoreEndingsReveal) {
+        peopleExploreMoreEndingsReveal.setAttribute("hidden", "");
+    }
+
+}
+
+// ==================================================
+//    END - THE VAULT
+// ==================================================

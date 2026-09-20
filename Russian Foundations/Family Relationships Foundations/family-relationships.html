@@ -3812,11 +3812,242 @@ LESSON 2 — EXTENDED FAMILY
                   alt="Grammar Candy comparing how бабушка, дедушка, брат, and сестра each change differently to become affectionate"
                   class="explore-more__graphic">
 
+                <p class="vault-teaser">
+                  Want to see what's hiding inside these words?
+                </p>
+
               </div>
 
             </div> <!-- END Discovery Three Grammar Candy -->
 
           </section> <!-- END Discovery Three -->
+
+          <!-- ==================================================
+               THE VAULT
+               Self-contained component. States: closed, menu,
+               section-1 .. section-4. Driven by data-vault-view
+               on the outer .vault element — see CSS and JS.
+          ================================================== -->
+
+          <div class="vault" id="door2-vault" data-vault-view="closed">
+
+            <div class="vault__door-stage">
+
+              <img src="../../Images/the-vault/vault-door-closed.svg"
+                alt="A closed bank vault door" class="vault__door-layer vault__door-layer--closed">
+
+              <img src="../../Images/the-vault/vault-door-open.svg"
+                alt="An open bank vault door" class="vault__door-layer vault__door-layer--open">
+
+              <!-- MENU — sits inside the open door's tunnel opening -->
+              <div class="vault__menu" role="menu" aria-label="Vault sections">
+
+                <button type="button" class="vault__menu-item" data-vault-section="1">
+                  <img src="../../Images/the-vault/vault-menu-button.svg" alt="" class="vault__button-bg">
+                  <span class="vault__menu-icon">🔧</span>
+                  <span class="vault__menu-title">Under the Hood</span>
+                </button>
+
+                <button type="button" class="vault__menu-item" data-vault-section="2">
+                  <img src="../../Images/the-vault/vault-menu-button.svg" alt="" class="vault__button-bg">
+                  <span class="vault__menu-icon">👪</span>
+                  <span class="vault__menu-title">One Word Can Have a Family</span>
+                </button>
+
+                <button type="button" class="vault__menu-item" data-vault-section="3">
+                  <img src="../../Images/the-vault/vault-menu-button.svg" alt="" class="vault__button-bg">
+                  <span class="vault__menu-icon">❤️</span>
+                  <span class="vault__menu-title">Little Word&hellip;<br>Big Feelings</span>
+                </button>
+
+                <button type="button" class="vault__menu-item" data-vault-section="4">
+                  <img src="../../Images/the-vault/vault-menu-button.svg" alt="" class="vault__button-bg">
+                  <span class="vault__menu-icon">🔑</span>
+                  <span class="vault__menu-title">The Vault Key</span>
+                </button>
+
+              </div> <!-- END vault menu -->
+
+            </div> <!-- END vault door stage -->
+
+            <!-- CLOSED STATE CONTROL — normal flow, below the door art -->
+            <div class="vault__stage-controls vault__stage-controls--closed">
+
+              <button type="button" class="vault__return-button vault__door-button" id="vault-open-button">
+                Open Vault
+              </button>
+
+            </div> <!-- END closed-state control -->
+
+            <!-- MENU STATE CONTROL — normal flow, below the door art -->
+            <div class="vault__stage-controls vault__stage-controls--menu">
+
+              <button type="button" class="vault__return-button vault__door-button" id="vault-close-button">
+                Close Vault
+              </button>
+
+            </div> <!-- END menu-state control -->
+
+            <!-- ==================================================
+                 VAULT SECTION 1 — UNDER THE HOOD
+            ================================================== -->
+
+            <div class="vault__section" id="vault-section-1">
+
+              <div class="vault__section-header">
+                <div class="vault-eyebrow">UNDER THE HOOD</div>
+                <h3>How Russian Builds Diminutives</h3>
+              </div>
+
+              <img src="../../Images/grammar-candy-diminutives.svg"
+                alt="Grammar Candy: how Russian builds diminutives, showing suffix patterns like дом → домик, сын → сынок, мама → мамочка, брат → братик, and сестра → сестрёнка"
+                class="vault__section-graphic">
+
+              <button type="button" class="vault__return-button" data-vault-return>
+                ← Return to Vault Menu
+              </button>
+
+            </div> <!-- END Vault Section 1 -->
+
+            <!-- ==================================================
+                 VAULT SECTION 2 — ONE WORD CAN HAVE A FAMILY
+            ================================================== -->
+
+            <div class="vault__section" id="vault-section-2">
+
+              <div class="vault__section-header">
+                <div class="vault-eyebrow">ONE WORD CAN HAVE A FAMILY</div>
+                <h3>More Than One Form. More Meaning.</h3>
+              </div>
+
+              <img src="../../Images/grammar-candy-diminutives2.svg"
+                alt="Grammar Candy: one word can have a family of related forms, showing брат → братик → братишка and сестра → сестрёнка → сестричка with register notes for each"
+                class="vault__section-graphic">
+
+              <button type="button" class="vault__return-button" data-vault-return>
+                ← Return to Vault Menu
+              </button>
+
+            </div> <!-- END Vault Section 2 -->
+
+            <!-- ==================================================
+                 VAULT SECTION 3 — LITTLE WORD...BIG FEELINGS
+            ================================================== -->
+
+            <div class="vault__section" id="vault-section-3">
+
+              <div class="vault__section-header">
+                <div class="vault-eyebrow">LITTLE WORD&hellip;BIG FEELINGS</div>
+                <h3>Not Always Small. Often Warmer.</h3>
+              </div>
+
+              <div class="vault__section-body">
+
+                <p>Sometimes a diminutive really is about size:</p>
+
+                <div class="vault__word-change">
+                  <div><span>Full size</span><strong lang="ru">дом</strong></div>
+                  <div class="vault__word-change-arrow">→</div>
+                  <div><span>Small size</span><strong lang="ru">домик</strong></div>
+                </div>
+
+                <div class="vault__word-change">
+                  <div><span>Full size</span><strong lang="ru">стол</strong></div>
+                  <div class="vault__word-change-arrow">→</div>
+                  <div><span>Small size</span><strong lang="ru">столик</strong></div>
+                </div>
+
+                <p>Now look at these:</p>
+
+                <div class="vault__word-change">
+                  <div><span>You know</span><strong lang="ru">брат</strong></div>
+                  <div class="vault__word-change-arrow">→</div>
+                  <div><span>Now you see</span><strong lang="ru">братик</strong></div>
+                </div>
+
+                <div class="vault__word-change">
+                  <div><span>You know</span><strong lang="ru">мама</strong></div>
+                  <div class="vault__word-change-arrow">→</div>
+                  <div><span>Now you see</span><strong lang="ru">мамочка</strong></div>
+                </div>
+
+                <div class="vault__predict">
+
+                  <p class="vault__predict-question">
+                    Did the brother or mother physically become smaller?
+                  </p>
+
+                  <div class="vault__predict-buttons">
+                    <button type="button" class="vault__predict-button" data-vault-answer="yes">Yes</button>
+                    <button type="button" class="vault__predict-button" data-vault-answer="no">No</button>
+                  </div>
+
+                  <div class="vault__predict-reveal" id="vault-section-3-reveal" hidden>
+                    <p class="vault__predict-verdict" id="vault-section-3-verdict"></p>
+                    <p>
+                      With people — especially family words — a diminutive doesn't usually mean smaller.
+                      It can mean affection, warmth, tenderness, or familiarity instead.
+                    </p>
+                    <p>
+                      The form gives you a clue. The situation helps you understand what that clue means.
+                    </p>
+                  </div>
+
+                </div> <!-- END predict -->
+
+              </div> <!-- END Section 3 body -->
+
+              <p class="vault__sweet-truth">
+                🍬 Sweet Truth: A diminutive doesn't always make something smaller. Sometimes it makes the
+                language warmer.
+              </p>
+
+              <button type="button" class="vault__return-button" data-vault-return>
+                ← Return to Vault Menu
+              </button>
+
+            </div> <!-- END Vault Section 3 -->
+
+            <!-- ==================================================
+                 VAULT SECTION 4 — THE VAULT KEY
+            ================================================== -->
+
+            <div class="vault__section" id="vault-section-4">
+
+              <div class="vault__section-header">
+                <div class="vault-eyebrow">THE VAULT KEY</div>
+                <h3>Your Strategy for Real Russian</h3>
+                <p>
+                  This isn't another morphology lesson — it's the synthesis. Four questions to ask yourself
+                  the next time you meet an unfamiliar Russian word.
+                </p>
+              </div>
+
+              <ol class="vault-key">
+                <li><strong>Look Inside</strong> — Do you recognize a word or stem you already know?</li>
+                <li><strong>Notice What Changed</strong> — Did Russian add or reshape part of the word?</li>
+                <li>
+                  <strong>Check the Context</strong> — Is the form suggesting smallness, affection, warmth,
+                  familiarity, or another nuance?
+                </li>
+                <li>
+                  <strong>Predict</strong> — Use the clues to make a reasonable meaning/feeling prediction
+                  before reaching for a translation.
+                </li>
+              </ol>
+
+              <p class="vault__sweet-truth">
+                🔑 The word gives you clues. Context helps give those clues meaning.
+              </p>
+
+              <button type="button" class="vault__return-button" data-vault-return>
+                ← Return to Vault Menu
+              </button>
+
+            </div> <!-- END Vault Section 4 -->
+
+          </div> <!-- END THE VAULT -->
+
 
 
           <!-- ==========================================
