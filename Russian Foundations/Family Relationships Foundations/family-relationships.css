@@ -2655,6 +2655,23 @@ h1 {
     font-weight: 900;
 }
 
+/* ---------- Badge, now a flat SVG image (family-id-badge.svg) ---------- */
+/* Replaces the old built-from-HTML card (top bar, photo, LEARNER line,
+   Name field, footer) — all of that is baked into the image itself now,
+   so this is the only rule the badge needs. .identity-card still supplies
+   border-radius + the base shadow from its earlier rule above; this just
+   adds image-specific sizing and the stronger "pop off the screen" shadow. */
+
+.identity-card--badge {
+    display: block;
+    width: 100%;
+    height: auto;
+
+    box-shadow:
+        0 16px 32px rgba(0, 0, 0, .22),
+        0 4px 10px rgba(0, 0, 0, .14);
+}
+
 .identity-card__sentence {
     margin-top: 14px;
     padding: 14px 16px;
@@ -2917,7 +2934,8 @@ h1 {
 /* ---------- The Family Tree — always visible ---------- */
 
 .identity-card__tree {
-    margin: 4px 0 18px;
+    max-width: 560px;
+    margin: 28px 0 0;
     padding: 14px 14px 18px;
 
     background: #ffffff;
