@@ -2543,22 +2543,34 @@ h1 {
 
 
 /* ==========================================
-   DOOR 1 — RUSSIAN ID BADGE
+   DOOR 1 — THE LANGUAGE IDENTITY CARD
+   Self-contained component. Each category panel
+   tracks its own open/closed state independently
+   (data-category-open on the toggle button plus
+   [hidden] on its panel) — there is no single
+   "current view" attribute the way the Vault's
+   data-vault-view works, because more than one
+   panel can be open at once. See identity-card.js
+   functions below for the behavior.
 ========================================== */
 
-.russian-id-badge {
+.explore-room__identity--personal {
+    grid-template-columns: minmax(0, 1fr) 420px;
+    align-items: start;
+}
+
+.identity-card {
     overflow: hidden;
+
     background: #ffffff;
     border: 1px solid #a9c7c1;
-    border-radius: 14px;
+    border-radius: 18px;
     box-shadow:
         0 12px 28px rgba(0, 0, 0, 0.16),
         inset 0 0 0 4px rgba(255, 255, 255, .55);
-
-    transform: rotate(1deg);
 }
 
-.russian-id-badge__top {
+.identity-card__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2573,12 +2585,8 @@ h1 {
     letter-spacing: .08em;
 }
 
-.russian-id-badge__body {
-    display: grid;
-    grid-template-columns: 92px 1fr;
-    gap: 18px;
-
-    padding: 22px 20px;
+.identity-card__body {
+    padding: 22px 20px 6px;
 
     background:
         linear-gradient(135deg,
@@ -2587,47 +2595,53 @@ h1 {
         #ffffff;
 }
 
-.russian-id-badge__photo {
-    width: 92px;
-    height: 112px;
-
-    display: grid;
-    place-items: center;
-
-    background: #e9f3f1;
-    border: 2px solid #b8d3ce;
-    border-radius: 8px;
-
-    font-size: 3rem;
+.identity-card__field {
+    margin-bottom: 20px;
 }
 
-.russian-id-badge__details {
-    min-width: 0;
-}
+.identity-card__label {
+    display: block;
+    margin-bottom: 6px;
 
-.russian-id-badge__label {
     color: #68817d;
     font-size: .68rem;
     font-weight: 900;
     letter-spacing: .12em;
 }
 
-.russian-id-badge__name {
-    margin: 3px 0 16px;
+.identity-card__input,
+.identity-card__select {
+    width: 100%;
+    padding: 10px 12px;
 
-    color: #174f4a;
-    font-size: 1.65rem;
-    font-weight: 900;
+    background: #ffffff;
+    color: #263f3b;
+
+    border: 1.5px solid #b8d3ce;
+    border-radius: 8px;
+
+    font-size: .95rem;
+    font-family: inherit;
+
+    transition: border-color .2s ease, box-shadow .2s ease;
 }
 
-.russian-id-badge__line {
+.identity-card__input:focus,
+.identity-card__select:focus {
+    outline: none;
+    border-color: #176c63;
+    box-shadow: 0 0 0 3px rgba(23, 108, 99, .14);
+}
+
+.identity-card__reveal {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+
     margin-top: 10px;
 }
 
-.russian-id-badge__line span {
-    display: block;
-    margin-bottom: 2px;
-
+.identity-card__reveal-label {
     color: #70837f;
     font-size: .68rem;
     font-weight: 800;
@@ -2635,12 +2649,370 @@ h1 {
     letter-spacing: .07em;
 }
 
-.russian-id-badge__line strong {
-    color: #263f3b;
-    font-size: .9rem;
+.identity-card__reveal-value {
+    color: #174f4a;
+    font-size: 1.1rem;
+    font-weight: 900;
 }
 
-.russian-id-badge__footer {
+.identity-card__sentence {
+    margin-top: 14px;
+    padding: 14px 16px;
+
+    background: #edf8f6;
+    border: 1px solid #c5dcd7;
+    border-radius: 10px;
+}
+
+.identity-card__sentence-text {
+    margin: 0 0 10px;
+
+    color: #174f4a;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.identity-card__gender-word {
+    color: #176c63;
+}
+
+.identity-card__gender-toggle {
+    display: flex;
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+.identity-card__gender-option {
+    flex: 1;
+
+    padding: 7px 10px;
+
+    background: #ffffff;
+    color: #52677d;
+
+    border: 1.5px solid #b8d3ce;
+    border-radius: 20px;
+
+    font-weight: 800;
+    cursor: pointer;
+
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.identity-card__gender-option:hover,
+.identity-card__gender-option:focus-visible {
+    outline: none;
+    border-color: #176c63;
+}
+
+.identity-card__gender-option[aria-pressed="true"] {
+    background: #176c63;
+    color: #ffffff;
+    border-color: #176c63;
+}
+
+.identity-card__caption {
+    margin: 6px 0 0;
+
+    color: #52677d;
+    font-size: .78rem;
+    line-height: 1.5;
+}
+
+/* ---------- The six — five pull-down categories ---------- */
+
+.identity-card__categories {
+    margin-top: 6px;
+    border-top: 1px solid #d6e5e2;
+}
+
+.identity-card__category {
+    border-bottom: 1px solid #d6e5e2;
+}
+
+.identity-card__category-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    padding: 13px 2px;
+
+    background: none;
+    color: #174f4a;
+    border: none;
+
+    font-size: .92rem;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+}
+
+.identity-card__category-toggle:hover,
+.identity-card__category-toggle:focus-visible {
+    outline: none;
+    color: #176c63;
+}
+
+.identity-card__category-arrow {
+    color: #78aaa1;
+    transition: transform .2s ease;
+}
+
+.identity-card__category-toggle[aria-expanded="true"] .identity-card__category-arrow {
+    transform: rotate(180deg);
+}
+
+.identity-card__category-panel {
+    padding: 2px 4px 18px;
+}
+
+.identity-card__panel-hint {
+    margin: 0 0 10px;
+
+    color: #52677d;
+    font-size: .8rem;
+    line-height: 1.5;
+}
+
+.identity-card__checklist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 14px;
+
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+}
+
+.identity-card__checklist label {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+
+    cursor: pointer;
+}
+
+.identity-card__checkbox {
+    accent-color: #176c63;
+}
+
+.identity-card__check-ru {
+    color: #174f4a;
+    font-weight: 800;
+}
+
+.identity-card__check-en {
+    color: #70837f;
+    font-size: .78rem;
+}
+
+.identity-card__panel-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.identity-card__panel-reset,
+.identity-card__panel-return {
+    padding: 7px 12px;
+
+    background: #ffffff;
+    border: 1px solid #78aaa1;
+    border-radius: 8px;
+
+    font-size: .78rem;
+    font-weight: 800;
+    cursor: pointer;
+
+    transition: background .2s ease, transform .2s ease;
+}
+
+.identity-card__panel-reset {
+    color: #a1573f;
+    border-color: #e0b9ac;
+}
+
+.identity-card__panel-reset:hover,
+.identity-card__panel-reset:focus-visible {
+    outline: none;
+    background: #fbefec;
+}
+
+.identity-card__panel-return {
+    color: #176c63;
+}
+
+.identity-card__panel-return:hover,
+.identity-card__panel-return:focus-visible {
+    outline: none;
+    background: #edf8f6;
+    transform: translateY(-1px);
+}
+
+/* ---------- Someone Special — dynamic picker ---------- */
+
+.identity-card__special-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    margin-bottom: 12px;
+}
+
+.identity-card__special-option {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #174f4a;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.identity-card__special-why-label {
+    display: block;
+    margin-bottom: 6px;
+
+    color: #68817d;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+#identity-special-why {
+    margin-bottom: 14px;
+}
+
+/* ---------- Close row ---------- */
+
+.identity-card__close-row {
+    padding: 10px 2px 18px;
+    text-align: right;
+}
+
+.identity-card__close-all {
+    padding: 8px 16px;
+
+    background: #ffffff;
+    color: #70837f;
+
+    border: 1px solid #c5dcd7;
+    border-radius: 8px;
+
+    font-size: .78rem;
+    font-weight: 800;
+    cursor: pointer;
+
+    transition: background .2s ease;
+}
+
+.identity-card__close-all:hover,
+.identity-card__close-all:focus-visible {
+    outline: none;
+    background: #edf8f6;
+}
+
+/* ---------- The Family Tree — always visible ---------- */
+
+.identity-card__tree {
+    margin: 4px 0 18px;
+    padding: 14px 14px 18px;
+
+    background: #ffffff;
+    border: 1px solid #d6e5e2;
+    border-radius: 12px;
+}
+
+.identity-card__tree-header {
+    margin-bottom: 10px;
+
+    color: #68817d;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-align: center;
+}
+
+.identity-card__tree-canvas {
+    min-height: 160px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 14px 10px;
+
+    background:
+        url('../../Images/family-tree.svg') center / contain no-repeat,
+        #f4faf8;
+    border-radius: 10px;
+}
+
+.identity-card__tree-empty {
+    margin: 0;
+    align-self: center;
+
+    color: #8aa29d;
+    font-size: .82rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.identity-card__tree-leaf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    background: #e9f3f1;
+    border: 1.5px solid #b8d3ce;
+    border-radius: 999px;
+
+    font-size: .74rem;
+    line-height: 1.25;
+
+    animation: identity-leaf-in .25s ease;
+}
+
+.identity-card__tree-leaf strong {
+    color: #174f4a;
+}
+
+.identity-card__tree-leaf span {
+    color: #70837f;
+}
+
+.identity-card__tree-leaf--special {
+    background: #fff3e6;
+    border-color: #eac79a;
+}
+
+.identity-card__tree-leaf--special strong {
+    color: #8a5a1f;
+}
+
+.identity-card__tree-leaf--special::before {
+    content: "★ ";
+}
+
+@keyframes identity-leaf-in {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.identity-card__footer {
     padding: 9px 14px;
 
     background: #e8f3f1;
@@ -2653,6 +3025,18 @@ h1 {
     letter-spacing: .07em;
 
     text-align: center;
+}
+
+@media (max-width: 900px) {
+
+    .identity-card {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .identity-card__checklist {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -2703,11 +3087,6 @@ h1 {
 
     .explore-room__identity {
         grid-template-columns: 1fr;
-    }
-
-    .russian-id-badge {
-        max-width: 430px;
-        margin: 0 auto;
     }
 }
 

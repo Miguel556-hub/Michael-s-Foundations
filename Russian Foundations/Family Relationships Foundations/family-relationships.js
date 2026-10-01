@@ -6687,3 +6687,445 @@ function resetDoorTwoVault() {
 // ==================================================
 //    END - THE VAULT
 // ==================================================
+
+// ==================================================
+//    DOOR 1 — THE LANGUAGE IDENTITY CARD
+//    Self-contained component. Unlike the Vault, there
+//    is no single "current view" attribute — each of
+//    the five category panels tracks its own open/
+//    closed state independently (data-category-open on
+//    its toggle button + [hidden] on its panel), because
+//    the learner decides whether several stay open at
+//    once. The Family Tree is always visible and is a
+//    live view: renderIdentityTree() reads whatever is
+//    currently checked, fresh, every time it runs — it
+//    never stores an old answer that would need syncing.
+// ==================================================
+
+// --------------------------------------------------
+// NAME — transliteration
+// A real letter/sound mapping, not a lookup list of
+// pre-written names. Longest sequences are matched
+// first (e.g. "shch" before "sh" before "s") so digraphs
+// win over their single-letter pieces. Anything with no
+// mapping (numbers, accents, stray punctuation) is
+// carried through unchanged rather than dropped — an odd
+// character showing through is more honest than a silent
+// failure.
+// --------------------------------------------------
+
+const IDENTITY_TRANSLIT_MULTI = [
+    ["shch", "щ"],
+    ["kh", "х"],
+    ["ts", "ц"],
+    ["ch", "ч"],
+    ["sh", "ш"],
+    ["zh", "ж"],
+    ["ya", "я"],
+    ["yu", "ю"],
+    ["yo", "ё"],
+    ["ye", "е"],
+    ["ph", "ф"],
+    ["ck", "к"],
+    ["qu", "кв"]
+];
+
+const IDENTITY_TRANSLIT_SINGLE = {
+    a: "а", b: "б", c: "к", d: "д", e: "е", f: "ф", g: "г", h: "х",
+    i: "и", j: "дж", k: "к", l: "л", m: "м", n: "н", o: "о", p: "п",
+    q: "к", r: "р", s: "с", t: "т", u: "у", v: "в", w: "в", x: "кс",
+    y: "и", z: "з"
+};
+
+function transliterateWord(word) {
+
+    let output = "";
+    let i = 0;
+
+    while (i < word.length) {
+
+        const ch = word[i];
+
+        if (!/[a-z]/.test(ch)) {
+            output += ch;
+            i += 1;
+            continue;
+        }
+
+        const multiMatch = IDENTITY_TRANSLIT_MULTI.find(([latin]) =>
+            word.startsWith(latin, i));
+
+        if (multiMatch) {
+            output += multiMatch[1];
+            i += multiMatch[0].length;
+            continue;
+        }
+
+        // "c" is soft (с) before e/i/y, hard (к) everywhere else —
+        // the one letter that genuinely needs its neighbor to decide.
+        if (ch === "c") {
+            const next = word[i + 1];
+            output += (next === "e" || next === "i" || next === "y") ? "с" : "к";
+            i += 1;
+            continue;
+        }
+
+        output += IDENTITY_TRANSLIT_SINGLE[ch] || ch;
+        i += 1;
+
+    }
+
+    return output.charAt(0).toUpperCase() + output.slice(1);
+
+}
+
+function transliterateToRussian(fullName) {
+
+    return (fullName || "")
+        .toLowerCase()
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .map(transliterateWord)
+        .join(" ");
+
+}
+
+const identityNameInput = document.querySelector("#identity-name-input");
+const identityNameOutput = document.querySelector("#identity-name-output");
+
+identityNameInput?.addEventListener("input", () => {
+
+    const value = identityNameInput.value.trim();
+
+    identityNameOutput.textContent = value
+        ? transliterateToRussian(value)
+        : "Still discovering...";
+
+});
+
+// --------------------------------------------------
+// BIRTH MONTH — the sentence and its gender toggle
+// Every month just adds -е after "в" (январь → январе),
+// so the prepositional form rides along on the option
+// itself (data-prep) instead of living in a second table
+// that would have to stay in sync with the first.
+// --------------------------------------------------
+
+let identityGender = "male"; // "male" -> родился, "female" -> родилась
+
+const identityMonthSelect = document.querySelector("#identity-month-select");
+const identityBirthSentence = document.querySelector("#identity-birth-sentence");
+const identityMonthPrep = document.querySelector("#identity-month-prep");
+const identityGenderWord = document.querySelector("#identity-gender-word");
+
+identityMonthSelect?.addEventListener("change", () => {
+
+    const option = identityMonthSelect.selectedOptions[0];
+
+    if (!identityBirthSentence) {
+        return;
+    }
+
+    if (!option || !option.value) {
+        identityBirthSentence.hidden = true;
+        return;
+    }
+
+    if (identityMonthPrep) {
+        identityMonthPrep.textContent = option.dataset.prep;
+    }
+
+    identityBirthSentence.hidden = false;
+
+});
+
+document
+    .querySelectorAll(".identity-card__gender-option")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            identityGender = button.dataset.gender;
+
+            document
+                .querySelectorAll(".identity-card__gender-option")
+                .forEach((other) => {
+                    other.setAttribute("aria-pressed", other === button ? "true" : "false");
+                });
+
+            if (identityGenderWord) {
+                identityGenderWord.textContent =
+                    identityGender === "female" ? "родилась" : "родился";
+            }
+
+        });
+
+    });
+
+// --------------------------------------------------
+// FIVE CATEGORY PANELS — pull-down, independent state
+// --------------------------------------------------
+
+function closeIdentityCategory(category) {
+
+    const panel = document.querySelector(`#identity-panel-${category}`);
+    const toggle = document.querySelector(`[data-category-open="${category}"]`);
+
+    if (panel) {
+        panel.hidden = true;
+    }
+
+    if (toggle) {
+        toggle.setAttribute("aria-expanded", "false");
+    }
+
+}
+
+document
+    .querySelectorAll(".identity-card__category-toggle")
+    .forEach((toggle) => {
+
+        toggle.addEventListener("click", () => {
+
+            const category = toggle.dataset.categoryOpen;
+            const panel = document.querySelector(`#identity-panel-${category}`);
+
+            if (!panel) {
+                return;
+            }
+
+            const opening = panel.hidden;
+
+            panel.hidden = !opening;
+            toggle.setAttribute("aria-expanded", String(opening));
+
+            if (opening && category === "special") {
+                renderIdentitySpecialPicker();
+            }
+
+        });
+
+    });
+
+document
+    .querySelectorAll("[data-category-return]")
+    .forEach((button) => {
+        button.addEventListener("click", () => {
+            closeIdentityCategory(button.dataset.categoryReturn);
+        });
+    });
+
+// "Close" — collapses every open panel at once. The card itself
+// has no closed/sealed state the way the Vault's door does; Name,
+// Birth Month, and the Tree stay visible always. This button only
+// ever affects the five pull-downs.
+
+document
+    .querySelector("#identity-close-all")
+    ?.addEventListener("click", () => {
+
+        document
+            .querySelectorAll(".identity-card__category-panel")
+            .forEach((panel) => { panel.hidden = true; });
+
+        document
+            .querySelectorAll(".identity-card__category-toggle")
+            .forEach((toggle) => { toggle.setAttribute("aria-expanded", "false"); });
+
+    });
+
+// --------------------------------------------------
+// PER-CATEGORY RESET — "clear this one, keep the rest."
+// Reuses the Vault's "Restore This Door" principle at a
+// finer grain: nothing is ever lost by accident, only by
+// one clearly-labeled, scoped, deliberate action.
+// --------------------------------------------------
+
+document
+    .querySelectorAll("[data-category-reset]")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            const category = button.dataset.categoryReset;
+
+            document
+                .querySelectorAll(`.identity-card__checkbox[data-category="${category}"]`)
+                .forEach((checkbox) => { checkbox.checked = false; });
+
+            if (category === "special") {
+
+                identitySpecialChoice = null;
+
+                const whyInput = document.querySelector("#identity-special-why");
+
+                if (whyInput) {
+                    whyInput.value = "";
+                }
+
+            }
+
+            renderIdentitySpecialPicker();
+            renderIdentityTree();
+
+        });
+
+    });
+
+document
+    .querySelectorAll(".identity-card__checkbox")
+    .forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+            renderIdentitySpecialPicker();
+            renderIdentityTree();
+        });
+    });
+
+// --------------------------------------------------
+// SOMEONE SPECIAL — no fixed vocabulary of its own yet
+// (an open question in the guiding document). Rather than
+// invent new words, it reuses whoever is already checked
+// above: pick one of them, and say why.
+// --------------------------------------------------
+
+let identitySpecialChoice = null;
+
+function getIdentityCheckedPeople() {
+
+    return Array.from(document.querySelectorAll(".identity-card__checkbox:checked"))
+        .map((checkbox) => ({
+            word: checkbox.dataset.treeWord,
+            label: checkbox.dataset.treeLabel
+        }));
+
+}
+
+function renderIdentitySpecialPicker() {
+
+    const picker = document.querySelector("#identity-special-picker");
+    const hint = document.querySelector("#identity-special-hint");
+
+    if (!picker) {
+        return;
+    }
+
+    const people = getIdentityCheckedPeople();
+
+    if (identitySpecialChoice && !people.some((person) => person.word === identitySpecialChoice)) {
+        identitySpecialChoice = null;
+    }
+
+    picker.innerHTML = "";
+
+    if (people.length === 0) {
+        if (hint) {
+            hint.hidden = false;
+        }
+        return;
+    }
+
+    if (hint) {
+        hint.hidden = true;
+    }
+
+    people.forEach((person) => {
+
+        const optionId = `identity-special-${person.word.replace(/\s+/g, "-")}`;
+
+        const wrapper = document.createElement("label");
+        wrapper.className = "identity-card__special-option";
+        wrapper.setAttribute("for", optionId);
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "identity-special-choice";
+        radio.id = optionId;
+        radio.value = person.word;
+        radio.checked = identitySpecialChoice === person.word;
+
+        radio.addEventListener("change", () => {
+            identitySpecialChoice = person.word;
+            renderIdentityTree();
+        });
+
+        wrapper.appendChild(radio);
+        wrapper.append(` ${person.label} — ${person.word}`);
+
+        picker.appendChild(wrapper);
+
+    });
+
+}
+
+document
+    .querySelector("#identity-special-why")
+    ?.addEventListener("input", () => renderIdentityTree());
+
+// --------------------------------------------------
+// THE FAMILY TREE — a live view, not a stored snapshot.
+// Reads whatever is currently checked across the four
+// vocabulary categories, fresh, every render. Clearing a
+// category elsewhere never requires special sync logic
+// here — the Tree was never holding an old answer.
+// --------------------------------------------------
+
+function renderIdentityTree() {
+
+    const canvas = document.querySelector("#identity-tree-canvas");
+    const emptyMessage = document.querySelector("#identity-tree-empty");
+
+    if (!canvas) {
+        return;
+    }
+
+    canvas
+        .querySelectorAll(".identity-card__tree-leaf")
+        .forEach((leaf) => leaf.remove());
+
+    const people = getIdentityCheckedPeople();
+
+    if (people.length === 0) {
+        if (emptyMessage) {
+            emptyMessage.hidden = false;
+        }
+        return;
+    }
+
+    if (emptyMessage) {
+        emptyMessage.hidden = true;
+    }
+
+    const whyInput = document.querySelector("#identity-special-why");
+    const whyText = whyInput ? whyInput.value.trim() : "";
+
+    people.forEach((person) => {
+
+        const isSpecial = person.word === identitySpecialChoice;
+
+        const leaf = document.createElement("div");
+        leaf.className = "identity-card__tree-leaf" +
+            (isSpecial ? " identity-card__tree-leaf--special" : "");
+
+        if (isSpecial && whyText) {
+            leaf.title = whyText;
+        }
+
+        const strong = document.createElement("strong");
+        strong.textContent = person.label;
+
+        const span = document.createElement("span");
+        span.textContent = person.word;
+
+        leaf.appendChild(strong);
+        leaf.appendChild(span);
+
+        canvas.appendChild(leaf);
+
+    });
+
+}
+
+// ==================================================
+//    END - DOOR 1 IDENTITY CARD
+// ==================================================
