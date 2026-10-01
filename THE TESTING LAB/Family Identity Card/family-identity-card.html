@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Family Identity Card WOW Factor</title>
+<link rel="stylesheet" href="family-identity-card.css">
+</head>
+<body>
+<div id="app">
+  <section id="launch" class="screen active bg-launch">
+    <div class="launch-utility-nav no-print">
+      <button id="homeBtn">My People</button>
+      <button id="printBtn">Print This Page</button>
+      <button id="clearBtn">Clear My Family Data</button>
+    </div>
+    <div class="owner-portrait-area">
+      <div class="owner-portrait-frame">
+        <img id="ownerPhoto" alt="Your Family Identity Card photo">
+        <div id="ownerPhotoFallback" class="owner-photo-fallback" aria-hidden="true">👤</div>
+      </div>
+      <label class="change-picture-btn no-print" for="ownerPhotoInput">Change Picture</label>
+      <input id="ownerPhotoInput" class="visually-hidden" type="file" accept="image/*">
+    </div>
+    <div class="main-nav no-print">
+      <button data-go="connections">🔗 My Connections<br><small>Мои связи</small></button>
+      <button data-go="callthem">💬 What I Call Them<br><small>Как я их называю</small></button>
+      <button data-go="special">❤️ Someone Special<br><small>Особенный человек</small></button>
+    </div>
+    <div class="my-people-workspace">
+      <div class="workspace-heading">
+        <h1>My People <span>/ Мои люди</span></h1>
+        <p>Add a person once. Use that person throughout the Family Identity Card.</p>
+      </div>
+
+      <div class="workspace-actions no-print">
+        <button id="workspaceAddMode" class="workspace-action active">＋ Add a Person</button>
+        <button id="workspaceEditMode" class="workspace-action">✎ Edit a Person</button>
+        <button id="workspaceRemoveMode" class="workspace-action">− Remove a Person</button>
+        <button id="workspaceListen" class="workspace-action">🔊 Listen &amp; Practice</button>
+      </div>
+
+      <div class="workspace-entry">
+        <label>Choose a relationship
+          <select id="addRelationship"></select>
+        </label>
+        <label>Enter a name <small class="inline-optional">(optional)</small>
+          <input id="addName" placeholder="Anna">
+        </label>
+        <label class="workspace-photo no-print">Photo <small class="inline-optional">(optional)</small>
+          <input id="addPhoto" type="file" accept="image/*">
+        </label>
+        <div class="workspace-russian">
+          <span>Russian relationship</span>
+          <strong id="addRussianPreview">Выберите отношение</strong>
+          <button id="addRussianSpeak" class="speaker russian-listen-btn no-print" type="button" title="Listen">🔊 Listen</button>
+        </div>
+        <button id="addPersonBtn" class="primary workspace-add no-print">＋ Add to My People</button>
+      </div>
+
+      <div class="people-panel workspace-people">
+        <h2>People I’ve Added <span>/ Мои люди</span></h2>
+        <div id="peopleList"></div>
+      </div>
+    </div>
+    <div class="identity launch-identity">
+      <div class="identity-title">
+        <h2>Family Identity Card</h2>
+        <div class="identity-russian">Карта семейной идентичности</div>
+      </div>
+      <div class="identity-fields">
+        <label>MY NAME
+          <input id="ownerName" autocomplete="name" placeholder="Michael">
+        </label>
+        <label>MY NAME IN RUSSIAN
+          <input id="ownerNameRussian" placeholder="Майкл">
+          <a class="translate-helper" href="https://translate.google.com/?sl=en&amp;tl=ru&amp;op=translate" target="_blank" rel="noopener noreferrer">Need help? Try Google Translate ↗</a>
+        </label>
+        <label>BIRTH MONTH
+          <select id="ownerMonth">
+            <option value="">Choose your birth month…</option>
+            <option value="January">January — Январь</option>
+            <option value="February">February — Февраль</option>
+            <option value="March">March — Март</option>
+            <option value="April">April — Апрель</option>
+            <option value="May">May — Май</option>
+            <option value="June">June — Июнь</option>
+            <option value="July">July — Июль</option>
+            <option value="August">August — Август</option>
+            <option value="September">September — Сентябрь</option>
+            <option value="October">October — Октябрь</option>
+            <option value="November">November — Ноябрь</option>
+            <option value="December">December — Декабрь</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section id="connections" class="screen bg-connections">
+<div class="connections-launch-portrait owner-portrait-area">
+      <div class="owner-portrait-frame">
+        <img id="connectionsOwnerPhoto" alt="Your Family Identity Card photo">
+        <div id="connectionsOwnerPhotoFallback" class="owner-photo-fallback" aria-hidden="true">👤</div>
+      </div>
+    </div>
+  <div class="launch-utility-nav no-print">
+      <button id="homeBtn">My People</button>
+      <button id="printBtn">Print This Page</button>
+      <button id="clearBtn">Clear My Family Data</button>
+    </div>
+  <div class="main-nav no-print">
+      <button data-go="connections">🔗 My Connections<br><small>Мои связи</small></button>
+      <button data-go="callthem">💬 What I Call Them<br><small>Как я их называю</small></button>
+      <button data-go="special">❤️ Someone Special<br><small>Особенный человек</small></button>
+    </div>
+    <div class="connection-tools glass no-print">
+      <h2>My Connections</h2>
+      <p>Click a person to modify.</p>
+      <label>Person<select id="connectionPerson"></select></label>
+      <label>Connect to<select id="connectionTarget"></select></label>
+      <label>Connection<select id="connectionType"></select></label>
+      <button id="saveConnection" class="primary" style="font-weight:400; padding:9px 13px; margin:5px 8px 7px 0;">Save Connection</button>
+      <button id="editSelected" style="font-weight:400; padding:9px 13px; margin:5px 8px 7px 0;">Edit Person</button>
+      <button id="removeSelected" class="danger" style="font-weight:400; padding:9px 13px; margin:5px 8px 7px 0;">Remove Person</button>
+    </div>
+    <div id="treeNodes" class="tree-nodes"></div>
+  </section>
+
+  <section id="callthem" class="screen bg-callthem">
+    <button class="back no-print" data-go="launch">← My People</button>
+    <div class="call-panel glass">
+      <h1>What I Call Them</h1>
+      <label>Choose a person<select id="callPerson"></select></label>
+      <label>What do you call them in English?<input id="callEnglish" placeholder="Grandpa"></label>
+      <div id="callOptions" class="option-row"></div>
+      <button id="saveCallName" class="primary">♥ Save What I Call Them</button>
+    </div>
+    <div id="personalCallList" class="personal-list glass"></div>
+  </section>
+
+  <section id="special" class="screen bg-special">
+    <button class="back no-print" data-go="launch">← My People</button>
+    <div class="special-left glass">
+      <h2>Choose a Person</h2>
+      <select id="specialPerson"></select>
+      <h3>Relationship</h3>
+      <select id="specialRelationship"></select>
+      <button id="specialNew" class="primary">＋ Someone New</button>
+    </div>
+    <div class="portrait-live">
+      <img id="specialPhoto" alt="">
+      <div id="specialPortraitFallback" class="fallback">👤</div>
+      <strong id="specialName"></strong><span id="specialRelLabel"></span>
+    </div>
+    <div class="expressions glass">
+      <h2>Useful Expressions</h2>
+      <div id="expressionList"></div>
+      <button class="primary no-print" data-go="explore">Explore More ❯</button>
+    </div>
+  </section>
+
+  <section id="explore" class="screen bg-explore">
+    <button class="back no-print" data-go="special">← Back to Someone Special</button>
+    <div class="explore-person">
+      <img id="explorePhoto" alt=""><div id="exploreFallback" class="fallback">👤</div>
+      <div><small>Exploring with:</small><strong id="exploreName">Someone Special</strong><span id="exploreRel"></span></div>
+    </div>
+    <div id="feelingCards" class="feeling-cards"></div>
+    <div class="explore-links no-print">
+      <button data-go="why">🔎 <b>Why Does Russian Change?</b><small>Take a closer look under the microscope.</small></button>
+      <button data-go="people">👥 <b>Try It with Different People</b><small>Use the same feelings with other people.</small></button>
+      <button data-go="pets">🐾 <b>What About My Pets?</b><small>Use the same feelings for a dog or cat.</small></button>
+    </div>
+  </section>
+
+  <section id="why" class="screen bg-why">
+    <button class="back no-print" data-go="explore">← Back to Explore More</button>
+  </section>
+
+  <section id="people" class="screen bg-people">
+    <button class="back no-print" data-go="explore">← Back to Explore More</button>
+    <div class="try-controls">
+      <select id="tryPerson"></select>
+      <select id="tryRelationship"></select>
+    </div>
+    <div id="quickPeople" class="quick-people"></div>
+    <div class="try-sentence">
+      <button id="trySpeak" class="speaker no-print">🔊</button>
+      <strong id="tryRussian"></strong><em id="tryEnglish"></em>
+    </div>
+    <div id="tryFeelings" class="try-feelings"></div>
+  </section>
+
+  <section id="pets" class="screen bg-pets">
+    <button class="back no-print" data-go="explore">← Back to Explore More</button>
+    <div id="petChoices" class="pet-choices"></div>
+    <div class="pet-result">
+      <div id="petPic" class="pet-pic">🐶</div>
+      <strong id="petRussian"></strong><em id="petEnglish"></em>
+      <button id="petSpeak" class="speaker no-print">🔊</button>
+    </div>
+    <div id="petFeelings" class="pet-feelings"></div>
+  </section>
+</div>
+<script src="family-identity-card.js"></script>
+</body>
+</html>
