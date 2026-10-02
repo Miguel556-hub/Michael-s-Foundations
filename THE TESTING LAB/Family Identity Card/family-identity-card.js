@@ -38,7 +38,14 @@ function personOptions(el,placeholder="Choose a person"){el.innerHTML=`<option v
 function speak(t){if(!("speechSynthesis"in window))return; speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="ru-RU";speechSynthesis.speak(u)}
 function photoData(file){return new Promise((res,rej)=>{if(!file)return res("");let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
 function ruRel(rel){return RELS.find(x=>x[0]===rel)?.[1]||rel}
-function show(id){$$(".screen").forEach(s=>s.classList.toggle("active",s.id===id)); if(id==="explore")renderExplore(); if(id==="people")renderTryPeople(); if(id==="pets")renderPets(); window.scrollTo(0,0)}
+function show(id){
+ $$(".screen").forEach(s=>s.classList.toggle("active",s.id===id));
+ if(id==="connections")resetConnectionsEntryState();
+ if(id==="explore")renderExplore();
+ if(id==="people")renderTryPeople();
+ if(id==="pets")renderPets();
+ window.scrollTo(0,0)
+}
 function person(id){return state.people.find(p=>p.id===id)}
 function callSuggestions(p){
  const map={mother:["мама","мамочка"],father:["папа","папочка"],grandfather:["дедуля","дедушка"],grandmother:["бабуля","бабушка"],brother:["братишка","брат"],sister:["сестрёнка","сеструшка"]};
@@ -156,8 +163,11 @@ function renderFamilyLines(slots){
  ];
  greatPairs.forEach(pair=>{
   const mid=(pair.left+pair.right)/2;
+  // Every great-grandparent couple uses the same two-part connector:
+  // one centered couple rail, then one clean centered descent to the grandparent.
+  // A diagonal descent avoids four different-looking stepped elbows while leaving every card fixed.
   addFamilyPath(svg,`M ${pair.left} 105 L ${pair.right} 105`);
-  addFamilyPath(svg,`M ${mid} 105 L ${mid} 205 L ${pair.child} 205 L ${pair.child} 225`);
+  addFamilyPath(svg,`M ${mid} 105 L ${pair.child} 225`);
  });
  const maternalParentSiblings=slots.filter(s=>s.parentSiblingBranch==="maternal"&&s.person);
  const paternalParentSiblings=slots.filter(s=>s.parentSiblingBranch==="paternal"&&s.person);
@@ -182,7 +192,7 @@ function renderConnections(){
  let area=$("#treeNodes");if(!area)return;area.innerHTML="";
  const slots=familySlots();
  slots.forEach(s=>{
-  const d=document.createElement("button");d.type="button";d.className="family-slot "+(s.person?"populated":"empty")+(s.person?" "+(FAMILY_GENDER[s.rel]||""):"");d.style.left=s.pos[0]+"%";d.style.top=s.pos[1]+"%";
+  const d=document.createElement("button");d.type="button";const isSiblingCard=!!s.person&&(!!s.siblingSlot||!!s.parentSiblingBranch);d.className="family-slot "+(s.person?"populated":"empty")+(s.person?" "+(FAMILY_GENDER[s.rel]||""):"")+(isSiblingCard?" sibling-family-card":"");d.style.left=s.pos[0]+"%";d.style.top=s.pos[1]+"%";
   if(s.person){const p=s.person;d.innerHTML=`${p.photo?`<img src="${p.photo}" alt="">`:`<span class="slot-avatar">👤</span>`}<span class="slot-name">${p.name||"Unnamed"}</span><span class="slot-russian">${familyRussian(p)}</span>${p.birthYear?`<span class="slot-year">${p.birthYear}</span>`:""}`}
   else if(s.siblingSlot)d.innerHTML=`<span class="slot-clue">Add Family Member</span><span class="slot-add">Click to add</span>`;
   else if(s.rel==="parent-sibling")d.innerHTML=`<span class="slot-clue">Add Family Member</span><span class="slot-add">Click to add</span>`;
@@ -193,35 +203,104 @@ function renderConnections(){
  });
  renderFamilyLines(slots);
  const meName=$("#connectionsOwnerName");if(meName)meName.textContent=state.owner.name||"ME";
- const addBtn=$("#addFamilyMemberBtn");if(addBtn)addBtn.disabled=siblingPeople().length>=4;
 }
-function refreshFamilyPersonChoices(rel,index,p){
- const select=$("#editorExistingPerson");select.innerHTML='<option value="">Choose from My People…</option>';
- const allowed=rel==="sibling"?["brother","sister"]:[rel];
- state.people.filter(x=>allowed.includes(x.relationship)&&(!p||x.id===p.id)&&!siblingPeople().slice(0,index).some(y=>y.id===x.id)).forEach(x=>select.add(new Option(`${x.name||"Unnamed"} — ${familyRussian(x)}`,x.id)));
- if(p)select.value=p.id;
+const EDITABLE_RELATIONSHIPS=["father","mother","brother","sister","grandfather","grandmother","great-grandfather","great-grandmother"];
+function relationshipWord(rel){
+ const labels={father:"father",mother:"mother",brother:"brother",sister:"sister",grandfather:"grandfather",grandmother:"grandmother","great-grandfather":"great-grandfather","great-grandmother":"great-grandmother",uncle:"uncle",aunt:"aunt"};
+ return labels[rel]||rel||"family member";
+}
+function parentBranchPersonName(branch){
+ const rel=branch==="maternal"?"mother":"father";
+ return peopleForRelationship(rel)[0]?.name || (branch==="maternal"?"Mother":"Father");
+}
+function setRelationshipChoices(mode="all",selected=""){
+ const select=$("#editorRelationshipChoice");
+ if(!select)return;
+ const choices=mode==="siblings"?["brother","sister"]:EDITABLE_RELATIONSHIPS;
+ const labels={father:"Father — отец",mother:"Mother — мать",brother:"Brother — брат",sister:"Sister — сестра",grandfather:"Grandfather — дедушка",grandmother:"Grandmother — бабушка","great-grandfather":"Great Grandfather — прадедушка","great-grandmother":"Great Grandmother — прабабушка"};
+ select.innerHTML='<option value="">Choose / change…</option>';
+ choices.forEach(rel=>select.add(new Option(labels[rel],rel)));
+ select.value=selected||"";
+}
+function updateConnectionContext(){
+ const box=$("#connectionContextStatement");if(!box)return;
+ if(!activeFamilyEdit){box.textContent="";return}
+ const {rel,personId,parentSiblingBranch}=activeFamilyEdit;
+ const p=personId?person(personId):null;
+ const chosen=$("#editorRelationshipChoice")?.value||"";
+ if(rel==="parent-sibling"||parentSiblingBranch){
+  const parentName=parentBranchPersonName(parentSiblingBranch);
+  const siblingRel=chosen || (p?.relationship==="aunt"?"sister":p?.relationship==="uncle"?"brother":"");
+  if(siblingRel==="brother")box.textContent=`${parentName}'s brother is your uncle — дядя`;
+  else if(siblingRel==="sister")box.textContent=`${parentName}'s sister is your aunt — тётя`;
+  else box.textContent=`${parentName}'s sibling`;
+  return;
+ }
+ const displayRel=chosen || (rel==="sibling"?"":(p?.relationship||rel));
+ if(rel==="sibling"&&!displayRel){box.textContent="Your sibling";return}
+ if(!displayRel){box.textContent="";return}
+ const name=p?.name?.trim();
+ box.textContent=name?`${name} is your ${relationshipWord(displayRel)} — ${ruRel(displayRel)}`:`This is your ${relationshipWord(displayRel)} — ${ruRel(displayRel)}`;
+}
+function resetConnectionsEntryState(){
+ activeFamilyEdit=null;
+ pendingSiblingBlank=false;
+ const launcher=$("#connectionsMenuLauncher"), tools=$(".connection-tools");
+ if(launcher){launcher.hidden=false;launcher.style.display=""}
+ if(tools){tools.hidden=true;tools.style.display=""}
+ setRelationshipChoices("all","");
+ const context=$("#connectionContextStatement");if(context)context.textContent="";
+ $("#editorName").value="";$("#editorBirthYear").value="";$("#editorPhoto").value="";
+ $("#removeFamilyMember").hidden=true;
+}
+function openConnectionsMenu(){
+ const launcher=$("#connectionsMenuLauncher"), tools=$(".connection-tools");
+ if(launcher){launcher.hidden=true;launcher.style.display="none"}
+ if(tools){tools.hidden=false;tools.removeAttribute("hidden");tools.style.display="block"}
+ activeFamilyEdit=null;
+ setRelationshipChoices("all","");
+ const context=$("#connectionContextStatement");if(context)context.textContent="";
+ $("#editorName").value="";$("#editorBirthYear").value="";$("#editorPhoto").value="";
+ $("#removeFamilyMember").hidden=true;
+}
+function collapseConnectionsMenu(){
+ activeFamilyEdit=null;pendingSiblingBlank=false;
+ const launcher=$("#connectionsMenuLauncher"), tools=$(".connection-tools");
+ if(tools){tools.hidden=true;tools.style.display="none"}
+ if(launcher){launcher.hidden=false;launcher.style.display=""}
+ setRelationshipChoices("all","");
+ const context=$("#connectionContextStatement");if(context)context.textContent="";
+ $("#editorName").value="";$("#editorBirthYear").value="";$("#editorPhoto").value="";
+ $("#removeFamilyMember").hidden=true;
 }
 function openFamilyEditor(rel,index,personId,parentSiblingBranch=null){
+ const launcher=$("#connectionsMenuLauncher"), tools=$(".connection-tools");
+ if(launcher){launcher.hidden=true;launcher.style.display="none"}
+ if(tools){tools.hidden=false;tools.removeAttribute("hidden");tools.style.display="block"}
  const p=personId?person(personId):null;
  const genericSibling=rel==="sibling";
- const parentSibling=rel==="parent-sibling";
+ const parentSibling=rel==="parent-sibling"||parentSiblingBranch!=null;
  activeFamilyEdit={rel,index,personId,parentSiblingBranch};
- $("#connectionEditorEmpty").hidden=true;$("#connectionEditorFields").hidden=false;
- $("#editorRelationshipLabel").textContent=(genericSibling||parentSibling)?"Family Member":(FAMILY_CLUES[rel]||rel);
- const parentName=parentSibling?(parentSiblingBranch==="maternal"?(peopleForRelationship("mother")[0]?.name||"Mother"):(peopleForRelationship("father")[0]?.name||"Father")):"";
- $("#connectionEditorHint").textContent=p?"Edit this family member.":(parentSibling?`Choose Brother or Sister for ${parentName}, then add this family member.`:(genericSibling?"Choose Brother or Sister, then add this family member.":"Populate this family position."));
- const wrap=$("#editorRelationshipChoiceWrap"), choice=$("#editorRelationshipChoice");
- wrap.hidden=!(genericSibling||parentSibling||["brother","sister"].includes(rel));
- choice.value=(p?.relationship==="aunt"?"sister":p?.relationship==="uncle"?"brother":p?.relationship)||(["brother","sister"].includes(rel)?rel:"brother");
- refreshFamilyPersonChoices(genericSibling?"sibling":rel,index,p);
+ let selected="";
+ if(parentSibling)selected=p?.relationship==="aunt"?"sister":p?.relationship==="uncle"?"brother":"";
+ else if(genericSibling)selected=p?.relationship||"";
+ else selected=p?.relationship||rel;
+ setRelationshipChoices((genericSibling||parentSibling)?"siblings":"all",selected);
  $("#editorName").value=p?.name||"";$("#editorBirthYear").value=p?.birthYear||"";$("#editorPhoto").value="";$("#removeFamilyMember").hidden=!p;
+ updateConnectionContext();
  updateSameYearChoice();
 }
-function closeFamilyEditor(){activeFamilyEdit=null;pendingSiblingBlank=false;$("#connectionEditorFields").hidden=true;$("#connectionEditorEmpty").hidden=false;$("#connectionEditorHint").textContent="Click a grey family placeholder or a family member to begin.";renderConnections()}
+function closeFamilyEditor(){
+ activeFamilyEdit=null;pendingSiblingBlank=false;
+ setRelationshipChoices("all","");
+ const context=$("#connectionContextStatement");if(context)context.textContent="";
+ $("#editorName").value="";$("#editorBirthYear").value="";$("#editorPhoto").value="";$("#removeFamilyMember").hidden=true;
+ renderConnections();
+}
 function updateSameYearChoice(){
- const box=$("#sameYearChoice");if(!box||!activeFamilyEdit)return;
+ const box=$("#sameYearChoice");if(!box||!activeFamilyEdit){if(box)box.hidden=true;return}
  const chosen=$("#editorRelationshipChoice")?.value;
- const sibling=activeFamilyEdit.rel==="sibling"||["brother","sister"].includes(activeFamilyEdit.rel)||["brother","sister"].includes(chosen);
+ const sibling=activeFamilyEdit.rel==="sibling"||activeFamilyEdit.rel==="parent-sibling"||activeFamilyEdit.parentSiblingBranch!=null||["brother","sister"].includes(chosen);
  const mine=String(state.owner.birthYear||""), theirs=String($("#editorBirthYear").value||"");box.hidden=!(sibling&&mine&&theirs&&mine===theirs);
  if(!box.hidden){const p=activeFamilyEdit.personId?person(activeFamilyEdit.personId):null;const r=box.querySelector(`input[value="${p?.siblingOrder||""}"]`);if(r)r.checked=true}
 }
@@ -323,11 +402,13 @@ async function init(){
  };
  $("#addPersonBtn").onclick=async()=>{let name=$("#addName").value.trim(),relationship=$("#addRelationship").value;if(!relationship)return alert("Choose a relationship.");let photo=await photoData($("#addPhoto").files[0]);state.people.push({id:crypto.randomUUID(),name:name||"Unnamed",relationship,photo,birthYear:"",callName:"",connections:[]});$("#addName").value="";$("#addPhoto").value="";await save();renderAll()};
  $("#connectionsHomeBtn").onclick=()=>show("launch");$("#connectionsPrintBtn").onclick=()=>window.print();$("#connectionsClearBtn").onclick=clearAll;
- $("#editorExistingPerson").onchange=e=>{const p=person(e.target.value);if(!p)return;$("#editorName").value=p.name||"";$("#editorBirthYear").value=p.birthYear||"";if($("#editorRelationshipChoice")&&["brother","sister"].includes(p.relationship))$("#editorRelationshipChoice").value=p.relationship;updateSameYearChoice()};
- $("#editorRelationshipChoice").onchange=()=>{if(activeFamilyEdit&&activeFamilyEdit.rel!=="parent-sibling"&&activeFamilyEdit.parentSiblingBranch==null){activeFamilyEdit.rel="sibling";refreshFamilyPersonChoices("sibling",activeFamilyEdit.index,activeFamilyEdit.personId?person(activeFamilyEdit.personId):null)}updateSameYearChoice()};
+ const connectionsMenuLauncher=$("#connectionsMenuLauncher");
+ if(connectionsMenuLauncher)connectionsMenuLauncher.onclick=openConnectionsMenu;
+ const collapseConnectionsMenuBtn=$("#collapseConnectionsMenu");
+ if(collapseConnectionsMenuBtn)collapseConnectionsMenuBtn.onclick=collapseConnectionsMenu;
+ $("#editorRelationshipChoice").onchange=()=>{updateConnectionContext();updateSameYearChoice()};
  $("#editorBirthYear").oninput=updateSameYearChoice;$("#cancelFamilyEdit").onclick=closeFamilyEditor;
- $("#addFamilyMemberBtn").onclick=()=>{const count=siblingPeople().length;if(count>=4)return alert("This family tree can show up to four siblings.");pendingSiblingBlank=count>=2;renderConnections();openFamilyEditor("sibling",count,null)};
- $("#saveFamilyMember").onclick=async()=>{if(!activeFamilyEdit)return;let {rel,personId,parentSiblingBranch}=activeFamilyEdit;const isParentSibling=rel==="parent-sibling"||parentSiblingBranch!=null;const isSiblingSlot=rel==="sibling"||["brother","sister"].includes(rel);if(isParentSibling){const branchPeople=parentSiblingPeople(parentSiblingBranch);if(!personId&&branchPeople.length>=4)return alert("This parent can have up to four siblings on this family tree.");const choice=$("#editorRelationshipChoice").value||"brother";rel=choice==="sister"?"aunt":"uncle"}else if(isSiblingSlot){if(!personId&&siblingPeople().length>=4)return alert("You can add up to four siblings.");rel=$("#editorRelationshipChoice").value||"brother"}let p=personId?person(personId):person($("#editorExistingPerson").value);const name=$("#editorName").value.trim(),birthYear=$("#editorBirthYear").value.replace(/\D/g,"").slice(0,4),file=$("#editorPhoto").files[0];if(!p){p={id:crypto.randomUUID(),name:name||"Unnamed",relationship:rel,photo:"",birthYear:"",callName:"",connections:[]};state.people.push(p)}p.relationship=rel;if(isParentSibling)p.parentSiblingBranch=parentSiblingBranch;p.name=name||p.name||"Unnamed";p.birthYear=birthYear;if(file)p.photo=await photoData(file);if(["brother","sister"].includes(rel)&&String(state.owner.birthYear||"")===birthYear){const checked=document.querySelector('input[name="siblingOrder"]:checked');p.siblingOrder=checked?.value||p.siblingOrder||""}else p.siblingOrder="";pendingSiblingBlank=false;await save();closeFamilyEditor();renderAll()};
+ $("#saveFamilyMember").onclick=async()=>{if(!activeFamilyEdit)return;let {rel,personId,parentSiblingBranch}=activeFamilyEdit;const isParentSibling=rel==="parent-sibling"||parentSiblingBranch!=null;const isSiblingSlot=rel==="sibling"||["brother","sister"].includes(rel);const choice=$("#editorRelationshipChoice").value;if(!choice)return alert("Choose a relationship.");if(isParentSibling){const branchPeople=parentSiblingPeople(parentSiblingBranch);if(!personId&&branchPeople.length>=4)return alert("This parent can have up to four siblings on this family tree.");rel=choice==="sister"?"aunt":"uncle"}else if(isSiblingSlot){if(!personId&&siblingPeople().length>=4)return alert("You can add up to four siblings.");rel=choice}else rel=choice;let p=personId?person(personId):null;const name=$("#editorName").value.trim(),birthYear=$("#editorBirthYear").value.replace(/\D/g,"").slice(0,4),file=$("#editorPhoto").files[0];if(!p){p={id:crypto.randomUUID(),name:name||"Unnamed",relationship:rel,photo:"",birthYear:"",callName:"",connections:[]};state.people.push(p)}p.relationship=rel;if(isParentSibling)p.parentSiblingBranch=parentSiblingBranch;p.name=name||p.name||"Unnamed";p.birthYear=birthYear;if(file)p.photo=await photoData(file);if(["brother","sister"].includes(rel)&&String(state.owner.birthYear||"")===birthYear){const checked=document.querySelector('input[name="siblingOrder"]:checked');p.siblingOrder=checked?.value||p.siblingOrder||""}else p.siblingOrder="";pendingSiblingBlank=false;await save();closeFamilyEditor();renderAll()};
  $("#removeFamilyMember").onclick=async()=>{if(!activeFamilyEdit?.personId)return;const p=person(activeFamilyEdit.personId);if(confirm(`Remove ${p?.name||"this person"} from My People?`)){state.people=state.people.filter(x=>x.id!==activeFamilyEdit.personId);await save();closeFamilyEditor();renderAll()}};
  $("#callPerson").onchange=updateCallOptions;$("#saveCallName").onclick=async()=>{let p=person($("#callPerson").value);if(!p)return alert("Choose a person.");p.callName=$("#callEnglish").value.trim();await save();renderCallThem()};
  $("#specialPerson").onchange=async e=>{state.specialId=e.target.value;await save();renderSpecial()};$("#specialRelationship").onchange=async e=>{let p=special();if(p){p.relationship=e.target.value;await save();renderAll()}};

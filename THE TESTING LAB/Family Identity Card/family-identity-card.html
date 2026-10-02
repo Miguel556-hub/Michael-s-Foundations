@@ -106,6 +106,8 @@
       <div>Мои семейные связи</div>
     </header>
 
+    <button id="connectionsMenuLauncher" class="connections-menu-launcher no-print" type="button">Click here, a family placeholder<br>or a family member to begin</button>
+
     <div class="connections-utility-nav no-print">
       <button id="connectionsHomeBtn">My People</button>
       <button id="connectionsPrintBtn">Print This Page</button>
@@ -120,27 +122,26 @@
       <strong id="connectionsOwnerName">ME</strong>
     </div>
 
-    <div class="connection-tools glass no-print">
-      <h2>My Family Connections</h2>
-      <p id="connectionEditorHint">Click a grey family placeholder or a family member to begin.</p>
-      <div id="connectionEditorEmpty" class="connection-editor-empty">
-        <span class="editor-symbol">↗</span>
-        <strong>Build your family tree</strong>
-        <small>Choose a place on the tree.</small>
+    <div class="connection-tools glass no-print" hidden>
+      <div class="connection-context">
+        <strong>You clicked on:</strong>
+        <div id="connectionContextStatement" class="connection-context-statement" aria-live="polite"></div>
       </div>
-      <button id="addFamilyMemberBtn" class="primary add-family-member-btn" type="button">＋ Add Family Member</button>
-      <div id="connectionEditorFields" hidden>
-        <div class="editor-position">Adding: <strong id="editorRelationshipLabel"></strong></div>
-        <label id="editorRelationshipChoiceWrap" hidden>Relationship
+      <div class="connection-menu-divider" aria-hidden="true"></div>
+      <div id="connectionEditorFields">
+        <label id="editorRelationshipChoiceWrap">Relationship
           <select id="editorRelationshipChoice">
+            <option value="">Choose / change…</option>
+            <option value="father">Father — отец</option>
+            <option value="mother">Mother — мать</option>
             <option value="brother">Brother — брат</option>
             <option value="sister">Sister — сестра</option>
+            <option value="grandfather">Grandfather — дедушка</option>
+            <option value="grandmother">Grandmother — бабушка</option>
+            <option value="great-grandfather">Great Grandfather — прадедушка</option>
+            <option value="great-grandmother">Great Grandmother — прабабушка</option>
           </select>
         </label>
-        <label>Family member
-          <select id="editorExistingPerson"></select>
-        </label>
-        <div class="editor-or">— or enter someone new —</div>
         <label>Name
           <input id="editorName" placeholder="Anna">
         </label>
@@ -161,7 +162,8 @@
           <button id="cancelFamilyEdit">Cancel</button>
         </div>
       </div>
-      <p class="branch-limit-note">A quick note: To keep your family tree clear and easy to explore, each expandable family branch can show up to four people.</p>
+      <p class="branch-limit-note">You and each of your parents can add up to four siblings to your family tree.</p>
+      <button id="collapseConnectionsMenu" class="collapse-connections-menu" type="button">Collapse this menu</button>
     </div>
 
     <svg id="familyLines" class="family-lines" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true"></svg>
