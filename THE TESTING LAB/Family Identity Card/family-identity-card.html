@@ -171,40 +171,144 @@
   </section>
 
   <section id="callthem" class="screen bg-callthem">
-    <button class="back no-print" data-go="launch">← My People</button>
-    <div class="call-panel glass">
-      <h1>What I Call Them</h1>
-      <label>Choose a person<select id="callPerson"></select></label>
-      <label>What do you call them in English?<input id="callEnglish" placeholder="Grandpa"></label>
-      <div id="callOptions" class="option-row"></div>
-      <button id="saveCallName" class="primary">♥ Save What I Call Them</button>
+    <div class="call-nav no-print">
+      <button data-go="launch">My People</button>
+      <button id="callPrintBtn" type="button">Print This Page</button>
+      <button id="callClearBtn" type="button">Clear My Family Data</button>
     </div>
-    <div id="personalCallList" class="personal-list glass"></div>
+
+    <header class="call-header">
+      <h1>What I Call Them</h1>
+      <p>Tell us what you call them and discover natural<br>Russian words to express it.</p>
+    </header>
+
+    <div class="call-panel call-parchment">
+      <div class="call-step call-step-person">
+        <span class="call-step-number">1</span>
+        <div class="call-step-body">
+          <label for="callPerson"><strong>Choose a family member:</strong></label>
+          <select id="callPerson"></select>
+        </div>
+        <div id="callSelectedPerson" class="call-selected-person" hidden>
+          <div class="call-portrait-wrap">
+            <img id="callPersonPhoto" alt="">
+            <div id="callPersonFallback" class="call-portrait-fallback">👤</div>
+          </div>
+          <div class="call-selected-copy">
+            <strong id="callPersonName"></strong>
+            <span id="callPersonRelation"></span>
+            <em id="callPersonRussianRelation"></em>
+          </div>
+        </div>
+      </div>
+
+      <div class="call-divider"></div>
+
+      <div class="call-step call-options-step">
+        <span class="call-step-number">2</span>
+        <div class="call-step-body">
+          <strong id="callOptionsHeading">Here are some natural Russian options:</strong>
+          <div id="callOptions" class="option-row"></div>
+        </div>
+      </div>
+
+      <div class="call-step call-save-step">
+        <span class="call-step-number">3</span>
+        <div class="call-step-body">
+          <div class="call-confirm-row">
+            <button id="saveCallName" class="call-confirm" type="button" disabled>Choose a Russian option</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside id="personalCallList" class="personal-list call-parchment" aria-live="polite"></aside>
   </section>
 
   <section id="special" class="screen bg-special">
-    <button class="back no-print" data-go="launch">← My People</button>
-    <div class="special-left glass">
-      <h2>Choose a Person</h2>
+    <div class="special-utility-nav no-print">
+      <button data-go="launch">My People</button>
+      <button id="specialPrintBtn" type="button">Print This Page</button>
+      <button id="specialClearBtn" type="button">Clear My Family Data</button>
+    </div>
+
+    <header class="special-header">
+      <h1>Someone Special</h1>
+      <p>Choose someone special and discover natural Russian ways to say what they mean to you.</p>
+    </header>
+
+    <div class="special-person-picker no-print">
+      <label for="specialPerson"><strong>Choose a Person</strong></label>
       <select id="specialPerson"></select>
-      <h3>Relationship</h3>
-      <select id="specialRelationship"></select>
-      <button id="specialNew" class="primary">＋ Someone New</button>
     </div>
-    <div class="portrait-live">
+
+    <div class="special-portrait-live">
       <img id="specialPhoto" alt="">
-      <div id="specialPortraitFallback" class="fallback">👤</div>
-      <strong id="specialName"></strong><span id="specialRelLabel"></span>
+      <div id="specialPortraitFallback" class="special-portrait-fallback">👤</div>
+      <strong id="specialName">Someone Special</strong>
+      <span id="specialRelLabel"></span>
+      <label id="specialPhotoLabel" class="special-photo-control no-print" for="specialPhotoInput">Add Photo</label>
+      <input id="specialPhotoInput" class="visually-hidden" type="file" accept="image/*">
     </div>
-    <div class="expressions glass">
-      <h2>Useful Expressions</h2>
-      <div id="expressionList"></div>
-      <button class="primary no-print" data-go="explore">Explore More ❯</button>
+
+    <div id="specialNewPanel" class="special-new-panel" hidden>
+      <h2>Add Someone Special</h2>
+      <label>Name<input id="specialNewName" placeholder="Maria"></label>
+      <label>Relationship<select id="specialNewRelationship"></select></label>
+      <label class="no-print">Photo <small>(optional)</small><input id="specialNewPhoto" type="file" accept="image/*"></label>
+      <div class="special-new-actions no-print">
+        <button id="specialSaveNew" class="primary" type="button">Add This Person</button>
+        <button id="specialCancelNew" type="button">Cancel</button>
+      </div>
     </div>
+
+    <section class="special-expression-workspace">
+      <div class="special-expression-builder">
+        <div id="specialIntroduction" class="special-introduction" hidden>
+          <div class="special-intro-label">Meet <span id="specialIntroName">this person</span></div>
+          <div class="special-intro-sentence">
+            <button id="specialIntroRelationSpeak" class="special-intro-speak no-print" type="button" title="Listen">🔊</button>
+            <div><strong id="specialIntroRelationRu"></strong><span id="specialIntroRelationEn"></span></div>
+          </div>
+          <div class="special-intro-sentence">
+            <button id="specialIntroNameSpeak" class="special-intro-speak no-print" type="button" title="Listen">🔊</button>
+            <div><strong id="specialIntroNameRu"></strong><span id="specialIntroNameEn"></span></div>
+          </div>
+        </div>
+        <div class="special-builder-heading">
+          <h2 id="specialBuilderQuestion">What would you like to say?</h2>
+          <p>Choose one or two feelings. We'll show you a natural way to express that meaning in Russian.</p>
+        </div>
+        <div id="specialSentiments" class="special-sentiments"></div>
+        <p id="specialSentimentHint" class="special-sentiment-hint">Choose up to two.</p>
+
+        <div id="specialExpressionPreview" class="special-expression-preview" hidden>
+          <div class="special-preview-label">A natural way to say it:</div>
+          <div id="specialRussian" class="special-russian"></div>
+          <div id="specialEnglish" class="special-english"></div>
+          <div class="special-preview-actions no-print">
+            <button id="specialSpeak" type="button">🔊 Listen</button>
+            <button id="specialTryAnother" type="button">Try Another Way</button>
+            <button id="specialSaveExpression" class="primary" type="button">Add to My Expressions</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="special-saved-panel">
+        <h2 id="specialSavedHeading">My Expressions</h2>
+        <p class="special-saved-intro">Save up to four expressions for each person.</p>
+        <div id="specialSavedExpressions" class="special-saved-expressions"></div>
+        <button id="specialExploreMore" class="special-explore-more primary no-print" data-go="explore" type="button">Explore More ❯</button>
+      </aside>
+    </section>
   </section>
 
   <section id="explore" class="screen bg-explore">
     <button class="back no-print" data-go="special">← Back to Someone Special</button>
+    <header class="explore-heading">
+      <h1>Explore More</h1>
+      <p>Discover more ways to express how you feel in Russian</p>
+    </header>
     <div class="explore-person">
       <img id="explorePhoto" alt=""><div id="exploreFallback" class="fallback">👤</div>
       <div><small>Exploring with:</small><strong id="exploreName">Someone Special</strong><span id="exploreRel"></span></div>
