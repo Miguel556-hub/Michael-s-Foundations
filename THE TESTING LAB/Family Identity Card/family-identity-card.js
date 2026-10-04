@@ -646,8 +646,40 @@ async function saveSpecialExpression(){
 }
 
 function renderExplore(){
- let p=special();$("#exploreName").textContent=p?.name||"Someone Special";$("#exploreRel").textContent=p?.relationship||"";$("#explorePhoto").style.display=p?.photo?"block":"none";$("#explorePhoto").src=p?.photo||"";$("#exploreFallback").style.display=p?.photo?"none":"block";
- $("#feelingCards").innerHTML="";FEELINGS.forEach(f=>{let d=document.createElement("div");d.className="feeling-card";d.innerHTML=`<b>${f.ru}</b><span>${f.en}</span><button class="speaker no-print">🔊</button>`;d.querySelector("button").onclick=()=>speak(f.ru);$("#feelingCards").append(d)})
+  const cards=[
+    [
+      ["Ты мне нравишься.","I like you."],
+      ["Я тебе нравлюсь.","You like me."]
+    ],
+    [
+      ["Ты мне очень нравишься.","I really like you."],
+      ["Я тебе очень нравлюсь.","You really like me."]
+    ],
+    [
+      ["Я тебя люблю.","I love you."],
+      ["Ты меня любишь.","You love me."]
+    ],
+    [
+      ["Я тебя просто обожаю.","I simply adore you."],
+      ["Ты меня просто обожаешь.","You simply adore me."]
+    ]
+  ];
+  const host=$("#feelingCards");
+  if(!host)return;
+  host.innerHTML=cards.map(pairs=>`
+    <article class="feeling-card">
+      ${pairs.map(([ru,en])=>`
+        <div class="feeling-pair">
+          <strong>${ru}</strong>
+          <em>${en}</em>
+          <button class="speaker no-print" type="button" data-say="${ru}" aria-label="Listen to ${ru}">🔊 Listen</button>
+        </div>
+      `).join("")}
+    </article>
+  `).join("");
+  host.querySelectorAll("[data-say]").forEach(btn=>{
+    btn.addEventListener("click",()=>speak(btn.dataset.say));
+  });
 }
 function loveSentence(p,key){
  if(!p)return["",""];
