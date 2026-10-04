@@ -7,6 +7,19 @@
 <link rel="stylesheet" href="family-identity-card.css">
 </head>
 <body>
+<!-- =========================================================
+     BEGIN: FAMILY IDENTITY CARD
+     =========================================================
+
+     MIGRATION INSTRUCTIONS:
+     1. Delete everything ABOVE this BEGIN marker before migration.
+     2. Copy everything from this BEGIN marker through the
+        END: FAMILY IDENTITY CARD marker.
+     3. In the target Foundation HTML file, insert this entire
+        block at the current end of the Foundation content,
+        immediately BEFORE the closing </body> tag.
+
+     ========================================================= -->
 <div id="app">
   <section id="launch" class="screen active bg-launch">
     <div class="launch-utility-nav no-print">
@@ -324,6 +337,7 @@
 
   <section id="why" class="screen bg-why">
     <button class="back no-print" data-go="explore">← Back to Explore More</button>
+    <button class="screen-print why-screen-print no-print" type="button">Print This Page</button>
     <button class="why-see-more no-print" data-go="why-more">See More...</button>
   </section>
 
@@ -343,29 +357,120 @@
 
   <section id="people" class="screen bg-people">
     <button class="back no-print" data-go="explore">← Back to Explore More</button>
-    <div class="try-controls">
-      <select id="tryPerson"></select>
-      <select id="tryRelationship"></select>
+    <button class="screen-print no-print" type="button">Print This Page</button>
+
+    <header class="try-v1-header">
+      <div class="try-v1-people-icon" aria-hidden="true">♟♟♟</div>
+      <h2>Try It with Different People</h2>
+      <p>See how the same feelings work with other people in your life.</p>
+      <p>Choose a person, pick a feeling, and hear the Russian.</p>
+      <div class="try-v1-gold-rule"></div>
+    </header>
+
+    <main class="try-v1-workspace">
+      <section class="try-v1-glass try-v1-person-panel">
+        <label for="tryPerson">Choose a Person</label>
+        <div class="try-v1-person-row">
+          <select id="tryPerson"></select>
+          <button id="tryAddSomeone" class="try-v1-secondary no-print" type="button">＋ Add Someone Else</button>
+        </div>
+        <div id="trySelectedIdentity" class="try-v1-identity" hidden></div>
+      </section>
+
+      <section class="try-v1-glass try-v1-sentiment-panel">
+        <h3 id="tryBuilderQuestion">What would you like to say?</h3>
+        <p>Choose one or two sentiments.</p>
+        <div id="trySentiments" class="try-v1-sentiments"></div>
+        <div id="trySentimentHint" class="try-v1-hint">Choose up to two.</div>
+      </section>
+
+      <section id="tryExpressionPreview" class="try-v1-glass try-v1-result" hidden>
+        <span class="try-v1-eyebrow">A natural way to say it:</span>
+        <strong id="tryRussian"></strong>
+        <em id="tryEnglish"></em>
+        <div class="try-v1-result-actions no-print">
+          <button id="trySpeak" type="button">🔊 Listen</button>
+          <button id="tryAnother" type="button">Try Another Way</button>
+          <button id="trySaveExpression" type="button">Add to My Expressions</button>
+        </div>
+      </section>
+
+      <section class="try-v1-glass try-v1-saved-panel">
+        <button id="trySavedToggle" class="try-v1-saved-toggle no-print" type="button">My Expressions <span id="trySavedCount">(0/4)</span></button>
+        <div id="trySavedExpressions" class="try-v1-saved-list" hidden></div>
+      </section>
+    </main>
+
+    <div id="tryAddPanel" class="try-v1-add-panel try-v1-glass" hidden>
+      <h3>Add Someone Else</h3>
+      <input id="tryNewName" type="text" placeholder="Name">
+      <select id="tryNewRelationship"></select>
+      <div class="try-v1-add-actions no-print">
+        <button id="tryCancelNew" type="button">Cancel</button>
+        <button id="trySaveNew" type="button">Add Person</button>
+      </div>
     </div>
-    <div id="quickPeople" class="quick-people"></div>
-    <div class="try-sentence">
-      <button id="trySpeak" class="speaker no-print">🔊</button>
-      <strong id="tryRussian"></strong><em id="tryEnglish"></em>
-    </div>
-    <div id="tryFeelings" class="try-feelings"></div>
   </section>
 
   <section id="pets" class="screen bg-pets">
     <button class="back no-print" data-go="explore">← Back to Explore More</button>
-    <div id="petChoices" class="pet-choices"></div>
-    <div class="pet-result">
-      <div id="petPic" class="pet-pic">🐶</div>
-      <strong id="petRussian"></strong><em id="petEnglish"></em>
-      <button id="petSpeak" class="speaker no-print">🔊</button>
+    <button class="screen-print no-print" type="button">Print This Page</button>
+
+    <header class="pet-v1-header">
+      <div class="pet-v1-icon" aria-hidden="true">🐾</div>
+      <h2>What About My Pets?</h2>
+      <p>Your pets are part of your life too.</p>
+      <p>Add a pet, choose how you feel, and hear the Russian.</p>
+      <div class="pet-v1-gold-rule"></div>
+    </header>
+
+    <main class="pet-v1-workspace">
+      <section class="pet-v1-glass pet-v1-list-panel">
+        <div class="pet-v1-panel-heading"><h3>My Pets</h3><span id="petCount">0/4</span></div>
+        <div id="petChoices" class="pet-v1-choices"></div>
+        <button id="petAdd" class="pet-v1-add no-print" type="button">＋ Add a Pet</button>
+        <input id="petPhotoInput" class="pet-v1-photo-input no-print" type="file" accept="image/*" hidden>
+        <button id="petPhotoButton" class="pet-v1-add pet-v1-photo-button no-print" type="button" disabled>📷 Add Photo to Selected Pet</button>
+      </section>
+
+      <section class="pet-v1-glass pet-v1-feeling-panel">
+        <h3>How do you feel about <span id="petCurrentName">your pet</span>?</h3>
+        <div id="petFeelings" class="pet-v1-feelings"></div>
+      </section>
+
+      <section class="pet-v1-glass pet-v1-result">
+        <div id="petPic" class="pet-v1-pic">🐾</div>
+        <span class="pet-v1-eyebrow">A natural way to say it:</span>
+        <strong id="petRussian">Add a pet to begin.</strong>
+        <em id="petEnglish"></em>
+        <button id="petSpeak" class="pet-v1-listen no-print" type="button">🔊 Listen</button>
+      </section>
+    </main>
+
+    <div id="petAddPanel" class="pet-v1-add-panel pet-v1-glass" hidden>
+      <h3>Add a Pet</h3>
+      <label>Pet Type
+        <select id="petNewType"><option value="dog">Dog</option><option value="cat">Cat</option><option value="other">Other</option></select>
+      </label>
+      <label id="petOtherTypeWrap" hidden>What kind of pet?
+        <input id="petOtherType" type="text" placeholder="Bird, rabbit, horse…">
+      </label>
+      <label>Pet Name
+        <input id="petNewName" type="text" placeholder="Name">
+      </label>
+      <label>Pet Photo <span class="pet-v1-optional">(optional)</span>
+        <input id="petNewPhoto" type="file" accept="image/*">
+      </label>
+      <div class="pet-v1-add-actions no-print">
+        <button id="petCancel" type="button">Cancel</button>
+        <button id="petSave" type="button">Add Pet</button>
+      </div>
     </div>
-    <div id="petFeelings" class="pet-feelings"></div>
   </section>
 </div>
+<!-- =========================================================
+     END: FAMILY IDENTITY CARD
+     ========================================================= -->
 <script src="family-identity-card.js"></script>
 </body>
 </html>

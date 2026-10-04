@@ -1,3 +1,11 @@
+/* ============================================================
+   BEGIN: FAMILY IDENTITY CARD JAVASCRIPT
+
+   MIGRATION INSTRUCTIONS:
+   Delete everything ABOVE this marker before migration.
+   Copy this entire block through the matching END marker.
+   Add it to the END of the target Foundation JavaScript file.
+   ============================================================ */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const RELS=[
 ["mother","мама"],["father","папа"],["sister","сестра"],["brother","брат"],
@@ -27,12 +35,12 @@ const FEELINGS=[
 {en:"I love you.",ru:"Я тебя люблю.",key:"love"},
 {en:"I adore you.",ru:"Я тебя просто обожаю.",key:"adore"}
 ];
-let state={owner:{name:"Michael",month:"February",birthYear:""},people:[],specialId:null,tryFeeling:"love",pet:"dog",petFeeling:"love"};
+let state={owner:{name:"Michael",month:"February",birthYear:""},people:[],specialId:null,tryFeeling:"love",pets:[],petId:null,petFeeling:"love"};
 const DB="familyIdentityCardDB", STORE="state";
 function openDB(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
 async function save(){const db=await openDB();const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put(state,"app");return new Promise(r=>tx.oncomplete=r)}
 async function load(){try{const db=await openDB();const tx=db.transaction(STORE,"readonly");const req=tx.objectStore(STORE).get("app");await new Promise(r=>tx.oncomplete=r);if(req.result)state=req.result}catch(e){}}
-async function clearAll(){if(!confirm("Clear all Family Identity Card information and photos stored by this component in this browser?"))return;indexedDB.deleteDatabase(DB);state={owner:{name:"Michael",month:"February",birthYear:""},people:[],specialId:null,tryFeeling:"love",pet:"dog",petFeeling:"love"};renderAll();show("launch")}
+async function clearAll(){if(!confirm("Clear all Family Identity Card information and photos stored by this component in this browser?"))return;indexedDB.deleteDatabase(DB);state={owner:{name:"Michael",month:"February",birthYear:""},people:[],specialId:null,tryFeeling:"love",pets:[],petId:null,petFeeling:"love"};renderAll();show("launch")}
 function fillSelect(el,arr,placeholder){el.innerHTML=placeholder?`<option value="">${placeholder}</option>`:"";arr.forEach(([v,t])=>el.add(new Option(t,v)))}
 function personOptions(el,placeholder="Choose a person"){el.innerHTML=`<option value="">${placeholder}</option>`;state.people.forEach(p=>el.add(new Option(`${p.name||"Unnamed"} — ${p.relationship}`,p.id)))}
 function speak(t){if(!("speechSynthesis"in window))return; speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="ru-RU";speechSynthesis.speak(u)}
@@ -689,24 +697,131 @@ function loveSentence(p,key){
  if(key==="adore")return[`Я просто обожаю ${obj}.`,`I adore ${obj}.`];
  return[`Я люблю ${obj}.`,`I love ${obj}.`];
 }
-function renderTryPeople(){
- personOptions($("#tryPerson"));fillSelect($("#tryRelationship"),RELS);let p=special();if(p){$("#tryPerson").value=p.id;$("#tryRelationship").value=p.relationship}
- let q=$("#quickPeople");q.innerHTML="";let rels=[["mother","Mom"],["father","Dad"],["brother","Brother"],["sister","Sister"],["girlfriend","Girlfriend"],["boyfriend","Boyfriend"]];
- rels.forEach(([r,l])=>{let b=document.createElement("button");b.innerHTML=`👤<br>${l}<br><small>${ruRel(r)}</small>`;b.onclick=()=>{let p=state.people.find(x=>x.relationship===r);if(p){$("#tryPerson").value=p.id;$("#tryRelationship").value=p.relationship;updateTrySentence()}else alert(`Add a ${l.toLowerCase()} in My People first.`)};q.append(b)});
- let add=document.createElement("button");add.textContent="＋ Someone New";add.onclick=()=>show("launch");q.append(add);
- let f=$("#tryFeelings");f.innerHTML="";FEELINGS.forEach(x=>{let b=document.createElement("button");b.textContent=x.en;b.onclick=()=>{state.tryFeeling=x.key;updateTrySentence();save()};f.append(b)});updateTrySentence()
+/* =========================================================
+   TRY IT WITH DIFFERENT PEOPLE — VERSION 1 OF 3000
+   Reuses the validated SPECIAL_BANK / SPECIAL_COMBINATIONS.
+   Extra people live only in state.tryExtraPeople and do not
+   enter state.people, so no other screen is changed.
+   ========================================================= */
+let trySelections=[];
+let tryVariantIndex=0;
+let tryEditingIndex=null;
+function tryEnsureState(){
+ if(!Array.isArray(state.tryExtraPeople))state.tryExtraPeople=[];
+ if(!state.trySavedExpressions||typeof state.trySavedExpressions!=="object")state.trySavedExpressions={};
+ if(!state.tryPersonId)state.tryPersonId="";
 }
-function updateTrySentence(){let p=person($("#tryPerson").value)||special();if(!p)return;$("#tryRelationship").value=p.relationship;let [r,e]=loveSentence(p,state.tryFeeling);$("#tryRussian").textContent=r;$("#tryEnglish").textContent=e;$("#trySpeak").onclick=()=>speak(r)}
+function tryFamilyPeople(){return state.people.filter(p=>!p.specialOnly&&!p.tryOnly)}
+function tryAllPeople(){tryEnsureState();return [...tryFamilyPeople(),...state.tryExtraPeople]}
+function tryPerson(){tryEnsureState();return tryAllPeople().find(p=>p.id===state.tryPersonId)||null}
+function tryGender(p){
+ if(!p)return"female";
+ if(p.tryGender)return p.tryGender;
+ if(p.specialGender)return p.specialGender;
+ if(SPECIAL_FEMALE_RELS.has(p.relationship))return"female";
+ if(SPECIAL_MALE_RELS.has(p.relationship))return"male";
+ return"female";
+}
+function tryPairKey(keys){return [...keys].sort((a,b)=>SPECIAL_SENTIMENTS.findIndex(x=>x.key===a)-SPECIAL_SENTIMENTS.findIndex(x=>x.key===b)).join("|")}
+function tryCurrentExpression(){
+ const p=tryPerson();if(!p||!trySelections.length)return null;
+ const gender=tryGender(p);
+ if(trySelections.length===1){
+  const variants=SPECIAL_BANK[trySelections[0]]?.[gender]||[];if(!variants.length)return null;
+  const v=variants[tryVariantIndex%variants.length],escaped=v.hi.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  return{ru:v.ru.replace(new RegExp(escaped),`<mark>${v.hi}</mark>`),plain:v.ru,en:v.en,sentiments:[...trySelections]};
+ }
+ const combo=SPECIAL_COMBINATIONS[tryPairKey(trySelections)]?.[gender];
+ return combo?{...combo,sentiments:[...trySelections]}:null;
+}
+function renderTryPersonOptions(){
+ tryEnsureState();const el=$("#tryPerson");if(!el)return;
+ el.innerHTML='<option value="">Choose a family member…</option>';
+ tryFamilyPeople().forEach(p=>el.add(new Option(`${p.name||"Unnamed"} — ${englishRelationship(p.relationship)}`,p.id)));
+ if(state.tryExtraPeople.length){
+  const group=document.createElement("optgroup");group.label="People added here";
+  state.tryExtraPeople.forEach(p=>group.append(new Option(`${p.name||"Unnamed"} — ${englishRelationship(p.relationship)}`,p.id)));el.append(group);
+ }
+ el.value=state.tryPersonId||"";
+}
+function renderTrySentiments(){
+ const box=$("#trySentiments");if(!box)return;box.innerHTML="";
+ SPECIAL_SENTIMENTS.forEach(s=>{const b=document.createElement("button");b.type="button";b.textContent=s.label;b.className=trySelections.includes(s.key)?"selected":"";b.onclick=()=>toggleTrySentiment(s.key);box.append(b)});
+}
+function toggleTrySentiment(key){
+ const hint=$("#trySentimentHint");
+ if(trySelections.includes(key))trySelections=trySelections.filter(x=>x!==key);
+ else if(trySelections.length<2)trySelections.push(key);
+ else{hint.textContent="Choose no more than two sentiments for one expression.";return}
+ hint.textContent="Choose up to two.";tryVariantIndex=0;tryEditingIndex=null;renderTrySentiments();renderTryPreview();
+}
+function renderTryIdentity(){
+ const p=tryPerson(),box=$("#trySelectedIdentity"),q=$("#tryBuilderQuestion");if(!box||!q)return;
+ if(!p){box.hidden=true;q.textContent="What would you like to say?";return}
+ box.hidden=false;box.innerHTML=`<strong>${p.name||"Unnamed"}</strong> · ${englishRelationship(p.relationship)}`;q.textContent=`What would you like to say about ${p.name||"this person"}?`;
+}
+function renderTryPreview(){
+ const box=$("#tryExpressionPreview"),x=tryCurrentExpression();if(!box)return;box.hidden=!x;if(!x)return;
+ $("#tryRussian").innerHTML=x.ru;$("#tryEnglish").textContent=x.en;
+ $("#tryAnother").style.display=trySelections.length===1?"":"none";
+ $("#trySaveExpression").textContent=tryEditingIndex===null?"Add to My Expressions":"Save Changes";
+ $("#trySpeak").onclick=()=>speak(x.plain);
+}
+function trySaved(){tryEnsureState();const p=tryPerson();return p?(state.trySavedExpressions[p.id]||(state.trySavedExpressions[p.id]=[])):[]}
+function renderTrySaved(){
+ const box=$("#trySavedExpressions"),count=$("#trySavedCount");if(!box||!count)return;const saved=trySaved();count.textContent=`(${saved.length}/4)`;box.innerHTML="";
+ if(!saved.length){box.innerHTML='<div class="try-v1-saved-card">Your saved Russian expressions will appear here.</div>';return}
+ saved.forEach((x,i)=>{const d=document.createElement("div");d.className="try-v1-saved-card";d.innerHTML=`<b>${x.plain}</b><small>${x.en}</small><div class="try-v1-saved-card-actions no-print"><button data-listen>🔊 Listen</button><button data-modify>✏ Modify</button><button data-delete>🗑 Delete</button></div>`;d.querySelector("[data-listen]").onclick=()=>speak(x.plain);d.querySelector("[data-modify]").onclick=()=>{trySelections=[...(x.sentiments||[])];tryEditingIndex=i;tryVariantIndex=0;renderTrySentiments();renderTryPreview()};d.querySelector("[data-delete]").onclick=async()=>{saved.splice(i,1);await save();renderTrySaved()};box.append(d)});
+}
+function renderTryPeople(){
+ tryEnsureState();renderTryPersonOptions();renderTrySentiments();renderTryIdentity();renderTryPreview();renderTrySaved();
+}
+function openTryAddPanel(){
+ const panel=$("#tryAddPanel");panel.hidden=false;$("#tryNewName").value="";
+ fillSelect($("#tryNewRelationship"),SPECIAL_NEW_RELS,"Choose a relationship…");
+}
+function closeTryAddPanel(){$("#tryAddPanel").hidden=true}
+async function saveTryNewPerson(){
+ const name=$("#tryNewName").value.trim(),raw=$("#tryNewRelationship").value;if(!name)return alert("Enter a name.");if(!raw)return alert("Choose a relationship.");
+ let relationship=raw,tryGender="";if(raw==="friend-female"){relationship="friend";tryGender="female"}if(raw==="friend-male"){relationship="friend";tryGender="male"}
+ if(!tryGender)tryGender=SPECIAL_FEMALE_RELS.has(relationship)?"female":"male";
+ const p={id:crypto.randomUUID(),name,relationship,tryGender,tryOnly:true};state.tryExtraPeople.push(p);state.tryPersonId=p.id;trySelections=[];tryVariantIndex=0;tryEditingIndex=null;await save();closeTryAddPanel();renderTryPeople();
+}
+async function saveTryExpression(){
+ const x=tryCurrentExpression();if(!x)return;const saved=trySaved();
+ if(tryEditingIndex!==null){saved[tryEditingIndex]={...x};tryEditingIndex=null}
+ else{if(saved.length>=4)return alert("Save up to four expressions for each person.");saved.push({...x})}
+ await save();renderTrySaved();renderTryPreview();
+}
+function ensurePetState(){
+ if(!Array.isArray(state.pets))state.pets=[];
+ if(!("petId" in state))state.petId=null;
+ if(!state.petFeeling)state.petFeeling="love";
+ if(state.petId&&!state.pets.some(p=>p.id===state.petId))state.petId=state.pets[0]?.id||null;
+}
+function currentPet(){ensurePetState();return state.pets.find(p=>p.id===state.petId)||state.pets[0]||null}
+function petTypeLabel(p){if(!p)return"Pet";if(p.type==="dog")return"Dog";if(p.type==="cat")return"Cat";return p.otherType||"Other Pet"}
+function petEmoji(p){return p?.type==="dog"?"🐶":p?.type==="cat"?"🐱":"🐾"}
+function petRussianNoun(p){if(p?.type==="dog")return"собаку";if(p?.type==="cat")return"кошку";return"питомца"}
 function renderPets(){
- const pets=[["dog","🐶","Dog","собака"],["cat","🐱","Cat","кошка"],["pet","🐾","Pet","питомец"],["other","＋","Another Pet",""]];
- let pc=$("#petChoices");pc.innerHTML="";pets.forEach(([k,em,en,ru])=>{let b=document.createElement("button");b.innerHTML=`<span class="emoji">${em}</span>${en}<br><small>${ru}</small>`;b.onclick=()=>{state.pet=k;updatePet();save()};pc.append(b)});
- let pf=$("#petFeelings");pf.innerHTML="";FEELINGS.forEach(x=>{let b=document.createElement("button");b.textContent=x.en;b.onclick=()=>{state.petFeeling=x.key;updatePet();save()};pf.append(b)});updatePet()
+ ensurePetState();if(!state.petId&&state.pets[0])state.petId=state.pets[0].id;
+ const box=$("#petChoices");if(!box)return;box.innerHTML="";
+ state.pets.slice(0,4).forEach(p=>{const b=document.createElement("button");b.type="button";b.className="pet-v1-choice"+(p.id===state.petId?" selected":"");b.innerHTML=`${p.photo?`<img class="pet-photo-thumb" src="${p.photo}" alt="${p.name}">`:`<span class="pet-emoji">${petEmoji(p)}</span>`}<b>${p.name}</b><small>${petTypeLabel(p)}</small>`;b.onclick=async()=>{state.petId=p.id;await save();renderPets()};box.append(b)});
+ $("#petCount").textContent=`${state.pets.length}/4`;$("#petAdd").disabled=state.pets.length>=4;$("#petAdd").textContent=state.pets.length>=4?"Four Pet Limit Reached":"＋ Add a Pet";const photoBtn=$("#petPhotoButton");if(photoBtn){const cp=currentPet();photoBtn.disabled=!cp;photoBtn.textContent=cp?.photo?"📷 Change Selected Pet Photo":"📷 Add Photo to Selected Pet";}
+ const p=currentPet();$("#petCurrentName").textContent=p?p.name:"your pet";
+ const pf=$("#petFeelings");pf.innerHTML="";FEELINGS.forEach(x=>{let b=document.createElement("button");b.type="button";b.textContent=x.en;b.className=x.key===state.petFeeling?"selected":"";b.disabled=!p;b.onclick=async()=>{state.petFeeling=x.key;await save();renderPets()};pf.append(b)});updatePet();
 }
 function updatePet(){
- let map={dog:["🐶","собаку","my dog"],cat:["🐱","кошку","my cat"],pet:["🐾","питомца","my pet"],other:["🐾","питомца","my pet"]};let [em,ru,en]=map[state.pet]||map.dog;$("#petPic").textContent=em;
- let r,e;if(state.petFeeling==="like"){r=`Мне нравится мой питомец.`;e=`I like ${en}.`}else if(state.petFeeling==="really"){r=`Мне очень нравится мой питомец.`;e=`I really like ${en}.`}else if(state.petFeeling==="adore"){r=`Я просто обожаю ${ru}.`;e=`I adore ${en}.`}else{r=`Я очень люблю ${ru}.`;e=`I love ${en} very much.`}
- $("#petRussian").textContent=r;$("#petEnglish").textContent=e;$("#petSpeak").onclick=()=>speak(r)
+ const p=currentPet(),pic=$("#petPic"),ruEl=$("#petRussian"),enEl=$("#petEnglish"),speakBtn=$("#petSpeak");if(!pic||!ruEl||!enEl)return;
+ if(!p){pic.textContent="🐾";ruEl.textContent="Add a pet to begin.";enEl.textContent="";if(speakBtn)speakBtn.disabled=true;return}
+ if(p.photo){pic.innerHTML=`<img src="${p.photo}" alt="${p.name}">`}else{pic.textContent=petEmoji(p)}const ru=petRussianNoun(p),name=p.name;let r,e;
+ if(state.petFeeling==="like"){r=`Мне нравится ${name}.`;e=`I like ${name}.`}else if(state.petFeeling==="really"){r=`Мне очень нравится ${name}.`;e=`I really like ${name}.`}else if(state.petFeeling==="adore"){r=`Я просто обожаю ${name}.`;e=`I adore ${name}.`}else{r=`Я очень люблю ${name}.`;e=`I love ${name} very much.`}
+ ruEl.textContent=r;enEl.textContent=e;if(speakBtn){speakBtn.disabled=false;speakBtn.onclick=()=>speak(r)}
 }
+function openPetAdd(){ensurePetState();if(state.pets.length>=4)return alert("You can add up to four pets.");$("#petNewName").value="";$("#petNewPhoto").value="";$("#petNewType").value="dog";$("#petOtherType").value="";$("#petOtherTypeWrap").hidden=true;$("#petAddPanel").hidden=false}
+function closePetAdd(){$("#petAddPanel").hidden=true}
+async function saveNewPet(){ensurePetState();if(state.pets.length>=4)return;const name=$("#petNewName").value.trim(),type=$("#petNewType").value,otherType=$("#petOtherType").value.trim();if(!name)return alert("Give your pet a name.");if(type==="other"&&!otherType)return alert("Tell us what kind of pet this is.");const photo=await photoData($("#petNewPhoto").files[0]);const p={id:crypto.randomUUID(),name,type,otherType:type==="other"?otherType:"",photo};state.pets.push(p);state.petId=p.id;await save();closePetAdd();renderPets()}
+
 function renderAll(){
  $("#ownerName").value=state.owner.name||"";$("#ownerMonth").value=state.owner.month||"February";if($("#ownerBirthYear"))$("#ownerBirthYear").value=state.owner.birthYear||"";
  const ownerPhoto=$("#ownerPhoto"), ownerFallback=$("#ownerPhotoFallback");
@@ -734,7 +849,7 @@ async function init(){
   if(preview)preview.textContent=rel?ruRel(rel):"Выберите отношение";
  };
  $("#addRelationship").onchange=updateAddRussianPreview;
- updateAddRussianPreview();fillSelect($("#tryRelationship"),RELS);
+ updateAddRussianPreview();
  $("#ownerMonth").innerHTML="";MONTHS.forEach(m=>$("#ownerMonth").add(new Option(monthLabels[m]||m,m)));
  await load();renderAll();
  $$("[data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));
@@ -778,7 +893,16 @@ async function init(){
  $("#specialTryAnother").onclick=()=>{if(specialSelections.length!==1)return;specialVariantIndex=(specialVariantIndex+1)%4;renderSpecialPreview()};
  $("#specialSaveExpression").onclick=saveSpecialExpression;
  $("#specialPrintBtn").onclick=()=>window.print();$("#specialClearBtn").onclick=clearAll;
- $("#tryPerson").onchange=updateTrySentence;$("#tryRelationship").onchange=async e=>{let p=person($("#tryPerson").value);if(p){p.relationship=e.target.value;await save();renderAll();renderTryPeople()}};
+ $("#tryPerson").onchange=async e=>{state.tryPersonId=e.target.value;trySelections=[];tryVariantIndex=0;tryEditingIndex=null;await save();renderTryPeople()};
+ $("#tryAddSomeone").onclick=openTryAddPanel;
+ $("#tryCancelNew").onclick=closeTryAddPanel;
+ $("#trySaveNew").onclick=saveTryNewPerson;
+ $("#tryAnother").onclick=()=>{tryVariantIndex++;renderTryPreview()};
+ $("#trySaveExpression").onclick=saveTryExpression;
+ $("#trySavedToggle").onclick=()=>{$("#trySavedExpressions").hidden=!$("#trySavedExpressions").hidden};
+ $$(".screen-print").forEach(b=>b.onclick=()=>window.print());
+ $("#petAdd").onclick=openPetAdd;$("#petCancel").onclick=closePetAdd;$("#petSave").onclick=saveNewPet;$("#petPhotoButton").onclick=()=>$("#petPhotoInput").click();$("#petPhotoInput").onchange=async e=>{const p=currentPet(),file=e.target.files[0];if(!p||!file)return;p.photo=await photoData(file);e.target.value="";await save();renderPets()};
+ $("#petNewType").onchange=e=>{$("#petOtherTypeWrap").hidden=e.target.value!=="other"};
 }
 init();
 
@@ -820,5 +944,6 @@ document.addEventListener("click", function (event) {
   launch.classList.add("active");
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 });
-
-
+/* ============================================================
+   END: FAMILY IDENTITY CARD JAVASCRIPT
+   ============================================================ */
