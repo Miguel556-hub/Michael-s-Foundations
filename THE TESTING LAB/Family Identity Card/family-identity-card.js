@@ -808,7 +808,7 @@ function renderPets(){
  const box=$("#petChoices");if(!box)return;box.innerHTML="";
  state.pets.slice(0,4).forEach(p=>{const b=document.createElement("button");b.type="button";b.className="pet-v1-choice"+(p.id===state.petId?" selected":"");b.innerHTML=`${p.photo?`<img class="pet-photo-thumb" src="${p.photo}" alt="${p.name}">`:`<span class="pet-emoji">${petEmoji(p)}</span>`}<b>${p.name}</b><small>${petTypeLabel(p)}</small>`;b.onclick=async()=>{state.petId=p.id;await save();renderPets()};box.append(b)});
  $("#petCount").textContent=`${state.pets.length}/4`;$("#petAdd").disabled=state.pets.length>=4;$("#petAdd").textContent=state.pets.length>=4?"Four Pet Limit Reached":"＋ Add a Pet";const photoBtn=$("#petPhotoButton");if(photoBtn){const cp=currentPet();photoBtn.disabled=!cp;photoBtn.textContent=cp?.photo?"📷 Change Selected Pet Photo":"📷 Add Photo to Selected Pet";}
- const p=currentPet();$("#petCurrentName").textContent=p?p.name:"your pet";
+ const p=currentPet();const petPhotoRemove=$("#petPhotoRemove");if(petPhotoRemove)petPhotoRemove.hidden=!(p&&p.photo);$("#petCurrentName").textContent=p?p.name:"your pet";
  const pf=$("#petFeelings");pf.innerHTML="";FEELINGS.forEach(x=>{let b=document.createElement("button");b.type="button";b.textContent=x.en;b.className=x.key===state.petFeeling?"selected":"";b.disabled=!p;b.onclick=async()=>{state.petFeeling=x.key;await save();renderPets()};pf.append(b)});updatePet();
 }
 function updatePet(){
@@ -827,6 +827,8 @@ function renderAll(){
  const ownerPhoto=$("#ownerPhoto"), ownerFallback=$("#ownerPhotoFallback");
  const connectionsOwnerPhoto=$("#connectionsOwnerPhoto"), connectionsOwnerFallback=$("#connectionsOwnerPhotoFallback");
  const hasPhoto=!!state.owner.photo;
+ const ownerPhotoRemove=$("#ownerPhotoRemove");
+ if(ownerPhotoRemove)ownerPhotoRemove.hidden=!hasPhoto;
  if(ownerPhoto&&ownerFallback){
   ownerPhoto.style.display=hasPhoto?"block":"none";
   ownerPhoto.src=hasPhoto?state.owner.photo:"";
@@ -868,6 +870,14 @@ async function init(){
   const file=e.target.files[0];
   if(!file)return;
   state.owner.photo=await photoData(file);
+  e.target.value="";
+  await save();
+  renderAll();
+ };
+ $("#ownerPhotoRemove").onclick=async()=>{
+  if(!state.owner.photo)return;
+  state.owner.photo="";
+  $("#ownerPhotoInput").value="";
   await save();
   renderAll();
  };
@@ -901,7 +911,7 @@ async function init(){
  $("#trySaveExpression").onclick=saveTryExpression;
  $("#trySavedToggle").onclick=()=>{$("#trySavedExpressions").hidden=!$("#trySavedExpressions").hidden};
  $$(".screen-print").forEach(b=>b.onclick=()=>window.print());
- $("#petAdd").onclick=openPetAdd;$("#petCancel").onclick=closePetAdd;$("#petSave").onclick=saveNewPet;$("#petPhotoButton").onclick=()=>$("#petPhotoInput").click();$("#petPhotoInput").onchange=async e=>{const p=currentPet(),file=e.target.files[0];if(!p||!file)return;p.photo=await photoData(file);e.target.value="";await save();renderPets()};
+ $("#petAdd").onclick=openPetAdd;$("#petCancel").onclick=closePetAdd;$("#petSave").onclick=saveNewPet;$("#petPhotoButton").onclick=()=>$("#petPhotoInput").click();$("#petPhotoInput").onchange=async e=>{const p=currentPet(),file=e.target.files[0];if(!p||!file)return;p.photo=await photoData(file);e.target.value="";await save();renderPets()};$("#petPhotoRemove").onclick=async()=>{const p=currentPet();if(!p||!p.photo)return;p.photo="";$("#petPhotoInput").value="";await save();renderPets()};
  $("#petNewType").onchange=e=>{$("#petOtherTypeWrap").hidden=e.target.value!=="other"};
 }
 init();
