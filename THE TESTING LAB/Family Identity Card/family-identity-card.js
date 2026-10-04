@@ -99,28 +99,27 @@ function familySlots(){
  Object.entries(FAMILY_LAYOUT).forEach(([rel,positions])=>{
   if(rel==="aunt"||rel==="uncle")return;
   const people=peopleForRelationship(rel), max=Math.min(maxForRelationship(rel),positions.length);
-  const permanentGreatGrandparents=["great-grandfather","great-grandmother"].includes(rel);
-  const visible=permanentGreatGrandparents ? max : Math.min(max,Math.max(1,people.length+(people.length<max?1:0)));
+  const permanentGenerationSlots=["great-grandfather","great-grandmother","grandfather","grandmother"].includes(rel);
+  const visible=permanentGenerationSlots ? max : Math.min(max,Math.max(1,people.length+(people.length<max?1:0)));
   for(let i=0;i<visible;i++)slots.push({rel,index:i,pos:positions[i],person:people[i]||null});
  });
  // Parent-generation sibling branches: one next-available placeholder per side,
  // beginning nearest Anna/John and expanding outward. Each side owns its own limit of four.
  const maternal=parentSiblingPeople("maternal");
  const paternal=parentSiblingPeople("paternal");
- maternal.forEach((p,i)=>slots.push({rel:p.relationship,index:i,pos:FAMILY_LAYOUT.uncle[i],person:p,parentSiblingBranch:"maternal"}));
- paternal.forEach((p,i)=>slots.push({rel:p.relationship,index:i,pos:FAMILY_LAYOUT.aunt[i],person:p,parentSiblingBranch:"paternal"}));
- if(maternal.length<4)slots.push({rel:"parent-sibling",index:maternal.length,pos:FAMILY_LAYOUT.uncle[maternal.length],person:null,parentSiblingBranch:"maternal"});
- if(paternal.length<4)slots.push({rel:"parent-sibling",index:paternal.length,pos:FAMILY_LAYOUT.aunt[paternal.length],person:null,parentSiblingBranch:"paternal"});
+ for(let i=0;i<4;i++){
+  const p=maternal[i]||null;
+  slots.push({rel:p?.relationship||"parent-sibling",index:i,pos:FAMILY_LAYOUT.uncle[i],person:p,parentSiblingBranch:"maternal"});
+ }
+ for(let i=0;i<4;i++){
+  const p=paternal[i]||null;
+  slots.push({rel:p?.relationship||"parent-sibling",index:i,pos:FAMILY_LAYOUT.aunt[i],person:p,parentSiblingBranch:"paternal"});
+ }
 
  const siblings=siblingPeople().slice(0,4);
- siblings.forEach((p,i)=>slots.push({rel:p.relationship,index:i,pos:SIBLING_POSITIONS[i],person:p,siblingSlot:true}));
- const initialBlankCount=Math.max(0,2-siblings.length);
- for(let i=0;i<initialBlankCount;i++){
-  const posIndex=siblings.length+i;
-  slots.push({rel:"sibling",index:posIndex,pos:SIBLING_POSITIONS[posIndex],person:null,siblingSlot:true});
- }
- if(pendingSiblingBlank && siblings.length<4 && initialBlankCount===0){
-  slots.push({rel:"sibling",index:siblings.length,pos:SIBLING_POSITIONS[siblings.length],person:null,siblingSlot:true,pending:true});
+ for(let i=0;i<4;i++){
+  const p=siblings[i]||null;
+  slots.push({rel:p?.relationship||"sibling",index:i,pos:SIBLING_POSITIONS[i],person:p,siblingSlot:true});
  }
  return slots;
 }
@@ -782,6 +781,16 @@ async function init(){
  $("#tryPerson").onchange=updateTrySentence;$("#tryRelationship").onchange=async e=>{let p=person($("#tryPerson").value);if(p){p.relationship=e.target.value;await save();renderAll();renderTryPeople()}};
 }
 init();
+
+document.addEventListener("click",function(event){
+ const control=event.target.closest("#showPatternCandy, #backToLikeCandy");
+ if(!control)return;
+ const like=document.getElementById("whyCandyLike"), pattern=document.getElementById("whyCandyPattern");
+ if(!like||!pattern)return;
+ const showPattern=control.id==="showPatternCandy";
+ like.classList.toggle("active",!showPattern);
+ pattern.classList.toggle("active",showPattern);
+});
 
 /* PASS #13 — My People utility navigation
    Existing "My People" utility control returns to the Launch/Home screen.
