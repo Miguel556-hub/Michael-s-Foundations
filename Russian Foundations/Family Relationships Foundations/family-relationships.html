@@ -3309,6 +3309,103 @@ LESSON 2 — EXTENDED FAMILY
 
           <!-- END DISCOVERY 2 ACTUAL -->
 
+          <!-- ==================================================
+               BEGIN — DOOR 1 FAMILY IDENTITY CARD
+               Built piece by piece, directly into Door 1, and
+               tested here after each piece before the next one
+               is added. Screen 1 of 5: My People (Launch screen).
+               The My Connections / What I Call Them / Someone
+               Special tabs below are already in the markup but
+               are inert — their screens don't exist yet.
+          ================================================== -->
+          <div id="app">
+            <section id="launch" class="screen active bg-launch">
+
+              <div class="launch-utility-nav no-print">
+                <button id="printBtn" type="button">Print This Page</button>
+                <button id="clearBtn" type="button">Clear My Family Data</button>
+              </div>
+
+              <div class="owner-portrait-area">
+                <div class="owner-portrait-frame">
+                  <img id="ownerPhoto" alt="Your Family Identity Card photo">
+                  <div id="ownerPhotoFallback" class="owner-photo-fallback" aria-hidden="true">👤</div>
+                </div>
+                <label class="change-picture-btn no-print" for="ownerPhotoInput">Change Picture</label>
+                <button id="ownerPhotoRemove" class="remove-picture-btn no-print" type="button" hidden>Remove This Photo</button>
+                <input id="ownerPhotoInput" class="visually-hidden" type="file" accept="image/*">
+              </div>
+
+              <div class="main-nav no-print">
+                <button type="button" data-go="connections">🔗 My Connections<br><small>Мои связи</small></button>
+                <button type="button" data-go="callthem">💬 What I Call Them<br><small>Как я их называю</small></button>
+                <button type="button" data-go="special">❤️ Someone Special<br><small>Особенный человек</small></button>
+              </div>
+
+              <div class="my-people-workspace">
+                <div class="workspace-heading">
+                  <h1>My People <span>/ Мои люди</span></h1>
+                  <p>Add a person once. Use that person throughout the Family Identity Card.</p>
+                </div>
+
+                <div class="workspace-actions no-print">
+                  <button id="workspaceAddMode" class="workspace-action active" type="button">＋ Add a Person</button>
+                  <button id="workspaceEditMode" class="workspace-action" type="button">✎ Edit a Person</button>
+                  <button id="workspaceRemoveMode" class="workspace-action" type="button">− Remove a Person</button>
+                </div>
+
+                <div class="workspace-entry">
+                  <label>Choose a relationship
+                    <select id="addRelationship"></select>
+                  </label>
+                  <label>Enter a name <small class="inline-optional">(optional)</small>
+                    <input id="addName" placeholder="Anna">
+                  </label>
+                  <label class="workspace-photo no-print">Photo <small class="inline-optional">(optional)</small>
+                    <input id="addPhoto" type="file" accept="image/*">
+                  </label>
+                  <div class="workspace-russian">
+                    <span>Russian relationship</span>
+                    <strong id="addRussianPreview">Выберите отношение</strong>
+                    <button id="addRussianSpeak" class="speaker russian-listen-btn no-print listen" type="button" data-speak="" title="Listen">🔊 Listen</button>
+                  </div>
+                  <button id="addPersonBtn" class="primary workspace-add no-print" type="button">＋ Add to My People</button>
+                </div>
+
+                <div class="people-panel workspace-people">
+                  <h2>People I’ve Added <span>/ Мои люди</span></h2>
+                  <div id="peopleList"></div>
+                </div>
+              </div>
+
+              <div class="identity launch-identity">
+                <div class="identity-title">
+                  <h2>Family Identity Card</h2>
+                  <div class="identity-russian">Карта семейной идентичности</div>
+                </div>
+                <div class="identity-fields">
+                  <label>MY NAME
+                    <input id="ownerName" autocomplete="name" placeholder="Michael">
+                  </label>
+                  <label>MY NAME IN RUSSIAN
+                    <input id="ownerNameRussian" placeholder="Майкл">
+                    <a class="translate-helper" href="https://translate.google.com/?sl=en&amp;tl=ru&amp;op=translate" target="_blank" rel="noopener noreferrer">Need help? Try Google Translate ↗</a>
+                  </label>
+                  <label>BIRTH MONTH
+                    <select id="ownerMonth"></select>
+                  </label>
+                  <label>BIRTH YEAR
+                    <input id="ownerBirthYear" inputmode="numeric" maxlength="4" placeholder="1962">
+                  </label>
+                </div>
+              </div>
+
+            </section>
+          </div>
+          <!-- ==================================================
+               END — DOOR 1 FAMILY IDENTITY CARD (Screen 1 only)
+          ================================================== -->
+
         </div> <!-- END Door 1 content -->
 
       </section> <!-- END Door 1 — Make It More Personal -->

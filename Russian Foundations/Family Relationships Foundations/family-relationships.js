@@ -7129,3 +7129,289 @@ function renderIdentityTree() {
 // ==================================================
 //    END - DOOR 1 IDENTITY CARD
 // ==================================================
+// ==================================================
+//    BEGIN — DOOR 1 FAMILY IDENTITY CARD
+//    Screen 1 of 5: My People (Launch screen)
+//
+//    Built piece by piece, directly into this file, each
+//    piece tested in the real page before the next is added.
+//    (See Git history: an earlier attempt built the whole
+//    component standalone and merged it in one shot — that's
+//    what caused the CSS-bloat bug that broke the page on
+//    click. This time each screen is built and proven here
+//    first.)
+//
+//    $ / $$ below are short query-selector helpers scoped to
+//    this block only — nothing above this point in the file
+//    defines them, so there's no collision with the rest of
+//    the page's script.
+// ==================================================
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+const RELS = [
+    ["mother", "мама"], ["father", "папа"], ["sister", "сестра"], ["brother", "брат"],
+    ["grandmother", "бабушка"], ["grandfather", "дедушка"], ["great-grandmother", "прабабушка"], ["great-grandfather", "прадедушка"], ["aunt", "тётя"], ["uncle", "дядя"],
+    ["cousin", "двоюродный брат / двоюродная сестра"], ["wife", "жена"], ["husband", "муж"],
+    ["girlfriend", "девушка"], ["boyfriend", "парень"], ["fiancée", "невеста"], ["fiancé", "жених"],
+    ["ex-wife", "бывшая жена"], ["ex-husband", "бывший муж"], ["friend", "друг / подруга"]
+];
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+const monthLabels = {
+    "January": "January — Январь", "February": "February — Февраль", "March": "March — Март",
+    "April": "April — Апрель", "May": "May — Май", "June": "June — Июнь", "July": "July — Июль",
+    "August": "August — Август", "September": "September — Сентябрь", "October": "October — Октябрь",
+    "November": "November — Ноябрь", "December": "December — Декабрь"
+};
+
+let state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [] };
+
+// Tracks which person (if any) is loaded into the form for editing.
+// null means the form is in "add a new person" mode.
+let selectedPersonId = null;
+
+const DB = "familyIdentityCardDB", STORE = "state";
+
+function openDB() {
+    return new Promise((res, rej) => {
+        let r = indexedDB.open(DB, 1);
+        r.onupgradeneeded = () => r.result.createObjectStore(STORE);
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+    });
+}
+
+async function saveIdentityCard() {
+    const db = await openDB();
+    const tx = db.transaction(STORE, "readwrite");
+    tx.objectStore(STORE).put(state, "app");
+    return new Promise(r => tx.oncomplete = r);
+}
+
+async function loadIdentityCard() {
+    try {
+        const db = await openDB();
+        const tx = db.transaction(STORE, "readonly");
+        const req = tx.objectStore(STORE).get("app");
+        await new Promise(r => tx.oncomplete = r);
+        if (req.result) state = req.result;
+    } catch (e) { }
+}
+
+async function clearIdentityCard() {
+    if (!confirm("Clear all Family Identity Card information and photos stored by this component in this browser?")) return;
+    indexedDB.deleteDatabase(DB);
+    state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [] };
+    selectedPersonId = null;
+    renderIdentityCard();
+}
+
+function fillSelect(el, arr, placeholder) {
+    el.innerHTML = placeholder ? `<option value="">${placeholder}</option>` : "";
+    arr.forEach(([v, t]) => el.add(new Option(t, v)));
+}
+
+function speakRussianWord(t) {
+    if (!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    let u = new SpeechSynthesisUtterance(t);
+    u.lang = "ru-RU";
+    speechSynthesis.speak(u);
+}
+
+function photoData(file) {
+    return new Promise((res, rej) => {
+        if (!file) return res("");
+        let r = new FileReader();
+        r.onload = () => res(r.result);
+        r.onerror = rej;
+        r.readAsDataURL(file);
+    });
+}
+
+function ruRel(rel) {
+    return RELS.find(x => x[0] === rel)?.[1] || rel;
+}
+
+function person(id) {
+    return state.people.find(p => p.id === id);
+}
+
+// Screen switcher — only #launch exists so far. Guarded so the
+// My Connections / What I Call Them / Someone Special nav buttons
+// are harmless no-ops until those screens are built in later pieces.
+function show(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    $$("#app .screen").forEach(s => s.classList.toggle("active", s.id === id));
+    window.scrollTo(0, 0);
+}
+
+function updateAddRussianPreview() {
+    const rel = $("#addRelationship").value;
+    const preview = $("#addRussianPreview");
+    const word = rel ? ruRel(rel) : "";
+    preview.textContent = word || "Выберите отношение";
+    $("#addRussianSpeak").dataset.speak = word;
+}
+
+function renderPeople() {
+    const list = $("#peopleList");
+    list.innerHTML = state.people.length ? "" : "<p>No people added yet.</p>";
+    state.people.forEach(p => {
+        const row = document.createElement("div");
+        row.className = "person-row" + (p.id === selectedPersonId ? " person-row--selected" : "");
+        row.innerHTML = `${p.photo ? `<img src="${p.photo}">` : `<div class="avatar">👤</div>`}<div><b>${p.name || "Unnamed"}</b><br>${ruRel(p.relationship)} — ${p.relationship}</div><button type="button" data-select="${p.id}" title="Edit this person">✎</button>`;
+        list.appendChild(row);
+    });
+    $$("[data-select]").forEach(b => b.onclick = () => selectPerson(b.dataset.select));
+}
+
+// Click a person's pencil: loads them into the form above and
+// switches the submit button into "Save Changes" mode.
+function selectPerson(id) {
+    const p = person(id);
+    if (!p) return;
+    selectedPersonId = id;
+    $("#addRelationship").value = p.relationship;
+    updateAddRussianPreview();
+    $("#addName").value = p.name === "Unnamed" ? "" : (p.name || "");
+    $("#addPhoto").value = "";
+    $("#addPersonBtn").textContent = "✓ Save Changes";
+    renderPeople();
+}
+
+// Resets the form back to "adding a new person" — used by the
+// "+ Add a Person" toolbar button and after a successful add/save.
+function clearPersonForm() {
+    selectedPersonId = null;
+    $("#addRelationship").selectedIndex = 0;
+    updateAddRussianPreview();
+    $("#addName").value = "";
+    $("#addPhoto").value = "";
+    $("#addPersonBtn").textContent = "＋ Add to My People";
+    renderPeople();
+}
+
+function renderIdentityCard() {
+    $("#ownerName").value = state.owner.name || "";
+    $("#ownerNameRussian").value = state.owner.nameRussian || "";
+    $("#ownerMonth").value = state.owner.month || "";
+    $("#ownerBirthYear").value = state.owner.birthYear || "";
+
+    const ownerPhoto = $("#ownerPhoto"), ownerFallback = $("#ownerPhotoFallback");
+    const hasPhoto = !!state.owner.photo;
+    $("#ownerPhotoRemove").hidden = !hasPhoto;
+    ownerPhoto.style.display = hasPhoto ? "block" : "none";
+    ownerPhoto.src = hasPhoto ? state.owner.photo : "";
+    ownerFallback.style.display = hasPhoto ? "none" : "flex";
+
+    renderPeople();
+}
+
+function initIdentityCard() {
+
+    fillSelect($("#addRelationship"), RELS, null);
+    $("#ownerMonth").innerHTML = "";
+    MONTHS.forEach(m => $("#ownerMonth").add(new Option(monthLabels[m] || m, m)));
+
+    $$("#app [data-go]").forEach(btn => btn.addEventListener("click", () => show(btn.dataset.go)));
+
+    $("#printBtn").onclick = () => window.print();
+    $("#clearBtn").onclick = clearIdentityCard;
+
+    $("#ownerName").onchange = async e => { state.owner.name = e.target.value; await saveIdentityCard(); };
+    $("#ownerNameRussian").onchange = async e => { state.owner.nameRussian = e.target.value; await saveIdentityCard(); };
+    $("#ownerMonth").onchange = async e => { state.owner.month = e.target.value; await saveIdentityCard(); };
+    $("#ownerBirthYear").onchange = async e => {
+        state.owner.birthYear = e.target.value.replace(/\D/g, "").slice(0, 4);
+        e.target.value = state.owner.birthYear;
+        await saveIdentityCard();
+    };
+
+    $("#ownerPhotoInput").onchange = async e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        state.owner.photo = await photoData(file);
+        e.target.value = "";
+        await saveIdentityCard();
+        renderIdentityCard();
+    };
+
+    $("#ownerPhotoRemove").onclick = async () => {
+        state.owner.photo = "";
+        await saveIdentityCard();
+        renderIdentityCard();
+    };
+
+    $("#addRelationship").onchange = updateAddRussianPreview;
+    $("#addRussianSpeak").onclick = () => {
+        const rel = $("#addRelationship").value;
+        if (rel) speakRussianWord(ruRel(rel));
+    };
+
+    $("#workspaceAddMode").onclick = clearPersonForm;
+
+    $("#workspaceEditMode").onclick = () => {
+        if (selectedPersonId) return;
+        if (!state.people.length) return alert("Add a person first.");
+        alert("Click the pencil next to a person in \"People I've Added\" to edit them.");
+    };
+
+    $("#workspaceRemoveMode").onclick = async () => {
+        if (!selectedPersonId) return alert("Click a person in your list first, then press Remove a Person.");
+        const p = person(selectedPersonId);
+        if (!p) return;
+        if (!confirm(`Remove ${p.name || "this person"}?`)) return;
+        state.people = state.people.filter(x => x.id !== selectedPersonId);
+        selectedPersonId = null;
+        $("#addPersonBtn").textContent = "＋ Add to My People";
+        await saveIdentityCard();
+        renderIdentityCard();
+    };
+
+    $("#addPersonBtn").onclick = async () => {
+        const name = $("#addName").value.trim();
+        const relationship = $("#addRelationship").value;
+        if (!relationship) return alert("Choose a relationship.");
+
+        const file = $("#addPhoto").files[0];
+        const photo = file ? await photoData(file) : "";
+
+        if (selectedPersonId) {
+            const p = person(selectedPersonId);
+            if (p) {
+                p.name = name || "Unnamed";
+                p.relationship = relationship;
+                if (photo) p.photo = photo;
+            }
+        } else {
+            state.people.push({
+                id: crypto.randomUUID(),
+                name: name || "Unnamed",
+                relationship,
+                photo,
+                birthYear: ""
+            });
+        }
+
+        await saveIdentityCard();
+        clearPersonForm();
+        renderIdentityCard();
+    };
+
+    updateAddRussianPreview();
+}
+
+(async () => {
+    await loadIdentityCard();
+    initIdentityCard();
+    renderIdentityCard();
+})();
+
+// ==================================================
+//    END — DOOR 1 FAMILY IDENTITY CARD (Screen 1 only)
+// ==================================================
