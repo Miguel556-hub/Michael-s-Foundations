@@ -617,7 +617,6 @@ function renderSpecialPreview(){
  const preview=$("#specialExpressionPreview"),x=specialCurrentExpression();if(!preview)return;
  preview.hidden=!x;if(!x)return;
  $("#specialRussian").innerHTML=x.ru;$("#specialEnglish").textContent=x.en;
- $("#specialTryAnother").style.display=specialSelections.length===1?"":"none";
  $("#specialSaveExpression").textContent=specialEditingIndex===null?"Add to My Expressions":"Save Changes";
 }
 function renderSpecialSaved(){
@@ -900,7 +899,6 @@ async function init(){
  $("#specialIntroRelationSpeak").onclick=e=>speak(e.currentTarget.dataset.speak||"");
  $("#specialIntroNameSpeak").onclick=e=>speak(e.currentTarget.dataset.speak||"");
  $("#specialSpeak").onclick=()=>{const x=specialCurrentExpression();if(x)speak(x.plain)};
- $("#specialTryAnother").onclick=()=>{if(specialSelections.length!==1)return;specialVariantIndex=(specialVariantIndex+1)%4;renderSpecialPreview()};
  $("#specialSaveExpression").onclick=saveSpecialExpression;
  $("#specialPrintBtn").onclick=()=>window.print();$("#specialClearBtn").onclick=clearAll;
  $("#tryPerson").onchange=async e=>{state.tryPersonId=e.target.value;trySelections=[];tryVariantIndex=0;tryEditingIndex=null;await save();renderTryPeople()};

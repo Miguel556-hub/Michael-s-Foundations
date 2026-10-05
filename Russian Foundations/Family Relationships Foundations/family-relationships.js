@@ -7150,12 +7150,26 @@ function renderIdentityTree() {
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
-const RELS = [
+// Every relationship word the app can ever show in Russian, regardless of which
+// screen uses it. ruRel() below always reads from this full list. Keep this one
+// complete even when a particular screen's dropdown (like RELS, right below)
+// only offers a subset of these choices.
+const REL_RU = [
     ["mother", "мама"], ["father", "папа"], ["sister", "сестра"], ["brother", "брат"],
     ["grandmother", "бабушка"], ["grandfather", "дедушка"], ["great-grandmother", "прабабушка"], ["great-grandfather", "прадедушка"], ["aunt", "тётя"], ["uncle", "дядя"],
     ["cousin", "двоюродный брат / двоюродная сестра"], ["wife", "жена"], ["husband", "муж"],
     ["girlfriend", "девушка"], ["boyfriend", "парень"], ["fiancée", "невеста"], ["fiancé", "жених"],
     ["ex-wife", "бывшая жена"], ["ex-husband", "бывший муж"], ["friend", "друг / подруга"]
+];
+
+// My People only offers Mother/Father/Brother/Sister. Every other relationship
+// (grandparents, great-grandparents, mom's/dad's siblings) is side-specific —
+// there's no way to know "mom's side" or "dad's side" from a dropdown alone,
+// only from which box the learner clicks on the My Connections tree. So those
+// are added there instead, not here. Aunt/Uncle/Cousin/spouse-type relationships
+// will come back once "What I Call Them" and "Someone Special" are built.
+const RELS = [
+    ["mother", "мама"], ["father", "папа"], ["sister", "сестра"], ["brother", "брат"]
 ];
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -7233,21 +7247,29 @@ function photoData(file) {
 }
 
 function ruRel(rel) {
-    return RELS.find(x => x[0] === rel)?.[1] || rel;
+    return REL_RU.find(x => x[0] === rel)?.[1] || rel;
 }
 
 function person(id) {
     return state.people.find(p => p.id === id);
 }
 
-// Screen switcher — only #launch exists so far. Guarded so the
-// My Connections / What I Call Them / Someone Special nav buttons
-// are harmless no-ops until those screens are built in later pieces.
+// Screen switcher. What I Call Them / Someone Special are still
+// harmless no-ops until those screens are built in later pieces.
+// My Connections renders fresh from state.people every time the
+// learner switches to it, so anything added or changed on My
+// People is always up to date there — one shared list of people,
+// not two.
 function show(id) {
     const target = document.getElementById(id);
     if (!target) return;
     $$("#app .screen").forEach(s => s.classList.toggle("active", s.id === id));
-    window.scrollTo(0, 0);
+    if (id === "connections") renderConnections();
+    // Scroll the card itself back into view, not the whole page — the
+    // card sits partway down Family Relationships, so jumping to the
+    // very top of the page (window.scrollTo(0,0)) was landing above
+    // Door 1 entirely and forcing a scroll back down every time.
+    target.scrollIntoView({ block: "start" });
 }
 
 function updateAddRussianPreview() {
@@ -7264,10 +7286,24 @@ function renderPeople() {
     state.people.forEach(p => {
         const row = document.createElement("div");
         row.className = "person-row" + (p.id === selectedPersonId ? " person-row--selected" : "");
-        row.innerHTML = `${p.photo ? `<img src="${p.photo}">` : `<div class="avatar">👤</div>`}<div><b>${p.name || "Unnamed"}</b><br>${ruRel(p.relationship)} — ${p.relationship}</div><button type="button" data-select="${p.id}" title="Edit this person">✎</button>`;
+        // Mother, Father, and siblings can be edited right here. Everyone
+        // else (grandparents, great-grandparents, mom's/dad's siblings)
+        // was added by clicking their box on My Connections, and stays
+        // tied to that box — so no edit pencil for those here.
+        const editable = RELS.some(r => r[0] === p.relationship);
+        row.innerHTML = `${p.photo ? `<img src="${p.photo}">` : `<div class="avatar">👤</div>`}<div><b>${p.name || "Unnamed"}</b><br>${ruRel(p.relationship)} — ${p.relationship}</div>${editable ? `<button type="button" data-select="${p.id}" title="Edit this person">✎</button>` : ""}`;
         list.appendChild(row);
     });
     $$("[data-select]").forEach(b => b.onclick = () => selectPerson(b.dataset.select));
+}
+
+// The four shared sibling positions on the family tree (one tree,
+// not one per screen). Used whether a sibling is added here on My
+// People or by clicking an empty sibling box on My Connections,
+// so the 4-sibling limit holds no matter which screen was used.
+function nextFreeSiblingSlot() {
+    const used = new Set(state.people.filter(p => p.slotId && p.slotId.startsWith("sibling-")).map(p => p.slotId));
+    return ["sibling-0", "sibling-1", "sibling-2", "sibling-3"].find(id => !used.has(id)) || "";
 }
 
 // Click a person's pencil: loads them into the form above and
@@ -7381,20 +7417,35 @@ function initIdentityCard() {
         const file = $("#addPhoto").files[0];
         const photo = file ? await photoData(file) : "";
 
+        const isSibling = relationship === "brother" || relationship === "sister";
+
         if (selectedPersonId) {
             const p = person(selectedPersonId);
             if (p) {
+                if (isSibling && !p.slotId) {
+                    const free = nextFreeSiblingSlot();
+                    if (!free) return alert("You can add up to four siblings. Remove one on My Connections before adding another.");
+                    p.slotId = free;
+                } else if (!isSibling) {
+                    delete p.slotId;
+                }
                 p.name = name || "Unnamed";
                 p.relationship = relationship;
                 if (photo) p.photo = photo;
             }
         } else {
+            let slotId = "";
+            if (isSibling) {
+                slotId = nextFreeSiblingSlot();
+                if (!slotId) return alert("You can add up to four siblings. Remove one on My Connections before adding another.");
+            }
             state.people.push({
                 id: crypto.randomUUID(),
                 name: name || "Unnamed",
                 relationship,
                 photo,
-                birthYear: ""
+                birthYear: "",
+                slotId
             });
         }
 
@@ -7406,12 +7457,404 @@ function initIdentityCard() {
     updateAddRussianPreview();
 }
 
+// ==================================================
+//    Screen 2: My Connections (family tree)
+//
+//    Reuses state.people — the same list Screen 1 reads and
+//    writes. Mother, Father, and siblings are unambiguous, so My
+//    People can add them directly (RELS, above) and they appear
+//    here automatically. Everyone else (grandparents, great-
+//    grandparents, mom's/dad's siblings) can only be added here,
+//    by clicking the specific box on the tree — only the box
+//    clicked can say which side of the family that person is on.
+// ==================================================
+
+// One fixed slot per box on the tree. Each slot holds at most one
+// person, matched by person.slotId. Percent positions are left/top
+// on the #connections card — a first pass against the new
+// my-connections-tab-wide.png art, expect a visual-alignment round
+// together the same way Screen 1's launch card got one.
+const CONNECTIONS_SLOTS = [
+    { id: "mother", fixedRel: "mother", pos: [37.5, 56] },
+    { id: "father", fixedRel: "father", pos: [49.5, 56] },
+
+    { id: "sibling-0", tier: "sibling", pos: [28, 77] },
+    { id: "sibling-1", tier: "sibling", pos: [58, 77] },
+    { id: "sibling-2", tier: "sibling", pos: [20, 77] },
+    { id: "sibling-3", tier: "sibling", pos: [66, 77] },
+
+    // Grandparent and great-grandparent boxes are each labeled for a
+    // specific gender by position (the same way a real family tree
+    // always draws a couple as one of each), and that's what the
+    // Relationship dropdown opens pre-selected to — so "You clicked
+    // on" already shows the right answer before anything is typed.
+    // The dropdown still has both options plus a blank "Choose /
+    // change…", in case this particular box should hold the other
+    // one, or the pick needs to be reset and redone.
+    { id: "grandfather-0", tier: "grandparent", impliedRel: "grandfather", pos: [20.5, 34] },
+    { id: "grandmother-0", tier: "grandparent", impliedRel: "grandmother", pos: [30.5, 34] },
+    { id: "grandmother-1", tier: "grandparent", impliedRel: "grandmother", pos: [56.5, 34] },
+    { id: "grandfather-1", tier: "grandparent", impliedRel: "grandfather", pos: [66.5, 34] },
+
+    { id: "greatgrandfather-0", tier: "greatgrandparent", impliedRel: "great-grandfather", pos: [7.5, 12] },
+    { id: "greatgrandmother-0", tier: "greatgrandparent", impliedRel: "great-grandmother", pos: [16.5, 12] },
+    { id: "greatgrandfather-1", tier: "greatgrandparent", impliedRel: "great-grandfather", pos: [28.5, 12] },
+    { id: "greatgrandmother-1", tier: "greatgrandparent", impliedRel: "great-grandmother", pos: [37.5, 12] },
+    { id: "greatgrandfather-2", tier: "greatgrandparent", impliedRel: "great-grandfather", pos: [55.5, 12] },
+    { id: "greatgrandmother-2", tier: "greatgrandparent", impliedRel: "great-grandmother", pos: [64.5, 12] },
+    { id: "greatgrandfather-3", tier: "greatgrandparent", impliedRel: "great-grandfather", pos: [76.5, 12] },
+    { id: "greatgrandmother-3", tier: "greatgrandparent", impliedRel: "great-grandmother", pos: [85.5, 12] },
+
+    { id: "parentsibling-maternal-0", tier: "parentsibling", branch: "maternal", pos: [29.5, 56] },
+    { id: "parentsibling-maternal-1", tier: "parentsibling", branch: "maternal", pos: [21.5, 56] },
+    { id: "parentsibling-maternal-2", tier: "parentsibling", branch: "maternal", pos: [13.5, 56] },
+    { id: "parentsibling-maternal-3", tier: "parentsibling", branch: "maternal", pos: [5.5, 56] },
+    { id: "parentsibling-paternal-0", tier: "parentsibling", branch: "paternal", pos: [57.5, 56] },
+    { id: "parentsibling-paternal-1", tier: "parentsibling", branch: "paternal", pos: [65.5, 56] },
+    { id: "parentsibling-paternal-2", tier: "parentsibling", branch: "paternal", pos: [73.5, 56] },
+    { id: "parentsibling-paternal-3", tier: "parentsibling", branch: "paternal", pos: [81.5, 56] }
+];
+
+// English label for each relationship word — used for a box's idle
+// clue and for its Relationship dropdown options.
+const REL_LABEL = {
+    mother: "Mother", father: "Father",
+    grandfather: "Grandfather", grandmother: "Grandmother",
+    "great-grandfather": "Great-Grandfather", "great-grandmother": "Great-Grandmother",
+    brother: "Brother", sister: "Sister"
+};
+
+// What the Relationship dropdown offers for each tier that has one.
+// Every tier here always includes a blank "Choose / change…" first
+// (see populateTierDropdown) — even grandparent/great-grandparent,
+// as a reset in case the wrong one got picked. Mother/Father
+// (slot.fixedRel) are the only boxes with no dropdown at all — there
+// is only one mother, one father, nothing to choose between.
+const TIER_CHOICES = {
+    sibling: ["brother", "sister"],
+    parentsibling: ["brother", "sister"],
+    grandparent: ["grandfather", "grandmother"],
+    greatgrandparent: ["great-grandfather", "great-grandmother"]
+};
+
+let activeConnectionsSlotId = null;
+
+function connectionsSlot(id) {
+    return CONNECTIONS_SLOTS.find(s => s.id === id);
+}
+
+// The person occupying a given slot, or null if that box is empty.
+function personInSlot(slotId) {
+    // Mother and Father are singletons — there's only one of each, so
+    // they're found by relationship, not slotId. That way it doesn't
+    // matter whether Mother was added here or over on My People; both
+    // land in the same box. Every other slot (grandparents, great-
+    // grandparents, siblings) can have more than one, so those stay
+    // slotId-based.
+    if (slotId === "mother" || slotId === "father") {
+        return state.people.find(p => p.relationship === slotId) || null;
+    }
+    return state.people.find(p => p.slotId === slotId) || null;
+}
+
+function slotEmptyClue(slot) {
+    if (slot.fixedRel) return REL_LABEL[slot.fixedRel] || slot.fixedRel;
+    if (slot.impliedRel) return REL_LABEL[slot.impliedRel] || slot.impliedRel;
+    if (slot.tier === "parentsibling") {
+        return slot.branch === "maternal" ? "Mom's Brother or Sister" : "Dad's Brother or Sister";
+    }
+    return "Brother or Sister";
+}
+
+function familyGenderClass(rel) {
+    if (["mother", "grandmother", "great-grandmother", "sister", "aunt"].includes(rel)) return "female";
+    if (["father", "grandfather", "great-grandfather", "brother", "uncle"].includes(rel)) return "male";
+    return "";
+}
+
+// A parent-sibling box stores the real relationship ("aunt"/"uncle"),
+// but its dropdown only ever offers Brother/Sister — brother maps to
+// uncle, sister maps to aunt, when the box is saved.
+function parentSiblingChoiceFor(rel) {
+    if (rel === "uncle") return "brother";
+    if (rel === "aunt") return "sister";
+    return "";
+}
+
+// The "You clicked on" sentence for whichever box is open.
+// Mother/Father have no dropdown, so this is always the one fixed
+// sentence. Grandparent/great-grandparent dropdowns open pre-
+// selected to match the box's own label, so this already shows the
+// full sentence the instant the box is clicked — before any name,
+// photo, or birth year is typed — but follows along if that pick
+// gets changed (or reset to blank). Sibling-type boxes (yours,
+// mom's, dad's) always show the same fixed, generic line no matter
+// which of the four slots it is or whether Brother or Sister gets
+// chosen — the box itself and the saved card already show
+// брат/сестра once it's filled in.
+function connectionContextText(slot, choice) {
+    if (slot.fixedRel) return `This is your ${slot.fixedRel} — ${ruRel(slot.fixedRel)}`;
+    if (slot.tier === "sibling") return "Your sibling";
+    if (slot.tier === "parentsibling") return slot.branch === "maternal" ? "Your mom's sibling" : "Your dad's sibling";
+    if (!choice) return slotEmptyClue(slot);
+    return `This is your ${choice} — ${ruRel(choice)}`;
+}
+
+function populateTierDropdown(tier, selectedChoice) {
+    const select = $("#editorRelationshipChoice");
+    if (!select) return;
+    const choices = TIER_CHOICES[tier] || [];
+    select.innerHTML = '<option value="">Choose / change…</option>';
+    choices.forEach(value => select.add(new Option(`${REL_LABEL[value] || value} — ${ruRel(value)}`, value)));
+    select.value = selectedChoice || "";
+}
+
+function currentEditorChoice() {
+    const slot = connectionsSlot(activeConnectionsSlotId);
+    if (!slot) return "";
+    if (slot.fixedRel) return slot.fixedRel;
+    return $("#editorRelationshipChoice")?.value || "";
+}
+
+function updateConnectionContext() {
+    const box = $("#connectionContextStatement");
+    if (!box) return;
+    const slot = connectionsSlot(activeConnectionsSlotId);
+    if (!slot) { box.textContent = ""; return; }
+    box.textContent = connectionContextText(slot, currentEditorChoice());
+}
+
+function addFamilyPath(svg, d, cls) {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", d);
+    if (cls) path.setAttribute("class", cls);
+    svg.appendChild(path);
+}
+
+// Draws the tree's connector lines. The four great-grandparent
+// couple lines are permanent fixtures of the tree (drawn whether
+// or not anyone has filled those boxes yet); the rest only appear
+// once at least one box in that generation is populated.
+function renderFamilyLines() {
+    const svg = $("#familyLines");
+    if (!svg) return;
+    svg.innerHTML = "";
+
+    const siblingSlots = CONNECTIONS_SLOTS.filter(s => s.tier === "sibling" && personInSlot(s.id));
+    const hasParent = personInSlot("mother") || personInSlot("father");
+
+    if (hasParent || siblingSlots.length) {
+        addFamilyPath(svg, "M 375 390 L 495 390", "parent-couple");
+        addFamilyPath(svg, "M 435 390 L 435 468");
+        addFamilyPath(svg, "M 435 468 L 435 520");
+        if (siblingSlots.length) {
+            const xs = siblingSlots.map(s => s.pos[0] * 10);
+            const minX = Math.min(435, ...xs), maxX = Math.max(435, ...xs);
+            addFamilyPath(svg, `M ${minX} 468 L ${maxX} 468`);
+            siblingSlots.forEach(s => { const x = s.pos[0] * 10; addFamilyPath(svg, `M ${x} 468 L ${x} 500`); });
+        }
+    }
+
+    if (CONNECTIONS_SLOTS.some(s => s.tier === "grandparent" && personInSlot(s.id))) {
+        addFamilyPath(svg, "M 205 245 L 305 245");
+        addFamilyPath(svg, "M 255 245 L 255 315 L 375 315 L 375 370");
+        addFamilyPath(svg, "M 565 245 L 665 245");
+        addFamilyPath(svg, "M 615 245 L 615 315 L 495 315 L 495 370");
+    }
+
+    [
+        { left: 75, right: 165, child: 205 },
+        { left: 285, right: 375, child: 305 },
+        { left: 555, right: 645, child: 565 },
+        { left: 765, right: 855, child: 665 }
+    ].forEach(pair => {
+        const mid = (pair.left + pair.right) / 2;
+        addFamilyPath(svg, `M ${pair.left} 105 L ${pair.right} 105`);
+        addFamilyPath(svg, `M ${mid} 105 L ${pair.child} 225`);
+    });
+
+    const maternal = CONNECTIONS_SLOTS.filter(s => s.tier === "parentsibling" && s.branch === "maternal" && personInSlot(s.id));
+    const paternal = CONNECTIONS_SLOTS.filter(s => s.tier === "parentsibling" && s.branch === "paternal" && personInSlot(s.id));
+    if (maternal.length) {
+        const xs = maternal.map(s => s.pos[0] * 10);
+        const minX = Math.min(375, ...xs);
+        addFamilyPath(svg, `M ${minX} 315 L 375 315`);
+        maternal.forEach(s => { const x = s.pos[0] * 10; addFamilyPath(svg, `M ${x} 315 L ${x} 370`); });
+    }
+    if (paternal.length) {
+        const xs = paternal.map(s => s.pos[0] * 10);
+        const maxX = Math.max(495, ...xs);
+        addFamilyPath(svg, `M 495 315 L ${maxX} 315`);
+        paternal.forEach(s => { const x = s.pos[0] * 10; addFamilyPath(svg, `M ${x} 315 L ${x} 370`); });
+    }
+}
+
+function renderConnections() {
+    const area = $("#treeNodes");
+    if (!area) return;
+    area.innerHTML = "";
+
+    CONNECTIONS_SLOTS.forEach(slot => {
+        const p = personInSlot(slot.id);
+        const isSiblingCard = slot.tier === "sibling" || slot.tier === "parentsibling";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "family-slot " + (p ? "populated " + familyGenderClass(p.relationship) : "empty") + (p && isSiblingCard ? " sibling-family-card" : "");
+        btn.style.left = slot.pos[0] + "%";
+        btn.style.top = slot.pos[1] + "%";
+        btn.innerHTML = p
+            ? `${p.photo ? `<img src="${p.photo}" alt="">` : `<span class="slot-avatar">👤</span>`}<span class="slot-name">${p.name || "Unnamed"}</span><span class="slot-russian">${ruRel(p.relationship)}</span>${p.birthYear ? `<span class="slot-year">${p.birthYear}</span>` : ""}`
+            : `<span class="slot-clue">${slotEmptyClue(slot)}</span><span class="slot-add">Click to add</span>`;
+        btn.onclick = () => openFamilyEditor(slot.id);
+        area.appendChild(btn);
+    });
+
+    renderFamilyLines();
+
+    const meName = $("#connectionsOwnerName");
+    if (meName) meName.textContent = state.owner.name || "ME";
+
+    const ownerPhoto = $("#connectionsOwnerPhoto"), ownerFallback = $("#connectionsOwnerPhotoFallback");
+    if (ownerPhoto && ownerFallback) {
+        const hasPhoto = !!state.owner.photo;
+        ownerPhoto.style.display = hasPhoto ? "block" : "none";
+        ownerPhoto.src = hasPhoto ? state.owner.photo : "";
+        ownerFallback.style.display = hasPhoto ? "none" : "flex";
+    }
+}
+
+// Opens the editing menu without a specific tree box chosen yet.
+// Relationship stays hidden (there's nothing to choose a relationship
+// FOR until a box is clicked) — this just gets the panel open and
+// explains what to do next. Collapse this menu closes it again.
+function openConnectionsMenu() {
+    const launcher = $("#connectionsMenuLauncher"), tools = $(".connection-tools");
+    if (launcher) launcher.hidden = true;
+    if (tools) { tools.hidden = false; tools.removeAttribute("hidden"); }
+    resetConnectionsEditorFields();
+}
+
+function openFamilyEditor(slotId) {
+    const slot = connectionsSlot(slotId);
+    if (!slot) return;
+
+    const launcher = $("#connectionsMenuLauncher"), tools = $(".connection-tools");
+    if (launcher) launcher.hidden = true;
+    if (tools) { tools.hidden = false; tools.removeAttribute("hidden"); }
+
+    activeConnectionsSlotId = slotId;
+    const p = personInSlot(slotId);
+    const relChoiceWrap = $("#editorRelationshipChoiceWrap");
+
+    if (slot.fixedRel) {
+        if (relChoiceWrap) relChoiceWrap.hidden = true;
+    } else {
+        if (relChoiceWrap) relChoiceWrap.hidden = false;
+        // A saved person's actual choice always wins (they may have
+        // overridden this box to the other option); an empty box
+        // defaults to the box's own implied gender, if it has one —
+        // grandparent/great-grandparent boxes pre-select that way,
+        // sibling-type boxes have no implied gender and start blank.
+        let selectedChoice;
+        if (slot.tier === "parentsibling") selectedChoice = parentSiblingChoiceFor(p?.relationship);
+        else selectedChoice = p?.relationship || slot.impliedRel || "";
+        populateTierDropdown(slot.tier, selectedChoice);
+    }
+
+    $("#editorName").value = p?.name || "";
+    $("#editorBirthYear").value = p?.birthYear || "";
+    $("#editorPhoto").value = "";
+    $("#removeFamilyMember").hidden = !p;
+
+    updateConnectionContext();
+}
+
+// Clears whichever box was being edited back to the neutral "click a
+// box" state, WITHOUT closing the menu — the menu stays open across
+// as many boxes as you want to fill in, and only the Collapse button
+// (below) actually closes it. Used after Save, after Remove, and by
+// the Cancel button.
+function resetConnectionsEditorFields() {
+    activeConnectionsSlotId = null;
+    const relChoiceWrap = $("#editorRelationshipChoiceWrap");
+    if (relChoiceWrap) relChoiceWrap.hidden = true;
+    $("#editorName").value = "";
+    $("#editorBirthYear").value = "";
+    $("#editorPhoto").value = "";
+    $("#removeFamilyMember").hidden = true;
+    const box = $("#connectionContextStatement");
+    if (box) box.textContent = "Click a box on the tree to choose who you're adding.";
+}
+
+// The only thing that actually closes the editing menu.
+function collapseConnectionsMenu() {
+    resetConnectionsEditorFields();
+    const launcher = $("#connectionsMenuLauncher"), tools = $(".connection-tools");
+    if (tools) tools.hidden = true;
+    if (launcher) launcher.hidden = false;
+}
+
+function initConnections() {
+    $("#connectionsHomeBtn").onclick = () => show("launch");
+    $("#connectionsPrintBtn").onclick = () => window.print();
+    $("#connectionsClearBtn").onclick = clearIdentityCard;
+    $("#connectionsMenuLauncher").onclick = openConnectionsMenu;
+    $("#collapseConnectionsMenu").onclick = collapseConnectionsMenu;
+    $("#cancelFamilyEdit").onclick = resetConnectionsEditorFields;
+    $("#editorRelationshipChoice").onchange = updateConnectionContext;
+
+    $("#saveFamilyMember").onclick = async () => {
+        const slot = connectionsSlot(activeConnectionsSlotId);
+        if (!slot) return;
+
+        let relationship;
+        if (slot.fixedRel) {
+            relationship = slot.fixedRel;
+        } else {
+            const choice = $("#editorRelationshipChoice").value;
+            if (!choice) return alert("Choose a relationship.");
+            relationship = slot.tier === "parentsibling" ? (choice === "brother" ? "uncle" : "aunt") : choice;
+        }
+
+        const name = $("#editorName").value.trim();
+        const birthYear = $("#editorBirthYear").value.replace(/\D/g, "").slice(0, 4);
+        const file = $("#editorPhoto").files[0];
+
+        let p = personInSlot(slot.id);
+        if (!p) {
+            p = { id: crypto.randomUUID(), slotId: slot.id, name: "", relationship: "", photo: "", birthYear: "" };
+            state.people.push(p);
+        }
+        p.relationship = relationship;
+        p.name = name || p.name || "Unnamed";
+        p.birthYear = birthYear;
+        if (file) p.photo = await photoData(file);
+
+        await saveIdentityCard();
+        resetConnectionsEditorFields();
+        renderIdentityCard();
+        renderConnections();
+    };
+
+    $("#removeFamilyMember").onclick = async () => {
+        const p = personInSlot(activeConnectionsSlotId);
+        if (!p) return;
+        if (!confirm(`Remove ${p.name || "this person"} from My People?`)) return;
+        state.people = state.people.filter(x => x.id !== p.id);
+        await saveIdentityCard();
+        resetConnectionsEditorFields();
+        renderIdentityCard();
+        renderConnections();
+    };
+}
+
 (async () => {
     await loadIdentityCard();
     initIdentityCard();
+    initConnections();
     renderIdentityCard();
 })();
 
 // ==================================================
-//    END — DOOR 1 FAMILY IDENTITY CARD (Screen 1 only)
+//    END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–2)
 // ==================================================

@@ -3313,10 +3313,11 @@ LESSON 2 — EXTENDED FAMILY
                BEGIN — DOOR 1 FAMILY IDENTITY CARD
                Built piece by piece, directly into Door 1, and
                tested here after each piece before the next one
-               is added. Screen 1 of 5: My People (Launch screen).
-               The My Connections / What I Call Them / Someone
-               Special tabs below are already in the markup but
-               are inert — their screens don't exist yet.
+               is added. Screens 1–2 of 5 so far: My People (Launch
+               screen) and My Connections (family tree). The What
+               I Call Them / Someone Special tabs are already in
+               the markup but are inert — their screens don't
+               exist yet.
           ================================================== -->
           <div id="app">
             <section id="launch" class="screen active bg-launch">
@@ -3401,9 +3402,78 @@ LESSON 2 — EXTENDED FAMILY
               </div>
 
             </section>
+
+            <!-- ==================================================
+                 Screen 2 of 5: My Connections (family tree).
+                 Reuses state.people from Screen 1 — nobody is
+                 entered twice. Mother, Father, and "my" siblings
+                 added on My People show up here automatically;
+                 grandparents, great-grandparents, and mom's/dad's
+                 siblings are added by clicking their placeholder
+                 directly on the tree, since only the clicked
+                 position can say which side of the family they're on.
+            ================================================== -->
+            <section id="connections" class="screen bg-connections">
+
+              <header class="connections-title">
+                <h1>My Family Connections</h1>
+                <div>Мои семейные связи</div>
+              </header>
+
+              <div class="launch-utility-nav no-print">
+                <button id="connectionsHomeBtn" type="button">My People</button>
+                <button id="connectionsPrintBtn" type="button">Print This Page</button>
+                <button id="connectionsClearBtn" type="button">Clear My Family Data</button>
+              </div>
+
+              <button id="connectionsMenuLauncher" class="connections-menu-launcher no-print" type="button">Click here, a family placeholder<br>or a family member to begin</button>
+
+              <div class="connections-me" aria-label="Me">
+                <div class="connections-me-frame">
+                  <img id="connectionsOwnerPhoto" alt="Your Family Identity Card photo">
+                  <div id="connectionsOwnerPhotoFallback" class="owner-photo-fallback" aria-hidden="true">👤</div>
+                </div>
+                <strong id="connectionsOwnerName">ME</strong>
+              </div>
+
+              <div class="connection-tools glass no-print" hidden>
+                <div class="connection-context">
+                  <strong>You clicked on:</strong>
+                  <div id="connectionContextStatement" class="connection-context-statement" aria-live="polite"></div>
+                </div>
+                <div class="connection-menu-divider" aria-hidden="true"></div>
+                <div id="connectionEditorFields">
+                  <label id="editorRelationshipChoiceWrap">Relationship
+                    <select id="editorRelationshipChoice"></select>
+                  </label>
+                  <label>Name
+                    <input id="editorName" placeholder="Anna">
+                  </label>
+                  <label>Birth year <small>(optional)</small>
+                    <input id="editorBirthYear" inputmode="numeric" maxlength="4" placeholder="1985">
+                  </label>
+                  <label>Photo <small>(optional)</small>
+                    <input id="editorPhoto" type="file" accept="image/*">
+                  </label>
+                  <div class="connection-actions">
+                    <button id="saveFamilyMember" class="primary" type="button">Save Family Member</button>
+                    <button id="removeFamilyMember" class="danger" type="button" hidden>Remove</button>
+                    <button id="cancelFamilyEdit" type="button">Cancel</button>
+                  </div>
+                </div>
+                <p class="branch-limit-note">You and each of your parents can add up to four siblings to your family tree.</p>
+                <button id="collapseConnectionsMenu" class="collapse-connections-menu" type="button">Collapse this menu</button>
+              </div>
+
+              <svg id="familyLines" class="family-lines" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <div id="treeNodes" class="tree-nodes" aria-live="polite"></div>
+
+            </section>
+            <!-- END Screen 2: My Connections -->
+
           </div>
           <!-- ==================================================
-               END — DOOR 1 FAMILY IDENTITY CARD (Screen 1 only)
+               END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–2)
           ================================================== -->
 
         </div> <!-- END Door 1 content -->
