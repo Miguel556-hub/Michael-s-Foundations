@@ -2517,8 +2517,7 @@ LESSON 2 — EXTENDED FAMILY
             </div> <!-- END Door 1 identity text -->
 
             <img class="identity-card identity-card--badge" id="door1-identity-card"
-              src="../../Images/family-id-badge.svg"
-              alt="Russian Foundations Explore badge: Это моя семья — My family">
+              src="../../Images/family-id-badge.svg" alt="Russian Foundations Explore badge: Это моя семья — My family">
 
           </div> <!-- END Door 1 identity -->
 
@@ -3333,7 +3332,8 @@ LESSON 2 — EXTENDED FAMILY
                   <div id="ownerPhotoFallback" class="owner-photo-fallback" aria-hidden="true">👤</div>
                 </div>
                 <label class="change-picture-btn no-print" for="ownerPhotoInput">Change Picture</label>
-                <button id="ownerPhotoRemove" class="remove-picture-btn no-print" type="button" hidden>Remove This Photo</button>
+                <button id="ownerPhotoRemove" class="remove-picture-btn no-print" type="button" hidden>Remove This
+                  Photo</button>
                 <input id="ownerPhotoInput" class="visually-hidden" type="file" accept="image/*">
               </div>
 
@@ -3368,9 +3368,11 @@ LESSON 2 — EXTENDED FAMILY
                   <div class="workspace-russian">
                     <span>Russian relationship</span>
                     <strong id="addRussianPreview">Выберите отношение</strong>
-                    <button id="addRussianSpeak" class="speaker russian-listen-btn no-print listen" type="button" data-speak="" title="Listen">🔊 Listen</button>
+                    <button id="addRussianSpeak" class="speaker russian-listen-btn no-print listen" type="button"
+                      data-speak="" title="Listen">🔊 Listen</button>
                   </div>
-                  <button id="addPersonBtn" class="primary workspace-add no-print" type="button">＋ Add to My People</button>
+                  <button id="addPersonBtn" class="primary workspace-add no-print" type="button">＋ Add to My
+                    People</button>
                 </div>
 
                 <div class="people-panel workspace-people">
@@ -3390,7 +3392,8 @@ LESSON 2 — EXTENDED FAMILY
                   </label>
                   <label>MY NAME IN RUSSIAN
                     <input id="ownerNameRussian" placeholder="Майкл">
-                    <a class="translate-helper" href="https://translate.google.com/?sl=en&amp;tl=ru&amp;op=translate" target="_blank" rel="noopener noreferrer">Need help? Try Google Translate ↗</a>
+                    <a class="translate-helper" href="https://translate.google.com/?sl=en&amp;tl=ru&amp;op=translate"
+                      target="_blank" rel="noopener noreferrer">Need help? Try Google Translate ↗</a>
                   </label>
                   <label>BIRTH MONTH
                     <select id="ownerMonth"></select>
@@ -3426,7 +3429,8 @@ LESSON 2 — EXTENDED FAMILY
                 <button id="connectionsClearBtn" type="button">Clear My Family Data</button>
               </div>
 
-              <button id="connectionsMenuLauncher" class="connections-menu-launcher no-print" type="button">Click here, a family placeholder<br>or a family member to begin</button>
+              <button id="connectionsMenuLauncher" class="connections-menu-launcher no-print" type="button">Click here,
+                a family placeholder<br>or a family member to begin</button>
 
               <div class="connections-me" aria-label="Me">
                 <div class="connections-me-frame">
@@ -3461,19 +3465,245 @@ LESSON 2 — EXTENDED FAMILY
                     <button id="cancelFamilyEdit" type="button">Cancel</button>
                   </div>
                 </div>
-                <p class="branch-limit-note">You and each of your parents can add up to four siblings to your family tree.</p>
-                <button id="collapseConnectionsMenu" class="collapse-connections-menu" type="button">Collapse this menu</button>
+                <p class="branch-limit-note">You and each of your parents can add up to four siblings to your family
+                  tree.</p>
+                <button id="collapseConnectionsMenu" class="collapse-connections-menu" type="button">Collapse this
+                  menu</button>
               </div>
 
-              <svg id="familyLines" class="family-lines" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <svg id="familyLines" class="family-lines" viewBox="0 0 1000 650" preserveAspectRatio="none"
+                aria-hidden="true"></svg>
               <div id="treeNodes" class="tree-nodes" aria-live="polite"></div>
 
             </section>
             <!-- END Screen 2: My Connections -->
 
+            <!-- ==================================================
+                 Screen 3 of 5: What I Call Them.
+
+                 Rebuilt against CSS that already existed for this
+                 screen (the "WHAT I CALL THEM — SCREEN 3 REDESIGN"
+                 block, plus its later "final refinement" pass) —
+                 real prior design work that had no matching HTML/JS
+                 left anywhere in this file. That CSS is the source
+                 of truth for class/id names here. Two things it
+                 doesn't cover were decided fresh in this pass:
+
+                 1. A second, small roster lives only on THIS screen:
+                    relationships with no box on the family tree
+                    (girlfriend, boyfriend, fiancé(e), wife, husband,
+                    ex-wife, ex-husband), added here with "+ Add
+                    Someone Else." They never appear in My People or
+                    on the tree. Aunt/Uncle already have a tree box
+                    via My Connections, so they're deliberately left
+                    off this screen's add list.
+
+                 2. The old CSS's .call-nav implied a top-left button
+                    row, but Michael asked this screen's row match My
+                    People/My Connections' top-right placement exactly
+                    — so the shared .launch-utility-nav class is used
+                    here instead of .call-nav.
+
+                 Reuses state.people from My People / My Connections —
+                 nobody is entered a third time.
+            ================================================== -->
+            <section id="callthem" class="screen bg-callthem">
+
+              <div class="launch-utility-nav no-print">
+                <button id="callThemHomeBtn" type="button">My People</button>
+                <button id="callThemPrintBtn" type="button">Print This Page</button>
+                <button id="callThemClearBtn" type="button">Clear My Family Data</button>
+              </div>
+
+              <header class="call-header">
+                <h1>What I Call Them</h1>
+                <p>Tell us what you call them and discover natural Russian words to express it.</p>
+              </header>
+
+              <div class="call-panel call-parchment">
+
+                <div class="call-step call-step-person">
+                  <span class="call-step-number">1</span>
+                  <div class="call-step-body">
+                    <label>Choose a family member
+                      <select id="callPerson"></select>
+                    </label>
+
+                    <button id="callThemAddToggle" class="no-print" type="button">＋ Add Someone Else</button>
+                    <div id="callThemAddPanel" class="callthem-add-panel no-print" hidden>
+                      <label>Relationship
+                        <select id="callThemAddRelationship"></select>
+                      </label>
+                      <label>Name
+                        <input id="callThemAddName" placeholder="Anna">
+                      </label>
+                      <div class="call-confirm-row">
+                        <button id="callThemAddSave" class="call-confirm" type="button">Add This Person</button>
+                        <button id="callThemAddCancel" class="call-clear-choice" type="button">Cancel</button>
+                      </div>
+                    </div>
+
+                    <div id="callSelectedPerson" class="call-selected-person" hidden>
+                      <div class="call-portrait-wrap">
+                        <img id="callPersonPhoto" alt="">
+                        <span id="callPersonPhotoFallback" class="call-portrait-fallback" aria-hidden="true">👤</span>
+                      </div>
+                      <div class="call-selected-copy">
+                        <strong id="callPersonName"></strong>
+                        <span id="callPersonRel"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="call-divider" aria-hidden="true"></div>
+
+                <div class="call-step">
+                  <span class="call-step-number">2</span>
+                  <div class="call-step-body">
+                    <strong>Here are some natural Russian options:</strong>
+                    <div class="call-options-step">
+                      <div id="callOptionsRow" class="option-row"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="call-divider" aria-hidden="true"></div>
+
+                <div class="call-step call-save-step">
+                  <span class="call-step-number">3</span>
+                  <div class="call-step-body">
+                    <div class="call-confirm-row">
+                      <button id="callConfirmBtn" class="call-confirm no-print" type="button" disabled>Choose a Russian
+                        option</button>
+                      <button id="callClearChoice" class="call-clear-choice no-print" type="button">Clear</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <aside class="personal-list call-parchment">
+                <h2>Your Personal List</h2>
+                <p class="list-intro">Click a person to select or change a saved choice.</p>
+                <div class="personal-list-scroll">
+                  <div id="personalListEntries"></div>
+                  <p id="personalListEmpty" class="personal-empty" hidden>Your choices will appear here as you build
+                    your personal family vocabulary.</p>
+                </div>
+                <button id="personalRemoveBtn" class="personal-remove no-print" type="button" disabled>Remove
+                  Selected</button>
+              </aside>
+
+            </section>
+            <!-- END Screen 3: What I Call Them -->
+
+            <!-- ==================================================
+                 Screen 4 of 5: Someone Special.
+
+                 Markup recovered from the original standalone Family
+                 Identity Card and matched to the Screen 4 CSS that
+                 already lives in this project's stylesheet ("SCREEN 4 —
+                 SOMEONE SPECIAL"). Two decisions made fresh:
+
+                 1. The top button row uses the shared .launch-utility-nav
+                    class (same top-right spot and look as My People, My
+                    Connections and What I Call Them) instead of the old
+                    .special-utility-nav.
+
+                 2. "+ Add Someone Special" keeps its people on THIS screen
+                    only (state.specialExtras). They never appear in My
+                    People or on the family tree — same rule as the
+                    "+ Add Someone Else" list on What I Call Them.
+            ================================================== -->
+            <section id="special" class="screen bg-special">
+
+              <div class="launch-utility-nav no-print">
+                <button id="specialHomeBtn" type="button">My People</button>
+                <button id="specialPrintBtn" type="button">Print This Page</button>
+                <button id="specialClearBtn" type="button">Clear My Family Data</button>
+              </div>
+
+              <header class="special-header">
+                <h1>Someone Special</h1>
+                <p>Choose someone special and discover natural Russian ways to say what they mean to you.</p>
+              </header>
+
+              <div class="special-person-picker no-print">
+                <label for="specialPerson"><strong>Choose a Person</strong></label>
+                <select id="specialPerson"></select>
+              </div>
+
+              <div class="special-portrait-live">
+                <img id="specialPhoto" alt="">
+                <div id="specialPortraitFallback" class="special-portrait-fallback">👤</div>
+                <strong id="specialName">Someone Special</strong>
+                <span id="specialRelLabel"></span>
+                <label id="specialPhotoLabel" class="special-photo-control no-print" for="specialPhotoInput">Add
+                  Photo</label>
+                <input id="specialPhotoInput" class="visually-hidden" type="file" accept="image/*">
+              </div>
+
+              <div id="specialNewPanel" class="special-new-panel" hidden>
+                <h2>Add Someone Special</h2>
+                <label>Name<input id="specialNewName" placeholder="Maria"></label>
+                <label>Relationship<select id="specialNewRelationship"></select></label>
+                <label class="no-print">Photo <small>(optional)</small><input id="specialNewPhoto" type="file"
+                    accept="image/*"></label>
+                <div class="special-new-actions no-print">
+                  <button id="specialSaveNew" class="primary" type="button">Add This Person</button>
+                  <button id="specialCancelNew" type="button">Cancel</button>
+                </div>
+              </div>
+
+              <section class="special-expression-workspace">
+                <div class="special-expression-builder">
+                  <div id="specialIntroduction" class="special-introduction" hidden>
+                    <div class="special-intro-label">Meet <span id="specialIntroName">this person</span></div>
+                    <div class="special-intro-sentence">
+                      <button id="specialIntroRelationSpeak" class="special-intro-speak no-print" type="button"
+                        title="Listen">🔊</button>
+                      <div><strong id="specialIntroRelationRu"></strong><span id="specialIntroRelationEn"></span></div>
+                    </div>
+                    <div class="special-intro-sentence">
+                      <button id="specialIntroNameSpeak" class="special-intro-speak no-print" type="button"
+                        title="Listen">🔊</button>
+                      <div><strong id="specialIntroNameRu"></strong><span id="specialIntroNameEn"></span></div>
+                    </div>
+                  </div>
+                  <div class="special-builder-heading">
+                    <h2 id="specialBuilderQuestion">What would you like to say?</h2>
+                    <p>Choose one or two feelings. We'll show you a natural way to express that meaning in Russian.</p>
+                  </div>
+                  <div id="specialSentiments" class="special-sentiments"></div>
+                  <p id="specialSentimentHint" class="special-sentiment-hint">Click a feeling to add it.</p>
+
+                  <div id="specialExpressionPreview" class="special-expression-preview" hidden>
+                    <div class="special-preview-label">A natural way to say it:</div>
+                    <div id="specialRussian" class="special-russian"></div>
+                    <div id="specialEnglish" class="special-english"></div>
+                    <div class="special-preview-actions no-print">
+                      <button id="specialSpeak" type="button">🔊 Listen</button>
+                      <button id="specialSaveExpression" class="primary" type="button">Add to My Expressions</button>
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="special-saved-panel">
+                  <h2 id="specialSavedHeading">My Expressions</h2>
+                  <p class="special-saved-intro">Save up to four expressions for each person.</p>
+                  <div id="specialSavedExpressions" class="special-saved-expressions"></div>
+                  <button id="specialExploreMore" class="special-explore-more primary no-print" type="button">Explore
+                    More ❯</button>
+                </aside>
+              </section>
+
+            </section>
+            <!-- END Screen 4: Someone Special -->
+
           </div>
           <!-- ==================================================
-               END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–2)
+               END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–4)
           ================================================== -->
 
         </div> <!-- END Door 1 content -->

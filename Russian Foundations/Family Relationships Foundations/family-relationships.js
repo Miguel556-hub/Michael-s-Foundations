@@ -7181,7 +7181,7 @@ const monthLabels = {
     "November": "November — Ноябрь", "December": "December — Декабрь"
 };
 
-let state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [] };
+let state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [], callThemExtras: [], callThemChoices: {}, specialId: null, specialExtras: [], specialExpressions: {} };
 
 // Tracks which person (if any) is loaded into the form for editing.
 // null means the form is in "add a new person" mode.
@@ -7218,7 +7218,7 @@ async function loadIdentityCard() {
 async function clearIdentityCard() {
     if (!confirm("Clear all Family Identity Card information and photos stored by this component in this browser?")) return;
     indexedDB.deleteDatabase(DB);
-    state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [] };
+    state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [], callThemExtras: [], callThemChoices: {}, specialId: null, specialExtras: [], specialExpressions: {} };
     selectedPersonId = null;
     renderIdentityCard();
 }
@@ -7254,8 +7254,8 @@ function person(id) {
     return state.people.find(p => p.id === id);
 }
 
-// Screen switcher. What I Call Them / Someone Special are still
-// harmless no-ops until those screens are built in later pieces.
+// Screen switcher. Any screen that doesn't exist yet (like Explore
+// More) is a harmless no-op until it is built in a later piece.
 // My Connections renders fresh from state.people every time the
 // learner switches to it, so anything added or changed on My
 // People is always up to date there — one shared list of people,
@@ -7265,6 +7265,8 @@ function show(id) {
     if (!target) return;
     $$("#app .screen").forEach(s => s.classList.toggle("active", s.id === id));
     if (id === "connections") renderConnections();
+    if (id === "callthem") renderCallThem();
+    if (id === "special") renderSpecial();
     // Scroll the card itself back into view, not the whole page — the
     // card sits partway down Family Relationships, so jumping to the
     // very top of the page (window.scrollTo(0,0)) was landing above
@@ -7848,13 +7850,713 @@ function initConnections() {
     };
 }
 
+// ==================================================
+//    Screen 3: What I Call Them
+//
+//    Reuses state.people from My People / My Connections — nobody
+//    is entered a third time. A second, small roster lives only on
+//    THIS screen: relationships with no box on the family tree
+//    (girlfriend, boyfriend, fiancé(e), wife, husband, ex-wife,
+//    ex-husband). They're added here with "+ Add Someone Else" and
+//    stored in state.callThemExtras — never in state.people, never
+//    on the tree. Aunt/Uncle already have a tree box via My
+//    Connections, so they're deliberately left off this screen's
+//    add list to avoid a second, untracked aunt or uncle.
+//
+//    Each person — real or local-only — can have exactly one saved
+//    "what I call them" term at a time, in state.callThemChoices
+//    (personId -> {ru, note}). Picking a new term for someone who
+//    already has one simply replaces it.
+// ==================================================
+
+const CALL_TERM_DATA = {
+    mother: [{ ru: "мама", note: "Feels like: Mom / Mum — normal, warm everyday term" }, { ru: "мамочка", note: "Feels like: Mommy / dear Mom — very affectionate and tender" }, { ru: "мамуля", note: "Feels like: Mama / Momma — especially warm and affectionate" }, { ru: "мам", note: "Feels like: Mom! / Mum! — casual spoken address" }],
+    father: [{ ru: "папа", note: "Feels like: Dad / Papa — normal, warm everyday term" }, { ru: "папочка", note: "Feels like: Daddy / dear Dad — very affectionate and tender" }, { ru: "папуля", note: "Feels like: Papa / Dad — especially warm and affectionate" }, { ru: "пап", note: "Feels like: Dad! — casual spoken address" }],
+    grandmother: [{ ru: "бабушка", note: "Feels like: Grandma — normal, warm everyday term" }, { ru: "бабуля", note: "Feels like: Nana / Grandma — warm and affectionate" }, { ru: "бабуся", note: "Feels like: Nana / dear Grandma — especially tender" }, { ru: "бабуня", note: "Feels like: Granny / Nana — affectionate and homey" }],
+    grandfather: [{ ru: "дедушка", note: "Feels like: Grandpa — normal, warm everyday term" }, { ru: "дедуля", note: "Feels like: Grandpa / Papa — especially warm and affectionate" }, { ru: "дедуся", note: "Feels like: Granddad / dear Grandpa — tender and affectionate" }, { ru: "дед", note: "Feels like: Granddad / Gramps — short and familiar" }],
+    "great-grandmother": [{ ru: "прабабушка", note: "Feels like: Great-Grandma — identifies the actual relationship" }, { ru: "бабушка", note: "Feels like: Grandma — if that is what your family actually calls her" }, { ru: "бабуля", note: "Feels like: Nana / Grandma — warm and affectionate" }, { ru: "бабуся", note: "Feels like: Nana / dear Grandma — especially tender" }],
+    "great-grandfather": [{ ru: "прадедушка", note: "Feels like: Great-Grandpa — identifies the actual relationship" }, { ru: "прадед", note: "Feels like: Great-Granddad — shorter and more neutral" }, { ru: "дедушка", note: "Feels like: Grandpa — if that is what your family actually calls him" }, { ru: "дедуля", note: "Feels like: Grandpa / Papa — warm and affectionate" }],
+    sister: [{ ru: "сестра", note: "sister — the normal, everyday word" }, { ru: "сестрёнка", note: "little sis / sis — warm and affectionate" }, { ru: "сестричка", note: "dear sister / sis — affectionate and tender" }, { ru: "сеструха", note: "sis — very informal and slangy" }],
+    brother: [{ ru: "брат", note: "brother — the normal, everyday word" }, { ru: "братишка", note: "little bro / dear brother — warm and affectionate" }, { ru: "братец", note: "brother / bro — familiar and affectionate" }, { ru: "братан", note: "bro / dude — very informal and slangy" }],
+    aunt: [{ ru: "тётя", note: "Feels like: Aunt / Auntie — normal, warm everyday term" }, { ru: "тётушка", note: "Feels like: dear Aunt / Auntie — affectionate and somewhat traditional" }],
+    uncle: [{ ru: "дядя", note: "Feels like: Uncle — normal, warm everyday term" }, { ru: "дядюшка", note: "Feels like: dear Uncle — affectionate and somewhat traditional" }],
+    wife: [{ ru: "жена", note: "Wife" }], husband: [{ ru: "муж", note: "Husband" }],
+    girlfriend: [{ ru: "девушка", note: "Girlfriend" }], boyfriend: [{ ru: "парень", note: "Boyfriend" }],
+    "fiancée": [{ ru: "невеста", note: "Fiancée" }], "fiancé": [{ ru: "жених", note: "Fiancé" }],
+    "ex-wife": [{ ru: "бывшая жена", note: "Ex-wife" }], "ex-husband": [{ ru: "бывший муж", note: "Ex-husband" }]
+};
+
+// The only relationships this screen's own "+ Add Someone Else"
+// panel offers — every one has no box on the family tree, so
+// there's nowhere else for them to be added.
+const CALLTHEM_EXTRA_RELS = [
+    ["girlfriend", "Girlfriend"], ["boyfriend", "Boyfriend"],
+    ["fiancée", "Fiancée"], ["fiancé", "Fiancé"],
+    ["wife", "Wife"], ["husband", "Husband"],
+    ["ex-wife", "Ex-Wife"], ["ex-husband", "Ex-Husband"]
+];
+
+let activeCallThemPersonId = null;
+let activeCallThemChoice = null;
+// Which saved entry in Your Personal List is currently selected —
+// separate from activeCallThemPersonId above (that's who Steps 1-3
+// are working on; this is which saved row is picked for removal).
+let selectedPersonalEntryId = null;
+
+// state.people (My People / My Connections) plus state.callThemExtras
+// (this screen's own local-only roster) — one combined list of
+// everyone this screen can offer in its dropdown.
+function callThemAllPeople() {
+    return [...state.people, ...(state.callThemExtras || [])];
+}
+
+function callThemPerson(id) {
+    return callThemAllPeople().find(p => p.id === id) || null;
+}
+
+function renderCallThemPeopleSelect() {
+    const select = $("#callPerson");
+    select.innerHTML = '<option value="">Choose a family member…</option>';
+    callThemAllPeople().forEach(p => select.add(new Option(`${p.name || "Unnamed"} — ${ruRel(p.relationship)}`, p.id)));
+    select.value = activeCallThemPersonId || "";
+}
+
+function renderCallThemPersonCard() {
+    const box = $("#callSelectedPerson");
+    const p = callThemPerson(activeCallThemPersonId);
+    if (!p) { box.hidden = true; return; }
+    box.hidden = false;
+    const img = $("#callPersonPhoto"), fallback = $("#callPersonPhotoFallback");
+    img.style.display = p.photo ? "block" : "none";
+    img.src = p.photo || "";
+    fallback.style.display = p.photo ? "none" : "flex";
+    $("#callPersonName").textContent = p.name || "Unnamed";
+    $("#callPersonRel").textContent = `Your ${p.relationship} — ${ruRel(p.relationship)}`;
+}
+
+function updateCallThemConfirmBtn() {
+    const btn = $("#callConfirmBtn");
+    const p = callThemPerson(activeCallThemPersonId);
+    if (p && activeCallThemChoice) {
+        btn.disabled = false;
+        btn.textContent = `I'll call ${p.name || "them"} ${activeCallThemChoice.ru}`;
+    } else {
+        btn.disabled = true;
+        btn.textContent = "Choose a Russian option";
+    }
+}
+
+function selectCallThemTerm(term, btnEl) {
+    activeCallThemChoice = term;
+    $$("#callOptionsRow button").forEach(b => b.classList.toggle("selected", b === btnEl));
+    updateCallThemConfirmBtn();
+}
+
+function renderCallThemOptions() {
+    const wrap = $("#callOptionsRow");
+    wrap.innerHTML = "";
+    activeCallThemChoice = null;
+    const p = callThemPerson(activeCallThemPersonId);
+    if (!p) { updateCallThemConfirmBtn(); return; }
+
+    const terms = CALL_TERM_DATA[p.relationship] || [];
+    const saved = state.callThemChoices[p.id];
+
+    terms.forEach(term => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.innerHTML = `<span class="call-ru">${term.ru}</span><span class="call-note">${term.note}</span><span class="call-speaker" role="button" tabindex="0" title="Listen">🔊</span>`;
+        btn.onclick = () => selectCallThemTerm(term, btn);
+        const speaker = btn.querySelector(".call-speaker");
+        speaker.onclick = e => { e.stopPropagation(); speakRussianWord(term.ru); };
+        speaker.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); speakRussianWord(term.ru); } };
+        if (saved && saved.ru === term.ru) {
+            btn.classList.add("selected");
+            activeCallThemChoice = term;
+        }
+        wrap.appendChild(btn);
+    });
+
+    updateCallThemConfirmBtn();
+}
+
+function renderCallThemPersonalList() {
+    const list = $("#personalListEntries"), empty = $("#personalListEmpty");
+    const entries = Object.entries(state.callThemChoices || {})
+        .map(([id, term]) => ({ id, term, person: callThemPerson(id) }))
+        .filter(e => e.person);
+
+    if (!entries.some(e => e.id === selectedPersonalEntryId)) selectedPersonalEntryId = null;
+
+    empty.hidden = entries.length > 0;
+    list.innerHTML = "";
+
+    entries.forEach(({ id, term, person }) => {
+        const row = document.createElement("div");
+        row.className = "personal-call-entry" + (id === selectedPersonalEntryId ? " selected" : "");
+        row.tabIndex = 0;
+        row.setAttribute("role", "button");
+        row.innerHTML = `${person.photo ? `<img src="${person.photo}" alt="">` : `<span class="mini-fallback">👤</span>`}<div><strong>${person.name || "Unnamed"}</strong><small>${term.ru} — ${ruRel(person.relationship)}</small></div><button type="button" class="list-speaker" title="Listen">🔊</button>`;
+        row.querySelector(".list-speaker").onclick = e => { e.stopPropagation(); speakRussianWord(term.ru); };
+        const select = () => { selectedPersonalEntryId = id; renderCallThemPersonalList(); };
+        row.onclick = select;
+        row.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); } };
+        list.appendChild(row);
+    });
+
+    $("#personalRemoveBtn").disabled = !selectedPersonalEntryId;
+}
+
+function renderCallThem() {
+    if (!state.callThemExtras) state.callThemExtras = [];
+    if (!state.callThemChoices) state.callThemChoices = {};
+    renderCallThemPeopleSelect();
+    renderCallThemPersonCard();
+    renderCallThemOptions();
+    renderCallThemPersonalList();
+}
+
+function initCallThem() {
+    $("#callThemHomeBtn").onclick = () => show("launch");
+    $("#callThemPrintBtn").onclick = () => window.print();
+    $("#callThemClearBtn").onclick = clearIdentityCard;
+
+    fillSelect($("#callThemAddRelationship"), CALLTHEM_EXTRA_RELS, "Choose a relationship…");
+
+    $("#callPerson").onchange = e => {
+        activeCallThemPersonId = e.target.value || null;
+        renderCallThemPersonCard();
+        renderCallThemOptions();
+    };
+
+    $("#callThemAddToggle").onclick = () => {
+        $("#callThemAddPanel").hidden = false;
+        $("#callThemAddName").value = "";
+        $("#callThemAddRelationship").value = "";
+    };
+    $("#callThemAddCancel").onclick = () => { $("#callThemAddPanel").hidden = true; };
+
+    $("#callThemAddSave").onclick = async () => {
+        const relationship = $("#callThemAddRelationship").value;
+        if (!relationship) return alert("Choose a relationship.");
+        const name = $("#callThemAddName").value.trim();
+        const p = { id: crypto.randomUUID(), name: name || "Unnamed", relationship, photo: "" };
+        state.callThemExtras.push(p);
+        await saveIdentityCard();
+        $("#callThemAddPanel").hidden = true;
+        activeCallThemPersonId = p.id;
+        renderCallThemPeopleSelect();
+        renderCallThemPersonCard();
+        renderCallThemOptions();
+    };
+
+    // Clears the in-progress (unsaved) pick — not a saved choice, just
+    // whatever is currently highlighted in Step 2 before Confirm is
+    // pressed. Lets the learner back out of a pick without saving it.
+    $("#callClearChoice").onclick = () => {
+        activeCallThemChoice = null;
+        $$("#callOptionsRow button").forEach(b => b.classList.remove("selected"));
+        updateCallThemConfirmBtn();
+    };
+
+    $("#callConfirmBtn").onclick = async () => {
+        const p = callThemPerson(activeCallThemPersonId);
+        if (!p || !activeCallThemChoice) return;
+        state.callThemChoices[p.id] = { ru: activeCallThemChoice.ru, note: activeCallThemChoice.note };
+        await saveIdentityCard();
+        renderCallThemPersonalList();
+    };
+
+    $("#personalRemoveBtn").onclick = async () => {
+        if (!selectedPersonalEntryId) return;
+        const removedId = selectedPersonalEntryId;
+        delete state.callThemChoices[removedId];
+        selectedPersonalEntryId = null;
+        await saveIdentityCard();
+        renderCallThemPersonalList();
+        if (activeCallThemPersonId === removedId) renderCallThemOptions();
+    };
+}
+
+// ==================================================
+//    SCREEN 4 — SOMEONE SPECIAL
+//
+//  The learner picks one person, then picks one or two
+//  feelings (from eight). The Russian they receive comes
+//  from the curated bank below — the learner controls what
+//  it MEANS, the bank controls the QUALITY of the Russian.
+//  Nothing here ever glues together random Russian words.
+//
+//  Reuses state.people (nobody is entered again). People
+//  added with "+ Add Someone Special" live only in
+//  state.specialExtras — never on My People or the tree.
+//  Saved sentences live in state.specialExpressions,
+//  keyed by person id (up to four each).
+// ==================================================
+
+/* =========================================================
+   SOMEONE SPECIAL — CURATED EXPRESSION BANK
+   The learner chooses meaning. This bank supplies validated Russian.
+   ========================================================= */
+const SPECIAL_SENTIMENTS = [
+    { key: "kind", label: "Kind / Caring" },
+    { key: "funny", label: "Funny / Makes Me Laugh" },
+    { key: "smart", label: "Smart" },
+    { key: "beautiful", label: "Beautiful / Handsome" },
+    { key: "happy", label: "Makes Me Happy" },
+    { key: "important", label: "Important to Me" },
+    { key: "admire", label: "I Admire Them" },
+    { key: "love", label: "I Love Them" }
+];
+const SPECIAL_BANK = {
+    kind: {
+        female: [
+            { ru: "Она добрая и заботливая.", en: "She is kind and caring.", hi: "добрая и заботливая" },
+            { ru: "Она очень отзывчивая.", en: "She is very caring and helpful.", hi: "очень отзывчивая" },
+            { ru: "Она всегда готова помочь.", en: "She is always ready to help.", hi: "всегда готова помочь" },
+            { ru: "У неё золотое сердце.", en: "She has a heart of gold.", hi: "золотое сердце" }
+        ],
+        male: [
+            { ru: "Он добрый и заботливый.", en: "He is kind and caring.", hi: "добрый и заботливый" },
+            { ru: "Он очень отзывчивый.", en: "He is very caring and helpful.", hi: "очень отзывчивый" },
+            { ru: "Он всегда готов помочь.", en: "He is always ready to help.", hi: "всегда готов помочь" },
+            { ru: "У него золотое сердце.", en: "He has a heart of gold.", hi: "золотое сердце" }
+        ]
+    },
+    funny: {
+        female: [
+            { ru: "Она весёлая.", en: "She is cheerful and fun.", hi: "весёлая" },
+            { ru: "Она умеет меня рассмешить.", en: "She knows how to make me laugh.", hi: "умеет меня рассмешить" },
+            { ru: "С ней всегда весело.", en: "It's always fun with her.", hi: "всегда весело" },
+            { ru: "У неё отличное чувство юмора.", en: "She has a great sense of humor.", hi: "отличное чувство юмора" }
+        ],
+        male: [
+            { ru: "Он весёлый.", en: "He is cheerful and fun.", hi: "весёлый" },
+            { ru: "Он умеет меня рассмешить.", en: "He knows how to make me laugh.", hi: "умеет меня рассмешить" },
+            { ru: "С ним всегда весело.", en: "It's always fun with him.", hi: "всегда весело" },
+            { ru: "У него отличное чувство юмора.", en: "He has a great sense of humor.", hi: "отличное чувство юмора" }
+        ]
+    },
+    smart: {
+        female: [
+            { ru: "Она умная.", en: "She is smart.", hi: "умная" },
+            { ru: "Она очень мудрая.", en: "She is very wise.", hi: "очень мудрая" },
+            { ru: "Она невероятно умна.", en: "She is incredibly smart.", hi: "невероятно умна" },
+            { ru: "У неё острый ум.", en: "She has a sharp mind.", hi: "острый ум" }
+        ],
+        male: [
+            { ru: "Он умный.", en: "He is smart.", hi: "умный" },
+            { ru: "Он очень мудрый.", en: "He is very wise.", hi: "очень мудрый" },
+            { ru: "Он невероятно умён.", en: "He is incredibly smart.", hi: "невероятно умён" },
+            { ru: "У него острый ум.", en: "He has a sharp mind.", hi: "острый ум" }
+        ]
+    },
+    beautiful: {
+        female: [
+            { ru: "Она красивая.", en: "She is beautiful.", hi: "красивая" },
+            { ru: "Она очень красивая.", en: "She is very beautiful.", hi: "очень красивая" },
+            { ru: "Она выглядит великолепно.", en: "She looks gorgeous.", hi: "выглядит великолепно" },
+            { ru: "Она невероятно красива.", en: "She is incredibly beautiful.", hi: "невероятно красива" }
+        ],
+        male: [
+            { ru: "Он красивый.", en: "He is handsome.", hi: "красивый" },
+            { ru: "Он очень симпатичный.", en: "He is very good-looking.", hi: "очень симпатичный" },
+            { ru: "Он выглядит отлично.", en: "He looks great.", hi: "выглядит отлично" },
+            { ru: "Он очень привлекательный.", en: "He is very attractive.", hi: "очень привлекательный" }
+        ]
+    },
+    happy: {
+        female: [
+            { ru: "Она приносит мне радость.", en: "She brings me joy.", hi: "приносит мне радость" },
+            { ru: "Она дарит мне счастье.", en: "She brings me happiness.", hi: "дарит мне счастье" },
+            { ru: "Она всегда заставляет меня улыбаться.", en: "She always makes me smile.", hi: "заставляет меня улыбаться" },
+            { ru: "Рядом с ней мне хорошо.", en: "I feel good and happy when I'm with her.", hi: "мне хорошо" }
+        ],
+        male: [
+            { ru: "Он приносит мне радость.", en: "He brings me joy.", hi: "приносит мне радость" },
+            { ru: "Он дарит мне счастье.", en: "He brings me happiness.", hi: "дарит мне счастье" },
+            { ru: "Он всегда заставляет меня улыбаться.", en: "He always makes me smile.", hi: "заставляет меня улыбаться" },
+            { ru: "Рядом с ним мне хорошо.", en: "I feel good and happy when I'm with him.", hi: "мне хорошо" }
+        ]
+    },
+    important: {
+        female: [
+            { ru: "Она важна для меня.", en: "She is important to me.", hi: "важна для меня" },
+            { ru: "Она очень много значит для меня.", en: "She means a lot to me.", hi: "очень много значит для меня" },
+            { ru: "Она — важная часть моей жизни.", en: "She is an important part of my life.", hi: "важная часть моей жизни" },
+            { ru: "Она мне очень дорога.", en: "She is very dear to me.", hi: "очень дорога" }
+        ],
+        male: [
+            { ru: "Он важен для меня.", en: "He is important to me.", hi: "важен для меня" },
+            { ru: "Он очень много значит для меня.", en: "He means a lot to me.", hi: "очень много значит для меня" },
+            { ru: "Он — важная часть моей жизни.", en: "He is an important part of my life.", hi: "важная часть моей жизни" },
+            { ru: "Он мне очень дорог.", en: "He is very dear to me.", hi: "очень дорог" }
+        ]
+    },
+    admire: {
+        female: [
+            { ru: "Я восхищаюсь ею.", en: "I admire her.", hi: "восхищаюсь ею" },
+            { ru: "Она меня вдохновляет.", en: "She inspires me.", hi: "меня вдохновляет" },
+            { ru: "Я очень её уважаю.", en: "I respect her very much.", hi: "очень её уважаю" },
+            { ru: "Я горжусь ею.", en: "I am proud of her.", hi: "горжусь ею" }
+        ],
+        male: [
+            { ru: "Я восхищаюсь им.", en: "I admire him.", hi: "восхищаюсь им" },
+            { ru: "Он меня вдохновляет.", en: "He inspires me.", hi: "меня вдохновляет" },
+            { ru: "Я очень его уважаю.", en: "I respect him very much.", hi: "очень его уважаю" },
+            { ru: "Я горжусь им.", en: "I am proud of him.", hi: "горжусь им" }
+        ]
+    },
+    love: {
+        female: [
+            { ru: "Я люблю её.", en: "I love her.", hi: "люблю её" },
+            { ru: "Я очень её люблю.", en: "I love her very much.", hi: "очень её люблю" },
+            { ru: "Я всем сердцем люблю её.", en: "I love her with all my heart.", hi: "всем сердцем люблю её" },
+            { ru: "Я её обожаю.", en: "I adore her.", hi: "её обожаю" }
+        ],
+        male: [
+            { ru: "Я люблю его.", en: "I love him.", hi: "люблю его" },
+            { ru: "Я очень его люблю.", en: "I love him very much.", hi: "очень его люблю" },
+            { ru: "Я всем сердцем люблю его.", en: "I love him with all my heart.", hi: "всем сердцем люблю его" },
+            { ru: "Я его обожаю.", en: "I adore him.", hi: "его обожаю" }
+        ]
+    }
+};
+
+/* Curated two-sentiment combinations. The engine never glues arbitrary Russian
+   sentences together; every pair below is deliberately written. */
+const SPECIAL_COMBINATIONS = {
+    "kind|funny": { female: { ru: "Она <mark>добрая и заботливая</mark>, и с ней <mark>всегда весело</mark>.", plain: "Она добрая и заботливая, и с ней всегда весело.", en: "She is kind and caring, and it's always fun with her." }, male: { ru: "Он <mark>добрый и заботливый</mark>, и с ним <mark>всегда весело</mark>.", plain: "Он добрый и заботливый, и с ним всегда весело.", en: "He is kind and caring, and it's always fun with him." } },
+    "kind|smart": { female: { ru: "Она <mark>добрая</mark> и <mark>умная</mark>.", plain: "Она добрая и умная.", en: "She is kind and smart." }, male: { ru: "Он <mark>добрый</mark> и <mark>умный</mark>.", plain: "Он добрый и умный.", en: "He is kind and smart." } },
+    "kind|beautiful": { female: { ru: "Она <mark>добрая</mark> и <mark>красивая</mark>.", plain: "Она добрая и красивая.", en: "She is kind and beautiful." }, male: { ru: "Он <mark>добрый</mark> и <mark>красивый</mark>.", plain: "Он добрый и красивый.", en: "He is kind and handsome." } },
+    "kind|happy": { female: { ru: "Она <mark>очень заботливая</mark>, и рядом с ней <mark>мне хорошо</mark>.", plain: "Она очень заботливая, и рядом с ней мне хорошо.", en: "She is very caring, and I feel happy when I'm with her." }, male: { ru: "Он <mark>очень заботливый</mark>, и рядом с ним <mark>мне хорошо</mark>.", plain: "Он очень заботливый, и рядом с ним мне хорошо.", en: "He is very caring, and I feel happy when I'm with him." } },
+    "kind|important": { female: { ru: "У неё <mark>золотое сердце</mark>, и она <mark>очень много значит для меня</mark>.", plain: "У неё золотое сердце, и она очень много значит для меня.", en: "She has a heart of gold, and she means a lot to me." }, male: { ru: "У него <mark>золотое сердце</mark>, и он <mark>очень много значит для меня</mark>.", plain: "У него золотое сердце, и он очень много значит для меня.", en: "He has a heart of gold, and he means a lot to me." } },
+    "kind|admire": { female: { ru: "Она <mark>всегда готова помочь</mark>, и я <mark>очень её уважаю</mark>.", plain: "Она всегда готова помочь, и я очень её уважаю.", en: "She is always ready to help, and I respect her very much." }, male: { ru: "Он <mark>всегда готов помочь</mark>, и я <mark>очень его уважаю</mark>.", plain: "Он всегда готов помочь, и я очень его уважаю.", en: "He is always ready to help, and I respect him very much." } },
+    "kind|love": { female: { ru: "У неё <mark>золотое сердце</mark>, и я <mark>очень её люблю</mark>.", plain: "У неё золотое сердце, и я очень её люблю.", en: "She has a heart of gold, and I love her very much." }, male: { ru: "У него <mark>золотое сердце</mark>, и я <mark>очень его люблю</mark>.", plain: "У него золотое сердце, и я очень его люблю.", en: "He has a heart of gold, and I love him very much." } },
+    "funny|smart": { female: { ru: "Она <mark>умная</mark> и умеет <mark>меня рассмешить</mark>.", plain: "Она умная и умеет меня рассмешить.", en: "She is smart and knows how to make me laugh." }, male: { ru: "Он <mark>умный</mark> и умеет <mark>меня рассмешить</mark>.", plain: "Он умный и умеет меня рассмешить.", en: "He is smart and knows how to make me laugh." } },
+    "funny|beautiful": { female: { ru: "Она <mark>красивая</mark>, и у неё <mark>отличное чувство юмора</mark>.", plain: "Она красивая, и у неё отличное чувство юмора.", en: "She is beautiful and has a great sense of humor." }, male: { ru: "Он <mark>красивый</mark>, и у него <mark>отличное чувство юмора</mark>.", plain: "Он красивый, и у него отличное чувство юмора.", en: "He is handsome and has a great sense of humor." } },
+    "funny|happy": { female: { ru: "Она <mark>умеет меня рассмешить</mark> и всегда <mark>заставляет меня улыбаться</mark>.", plain: "Она умеет меня рассмешить и всегда заставляет меня улыбаться.", en: "She knows how to make me laugh and always makes me smile." }, male: { ru: "Он <mark>умеет меня рассмешить</mark> и всегда <mark>заставляет меня улыбаться</mark>.", plain: "Он умеет меня рассмешить и всегда заставляет меня улыбаться.", en: "He knows how to make me laugh and always makes me smile." } },
+    "funny|important": { female: { ru: "С ней <mark>всегда весело</mark>, и она <mark>очень много значит для меня</mark>.", plain: "С ней всегда весело, и она очень много значит для меня.", en: "It's always fun with her, and she means a lot to me." }, male: { ru: "С ним <mark>всегда весело</mark>, и он <mark>очень много значит для меня</mark>.", plain: "С ним всегда весело, и он очень много значит для меня.", en: "It's always fun with him, and he means a lot to me." } },
+    "funny|admire": { female: { ru: "У неё <mark>отличное чувство юмора</mark>, и она <mark>меня вдохновляет</mark>.", plain: "У неё отличное чувство юмора, и она меня вдохновляет.", en: "She has a great sense of humor, and she inspires me." }, male: { ru: "У него <mark>отличное чувство юмора</mark>, и он <mark>меня вдохновляет</mark>.", plain: "У него отличное чувство юмора, и он меня вдохновляет.", en: "He has a great sense of humor, and he inspires me." } },
+    "funny|love": { female: { ru: "С ней <mark>всегда весело</mark>, и я <mark>очень её люблю</mark>.", plain: "С ней всегда весело, и я очень её люблю.", en: "It's always fun with her, and I love her very much." }, male: { ru: "С ним <mark>всегда весело</mark>, и я <mark>очень его люблю</mark>.", plain: "С ним всегда весело, и я очень его люблю.", en: "It's always fun with him, and I love him very much." } },
+    "smart|beautiful": { female: { ru: "Она <mark>умная</mark> и <mark>красивая</mark>.", plain: "Она умная и красивая.", en: "She is smart and beautiful." }, male: { ru: "Он <mark>умный</mark> и <mark>красивый</mark>.", plain: "Он умный и красивый.", en: "He is smart and handsome." } },
+    "smart|happy": { female: { ru: "Она <mark>очень умная</mark> и <mark>приносит мне радость</mark>.", plain: "Она очень умная и приносит мне радость.", en: "She is very smart and brings me joy." }, male: { ru: "Он <mark>очень умный</mark> и <mark>приносит мне радость</mark>.", plain: "Он очень умный и приносит мне радость.", en: "He is very smart and brings me joy." } },
+    "smart|important": { female: { ru: "Я ценю её <mark>острый ум</mark>, и она <mark>очень много значит для меня</mark>.", plain: "Я ценю её острый ум, и она очень много значит для меня.", en: "I value her sharp mind, and she means a lot to me." }, male: { ru: "Я ценю его <mark>острый ум</mark>, и он <mark>очень много значит для меня</mark>.", plain: "Я ценю его острый ум, и он очень много значит для меня.", en: "I value his sharp mind, and he means a lot to me." } },
+    "smart|admire": { female: { ru: "Она <mark>невероятно умна</mark> и <mark>меня вдохновляет</mark>.", plain: "Она невероятно умна и меня вдохновляет.", en: "She is incredibly smart and inspires me." }, male: { ru: "Он <mark>невероятно умён</mark> и <mark>меня вдохновляет</mark>.", plain: "Он невероятно умён и меня вдохновляет.", en: "He is incredibly smart and inspires me." } },
+    "smart|love": { female: { ru: "Она <mark>невероятно умна</mark>, и я <mark>очень её люблю</mark>.", plain: "Она невероятно умна, и я очень её люблю.", en: "She is incredibly smart, and I love her very much." }, male: { ru: "Он <mark>невероятно умён</mark>, и я <mark>очень его люблю</mark>.", plain: "Он невероятно умён, и я очень его люблю.", en: "He is incredibly smart, and I love him very much." } },
+    "beautiful|happy": { female: { ru: "Она <mark>красивая</mark> и <mark>приносит мне радость</mark>.", plain: "Она красивая и приносит мне радость.", en: "She is beautiful and brings me joy." }, male: { ru: "Он <mark>красивый</mark> и <mark>приносит мне радость</mark>.", plain: "Он красивый и приносит мне радость.", en: "He is handsome and brings me joy." } },
+    "beautiful|important": { female: { ru: "Она <mark>невероятно красива</mark> и <mark>очень много значит для меня</mark>.", plain: "Она невероятно красива и очень много значит для меня.", en: "She is incredibly beautiful and means a lot to me." }, male: { ru: "Он <mark>очень привлекательный</mark> и <mark>очень много значит для меня</mark>.", plain: "Он очень привлекательный и очень много значит для меня.", en: "He is very attractive and means a lot to me." } },
+    "beautiful|admire": { female: { ru: "Она <mark>невероятно красива</mark>, и я <mark>восхищаюсь ею</mark>.", plain: "Она невероятно красива, и я восхищаюсь ею.", en: "She is incredibly beautiful, and I admire her." }, male: { ru: "Он <mark>очень привлекательный</mark>, и я <mark>восхищаюсь им</mark>.", plain: "Он очень привлекательный, и я восхищаюсь им.", en: "He is very attractive, and I admire him." } },
+    "beautiful|love": { female: { ru: "Она <mark>невероятно красива</mark>, и я <mark>всем сердцем люблю её</mark>.", plain: "Она невероятно красива, и я всем сердцем люблю её.", en: "She is incredibly beautiful, and I love her with all my heart." }, male: { ru: "Он <mark>очень привлекательный</mark>, и я <mark>всем сердцем люблю его</mark>.", plain: "Он очень привлекательный, и я всем сердцем люблю его.", en: "He is very attractive, and I love him with all my heart." } },
+    "happy|important": { female: { ru: "Она <mark>дарит мне счастье</mark> и <mark>очень много значит для меня</mark>.", plain: "Она дарит мне счастье и очень много значит для меня.", en: "She brings me happiness and means a lot to me." }, male: { ru: "Он <mark>дарит мне счастье</mark> и <mark>очень много значит для меня</mark>.", plain: "Он дарит мне счастье и очень много значит для меня.", en: "He brings me happiness and means a lot to me." } },
+    "happy|admire": { female: { ru: "Она <mark>приносит мне радость</mark> и <mark>меня вдохновляет</mark>.", plain: "Она приносит мне радость и меня вдохновляет.", en: "She brings me joy and inspires me." }, male: { ru: "Он <mark>приносит мне радость</mark> и <mark>меня вдохновляет</mark>.", plain: "Он приносит мне радость и меня вдохновляет.", en: "He brings me joy and inspires me." } },
+    "happy|love": { female: { ru: "Она <mark>дарит мне счастье</mark>, и я <mark>очень её люблю</mark>.", plain: "Она дарит мне счастье, и я очень её люблю.", en: "She brings me happiness, and I love her very much." }, male: { ru: "Он <mark>дарит мне счастье</mark>, и я <mark>очень его люблю</mark>.", plain: "Он дарит мне счастье, и я очень его люблю.", en: "He brings me happiness, and I love him very much." } },
+    "important|admire": { female: { ru: "Она <mark>очень много значит для меня</mark>, и я <mark>восхищаюсь ею</mark>.", plain: "Она очень много значит для меня, и я восхищаюсь ею.", en: "She means a lot to me, and I admire her." }, male: { ru: "Он <mark>очень много значит для меня</mark>, и я <mark>восхищаюсь им</mark>.", plain: "Он очень много значит для меня, и я восхищаюсь им.", en: "He means a lot to me, and I admire him." } },
+    "important|love": { female: { ru: "Она <mark>мне очень дорога</mark>, и я <mark>всем сердцем люблю её</mark>.", plain: "Она мне очень дорога, и я всем сердцем люблю её.", en: "She is very dear to me, and I love her with all my heart." }, male: { ru: "Он <mark>мне очень дорог</mark>, и я <mark>всем сердцем люблю его</mark>.", plain: "Он мне очень дорог, и я всем сердцем люблю его.", en: "He is very dear to me, and I love him with all my heart." } },
+    "admire|love": { female: { ru: "Я <mark>восхищаюсь ею</mark> и <mark>очень её люблю</mark>.", plain: "Я восхищаюсь ею и очень её люблю.", en: "I admire her and love her very much." }, male: { ru: "Я <mark>восхищаюсь им</mark> и <mark>очень его люблю</mark>.", plain: "Я восхищаюсь им и очень его люблю.", en: "I admire him and love him very much." } }
+};
+/* =========================================================
+   END SOMEONE SPECIAL — CURATED EXPRESSION BANK
+   ========================================================= */
+
+const SPECIAL_FEMALE_RELS = new Set(["mother", "sister", "grandmother", "great-grandmother", "aunt", "wife", "girlfriend", "fiancée", "ex-wife"]);
+const SPECIAL_MALE_RELS = new Set(["father", "brother", "grandfather", "great-grandfather", "uncle", "husband", "boyfriend", "fiancé", "ex-husband"]);
+
+// What "+ Add Someone Special" offers. Friends need a gender picked here
+// because "friend" alone doesn't say whether to use Она or Он.
+const SPECIAL_NEW_RELS = [
+    ["girlfriend", "Girlfriend — девушка"], ["boyfriend", "Boyfriend — парень"],
+    ["fiancée", "Fiancée — невеста"], ["fiancé", "Fiancé — жених"],
+    ["wife", "Wife — жена"], ["husband", "Husband — муж"],
+    ["friend-female", "Friend (female) — подруга"], ["friend-male", "Friend (male) — друг"]
+];
+
+let specialSelections = [];   // the one or two feeling keys currently picked
+let specialVariantIndex = 0;  // which "Try Another Way" wording is showing
+let specialEditingIndex = null; // index of a saved sentence being modified
+
+function englishRelationship(rel) {
+    return String(rel || "").replaceAll("-", " ");
+}
+
+function specialAllPeople() {
+    return [...state.people, ...(state.specialExtras || [])];
+}
+
+function special() {
+    const all = specialAllPeople();
+    return all.find(p => p.id === state.specialId) || all[0] || null;
+}
+
+function specialGender(p) {
+    if (!p) return "female";
+    if (p.specialGender) return p.specialGender;
+    if (SPECIAL_FEMALE_RELS.has(p.relationship)) return "female";
+    if (SPECIAL_MALE_RELS.has(p.relationship)) return "male";
+    return "female";
+}
+
+// Two feelings are always looked up in the same order, so "kind|funny"
+// and "funny|kind" find the same hand-written sentence.
+function specialPairKey(keys) {
+    return [...keys]
+        .sort((a, b) => SPECIAL_SENTIMENTS.findIndex(x => x.key === a) - SPECIAL_SENTIMENTS.findIndex(x => x.key === b))
+        .join("|");
+}
+
+function specialIdentityRelationship(p) {
+    if (!p) return { ru: "", en: "" };
+    const gender = specialGender(p);
+    const relMap = {
+        mother: ["моя мама", "my mother"], father: ["мой папа", "my father"],
+        sister: ["моя сестра", "my sister"], brother: ["мой брат", "my brother"],
+        grandmother: ["моя бабушка", "my grandmother"], grandfather: ["мой дедушка", "my grandfather"],
+        "great-grandmother": ["моя прабабушка", "my great-grandmother"], "great-grandfather": ["мой прадедушка", "my great-grandfather"],
+        aunt: ["моя тётя", "my aunt"], uncle: ["мой дядя", "my uncle"],
+        wife: ["моя жена", "my wife"], husband: ["мой муж", "my husband"],
+        girlfriend: ["моя девушка", "my girlfriend"], boyfriend: ["мой парень", "my boyfriend"],
+        "fiancée": ["моя невеста", "my fiancée"], "fiancé": ["мой жених", "my fiancé"],
+        "ex-wife": ["моя бывшая жена", "my ex-wife"], "ex-husband": ["мой бывший муж", "my ex-husband"]
+    };
+    if (p.relationship === "friend") {
+        return gender === "female"
+            ? { ru: "Это моя подруга.", en: "This is my friend." }
+            : { ru: "Это мой друг.", en: "This is my friend." };
+    }
+    const pair = relMap[p.relationship];
+    if (pair) return { ru: `Это ${pair[0]}.`, en: `This is ${pair[1]}.` };
+    return { ru: `Это ${ruRel(p.relationship)}.`, en: `This is my ${englishRelationship(p.relationship)}.` };
+}
+
+function renderSpecialIntroduction(p) {
+    const intro = $("#specialIntroduction"), question = $("#specialBuilderQuestion");
+    if (!p) { intro.hidden = true; question.textContent = "What would you like to say?"; return; }
+    const name = p.name || "this person", gender = specialGender(p), rel = specialIdentityRelationship(p);
+    const nameRu = gender === "male" ? `Его зовут ${name}.` : `Её зовут ${name}.`;
+    const nameEn = gender === "male" ? `His name is ${name}.` : `Her name is ${name}.`;
+    intro.hidden = false;
+    $("#specialIntroName").textContent = name;
+    $("#specialIntroRelationRu").textContent = rel.ru;
+    $("#specialIntroRelationEn").textContent = rel.en;
+    $("#specialIntroNameRu").textContent = nameRu;
+    $("#specialIntroNameEn").textContent = nameEn;
+    $("#specialIntroRelationSpeak").dataset.speak = rel.ru;
+    $("#specialIntroNameSpeak").dataset.speak = nameRu;
+    question.textContent = `What would you like to say about ${name}?`;
+}
+
+// Returns { ru (with <mark> highlights), plain, en, sentiments } or null.
+function specialCurrentExpression() {
+    const p = special();
+    if (!p || !specialSelections.length) return null;
+    const gender = specialGender(p);
+    if (specialSelections.length === 1) {
+        const variants = SPECIAL_BANK[specialSelections[0]]?.[gender] || [];
+        if (!variants.length) return null;
+        const v = variants[specialVariantIndex % variants.length];
+        const escaped = v.hi.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return { ru: v.ru.replace(new RegExp(escaped), `<mark>${v.hi}</mark>`), plain: v.ru, en: v.en, sentiments: [...specialSelections] };
+    }
+    const combo = SPECIAL_COMBINATIONS[specialPairKey(specialSelections)]?.[gender];
+    return combo ? { ...combo, sentiments: [...specialSelections] } : null;
+}
+
+function renderSpecialPersonOptions() {
+    const el = $("#specialPerson");
+    el.innerHTML = '<option value="">Choose a person…</option>';
+    specialAllPeople().forEach(p => el.add(new Option(`${p.name || "Unnamed"} — ${englishRelationship(p.relationship)}`, p.id)));
+    el.add(new Option("＋ Add Someone Special", "__new__"));
+}
+
+function renderSpecialSentiments() {
+    const box = $("#specialSentiments");
+    box.innerHTML = "";
+    SPECIAL_SENTIMENTS.forEach(s => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "special-sentiment" + (specialSelections.includes(s.key) ? " selected" : "");
+        b.textContent = s.label;
+        b.onclick = () => toggleSpecialSentiment(s.key);
+        box.append(b);
+    });
+}
+
+function toggleSpecialSentiment(key) {
+    if (specialSelections.includes(key)) specialSelections = specialSelections.filter(x => x !== key);
+    else if (specialSelections.length < 2) specialSelections.push(key);
+    else { $("#specialSentimentHint").textContent = "Choose no more than two feelings for one sentence."; return; }
+    $("#specialSentimentHint").textContent = "Click to add; click again to remove. Choose up to two.";
+    specialVariantIndex = 0;
+    specialEditingIndex = null;
+    renderSpecialSentiments();
+    renderSpecialPreview();
+}
+
+function renderSpecialPreview() {
+    const preview = $("#specialExpressionPreview"), x = specialCurrentExpression();
+    preview.hidden = !x;
+    if (!x) return;
+    $("#specialRussian").innerHTML = x.ru;
+    $("#specialEnglish").textContent = x.en;
+    $("#specialSaveExpression").textContent = specialEditingIndex === null ? "Add to My Expressions" : "Save Changes";
+}
+
+function specialSavedFor(p) {
+    if (!p) return [];
+    if (!state.specialExpressions) state.specialExpressions = {};
+    if (!state.specialExpressions[p.id]) state.specialExpressions[p.id] = [];
+    return state.specialExpressions[p.id];
+}
+
+function renderSpecialSaved() {
+    const p = special(), box = $("#specialSavedExpressions");
+    box.innerHTML = "";
+    $("#specialSavedHeading").textContent = p ? `My Expressions About ${p.name || "This Person"}` : "My Expressions";
+    const saved = specialSavedFor(p);
+    if (!saved.length) {
+        box.innerHTML = '<p class="special-saved-empty">Your saved Russian expressions will appear here.</p>';
+        return;
+    }
+    saved.forEach((x, i) => {
+        const card = document.createElement("div");
+        card.className = "special-saved-card";
+        card.innerHTML = `<b>${x.plain}</b><small>${x.en}</small><div class="special-saved-actions no-print"><button type="button" data-listen>🔊 Listen</button><button type="button" data-modify>✏ Modify</button><button type="button" data-delete>🗑 Delete</button></div>`;
+        card.querySelector("[data-listen]").onclick = () => speakRussianWord(x.plain);
+        card.querySelector("[data-modify]").onclick = () => {
+            specialSelections = [...(x.sentiments || [])];
+            specialEditingIndex = i;
+            specialVariantIndex = 0;
+            renderSpecialSentiments();
+            renderSpecialPreview();
+        };
+        card.querySelector("[data-delete]").onclick = async () => {
+            saved.splice(i, 1);
+            specialEditingIndex = null;
+            await saveIdentityCard();
+            renderSpecialSaved();
+            renderSpecialPreview();
+        };
+        box.append(card);
+    });
+}
+
+function renderSpecial() {
+    if (!state.specialExtras) state.specialExtras = [];
+    if (!state.specialExpressions) state.specialExpressions = {};
+    renderSpecialPersonOptions();
+    renderSpecialSentiments();
+    const p = special();
+    if (p) { state.specialId = p.id; $("#specialPerson").value = p.id; }
+    const img = $("#specialPhoto"), fallback = $("#specialPortraitFallback"), label = $("#specialPhotoLabel");
+    if (p) {
+        $("#specialName").textContent = p.name || "Unnamed";
+        $("#specialRelLabel").textContent = englishRelationship(p.relationship);
+        img.style.display = p.photo ? "block" : "none";
+        img.src = p.photo || "";
+        fallback.style.display = p.photo ? "none" : "grid";
+        label.textContent = p.photo ? "Change Photo" : "Add Photo";
+    } else {
+        $("#specialName").textContent = "Someone Special";
+        $("#specialRelLabel").textContent = "";
+        img.style.display = "none";
+        fallback.style.display = "grid";
+        label.textContent = "Add Photo";
+    }
+    renderSpecialIntroduction(p);
+    renderSpecialPreview();
+    renderSpecialSaved();
+}
+
+function openSpecialNewPanel() {
+    $("#specialNewPanel").hidden = false;
+    $("#specialNewName").value = "";
+    $("#specialNewPhoto").value = "";
+    fillSelect($("#specialNewRelationship"), SPECIAL_NEW_RELS, "Choose a relationship…");
+}
+
+function closeSpecialNewPanel() {
+    $("#specialNewPanel").hidden = true;
+    if (special()) $("#specialPerson").value = special().id;
+    else $("#specialPerson").value = "";
+}
+
+async function saveSpecialNewPerson() {
+    const name = $("#specialNewName").value.trim(), raw = $("#specialNewRelationship").value;
+    if (!name) return alert("Enter a name.");
+    if (!raw) return alert("Choose a relationship.");
+    let relationship = raw, gender = "";
+    if (raw === "friend-female") { relationship = "friend"; gender = "female"; }
+    if (raw === "friend-male") { relationship = "friend"; gender = "male"; }
+    const photo = await photoData($("#specialNewPhoto").files[0]);
+    const p = { id: crypto.randomUUID(), name, relationship, photo, specialGender: gender };
+    state.specialExtras.push(p);
+    state.specialId = p.id;
+    specialSelections = [];
+    specialEditingIndex = null;
+    await saveIdentityCard();
+    $("#specialNewPanel").hidden = true;
+    renderSpecial();
+}
+
+async function saveSpecialExpression() {
+    const p = special(), x = specialCurrentExpression();
+    if (!p || !x) return;
+    const saved = specialSavedFor(p);
+    const record = { plain: x.plain, en: x.en, sentiments: [...x.sentiments] };
+    if (specialEditingIndex !== null) saved[specialEditingIndex] = record;
+    else {
+        if (saved.length >= 4) return alert("You can save up to four expressions for this person.");
+        saved.push(record);
+    }
+    specialEditingIndex = null;
+    await saveIdentityCard();
+    renderSpecialSaved();
+    renderSpecialPreview();
+}
+
+function initSpecial() {
+    $("#specialHomeBtn").onclick = () => show("launch");
+    $("#specialPrintBtn").onclick = () => window.print();
+    $("#specialClearBtn").onclick = clearIdentityCard;
+
+    $("#specialPerson").onchange = async e => {
+        if (e.target.value === "__new__") { openSpecialNewPanel(); return; }
+        state.specialId = e.target.value || null;
+        specialSelections = [];
+        specialEditingIndex = null;
+        await saveIdentityCard();
+        renderSpecial();
+    };
+
+    $("#specialPhotoInput").onchange = async e => {
+        const p = special(), file = e.target.files[0];
+        if (!p || !file) return;
+        p.photo = await photoData(file);
+        e.target.value = "";
+        await saveIdentityCard();
+        renderSpecial();
+    };
+
+    $("#specialSaveNew").onclick = saveSpecialNewPerson;
+    $("#specialCancelNew").onclick = closeSpecialNewPanel;
+    $("#specialIntroRelationSpeak").onclick = e => speakRussianWord(e.currentTarget.dataset.speak || "");
+    $("#specialIntroNameSpeak").onclick = e => speakRussianWord(e.currentTarget.dataset.speak || "");
+    $("#specialSpeak").onclick = () => { const x = specialCurrentExpression(); if (x) speakRussianWord(x.plain); };
+    $("#specialSaveExpression").onclick = saveSpecialExpression;
+    // Explore More (Screen 5) isn't built yet; show() quietly ignores
+    // unknown screens, so this will start working the moment it exists.
+    $("#specialExploreMore").onclick = () => show("explore");
+}
+
 (async () => {
     await loadIdentityCard();
     initIdentityCard();
     initConnections();
+    initCallThem();
+    initSpecial();
     renderIdentityCard();
 })();
 
 // ==================================================
-//    END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–2)
+//    END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–4)
 // ==================================================
