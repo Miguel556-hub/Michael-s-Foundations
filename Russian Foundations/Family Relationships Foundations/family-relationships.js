@@ -7181,7 +7181,7 @@ const monthLabels = {
     "November": "November — Ноябрь", "December": "December — Декабрь"
 };
 
-let state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [], callThemExtras: [], callThemChoices: {}, specialId: null, specialExtras: [], specialExpressions: {} };
+let state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [], callThemExtras: [], callThemChoices: {}, specialId: null, specialExtras: [], specialExpressions: {}, tryPersonId: "", tryExtraPeople: [], trySavedExpressions: {}, pets: [], petId: null, petFeeling: "love" };
 
 // Tracks which person (if any) is loaded into the form for editing.
 // null means the form is in "add a new person" mode.
@@ -7218,7 +7218,7 @@ async function loadIdentityCard() {
 async function clearIdentityCard() {
     if (!confirm("Clear all Family Identity Card information and photos stored by this component in this browser?")) return;
     indexedDB.deleteDatabase(DB);
-    state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [], callThemExtras: [], callThemChoices: {}, specialId: null, specialExtras: [], specialExpressions: {} };
+    state = { owner: { name: "", month: "", birthYear: "", photo: "" }, people: [], callThemExtras: [], callThemChoices: {}, specialId: null, specialExtras: [], specialExpressions: {}, tryPersonId: "", tryExtraPeople: [], trySavedExpressions: {}, pets: [], petId: null, petFeeling: "love" };
     selectedPersonId = null;
     renderIdentityCard();
 }
@@ -7267,6 +7267,9 @@ function show(id) {
     if (id === "connections") renderConnections();
     if (id === "callthem") renderCallThem();
     if (id === "special") renderSpecial();
+    if (id === "explore") renderExplore();
+    if (id === "people") renderTryPeople();
+    if (id === "pets") renderPets();
     // Scroll the card itself back into view, not the whole page — the
     // card sits partway down Family Relationships, so jumping to the
     // very top of the page (window.scrollTo(0,0)) was landing above
@@ -7293,10 +7296,31 @@ function renderPeople() {
         // was added by clicking their box on My Connections, and stays
         // tied to that box — so no edit pencil for those here.
         const editable = RELS.some(r => r[0] === p.relationship);
-        row.innerHTML = `${p.photo ? `<img src="${p.photo}">` : `<div class="avatar">👤</div>`}<div><b>${p.name || "Unnamed"}</b><br>${ruRel(p.relationship)} — ${p.relationship}</div>${editable ? `<button type="button" data-select="${p.id}" title="Edit this person">✎</button>` : ""}`;
+        row.innerHTML = `${p.photo ? `<img src="${p.photo}">` : `<div class="avatar">👤</div>`}<div><b>${p.name || "Unnamed"}</b><br>${ruRel(p.relationship)} — ${p.relationship}</div>${editable ? `<button type="button" data-select="${p.id}" title="Edit this person">✎</button>` : `<button type="button" data-remove="${p.id}" title="Remove this person">🗑</button>`}`;
         list.appendChild(row);
     });
     $$("[data-select]").forEach(b => b.onclick = () => selectPerson(b.dataset.select));
+    $$("[data-remove]").forEach(b => b.onclick = () => removePersonFromList(b.dataset.remove));
+}
+
+// People with no pencil (added from a box on My Connections) can't be
+// edited here, but they still need a way to be removed one at a time.
+// Their saved sentences on the other screens go with them.
+async function removePersonFromList(id) {
+    const p = person(id);
+    if (!p) return;
+    if (!confirm(`Remove ${p.name || "this person"} from My People? They will also be removed from the family tree.`)) return;
+    state.people = state.people.filter(x => x.id !== id);
+    if (selectedPersonId === id) {
+        selectedPersonId = null;
+        $("#addPersonBtn").textContent = "＋ Add to My People";
+    }
+    if (state.specialExpressions) delete state.specialExpressions[id];
+    if (state.trySavedExpressions) delete state.trySavedExpressions[id];
+    if (state.specialId === id) state.specialId = null;
+    if (state.tryPersonId === id) state.tryPersonId = "";
+    await saveIdentityCard();
+    renderIdentityCard();
 }
 
 // The four shared sibling positions on the family tree (one tree,
@@ -8543,9 +8567,464 @@ function initSpecial() {
     $("#specialIntroNameSpeak").onclick = e => speakRussianWord(e.currentTarget.dataset.speak || "");
     $("#specialSpeak").onclick = () => { const x = specialCurrentExpression(); if (x) speakRussianWord(x.plain); };
     $("#specialSaveExpression").onclick = saveSpecialExpression;
-    // Explore More (Screen 5) isn't built yet; show() quietly ignores
-    // unknown screens, so this will start working the moment it exists.
+    // Explore More (Screen 5): the same show() every other screen uses.
     $("#specialExploreMore").onclick = () => show("explore");
+}
+
+// ==================================================
+//    SCREEN 5 — EXPLORE MORE
+//
+//  Static on purpose: the same four cards for everyone, a
+//  progression from like → really like → love → adore, each
+//  showing both directions (I → you, you → me). Nothing here
+//  reads from state. Only the Listen buttons do anything.
+//  The cards are built here (not typed into the HTML) so the
+//  Russian lives in one place, as data.
+// ==================================================
+
+const EXPLORE_FEELING_CARDS = [
+    [
+        ["Ты мне нравишься.", "I like you."],
+        ["Я тебе нравлюсь.", "You like me."]
+    ],
+    [
+        ["Ты мне очень нравишься.", "I really like you."],
+        ["Я тебе очень нравлюсь.", "You really like me."]
+    ],
+    [
+        ["Я тебя люблю.", "I love you."],
+        ["Ты меня любишь.", "You love me."]
+    ],
+    [
+        ["Я тебя просто обожаю.", "I simply adore you."],
+        ["Ты меня просто обожаешь.", "You simply adore me."]
+    ]
+];
+
+function renderExplore() {
+    const host = $("#feelingCards");
+    host.innerHTML = EXPLORE_FEELING_CARDS.map(pairs => `
+        <article class="feeling-card">
+            ${pairs.map(([ru, en]) => `
+                <div class="feeling-pair">
+                    <strong>${ru}</strong>
+                    <em>${en}</em>
+                    <button class="speaker no-print" type="button" data-say="${ru}" aria-label="Listen to ${ru}">🔊 Listen</button>
+                </div>
+            `).join("")}
+        </article>
+    `).join("");
+    host.querySelectorAll("[data-say]").forEach(btn => {
+        btn.onclick = () => speakRussianWord(btn.dataset.say);
+    });
+}
+
+// ==================================================
+//    EXPLORE MORE DOORWAY 1 — WHY DOES RUSSIAN CHANGE?
+//
+//  Nothing to render: the lesson is painted into the
+//  background art. This only wires the Print button and
+//  flips between the two grammar-candy images on the
+//  "See More" layer (exactly one is visible at a time —
+//  the .active class is what shows it).
+// ==================================================
+
+function initWhy() {
+    $("#whyPrintBtn").onclick = () => window.print();
+
+    const like = $("#whyCandyLike"), pattern = $("#whyCandyPattern");
+    $("#showPatternCandy").onclick = () => {
+        like.classList.remove("active");
+        pattern.classList.add("active");
+    };
+    $("#backToLikeCandy").onclick = () => {
+        pattern.classList.remove("active");
+        like.classList.add("active");
+    };
+}
+
+
+
+// ==================================================
+//    EXPLORE MORE DOORWAY 2 — TRY IT WITH DIFFERENT PEOPLE
+//
+//  Reuses the same hand-written SPECIAL_BANK / SPECIAL_COMBINATIONS
+//  sentences as Someone Special, so the Russian is already checked.
+//  People added with "Add Someone Else" live only in
+//  state.tryExtraPeople — never in My People or on the tree.
+//  Saved sentences live in state.trySavedExpressions, keyed by person id.
+// ==================================================
+
+let trySelections = [];
+let tryVariantIndex = 0;
+let tryEditingIndex = null;
+
+function tryAllPeople() {
+    return [...state.people, ...(state.tryExtraPeople || [])];
+}
+
+function tryPerson() {
+    return tryAllPeople().find(p => p.id === state.tryPersonId) || null;
+}
+
+function tryCurrentExpression() {
+    const p = tryPerson();
+    if (!p || !trySelections.length) return null;
+    const gender = specialGender(p);
+    if (trySelections.length === 1) {
+        const variants = SPECIAL_BANK[trySelections[0]]?.[gender] || [];
+        if (!variants.length) return null;
+        const v = variants[tryVariantIndex % variants.length];
+        const escaped = v.hi.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return { ru: v.ru.replace(new RegExp(escaped), `<mark>${v.hi}</mark>`), plain: v.ru, en: v.en, sentiments: [...trySelections] };
+    }
+    const combo = SPECIAL_COMBINATIONS[specialPairKey(trySelections)]?.[gender];
+    return combo ? { ...combo, sentiments: [...trySelections] } : null;
+}
+
+function renderTryPersonOptions() {
+    const el = $("#tryPerson");
+    el.innerHTML = '<option value="">Choose a family member…</option>';
+    state.people.forEach(p => el.add(new Option(`${p.name || "Unnamed"} — ${englishRelationship(p.relationship)}`, p.id)));
+    if ((state.tryExtraPeople || []).length) {
+        const group = document.createElement("optgroup");
+        group.label = "People added here";
+        state.tryExtraPeople.forEach(p => group.append(new Option(`${p.name || "Unnamed"} — ${englishRelationship(p.relationship)}`, p.id)));
+        el.append(group);
+    }
+    el.value = state.tryPersonId || "";
+}
+
+function renderTrySentiments() {
+    const box = $("#trySentiments");
+    box.innerHTML = "";
+    SPECIAL_SENTIMENTS.forEach(s => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = s.label;
+        b.className = trySelections.includes(s.key) ? "selected" : "";
+        b.onclick = () => toggleTrySentiment(s.key);
+        box.append(b);
+    });
+}
+
+function toggleTrySentiment(key) {
+    const hint = $("#trySentimentHint");
+    if (trySelections.includes(key)) trySelections = trySelections.filter(x => x !== key);
+    else if (trySelections.length < 2) trySelections.push(key);
+    else { hint.textContent = "Choose no more than two sentiments for one expression."; return; }
+    hint.textContent = "Choose up to two.";
+    tryVariantIndex = 0;
+    tryEditingIndex = null;
+    renderTrySentiments();
+    renderTryPreview();
+}
+
+function renderTryIdentity() {
+    const p = tryPerson(), box = $("#trySelectedIdentity"), q = $("#tryBuilderQuestion");
+    if (!p) { box.hidden = true; q.textContent = "What would you like to say?"; return; }
+    box.hidden = false;
+    box.innerHTML = `<strong>${p.name || "Unnamed"}</strong> · ${englishRelationship(p.relationship)}`;
+    // Only people added on this screen can be removed here. Family from
+    // My People is managed on the My People screen.
+    if ((state.tryExtraPeople || []).some(x => x.id === p.id)) {
+        const rm = document.createElement("button");
+        rm.type = "button";
+        rm.id = "tryRemovePerson";
+        rm.className = "try-v1-secondary no-print";
+        rm.textContent = "Remove";
+        rm.onclick = removeTryPerson;
+        box.append(rm);
+    }
+    q.textContent = `What would you like to say about ${p.name || "this person"}?`;
+}
+
+function renderTryPreview() {
+    const box = $("#tryExpressionPreview"), x = tryCurrentExpression();
+    box.hidden = !x;
+    if (!x) return;
+    $("#tryRussian").innerHTML = x.ru;
+    $("#tryEnglish").textContent = x.en;
+    $("#tryAnother").style.display = trySelections.length === 1 ? "" : "none";
+    $("#trySaveExpression").textContent = tryEditingIndex === null ? "Add to My Expressions" : "Save Changes";
+    $("#trySpeak").onclick = () => speakRussianWord(x.plain);
+}
+
+function trySaved() {
+    const p = tryPerson();
+    if (!p) return [];
+    if (!state.trySavedExpressions) state.trySavedExpressions = {};
+    if (!state.trySavedExpressions[p.id]) state.trySavedExpressions[p.id] = [];
+    return state.trySavedExpressions[p.id];
+}
+
+function renderTrySaved() {
+    const box = $("#trySavedExpressions"), saved = trySaved();
+    $("#trySavedCount").textContent = `(${saved.length}/4)`;
+    box.innerHTML = "";
+    if (!saved.length) {
+        box.innerHTML = '<div class="try-v1-saved-card">Your saved Russian expressions will appear here.</div>';
+        return;
+    }
+    saved.forEach((x, i) => {
+        const d = document.createElement("div");
+        d.className = "try-v1-saved-card";
+        d.innerHTML = `<b>${x.plain}</b><small>${x.en}</small><div class="try-v1-saved-card-actions no-print"><button type="button" data-listen>🔊 Listen</button><button type="button" data-modify>✏ Modify</button><button type="button" data-delete>🗑 Delete</button></div>`;
+        d.querySelector("[data-listen]").onclick = () => speakRussianWord(x.plain);
+        d.querySelector("[data-modify]").onclick = () => {
+            trySelections = [...(x.sentiments || [])];
+            tryEditingIndex = i;
+            tryVariantIndex = 0;
+            renderTrySentiments();
+            renderTryPreview();
+        };
+        d.querySelector("[data-delete]").onclick = async () => {
+            saved.splice(i, 1);
+            await saveIdentityCard();
+            renderTrySaved();
+        };
+        box.append(d);
+    });
+}
+
+function renderTryPeople() {
+    renderTryPersonOptions();
+    renderTrySentiments();
+    renderTryIdentity();
+    renderTryPreview();
+    renderTrySaved();
+}
+
+function openTryAddPanel() {
+    $("#tryAddPanel").hidden = false;
+    $("#tryNewName").value = "";
+    fillSelect($("#tryNewRelationship"), SPECIAL_NEW_RELS, "Choose a relationship…");
+}
+
+async function saveTryNewPerson() {
+    const name = $("#tryNewName").value.trim(), raw = $("#tryNewRelationship").value;
+    if (!name) return alert("Enter a name.");
+    if (!raw) return alert("Choose a relationship.");
+    let relationship = raw, gender = "";
+    if (raw === "friend-female") { relationship = "friend"; gender = "female"; }
+    if (raw === "friend-male") { relationship = "friend"; gender = "male"; }
+    if (!gender) gender = SPECIAL_FEMALE_RELS.has(relationship) ? "female" : "male";
+    const p = { id: crypto.randomUUID(), name, relationship, specialGender: gender };
+    if (!state.tryExtraPeople) state.tryExtraPeople = [];
+    state.tryExtraPeople.push(p);
+    state.tryPersonId = p.id;
+    trySelections = [];
+    tryVariantIndex = 0;
+    tryEditingIndex = null;
+    await saveIdentityCard();
+    $("#tryAddPanel").hidden = true;
+    renderTryPeople();
+}
+
+async function removeTryPerson() {
+    const p = tryPerson();
+    if (!p || !(state.tryExtraPeople || []).some(x => x.id === p.id)) return;
+    if (!confirm(`Remove ${p.name || "this person"} from this screen? Their saved expressions will be removed too.`)) return;
+    state.tryExtraPeople = state.tryExtraPeople.filter(x => x.id !== p.id);
+    if (state.trySavedExpressions) delete state.trySavedExpressions[p.id];
+    state.tryPersonId = "";
+    trySelections = [];
+    tryVariantIndex = 0;
+    tryEditingIndex = null;
+    await saveIdentityCard();
+    renderTryPeople();
+}
+
+async function saveTryExpression() {
+    const x = tryCurrentExpression();
+    if (!x) return;
+    const saved = trySaved();
+    const record = { plain: x.plain, en: x.en, sentiments: [...x.sentiments] };
+    if (tryEditingIndex !== null) { saved[tryEditingIndex] = record; tryEditingIndex = null; }
+    else {
+        if (saved.length >= 4) return alert("You can save up to four expressions for each person.");
+        saved.push(record);
+    }
+    await saveIdentityCard();
+    renderTrySaved();
+    renderTryPreview();
+}
+
+function initTry() {
+    $("#tryPrintBtn").onclick = () => window.print();
+    $("#tryPerson").onchange = async e => {
+        state.tryPersonId = e.target.value;
+        trySelections = [];
+        tryVariantIndex = 0;
+        tryEditingIndex = null;
+        await saveIdentityCard();
+        renderTryPeople();
+    };
+    $("#tryAddSomeone").onclick = openTryAddPanel;
+    $("#tryCancelNew").onclick = () => { $("#tryAddPanel").hidden = true; };
+    $("#trySaveNew").onclick = saveTryNewPerson;
+    $("#tryAnother").onclick = () => { tryVariantIndex++; renderTryPreview(); };
+    $("#trySaveExpression").onclick = saveTryExpression;
+    $("#trySavedToggle").onclick = () => { const l = $("#trySavedExpressions"); l.hidden = !l.hidden; };
+}
+
+// ==================================================
+//    EXPLORE MORE DOORWAY 3 — WHAT ABOUT MY PETS?
+//
+//  Up to four pets, each with a type, a name and an optional photo.
+//  Pets live only in state.pets (never in My People). The chosen pet
+//  is state.petId and the chosen feeling is state.petFeeling.
+// ==================================================
+
+const PET_FEELINGS = [
+    { key: "like",   en: "I like you." },
+    { key: "really", en: "I really like you." },
+    { key: "love",   en: "I love you." },
+    { key: "adore",  en: "I adore you." }
+];
+
+function currentPet() {
+    if (!state.pets) state.pets = [];
+    return state.pets.find(p => p.id === state.petId) || state.pets[0] || null;
+}
+
+function petTypeLabel(p) {
+    if (!p) return "Pet";
+    if (p.type === "dog") return "Dog";
+    if (p.type === "cat") return "Cat";
+    return p.otherType || "Other Pet";
+}
+
+function petEmoji(p) {
+    return p?.type === "dog" ? "🐶" : p?.type === "cat" ? "🐱" : "🐾";
+}
+
+function renderPets() {
+    if (!state.pets) state.pets = [];
+    if (!state.petId && state.pets[0]) state.petId = state.pets[0].id;
+    const p = currentPet();
+
+    const box = $("#petChoices");
+    box.innerHTML = "";
+    state.pets.slice(0, 4).forEach(pet => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "pet-v1-choice" + (pet.id === (p && p.id) ? " selected" : "");
+        b.innerHTML = `${pet.photo ? `<img class="pet-photo-thumb" src="${pet.photo}" alt="${pet.name}">` : `<span class="pet-emoji">${petEmoji(pet)}</span>`}<b>${pet.name}</b><small>${petTypeLabel(pet)}</small>`;
+        b.onclick = async () => { state.petId = pet.id; await saveIdentityCard(); renderPets(); };
+        box.append(b);
+    });
+
+    $("#petCount").textContent = `${state.pets.length}/4`;
+    $("#petAdd").disabled = state.pets.length >= 4;
+    $("#petAdd").textContent = state.pets.length >= 4 ? "Four Pet Limit Reached" : "＋ Add a Pet";
+    $("#petPhotoButton").disabled = !p;
+    $("#petPhotoButton").textContent = p?.photo ? "📷 Change Selected Pet Photo" : "📷 Add Photo to Selected Pet";
+    $("#petPhotoRemove").hidden = !(p && p.photo);
+    $("#petRemove").hidden = !p;
+    $("#petCurrentName").textContent = p ? p.name : "your pet";
+
+    const pf = $("#petFeelings");
+    pf.innerHTML = "";
+    PET_FEELINGS.forEach(x => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = x.en;
+        b.className = x.key === state.petFeeling ? "selected" : "";
+        b.disabled = !p;
+        b.onclick = async () => { state.petFeeling = x.key; await saveIdentityCard(); renderPets(); };
+        pf.append(b);
+    });
+    updatePet();
+}
+
+function updatePet() {
+    const p = currentPet(), pic = $("#petPic"), ruEl = $("#petRussian"), enEl = $("#petEnglish"), speakBtn = $("#petSpeak");
+    if (!p) {
+        pic.textContent = "🐾";
+        ruEl.textContent = "Add a pet to begin.";
+        enEl.textContent = "";
+        speakBtn.disabled = true;
+        return;
+    }
+    if (p.photo) pic.innerHTML = `<img src="${p.photo}" alt="${p.name}">`;
+    else pic.textContent = petEmoji(p);
+    const name = p.name;
+    let ru, en;
+    if (state.petFeeling === "like") { ru = `Мне нравится ${name}.`; en = `I like ${name}.`; }
+    else if (state.petFeeling === "really") { ru = `Мне очень нравится ${name}.`; en = `I really like ${name}.`; }
+    else if (state.petFeeling === "adore") { ru = `Я просто обожаю ${name}.`; en = `I adore ${name}.`; }
+    else { ru = `Я очень люблю ${name}.`; en = `I love ${name} very much.`; }
+    ruEl.textContent = ru;
+    enEl.textContent = en;
+    speakBtn.disabled = false;
+    speakBtn.onclick = () => speakRussianWord(ru);
+}
+
+function openPetAdd() {
+    if (!state.pets) state.pets = [];
+    if (state.pets.length >= 4) return alert("You can add up to four pets.");
+    $("#petNewName").value = "";
+    $("#petNewPhoto").value = "";
+    $("#petNewType").value = "dog";
+    $("#petOtherType").value = "";
+    $("#petOtherTypeWrap").hidden = true;
+    $("#petAddPanel").hidden = false;
+}
+
+function closePetAdd() {
+    $("#petAddPanel").hidden = true;
+}
+
+async function saveNewPet() {
+    if (!state.pets) state.pets = [];
+    if (state.pets.length >= 4) return;
+    const name = $("#petNewName").value.trim(), type = $("#petNewType").value, otherType = $("#petOtherType").value.trim();
+    if (!name) return alert("Give your pet a name.");
+    if (type === "other" && !otherType) return alert("Tell us what kind of pet this is.");
+    const photo = await photoData($("#petNewPhoto").files[0]);
+    const p = { id: crypto.randomUUID(), name, type, otherType: type === "other" ? otherType : "", photo };
+    state.pets.push(p);
+    state.petId = p.id;
+    await saveIdentityCard();
+    closePetAdd();
+    renderPets();
+}
+
+async function removeCurrentPet() {
+    const p = currentPet();
+    if (!p) return;
+    if (!confirm(`Remove ${p.name} from this screen?`)) return;
+    state.pets = state.pets.filter(x => x.id !== p.id);
+    state.petId = state.pets[0] ? state.pets[0].id : null;
+    await saveIdentityCard();
+    renderPets();
+}
+
+function initPets() {
+    $("#petPrintBtn").onclick = () => window.print();
+    $("#petAdd").onclick = openPetAdd;
+    $("#petCancel").onclick = closePetAdd;
+    $("#petSave").onclick = saveNewPet;
+    $("#petRemove").onclick = removeCurrentPet;
+    $("#petNewType").onchange = e => { $("#petOtherTypeWrap").hidden = e.target.value !== "other"; };
+    $("#petPhotoButton").onclick = () => $("#petPhotoInput").click();
+    $("#petPhotoInput").onchange = async e => {
+        const p = currentPet(), file = e.target.files[0];
+        if (!p || !file) return;
+        p.photo = await photoData(file);
+        e.target.value = "";
+        await saveIdentityCard();
+        renderPets();
+    };
+    $("#petPhotoRemove").onclick = async () => {
+        const p = currentPet();
+        if (!p || !p.photo) return;
+        p.photo = "";
+        $("#petPhotoInput").value = "";
+        await saveIdentityCard();
+        renderPets();
+    };
 }
 
 (async () => {
@@ -8554,6 +9033,9 @@ function initSpecial() {
     initConnections();
     initCallThem();
     initSpecial();
+    initWhy();
+    initTry();
+    initPets();
     renderIdentityCard();
 })();
 

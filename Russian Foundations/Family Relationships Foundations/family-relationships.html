@@ -3701,9 +3701,213 @@ LESSON 2 — EXTENDED FAMILY
             </section>
             <!-- END Screen 4: Someone Special -->
 
+            <!-- ==================================================
+                 Screen 5 of 5: Explore More.
+
+                 Markup recovered from the original standalone Family
+                 Identity Card and matched to the Explore More CSS that
+                 already lives in this project's stylesheet. The
+                 background art (bg-explore.png) has the picture frame,
+                 plaque, four parchment cards, arrows and three link
+                 tiles painted in — this markup only lays text over
+                 them. The four cards are static; nothing changes by
+                 person. Only the Listen buttons do anything.
+
+                 The three tiles at the bottom lead to Why Does Russian
+                 Change?, Try It with Different People and What About My
+                 Pets?. Those screens don't exist yet, so the tiles do
+                 nothing until each one is built.
+            ================================================== -->
+            <section id="explore" class="screen bg-explore">
+              <button id="exploreBackBtn" class="back no-print" type="button" data-go="special">← Back to Someone Special</button>
+
+              <header class="explore-heading">
+                <h1>Explore More</h1>
+                <p>Discover more ways to express how you feel in Russian</p>
+              </header>
+
+              <div class="explore-concept-plaque" aria-label="Нравиться — Like; Любить — Love; Обожать — Adore">
+                <div><strong>НРАВИТЬСЯ</strong><span>→ <em>LIKE</em></span></div>
+                <div><strong>ЛЮБИТЬ</strong><span>→ <em>LOVE</em></span></div>
+                <div><strong>ОБОЖАТЬ</strong><span>→ <em>ADORE</em></span></div>
+              </div>
+
+              <div id="feelingCards" class="feeling-cards"></div>
+
+              <div class="explore-links no-print">
+                <button type="button" data-go="why"><span class="reveal-label">Why Does Russian Change?</span><small>Take a closer look under the microscope.</small></button>
+                <button type="button" data-go="people"><span class="reveal-label">Try It with Different People</span><small>Use the same feelings with other people.</small></button>
+                <button type="button" data-go="pets"><span class="reveal-label">What About My Pets?</span><small>Use the same feelings for a dog or cat.</small></button>
+              </div>
+
+            </section>
+            <!-- END Screen 5: Explore More -->
+
+            <!-- ==================================================
+                 Explore More doorway 1 of 3: Why Does Russian Change?
+
+                 Two layers, both static teaching pages.
+
+                 Layer 1 ("why"): the background art (bg-why.png) IS the
+                 lesson — "I love my dad" broken into Я / люблю / своего /
+                 папу with four explanation cards, all painted in. The
+                 HTML only adds the buttons on top.
+
+                 Layer 2 ("why-more"): reached with "See More...". It
+                 shows two grammar-candy images, one at a time, with a
+                 button to flip between them. Nothing here reads from
+                 state.
+            ================================================== -->
+            <section id="why" class="screen bg-why">
+              <button class="back no-print" type="button" data-go="explore">← Back to Explore More</button>
+              <button id="whyPrintBtn" class="screen-print why-screen-print no-print" type="button">Print This Page</button>
+              <button class="why-see-more no-print" type="button" data-go="why-more">See More...</button>
+            </section>
+            <!-- END Doorway 1a: Why Does Russian Change? -->
+
+            <section id="why-more" class="screen bg-why-more">
+              <button class="back why-more-back no-print" type="button" data-go="why">← Back to Why Does Russian Change?</button>
+
+              <div id="whyCandyLike" class="why-candy-stage active">
+                <img class="grammar-candy-image like-candy-image" src="../../Images/I-like-explanation.svg" alt="НРАВИТЬСЯ Plays Differently grammar candy">
+                <button id="showPatternCandy" class="candy-next no-print" type="button">See the Complete Pattern →</button>
+              </div>
+
+              <div id="whyCandyPattern" class="why-candy-stage">
+                <img class="grammar-candy-image pattern-candy-image" src="../../Images/like-love-adore-conjugations.svg" alt="Who Is Doing the Feeling conjugation grammar candy">
+                <button id="backToLikeCandy" class="candy-next candy-prev no-print" type="button">← Back to НРАВИТЬСЯ</button>
+              </div>
+            </section>
+            <!-- END Doorway 1b: Why Does Russian Change? — See More -->
+
+            <!-- ==================================================
+                 Explore More — Doorway 2: Try It with Different People
+                 Pick a person, pick one or two feelings, hear the Russian.
+                 Extra people added here stay on this screen only.
+            ================================================== -->
+            <section id="people" class="screen bg-people">
+              <button class="back no-print" type="button" data-go="explore">← Back to Explore More</button>
+              <button id="tryPrintBtn" class="screen-print no-print" type="button">Print This Page</button>
+
+              <header class="try-v1-header">
+                <h2>Try It with Different People</h2>
+                <p>See how the same feelings work with other people in your life.</p>
+                <p>Choose a person, pick a feeling, and hear the Russian.</p>
+                <div class="try-v1-gold-rule"></div>
+              </header> <!-- END try-v1-header -->
+
+              <main class="try-v1-workspace">
+                <section class="try-v1-glass try-v1-person-panel">
+                  <label for="tryPerson">Choose a Person</label>
+                  <div class="try-v1-person-row">
+                    <select id="tryPerson"></select>
+                    <button id="tryAddSomeone" class="try-v1-secondary no-print" type="button">＋ Add Someone Else</button>
+                  </div>
+                  <div id="trySelectedIdentity" class="try-v1-identity" hidden></div>
+                </section> <!-- END person panel -->
+
+                <section class="try-v1-glass try-v1-sentiment-panel">
+                  <h3 id="tryBuilderQuestion">What would you like to say?</h3>
+                  <p>Choose one or two sentiments.</p>
+                  <div id="trySentiments" class="try-v1-sentiments"></div>
+                  <div id="trySentimentHint" class="try-v1-hint">Choose up to two.</div>
+                </section> <!-- END sentiment panel -->
+
+                <section id="tryExpressionPreview" class="try-v1-glass try-v1-result" hidden>
+                  <span class="try-v1-eyebrow">A natural way to say it:</span>
+                  <strong id="tryRussian"></strong>
+                  <em id="tryEnglish"></em>
+                  <div class="try-v1-result-actions no-print">
+                    <button id="trySpeak" type="button">🔊 Listen</button>
+                    <button id="tryAnother" type="button">Try Another Way</button>
+                    <button id="trySaveExpression" type="button">Add to My Expressions</button>
+                  </div>
+                </section> <!-- END result -->
+
+                <section class="try-v1-glass try-v1-saved-panel">
+                  <button id="trySavedToggle" class="try-v1-saved-toggle no-print" type="button">My Expressions <span id="trySavedCount">(0/4)</span></button>
+                  <div id="trySavedExpressions" class="try-v1-saved-list" hidden></div>
+                </section> <!-- END saved panel -->
+              </main> <!-- END try-v1-workspace -->
+
+              <div id="tryAddPanel" class="try-v1-add-panel try-v1-glass" hidden>
+                <h3>Add Someone Else</h3>
+                <input id="tryNewName" type="text" placeholder="Name">
+                <select id="tryNewRelationship"></select>
+                <div class="try-v1-add-actions no-print">
+                  <button id="tryCancelNew" type="button">Cancel</button>
+                  <button id="trySaveNew" type="button">Add Person</button>
+                </div>
+              </div> <!-- END add panel -->
+            </section>
+            <!-- END Doorway 2: Try It with Different People -->
+
+            <!-- ==================================================
+                 Explore More — Doorway 3: What About My Pets?
+                 Add up to four pets, pick a feeling, hear the Russian.
+                 Pets live only in state.pets — they are not part of My People.
+            ================================================== -->
+            <section id="pets" class="screen bg-pets">
+              <button class="back no-print" type="button" data-go="explore">← Back to Explore More</button>
+              <button id="petPrintBtn" class="screen-print no-print" type="button">Print This Page</button>
+
+              <header class="pet-v1-header">
+                <h2>What About My Pets?</h2>
+                <p>Your pets are part of your life too.</p>
+                <p>Add a pet, choose how you feel, and hear the Russian.</p>
+                <div class="pet-v1-gold-rule"></div>
+              </header> <!-- END pet-v1-header -->
+
+              <main class="pet-v1-workspace">
+                <section class="pet-v1-glass pet-v1-list-panel">
+                  <div class="pet-v1-panel-heading"><h3>My Pets</h3><span id="petCount">0/4</span></div>
+                  <div id="petChoices" class="pet-v1-choices"></div>
+                  <button id="petAdd" class="pet-v1-add no-print" type="button">＋ Add a Pet</button>
+                  <input id="petPhotoInput" class="pet-v1-photo-input no-print" type="file" accept="image/*" hidden>
+                  <button id="petPhotoButton" class="pet-v1-add pet-v1-photo-button no-print" type="button" disabled>📷 Add Photo to Selected Pet</button>
+                  <button id="petPhotoRemove" class="pet-v1-add pet-v1-photo-remove no-print" type="button" hidden>Remove This Photo</button>
+                  <button id="petRemove" class="pet-v1-add pet-v1-photo-remove no-print" type="button" hidden>Remove This Pet</button>
+                </section> <!-- END pet list panel -->
+
+                <section class="pet-v1-glass pet-v1-feeling-panel">
+                  <h3>How do you feel about <span id="petCurrentName">your pet</span>?</h3>
+                  <div id="petFeelings" class="pet-v1-feelings"></div>
+                </section> <!-- END feeling panel -->
+
+                <section class="pet-v1-glass pet-v1-result">
+                  <div id="petPic" class="pet-v1-pic">🐾</div>
+                  <span class="pet-v1-eyebrow">A natural way to say it:</span>
+                  <strong id="petRussian">Add a pet to begin.</strong>
+                  <em id="petEnglish"></em>
+                  <button id="petSpeak" class="pet-v1-listen no-print" type="button">🔊 Listen</button>
+                </section> <!-- END result -->
+              </main> <!-- END pet-v1-workspace -->
+
+              <div id="petAddPanel" class="pet-v1-add-panel pet-v1-glass" hidden>
+                <h3>Add a Pet</h3>
+                <label>Pet Type
+                  <select id="petNewType"><option value="dog">Dog</option><option value="cat">Cat</option><option value="other">Other</option></select>
+                </label>
+                <label id="petOtherTypeWrap" hidden>What kind of pet?
+                  <input id="petOtherType" type="text" placeholder="Bird, rabbit, horse…">
+                </label>
+                <label>Pet Name
+                  <input id="petNewName" type="text" placeholder="Name">
+                </label>
+                <label>Pet Photo <span class="pet-v1-optional">(optional)</span>
+                  <input id="petNewPhoto" type="file" accept="image/*">
+                </label>
+                <div class="pet-v1-add-actions no-print">
+                  <button id="petCancel" type="button">Cancel</button>
+                  <button id="petSave" type="button">Add Pet</button>
+                </div>
+              </div> <!-- END add pet panel -->
+            </section>
+            <!-- END Doorway 3: What About My Pets? -->
+
           </div>
           <!-- ==================================================
-               END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–4)
+               END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–5)
           ================================================== -->
 
         </div> <!-- END Door 1 content -->

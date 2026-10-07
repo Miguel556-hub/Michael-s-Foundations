@@ -8780,11 +8780,13 @@ h1 {
 }
 
 #app .bg-explore {
-    background-image: url("../../Images/family-identity-card/bg-explore.png")
+    background-image: url("../../Images/family-identity-card/bg-explore.png");
+    aspect-ratio: 1536/1024
 }
 
 #app .bg-why {
-    background-image: url("../../Images/family-identity-card/bg-why.png")
+    background-image: url("../../Images/family-identity-card/bg-why.png");
+    aspect-ratio: 1536/1024
 }
 
 #app .bg-people {
@@ -12550,7 +12552,8 @@ h1 {
 }
 
 #app .bg-why-more {
-    background-image: url("Images/see-more-screen-why-russian-changes.png");
+    background-image: none;
+    aspect-ratio: 1536/1024;
 }
 
 #app #why-more .why-more-back {
@@ -13274,7 +13277,7 @@ h1 {
 #app #why .why-screen-print {
     left: calc(2% + 35px);
     right: auto;
-    top: calc(2% + 78px);
+    top: calc(2% + 92px);
 }
 
 /* PET PHOTOS */
@@ -13418,3 +13421,46 @@ h1 {
 /* ==================================================
     END — DOOR 1 FAMILY IDENTITY CARD (Screen 1 only)
 ================================================== */
+
+
+/* =========================================================
+   EXPLORE MORE — three link tiles: center the text in the painted tiles
+   The tiles are painted into bg-explore.png (they start 64% down the
+   screen and are 14.6% tall). This lines each button's box up with its
+   painted tile using the same percentages, then lets flexbox center the
+   text group top-to-bottom, so it follows the artwork at any window
+   size instead of relying on fixed-pixel nudges.
+   ========================================================= */
+#app #explore .explore-links {
+    top: 64%;
+    height: 14.6%;
+    align-items: stretch;
+}
+
+#app #explore .explore-links button {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#app #explore .explore-links button .reveal-label,
+#app #explore .explore-links button small {
+    top: 0;
+}
+
+/* =========================================================
+   EXPLORE MORE — LISTEN BUTTONS: REMOVE THE OVAL ONLY
+   ========================================================= */
+#app #explore .feeling-cards .feeling-pair .speaker {
+    background: none;
+}
+/* TRY IT WITH DIFFERENT PEOPLE — Remove button beside the selected person's name */
+#app #people .try-v1-identity #tryRemovePerson {
+    margin-left: 12px;
+    padding: .25em .9em;
+    font-size: .9em;
+}
