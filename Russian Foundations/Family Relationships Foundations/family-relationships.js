@@ -4215,14 +4215,14 @@ document
 
 // ==================================================
 // EXPLORE — DOOR 3
-// WHERE COULD THE CONVERSATION GO?
+// WHERE CAN THIS TAKE ME?
 // ==================================================
 
 const exploreConversationRoom =
     document.querySelector("#explore-conversation");
 
 
-// Open Door 3 — Where Could the Conversation Go?
+// Open Door 3 — Where Can This Take Me?
 document
     .querySelector('.explore-door[data-door="conversation"]')
     ?.addEventListener("click", () => {
@@ -4261,6 +4261,705 @@ document
                     behavior: "smooth",
                     block: "start"
                 });
+            }
+
+        });
+
+    });
+
+
+// ==================================================
+// DOOR 3 — THE COMPASS & MAP
+// CONTROLLED-RANDOM COMPASS (NO REPEATS UNTIL ALL FOUR APPEAR)
+// ==================================================
+
+const compassMapScreen = document.querySelector("#compass-map");
+const compassDiscoveryScreen = document.querySelector("#compass-discovery");
+const compassDial = document.querySelector("#compass-dial");
+const compassNeedle = document.querySelector("#compass-needle");
+const compassPrompt = document.querySelector("#compass-prompt");
+const compassMarkers = document.querySelectorAll(".compass-marker");
+
+// Where the needle points for each direction (0° = straight up = North)
+const COMPASS_ANGLES = { north: 0, east: 90, south: 180, west: 270 };
+
+const COMPASS_TITLES = {
+    north: { sign: "NORTH", title: "I Have a Family Member", sub: "Learn the basic form: У меня есть …" },
+    east: { sign: "EAST", title: "What If I Don't Have One?", sub: "" },
+    south: { sign: "SOUTH", title: "Wait… Do We Always Need есть?", sub: "" },
+    west: { sign: "WEST", title: "Talking About Other People", sub: "" }
+};
+
+// The "bag" of directions not yet drawn in this cycle
+let compassBag = [];
+
+// The needle's total rotation so far. It only ever grows,
+// so the needle always keeps spinning forward and never rewinds.
+let compassTotalAngle = 0;
+
+let compassSpinning = false;
+let compassLitDirection = null;
+
+
+// Fill the bag with all four directions in a shuffled order
+function refillCompassBag() {
+
+    compassBag = Object.keys(COMPASS_ANGLES);
+
+    // Fisher–Yates shuffle
+    for (let i = compassBag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [compassBag[i], compassBag[j]] = [compassBag[j], compassBag[i]];
+    }
+
+}
+
+
+// Take the next direction from the bag.
+// When the bag is empty, a brand-new shuffled cycle begins.
+function drawCompassDirection() {
+
+    if (compassBag.length === 0) {
+        refillCompassBag();
+    }
+
+    return compassBag.pop();
+
+}
+
+
+function setCompassPrompt(text) {
+    if (compassPrompt) {
+        compassPrompt.textContent = text;
+    }
+}
+
+
+// Turn every marker back to its quiet, unlit state
+function clearCompassGlow() {
+
+    compassMarkers.forEach((marker) => {
+        marker.classList.remove("is-lit");
+        marker.disabled = true;
+    });
+
+    compassLitDirection = null;
+
+}
+
+
+// Light one marker and make it clickable
+function lightCompassMarker(direction) {
+
+    clearCompassGlow();
+
+    const marker =
+        document.querySelector(`.compass-marker[data-direction="${direction}"]`);
+
+    if (marker) {
+        marker.classList.add("is-lit");
+        marker.disabled = false;
+    }
+
+    compassLitDirection = direction;
+
+    setCompassPrompt("Follow the glow — click the lit direction on the map.");
+
+}
+
+
+// Spin the needle to the chosen direction, then light that marker
+function spinCompass() {
+
+    // Ignore clicks while spinning, or while a direction is already glowing
+    if (compassSpinning || compassLitDirection) {
+        return;
+    }
+
+    const direction = drawCompassDirection();
+
+    const reduceMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Three full turns, then land exactly on the chosen direction
+    const currentPosition = compassTotalAngle % 360;
+    const distanceToTarget =
+        (COMPASS_ANGLES[direction] - currentPosition + 360) % 360;
+
+    compassTotalAngle += (reduceMotion ? 0 : 360 * 3) + distanceToTarget;
+
+    const spinSeconds = reduceMotion ? 0.3 : 3.4;
+
+    compassSpinning = true;
+    setCompassPrompt("The compass is choosing…");
+
+    if (compassNeedle) {
+        compassNeedle.style.transition =
+            `transform ${spinSeconds}s cubic-bezier(0.12, 0.7, 0.2, 1)`;
+        compassNeedle.style.transform = `rotate(${compassTotalAngle}deg)`;
+    }
+
+    // Light the marker once the spin has finished
+    window.setTimeout(() => {
+        compassSpinning = false;
+        lightCompassMarker(direction);
+    }, spinSeconds * 1000 + 150);
+
+}
+
+compassDial?.addEventListener("click", spinCompass);
+
+
+
+// Show the shared cabin screen with the right sign and content
+function showCompassDiscovery(direction) {
+
+    const info = COMPASS_TITLES[direction];
+
+    const emblem = document.querySelector("#cd-emblem");
+    const title = document.querySelector("#cd-title");
+    const sub = document.querySelector("#cd-sub");
+
+    if (emblem) emblem.textContent = info.sign;
+    if (title) title.textContent = info.title;
+    if (sub) sub.textContent = info.sub;
+
+    // Show this direction's content, or the "coming next" panel
+    const hasContent =
+        document.querySelector(`.cd-content[data-content="${direction}"]`);
+
+    document.querySelectorAll(".cd-content").forEach((block) => {
+        const wanted = hasContent ? direction : "soon";
+        block.hidden = block.dataset.content !== wanted;
+    });
+
+}
+
+// Click a glowing marker → enter that direction's discovery
+compassMarkers.forEach((marker) => {
+
+    marker.addEventListener("click", () => {
+
+        const direction = marker.dataset.direction;
+        const info = COMPASS_TITLES[direction];
+
+        if (!info || marker.disabled) {
+            return;
+        }
+
+        showCompassDiscovery(direction);
+
+        if (compassMapScreen) compassMapScreen.hidden = true;
+        if (compassDiscoveryScreen) compassDiscoveryScreen.hidden = false;
+
+        exploreConversationRoom?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+
+});
+
+
+
+// ==================================================
+// DOOR 3 — NORTH DISCOVERY
+// I HAVE A FAMILY MEMBER:  У меня есть …
+// ==================================================
+
+const NORTH_FAMILY = [
+    { label: "Brother (брат)",             ru: "брат",             en: "a brother" },
+    { label: "Sister (сестра)",            ru: "сестра",           en: "a sister" },
+    { label: "Father (папа)",              ru: "папа",             en: "a father" },
+    { label: "Mother (мама)",              ru: "мама",             en: "a mother" },
+    { label: "Grandfather (дедушка)",      ru: "дедушка",          en: "a grandfather" },
+    { label: "Grandmother (бабушка)",      ru: "бабушка",          en: "a grandmother" },
+    { label: "Uncle (дядя)",               ru: "дядя",             en: "an uncle" },
+    { label: "Aunt (тётя)",                ru: "тётя",             en: "an aunt" },
+    { label: "Cousin (двоюродный брат/сестра)", ru: "двоюродный брат", en: "a cousin" },
+    { label: "Son (сын)",                  ru: "сын",              en: "a son" },
+    { label: "Daughter (дочь)",            ru: "дочь",             en: "a daughter" },
+    { label: "Parents (родители)",         ru: "родители",         en: "parents" },
+    { label: "Children (дети)",            ru: "дети",             en: "children" },
+    { label: "Grandchildren (внуки)",      ru: "внуки",            en: "grandchildren" },
+    { label: "Family (семья)",             ru: "семья",            en: "a family" }
+];
+
+const northSelect = document.querySelector("#north-select");
+
+// Put the word "есть" in a highlighted span
+function northHighlight(text) {
+    return text.replace("есть", '<span class="cd-hl">есть</span>');
+}
+
+// The English half of each sentence
+function northEnglish(member) {
+    return member.en;
+}
+
+function renderNorth() {
+
+    if (!northSelect) return;
+
+    const member = NORTH_FAMILY[Number(northSelect.value)] || NORTH_FAMILY[0];
+
+    const sentenceRu = `У меня есть ${member.ru}.`;
+    const questionRu = `У вас есть ${member.ru}?`;
+    const answerRu = `Да, у меня есть ${member.ru}.`;
+
+    document.querySelector("#north-sentence").innerHTML = northHighlight(sentenceRu);
+    document.querySelector("#north-sentence-en").textContent = `I have ${member.en}.`;
+
+    document.querySelector("#north-tile-ru").textContent = member.ru;
+    document.querySelector("#north-tile-en").textContent = member.en;
+
+    document.querySelector("#north-q").innerHTML = northHighlight(questionRu);
+    document.querySelector("#north-q-en").textContent = `Do you have ${member.en}?`;
+
+    document.querySelector("#north-a").innerHTML = northHighlight(answerRu);
+    document.querySelector("#north-a-en").textContent = `Yes, I have ${member.en}.`;
+
+}
+
+if (northSelect) {
+
+    NORTH_FAMILY.forEach((member, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = member.label;
+        northSelect.appendChild(option);
+    });
+
+    northSelect.addEventListener("change", renderNorth);
+    renderNorth();
+
+    // Hear buttons read the text that is on the screen right now
+    [
+        ["#north-speak-sentence", "#north-sentence"],
+        ["#north-speak-q", "#north-q"],
+        ["#north-speak-a", "#north-a"]
+    ].forEach(([buttonSelector, textSelector]) => {
+        document.querySelector(buttonSelector)?.addEventListener("click", () => {
+            speakRussianWord(document.querySelector(textSelector).textContent);
+        });
+    });
+
+}
+
+
+// ==================================================
+// DOOR 3 — SOUTH DISCOVERY
+// DO WE ALWAYS NEED есть?
+// ==================================================
+
+// g = grammatical gender (m / f). "more" lists the "Tell me more" choices
+// that sound natural for that person.
+const SOUTH_PEOPLE = [
+    { label: "Brother (брат)",       ru: "брат",             en: "brother",   g: "m", more: ["older", "younger", "twin"] },
+    { label: "Sister (сестра)",      ru: "сестра",           en: "sister",    g: "f", more: ["older", "younger", "twin"] },
+    { label: "Father (папа)",        ru: "папа",             en: "father",    g: "m", more: [] },
+    { label: "Mother (мама)",        ru: "мама",             en: "mother",    g: "f", more: [] },
+    { label: "Grandfather (дедушка)", ru: "дедушка",         en: "grandfather", g: "m", more: [] },
+    { label: "Grandmother (бабушка)", ru: "бабушка",         en: "grandmother", g: "f", more: [] },
+    { label: "Uncle (дядя)",         ru: "дядя",             en: "uncle",     g: "m", more: [] },
+    { label: "Aunt (тётя)",          ru: "тётя",             en: "aunt",      g: "f", more: [] },
+    { label: "Cousin (двоюродный брат)", ru: "двоюродный брат", en: "cousin", g: "m", more: ["older", "younger"] },
+    { label: "Son (сын)",            ru: "сын",              en: "son",       g: "m", more: ["older", "younger"] },
+    { label: "Daughter (дочь)",      ru: "дочь",             en: "daughter",  g: "f", more: ["older", "younger"] }
+];
+
+const southWho = document.querySelector("#south-who");
+const southMore = document.querySelector("#south-more");
+
+// The wording of each "Tell me more" choice, for a masculine or feminine person
+function southModifier(kind, person) {
+
+    const feminine = person.g === "f";
+
+    if (kind === "older")   return { ru: feminine ? "старшая" : "старший", en: "an older" };
+    if (kind === "younger") return { ru: feminine ? "младшая" : "младший", en: "a younger" };
+    if (kind === "twin") {
+        return {
+            ru: null,
+            noun: feminine ? "сестра-близнец" : "брат-близнец",
+            en: "a twin"
+        };
+    }
+    return null;
+
+}
+
+function southMoreLabel(kind, person) {
+
+    const none = { none: "Just say I have one" };
+
+    if (kind === "none") return none.none;
+
+    if (kind === "twin") {
+        return `Twin (${person.g === "f" ? "сестра-близнец" : "брат-близнец"})`;
+    }
+
+    const word = southModifier(kind, person).ru;
+    return `${kind === "older" ? "Older" : "Younger"} (${word})`;
+
+}
+
+// Rebuild the "Tell me more" menu so it only offers natural choices for this person
+function fillSouthMore(keepValue) {
+
+    const person = SOUTH_PEOPLE[Number(southWho.value)];
+    const kinds = ["none", ...person.more];
+
+    southMore.innerHTML = "";
+
+    kinds.forEach((kind) => {
+        const option = document.createElement("option");
+        option.value = kind;
+        option.textContent = southMoreLabel(kind, person);
+        southMore.appendChild(option);
+    });
+
+    southMore.value = kinds.includes(keepValue) ? keepValue : "none";
+
+}
+
+function renderSouth() {
+
+    const person = SOUTH_PEOPLE[Number(southWho.value)];
+    const kind = southMore.value;
+    const mod = southModifier(kind, person);
+
+    let ru;
+    let en;
+
+    if (!mod) {
+        // Just say I have one → есть appears
+        ru = `У меня <span class="cd-hl">есть</span> ${person.ru}.`;
+        en = `I have a${"aeiou".includes(person.en[0]) ? "n" : ""} ${person.en}.`;
+    } else if (mod.noun) {
+        // Twin → the noun itself changes, есть drops out
+        const twinNoun = person.g === "f" ? "сестра-близнец" : "брат-близнец";
+        ru = `У меня <span class="cd-hl cd-hl--yellow">${twinNoun}</span>.`;
+        en = `I have ${mod.en} ${person.en}.`;
+    } else {
+        ru = `У меня <span class="cd-hl cd-hl--yellow">${mod.ru}</span> ${person.ru}.`;
+        en = `I have ${mod.en} ${person.en}.`;
+    }
+
+    document.querySelector("#south-sentence").innerHTML = ru;
+    document.querySelector("#south-sentence-en").textContent = en;
+
+}
+
+if (southWho && southMore) {
+
+    SOUTH_PEOPLE.forEach((person, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = person.label;
+        southWho.appendChild(option);
+    });
+
+    fillSouthMore("none");
+    renderSouth();
+
+    southWho.addEventListener("change", () => {
+        fillSouthMore(southMore.value);
+        renderSouth();
+    });
+
+    southMore.addEventListener("change", renderSouth);
+
+    // Try Another: pick a different, natural-sounding combination at random
+    document.querySelector("#south-another")?.addEventListener("click", () => {
+
+        const combos = [];
+
+        SOUTH_PEOPLE.forEach((person, index) => {
+            ["none", ...person.more].forEach((kind) => {
+                combos.push({ index, kind });
+            });
+        });
+
+        const current = {
+            index: Number(southWho.value),
+            kind: southMore.value
+        };
+
+        const others = combos.filter(
+            (c) => !(c.index === current.index && c.kind === current.kind)
+        );
+
+        const next = others[Math.floor(Math.random() * others.length)];
+
+        southWho.value = String(next.index);
+        fillSouthMore(next.kind);
+        renderSouth();
+
+    });
+
+    document.querySelector("#south-speak")?.addEventListener("click", () => {
+        speakRussianWord(document.querySelector("#south-sentence").textContent);
+    });
+
+}
+
+// Every example sentence on the South screen has its own Hear button
+document.querySelectorAll('.cd-content[data-content="south"] .cd-speak[data-say]').forEach((button) => {
+    button.addEventListener("click", () => {
+        speakRussianWord(button.dataset.say);
+    });
+});
+
+
+// ==================================================
+// DOOR 3 — EAST DISCOVERY
+// WHAT IF I DON'T HAVE ONE?   У меня нет … (+ the family word changes)
+// ==================================================
+
+// "gen" is the family word after нет (genitive). We only ask the learner to NOTICE it.
+const EAST_PEOPLE = [
+    { key: "brother",       label: "Brother (брат)",           gen: "брата",           en: "a brother" },
+    { key: "sister",        label: "Sister (сестра)",          gen: "сестры",          en: "a sister" },
+    { key: "father",        label: "Father (отец)",            gen: "отца",            en: "a father" },
+    { key: "mother",        label: "Mother (мать)",            gen: "матери",          en: "a mother" },
+    { key: "grandfather",   label: "Grandfather (дедушка)",    gen: "дедушки",         en: "a grandfather" },
+    { key: "grandmother",   label: "Grandmother (бабушка)",    gen: "бабушки",         en: "a grandmother" },
+    { key: "uncle",         label: "Uncle (дядя)",             gen: "дяди",            en: "an uncle" },
+    { key: "aunt",          label: "Aunt (тётя)",              gen: "тёти",            en: "an aunt" },
+    { key: "cousin",        label: "Cousin (двоюродный брат)", gen: "двоюродного брата", en: "a cousin" },
+    { key: "son",           label: "Son (сын)",                gen: "сына",            en: "a son" },
+    { key: "daughter",      label: "Daughter (дочь)",          gen: "дочери",          en: "a daughter" },
+    { key: "parents",       label: "Parents (родители)",       gen: "родителей",       en: "parents" },
+    { key: "children",      label: "Children (дети)",          gen: "детей",           en: "children" },
+    { key: "grandchildren", label: "Grandchildren (внуки)",    gen: "внуков",          en: "grandchildren" }
+];
+
+// Two choosers: "a" drives the main sentence, "b" is "try another person"
+const eastState = { a: 0, b: 1 };
+
+function eastSentence(person) {
+    return `У меня нет ${person.gen}.`;
+}
+
+function renderEast() {
+
+    ["a", "b"].forEach((side) => {
+
+        const person = EAST_PEOPLE[eastState[side]];
+        const portrait = document.querySelector(`#east-${side}-portrait`);
+        const select = document.querySelector(`#east-${side}-select`);
+
+        if (select) select.value = String(eastState[side]);
+
+        // Portrait files are named portrait-person-<key>.png (tan circle until they exist)
+        if (portrait) {
+            portrait.style.backgroundImage =
+                `url("../../Images/door-three/portrait-person-${person.key}.png")`;
+        }
+
+    });
+
+    const personA = EAST_PEOPLE[eastState.a];
+    const personB = EAST_PEOPLE[eastState.b];
+
+    const sentence = document.querySelector("#east-sentence");
+    const sentenceEn = document.querySelector("#east-sentence-en");
+    const sentenceB = document.querySelector("#east-sentence-b");
+
+    if (sentence) {
+        sentence.innerHTML =
+            eastSentence(personA).replace("нет", '<span class="cd-hl cd-hl--red">нет</span>');
+    }
+
+    if (sentenceEn) {
+        sentenceEn.textContent = `I don't have ${personA.en}.`;
+    }
+
+    if (sentenceB) {
+        sentenceB.innerHTML =
+            eastSentence(personB).replace("нет", '<span class="cd-hl cd-hl--red">нет</span>');
+    }
+
+}
+
+if (document.querySelector("#east-a-select")) {
+
+    ["a", "b"].forEach((side) => {
+
+        const select = document.querySelector(`#east-${side}-select`);
+
+        EAST_PEOPLE.forEach((person, index) => {
+            const option = document.createElement("option");
+            option.value = String(index);
+            option.textContent = person.label;
+            select.appendChild(option);
+        });
+
+        select.addEventListener("change", () => {
+            eastState[side] = Number(select.value);
+            renderEast();
+        });
+
+        // Arrows step through the people and wrap around at the ends
+        document.querySelector(`#east-${side}-prev`)?.addEventListener("click", () => {
+            eastState[side] = (eastState[side] - 1 + EAST_PEOPLE.length) % EAST_PEOPLE.length;
+            renderEast();
+        });
+
+        document.querySelector(`#east-${side}-next`)?.addEventListener("click", () => {
+            eastState[side] = (eastState[side] + 1) % EAST_PEOPLE.length;
+            renderEast();
+        });
+
+    });
+
+    document.querySelector("#east-hear-a")?.addEventListener("click", () => {
+        speakRussianWord(eastSentence(EAST_PEOPLE[eastState.a]));
+    });
+
+    document.querySelector("#east-hear-b")?.addEventListener("click", () => {
+        speakRussianWord(eastSentence(EAST_PEOPLE[eastState.b]));
+    });
+
+    renderEast();
+
+}
+
+
+// ==================================================
+// DOOR 3 — WEST DISCOVERY
+// TALKING ABOUT OTHER PEOPLE:  у меня / у тебя / у него / у неё / у нас / у них + есть
+// ==================================================
+
+const WEST_PEOPLE = [
+    { key: "i",    ru: "у меня", en: "I",    subject: "I",    verb: "have" },
+    { key: "you",  ru: "у тебя", en: "you",  subject: "You",  verb: "have" },
+    { key: "he",   ru: "у него", en: "he",   subject: "He",   verb: "has" },
+    { key: "she",  ru: "у неё",  en: "she",  subject: "She",  verb: "has" },
+    { key: "we",   ru: "у нас",  en: "we",   subject: "We",   verb: "have" },
+    { key: "they", ru: "у них",  en: "they", subject: "They", verb: "have" }
+];
+
+const WEST_MEMBERS = [
+    { key: "brother",       ru: "брат",             en: "a brother" },
+    { key: "sister",        ru: "сестра",           en: "a sister" },
+    { key: "father",        ru: "папа",             en: "a father" },
+    { key: "mother",        ru: "мама",             en: "a mother" },
+    { key: "grandfather",   ru: "дедушка",          en: "a grandfather" },
+    { key: "grandmother",   ru: "бабушка",          en: "a grandmother" },
+    { key: "uncle",         ru: "дядя",             en: "an uncle" },
+    { key: "aunt",          ru: "тётя",             en: "an aunt" },
+    { key: "cousin",        ru: "двоюродный брат",  en: "a cousin" },
+    { key: "son",           ru: "сын",              en: "a son" },
+    { key: "daughter",      ru: "дочь",             en: "a daughter" },
+    { key: "parents",       ru: "родители",         en: "parents" },
+    { key: "children",      ru: "дети",             en: "children" },
+    { key: "grandchildren", ru: "внуки",            en: "grandchildren" },
+    { key: "family",        ru: "семья",            en: "a family" }
+];
+
+// Start on "he" + "sister", like the concept picture
+const westState = { p: 2, m: 1 };
+
+function westSentenceRu() {
+    return `${WEST_PEOPLE[westState.p].ru[0].toUpperCase()}${WEST_PEOPLE[westState.p].ru.slice(1)} есть ${WEST_MEMBERS[westState.m].ru}.`;
+}
+
+function renderWest() {
+
+    const person = WEST_PEOPLE[westState.p];
+    const member = WEST_MEMBERS[westState.m];
+
+    const setPortrait = (id, file) => {
+        const el = document.querySelector(id);
+        if (el) el.style.backgroundImage = `url("../../Images/door-three/${file}")`;
+    };
+
+    setPortrait("#west-p-portrait", `portrait-pronoun-${person.key}.png`);
+    setPortrait("#west-m-portrait", `portrait-person-${member.key}.png`);
+
+    document.querySelector("#west-p-ru").textContent = person.ru;
+    document.querySelector("#west-p-en").textContent = person.en;
+    document.querySelector("#west-m-ru").textContent = member.ru;
+    document.querySelector("#west-m-en").textContent = member.en;
+
+    const beginning = `${person.ru[0].toUpperCase()}${person.ru.slice(1)}`;
+
+    document.querySelector("#west-sentence").innerHTML =
+        `<span class="cd-hl cd-hl--yellow">${beginning}</span> <span class="cd-hl">есть</span> ${member.ru}.`;
+
+    document.querySelector("#west-sentence-en").textContent =
+        `${person.subject} ${person.verb} ${member.en}.`;
+
+}
+
+if (document.querySelector("#west-p-prev")) {
+
+    // Arrows step through the choices and wrap around at the ends
+    const wire = (side, list) => {
+        document.querySelector(`#west-${side}-prev`)?.addEventListener("click", () => {
+            westState[side] = (westState[side] - 1 + list.length) % list.length;
+            renderWest();
+        });
+        document.querySelector(`#west-${side}-next`)?.addEventListener("click", () => {
+            westState[side] = (westState[side] + 1) % list.length;
+            renderWest();
+        });
+    };
+
+    wire("p", WEST_PEOPLE);
+    wire("m", WEST_MEMBERS);
+
+    document.querySelector("#west-hear")?.addEventListener("click", () => {
+        speakRussianWord(westSentenceRu());
+    });
+
+    renderWest();
+
+}
+
+// Back to the Map: the glow ends and the compass is ready again
+document
+    .querySelectorAll("#explore-conversation .compass-back-to-map")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            clearCompassGlow();
+            setCompassPrompt("Click the compass to find where to go next.");
+
+            if (compassDiscoveryScreen) compassDiscoveryScreen.hidden = true;
+            if (compassMapScreen) compassMapScreen.hidden = false;
+
+            exploreConversationRoom?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        });
+
+    });
+
+
+// Reset / Start Over: a fresh shuffled cycle and a resting needle
+document
+    .querySelectorAll("#explore-conversation .compass-reset")
+    .forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            compassBag = [];
+            compassTotalAngle = 0;
+            compassSpinning = false;
+
+            clearCompassGlow();
+            setCompassPrompt("Click the compass to find where to go next.");
+
+            if (compassNeedle) {
+                compassNeedle.style.transition = "none";
+                compassNeedle.style.transform = "rotate(0deg)";
             }
 
         });

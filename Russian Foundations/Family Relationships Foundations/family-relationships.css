@@ -13464,3 +13464,804 @@ h1 {
     padding: .25em .9em;
     font-size: .9em;
 }
+
+/* ==========================================
+   DOOR 3 — THE COMPASS & MAP
+   The stage has the same proportions as
+   Michael's landing-screen picture. Every piece
+   is placed with percentages of the stage, and
+   sizes use "cqw" (1% of the stage's width), so
+   nothing drifts when the window changes size.
+========================================== */
+
+#explore-conversation {
+    max-width: 1400px;
+}
+
+.compass-stage {
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 917 / 535;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #140d09;
+}
+
+.compass-stage[hidden] {
+    display: none;
+}
+
+/* The antique map inside the dark frame */
+.compass-map-art {
+    position: absolute;
+    left: 15.3%;
+    top: 14.4%;
+    width: 74.5%;
+    height: 70.1%;
+    object-fit: fill;
+    pointer-events: none;
+}
+
+.compass-banner {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 32%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* ---------- Boats (centered on their spots) ---------- */
+
+.compass-boat {
+    position: absolute;
+    width: 6.5%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.compass-boat--north { left: 44.7%; top: 39.8%; }
+.compass-boat--south { left: 47.4%; top: 64.5%; }
+.compass-boat--east  { left: 81.8%; top: 50.5%; }
+.compass-boat--west  { left: 65.8%; top: 71%; }
+
+/* ---------- Directional markers ---------- */
+
+.compass-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 6cqw;
+    height: 6cqw;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #1b130c;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: 4.4cqw;
+    line-height: 1;
+    cursor: default;
+    transition: transform .3s, text-shadow .3s, background .3s;
+}
+
+.compass-marker:disabled {
+    color: #1b130c;
+    cursor: default;
+}
+
+/* Positions are measured on Michael's landing-screen picture */
+.compass-marker--n { left: 42.9%; top: 26.5%; }
+.compass-marker--e { left: 66.5%; top: 38.7%; }
+.compass-marker--s { left: 39.8%; top: 63%; }
+.compass-marker--w { left: 31.3%; top: 43%; }
+
+.compass-marker.is-lit {
+    cursor: pointer;
+    color: #fff6d2;
+    background: radial-gradient(circle, rgba(255, 214, 90, 0.95), rgba(255, 190, 40, 0.55) 55%, rgba(255, 190, 40, 0) 72%);
+    text-shadow: 0 0 .25em #b87500, 0 0 .5em #ffcf4a;
+    animation: compassGlow 1.4s ease-in-out infinite;
+}
+
+.compass-marker.is-lit:hover,
+.compass-marker.is-lit:focus-visible {
+    transform: translate(-50%, -50%) scale(1.12);
+    outline: none;
+}
+
+@keyframes compassGlow {
+    0%, 100% { box-shadow: 0 0 1.2cqw 0.4cqw rgba(255, 200, 60, 0.55); }
+    50%      { box-shadow: 0 0 2.8cqw 1.2cqw rgba(255, 210, 90, 0.95); }
+}
+
+/* ---------- The compass: face + needle layered ---------- */
+
+.compass-dial {
+    position: absolute;
+    left: 10.8%;
+    top: 56%;
+    width: 24.4%;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.compass-dial:hover,
+.compass-dial:focus-visible {
+    transform: scale(1.03);
+    outline: none;
+}
+
+.compass-dial__face,
+.compass-dial__needle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* The needle turns around the center of its own square picture */
+.compass-dial__needle {
+    transform-origin: 50% 50%;
+}
+
+/* Status text is for screen readers only */
+.compass-prompt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- Bottom picture buttons ---------- */
+
+.compass-imgbtn {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: transform .2s, filter .2s;
+}
+
+.compass-imgbtn img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.compass-imgbtn:hover,
+.compass-imgbtn:focus-visible {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    outline: none;
+}
+
+.compass-nav-btn {
+    position: absolute;
+    top: 78.5%;
+    width: 17%;
+}
+
+.compass-nav-btn--left  { left: 39.3%; }
+.compass-nav-btn--right { left: 60.3%; }
+
+/* ---------- Discovery screens (North, South, East, West) ----------
+   One shared cabin screen. Panels are positioned in percentages
+   of the stage, using positions measured on Michael's concept
+   pictures. Text sizes use cqw so everything scales together. */
+
+.compass-screen--discovery {
+    background: #140d09 url("../../Images/door-three/background-screen-n-e-s-w-discovery.png") center / 100% 100% no-repeat;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #3a2412;
+}
+
+.compass-screen--discovery .compass-back-to-map {
+    left: 12%;
+    top: 88%;
+    width: 17%;
+}
+
+/* ----- The sign: brass emblem + wooden board ----- */
+
+.cd-emblem {
+    position: absolute;
+    left: 9%;
+    top: 1.5%;
+    width: 9.5cqw;
+    height: 9.5cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #e9c46a, #a8741f 70%, #6b4410);
+    border: .5cqw solid #7a5314;
+    box-shadow: 0 .4cqw 1cqw rgba(0, 0, 0, .6), inset 0 0 1cqw rgba(0, 0, 0, .35);
+    color: #fff3c9;
+    font-weight: 700;
+    font-size: 1.7cqw;
+    letter-spacing: .08em;
+    text-shadow: 0 .15cqw .3cqw rgba(0, 0, 0, .7);
+    z-index: 2;
+}
+
+.cd-board {
+    position: absolute;
+    left: 14%;
+    top: 2.5%;
+    width: 36%;
+    height: 16%;
+    box-sizing: border-box;
+    padding: 1cqw 1.5cqw 1cqw 6cqw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-radius: .8cqw;
+    border: .3cqw solid #3a2410;
+    background: linear-gradient(180deg, #7a4f2a, #5a3a1c);
+    box-shadow: 0 .5cqw 1.2cqw rgba(0, 0, 0, .6);
+}
+
+.cd-board__title {
+    margin: 0;
+    color: #ffe9a8;
+    font-size: 2.3cqw;
+    line-height: 1.15;
+    text-shadow: 0 .2cqw .3cqw rgba(0, 0, 0, .7);
+}
+
+.cd-board__sub {
+    margin: .4cqw 0 0;
+    color: #fbe7b5;
+    font-size: 1.25cqw;
+}
+
+.cd-board__sub:empty {
+    display: none;
+}
+
+/* ----- Parchment panels ----- */
+
+.cd-content[hidden] {
+    display: none;
+}
+
+.cd-panel,
+.cd-note {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 1.1cqw 1.4cqw;
+    border-radius: 1cqw;
+    border: .25cqw solid #6b4a22;
+    background: linear-gradient(180deg, #f6e6bd, #e8cf94);
+    box-shadow: 0 .5cqw 1.4cqw rgba(0, 0, 0, .55);
+    font-size: 1.15cqw;
+    line-height: 1.35;
+}
+
+.cd-panel h3 {
+    margin: 0 0 .5cqw;
+    display: flex;
+    align-items: center;
+    gap: .6cqw;
+    color: #4a2a10;
+    font-size: 1.65cqw;
+}
+
+.cd-panel p {
+    margin: 0 0 .5cqw;
+}
+
+.cd-num {
+    flex: none;
+    width: 2.4cqw;
+    height: 2.4cqw;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1d4f91;
+    color: #fff;
+    font-size: 1.45cqw;
+    font-weight: 700;
+}
+
+.cd-note {
+    transform: rotate(2deg);
+    text-align: center;
+    font-size: 1.3cqw;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cd-note--north { left: 76.5%; top: 8%; width: 12.5%; height: 15%; }
+
+/* ----- Shared pieces: portraits, speaker buttons, sentences ----- */
+
+.cd-portrait {
+    flex: none;
+    width: 8cqw;
+    height: 8cqw;
+    border-radius: 50%;
+    border: .25cqw solid #6b4a22;
+    background: #cdb27a center / cover no-repeat;
+}
+
+/* Portrait files go in Images/door-three/. Until they exist, the tan circle shows. */
+.cd-portrait--hero  { background-image: url("../../Images/door-three/portrait-hero.png"); }
+.cd-portrait--scarf { background-image: url("../../Images/door-three/portrait-red-scarf.png"); }
+
+.cd-speak {
+    flex: none;
+    width: 3cqw;
+    height: 3cqw;
+    padding: 0;
+    border: .2cqw solid #d9a441;
+    border-radius: 50%;
+    background: #4a2a10;
+    color: #ffe9a8;
+    font-size: 1.3cqw;
+    cursor: pointer;
+    transition: transform .15s, filter .15s;
+}
+
+.cd-speak:hover,
+.cd-speak:focus-visible {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+    outline: none;
+}
+
+.cd-ru {
+    font-weight: 700;
+    font-size: 1.6cqw;
+    color: #2a1608;
+}
+
+.cd-ru--big {
+    font-size: 1.9cqw;
+}
+
+.cd-en {
+    font-style: italic;
+    font-size: 1.3cqw;
+    color: #4a3520;
+}
+
+.cd-hl {
+    padding: 0 .3cqw;
+    border-radius: .3cqw;
+    background: #a9cdf2;
+}
+
+.cd-say,
+.cd-bubble {
+    display: flex;
+    align-items: center;
+    gap: 1cqw;
+}
+
+/* ----- NORTH layout ----- */
+
+.cd-north-1 { left: 8.4%;  top: 21.8%; width: 25.4%; height: 30%; }
+.cd-north-2 { left: 34.7%; top: 21.8%; width: 31.9%; height: 25%; display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.2cqw; }
+.cd-north-3 { left: 34.7%; top: 48.6%; width: 31.9%; height: 27%; }
+.cd-north-4 { left: 67.2%; top: 25%;   width: 25.2%; height: 47%; }
+.cd-north-5 { left: 45%;   top: 76%;   width: 48%;   height: 18%; }
+
+.cd-north-1 select {
+    width: 100%;
+    padding: .5cqw .7cqw;
+    border: .2cqw solid #6b4a22;
+    border-radius: .5cqw;
+    background: #fffaf0;
+    color: #2a1608;
+    font-family: inherit;
+    font-size: 1.2cqw;
+}
+
+.cd-north-2 h3 {
+    flex-basis: 100%;
+}
+
+.cd-north-2 .cd-say {
+    flex: 1;
+    padding: .8cqw 1cqw;
+    border-radius: .8cqw;
+    background: rgba(255, 250, 235, .7);
+}
+
+.cd-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .6cqw;
+}
+
+.cd-tile {
+    padding: .5cqw .4cqw;
+    border-radius: .6cqw;
+    border: .15cqw solid rgba(60, 40, 20, .35);
+    text-align: center;
+}
+
+.cd-tile--blue   { background: #b9d7f3; }
+.cd-tile--yellow { background: #f6e07a; }
+.cd-tile--green  { background: #bfe0b4; }
+
+.cd-tile__ru   { font-weight: 700; font-size: 1.5cqw; }
+.cd-tile__en   { font-style: italic; font-size: 1.15cqw; }
+.cd-tile__note { margin-top: .3cqw; font-size: .9cqw; line-height: 1.25; }
+
+.cd-turn {
+    display: flex;
+    align-items: center;
+    gap: .8cqw;
+    margin-top: .8cqw;
+    padding: .6cqw;
+    border-radius: .8cqw;
+    background: rgba(255, 250, 235, .7);
+}
+
+.cd-turn .cd-portrait {
+    width: 6cqw;
+    height: 6cqw;
+}
+
+.cd-turn .cd-ru { font-size: 1.25cqw; }
+.cd-turn .cd-en { font-size: 1.1cqw; }
+
+.cd-north-5 p {
+    font-size: 1.25cqw;
+}
+
+/* ----- SOUTH layout ----- */
+
+.cd-note--south { left: 76%; top: 5.5%; width: 14.5%; height: 15%; display: block; padding-top: 1cqw; font-size: 1.2cqw; line-height: 1.3; }
+
+.cd-south-1 { left: 5.7%;  top: 21%;   width: 33.3%; height: 40%; }
+.cd-south-2 { left: 39.8%; top: 21%;   width: 52%;   height: 40%; }
+.cd-south-3 { left: 5.7%;  top: 63%;   width: 42.7%; height: 22%; }
+.cd-south-4 { left: 49.2%; top: 62.5%; width: 42.6%; height: 36%; }
+
+.cd-south-1 h3,
+.cd-south-2 h3 {
+    font-size: 1.7cqw;
+}
+
+.cd-card {
+    display: flex;
+    align-items: center;
+    gap: .8cqw;
+    margin-top: .6cqw;
+    padding: .5cqw .7cqw;
+    border-radius: .8cqw;
+    background: rgba(255, 250, 235, .75);
+}
+
+.cd-card .cd-portrait {
+    width: 5.5cqw;
+    height: 5.5cqw;
+}
+
+.cd-card__text {
+    flex: 1;
+    min-width: 0;
+}
+
+.cd-card .cd-ru { font-size: 1.45cqw; }
+.cd-card .cd-en { font-size: 1.05cqw; }
+.cd-card .cd-speak { width: 2.4cqw; height: 2.4cqw; font-size: 1cqw; }
+
+.cd-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 .8cqw;
+}
+
+.cd-hl--yellow {
+    background: #f6e07a;
+}
+
+.cd-compare {
+    display: flex;
+    align-items: center;
+    gap: 1.2cqw;
+}
+
+.cd-compare p {
+    flex: 1;
+    margin: 0;
+}
+
+.cd-compare__box {
+    flex: 1;
+    padding: .7cqw 1cqw;
+    border-radius: .8cqw;
+    background: rgba(255, 250, 235, .8);
+    text-align: center;
+}
+
+.cd-compare__box .cd-ru { font-size: 1.6cqw; }
+
+.cd-compare__arrow {
+    color: #a33a2a;
+    font-size: 1.6cqw;
+    line-height: 1.2;
+}
+
+.cd-menus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2cqw;
+}
+
+.cd-menu {
+    display: block;
+}
+
+.cd-menu__label {
+    display: block;
+    margin-bottom: .3cqw;
+    font-weight: 700;
+    font-size: 1.15cqw;
+    letter-spacing: .04em;
+}
+
+.cd-menu select {
+    width: 100%;
+    padding: .4cqw .6cqw;
+    border: .2cqw solid #6b4a22;
+    border-radius: .5cqw;
+    background: #fffaf0;
+    color: #2a1608;
+    font-family: inherit;
+    font-size: 1.1cqw;
+}
+
+.cd-result {
+    display: flex;
+    align-items: center;
+    gap: 1cqw;
+    margin-top: .8cqw;
+    padding: .6cqw .9cqw;
+    border-radius: .8cqw;
+    background: rgba(255, 250, 235, .8);
+}
+
+.cd-result .cd-ru--big { font-size: 1.8cqw; }
+
+.cd-try {
+    display: block;
+    margin: .4cqw 0 0 auto;
+    padding: .5cqw 1.4cqw;
+    border: .2cqw solid #d9a441;
+    border-radius: .6cqw;
+    background: linear-gradient(180deg, #6b4a22, #3f2610);
+    color: #ffe9a8;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1.3cqw;
+    cursor: pointer;
+}
+
+.cd-try:hover,
+.cd-try:focus-visible {
+    filter: brightness(1.2);
+    outline: none;
+}
+
+/* Portrait files for South (Images/door-three/) */
+.cd-portrait--family-large   { background-image: url("../../Images/door-three/portrait-family-large.png"); }
+.cd-portrait--family-small   { background-image: url("../../Images/door-three/portrait-family-small.png"); }
+.cd-portrait--older-brother  { background-image: url("../../Images/door-three/portrait-older-brother.png"); }
+.cd-portrait--younger-sister { background-image: url("../../Images/door-three/portrait-younger-sister.png"); }
+
+/* ----- EAST layout ----- */
+
+.cd-hl--red { background: #f0a9a2; }
+
+.cd-east-left   { left: 5.7%;  top: 22%; width: 35.5%; height: 62%; }
+.cd-east-notice { left: 46.7%; top: 20%; width: 51%;   height: 27%; }
+.cd-east-turn   { position: absolute; left: 41.8%; top: 50%; width: 56%; height: 38%; }
+
+.cd-row {
+    display: flex;
+    align-items: center;
+    gap: 1cqw;
+    margin-top: .35cqw;
+    padding: .25cqw .7cqw;
+    border-radius: .7cqw;
+    background: rgba(255, 250, 235, .75);
+}
+
+.cd-row .cd-portrait {
+    width: 4cqw;
+    height: 4cqw;
+}
+
+.cd-row .cd-ru { font-size: 1.5cqw; }
+.cd-row .cd-en { font-size: 1.05cqw; }
+
+.cd-notice {
+    display: flex;
+    gap: 1.2cqw;
+    align-items: stretch;
+}
+
+.cd-notice ul {
+    flex: 1;
+    margin: 0;
+    padding-left: 1.4cqw;
+    font-size: 1.1cqw;
+    line-height: 1.45;
+}
+
+.cd-redbox {
+    flex: .9;
+    padding: .8cqw 1cqw;
+    border-radius: .8cqw;
+    background: linear-gradient(180deg, #8a3524, #6a2418);
+    color: #fff1d6;
+    text-align: center;
+    font-size: 1.05cqw;
+    line-height: 1.35;
+}
+
+.cd-redbox p { margin: 0 0 .5cqw; }
+.cd-redbox p:last-child { margin: 0; }
+
+/* "Now it's your turn!" — wooden banner + three parchment boxes */
+.cd-turn-banner {
+    padding: .5cqw 1cqw;
+    border-radius: .7cqw;
+    border: .25cqw solid #3a2410;
+    background: linear-gradient(180deg, #7a4f2a, #5a3a1c);
+    color: #ffe9a8;
+    text-align: center;
+    box-shadow: 0 .5cqw 1.2cqw rgba(0, 0, 0, .6);
+}
+
+.cd-turn-banner h3 { margin: 0; font-size: 1.9cqw; }
+.cd-turn-banner p  { margin: 0; font-size: 1.05cqw; color: #fbe7b5; }
+
+.cd-turn-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: .8cqw;
+    margin-top: .6cqw;
+}
+
+.cd-box {
+    box-sizing: border-box;
+    padding: .6cqw .8cqw;
+    border-radius: .9cqw;
+    border: .25cqw solid #6b4a22;
+    background: linear-gradient(180deg, #f6e6bd, #e8cf94);
+    box-shadow: 0 .5cqw 1.2cqw rgba(0, 0, 0, .55);
+    text-align: center;
+}
+
+.cd-box__title {
+    margin-bottom: .3cqw;
+    font-weight: 700;
+    font-size: 1.1cqw;
+}
+
+.cd-pick {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6cqw;
+}
+
+.cd-portrait--pick {
+    width: 6cqw;
+    height: 6cqw;
+}
+
+.cd-arrow {
+    width: 2.2cqw;
+    height: 2.2cqw;
+    padding: 0;
+    border: .2cqw solid #d9a441;
+    border-radius: 50%;
+    background: #4a2a10;
+    color: #ffe9a8;
+    font-size: 1cqw;
+    cursor: pointer;
+}
+
+.cd-arrow:hover,
+.cd-arrow:focus-visible {
+    filter: brightness(1.25);
+    outline: none;
+}
+
+.cd-box select {
+    width: 100%;
+    margin-top: .4cqw;
+    padding: .3cqw .5cqw;
+    border: .2cqw solid #6b4a22;
+    border-radius: .5cqw;
+    background: #fffaf0;
+    color: #2a1608;
+    font-family: inherit;
+    font-size: 1cqw;
+}
+
+.cd-box--sentence .cd-ru--big { font-size: 1.45cqw; margin-top: .8cqw; }
+
+.cd-hear {
+    margin-top: .8cqw;
+    padding: .4cqw 1.2cqw;
+    border: .2cqw solid #d9a441;
+    border-radius: .6cqw;
+    background: linear-gradient(180deg, #6b4a22, #3f2610);
+    color: #ffe9a8;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1.15cqw;
+    cursor: pointer;
+}
+
+.cd-hear:hover,
+.cd-hear:focus-visible {
+    filter: brightness(1.2);
+    outline: none;
+}
+
+.cd-box__mini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5cqw;
+    margin-top: .4cqw;
+}
+
+.cd-box__mini .cd-ru { font-size: 1.1cqw; }
+
+.cd-speak--mini {
+    width: 1.8cqw;
+    height: 1.8cqw;
+    font-size: .8cqw;
+}
+
+/* Portrait files for East's fixed examples (Images/door-three/) */
+.cd-portrait--father        { background-image: url("../../Images/door-three/portrait-father.png"); }
+.cd-portrait--mother        { background-image: url("../../Images/door-three/portrait-mother.png"); }
+.cd-portrait--children      { background-image: url("../../Images/door-three/portrait-children.png"); }
+.cd-portrait--grandchildren { background-image: url("../../Images/door-three/portrait-grandparents.png"); }
+
+/* ----- WEST uses the same panels as EAST; only the picker labels are new ----- */
+
+.cd-pick__ru {
+    margin-top: .4cqw;
+    font-weight: 700;
+    font-size: 1.5cqw;
+}
+
+.cd-pick__ru + .cd-en {
+    font-size: 1.05cqw;
+}
+
+/* ----- "Coming next" panel for directions not built yet ----- */
+
+.cd-soon {
+    left: 30%;
+    top: 30%;
+    width: 40%;
+    text-align: center;
+}

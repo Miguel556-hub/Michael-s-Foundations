@@ -2479,7 +2479,7 @@ LESSON 2 — EXTENDED FAMILY
 
           <button type="button" class="explore-door" data-door="conversation">
             <span class="explore-door__symbol">↗</span>
-            <span class="explore-door__title">Where Could This Take Me?</span>
+            <span class="explore-door__title">Where Can This Take Me?</span>
           </button>
 
 
@@ -5072,767 +5072,498 @@ LESSON 2 — EXTENDED FAMILY
 
 
       <!-- ==================================================
-         EXPLORE — DOOR 3 WHERE COULD THIS TAKE ME?
+         EXPLORE — DOOR 3 WHERE CAN THIS TAKE ME?
     ================================================== -->
 
       <section class="explore-room explore-room--conversation" id="explore-conversation" hidden>
 
-        <header class="explore-room__header">
+        <!-- ==========================================
+             DOOR 3 — THE MAP ROOM (compass + map)
+        ========================================== -->
 
-          <div class="explore-room__identity explore-room__identity--conversation">
+        <div class="compass-stage compass-screen" id="compass-map" data-screen="map">
 
-            <div class="explore-room__identity-text">
+          <!-- The antique map sits inside the dark frame -->
+          <img class="compass-map-art"
+               src="../../Images/door-three/background-screen-map.png" alt="">
 
-              <div class="eyebrow">
-                EXPLORE — WHERE COULD THIS TAKE ME?
+          <!-- Four boats: separate, optional destinations (not wired up yet) -->
+          <img class="compass-boat compass-boat--north"
+               src="../../Images/door-three/image-boat-north.png" alt="North boat">
+          <img class="compass-boat compass-boat--south"
+               src="../../Images/door-three/image-boat-south.png" alt="South boat">
+          <img class="compass-boat compass-boat--east"
+               src="../../Images/door-three/image-boat-east.png" alt="East boat">
+          <img class="compass-boat compass-boat--west"
+               src="../../Images/door-three/image-boat-west.png" alt="West boat">
+
+          <!-- Four directional markers. Each is a real button so it works with a keyboard too. -->
+          <button type="button" class="compass-marker compass-marker--n" data-direction="north" disabled
+                  aria-label="North discovery">N</button>
+          <button type="button" class="compass-marker compass-marker--e" data-direction="east" disabled
+                  aria-label="East discovery">E</button>
+          <button type="button" class="compass-marker compass-marker--s" data-direction="south" disabled
+                  aria-label="South discovery">S</button>
+          <button type="button" class="compass-marker compass-marker--w" data-direction="west" disabled
+                  aria-label="West discovery">W</button>
+
+          <!-- The banner overlaps the top edge of the map -->
+          <img class="compass-banner"
+               src="../../Images/door-three/image-map-banner.png"
+               alt="Where will this take me? Click the compass on a specific compass direction to reveal more!">
+
+          <!-- The compass: face and needle are separate layers so the needle can spin alone. -->
+          <button type="button" class="compass-dial" id="compass-dial" aria-label="Spin the compass">
+            <img class="compass-dial__face"
+                 src="../../Images/door-three/image-compass-face.png" alt="">
+            <img class="compass-dial__needle" id="compass-needle"
+                 src="../../Images/door-three/image-compass-needle.png" alt="">
+          </button> <!-- END compass dial -->
+
+          <!-- Spoken status for screen readers (the glow is the visual cue) -->
+          <p class="compass-prompt" id="compass-prompt" aria-live="polite">
+            Click the compass to find where to go next.
+          </p>
+
+          <button type="button" class="compass-imgbtn compass-reset compass-nav-btn compass-nav-btn--left">
+            <img src="../../Images/door-three/button-reset.png" alt="Reset / Start Over">
+          </button>
+
+          <button type="button" class="compass-imgbtn explore-return-hallway compass-nav-btn compass-nav-btn--right">
+            <img src="../../Images/door-three/button-return-four-doors.png" alt="Return to the Four Doors">
+          </button>
+
+        </div> <!-- END Door 3 Map Room -->
+
+
+        <!-- ==========================================
+             DOOR 3 — DIRECTION DISCOVERIES
+             One shared cabin screen. The sign at the
+             top and the content inside change for
+             North, South, East and West.
+        ========================================== -->
+
+        <div class="compass-stage compass-screen compass-screen--discovery" id="compass-discovery" data-screen="discovery" hidden>
+
+          <!-- The sign: brass compass emblem + wooden title board -->
+          <div class="cd-emblem" id="cd-emblem" aria-hidden="true">NORTH</div>
+
+          <div class="cd-board">
+            <h2 class="cd-board__title" id="cd-title">I Have a Family Member</h2>
+            <p class="cd-board__sub" id="cd-sub"></p>
+          </div> <!-- END sign board -->
+
+          <!-- ======================================
+               NORTH — I Have a Family Member
+          ====================================== -->
+          <div class="cd-content" data-content="north" hidden>
+
+            <div class="cd-note cd-note--north">
+              Use this screen to tell someone you have a family member.
+            </div>
+
+            <section class="cd-panel cd-north-1">
+              <h3><span class="cd-num">1</span> Choose Your Family Member</h3>
+              <p>You want to tell someone:<br>I have …</p>
+              <select id="north-select" aria-label="Choose a family member"></select>
+            </section> <!-- END North panel 1 -->
+
+            <section class="cd-panel cd-north-2">
+              <h3><span class="cd-num">2</span> The Sentence</h3>
+              <div class="cd-portrait cd-portrait--hero"></div>
+              <div class="cd-say">
+                <button type="button" class="cd-speak" id="north-speak-sentence" aria-label="Hear the sentence">🔊</button>
+                <div>
+                  <div class="cd-ru cd-ru--big" id="north-sentence"></div>
+                  <div class="cd-en" id="north-sentence-en"></div>
+                </div>
+              </div>
+            </section> <!-- END North panel 2 -->
+
+            <section class="cd-panel cd-north-3">
+              <h3><span class="cd-num">3</span> Take a Closer Look</h3>
+              <p>Let's see what each part means.</p>
+              <div class="cd-tiles">
+                <div class="cd-tile cd-tile--blue">
+                  <div class="cd-tile__ru">У меня</div>
+                  <div class="cd-tile__en">with me</div>
+                  <div class="cd-tile__note">“With me” (about me)</div>
+                </div>
+                <div class="cd-tile cd-tile--yellow">
+                  <div class="cd-tile__ru">есть</div>
+                  <div class="cd-tile__en">there is</div>
+                  <div class="cd-tile__note">tells us that someone exists / is there</div>
+                </div>
+                <div class="cd-tile cd-tile--green">
+                  <div class="cd-tile__ru" id="north-tile-ru"></div>
+                  <div class="cd-tile__en" id="north-tile-en"></div>
+                  <div class="cd-tile__note">the family member you chose</div>
+                </div>
+              </div>
+            </section> <!-- END North panel 3 -->
+
+            <section class="cd-panel cd-north-4">
+              <h3><span class="cd-num">4</span> A Real Conversation</h3>
+              <p>Now you try it in a short conversation.</p>
+
+              <div class="cd-turn">
+                <div class="cd-portrait cd-portrait--scarf"></div>
+                <div class="cd-bubble">
+                  <button type="button" class="cd-speak" id="north-speak-q" aria-label="Hear the question">🔊</button>
+                  <div>
+                    <div class="cd-ru" id="north-q"></div>
+                    <div class="cd-en" id="north-q-en"></div>
+                  </div>
+                </div>
               </div>
 
-              <h2>Follow the Conversation</h2>
+              <div class="cd-turn">
+                <div class="cd-portrait cd-portrait--hero"></div>
+                <div class="cd-bubble">
+                  <button type="button" class="cd-speak" id="north-speak-a" aria-label="Hear the answer">🔊</button>
+                  <div>
+                    <div class="cd-ru" id="north-a"></div>
+                    <div class="cd-en" id="north-a-en"></div>
+                  </div>
+                </div>
+              </div>
+            </section> <!-- END North panel 4 -->
 
+            <section class="cd-panel cd-north-5">
+              <h3><span class="cd-num">5</span> Think About It</h3>
               <p>
-                You have greeted someone, exchanged names, and talked about how you are doing.
-                What might naturally happen next?
+                This is a common way to tell someone you have a family member.
+                Just change the family member in the menu to see how the
+                sentence and conversation change.
               </p>
+            </section> <!-- END North panel 5 -->
 
-              <p class="conversation-door__discovery-prompt">
-                Follow one small clue at a time. You may discover that the Russian you already know
-                can carry a conversation farther than you expected.
-              </p>
+          </div> <!-- END North content -->
 
+          <!-- ======================================
+               SOUTH — Wait… Do We Always Need есть?
+          ====================================== -->
+          <div class="cd-content" data-content="south" hidden>
+
+            <div class="cd-note cd-note--south">
+              Same people.<br>New information.<br>What happens to <span class="cd-hl">есть</span>?
             </div>
 
-            <div class="conversation-route" aria-label="Door 3 conversation path">
-
-              <div class="conversation-route__stop">
-                <span class="conversation-route__icon" aria-hidden="true">👤</span>
-                <span>NAME</span>
-              </div>
-
-              <div class="conversation-route__arrow" aria-hidden="true">→</div>
-
-              <div class="conversation-route__stop">
-                <span class="conversation-route__icon" aria-hidden="true">📍</span>
-                <span>PLACE</span>
-              </div>
-
-              <div class="conversation-route__arrow" aria-hidden="true">→</div>
-
-              <div class="conversation-route__stop">
-                <span class="conversation-route__icon" aria-hidden="true">💬</span>
-                <span>LANGUAGE</span>
-              </div>
-
-              <div class="conversation-route__arrow" aria-hidden="true">→</div>
-
-              <div class="conversation-route__stop conversation-route__stop--open">
-                <span class="conversation-route__icon" aria-hidden="true">↗</span>
-                <span>KEEP GOING</span>
-              </div>
-
-            </div>
-
-          </div>
-
-        </header>
-
-        <div class="explore-room__content">
-
-          <!-- ==================================================
-             DOOR 3 — DISCOVERY ONE
-             OPEN A NEW TOPIC
-        ================================================== -->
-
-          <section class="explore-discovery conversation-discovery" id="conversation-discovery-1">
-
-            <div class="explore-discovery__heading">
-
-              <div class="eyebrow">DISCOVERY ONE — OPEN A NEW TOPIC</div>
-
-              <h3>What Might Someone Ask Next?</h3>
-
+            <section class="cd-panel cd-south-1">
+              <h3>Just say I have one.</h3>
               <p>
-                You already know one question about a person. Compare it with a new one
-                and use the structure as evidence.
+                When the important idea is that someone exists / is there,
+                we often hear <span class="cd-hl">есть</span>.
               </p>
 
-            </div>
-
-            <div class="conversation-question-compare">
-
-              <div class="conversation-question-card conversation-question-card--known">
-
-                <div class="conversation-question-card__label">YOU ALREADY KNOW</div>
-
-                <div class="conversation-question-card__russian" lang="ru">
-                  Как вас зовут
+              <div class="cd-card">
+                <div class="cd-portrait cd-portrait--hero"></div>
+                <div class="cd-card__text">
+                  <div class="cd-en">I have a brother.</div>
+                  <div class="cd-ru">У меня <span class="cd-hl">есть</span> брат.</div>
                 </div>
-
-                <div class="conversation-question-card__context">
-                  asks about a person's <strong>name</strong>
-                </div>
-
-                <button type="button" class="listen" data-speak="Как вас зовут">
-                  🔊 Hear the Russian
-                </button>
-
+                <button type="button" class="cd-speak" data-say="У меня есть брат." aria-label="Hear the sentence">🔊</button>
               </div>
 
-              <div class="conversation-question-card conversation-question-card--new">
-
-                <div class="conversation-question-card__label">NOW LISTEN TO THIS</div>
-
-                <div class="conversation-question-card__russian" lang="ru">
-                  Где вы живёте
+              <div class="cd-card">
+                <div class="cd-portrait cd-portrait--family-large"></div>
+                <div class="cd-card__text">
+                  <div class="cd-en">I have a family.</div>
+                  <div class="cd-ru">У меня <span class="cd-hl">есть</span> семья.</div>
                 </div>
-
-                <div class="conversation-question-card__context">
-                  👤 + 🏠 + 📍
-                </div>
-
-                <button type="button" class="listen" data-speak="Где вы живёте">
-                  🔊 Hear the Russian
-                </button>
-
+                <button type="button" class="cd-speak" data-say="У меня есть семья." aria-label="Hear the sentence">🔊</button>
               </div>
+            </section> <!-- END South panel 1 -->
 
-            </div>
-
-            <div class="explore-look-closer conversation-look-closer">
-
-              <div class="eyebrow">LOOK CLOSER</div>
-
-              <h4 class="explore-section-heading">Both Sentences Are Questions</h4>
-
+            <section class="cd-panel cd-south-2">
+              <h3>Tell me more about them.</h3>
               <p>
-                Look at the first word in each question. Then notice the familiar
-                <strong lang="ru">вас</strong> and the new form <strong lang="ru">вы</strong>.
-                You do not need the grammar yet. Use the clues.
+                When you're describing the person or thing you have,
+                Russian often doesn't need <span class="cd-hl">есть</span>.
               </p>
 
-              <div class="conversation-clue-pairs">
+              <div class="cd-card-grid">
 
-                <div class="conversation-clue-pair">
-                  <span>Question clue</span>
-                  <strong lang="ru">Как</strong>
-                  <span>↔</span>
-                  <strong lang="ru">Где</strong>
+                <div class="cd-card">
+                  <div class="cd-portrait cd-portrait--older-brother"></div>
+                  <div class="cd-card__text">
+                    <div class="cd-en">I have an older brother.</div>
+                    <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">старший</span> брат.</div>
+                  </div>
+                  <button type="button" class="cd-speak" data-say="У меня старший брат." aria-label="Hear the sentence">🔊</button>
                 </div>
 
-                <div class="conversation-clue-pair">
-                  <span>Person clue</span>
-                  <strong lang="ru">вас</strong>
-                  <span>↔</span>
-                  <strong lang="ru">вы</strong>
+                <div class="cd-card">
+                  <div class="cd-portrait cd-portrait--younger-sister"></div>
+                  <div class="cd-card__text">
+                    <div class="cd-en">I have a younger sister.</div>
+                    <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">младшая</span> сестра.</div>
+                  </div>
+                  <button type="button" class="cd-speak" data-say="У меня младшая сестра." aria-label="Hear the sentence">🔊</button>
                 </div>
 
-              </div>
-
-            </div>
-
-            <div class="explore-prediction">
-
-              <div class="eyebrow">PUT THE CLUES TOGETHER</div>
-
-              <h4 class="explore-section-heading">
-                What Do You Think the New Person Is Asking?
-              </h4>
-
-              <p>
-                Use natural English. This is a prediction, not a test.
-              </p>
-
-              <textarea id="conversation-prediction-1" rows="3"
-                placeholder="Type what you think the question might mean..."></textarea>
-
-              <div class="conversation-discovery__controls">
-
-                <button type="button" class="explore-reveal" id="conversation-reveal-1">
-                  See What It Means
-                </button>
-
-              </div>
-
-              <div class="people-discovery-reveal__content conversation-meaning" id="conversation-meaning-1" hidden>
-
-                <div class="eyebrow">DISCOVERY</div>
-
-                <h4 class="explore-section-heading">
-                  You Opened a New Topic
-                </h4>
-
-                <div class="conversation-meaning__russian" lang="ru">
-                  Где вы живёте
+                <div class="cd-card">
+                  <div class="cd-portrait cd-portrait--family-large"></div>
+                  <div class="cd-card__text">
+                    <div class="cd-en">I have a big family.</div>
+                    <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">большая</span> семья.</div>
+                  </div>
+                  <button type="button" class="cd-speak" data-say="У меня большая семья." aria-label="Hear the sentence">🔊</button>
                 </div>
 
-                <div class="conversation-meaning__english">
-                  Where do you live?
+                <div class="cd-card">
+                  <div class="cd-portrait cd-portrait--family-small"></div>
+                  <div class="cd-card__text">
+                    <div class="cd-en">I have a small family.</div>
+                    <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">небольшая</span> семья.</div>
+                  </div>
+                  <button type="button" class="cd-speak" data-say="У меня небольшая семья." aria-label="Hear the sentence">🔊</button>
                 </div>
 
+              </div> <!-- END card grid -->
+            </section> <!-- END South panel 2 -->
+
+            <section class="cd-panel cd-south-3">
+              <h3><span class="cd-num">3</span> What changed?</h3>
+              <div class="cd-compare">
                 <p>
-                  A conversation can move naturally from someone's name
-                  to something about their life.
+                  Compare the sentences.<br>
+                  <strong>Where did <span class="cd-hl">есть</span> go?</strong><br>
+                  What is different in the second sentence?
                 </p>
-
-                <button type="button" class="explore-more__button" id="conversation-explore-more-1">
-                  🍬 Explore More
-                </button>
-
-                <div class="conversation-mini-discovery question-words-explorer" id="conversation-explore-more-reveal-1"
-                  hidden>
-
-                  <div class="question-words-explorer__header">
-                    <div class="eyebrow">QUESTION WORDS</div>
-                    <h4>Choose a Question Word</h4>
-                    <p>Click any word for a quick discovery. Look for the featured question word — it unlocks a little
-                      Grammar Candy. 🍬</p>
-                  </div>
-
-                  <div class="question-words-explorer__layout">
-                    <div class="question-word-grid" aria-label="Russian question words">
-                      <button type="button" class="question-word-tile" data-question-word="что"><strong
-                          lang="ru">Что?</strong><span>What?</span></button>
-                      <button type="button" class="question-word-tile question-word-tile--featured"
-                        data-question-word="где"><span class="question-word-tile__featured">FEATURED</span><strong
-                          lang="ru">Где?</strong><span>Where?</span><span
-                          class="question-word-tile__candy">🍬</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="когда"><strong
-                          lang="ru">Когда?</strong><span>When?</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="почему"><strong
-                          lang="ru">Почему?</strong><span>Why?</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="откуда"><strong
-                          lang="ru">Откуда?</strong><span>From where?</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="кто"><strong
-                          lang="ru">Кто?</strong><span>Who?</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="куда"><strong
-                          lang="ru">Куда?</strong><span>Where to?</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="как"><strong
-                          lang="ru">Как?</strong><span>How?</span></button>
-                      <button type="button" class="question-word-tile" data-question-word="сколько"><strong
-                          lang="ru">Сколько?</strong><span>How many / much?</span></button>
-                    </div>
-
-                    <div class="question-word-info" id="conversation-question-word-info" aria-live="polite">
-                      <div class="question-word-info__prompt">
-                        <span class="question-word-info__icon">?</span>
-                        <strong>Select a Question Word</strong>
-                        <p>You'll see what it means, a short example, and how it's used.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="where-grammar-candy" id="conversation-where-candy" hidden>
-                    <div class="where-grammar-candy__banner">🍬 GRAMMAR CANDY <span>A SWEET DISCOVERY!</span></div>
-                    <h4>One Question — Different Answers</h4>
-                    <div class="where-grammar-candy__question">
-                      <span class="label">QUESTION</span>
-                      <strong lang="ru">Где вы живёте?</strong>
-                      <span>Where do you live?</span>
-                    </div>
-
-                    <div class="where-grammar-candy__section-label">WHO LIVES THERE?</div>
-                    <div class="where-person-choices" role="group" aria-label="Choose who lives there">
-                      <button type="button" class="where-person-choice selected" data-person="i"><strong
-                          lang="ru">Я</strong><span>I</span></button>
-                      <button type="button" class="where-person-choice" data-person="we"><strong
-                          lang="ru">Мы</strong><span>We</span></button>
-                      <button type="button" class="where-person-choice" data-person="they"><strong
-                          lang="ru">Они</strong><span>They</span></button>
-                    </div>
-
-                    <div class="where-grammar-candy__watch">
-                      <span class="where-grammar-candy__section-label">WATCH WHAT CHANGES</span>
-                      <div class="where-live-pattern" aria-live="polite">
-                        <strong id="where-live-pronoun" lang="ru">Я</strong>
-                        <strong id="where-live-verb" lang="ru">живу</strong>
-                        <span class="where-live-place" id="where-live-place" lang="ru">в Финиксе.</span>
-                      </div>
-                      <div class="where-live-english" id="where-live-english">I live in Phoenix.</div>
-                    </div>
-
-                    <div class="where-grammar-candy__section-label">CHANGE THE PLACE</div>
-                    <div class="where-place-choices" role="group" aria-label="Choose a place">
-                      <button type="button" class="where-candy-place selected" data-place="phoenix">Phoenix</button>
-                      <button type="button" class="where-candy-place" data-place="moscow">Moscow</button>
-                      <button type="button" class="where-candy-place" data-place="london">London</button>
-                    </div>
-
-                    <div class="where-grammar-candy__notice">
-                      <strong>🍬 What changed?</strong>
-                      <p>Russian changes the verb to match who is doing the action.</p>
-                      <div><span lang="ru">Я → живу</span><span lang="ru">Мы → живём</span><span lang="ru">Они →
-                          живут</span></div>
-                      <small>You don't need to memorize the whole pattern yet. Just notice it.</small>
-                    </div>
-
-                    <div class="where-grammar-candy__actions">
-                      <button type="button" class="listen where-live-listen" id="where-live-listen"
-                        data-speak="Я живу в Финиксе.">
-                        🔊 Hear Your Russian
-                      </button>
-
-                      <button type="button" id="where-candy-reset">
-                        ↺ Reset Grammar Candy
-                      </button>
-                    </div>
-
-                  </div> <!-- End Grammar Candy actions -->
-
-                </div> <!-- End Where Grammar Candy -->
-
-              </div> <!-- End Question Word info / Grammar Candy area -->
-
-            </div> <!-- End Question Words interactive layout -->
-
-          </section> <!-- End Door 3 — Discovery One -->
-
-          <!-- ==================================================
-             DOOR 3 — DISCOVERY TWO
-             FOLLOW THE ANSWER
-        ================================================== -->
-
-          <section class="explore-discovery conversation-discovery" id="conversation-discovery-2">
-
-            <div class="explore-discovery__heading">
-
-              <div class="eyebrow">DISCOVERY TWO — FOLLOW THE ANSWER</div>
-
-              <h3>What Did the Person Tell You?</h3>
-
-              <p>
-                You just discovered how to ask where someone lives.
-                Now listen to the answer and let the conversation itself give you a clue.
-              </p>
-
-            </div>
-
-            <div class="explore-encounter">
-
-              <div class="explore-encounter__label">
-                Hear the Answer
-              </div>
-
-              <div class="explore-encounter__russian" lang="ru">
-                Я живу в Финиксе
-              </div>
-
-              <button type="button" class="listen" data-speak="Я живу в Финиксе">
-                🔊 Hear the Russian
-              </button>
-
-            </div>
-
-            <div class="people-discovery-question conversation-context-clue">
-
-              <div class="eyebrow">USE THE CONVERSATION AS A CLUE</div>
-
-              <h4 class="explore-section-heading">
-                You Asked Where This Person Lives
-              </h4>
-
-              <p>
-                The answer contains <strong lang="ru">Я</strong>, which you already recognize.
-                What do you think the person just told you?
-              </p>
-
-            </div>
-
-            <div class="explore-prediction">
-
-              <div class="eyebrow">MAKE A PREDICTION</div>
-
-              <h4 class="explore-section-heading">
-                What Does the Answer Probably Mean?
-              </h4>
-
-              <textarea id="conversation-prediction-2" rows="3"
-                placeholder="Type what you think the answer might mean..."></textarea>
-
-              <div class="conversation-discovery__controls">
-
-                <button type="button" class="explore-reveal" id="conversation-reveal-2">
-                  See What It Means
-                </button>
-
-              </div> <!-- End Conversation Discovery controls -->
-
-              <div class="people-discovery-reveal__content conversation-meaning" id="conversation-meaning-2" hidden>
-
-                <div class="eyebrow">DISCOVERY</div>
-
-                <div class="conversation-meaning__english">
-                  I live in Phoenix.
+                <div class="cd-compare__box">
+                  <div class="cd-ru">У меня <span class="cd-hl">есть</span> брат.</div>
+                  <div class="cd-compare__arrow" aria-hidden="true">↻</div>
+                  <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">старший</span> брат.</div>
                 </div>
+              </div>
+            </section> <!-- END South panel 3 -->
 
-              </div> <!-- End Discovery meaning reveal -->
+            <section class="cd-panel cd-south-4">
+              <h3><span class="cd-num">4</span> Your Turn — Let's Try It!</h3>
+              <p>Choose someone, then tell us more. Notice what happens to <span class="cd-hl">есть</span>.</p>
 
-            </div> <!-- End Explore prediction -->
-
-          </section> <!-- End Door 3 — Discovery Two -->
-
-          <!-- ==================================================
-             DOOR 3 — DISCOVERY THREE
-             KEEP THE CONVERSATION GOING
-        ================================================== -->
-
-          <section class="explore-discovery conversation-discovery" id="conversation-discovery-3">
-
-            <div class="explore-discovery__heading">
-
-              <div class="eyebrow">DISCOVERY THREE — KEEP IT GOING</div>
-
-              <h3>One Answer Can Create the Next Question</h3>
-
-              <p>
-                You know the person's name and where they live.
-                Now the conversation moves to language.
-              </p>
-
-            </div>
-
-            <div class="explore-encounter">
-
-              <div class="explore-encounter__label">
-                Hear the Next Question
+              <div class="cd-menus">
+                <label class="cd-menu">
+                  <span class="cd-menu__label">👥 WHO?</span>
+                  <select id="south-who" aria-label="Who?"></select>
+                </label>
+                <label class="cd-menu">
+                  <span class="cd-menu__label">🔍 TELL ME MORE…</span>
+                  <select id="south-more" aria-label="Tell me more"></select>
+                </label>
               </div>
 
-              <div class="explore-encounter__russian" lang="ru">
-                Вы говорите по-русски
-              </div>
-
-              <div class="conversation-language-cue" aria-label="Russian language context">
-                <span aria-hidden="true">🇷🇺</span>
-                <span>Russian language</span>
-              </div>
-
-              <button type="button" class="listen" data-speak="Вы говорите по-русски">
-                🔊 Hear the Russian
-              </button>
-
-            </div>
-
-            <div class="explore-look-closer conversation-look-closer">
-
-              <div class="eyebrow">WHAT CLUES CAN YOU USE?</div>
-
-              <h4 class="explore-section-heading">
-                You Already Recognize One Important Piece
-              </h4>
-
-              <div class="conversation-clue-grid">
-
+              <div class="cd-result">
+                <button type="button" class="cd-speak" id="south-speak" aria-label="Hear the sentence">🔊</button>
                 <div>
-                  <strong lang="ru">вы</strong>
-                  <span>you — formal / polite</span>
+                  <div class="cd-ru cd-ru--big" id="south-sentence"></div>
+                  <div class="cd-en" id="south-sentence-en"></div>
                 </div>
-
-                <div>
-                  <strong>🇷🇺</strong>
-                  <span>Russian-language context</span>
-                </div>
-
-                <div>
-                  <strong>?</strong>
-                  <span>someone is asking you something</span>
-                </div>
-
               </div>
 
-            </div>
+              <button type="button" class="cd-try" id="south-another">⟳ Try Another</button>
+            </section> <!-- END South panel 4 -->
 
-            <div class="explore-prediction">
+          </div> <!-- END South content -->
 
-              <div class="eyebrow">MAKE A PREDICTION</div>
+          <!-- ======================================
+               EAST — What If I Don't Have One?
+          ====================================== -->
+          <div class="cd-content" data-content="east" hidden>
 
-              <h4 class="explore-section-heading">
-                What Do You Think the Person Is Asking?
-              </h4>
+            <section class="cd-panel cd-east-left">
+              <h3>Look at these sentences.</h3>
 
-              <textarea id="conversation-prediction-3" rows="3"
-                placeholder="Type what you think the question might mean..."></textarea>
+              <div class="cd-row">
+                <div class="cd-portrait cd-portrait--hero"></div>
+                <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> брата.</div><div class="cd-en">I don't have a brother.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait cd-portrait--scarf"></div>
+                <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> сестры.</div><div class="cd-en">I don't have a sister.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait cd-portrait--father"></div>
+                <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> отца.</div><div class="cd-en">I don't have a father.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait cd-portrait--mother"></div>
+                <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> матери.</div><div class="cd-en">I don't have a mother.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait cd-portrait--children"></div>
+                <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> детей.</div><div class="cd-en">I don't have children.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait cd-portrait--grandchildren"></div>
+                <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> внуков.</div><div class="cd-en">I don't have grandchildren.</div></div>
+              </div>
+            </section> <!-- END East left panel -->
 
-              <div class="conversation-discovery__controls">
+            <section class="cd-panel cd-east-notice">
+              <h3>🔍 What do you notice?</h3>
+              <div class="cd-notice">
+                <ul>
+                  <li>What changed from the sentences with <span class="cd-hl">есть</span>?</li>
+                  <li>What happens to <span class="cd-hl">есть</span>?</li>
+                  <li>What do you notice about the family word?</li>
+                  <li>Do you think the family word always stays the same?</li>
+                </ul>
+                <div class="cd-redbox">
+                  <p><strong>нет</strong> means there is not / I don't have.</p>
+                  <p>You may also notice the family word changes a little. For now, <strong>just notice it.</strong></p>
+                </div>
+              </div>
+            </section> <!-- END East notice panel -->
 
-                <button type="button" class="explore-reveal" id="conversation-reveal-3">
-                  See What It Means
-                </button>
-
+            <section class="cd-east-turn">
+              <div class="cd-turn-banner">
+                <h3>Now it's your turn!</h3>
+                <p>Choose a person and see what happens.</p>
               </div>
 
-              <div class="people-discovery-reveal__content conversation-meaning" id="conversation-meaning-3" hidden>
+              <div class="cd-turn-boxes">
 
-                <div class="eyebrow">DISCOVERY</div>
-
-                <div class="conversation-meaning__russian" lang="ru">
-                  Вы говорите по-русски
+                <div class="cd-box">
+                  <div class="cd-box__title">1. Choose a person:</div>
+                <div class="cd-pick">
+                  <button type="button" class="cd-arrow" id="east-a-prev" aria-label="Previous person">◀</button>
+                  <div class="cd-portrait cd-portrait--pick" id="east-a-portrait"></div>
+                  <button type="button" class="cd-arrow" id="east-a-next" aria-label="Next person">▶</button>
+                </div>
+                <select id="east-a-select" aria-label="Choose a person"></select>
                 </div>
 
-                <div class="conversation-meaning__english">
-                  Do you speak Russian?
+                <div class="cd-box cd-box--sentence">
+                  <div class="cd-box__title">2. Your sentence:</div>
+                  <div class="cd-ru cd-ru--big" id="east-sentence"></div>
+                  <div class="cd-en" id="east-sentence-en"></div>
+                  <button type="button" class="cd-hear" id="east-hear-a">🔊 Hear It</button>
                 </div>
 
-                <p>
-                  A real answer does not have to be all-or-nothing.
-                  Choose the response that fits you best.
-                </p>
-
-                <div class="conversation-ability">
-
-                  <button type="button" class="conversation-ability__choice" data-response="Да, немного"
-                    data-meaning="Yes, a little">
-                    <span lang="ru">Да, немного</span>
-                    <small>Yes, a little</small>
-                  </button>
-
-                  <button type="button" class="conversation-ability__choice" data-response="Да, хорошо"
-                    data-meaning="Yes, well">
-                    <span lang="ru">Да, хорошо</span>
-                    <small>Yes, well</small>
-                  </button>
-
-                  <button type="button" class="conversation-ability__choice" data-response="Да, очень хорошо"
-                    data-meaning="Yes, very well">
-                    <span lang="ru">Да, очень хорошо</span>
-                    <small>Yes, very well</small>
-                  </button>
-
+                <div class="cd-box">
+                  <div class="cd-box__title">Try another person:</div>
+                <div class="cd-pick">
+                  <button type="button" class="cd-arrow" id="east-b-prev" aria-label="Previous person">◀</button>
+                  <div class="cd-portrait cd-portrait--pick" id="east-b-portrait"></div>
+                  <button type="button" class="cd-arrow" id="east-b-next" aria-label="Next person">▶</button>
                 </div>
-
-                <div class="conversation-personal-response" id="conversation-personal-response" hidden>
-
-                  <div class="conversation-personal-response__label">
-                    YOUR ANSWER
+                <select id="east-b-select" aria-label="Try another person"></select>
+                  <div class="cd-box__mini">
+                    <span class="cd-ru" id="east-sentence-b"></span>
+                    <button type="button" class="cd-speak cd-speak--mini" id="east-hear-b" aria-label="Hear this sentence">🔊</button>
                   </div>
-
-                  <div class="conversation-personal-response__russian" id="conversation-personal-response-russian"
-                    lang="ru"></div>
-
-                  <div class="conversation-personal-response__english" id="conversation-personal-response-english">
-                  </div>
-
-                  <button type="button" class="listen" id="conversation-personal-response-listen" data-speak="">
-                    🔊 Hear Your Answer
-                  </button>
-
                 </div>
 
-                <button type="button" class="explore-grammar-candy" id="conversation-explore-verbs-3">
-                  🍬 Explore More
-                </button>
+              </div> <!-- END turn boxes -->
+            </section> <!-- END East your-turn -->
 
-                <div class="essential-verbs-explorer" id="conversation-essential-verbs" hidden>
-                  <div class="essential-verbs-explorer__header">
-                    <div class="essential-verbs-explorer__banner">🍬 GRAMMAR CANDY <span>A SWEET DISCOVERY!</span></div>
-                    <h4>9 Essential Verbs</h4>
-                    <p>Click any verb to get a quick peek. The featured verb unlocks a little Grammar Candy.</p>
+          </div> <!-- END East content -->
+
+          <!-- ======================================
+               WEST — Talking About Other People
+          ====================================== -->
+          <div class="cd-content" data-content="west" hidden>
+
+            <section class="cd-panel cd-east-left">
+              <h3>Look at these sentences.</h3>
+              <div class="cd-row">
+                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-i.png')"></div>
+                <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У меня</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">I have a sister.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-you.png')"></div>
+                <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У тебя</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">You have a sister.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-he.png')"></div>
+                <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У него</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">He has a sister.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-she.png')"></div>
+                <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У неё</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">She has a sister.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-we.png')"></div>
+                <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У нас</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">We have a sister.</div></div>
+              </div>
+              <div class="cd-row">
+                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-they.png')"></div>
+                <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У них</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">They have a sister.</div></div>
+              </div>
+            </section> <!-- END West left panel -->
+
+            <section class="cd-panel cd-east-notice">
+              <h3>🔍 What do you notice?</h3>
+              <div class="cd-notice">
+                <ul>
+                  <li>What stays the same?</li>
+                  <li>What changes?</li>
+                  <li>What do you think the changing part tells us?</li>
+                </ul>
+                <div class="cd-redbox">
+                  <p>The meaning stays the same: “to have a sister.”</p>
+                  <p>Only the beginning changes to show <strong>WHO</strong> we are talking about.</p>
+                </div>
+              </div>
+            </section> <!-- END West notice panel -->
+
+            <section class="cd-east-turn">
+              <div class="cd-turn-banner">
+                <h3>Now it's your turn!</h3>
+                <p>Choose a person and a family member.</p>
+              </div>
+
+              <div class="cd-turn-boxes">
+                <div class="cd-box">
+                  <div class="cd-box__title">1. Choose a person:</div>
+                  <div class="cd-pick">
+                    <button type="button" class="cd-arrow" id="west-p-prev" aria-label="Previous">◀</button>
+                    <div class="cd-portrait cd-portrait--pick" id="west-p-portrait"></div>
+                    <button type="button" class="cd-arrow" id="west-p-next" aria-label="Next">▶</button>
                   </div>
-
-                  <div class="essential-verbs-explorer__layout">
-                    <div class="essential-verb-grid" aria-label="Nine Essential Russian Verbs">
-                      <button type="button" class="essential-verb-tile" data-verb="быть"><strong
-                          lang="ru">быть</strong><span>to be</span></button>
-                      <button type="button" class="essential-verb-tile" data-verb="есть"><strong
-                          lang="ru">есть</strong><span>to eat</span></button>
-                      <button type="button" class="essential-verb-tile" data-verb="пить"><strong
-                          lang="ru">пить</strong><span>to drink</span></button>
-                      <button type="button" class="essential-verb-tile" data-verb="делать"><strong
-                          lang="ru">делать</strong><span>to do / make</span></button>
-                      <button type="button" class="essential-verb-tile essential-verb-tile--featured"
-                        data-verb="говорить">
-                        <span class="essential-verb-tile__featured">★ FEATURED</span><span
-                          class="essential-verb-tile__candy">🍬</span>
-                        <strong lang="ru">говорить</strong><span>to speak / say</span>
-                      </button>
-                      <button type="button" class="essential-verb-tile" data-verb="понимать"><strong
-                          lang="ru">понимать</strong><span>to understand</span></button>
-                      <button type="button" class="essential-verb-tile" data-verb="хотеть"><strong
-                          lang="ru">хотеть</strong><span>to want</span></button>
-                      <button type="button" class="essential-verb-tile" data-verb="любить"><strong
-                          lang="ru">любить</strong><span>to like / love</span></button>
-                      <button type="button" class="essential-verb-tile" data-verb="жить"><strong
-                          lang="ru">жить</strong><span>to live</span></button>
-                    </div>
-
-                    <div class="essential-verb-info" id="conversation-essential-verb-info" aria-live="polite">
-                      <div class="essential-verb-info__prompt">
-                        <span class="essential-verb-info__icon">✦</span>
-                        <strong>Select an Essential Verb</strong>
-                        <p>You'll see what it means, a short example, and how it's used.</p>
-                      </div>
-                    </div>
+                  <div class="cd-pick__ru" id="west-p-ru"></div>
+                  <div class="cd-en" id="west-p-en"></div>
+                </div>
+                <div class="cd-box">
+                  <div class="cd-box__title">2. Choose a family member:</div>
+                  <div class="cd-pick">
+                    <button type="button" class="cd-arrow" id="west-m-prev" aria-label="Previous">◀</button>
+                    <div class="cd-portrait cd-portrait--pick" id="west-m-portrait"></div>
+                    <button type="button" class="cd-arrow" id="west-m-next" aria-label="Next">▶</button>
                   </div>
+                  <div class="cd-pick__ru" id="west-m-ru"></div>
+                  <div class="cd-en" id="west-m-en"></div>
+                </div>
 
-                  <div class="speak-grammar-candy" id="conversation-speak-candy" hidden>
-                    <div class="speak-grammar-candy__banner">🍬 ГОВОРИТЬ <span>TO SPEAK / TO SAY</span></div>
-                    <h4>One Action — Different People Speaking</h4>
-                    <p class="speak-grammar-candy__intro">Experiment, listen, and notice what changes.</p>
+                <div class="cd-box cd-box--sentence">
+                  <div class="cd-box__title">Your sentence:</div>
+                  <div class="cd-ru cd-ru--big" id="west-sentence"></div>
+                  <div class="cd-en" id="west-sentence-en"></div>
+                  <button type="button" class="cd-hear" id="west-hear">🔊 Hear It</button>
+                </div>
 
-                    <div class="speak-grammar-candy__section-label">WHO IS SPEAKING?</div>
-                    <div class="speak-person-choices" role="group" aria-label="Choose who is speaking">
-                      <button type="button" class="speak-person-choice selected" data-person="i"><strong
-                          lang="ru">Я</strong><span>I</span></button>
-                      <button type="button" class="speak-person-choice" data-person="you"><strong
-                          lang="ru">Вы</strong><span>You</span></button>
-                      <button type="button" class="speak-person-choice" data-person="we"><strong
-                          lang="ru">Мы</strong><span>We</span></button>
-                      <button type="button" class="speak-person-choice" data-person="they"><strong
-                          lang="ru">Они</strong><span>They</span></button>
-                    </div>
+              </div> <!-- END turn boxes -->
+            </section> <!-- END West your-turn -->
 
-                    <div class="speak-grammar-candy__watch">
-                      <span class="speak-grammar-candy__section-label">WATCH YOUR SENTENCE CHANGE</span>
-                      <div class="speak-live-pattern" aria-live="polite">
-                        <strong id="speak-live-pronoun" lang="ru">Я</strong>
-                        <strong id="speak-live-verb" lang="ru">говорю</strong>
-                        <span id="speak-live-language" lang="ru">по-русски.</span>
-                      </div>
-                      <div class="speak-live-english" id="speak-live-english">I speak Russian.</div>
-                    </div>
+          </div> <!-- END West content -->
 
-                    <div class="speak-grammar-candy__section-label">WHAT LANGUAGE?</div>
-                    <div class="speak-language-choices" role="group" aria-label="Choose a language">
-                      <button type="button" class="speak-language-choice selected"
-                        data-language="russian">Russian</button>
-                      <button type="button" class="speak-language-choice" data-language="english">English</button>
-                      <button type="button" class="speak-language-choice" data-language="spanish">Spanish</button>
-                    </div>
+          <!-- Shown for any direction that has not been built yet -->
+          <div class="cd-content" data-content="soon" hidden>
+            <section class="cd-panel cd-soon">
+              <h3>Coming next</h3>
+              <p>This discovery will be built in a later step.</p>
+            </section>
+          </div> <!-- END placeholder content -->
 
-                    <div class="speak-grammar-candy__notice">
-                      <strong>🍬 What changed?</strong>
-                      <p>Change who is speaking. Watch what happens to the verb.</p>
-                      <div><span lang="ru">Я → говорю</span><span lang="ru">Вы → говорите</span><span lang="ru">Мы →
-                          говорим</span><span lang="ru">Они → говорят</span></div>
-                      <small>You don't need to memorize the pattern yet. Just notice what happens.</small>
-                    </div>
+          <button type="button" class="compass-imgbtn compass-back-to-map compass-nav-btn compass-nav-btn--left">
+            <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map">
+          </button>
 
-                    <div class="speak-grammar-candy__actions">
-                      <button type="button" class="listen speak-live-listen" id="speak-live-listen"
-                        data-speak="Я говорю по-русски.">🔊 Hear Your Russian</button>
-                      <button type="button" id="speak-candy-reset">↺ Reset Grammar Candy</button>
-                    </div>
-                  </div> <!-- End Speak Grammar Candy -->
+        </div> <!-- END Door 3 Discovery screen -->
 
-                </div> <!-- End Essential Verbs Explorer -->
-
-              </div>
-
-            </div>
-
-          </section>
-
-          <!-- ==================================================
-             DOOR 3 — PAYOFF
-             SEE WHERE THE CONVERSATION WENT
-        ================================================== -->
-
-          <section class="conversation-payoff" id="conversation-payoff">
-
-            <div class="eyebrow">
-              SEE WHERE THE CONVERSATION WENT
-            </div>
-
-            <h3>
-              You Followed the Conversation Beyond the Lesson
-            </h3>
-
-            <p class="conversation-payoff__intro">
-              This was never given to you as one long script.
-              You reached it by following clues and taking one natural step at a time.
-            </p>
-
-            <div class="conversation-payoff__dialogue" aria-label="Complete Russian conversation">
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--a">
-                <span class="conversation-payoff__speaker">A</span>
-                <span lang="ru">Здравствуйте</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--b">
-                <span class="conversation-payoff__speaker">B</span>
-                <span lang="ru">Здравствуйте</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--a">
-                <span class="conversation-payoff__speaker">A</span>
-                <span lang="ru">Как вас зовут</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--b">
-                <span class="conversation-payoff__speaker">B</span>
-                <span lang="ru">Меня зовут Майкл</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--a">
-                <span class="conversation-payoff__speaker">A</span>
-                <span lang="ru">Где вы живёте</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--b">
-                <span class="conversation-payoff__speaker">B</span>
-                <span lang="ru">Я живу в Финиксе</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--a">
-                <span class="conversation-payoff__speaker">A</span>
-                <span lang="ru">Вы говорите по-русски</span>
-              </div>
-
-              <div class="conversation-payoff__turn conversation-payoff__turn--b">
-                <span class="conversation-payoff__speaker">B</span>
-                <span lang="ru">Да, немного</span>
-              </div>
-
-            </div>
-
-            <div class="conversation-payoff__actions">
-
-              <button type="button" class="listen conversation-payoff__listen"
-                data-speak="Здравствуйте. Здравствуйте. Как вас зовут? Меня зовут Майкл. Где вы живёте? Я живу в Финиксе. Вы говорите по-русски? Да, немного.">
-                🔊 Hear the Conversation
-              </button>
-
-            </div>
-
-            <div class="conversation-payoff__reflection">
-
-              <strong>What just happened?</strong>
-
-              <p>
-                The original Greetings &amp; Introductions lesson ended earlier.
-                You used what you already knew to understand and participate in
-                Russian that was never taught as a memorized conversation.
-              </p>
-
-              <div class="conversation-payoff__path">
-                <span>ASK</span>
-                <span>→</span>
-                <span>INFER</span>
-                <span>→</span>
-                <span>UNDERSTAND</span>
-                <span>→</span>
-                <span>ANSWER</span>
-                <span>→</span>
-                <span>CONTINUE</span>
-              </div>
-
-            </div>
-
-            <div class="explore-compare__controls explore-compare__controls--full conversation-door-controls">
-
-              <button type="button" class="explore-return-hallway explore-control-nav">
-                ← Back to the Doors
-              </button>
-
-              <button type="button" class="explore-reset-room explore-control-nav">
-                ↻ Restore This Door
-              </button>
-
-            </div>
-
-          </section>
-
-        </div>
-
-      </section> <!-- END Door 3 — Where Could the Conversation Go? -->
+      </section> <!-- END Door 3 — Where Can This Take Me? -->
 
 
 
