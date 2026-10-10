@@ -5613,6 +5613,7 @@ function tcRollAllScrolls(clickable) {
 // Back to the first moment: closed chest, nothing running
 function tcReset() {
     tcCancelTimers();
+    sbReset();
     tcSetState("closed");
     tcSetChestFrame(1);
     tcSubtitle.textContent = "The Final Discovery";
@@ -5693,10 +5694,237 @@ tcCloseBtn.addEventListener("click", (event) => {
 // Entering a scroll's full screen (built in the next step)
 function tcEnterContent(number) {
     const screen = document.querySelector(`#chest-content-${number}`);
+    if (number === "3") {
+        sbReset();
+    }
     if (screen) {
         showCompassScreen(screen);
     }
 }
+
+
+
+// ---------------------------------------------------------------
+// SCROLL 3 — PUT YOUR RUSSIAN TO WORK!
+// Five sentence-building challenges. One shared word bank, reshuffled
+// every time a challenge begins. Tiles are never used up.
+// ---------------------------------------------------------------
+const SB_BANK = [
+    "у", "меня", "тебя", "него", "неё", "нас", "вас", "них", "есть", "нет",
+    "брат", "брата", "сестра", "сестры", "сын", "сына", "дочь", "дочери", "дети", "детей",
+    "старший", "старшая", "старше", "младший", "младшая", "младше", "младшие",
+    "две", "три", "трое", "ребёнка"
+];
+
+// "optionalEst": есть may be left out or kept (У меня есть сестра / У меня сестра)
+const SB_CHALLENGES = [
+    { en: "I have an older sister.",
+      answers: [["у", "меня", "есть", "старшая", "сестра"]], optionalEst: true },
+    { en: "She doesn’t have a brother.",
+      answers: [["у", "неё", "нет", "брата"]] },
+    { en: "I don’t have a son.",
+      answers: [["у", "меня", "нет", "сына"]] },
+    { en: "I have two younger sisters.",
+      answers: [["у", "меня", "есть", "две", "младшие", "сестры"]], optionalEst: true },
+    { en: "She has three children.",
+      answers: [["у", "неё", "трое", "детей"], ["у", "неё", "три", "ребёнка"]],
+      optionalEst: true, another: true }
+];
+
+const sbBank = document.querySelector("#sb-bank");
+const sbAnswer = document.querySelector("#sb-answer");
+const sbFeedback = document.querySelector("#sb-feedback");
+const sbNext = document.querySelector("#sb-next");
+const sbCheck = document.querySelector("#sb-check");
+const sbAnother = document.querySelector("#sb-another");
+
+let sbIndex = 0;
+let sbWords = [];
+let sbSolved = false;
+
+// How a sentence is shown: first letter capital, final period
+function sbShow(words) {
+    const text = words.join(" ");
+    return `${text.charAt(0).toUpperCase()}${text.slice(1)}.`;
+}
+
+function sbNormalize(words, challenge) {
+    return challenge.optionalEst ? words.filter((word) => word !== "есть") : words;
+}
+
+function sbDraw() {
+
+    sbAnswer.innerHTML = "";
+
+    if (sbWords.length === 0) {
+        sbAnswer.innerHTML = '<span class="sb-answer__empty">Your words will appear here…</span>';
+        return;
+    }
+
+    sbWords.forEach((word, i) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "sb-chip";
+        chip.textContent = (i === 0) ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+        chip.disabled = sbSolved;
+        chip.addEventListener("click", () => {
+            sbWords.splice(i, 1);
+            sbFeedback.textContent = "";
+            sbDraw();
+        });
+        sbAnswer.appendChild(chip);
+    });
+
+}
+
+// A fresh Fisher–Yates shuffle of the whole bank (pirateShuffle is exactly that)
+function sbBuildBank() {
+
+    sbBank.innerHTML = "";
+
+    pirateShuffle(SB_BANK).forEach((word) => {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        tile.className = "sb-tile";
+        tile.textContent = word;
+        tile.addEventListener("click", () => {
+            if (sbSolved) {
+                return;
+            }
+            sbWords.push(word);
+            sbFeedback.textContent = "";
+            sbDraw();
+        });
+        sbBank.appendChild(tile);
+    });
+
+}
+
+function sbStart(index) {
+
+    sbIndex = index;
+    sbWords = [];
+    sbSolved = false;
+
+    const number = index + 1;
+    document.querySelector("#sb-english").textContent = SB_CHALLENGES[index].en;
+    document.querySelector("#sb-num").textContent = number;
+    document.querySelector("#sb-count").textContent = `Challenge ${number} of 5`;
+    document.querySelector("#sb-plaque-n").textContent = `Challenge ${number}`;
+
+    document.querySelectorAll("#sb-dots span").forEach((dot, i) => {
+        dot.classList.toggle("is-current", i === index);
+        dot.classList.toggle("is-done", i < index);
+    });
+
+    sbFeedback.textContent = "";
+    sbFeedback.classList.remove("is-good");
+    sbAnother.hidden = true;
+    sbNext.disabled = true;
+    sbNext.textContent = "Next Challenge ›";
+    sbCheck.disabled = false;
+
+    sbBuildBank();
+    sbDraw();
+
+}
+
+// Clear My Answer: only the learner's sentence goes away
+document.querySelector("#sb-clear").addEventListener("click", () => {
+    if (sbSolved) {
+        return;
+    }
+    sbWords = [];
+    sbFeedback.textContent = "";
+    sbDraw();
+});
+
+// Check My Sentence
+sbCheck.addEventListener("click", () => {
+
+    if (sbSolved) {
+        return;
+    }
+
+    if (sbWords.length === 0) {
+        sbFeedback.textContent = "Click some Russian words first.";
+        sbFeedback.classList.remove("is-good");
+        return;
+    }
+
+    const challenge = SB_CHALLENGES[sbIndex];
+    const mine = sbNormalize(sbWords, challenge).join(" ");
+
+    const matchIndex = challenge.answers.findIndex(
+        (answer) => sbNormalize(answer, challenge).join(" ") === mine
+    );
+
+    if (matchIndex === -1) {
+        sbFeedback.textContent = "Not quite. Check the words and their endings, then try again.";
+        sbFeedback.classList.remove("is-good");
+        return;
+    }
+
+    sbSolved = true;
+    sbFeedback.textContent = "Correct! Well done!";
+    sbFeedback.classList.add("is-good");
+    sbCheck.disabled = true;
+    sbNext.disabled = false;
+    sbDraw();
+
+    // Challenge 5 has two correct answers: show the other one as a discovery
+    if (challenge.another && challenge.answers.length > 1) {
+        const other = challenge.answers[matchIndex === 0 ? 1 : 0];
+        document.querySelector("#sb-another-ru").textContent = sbShow(other);
+        document.querySelector("#sb-another-en").textContent = challenge.en.replace(/\.$/, "");
+        sbAnother.hidden = false;
+    }
+
+    document.querySelectorAll("#sb-dots span")[sbIndex].classList.add("is-done");
+
+    if (sbIndex === SB_CHALLENGES.length - 1) {
+        sbNext.textContent = "Finish Challenges ›";
+        sbFeedback.textContent = "Correct! Well done! You built all five sentences!";
+    }
+
+});
+
+// Next Challenge / Finish Challenges
+sbNext.addEventListener("click", () => {
+
+    if (sbNext.disabled) {
+        return;
+    }
+
+    if (sbIndex < SB_CHALLENGES.length - 1) {
+        sbStart(sbIndex + 1);
+    } else {
+        document.querySelector("#chest-content-3 .tc-back-chest").click();
+    }
+
+});
+
+// Every visit to Scroll 3 starts at Challenge 1 with a fresh shuffle
+function sbReset() {
+    sbStart(0);
+}
+
+// Back to Treasure Chest (from any scroll's full screen):
+// the chest stays open and all three scrolls are rolled up again
+document.querySelectorAll(".tc-back-chest").forEach((button) => {
+    button.addEventListener("click", () => {
+        tcCancelTimers();
+        tcRollAllScrolls(true);
+        tcSetState("open");
+        sbReset();
+        showCompassScreen(chestRoom);
+    });
+});
+
+// Hear buttons on the scroll screens
+document.querySelectorAll("#explore-conversation .cc-hear").forEach((button) => {
+    button.addEventListener("click", () => speakRussianWord(button.dataset.say));
+});
 
 // Map Room marker: opens the CLOSED landing screen
 document.querySelector("#compass-chest-marker").addEventListener("click", () => {
