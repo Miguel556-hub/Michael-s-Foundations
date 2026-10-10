@@ -5087,15 +5087,19 @@ LESSON 2 — EXTENDED FAMILY
           <img class="compass-map-art"
                src="../../Images/door-three/background-screen-map.png" alt="">
 
-          <!-- Four boats: separate, optional destinations (not wired up yet) -->
-          <img class="compass-boat compass-boat--north"
-               src="../../Images/door-three/image-boat-north.png" alt="North boat">
-          <img class="compass-boat compass-boat--south"
-               src="../../Images/door-three/image-boat-south.png" alt="South boat">
-          <img class="compass-boat compass-boat--east"
-               src="../../Images/door-three/image-boat-east.png" alt="East boat">
-          <img class="compass-boat compass-boat--west"
-               src="../../Images/door-three/image-boat-west.png" alt="West boat">
+          <!-- Four boats: separate, optional destinations. Each opens its own boat screen. -->
+          <button type="button" class="compass-boat compass-boat--north" data-boat="north" aria-label="Sail the north boat">
+            <img src="../../Images/door-three/image-boat-north.png" alt="">
+          </button>
+          <button type="button" class="compass-boat compass-boat--south" data-boat="south" aria-label="Sail the south boat">
+            <img src="../../Images/door-three/image-boat-south.png" alt="">
+          </button>
+          <button type="button" class="compass-boat compass-boat--east" data-boat="east" aria-label="Sail the east boat">
+            <img src="../../Images/door-three/image-boat-east.png" alt="">
+          </button>
+          <button type="button" class="compass-boat compass-boat--west" data-boat="west" aria-label="Sail the west boat">
+            <img src="../../Images/door-three/image-boat-west.png" alt="">
+          </button>
 
           <!-- Four directional markers. Each is a real button so it works with a keyboard too. -->
           <button type="button" class="compass-marker compass-marker--n" data-direction="north" disabled
@@ -5106,6 +5110,13 @@ LESSON 2 — EXTENDED FAMILY
                   aria-label="South discovery">S</button>
           <button type="button" class="compass-marker compass-marker--w" data-direction="west" disabled
                   aria-label="West discovery">W</button>
+
+          <!-- The Treasure Chest: a separate, optional destination (NOT a fifth direction) -->
+          <button type="button" class="compass-chest-marker" id="compass-chest-marker"
+                  title="The Treasure Chest — Click to Discover!"
+                  aria-label="The Treasure Chest — Click to Discover!">
+            <img src="../../Images/door-three/image-treasure-chest-1.png" alt="">
+          </button>
 
           <!-- The banner overlaps the top edge of the map -->
           <img class="compass-banner"
@@ -5170,7 +5181,7 @@ LESSON 2 — EXTENDED FAMILY
 
             <section class="cd-panel cd-north-2">
               <h3><span class="cd-num">2</span> The Sentence</h3>
-              <div class="cd-portrait cd-portrait--hero"></div>
+              <div class="cd-portrait" data-pirate="hero"></div>
               <div class="cd-say">
                 <button type="button" class="cd-speak" id="north-speak-sentence" aria-label="Hear the sentence">🔊</button>
                 <div>
@@ -5207,7 +5218,7 @@ LESSON 2 — EXTENDED FAMILY
               <p>Now you try it in a short conversation.</p>
 
               <div class="cd-turn">
-                <div class="cd-portrait cd-portrait--scarf"></div>
+                <div class="cd-portrait" data-pirate="scarf"></div>
                 <div class="cd-bubble">
                   <button type="button" class="cd-speak" id="north-speak-q" aria-label="Hear the question">🔊</button>
                   <div>
@@ -5218,7 +5229,7 @@ LESSON 2 — EXTENDED FAMILY
               </div>
 
               <div class="cd-turn">
-                <div class="cd-portrait cd-portrait--hero"></div>
+                <div class="cd-portrait" data-pirate="hero"></div>
                 <div class="cd-bubble">
                   <button type="button" class="cd-speak" id="north-speak-a" aria-label="Hear the answer">🔊</button>
                   <div>
@@ -5257,7 +5268,7 @@ LESSON 2 — EXTENDED FAMILY
               </p>
 
               <div class="cd-card">
-                <div class="cd-portrait cd-portrait--hero"></div>
+                <div class="cd-portrait" data-pirate="hero"></div>
                 <div class="cd-card__text">
                   <div class="cd-en">I have a brother.</div>
                   <div class="cd-ru">У меня <span class="cd-hl">есть</span> брат.</div>
@@ -5266,7 +5277,7 @@ LESSON 2 — EXTENDED FAMILY
               </div>
 
               <div class="cd-card">
-                <div class="cd-portrait cd-portrait--family-large"></div>
+                <div class="cd-portrait" data-pirate="family-large"></div>
                 <div class="cd-card__text">
                   <div class="cd-en">I have a family.</div>
                   <div class="cd-ru">У меня <span class="cd-hl">есть</span> семья.</div>
@@ -5285,7 +5296,7 @@ LESSON 2 — EXTENDED FAMILY
               <div class="cd-card-grid">
 
                 <div class="cd-card">
-                  <div class="cd-portrait cd-portrait--older-brother"></div>
+                  <div class="cd-portrait" data-pirate="older-brother"></div>
                   <div class="cd-card__text">
                     <div class="cd-en">I have an older brother.</div>
                     <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">старший</span> брат.</div>
@@ -5294,7 +5305,7 @@ LESSON 2 — EXTENDED FAMILY
                 </div>
 
                 <div class="cd-card">
-                  <div class="cd-portrait cd-portrait--younger-sister"></div>
+                  <div class="cd-portrait" data-pirate="younger-sister"></div>
                   <div class="cd-card__text">
                     <div class="cd-en">I have a younger sister.</div>
                     <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">младшая</span> сестра.</div>
@@ -5303,7 +5314,7 @@ LESSON 2 — EXTENDED FAMILY
                 </div>
 
                 <div class="cd-card">
-                  <div class="cd-portrait cd-portrait--family-large"></div>
+                  <div class="cd-portrait" data-pirate="family-large"></div>
                   <div class="cd-card__text">
                     <div class="cd-en">I have a big family.</div>
                     <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">большая</span> семья.</div>
@@ -5312,7 +5323,7 @@ LESSON 2 — EXTENDED FAMILY
                 </div>
 
                 <div class="cd-card">
-                  <div class="cd-portrait cd-portrait--family-small"></div>
+                  <div class="cd-portrait" data-pirate="family-small"></div>
                   <div class="cd-card__text">
                     <div class="cd-en">I have a small family.</div>
                     <div class="cd-ru">У меня <span class="cd-hl cd-hl--yellow">небольшая</span> семья.</div>
@@ -5376,27 +5387,27 @@ LESSON 2 — EXTENDED FAMILY
               <h3>Look at these sentences.</h3>
 
               <div class="cd-row">
-                <div class="cd-portrait cd-portrait--hero"></div>
+                <div class="cd-portrait" data-pirate="hero"></div>
                 <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> брата.</div><div class="cd-en">I don't have a brother.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait cd-portrait--scarf"></div>
+                <div class="cd-portrait" data-pirate="scarf"></div>
                 <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> сестры.</div><div class="cd-en">I don't have a sister.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait cd-portrait--father"></div>
+                <div class="cd-portrait" data-pirate="father"></div>
                 <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> отца.</div><div class="cd-en">I don't have a father.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait cd-portrait--mother"></div>
+                <div class="cd-portrait" data-pirate="mother"></div>
                 <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> матери.</div><div class="cd-en">I don't have a mother.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait cd-portrait--children"></div>
+                <div class="cd-portrait" data-pirate="children"></div>
                 <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> детей.</div><div class="cd-en">I don't have children.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait cd-portrait--grandchildren"></div>
+                <div class="cd-portrait" data-pirate="grandchildren"></div>
                 <div><div class="cd-ru">У меня <span class="cd-hl cd-hl--red">нет</span> внуков.</div><div class="cd-en">I don't have grandchildren.</div></div>
               </div>
             </section> <!-- END East left panel -->
@@ -5469,27 +5480,27 @@ LESSON 2 — EXTENDED FAMILY
             <section class="cd-panel cd-east-left">
               <h3>Look at these sentences.</h3>
               <div class="cd-row">
-                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-i.png')"></div>
+                <div class="cd-portrait" data-pirate="i"></div>
                 <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У меня</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">I have a sister.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-you.png')"></div>
+                <div class="cd-portrait" data-pirate="you"></div>
                 <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У тебя</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">You have a sister.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-he.png')"></div>
+                <div class="cd-portrait" data-pirate="he"></div>
                 <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У него</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">He has a sister.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-she.png')"></div>
+                <div class="cd-portrait" data-pirate="she"></div>
                 <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У неё</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">She has a sister.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-we.png')"></div>
+                <div class="cd-portrait" data-pirate="we"></div>
                 <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У нас</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">We have a sister.</div></div>
               </div>
               <div class="cd-row">
-                <div class="cd-portrait" style="background-image:url('../../Images/door-three/portrait-pronoun-they.png')"></div>
+                <div class="cd-portrait" data-pirate="they"></div>
                 <div><div class="cd-ru"><span class="cd-hl cd-hl--yellow">У них</span> <span class="cd-hl">есть</span> сестра.</div><div class="cd-en">They have a sister.</div></div>
               </div>
             </section> <!-- END West left panel -->
@@ -5562,6 +5573,449 @@ LESSON 2 — EXTENDED FAMILY
           </button>
 
         </div> <!-- END Door 3 Discovery screen -->
+
+
+        <!-- ==========================================
+             DOOR 3 — NORTH BOAT: THE NAVIGATOR'S STUDY
+             Why Did the Word Change?
+        ========================================== -->
+
+        <div class="compass-stage compass-screen boat-screen boat-screen--north" id="boat-north" data-screen="boat" hidden>
+
+          <div class="bt-emblem" aria-hidden="true">✦</div>
+          <div class="bt-sign">
+            <h2 class="bt-sign__title">The Navigator's Study</h2>
+          </div>
+          <div class="bt-ribbon bt-ribbon--sub">Why Did the Word Change?</div>
+
+          <!-- The word that changes -->
+          <div class="bt-words">
+            <div class="bt-wordcard">
+              <div class="bt-wordcard__ru">бр<span class="bt-red">ат</span></div>
+              <div class="bt-wordcard__en">brother</div>
+              <div class="bt-wordcard__note">(I have a brother)</div>
+            </div>
+            <div class="bt-arrow" aria-hidden="true">➜</div>
+            <div class="bt-wordcard">
+              <div class="bt-wordcard__ru">бра<span class="bt-red">та</span></div>
+              <div class="bt-wordcard__en">brother</div>
+              <div class="bt-wordcard__note">(I don't have a brother)</div>
+            </div>
+          </div> <!-- END word cards -->
+
+          <div class="bt-ribbon bt-ribbon--task">Click the sentence that matches the picture.</div>
+
+          <!-- Picture 1: someone IS here -->
+          <div class="bt-pic bt-pic--left" id="bn-pic-1" data-correct="has">
+            <div class="bt-pic__frame" data-pirate="boat-boy"></div>
+            <div class="bt-pic__buttons">
+              <button type="button" class="bt-choice" data-answer="has">У меня есть брат.</button>
+              <button type="button" class="bt-choice" data-answer="hasnt">У меня нет брата.</button>
+            </div>
+          </div>
+          <div class="bt-feedback bt-feedback--left" id="bn-feedback-1" aria-live="polite" hidden></div>
+
+          <!-- Picture 2: nobody is here (faded) -->
+          <div class="bt-pic bt-pic--right" id="bn-pic-2" data-correct="hasnt">
+            <div class="bt-pic__frame bt-pic__frame--faded" data-pirate="boat-boy"></div>
+            <div class="bt-pic__buttons">
+              <button type="button" class="bt-choice" data-answer="has">У меня есть брат.</button>
+              <button type="button" class="bt-choice" data-answer="hasnt">У меня нет брата.</button>
+            </div>
+          </div>
+          <div class="bt-feedback bt-feedback--right" id="bn-feedback-2" aria-live="polite" hidden></div>
+
+          <!-- Appears after both pictures are answered correctly -->
+          <div class="bt-found" id="bn-found" hidden>
+            <div class="bt-found__title">The Navigator's Discovery — You found the pattern!</div>
+            <div class="bt-found__pattern">есть брат <span aria-hidden="true">→</span> нет брат<span class="bt-red">а</span></div>
+            <div>One little change makes a big difference.</div>
+          </div>
+
+          <!-- Show Me Why: the explanation sits on top of the screen -->
+          <div class="bt-why" id="bn-why" hidden>
+            <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
+            <div class="bt-ribbon bt-ribbon--why">The Navigator's Discovery</div>
+            <h3>Did you notice what happened?</h3>
+            <div class="bt-words bt-words--small">
+              <div class="bt-wordcard">
+                <div class="bt-wordcard__ru">бр<span class="bt-red">ат</span></div>
+                <div class="bt-wordcard__en">brother</div>
+                <div class="bt-wordcard__note">(I have a brother)</div>
+              </div>
+              <div class="bt-arrow" aria-hidden="true">➜</div>
+              <div class="bt-wordcard">
+                <div class="bt-wordcard__ru">бра<span class="bt-red">та</span></div>
+                <div class="bt-wordcard__en">brother</div>
+                <div class="bt-wordcard__note">(I don't have a brother)</div>
+              </div>
+            </div>
+            <p>
+              When we say we don't have someone, Russian often changes
+              the <span class="bt-red">ending</span> of the family word.
+            </p>
+            <div class="bt-why__examples">
+              <div class="bt-example bt-example--yes">
+                <span class="bt-example__mark" aria-hidden="true">✓</span>
+                <div><div class="bt-example__ru">У меня есть <span class="bt-red">брат</span>.</div><div class="bt-example__en">I have a brother.</div></div>
+              </div>
+              <div class="bt-example bt-example--no">
+                <span class="bt-example__mark" aria-hidden="true">✕</span>
+                <div><div class="bt-example__ru">У меня нет <span class="bt-red">брата</span>.</div><div class="bt-example__en">I don't have a brother.</div></div>
+              </div>
+            </div>
+            <div class="bt-why__note">
+              <span aria-hidden="true">💡</span>
+              <p>
+                You don't need to memorize the full grammar rule yet.
+                Just <strong>notice</strong> that the ending changes when we say we don't have someone!
+              </p>
+            </div>
+          </div> <!-- END Show Me Why -->
+
+          <button type="button" class="compass-imgbtn compass-boat-back bt-back">
+            <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
+          </button>
+
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
+            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
+            <span class="bt-whybtn__text">Show Me Why</span>
+          </button>
+
+        </div> <!-- END North boat -->
+
+
+        <!-- ==========================================
+             DOOR 3 — SOUTH BOAT: THE CAPTAIN'S FAMILY CABIN
+             Whose Family Member?
+        ========================================== -->
+
+        <div class="compass-stage compass-screen boat-screen boat-screen--south" id="boat-south" data-screen="boat" hidden>
+
+          <div class="bt-emblem" aria-hidden="true">☸</div>
+          <div class="bt-sign">
+            <h2 class="bt-sign__title">The Captain's Family Cabin</h2>
+          </div>
+          <div class="bt-ribbon bt-ribbon--sub">Whose Family Member?</div>
+          <div class="bt-ribbon bt-ribbon--task" id="bs-task">Click the correct form of “my” for each family member.</div>
+
+          <!-- ROUND 1: four family members -->
+          <div class="bs-round" id="bs-round-1">
+            <div class="bs-card" id="bs-c1" data-correct="мой" data-phrase="мой брат" data-phrase-en="my brother">
+              <div class="bs-card__portrait" data-pirate="brother"></div>
+              <div class="bs-card__word">брат</div>
+              <div class="bs-card__en">(brother)</div>
+              <div class="bs-card__buttons">
+                <button type="button" class="bs-choice" data-form="мой">мой</button><button type="button" class="bs-choice" data-form="моя">моя</button><button type="button" class="bs-choice" data-form="моё">моё</button><button type="button" class="bs-choice" data-form="мои">мои</button>
+              </div>
+              <div class="bs-card__result" aria-live="polite"></div>
+            </div>
+            <div class="bs-card" id="bs-c2" data-correct="моя" data-phrase="моя сестра" data-phrase-en="my sister">
+              <div class="bs-card__portrait" data-pirate="sister"></div>
+              <div class="bs-card__word">сестра</div>
+              <div class="bs-card__en">(sister)</div>
+              <div class="bs-card__buttons">
+                <button type="button" class="bs-choice" data-form="мой">мой</button><button type="button" class="bs-choice" data-form="моя">моя</button><button type="button" class="bs-choice" data-form="моё">моё</button><button type="button" class="bs-choice" data-form="мои">мои</button>
+              </div>
+              <div class="bs-card__result" aria-live="polite"></div>
+            </div>
+            <div class="bs-card" id="bs-c3" data-correct="мой" data-phrase="мой папа" data-phrase-en="my father">
+              <div class="bs-card__portrait" data-pirate="father"></div>
+              <div class="bs-card__word">папа</div>
+              <div class="bs-card__en">(father)</div>
+              <div class="bs-card__buttons">
+                <button type="button" class="bs-choice" data-form="мой">мой</button><button type="button" class="bs-choice" data-form="моя">моя</button><button type="button" class="bs-choice" data-form="моё">моё</button><button type="button" class="bs-choice" data-form="мои">мои</button>
+              </div>
+              <div class="bs-card__result" aria-live="polite"></div>
+            </div>
+            <div class="bs-card" id="bs-c4" data-correct="моя" data-phrase="моя мама" data-phrase-en="my mother">
+              <div class="bs-card__portrait" data-pirate="mother"></div>
+              <div class="bs-card__word">мама</div>
+              <div class="bs-card__en">(mother)</div>
+              <div class="bs-card__buttons">
+                <button type="button" class="bs-choice" data-form="мой">мой</button><button type="button" class="bs-choice" data-form="моя">моя</button><button type="button" class="bs-choice" data-form="моё">моё</button><button type="button" class="bs-choice" data-form="мои">мои</button>
+              </div>
+              <div class="bs-card__result" aria-live="polite"></div>
+            </div>
+          </div> <!-- END round 1 -->
+
+          <!-- ROUND 2: two more words (opens after round 1) -->
+          <div class="bs-round bs-round--two" id="bs-round-2" hidden>
+            <div class="bs-card" id="bs-c5" data-correct="моё" data-phrase="моё дитя" data-phrase-en="my child">
+              <div class="bs-card__portrait" data-pirate="children"></div>
+              <div class="bs-card__word">дитя</div>
+              <div class="bs-card__en">(child)</div>
+              <div class="bs-card__buttons">
+                <button type="button" class="bs-choice" data-form="мой">мой</button><button type="button" class="bs-choice" data-form="моя">моя</button><button type="button" class="bs-choice" data-form="моё">моё</button><button type="button" class="bs-choice" data-form="мои">мои</button>
+              </div>
+              <div class="bs-card__result" aria-live="polite"></div>
+            </div>
+            <div class="bs-card" id="bs-c6" data-correct="мои" data-phrase="мои родители" data-phrase-en="my parents">
+              <div class="bs-card__portrait" data-pirate="parents"></div>
+              <div class="bs-card__word">родители</div>
+              <div class="bs-card__en">(parents)</div>
+              <div class="bs-card__buttons">
+                <button type="button" class="bs-choice" data-form="мой">мой</button><button type="button" class="bs-choice" data-form="моя">моя</button><button type="button" class="bs-choice" data-form="моё">моё</button><button type="button" class="bs-choice" data-form="мои">мои</button>
+              </div>
+              <div class="bs-card__result" aria-live="polite"></div>
+            </div>
+          </div> <!-- END round 2 -->
+
+          <!-- The Captain's celebrations -->
+          <div class="bs-cheer" id="bs-cheer-1" hidden>
+            <div><strong>The Captain is delighted!</strong></div>
+            <div class="bs-cheer__pattern">мой брат · моя сестра · мой папа · моя мама</div>
+            <div>Different family words, different “my.”</div>
+            <button type="button" class="bs-next" id="bs-next">Two More Words ➜</button>
+          </div>
+
+          <div class="bs-cheer" id="bs-cheer-2" hidden>
+            <div><strong>You know all four forms of “my”!</strong></div>
+            <div class="bs-cheer__pattern">мой · моя · моё · мои</div>
+            <div>The Captain tips his hat to you.</div>
+          </div>
+
+          <!-- Show Me Why -->
+          <div class="bt-why bs-why" id="bs-why" hidden>
+            <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
+            <div class="bt-ribbon bt-ribbon--why">The Captain's Discovery</div>
+            <p>
+              In English, we use the same word “my” for everyone.<br>
+              In Russian, the word <span class="bt-red">changes depending on the family word.</span>
+            </p>
+            <div class="bs-why__cards">
+              <div class="bs-why__card"><div class="bs-card__portrait" data-pirate="brother"></div><div class="bs-card__word">брат</div><div class="bs-card__en">(brother)</div><div class="bs-phrase bs-phrase--blue"><strong class="bt-red">мой</strong> брат<br><small>(my brother)</small></div></div>
+              <div class="bs-why__card"><div class="bs-card__portrait" data-pirate="sister"></div><div class="bs-card__word">сестра</div><div class="bs-card__en">(sister)</div><div class="bs-phrase bs-phrase--pink"><strong class="bt-red">моя</strong> сестра<br><small>(my sister)</small></div></div>
+              <div class="bs-why__card"><div class="bs-card__portrait" data-pirate="father"></div><div class="bs-card__word">папа</div><div class="bs-card__en">(father)</div><div class="bs-phrase bs-phrase--green"><strong class="bt-red">мой</strong> папа<br><small>(my father)</small></div></div>
+              <div class="bs-why__card"><div class="bs-card__portrait" data-pirate="mother"></div><div class="bs-card__word">мама</div><div class="bs-card__en">(mother)</div><div class="bs-phrase bs-phrase--pink"><strong class="bt-red">моя</strong> мама<br><small>(my mother)</small></div></div>
+            </div>
+            <div class="bt-why__note">
+              <span aria-hidden="true">💡</span>
+              <ul>
+                <li>Use <strong class="bt-red">мой</strong> with masculine family words (e.g., брат, папа).</li>
+                <li>Use <strong class="bt-red">моя</strong> with feminine family words (e.g., сестра, мама).</li>
+                <li>Use <strong class="bt-red">моё</strong> with neuter family words (e.g., дитя).</li>
+                <li>Use <strong class="bt-red">мои</strong> with plural family words (e.g., родители, братья, сёстры).</li>
+              </ul>
+            </div>
+          </div> <!-- END Show Me Why -->
+
+          <button type="button" class="compass-imgbtn compass-boat-back bt-back">
+            <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
+          </button>
+
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
+            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
+            <span class="bt-whybtn__text">Show Me Why</span>
+          </button>
+
+        </div> <!-- END South boat -->
+
+        <!-- ===== EAST BOAT — The Traveler's Cargo Hold ===== -->
+        <div class="compass-stage compass-screen boat-screen boat-screen--east" id="boat-east" data-screen="boat" hidden>
+
+          <div class="bt-emblem" aria-hidden="true">⚓</div>
+          <div class="bt-sign">
+            <h2 class="bt-sign__title">The Traveler's Cargo Hold</h2>
+          </div>
+          <div class="bt-ribbon bt-ribbon--sub">More Family Words</div>
+          <div class="bt-ribbon bt-ribbon--task" id="be-task">Click a crate to open it.</div>
+
+          <!-- The six crates -->
+          <div class="be-crates" id="be-crates">
+            <button type="button" class="be-crate" data-crate="stepfamily">
+              <span class="be-crate__lid" aria-hidden="true"></span>
+              <span class="be-crate__label">Stepfamily</span>
+            </button>
+            <button type="button" class="be-crate" data-crate="greatgrand">
+              <span class="be-crate__lid" aria-hidden="true"></span>
+              <span class="be-crate__label">Grandparents</span>
+            </button>
+            <button type="button" class="be-crate" data-crate="husband">
+              <span class="be-crate__lid" aria-hidden="true"></span>
+              <span class="be-crate__label">Husband's Parents</span>
+            </button>
+            <button type="button" class="be-crate" data-crate="wife">
+              <span class="be-crate__lid" aria-hidden="true"></span>
+              <span class="be-crate__label">Wife's Parents</span>
+            </button>
+            <button type="button" class="be-crate" data-crate="stepsib">
+              <span class="be-crate__lid" aria-hidden="true"></span>
+              <span class="be-crate__label">Step-Siblings</span>
+            </button>
+            <button type="button" class="be-crate" data-crate="other">
+              <span class="be-crate__lid" aria-hidden="true"></span>
+              <span class="be-crate__label">Other Relationships</span>
+            </button>
+          </div> <!-- END crates -->
+
+          <!-- An opened crate -->
+          <div class="be-open" id="be-open" hidden>
+            <button type="button" class="bt-why__close" id="be-close" aria-label="Close the crate">✕</button>
+            <div class="bt-ribbon bt-ribbon--why" id="be-open-title"></div>
+            <div class="be-open__people" id="be-open-people"></div>
+            <p class="be-open__meaning" id="be-open-meaning"></p>
+          </div> <!-- END opened crate -->
+
+          <!-- Show Me Why -->
+          <div class="bt-why be-why" id="be-why" hidden>
+            <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
+            <div class="bt-ribbon bt-ribbon--why">The Traveler's Discovery</div>
+            <p>
+              Some Russian family words are <span class="bt-red">built from words you already know.</span><br>
+              Others have <span class="bt-red">one special word</span> where English needs several.
+            </p>
+            <div class="bt-why__note">
+              <span aria-hidden="true">💡</span>
+              <ul>
+                <li><strong class="bt-red">пра-</strong> means “great”: бабушка → <strong>пра</strong>бабушка (great-grandmother).</li>
+                <li>Russian has separate words for the <strong class="bt-red">husband's</strong> parents (свёкор, свекровь) and the <strong class="bt-red">wife's</strong> parents (тесть, тёща).</li>
+                <li><strong class="bt-red">сводный / сводная</strong> means “step-” for brothers and sisters.</li>
+                <li><strong class="bt-red">зять</strong> and <strong class="bt-red">невестка</strong> each cover several in-law relationships.</li>
+              </ul>
+            </div>
+          </div> <!-- END Show Me Why -->
+
+          <button type="button" class="compass-imgbtn compass-boat-back bt-back">
+            <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
+          </button>
+
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
+            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
+            <span class="bt-whybtn__text">Show Me Why</span>
+          </button>
+
+        </div> <!-- END East boat -->
+
+        <!-- ===== WEST BOAT — The Conversation Deck ===== -->
+        <div class="compass-stage compass-screen boat-screen boat-screen--west" id="boat-west" data-screen="boat" hidden>
+
+          <div class="bt-emblem" aria-hidden="true">⛵</div>
+          <div class="bt-sign">
+            <h2 class="bt-sign__title">The Conversation Deck</h2>
+          </div>
+          <div class="bt-ribbon bt-ribbon--sub">Answer, Then Ask Back</div>
+          <div class="bt-ribbon bt-ribbon--task" id="bw-task">Answer the pirate. Then ask the question back.</div>
+
+          <!-- The conversation (filled in by JavaScript) -->
+          <div class="bw-deck" id="bw-deck">
+            <div class="bw-dots" id="bw-dots" aria-hidden="true"></div>
+            <div class="bw-talk">
+              <div class="bw-pirate">
+                <div class="bs-card__portrait bw-pirate__portrait" id="bw-portrait"></div>
+              </div>
+              <div class="bw-bubbles" id="bw-bubbles"></div>
+            </div>
+            <div class="bw-choices" id="bw-choices"></div>
+            <div class="bw-feedback" id="bw-feedback" aria-live="polite"></div>
+            <button type="button" class="bs-next bw-next" id="bw-next" hidden>Next Conversation ➜</button>
+            <button type="button" class="bs-next bw-next" id="bw-again" hidden>Talk Again ↻</button>
+          </div> <!-- END deck -->
+
+          <!-- Show Me Why -->
+          <div class="bt-why bw-why" id="bw-why" hidden>
+            <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
+            <div class="bt-ribbon bt-ribbon--why">The Sailor's Discovery</div>
+            <p>
+              To ask someone the same question back, you don't need a whole new sentence.<br>
+              Just add <span class="bt-red">А</span> and the part that matters.
+            </p>
+            <div class="bw-why__pair">
+              <div class="bw-why__card"><strong class="bt-red">А у вас?</strong><br><small>And do you have (one)?</small><br><em>Use this to ask about having.</em></div>
+              <div class="bw-why__card"><strong class="bt-red">А вы?</strong><br><small>And you? (What about you?)</small><br><em>Use this when the question is about you in general, like “How are you?”</em></div>
+            </div>
+            <div class="bt-why__note">
+              <span aria-hidden="true">💡</span>
+              <ul>
+                <li>The pirate asked <strong>У вас есть брат?</strong> It is about <strong>having</strong>, so ask back <strong class="bt-red">А у вас?</strong></li>
+                <li>Keep <strong class="bt-red">у вас</strong> in your question. It carries the “have.”</li>
+              </ul>
+            </div>
+          </div> <!-- END Show Me Why -->
+
+          <button type="button" class="compass-imgbtn compass-boat-back bt-back">
+            <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
+          </button>
+
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
+            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
+            <span class="bt-whybtn__text">Show Me Why</span>
+          </button>
+
+        </div> <!-- END West boat -->
+
+        <!-- ==========================================
+             DOOR 3 — THE TREASURE CHEST
+             One screen, several states (data-tc-state):
+             closed, opening, open, scroll-opening, scroll-preview
+             ========================================== -->
+        <div class="compass-stage compass-screen chest-screen" id="chest-room" data-screen="chest" data-tc-state="closed" hidden>
+
+          <img class="tc-pirate" src="../../Images/door-three/image-treasure-pirate.png" alt="" onerror="this.hidden=true">
+
+          <div class="tc-sign">
+            <span class="tc-sign__wheel" aria-hidden="true">☸</span>
+            <h2 class="tc-sign__title">The Treasure Chest</h2>
+          </div>
+          <div class="tc-ribbon" id="tc-subtitle">The Final Discovery</div>
+
+          <div class="tc-note">
+            <p class="tc-note__closed">You’ve explored, discovered, and learned.<br>Now it’s time to open the treasure!<br><strong>Click the chest to open it.</strong></p>
+            <p class="tc-note__open">The chest is open! Three treasures await your discovery.<br>Click any scroll to explore what’s inside.</p>
+          </div> <!-- END note -->
+
+          <!-- Slight darkening while a scroll is open -->
+          <div class="tc-dim" aria-hidden="true"></div>
+
+          <!-- The chest: one button, four frames -->
+          <button type="button" class="tc-chest" id="tc-chest" aria-label="Open the treasure chest">
+            <img id="tc-chest-img" src="../../Images/door-three/image-treasure-chest-1.png" alt="">
+          </button>
+
+          <!-- Three unlabeled scrolls -->
+          <div class="tc-scrolls" id="tc-scrolls">
+            <button type="button" class="tc-scroll" data-scroll="1" aria-label="Open the first scroll" disabled>
+              <img class="tc-scroll__img" src="../../Images/door-three/image-scroll-frame-1.png" alt="">
+              <span class="tc-scroll__text">
+                <span class="tc-scroll__title">Someone Special</span>
+                <span class="tc-scroll__sub">A Little Treasure About Family</span>
+                <span class="tc-scroll__body">Some people are more than just family. They’re special to us.</span>
+                <span class="tc-scroll__body">Discover how Russian helps us express the feelings we have for the people we love.</span>
+                <span class="tc-scroll__go">Click the parchment to discover more!</span>
+              </span>
+            </button>
+            <button type="button" class="tc-scroll" data-scroll="2" aria-label="Open the second scroll" disabled>
+              <img class="tc-scroll__img" src="../../Images/door-three/image-scroll-frame-1.png" alt="">
+              <span class="tc-scroll__text">
+                <span class="tc-scroll__title">Family Secrets</span>
+                <span class="tc-scroll__sub">Discover Hidden Connections</span>
+                <span class="tc-scroll__body">Every family has a story, and Russian helps us talk about those connections.</span>
+                <span class="tc-scroll__body">Discover new words, interesting relationships, and a few surprises about family in Russian.</span>
+                <span class="tc-scroll__go">Click the parchment to discover more!</span>
+              </span>
+            </button>
+            <button type="button" class="tc-scroll" data-scroll="3" aria-label="Open the third scroll" disabled>
+              <img class="tc-scroll__img" src="../../Images/door-three/image-scroll-frame-1.png" alt="">
+              <span class="tc-scroll__text">
+                <span class="tc-scroll__title tc-scroll__title--long">Put Your Russian to Work!</span>
+                <span class="tc-scroll__sub">Five Sentence-Building Challenges</span>
+                <span class="tc-scroll__body">Now it’s your turn! Use what you’ve learned to build five Russian sentences.</span>
+                <span class="tc-scroll__body">You’ll choose from a word bank, put the pieces together, and see your Russian come to life!</span>
+                <span class="tc-scroll__go">Click the parchment to discover more!</span>
+              </span>
+            </button>
+          </div> <!-- END scrolls -->
+
+          <button type="button" class="tc-close" id="tc-close" hidden>
+            <span class="tc-close__x" aria-hidden="true">✕</span>
+            <span class="tc-close__label">Close Scroll</span>
+          </button>
+
+          <button type="button" class="compass-imgbtn compass-boat-back bt-back">
+            <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
+          </button>
+
+        </div> <!-- END Treasure Chest room -->
 
       </section> <!-- END Door 3 — Where Can This Take Me? -->
 

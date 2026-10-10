@@ -4268,6 +4268,91 @@ document
     });
 
 
+
+// ==================================================
+// DOOR 3 — PIRATE PORTRAITS
+// Every portrait spot has a "role" (hero, sister, family, ...). Each role
+// belongs to one group (male, female, or a fixed group picture). When the
+// page loads, the faces in each group are shuffled and handed out to the
+// roles, so the cast changes from visit to visit but stays steady while
+// the learner clicks around.
+// ==================================================
+
+const PIRATE_FOLDER = "../../Images/door-three/";
+
+const PIRATE_FILES = {
+    male:   ["image-pirate-male-1.png", "image-pirate-male-2.png", "image-pirate-male-3.png",
+             "image-pirate-male-4.png", "image-pirate-male-5.png"],
+    female: ["image-pirate-female-1.png", "image-pirate-female-2.png", "image-pirate-female-3.png",
+             "image-pirate-female-4.png", "image-pirate-female-5.png"],
+    family:   ["image-pirate-family.png"],
+    children: ["image-pirate-children.png"],
+    kids:     ["image-pirate-bro-sis.png", "image-pirate-bro-sis-2.png"],
+    they:     ["image-pirate-they-have-a-sister.png"],
+    sisters:  ["image-pirate-two-sisters.png"]
+};
+
+// Which group each role belongs to
+const PIRATE_ROLES = {
+    // male faces
+    hero: "male", i: "male", he: "male", brother: "male", "older-brother": "male",
+    father: "male", grandfather: "male", uncle: "male", cousin: "male", son: "male", "boat-boy": "male",
+    // female faces
+    scarf: "female", you: "female", she: "female", sister: "female", "younger-sister": "female",
+    mother: "female", grandmother: "female", aunt: "female", daughter: "female",
+    // group pictures
+    family: "family", "family-large": "family", parents: "family",
+    "family-small": "kids", we: "kids",
+    children: "children", grandchildren: "children",
+    they: "they"
+};
+
+const PIRATE_CAST = {};
+
+// Shuffle a copy of a list
+function pirateShuffle(list) {
+    const copy = list.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+// Hand out faces: each role in a group gets the next face in that group's
+// shuffled deck. If a group has more roles than faces, the deck starts over.
+(function castPirates() {
+
+    const decks = {};
+    const spot = {};
+
+    Object.keys(PIRATE_ROLES).forEach((role) => {
+
+        const group = PIRATE_ROLES[role];
+
+        if (!decks[group] || spot[group] >= decks[group].length) {
+            decks[group] = pirateShuffle(PIRATE_FILES[group]);
+            spot[group] = 0;
+        }
+
+        PIRATE_CAST[role] = decks[group][spot[group]];
+        spot[group] += 1;
+
+    });
+
+})();
+
+// The picture address for a role (hero, sister, family, ...)
+function pirateUrl(role) {
+    const file = PIRATE_CAST[role];
+    return file ? `url("${PIRATE_FOLDER}${file}")` : "";
+}
+
+// Fill in every portrait spot that names its role in data-pirate
+document.querySelectorAll("[data-pirate]").forEach((spot) => {
+    spot.style.backgroundImage = pirateUrl(spot.dataset.pirate);
+});
+
 // ==================================================
 // DOOR 3 — THE COMPASS & MAP
 // CONTROLLED-RANDOM COMPASS (NO REPEATS UNTIL ALL FOUR APPEAR)
@@ -4449,13 +4534,7 @@ compassMarkers.forEach((marker) => {
 
         showCompassDiscovery(direction);
 
-        if (compassMapScreen) compassMapScreen.hidden = true;
-        if (compassDiscoveryScreen) compassDiscoveryScreen.hidden = false;
-
-        exploreConversationRoom?.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        showCompassScreen(compassDiscoveryScreen);
 
     });
 
@@ -4753,10 +4832,9 @@ function renderEast() {
 
         if (select) select.value = String(eastState[side]);
 
-        // Portrait files are named portrait-person-<key>.png (tan circle until they exist)
+        // Show this person's pirate face
         if (portrait) {
-            portrait.style.backgroundImage =
-                `url("../../Images/door-three/portrait-person-${person.key}.png")`;
+            portrait.style.backgroundImage = pirateUrl(person.key);
         }
 
     });
@@ -4872,13 +4950,13 @@ function renderWest() {
     const person = WEST_PEOPLE[westState.p];
     const member = WEST_MEMBERS[westState.m];
 
-    const setPortrait = (id, file) => {
+    const setPortrait = (id, role) => {
         const el = document.querySelector(id);
-        if (el) el.style.backgroundImage = `url("../../Images/door-three/${file}")`;
+        if (el) el.style.backgroundImage = pirateUrl(role);
     };
 
-    setPortrait("#west-p-portrait", `portrait-pronoun-${person.key}.png`);
-    setPortrait("#west-m-portrait", `portrait-person-${member.key}.png`);
+    setPortrait("#west-p-portrait", person.key);
+    setPortrait("#west-m-portrait", member.key);
 
     document.querySelector("#west-p-ru").textContent = person.ru;
     document.querySelector("#west-p-en").textContent = person.en;
@@ -4920,6 +4998,712 @@ if (document.querySelector("#west-p-prev")) {
 
 }
 
+
+// Show only the Map Room (hide every discovery and boat screen)
+function showCompassMap() {
+
+    tcReset();
+
+    document
+        .querySelectorAll("#explore-conversation .compass-screen")
+        .forEach((screen) => {
+            screen.hidden = screen !== compassMapScreen;
+        });
+
+    exploreConversationRoom?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+// Show one screen on its own (a discovery or a boat)
+function showCompassScreen(screen) {
+
+    document
+        .querySelectorAll("#explore-conversation .compass-screen")
+        .forEach((each) => {
+            each.hidden = each !== screen;
+        });
+
+    exploreConversationRoom?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+// ==================================================
+// DOOR 3 — THE FOUR BOATS
+// Optional side trips. Clicking a boat on the map opens its screen.
+// "Back to the Map Room" returns to the map WITHOUT ending the compass glow,
+// because the boats are separate from the compass.
+// ==================================================
+
+const BOAT_RESETTERS = {};
+
+document.querySelectorAll(".compass-boat").forEach((boat) => {
+
+    boat.addEventListener("click", () => {
+
+        const screen = document.querySelector(`#boat-${boat.dataset.boat}`);
+
+        if (!screen) {
+            return;
+        }
+
+        // Every visit starts fresh
+        BOAT_RESETTERS[boat.dataset.boat]?.();
+
+        showCompassScreen(screen);
+
+    });
+
+});
+
+document.querySelectorAll("#explore-conversation .compass-boat-back").forEach((button) => {
+    button.addEventListener("click", showCompassMap);
+});
+
+// Show Me Why / Hide This Explanation (same button, same screen)
+document.querySelectorAll(".boat-screen").forEach((screen) => {
+
+    const toggle = screen.querySelector("[data-why-toggle]");
+    const why = screen.querySelector(".bt-why");
+
+    if (!toggle || !why) {
+        return;
+    }
+
+    const setWhy = (open) => {
+        why.hidden = !open;
+        screen.classList.toggle("is-why-open", open);
+        toggle.querySelector(".bt-whybtn__text").textContent =
+            open ? toggle.dataset.hide : toggle.dataset.show;
+    };
+
+    toggle.addEventListener("click", () => setWhy(why.hidden));
+
+    screen.querySelector("[data-why-close]")?.addEventListener("click", () => setWhy(false));
+
+    // Used when the boat screen is reset
+    screen._closeWhy = () => setWhy(false);
+
+});
+
+
+// ---------- NORTH BOAT: THE NAVIGATOR'S STUDY ----------
+
+const bnPics = [
+    {
+        box: document.querySelector("#bn-pic-1"),
+        feedback: document.querySelector("#bn-feedback-1"),
+        right: ["Correct!", "The picture shows a brother. Notice: брат stays the same after есть."],
+        wrong: ["Not quite. Look again!", "This picture shows a brother. Which sentence says you have a brother?"]
+    },
+    {
+        box: document.querySelector("#bn-pic-2"),
+        feedback: document.querySelector("#bn-feedback-2"),
+        right: ["Correct!", "Notice how брат changes to брата after нет."],
+        wrong: ["Not quite. Look again!", "This picture shows someone who isn't here. Which sentence says you don't have a brother?"]
+    }
+];
+
+function bnShowFeedback(pic, good, lines) {
+
+    pic.feedback.hidden = false;
+    pic.feedback.className = `bt-feedback ${pic.box.classList.contains("bt-pic--left") ? "bt-feedback--left" : "bt-feedback--right"} ${good ? "is-good" : "is-hint"}`;
+    pic.feedback.innerHTML = `<strong>${good ? "✓" : "💡"} ${lines[0]}</strong> ${lines[1]}`;
+
+}
+
+bnPics.forEach((pic) => {
+
+    if (!pic.box) {
+        return;
+    }
+
+    pic.box.querySelectorAll(".bt-choice").forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            if (pic.box.classList.contains("is-solved")) {
+                return;
+            }
+
+            if (button.dataset.answer === pic.box.dataset.correct) {
+
+                button.classList.add("is-correct");
+                pic.box.classList.add("is-solved");
+                pic.box.querySelectorAll(".bt-choice").forEach((each) => { each.disabled = true; });
+                bnShowFeedback(pic, true, pic.right);
+
+                // Both pictures solved → show the discovery
+                if (bnPics.every((each) => each.box.classList.contains("is-solved"))) {
+                    document.querySelector("#bn-found").hidden = false;
+                }
+
+            } else {
+
+                // Amber glow for a moment, then the learner can try again
+                button.classList.add("is-wrong");
+                window.setTimeout(() => button.classList.remove("is-wrong"), 1200);
+                bnShowFeedback(pic, false, pic.wrong);
+
+            }
+
+        });
+
+    });
+
+});
+
+BOAT_RESETTERS.north = () => {
+
+    bnPics.forEach((pic) => {
+        pic.box?.classList.remove("is-solved");
+        pic.box?.querySelectorAll(".bt-choice").forEach((button) => {
+            button.disabled = false;
+            button.classList.remove("is-correct", "is-wrong");
+        });
+        if (pic.feedback) pic.feedback.hidden = true;
+    });
+
+    const found = document.querySelector("#bn-found");
+    if (found) found.hidden = true;
+
+    document.querySelector("#boat-north")?._closeWhy?.();
+
+};
+
+
+// ---------- SOUTH BOAT: THE CAPTAIN'S FAMILY CABIN ----------
+
+const bsCards = document.querySelectorAll("#boat-south .bs-round .bs-card");
+
+function bsRoundSolved(roundId) {
+    return [...document.querySelectorAll(`#${roundId} .bs-card`)]
+        .every((card) => card.classList.contains("is-solved"));
+}
+
+bsCards.forEach((card) => {
+
+    card.querySelectorAll(".bs-choice").forEach((button) => {
+
+        button.addEventListener("click", () => {
+
+            if (card.classList.contains("is-solved")) {
+                return;
+            }
+
+            const result = card.querySelector(".bs-card__result");
+
+            if (button.dataset.form === card.dataset.correct) {
+
+                button.classList.add("is-correct");
+                card.classList.add("is-solved");
+                card.querySelectorAll(".bs-choice").forEach((each) => { each.disabled = true; });
+
+                // The complete phrase appears
+                result.innerHTML =
+                    `<strong>${card.dataset.phrase}</strong><br><small>(${card.dataset.phraseEn})</small>`;
+                result.classList.remove("is-hint");
+
+                if (bsRoundSolved("bs-round-1") && !document.querySelector("#bs-round-1").hidden) {
+                    document.querySelector("#bs-cheer-1").hidden = false;
+                }
+
+                if (bsRoundSolved("bs-round-2") && !document.querySelector("#bs-round-2").hidden) {
+                    document.querySelector("#bs-cheer-2").hidden = false;
+                }
+
+            } else {
+
+                // A colour flash and a friendly nudge. No penalty.
+                button.classList.add("is-wrong");
+                window.setTimeout(() => button.classList.remove("is-wrong"), 1200);
+
+                result.classList.add("is-hint");
+                result.textContent =
+                    card.querySelector(".bs-card__word").textContent === "папа"
+                        ? "Try again! папа ends in -а, but think about who he is."
+                        : "Not quite. Try another form of “my.”";
+
+            }
+
+        });
+
+    });
+
+});
+
+// Round 1 → round 2
+document.querySelector("#bs-next")?.addEventListener("click", () => {
+
+    document.querySelector("#bs-round-1").hidden = true;
+    document.querySelector("#bs-cheer-1").hidden = true;
+    document.querySelector("#bs-round-2").hidden = false;
+
+    document.querySelector("#bs-task").textContent =
+        "Two more family words. Which form of “my” fits each one?";
+
+});
+
+BOAT_RESETTERS.south = () => {
+
+    bsCards.forEach((card) => {
+        card.classList.remove("is-solved");
+        card.querySelectorAll(".bs-choice").forEach((button) => {
+            button.disabled = false;
+            button.classList.remove("is-correct", "is-wrong");
+        });
+        const result = card.querySelector(".bs-card__result");
+        result.textContent = "";
+        result.classList.remove("is-hint");
+    });
+
+    document.querySelector("#bs-round-1").hidden = false;
+    document.querySelector("#bs-round-2").hidden = true;
+    document.querySelector("#bs-cheer-1").hidden = true;
+    document.querySelector("#bs-cheer-2").hidden = true;
+
+    document.querySelector("#bs-task").textContent =
+        "Click the correct form of “my” for each family member.";
+
+    document.querySelector("#boat-south")?._closeWhy?.();
+
+};
+
+
+// ---------------------------------------------------------------
+// EAST BOAT — The Traveler's Cargo Hold
+// Six crates. Each opens to show two family members, their Russian
+// and English words, and what the relationship means. No score.
+// ---------------------------------------------------------------
+const EAST_CRATES = {
+    stepfamily: {
+        title: "Stepfamily",
+        people: [
+            { role: "uncle", ru: "отчим",  en: "stepfather" },
+            { role: "aunt",  ru: "мачеха", en: "stepmother" }
+        ],
+        meaning: "Your mother's husband, or your father's wife, who is not your birth parent."
+    },
+    greatgrand: {
+        title: "Grandparents",
+        people: [
+            { role: "grandfather", ru: "прадедушка", en: "great-grandfather" },
+            { role: "grandmother", ru: "прабабушка", en: "great-grandmother" }
+        ],
+        meaning: "Your grandparents' parents. Add пра- to the grandparent word."
+    },
+    husband: {
+        title: "Husband's Parents",
+        people: [
+            { role: "he",  ru: "свёкор",   en: "father-in-law (husband's father)" },
+            { role: "she", ru: "свекровь", en: "mother-in-law (husband's mother)" }
+        ],
+        meaning: "A wife's words for her husband's parents."
+    },
+    wife: {
+        title: "Wife's Parents",
+        people: [
+            { role: "cousin", ru: "тесть", en: "father-in-law (wife's father)" },
+            { role: "you",    ru: "тёща", en: "mother-in-law (wife's mother)" }
+        ],
+        meaning: "A husband's words for his wife's parents."
+    },
+    stepsib: {
+        title: "Step-Siblings",
+        people: [
+            { role: "boat-boy",       ru: "сводный брат",  en: "stepbrother" },
+            { role: "younger-sister", ru: "сводная сестра", en: "stepsister" }
+        ],
+        meaning: "Children of your stepparent, who are not your birth siblings."
+    },
+    other: {
+        title: "Other Relationships",
+        people: [
+            { role: "i",        ru: "зять",    en: "son-in-law" },
+            { role: "daughter", ru: "невестка", en: "daughter-in-law" }
+        ],
+        meaning: "Married into the family. зять is also a sister's husband; невестка is also a brother's wife."
+    }
+};
+
+const beCrateButtons = document.querySelectorAll("#boat-east .be-crate");
+const beOpen = document.querySelector("#be-open");
+
+function beOpenCrate(key) {
+
+    const crate = EAST_CRATES[key];
+    const box = document.querySelector(`#boat-east .be-crate[data-crate="${key}"]`);
+
+    document.querySelector("#be-open-title").textContent = crate.title;
+    document.querySelector("#be-open-meaning").textContent = crate.meaning;
+
+    const holder = document.querySelector("#be-open-people");
+    holder.innerHTML = "";
+
+    crate.people.forEach((person) => {
+
+        const card = document.createElement("div");
+        card.className = "be-person";
+
+        const portrait = document.createElement("div");
+        portrait.className = "bs-card__portrait be-person__portrait";
+        portrait.style.backgroundImage = `url("${pirateUrl(person.role)}")`;
+
+        const ru = document.createElement("div");
+        ru.className = "be-person__ru";
+        ru.textContent = person.ru;
+
+        const en = document.createElement("div");
+        en.className = "be-person__en";
+        en.textContent = `(${person.en})`;
+
+        const hear = document.createElement("button");
+        hear.type = "button";
+        hear.className = "be-hear";
+        hear.textContent = "🔊 Hear";
+        hear.addEventListener("click", () => speakRussianWord(person.ru));
+
+        card.append(portrait, ru, en, hear);
+        holder.appendChild(card);
+
+    });
+
+    box.classList.add("is-opened");
+    beOpen.hidden = false;
+    document.querySelector("#boat-east").classList.add("is-crate-open");
+
+}
+
+function beCloseCrate() {
+    beOpen.hidden = true;
+    document.querySelector("#boat-east").classList.remove("is-crate-open");
+}
+
+beCrateButtons.forEach((button) => {
+    button.addEventListener("click", () => beOpenCrate(button.dataset.crate));
+});
+
+document.querySelector("#be-close").addEventListener("click", beCloseCrate);
+
+BOAT_RESETTERS.east = () => {
+
+    beCrateButtons.forEach((button) => button.classList.remove("is-opened"));
+    beCloseCrate();
+    document.querySelector("#boat-east")?._closeWhy?.();
+
+};
+
+
+// ---------------------------------------------------------------
+// WEST BOAT — The Conversation Deck
+// Three short conversations: the pirate asks, you answer, you ask
+// the question back, and the pirate answers. Repeatable.
+// ---------------------------------------------------------------
+const WEST_TALKS = [
+    {
+        role: "hero",
+        ask: "У вас есть брат?", askEn: "Do you have a brother?",
+        answers: [
+            { ru: "Да, у меня есть брат.",  en: "Yes, I have a brother." },
+            { ru: "Нет, у меня нет брата.", en: "No, I don't have a brother." }
+        ],
+        reply: "У меня есть брат. Он капитан!", replyEn: "I have a brother. He is a captain!"
+    },
+    {
+        role: "scarf",
+        ask: "У вас есть сестра?", askEn: "Do you have a sister?",
+        answers: [
+            { ru: "Да, у меня есть сестра.",  en: "Yes, I have a sister." },
+            { ru: "Нет, у меня нет сестры.", en: "No, I don't have a sister." }
+        ],
+        reply: "У меня есть сестра. Она штурман!", replyEn: "I have a sister. She is the navigator!"
+    },
+    {
+        role: "family",
+        ask: "У вас есть дети?", askEn: "Do you have children?",
+        answers: [
+            { ru: "Да, у меня есть дети.",  en: "Yes, I have children." },
+            { ru: "Нет, у меня нет детей.", en: "No, I don't have children." }
+        ],
+        reply: "У меня есть дети. Они матросы!", replyEn: "I have children. They are sailors!"
+    }
+];
+
+const WEST_ASKBACK = [
+    { ru: "А у вас?",   en: "And do you have (one)?", correct: true },
+    { ru: "А вы?",      en: "And you?", hint: "А вы? asks about you in general. We want to ask about having, so keep у вас." },
+    { ru: "А у меня?",  en: "And do I have (one)?", hint: "That asks about you, the speaker. Ask about the pirate: у вас." },
+    { ru: "А вас?",     en: "And you? (object form)", hint: "Close! We need у вас, “you have,” to ask about having." }
+];
+
+let westIndex = 0;
+
+function westBubble(who, ru, en, canHear) {
+
+    const bubble = document.createElement("div");
+    bubble.className = `bw-bubble bw-bubble--${who}`;
+
+    const line = document.createElement("div");
+    line.className = "bw-bubble__ru";
+    line.textContent = ru;
+
+    const english = document.createElement("div");
+    english.className = "bw-bubble__en";
+    english.textContent = `(${en})`;
+
+    bubble.append(line, english);
+
+    if (canHear) {
+        const hear = document.createElement("button");
+        hear.type = "button";
+        hear.className = "be-hear";
+        hear.textContent = "🔊 Hear";
+        hear.addEventListener("click", () => speakRussianWord(ru));
+        bubble.appendChild(hear);
+    }
+
+    document.querySelector("#bw-bubbles").appendChild(bubble);
+
+}
+
+function westChoices(options, onPick) {
+
+    const holder = document.querySelector("#bw-choices");
+    holder.innerHTML = "";
+
+    options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "bw-choice";
+        button.textContent = option.ru;
+        button.addEventListener("click", () => onPick(option, button));
+        holder.appendChild(button);
+    });
+
+}
+
+function westStart(index) {
+
+    westIndex = index;
+    const talk = WEST_TALKS[index];
+
+    document.querySelector("#bw-bubbles").innerHTML = "";
+    document.querySelector("#bw-feedback").textContent = "";
+    document.querySelector("#bw-next").hidden = true;
+    document.querySelector("#bw-again").hidden = true;
+    document.querySelector("#bw-portrait").style.backgroundImage = `url("${pirateUrl(talk.role)}")`;
+
+    document.querySelectorAll("#bw-dots span").forEach((dot, i) => {
+        dot.classList.toggle("is-current", i === index);
+        dot.classList.toggle("is-done", i < index);
+    });
+
+    document.querySelector("#bw-task").textContent = "Click your answer.";
+    westBubble("pirate", talk.ask, talk.askEn, true);
+
+    westChoices(talk.answers, (answer) => {
+
+        westBubble("you", answer.ru, answer.en, false);
+        document.querySelector("#bw-task").textContent = "Now ask the pirate the same question.";
+        westAskBack(talk);
+
+    });
+
+}
+
+function westAskBack(talk) {
+
+    westChoices(pirateShuffle(WEST_ASKBACK), (option, button) => {
+
+        const feedback = document.querySelector("#bw-feedback");
+
+        if (!option.correct) {
+            button.classList.add("is-wrong");
+            feedback.textContent = option.hint;
+            return;
+        }
+
+        feedback.textContent = "";
+        westBubble("you", option.ru, option.en, false);
+        westBubble("pirate", talk.reply, talk.replyEn, true);
+        document.querySelector("#bw-choices").innerHTML = "";
+
+        if (westIndex < WEST_TALKS.length - 1) {
+            document.querySelector("#bw-task").textContent = "Well done!";
+            document.querySelector("#bw-next").hidden = false;
+        } else {
+            document.querySelector("#bw-task").textContent = "Three conversations done. You can answer, and you can ask back!";
+            document.querySelector("#bw-again").hidden = false;
+        }
+
+    });
+
+}
+
+(function wireWestBoat() {
+
+    const dots = document.querySelector("#bw-dots");
+    WEST_TALKS.forEach(() => dots.appendChild(document.createElement("span")));
+
+    document.querySelector("#bw-next").addEventListener("click", () => westStart(westIndex + 1));
+    document.querySelector("#bw-again").addEventListener("click", () => westStart(0));
+
+})();
+
+BOAT_RESETTERS.west = () => {
+    westStart(0);
+    document.querySelector("#boat-west")?._closeWhy?.();
+};
+
+
+// ---------------------------------------------------------------
+// THE TREASURE CHEST
+// States: closed → opening → open → scroll-opening → scroll-preview
+// Every timer is tracked so leaving the room can cancel it all.
+// ---------------------------------------------------------------
+const chestRoom   = document.querySelector("#chest-room");
+const tcChestBtn  = document.querySelector("#tc-chest");
+const tcChestImg  = document.querySelector("#tc-chest-img");
+const tcScrolls   = document.querySelectorAll("#chest-room .tc-scroll");
+const tcCloseBtn  = document.querySelector("#tc-close");
+const tcSubtitle  = document.querySelector("#tc-subtitle");
+
+const TC_IMG = "../../Images/door-three/";
+let tcTimers = [];
+let tcSelected = null;
+
+function tcLater(delay, work) {
+    tcTimers.push(setTimeout(work, delay));
+}
+
+function tcCancelTimers() {
+    tcTimers.forEach(clearTimeout);
+    tcTimers = [];
+}
+
+function tcSetState(state) {
+    chestRoom.dataset.tcState = state;
+}
+
+function tcSetChestFrame(n) {
+    tcChestImg.src = `${TC_IMG}image-treasure-chest-${n}.png`;
+}
+
+function tcSetScrollFrame(scroll, n) {
+    scroll.querySelector(".tc-scroll__img").src = `${TC_IMG}image-scroll-frame-${n}.png`;
+}
+
+// Scrolls: all closed, undimmed; clickable only when asked
+function tcRollAllScrolls(clickable) {
+    tcScrolls.forEach((scroll) => {
+        scroll.classList.remove("is-selected", "is-dim", "is-ready");
+        tcSetScrollFrame(scroll, 1);
+        scroll.disabled = !clickable;
+    });
+    tcSelected = null;
+    tcCloseBtn.hidden = true;
+}
+
+// Back to the first moment: closed chest, nothing running
+function tcReset() {
+    tcCancelTimers();
+    tcSetState("closed");
+    tcSetChestFrame(1);
+    tcSubtitle.textContent = "The Final Discovery";
+    tcRollAllScrolls(false);
+}
+
+// Click the chest: four frames, then the scrolls appear (no extra click)
+tcChestBtn.addEventListener("click", () => {
+
+    if (chestRoom.dataset.tcState !== "closed") {
+        return;   // ignore duplicate clicks while it opens
+    }
+
+    tcSetState("opening");
+
+    [2, 3, 4].forEach((frame, i) => {
+        tcLater((i + 1) * 450, () => tcSetChestFrame(frame));
+    });
+
+    tcLater(1800, () => {
+        tcSubtitle.textContent = "Choose Your Treasure";
+        tcRollAllScrolls(true);
+        tcSetState("open");
+    });
+
+});
+
+// Click a scroll: it comes forward and unrolls through four frames
+tcScrolls.forEach((scroll) => {
+
+    scroll.addEventListener("click", () => {
+
+        const state = chestRoom.dataset.tcState;
+
+        // Preview is showing: the parchment is the way in
+        if (state === "scroll-preview" && scroll === tcSelected) {
+            tcEnterContent(scroll.dataset.scroll);
+            return;
+        }
+
+        if (state !== "open") {
+            return;   // locked while moving or unrolling
+        }
+
+        tcSelected = scroll;
+        tcSetState("scroll-opening");
+
+        tcScrolls.forEach((each) => {
+            each.disabled = true;
+            each.classList.toggle("is-dim", each !== scroll);
+        });
+
+        scroll.classList.add("is-selected");
+
+        [2, 3, 4].forEach((frame, i) => {
+            tcLater(500 + i * 450, () => tcSetScrollFrame(scroll, frame));
+        });
+
+        tcLater(2000, () => {
+            scroll.classList.add("is-ready");
+            scroll.disabled = false;
+            tcCloseBtn.hidden = false;
+            tcSetState("scroll-preview");
+        });
+
+    });
+
+});
+
+// Close Scroll: back to the open chest, every scroll rolled up and clickable
+tcCloseBtn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    tcCancelTimers();
+    tcRollAllScrolls(true);
+    tcSetState("open");
+});
+
+// Entering a scroll's full screen (built in the next step)
+function tcEnterContent(number) {
+    const screen = document.querySelector(`#chest-content-${number}`);
+    if (screen) {
+        showCompassScreen(screen);
+    }
+}
+
+// Map Room marker: opens the CLOSED landing screen
+document.querySelector("#compass-chest-marker").addEventListener("click", () => {
+    tcReset();
+    showCompassScreen(chestRoom);
+});
+
 // Back to the Map: the glow ends and the compass is ready again
 document
     .querySelectorAll("#explore-conversation .compass-back-to-map")
@@ -4930,13 +5714,7 @@ document
             clearCompassGlow();
             setCompassPrompt("Click the compass to find where to go next.");
 
-            if (compassDiscoveryScreen) compassDiscoveryScreen.hidden = true;
-            if (compassMapScreen) compassMapScreen.hidden = false;
-
-            exploreConversationRoom?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+            showCompassMap();
 
         });
 
