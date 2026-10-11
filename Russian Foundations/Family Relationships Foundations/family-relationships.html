@@ -5156,22 +5156,18 @@ LESSON 2 — EXTENDED FAMILY
 
         <div class="compass-stage compass-screen compass-screen--discovery" id="compass-discovery" data-screen="discovery" hidden>
 
-          <!-- The sign: brass compass emblem + wooden title board -->
-          <div class="cd-emblem" id="cd-emblem" aria-hidden="true">NORTH</div>
-
-          <div class="cd-board">
-            <h2 class="cd-board__title" id="cd-title">I Have a Family Member</h2>
-            <p class="cd-board__sub" id="cd-sub"></p>
-          </div> <!-- END sign board -->
+          <!-- The sign: one picture per direction (compass emblem + wooden title board).
+               JavaScript swaps the picture; the title stays here as hidden text for screen readers. -->
+          <div class="cd-sign">
+            <img class="cd-sign__img" id="cd-sign-img" src="../../Images/door-three/directional-marker-title-N.png" alt="">
+            <h2 class="cd-sign__text" id="cd-title">I Have a Family Member</h2>
+            <p class="cd-sign__text" id="cd-sub"></p>
+          </div> <!-- END sign -->
 
           <!-- ======================================
                NORTH — I Have a Family Member
           ====================================== -->
           <div class="cd-content" data-content="north" hidden>
-
-            <div class="cd-note cd-note--north">
-              Use this screen to tell someone you have a family member.
-            </div>
 
             <section class="cd-panel cd-north-1">
               <h3><span class="cd-num">1</span> Choose Your Family Member</h3>
@@ -5255,10 +5251,6 @@ LESSON 2 — EXTENDED FAMILY
                SOUTH — Wait… Do We Always Need есть?
           ====================================== -->
           <div class="cd-content" data-content="south" hidden>
-
-            <div class="cd-note cd-note--south">
-              Same people.<br>New information.<br>What happens to <span class="cd-hl">есть</span>?
-            </div>
 
             <section class="cd-panel cd-south-1">
               <h3>Just say I have one.</h3>
@@ -5430,9 +5422,12 @@ LESSON 2 — EXTENDED FAMILY
 
             <section class="cd-east-turn">
               <div class="cd-turn-banner">
-                <h3>Now it's your turn!</h3>
-                <p>Choose a person and see what happens.</p>
-              </div>
+                <img class="cd-turn-banner__img" src="../../Images/door-three/banner-now-its-your-turn.png" alt="">
+                <div class="cd-turn-banner__text">
+                  <h3>Now it's your turn!</h3>
+                  <p>Choose a person and see what happens.</p>
+                </div>
+              </div> <!-- END turn banner -->
 
               <div class="cd-turn-boxes">
 
@@ -5522,9 +5517,12 @@ LESSON 2 — EXTENDED FAMILY
 
             <section class="cd-east-turn">
               <div class="cd-turn-banner">
-                <h3>Now it's your turn!</h3>
-                <p>Choose a person and a family member.</p>
-              </div>
+                <img class="cd-turn-banner__img" src="../../Images/door-three/banner-now-its-your-turn.png" alt="">
+                <div class="cd-turn-banner__text">
+                  <h3>Now it's your turn!</h3>
+                  <p>Choose a person and a family member.</p>
+                </div>
+              </div> <!-- END turn banner -->
 
               <div class="cd-turn-boxes">
                 <div class="cd-box">
@@ -5582,9 +5580,9 @@ LESSON 2 — EXTENDED FAMILY
 
         <div class="compass-stage compass-screen boat-screen boat-screen--north" id="boat-north" data-screen="boat" hidden>
 
-          <div class="bt-emblem" aria-hidden="true">✦</div>
-          <div class="bt-sign">
-            <h2 class="bt-sign__title">The Navigator's Study</h2>
+          <div class="bt-title bt-title--north">
+            <img class="bt-title__img" src="../../Images/door-three/boat-the-navigator-discovery-banner.png" alt="">
+            <h2 class="cd-sign__text">The Navigator's Study</h2>
           </div>
           <div class="bt-ribbon bt-ribbon--sub">Why Did the Word Change?</div>
 
@@ -5635,7 +5633,7 @@ LESSON 2 — EXTENDED FAMILY
           <!-- Show Me Why: the explanation sits on top of the screen -->
           <div class="bt-why" id="bn-why" hidden>
             <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
-            <div class="bt-ribbon bt-ribbon--why">The Navigator's Discovery</div>
+            <h2 class="cd-sign__text">The Navigator's Discovery</h2>
             <h3>Did you notice what happened?</h3>
             <div class="bt-words bt-words--small">
               <div class="bt-wordcard">
@@ -5677,9 +5675,9 @@ LESSON 2 — EXTENDED FAMILY
             <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
           </button>
 
-          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
-            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
-            <span class="bt-whybtn__text">Show Me Why</span>
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation" aria-label="Show Me Why">
+            <img class="bt-whybtn__img bt-whybtn__img--show" src="../../Images/door-three/button-show-me-why.png" alt="">
+            <img class="bt-whybtn__img bt-whybtn__img--hide" src="../../Images/door-three/button-hide-this-explanation.png" alt="">
           </button>
 
         </div> <!-- END North boat -->
@@ -5692,9 +5690,9 @@ LESSON 2 — EXTENDED FAMILY
 
         <div class="compass-stage compass-screen boat-screen boat-screen--south" id="boat-south" data-screen="boat" hidden>
 
-          <div class="bt-emblem" aria-hidden="true">☸</div>
-          <div class="bt-sign">
-            <h2 class="bt-sign__title">The Captain's Family Cabin</h2>
+          <div class="bt-title bt-title--south">
+            <img class="bt-title__img" src="../../Images/door-three/boat-the-captains-family-cabin-banner.png" alt="">
+            <h2 class="cd-sign__text">The Captain's Family Cabin</h2>
           </div>
           <div class="bt-ribbon bt-ribbon--sub">Whose Family Member?</div>
           <div class="bt-ribbon bt-ribbon--task" id="bs-task">Click the correct form of “my” for each family member.</div>
@@ -5804,9 +5802,9 @@ LESSON 2 — EXTENDED FAMILY
             <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
           </button>
 
-          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
-            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
-            <span class="bt-whybtn__text">Show Me Why</span>
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation" aria-label="Show Me Why">
+            <img class="bt-whybtn__img bt-whybtn__img--show" src="../../Images/door-three/button-show-me-why.png" alt="">
+            <img class="bt-whybtn__img bt-whybtn__img--hide" src="../../Images/door-three/button-hide-this-explanation.png" alt="">
           </button>
 
         </div> <!-- END South boat -->
@@ -5814,9 +5812,9 @@ LESSON 2 — EXTENDED FAMILY
         <!-- ===== EAST BOAT — The Traveler's Cargo Hold ===== -->
         <div class="compass-stage compass-screen boat-screen boat-screen--east" id="boat-east" data-screen="boat" hidden>
 
-          <div class="bt-emblem" aria-hidden="true">⚓</div>
-          <div class="bt-sign">
-            <h2 class="bt-sign__title">The Traveler's Cargo Hold</h2>
+          <div class="bt-title bt-title--east">
+            <img class="bt-title__img" src="../../Images/door-three/boat-the-travelers-cargo-hold-banner.png" alt="">
+            <h2 class="cd-sign__text">The Traveler's Cargo Hold</h2>
           </div>
           <div class="bt-ribbon bt-ribbon--sub">More Family Words</div>
           <div class="bt-ribbon bt-ribbon--task" id="be-task">Click a crate to open it.</div>
@@ -5825,27 +5823,27 @@ LESSON 2 — EXTENDED FAMILY
           <div class="be-crates" id="be-crates">
             <button type="button" class="be-crate" data-crate="stepfamily">
               <span class="be-crate__lid" aria-hidden="true"></span>
-              <span class="be-crate__label">Stepfamily</span>
+              <span class="be-crate__label"><img class="be-crate__label-img" src="../../Images/door-three/banner-now-its-your-turn.png" alt=""><span class="be-crate__label-text">Stepfamily</span></span>
             </button>
             <button type="button" class="be-crate" data-crate="greatgrand">
               <span class="be-crate__lid" aria-hidden="true"></span>
-              <span class="be-crate__label">Grandparents</span>
+              <span class="be-crate__label"><img class="be-crate__label-img" src="../../Images/door-three/banner-now-its-your-turn.png" alt=""><span class="be-crate__label-text">Grandparents</span></span>
             </button>
             <button type="button" class="be-crate" data-crate="husband">
               <span class="be-crate__lid" aria-hidden="true"></span>
-              <span class="be-crate__label">Husband's Parents</span>
+              <span class="be-crate__label"><img class="be-crate__label-img" src="../../Images/door-three/banner-now-its-your-turn.png" alt=""><span class="be-crate__label-text">Husband's Parents</span></span>
             </button>
             <button type="button" class="be-crate" data-crate="wife">
               <span class="be-crate__lid" aria-hidden="true"></span>
-              <span class="be-crate__label">Wife's Parents</span>
+              <span class="be-crate__label"><img class="be-crate__label-img" src="../../Images/door-three/banner-now-its-your-turn.png" alt=""><span class="be-crate__label-text">Wife's Parents</span></span>
             </button>
             <button type="button" class="be-crate" data-crate="stepsib">
               <span class="be-crate__lid" aria-hidden="true"></span>
-              <span class="be-crate__label">Step-Siblings</span>
+              <span class="be-crate__label"><img class="be-crate__label-img" src="../../Images/door-three/banner-now-its-your-turn.png" alt=""><span class="be-crate__label-text">Step-Siblings</span></span>
             </button>
             <button type="button" class="be-crate" data-crate="other">
               <span class="be-crate__lid" aria-hidden="true"></span>
-              <span class="be-crate__label">Other Relationships</span>
+              <span class="be-crate__label"><img class="be-crate__label-img" src="../../Images/door-three/banner-now-its-your-turn.png" alt=""><span class="be-crate__label-text">Other Relationships</span></span>
             </button>
           </div> <!-- END crates -->
 
@@ -5860,7 +5858,10 @@ LESSON 2 — EXTENDED FAMILY
           <!-- Show Me Why -->
           <div class="bt-why be-why" id="be-why" hidden>
             <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
-            <div class="bt-ribbon bt-ribbon--why">The Traveler's Discovery</div>
+            <div class="bt-why__banner">
+              <img class="bt-why__banner-img" src="../../Images/door-three/boat-the-travelers-cargo-hold-discovery-banner.png" alt="">
+              <span class="cd-sign__text">The Traveler's Discovery</span>
+            </div>
             <p>
               Some Russian family words are <span class="bt-red">built from words you already know.</span><br>
               Others have <span class="bt-red">one special word</span> where English needs several.
@@ -5880,9 +5881,9 @@ LESSON 2 — EXTENDED FAMILY
             <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
           </button>
 
-          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
-            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
-            <span class="bt-whybtn__text">Show Me Why</span>
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation" aria-label="Show Me Why">
+            <img class="bt-whybtn__img bt-whybtn__img--show" src="../../Images/door-three/button-show-me-why.png" alt="">
+            <img class="bt-whybtn__img bt-whybtn__img--hide" src="../../Images/door-three/button-hide-this-explanation.png" alt="">
           </button>
 
         </div> <!-- END East boat -->
@@ -5890,12 +5891,11 @@ LESSON 2 — EXTENDED FAMILY
         <!-- ===== WEST BOAT — The Conversation Deck ===== -->
         <div class="compass-stage compass-screen boat-screen boat-screen--west" id="boat-west" data-screen="boat" hidden>
 
-          <div class="bt-emblem" aria-hidden="true">⛵</div>
-          <div class="bt-sign">
-            <h2 class="bt-sign__title">The Conversation Deck</h2>
+          <div class="bt-title bt-title--west">
+            <img class="bt-title__img" src="../../Images/door-three/boat-the-conversation-deck-banner.png" alt="">
+            <h2 class="cd-sign__text">The Conversation Deck</h2>
           </div>
           <div class="bt-ribbon bt-ribbon--sub">Answer, Then Ask Back</div>
-          <div class="bt-ribbon bt-ribbon--task" id="bw-task">Answer the pirate. Then ask the question back.</div>
 
           <!-- The conversation (filled in by JavaScript) -->
           <div class="bw-deck" id="bw-deck">
@@ -5907,6 +5907,7 @@ LESSON 2 — EXTENDED FAMILY
               <div class="bw-bubbles" id="bw-bubbles"></div>
             </div>
             <div class="bw-choices" id="bw-choices"></div>
+            <div class="bt-ribbon bt-ribbon--task" id="bw-task">Answer the pirate. Then ask the question back.</div>
             <div class="bw-feedback" id="bw-feedback" aria-live="polite"></div>
             <button type="button" class="bs-next bw-next" id="bw-next" hidden>Next Conversation ➜</button>
             <button type="button" class="bs-next bw-next" id="bw-again" hidden>Talk Again ↻</button>
@@ -5915,7 +5916,10 @@ LESSON 2 — EXTENDED FAMILY
           <!-- Show Me Why -->
           <div class="bt-why bw-why" id="bw-why" hidden>
             <button type="button" class="bt-why__close" data-why-close aria-label="Close the explanation">✕</button>
-            <div class="bt-ribbon bt-ribbon--why">The Sailor's Discovery</div>
+            <div class="bt-why__banner">
+              <img class="bt-why__banner-img" src="../../Images/door-three/boat-the-conversation-deck-discovery-banner.png" alt="">
+              <span class="cd-sign__text">The Sailor's Discovery</span>
+            </div>
             <p>
               To ask someone the same question back, you don't need a whole new sentence.<br>
               Just add <span class="bt-red">А</span> and the part that matters.
@@ -5937,9 +5941,9 @@ LESSON 2 — EXTENDED FAMILY
             <img src="../../Images/door-three/button-back-to-map.png" alt="Back to the Map Room">
           </button>
 
-          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation">
-            <span class="bt-whybtn__icon" aria-hidden="true">☸</span>
-            <span class="bt-whybtn__text">Show Me Why</span>
+          <button type="button" class="bt-whybtn" data-why-toggle data-show="Show Me Why" data-hide="Hide This Explanation" aria-label="Show Me Why">
+            <img class="bt-whybtn__img bt-whybtn__img--show" src="../../Images/door-three/button-show-me-why.png" alt="">
+            <img class="bt-whybtn__img bt-whybtn__img--hide" src="../../Images/door-three/button-hide-this-explanation.png" alt="">
           </button>
 
         </div> <!-- END West boat -->
@@ -5951,13 +5955,12 @@ LESSON 2 — EXTENDED FAMILY
              ========================================== -->
         <div class="compass-stage compass-screen chest-screen" id="chest-room" data-screen="chest" data-tc-state="closed" hidden>
 
-          <img class="tc-pirate" src="../../Images/door-three/image-treasure-pirate.png" alt="" onerror="this.hidden=true">
-
-          <div class="tc-sign">
-            <span class="tc-sign__wheel" aria-hidden="true">☸</span>
-            <h2 class="tc-sign__title">The Treasure Chest</h2>
+          <!-- The title picture carries the words for this screen; the text stays here for screen readers -->
+          <div class="tc-banner">
+            <img class="tc-banner__img" src="../../Images/door-three/banner-the-treasure-chest.png" alt="">
+            <h2 class="cd-sign__text">The Treasure Chest</h2>
+            <p class="cd-sign__text" id="tc-subtitle">The Final Discovery</p>
           </div>
-          <div class="tc-ribbon" id="tc-subtitle">The Final Discovery</div>
 
           <div class="tc-note">
             <p class="tc-note__closed">You’ve explored, discovered, and learned.<br>Now it’s time to open the treasure!<br><strong>Click the chest to open it.</strong></p>
@@ -5967,9 +5970,10 @@ LESSON 2 — EXTENDED FAMILY
           <!-- Slight darkening while a scroll is open -->
           <div class="tc-dim" aria-hidden="true"></div>
 
-          <!-- The chest: one button, four frames -->
+          <!-- The chest: one button, two pictures that crossfade (closed, then fully open) -->
           <button type="button" class="tc-chest" id="tc-chest" aria-label="Open the treasure chest">
-            <img id="tc-chest-img" src="../../Images/door-three/image-treasure-chest-1.png" alt="">
+            <img class="tc-chest__img tc-chest__img--closed" src="../../Images/door-three/image-treasure-chest-1.png" alt="">
+            <img class="tc-chest__img tc-chest__img--open" src="../../Images/door-three/image-treasure-chest-4.png" alt="">
           </button>
 
           <!-- Three unlabeled scrolls -->
@@ -5979,7 +5983,6 @@ LESSON 2 — EXTENDED FAMILY
               <span class="tc-scroll__text">
                 <span class="tc-scroll__title">Someone Special</span>
                 <span class="tc-scroll__sub">A Little Treasure About Family</span>
-                <span class="tc-scroll__body">Some people are more than just family. They’re special to us.</span>
                 <span class="tc-scroll__body">Discover how Russian helps us express the feelings we have for the people we love.</span>
                 <span class="tc-scroll__go">Click the parchment to discover more!</span>
               </span>
@@ -5989,7 +5992,6 @@ LESSON 2 — EXTENDED FAMILY
               <span class="tc-scroll__text">
                 <span class="tc-scroll__title">Family Secrets</span>
                 <span class="tc-scroll__sub">Discover Hidden Connections</span>
-                <span class="tc-scroll__body">Every family has a story, and Russian helps us talk about those connections.</span>
                 <span class="tc-scroll__body">Discover new words, interesting relationships, and a few surprises about family in Russian.</span>
                 <span class="tc-scroll__go">Click the parchment to discover more!</span>
               </span>
@@ -5999,7 +6001,6 @@ LESSON 2 — EXTENDED FAMILY
               <span class="tc-scroll__text">
                 <span class="tc-scroll__title tc-scroll__title--long">Put Your Russian to Work!</span>
                 <span class="tc-scroll__sub">Five Sentence-Building Challenges</span>
-                <span class="tc-scroll__body">Now it’s your turn! Use what you’ve learned to build five Russian sentences.</span>
                 <span class="tc-scroll__body">You’ll choose from a word bank, put the pieces together, and see your Russian come to life!</span>
                 <span class="tc-scroll__go">Click the parchment to discover more!</span>
               </span>

@@ -4375,7 +4375,12 @@ const COMPASS_TITLES = {
     west: { sign: "WEST", title: "Talking About Other People", sub: "" }
 };
 
-// The "bag" of directions not yet drawn in this cycle
+// SHUFFLE BAG. To the learner every spin looks random, but behind the scenes
+// the compass deals from a pre-shuffled "bag": three cycles of all four
+// directions, each cycle in its own random order. No direction repeats
+// until all four have been dealt in that cycle.
+const COMPASS_CYCLES_PER_BAG = 3;
+
 let compassBag = [];
 
 // The needle's total rotation so far. It only ever grows,
@@ -4386,31 +4391,59 @@ let compassSpinning = false;
 let compassLitDirection = null;
 
 
-// Fill the bag with all four directions in a shuffled order
-function refillCompassBag() {
+// Fisher–Yates shuffle of one copy of the four directions
+function shuffledCompassCycle() {
 
-    compassBag = Object.keys(COMPASS_ANGLES);
+    const cycle = Object.keys(COMPASS_ANGLES);
 
-    // Fisher–Yates shuffle
-    for (let i = compassBag.length - 1; i > 0; i--) {
+    for (let i = cycle.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [compassBag[i], compassBag[j]] = [compassBag[j], compassBag[i]];
+        [cycle[i], cycle[j]] = [cycle[j], cycle[i]];
+    }
+
+    return cycle;
+
+}
+
+
+// Fill the bag with several shuffled cycles, back to back.
+// A new cycle never opens with the direction that closed the one before it.
+function refillCompassBag(lastDealt) {
+
+    compassBag = [];
+    let previous = lastDealt || null;
+
+    for (let n = 0; n < COMPASS_CYCLES_PER_BAG; n++) {
+
+        const cycle = shuffledCompassCycle();
+
+        if (previous && cycle[0] === previous) {
+            [cycle[0], cycle[1]] = [cycle[1], cycle[0]];
+        }
+
+        compassBag.push(...cycle);
+        previous = cycle[cycle.length - 1];
+
     }
 
 }
 
 
-// Take the next direction from the bag.
-// When the bag is empty, a brand-new shuffled cycle begins.
+// Deal the next direction. Clicking the compass again, even before the
+// glowing marker has been visited, simply deals the next one.
 function drawCompassDirection() {
 
     if (compassBag.length === 0) {
-        refillCompassBag();
+        refillCompassBag(compassLastDealt);
     }
 
-    return compassBag.pop();
+    compassLastDealt = compassBag[0];
+
+    return compassBag.shift();
 
 }
+
+let compassLastDealt = null;
 
 
 function setCompassPrompt(text) {
@@ -4456,12 +4489,16 @@ function lightCompassMarker(direction) {
 // Spin the needle to the chosen direction, then light that marker
 function spinCompass() {
 
-    // Ignore clicks while spinning, or while a direction is already glowing
-    if (compassSpinning || compassLitDirection) {
+    // Ignore clicks only while the needle is spinning.
+    // A glowing marker does not block the compass: click again to choose again.
+    if (compassSpinning) {
         return;
     }
 
     const direction = drawCompassDirection();
+
+    // The old glow goes quiet while the needle chooses
+    clearCompassGlow();
 
     const reduceMotion =
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -4501,11 +4538,16 @@ function showCompassDiscovery(direction) {
 
     const info = COMPASS_TITLES[direction];
 
-    const emblem = document.querySelector("#cd-emblem");
+    const signImage = document.querySelector("#cd-sign-img");
     const title = document.querySelector("#cd-title");
     const sub = document.querySelector("#cd-sub");
 
-    if (emblem) emblem.textContent = info.sign;
+    // The sign is a picture: directional-marker-title-N / S / E / W
+    if (signImage) {
+        signImage.src =
+            `../../Images/door-three/directional-marker-title-${direction.charAt(0).toUpperCase()}.png`;
+    }
+
     if (title) title.textContent = info.title;
     if (sub) sub.textContent = info.sub;
 
@@ -5079,8 +5121,7 @@ document.querySelectorAll(".boat-screen").forEach((screen) => {
     const setWhy = (open) => {
         why.hidden = !open;
         screen.classList.toggle("is-why-open", open);
-        toggle.querySelector(".bt-whybtn__text").textContent =
-            open ? toggle.dataset.hide : toggle.dataset.show;
+        toggle.setAttribute("aria-label", open ? toggle.dataset.hide : toggle.dataset.show);
     };
 
     toggle.addEventListener("click", () => setWhy(why.hidden));
@@ -5353,7 +5394,7 @@ function beOpenCrate(key) {
 
         const portrait = document.createElement("div");
         portrait.className = "bs-card__portrait be-person__portrait";
-        portrait.style.backgroundImage = `url("${pirateUrl(person.role)}")`;
+        portrait.style.backgroundImage = pirateUrl(person.role);
 
         const ru = document.createElement("div");
         ru.className = "be-person__ru";
@@ -5407,7 +5448,7 @@ BOAT_RESETTERS.east = () => {
 // ---------------------------------------------------------------
 const WEST_TALKS = [
     {
-        role: "hero",
+        role: "brother",
         ask: "У вас есть брат?", askEn: "Do you have a brother?",
         answers: [
             { ru: "Да, у меня есть брат.",  en: "Yes, I have a brother." },
@@ -5416,7 +5457,7 @@ const WEST_TALKS = [
         reply: "У меня есть брат. Он капитан!", replyEn: "I have a brother. He is a captain!"
     },
     {
-        role: "scarf",
+        role: "sister",
         ask: "У вас есть сестра?", askEn: "Do you have a sister?",
         answers: [
             { ru: "Да, у меня есть сестра.",  en: "Yes, I have a sister." },
@@ -5425,7 +5466,7 @@ const WEST_TALKS = [
         reply: "У меня есть сестра. Она штурман!", replyEn: "I have a sister. She is the navigator!"
     },
     {
-        role: "family",
+        role: "children",
         ask: "У вас есть дети?", askEn: "Do you have children?",
         answers: [
             { ru: "Да, у меня есть дети.",  en: "Yes, I have children." },
@@ -5497,7 +5538,7 @@ function westStart(index) {
     document.querySelector("#bw-feedback").textContent = "";
     document.querySelector("#bw-next").hidden = true;
     document.querySelector("#bw-again").hidden = true;
-    document.querySelector("#bw-portrait").style.backgroundImage = `url("${pirateUrl(talk.role)}")`;
+    document.querySelector("#bw-portrait").style.backgroundImage = pirateUrl(talk.role);
 
     document.querySelectorAll("#bw-dots span").forEach((dot, i) => {
         dot.classList.toggle("is-current", i === index);
@@ -5569,7 +5610,6 @@ BOAT_RESETTERS.west = () => {
 // ---------------------------------------------------------------
 const chestRoom   = document.querySelector("#chest-room");
 const tcChestBtn  = document.querySelector("#tc-chest");
-const tcChestImg  = document.querySelector("#tc-chest-img");
 const tcScrolls   = document.querySelectorAll("#chest-room .tc-scroll");
 const tcCloseBtn  = document.querySelector("#tc-close");
 const tcSubtitle  = document.querySelector("#tc-subtitle");
@@ -5591,8 +5631,9 @@ function tcSetState(state) {
     chestRoom.dataset.tcState = state;
 }
 
-function tcSetChestFrame(n) {
-    tcChestImg.src = `${TC_IMG}image-treasure-chest-${n}.png`;
+// The chest has two pictures (closed, fully open) that crossfade through CSS
+function tcSetChestOpen(isOpen) {
+    tcChestBtn.classList.toggle("is-open", isOpen);
 }
 
 function tcSetScrollFrame(scroll, n) {
@@ -5615,12 +5656,12 @@ function tcReset() {
     tcCancelTimers();
     sbReset();
     tcSetState("closed");
-    tcSetChestFrame(1);
+    tcSetChestOpen(false);
     tcSubtitle.textContent = "The Final Discovery";
     tcRollAllScrolls(false);
 }
 
-// Click the chest: four frames, then the scrolls appear (no extra click)
+// Click the chest: it crossfades open, then the scrolls appear (no extra click)
 tcChestBtn.addEventListener("click", () => {
 
     if (chestRoom.dataset.tcState !== "closed") {
@@ -5629,11 +5670,9 @@ tcChestBtn.addEventListener("click", () => {
 
     tcSetState("opening");
 
-    [2, 3, 4].forEach((frame, i) => {
-        tcLater((i + 1) * 450, () => tcSetChestFrame(frame));
-    });
+    tcSetChestOpen(true);
 
-    tcLater(1800, () => {
+    tcLater(900, () => {
         tcSubtitle.textContent = "Choose Your Treasure";
         tcRollAllScrolls(true);
         tcSetState("open");
@@ -5957,6 +5996,7 @@ document
         button.addEventListener("click", () => {
 
             compassBag = [];
+            compassLastDealt = null;
             compassTotalAngle = 0;
             compassSpinning = false;
 
@@ -5972,500 +6012,6 @@ document
 
     });
 
-
-// ==================================================
-// DOOR 3 — PREDICTION / REVEAL HELPER
-// ==================================================
-
-function wireConversationReveal(predictionId, revealId, meaningId) {
-
-    const prediction =
-        document.querySelector(`#${predictionId}`);
-
-    const revealButton =
-        document.querySelector(`#${revealId}`);
-
-    const meaning =
-        document.querySelector(`#${meaningId}`);
-
-    revealButton?.addEventListener("click", () => {
-
-        if (!prediction || !meaning) {
-            return;
-        }
-
-        if (!prediction.value.trim()) {
-            prediction.placeholder =
-                "Make a prediction first — there is no penalty for being unsure.";
-
-            prediction.focus();
-            return;
-        }
-
-        meaning.hidden = false;
-
-        meaning.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
-
-    });
-}
-
-
-wireConversationReveal(
-    "conversation-prediction-1",
-    "conversation-reveal-1",
-    "conversation-meaning-1"
-);
-
-wireConversationReveal(
-    "conversation-prediction-2",
-    "conversation-reveal-2",
-    "conversation-meaning-2"
-);
-
-wireConversationReveal(
-    "conversation-prediction-3",
-    "conversation-reveal-3",
-    "conversation-meaning-3"
-);
-
-
-// ==================================================
-// DOOR 3 — DISCOVERY ONE
-// EXPLORE MORE — QUESTION-WORD FAMILY
-// ==================================================
-
-const conversationExploreMore1 =
-    document.querySelector("#conversation-explore-more-1");
-
-const conversationExploreMoreReveal1 =
-    document.querySelector("#conversation-explore-more-reveal-1");
-
-conversationExploreMore1?.addEventListener("click", () => {
-
-    if (!conversationExploreMoreReveal1) return;
-
-    const willShow = conversationExploreMoreReveal1.hidden;
-    conversationExploreMoreReveal1.hidden = !willShow;
-    conversationExploreMore1.textContent = willShow ? "Close Explore More" : "🍬 Explore More";
-
-    if (willShow) {
-        conversationExploreMoreReveal1.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-});
-
-const questionWordDetails = {
-    "что": { word: "Что?", meaning: "What?", example: "Что это?", english: "What is this?", note: "Use it when you are asking what something is." },
-    "где": { word: "Где?", meaning: "Where?", example: "Где вы живёте?", english: "Where do you live?", note: "This is the featured question word in Door 3.", featured: true },
-    "когда": { word: "Когда?", meaning: "When?", example: "Когда?", english: "When?", note: "Use it when you are asking about time." },
-    "почему": { word: "Почему?", meaning: "Why?", example: "Почему?", english: "Why?", note: "Use it when you want to know the reason." },
-    "откуда": { word: "Откуда?", meaning: "From where?", example: "Откуда вы?", english: "Where are you from?", note: "It points toward where someone or something comes from." },
-    "кто": { word: "Кто?", meaning: "Who?", example: "Кто это?", english: "Who is this?", note: "Use it when you are asking about a person." },
-    "куда": { word: "Куда?", meaning: "Where to?", example: "Куда?", english: "Where to?", note: "It points toward a destination or direction." },
-    "как": { word: "Как?", meaning: "How?", example: "Как вас зовут?", english: "What is your name?", note: "You've already met this question word in the lesson." },
-    "сколько": { word: "Сколько?", meaning: "How many / how much?", example: "Сколько?", english: "How many? / How much?", note: "Use it when you are asking about an amount or number." }
-};
-
-const questionWordInfo = document.querySelector("#conversation-question-word-info");
-const whereCandy = document.querySelector("#conversation-where-candy");
-
-document.querySelectorAll("#conversation-explore-more-reveal-1 .question-word-tile").forEach((button) => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll("#conversation-explore-more-reveal-1 .question-word-tile").forEach((tile) => tile.classList.remove("selected"));
-        button.classList.add("selected");
-        const detail = questionWordDetails[button.dataset.questionWord];
-        if (!detail || !questionWordInfo) return;
-        questionWordInfo.innerHTML = `
-            <div class="question-word-info__detail">
-                <h5 lang="ru">${detail.word}</h5>
-                <p class="question-word-info__meaning">${detail.meaning}</p>
-                <div class="question-word-info__example">
-                    <strong lang="ru">${detail.example}</strong>
-                    <span>${detail.english}</span>
-                </div>
-                <p class="question-word-info__note">${detail.note}</p>
-                ${detail.featured ? '<button type="button" class="question-word-info__candy-button" id="open-where-candy">🍬 Unlock the Grammar Candy</button>' : ''}
-            </div>`;
-
-        document.querySelector("#open-where-candy")?.addEventListener("click", () => {
-            if (!whereCandy) return;
-            whereCandy.hidden = false;
-            whereCandy.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        });
-    });
-});
-
-const wherePeople = {
-    i: { pronoun: "Я", verb: "живу", en: "I" },
-    we: { pronoun: "Мы", verb: "живём", en: "We" },
-    they: { pronoun: "Они", verb: "живут", en: "They" }
-};
-const wherePlaces = {
-    phoenix: { ru: "в Финиксе.", en: "Phoenix" },
-    moscow: { ru: "в Москве.", en: "Moscow" },
-    london: { ru: "в Лондоне.", en: "London" }
-};
-let wherePerson = "i";
-let wherePlace = "phoenix";
-
-function updateWhereCandy(animatePattern = false) {
-    const person = wherePeople[wherePerson];
-    const place = wherePlaces[wherePlace];
-    const pronoun = document.querySelector("#where-live-pronoun");
-    const verb = document.querySelector("#where-live-verb");
-    const placeWord = document.querySelector("#where-live-place");
-    const english = document.querySelector("#where-live-english");
-    const result = document.querySelector("#where-live-result");
-    const listen = document.querySelector("#where-live-listen");
-    if (pronoun) pronoun.textContent = person.pronoun;
-    if (verb) verb.textContent = person.verb;
-    if (placeWord) placeWord.textContent = place.ru;
-    if (english) english.textContent = `${person.en} live${wherePerson === "i" || wherePerson === "we" || wherePerson === "they" ? "" : "s"} in ${place.en}.`;
-    const russian = `${person.pronoun} ${person.verb} ${place.ru}`;
-    if (result) result.textContent = russian;
-    if (listen) listen.dataset.speak = russian;
-    if (animatePattern) {
-        [pronoun, verb].forEach((el) => {
-            if (!el) return;
-            el.classList.remove("where-pattern-change");
-            void el.offsetWidth;
-            el.classList.add("where-pattern-change");
-        });
-    }
-}
-
-document.querySelectorAll(".where-person-choice").forEach((button) => {
-    button.addEventListener("click", () => {
-        wherePerson = button.dataset.person;
-        document.querySelectorAll(".where-person-choice").forEach((b) => b.classList.remove("selected"));
-        button.classList.add("selected");
-        updateWhereCandy(true);
-    });
-});
-
-document.querySelectorAll(".where-candy-place").forEach((button) => {
-    button.addEventListener("click", () => {
-        wherePlace = button.dataset.place;
-        document.querySelectorAll(".where-candy-place").forEach((b) => b.classList.remove("selected"));
-        button.classList.add("selected");
-        updateWhereCandy(false);
-    });
-});
-
-updateWhereCandy();
-
-// Reset only the WHERE Grammar Candy.
-document.querySelector("#where-candy-reset")?.addEventListener("click", () => {
-    wherePerson = "i";
-    wherePlace = "phoenix";
-    document.querySelectorAll(".where-person-choice").forEach((button) => {
-        button.classList.toggle("selected", button.dataset.person === "i");
-    });
-    document.querySelectorAll(".where-candy-place").forEach((button) => {
-        button.classList.toggle("selected", button.dataset.place === "phoenix");
-    });
-    updateWhereCandy(true);
-    if (whereCandy) whereCandy.hidden = true;
-});
-
-// ==================================================
-// DOOR 3 — DISCOVERY THREE
-// CHOOSE AN AUTHENTIC RESPONSE
-// ==================================================
-
-const conversationPersonalResponse =
-    document.querySelector("#conversation-personal-response");
-
-const conversationPersonalResponseRussian =
-    document.querySelector("#conversation-personal-response-russian");
-
-const conversationPersonalResponseEnglish =
-    document.querySelector("#conversation-personal-response-english");
-
-const conversationPersonalResponseListen =
-    document.querySelector("#conversation-personal-response-listen");
-
-document
-    .querySelectorAll(".conversation-ability__choice")
-    .forEach((button) => {
-
-        button.addEventListener("click", () => {
-
-            document
-                .querySelectorAll(".conversation-ability__choice")
-                .forEach((choice) => {
-                    choice.classList.remove("selected");
-                });
-
-            button.classList.add("selected");
-
-            const russian =
-                button.dataset.response || "";
-
-            const english =
-                button.dataset.meaning || "";
-
-            if (conversationPersonalResponseRussian) {
-                conversationPersonalResponseRussian.textContent =
-                    russian;
-            }
-
-            if (conversationPersonalResponseEnglish) {
-                conversationPersonalResponseEnglish.textContent =
-                    english;
-            }
-
-            if (conversationPersonalResponseListen) {
-                conversationPersonalResponseListen.dataset.speak =
-                    russian;
-            }
-
-            if (conversationPersonalResponse) {
-                conversationPersonalResponse.hidden = false;
-            }
-
-        });
-
-    });
-
-
-// ==================================================
-// DOOR 3 — DISCOVERY THREE
-// ESSENTIAL VERBS + ГОВОРИТЬ GRAMMAR CANDY
-// ==================================================
-
-const conversationExploreVerbs3 =
-    document.querySelector("#conversation-explore-verbs-3");
-
-const essentialVerbsExplorer =
-    document.querySelector("#conversation-essential-verbs");
-
-const essentialVerbInfo =
-    document.querySelector("#conversation-essential-verb-info");
-
-const speakCandy =
-    document.querySelector("#conversation-speak-candy");
-
-conversationExploreVerbs3?.addEventListener("click", () => {
-    if (!essentialVerbsExplorer) return;
-    const willShow = essentialVerbsExplorer.hidden;
-    essentialVerbsExplorer.hidden = !willShow;
-    conversationExploreVerbs3.textContent = willShow ? "Close Explore More" : "🍬 Explore More";
-    if (willShow) {
-        essentialVerbsExplorer.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-});
-
-const essentialVerbDetails = {
-    "быть": { word: "быть", meaning: "to be", example: "быть дома", english: "to be at home", note: "Russian has a verb meaning ‘to be,’ even though present-tense sentences often work differently from English." },
-    "есть": { word: "есть", meaning: "to eat", example: "Я ем.", english: "I eat / I am eating.", note: "Use it when talking about eating food." },
-    "пить": { word: "пить", meaning: "to drink", example: "Я пью.", english: "I drink / I am drinking.", note: "Use it when talking about drinking something." },
-    "делать": { word: "делать", meaning: "to do / to make", example: "Что вы делаете?", english: "What are you doing?", note: "A very useful verb for actions and things people do." },
-    "говорить": { word: "говорить", meaning: "to speak / to say", example: "Вы говорите по-русски?", english: "Do you speak Russian?", note: "This is the featured verb in Door 3.", featured: true },
-    "понимать": { word: "понимать", meaning: "to understand", example: "Я понимаю.", english: "I understand.", note: "Use it when talking about understanding words, ideas, or people." },
-    "хотеть": { word: "хотеть", meaning: "to want", example: "Я хочу...", english: "I want...", note: "A high-value verb for saying what you want." },
-    "любить": { word: "любить", meaning: "to like / to love", example: "Я люблю...", english: "I like / love...", note: "Use it for people and things you genuinely like or love." },
-    "жить": { word: "жить", meaning: "to live", example: "Я живу в Финиксе.", english: "I live in Phoenix.", note: "You've already met this verb while exploring where someone lives." }
-};
-
-document.querySelectorAll("#conversation-essential-verbs .essential-verb-tile").forEach((button) => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll("#conversation-essential-verbs .essential-verb-tile").forEach((tile) => tile.classList.remove("selected"));
-        button.classList.add("selected");
-        const detail = essentialVerbDetails[button.dataset.verb];
-        if (!detail || !essentialVerbInfo) return;
-        essentialVerbInfo.innerHTML = `
-            <div class="essential-verb-info__detail">
-                <h5 lang="ru">${detail.word}</h5>
-                <p class="essential-verb-info__meaning">${detail.meaning}</p>
-                <div class="essential-verb-info__example">
-                    <strong lang="ru">${detail.example}</strong>
-                    <span>${detail.english}</span>
-                </div>
-                <p class="essential-verb-info__note">${detail.note}</p>
-                ${detail.featured ? '<button type="button" class="essential-verb-info__candy-button" id="open-speak-candy">🍬 Unlock the Grammar Candy</button>' : ''}
-            </div>`;
-
-        document.querySelector("#open-speak-candy")?.addEventListener("click", () => {
-            if (!speakCandy) return;
-            speakCandy.hidden = false;
-            speakCandy.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        });
-    });
-});
-
-const speakPeople = {
-    i: { pronoun: "Я", verb: "говорю", en: "I" },
-    you: { pronoun: "Вы", verb: "говорите", en: "You" },
-    we: { pronoun: "Мы", verb: "говорим", en: "We" },
-    they: { pronoun: "Они", verb: "говорят", en: "They" }
-};
-
-const speakLanguages = {
-    russian: { ru: "по-русски.", en: "Russian" },
-    english: { ru: "по-английски.", en: "English" },
-    spanish: { ru: "по-испански.", en: "Spanish" }
-};
-
-let speakPerson = "i";
-let speakLanguage = "russian";
-
-function updateSpeakCandy(animatePattern = false) {
-    const person = speakPeople[speakPerson];
-    const language = speakLanguages[speakLanguage];
-    const pronoun = document.querySelector("#speak-live-pronoun");
-    const verb = document.querySelector("#speak-live-verb");
-    const languageWord = document.querySelector("#speak-live-language");
-    const english = document.querySelector("#speak-live-english");
-    const listen = document.querySelector("#speak-live-listen");
-
-    if (pronoun) pronoun.textContent = person.pronoun;
-    if (verb) verb.textContent = person.verb;
-    if (languageWord) languageWord.textContent = language.ru;
-    if (english) english.textContent = `${person.en} speak${speakPerson === "i" || speakPerson === "you" || speakPerson === "we" || speakPerson === "they" ? "" : "s"} ${language.en}.`;
-
-    const russian = `${person.pronoun} ${person.verb} ${language.ru}`;
-    if (listen) listen.dataset.speak = russian;
-
-    if (animatePattern) {
-        [pronoun, verb].forEach((el) => {
-            if (!el) return;
-            el.classList.remove("speak-pattern-change");
-            void el.offsetWidth;
-            el.classList.add("speak-pattern-change");
-        });
-    }
-}
-
-document.querySelectorAll(".speak-person-choice").forEach((button) => {
-    button.addEventListener("click", () => {
-        speakPerson = button.dataset.person;
-        document.querySelectorAll(".speak-person-choice").forEach((b) => b.classList.remove("selected"));
-        button.classList.add("selected");
-        updateSpeakCandy(true);
-    });
-});
-
-document.querySelectorAll(".speak-language-choice").forEach((button) => {
-    button.addEventListener("click", () => {
-        speakLanguage = button.dataset.language;
-        document.querySelectorAll(".speak-language-choice").forEach((b) => b.classList.remove("selected"));
-        button.classList.add("selected");
-        updateSpeakCandy(false);
-    });
-});
-
-updateSpeakCandy();
-
-document.querySelector("#speak-candy-reset")?.addEventListener("click", () => {
-    speakPerson = "i";
-    speakLanguage = "russian";
-    document.querySelectorAll(".speak-person-choice").forEach((button) => {
-        button.classList.toggle("selected", button.dataset.person === "i");
-    });
-    document.querySelectorAll(".speak-language-choice").forEach((button) => {
-        button.classList.toggle("selected", button.dataset.language === "russian");
-    });
-    updateSpeakCandy(true);
-    if (speakCandy) speakCandy.hidden = true;
-});
-
-
-// ==================================================
-// DOOR 3 — RESTORE THIS DOOR
-// ==================================================
-
-document
-    .querySelectorAll("#explore-conversation .explore-reset-room")
-    .forEach((button) => {
-
-        button.addEventListener("click", () => {
-
-            [
-                "#conversation-prediction-1",
-                "#conversation-prediction-2",
-                "#conversation-prediction-3"
-            ].forEach((selector) => {
-
-                const field =
-                    document.querySelector(selector);
-
-                if (field) {
-                    field.value = "";
-                }
-
-            });
-
-
-            [
-                "#conversation-meaning-1",
-                "#conversation-meaning-2",
-                "#conversation-meaning-3",
-                "#conversation-explore-more-reveal-1",
-                "#conversation-grammar-reveal-3",
-                "#conversation-personal-response"
-            ].forEach((selector) => {
-
-                const panel =
-                    document.querySelector(selector);
-
-                if (panel) {
-                    panel.hidden = true;
-                }
-
-            });
-
-
-            if (conversationExploreMore1) {
-                conversationExploreMore1.textContent =
-                    "🍬 Explore More";
-            }
-
-            if (whereCandy) whereCandy.hidden = true;
-            wherePerson = "i";
-            wherePlace = "phoenix";
-            document.querySelectorAll(".where-person-choice").forEach((b, i) => b.classList.toggle("selected", i === 0));
-            document.querySelectorAll(".where-candy-place").forEach((b, i) => b.classList.toggle("selected", i === 0));
-            document.querySelectorAll("#conversation-explore-more-reveal-1 .question-word-tile").forEach((b) => b.classList.remove("selected"));
-            if (questionWordInfo) {
-                questionWordInfo.innerHTML = '<div class="question-word-info__prompt"><span class="question-word-info__icon">?</span><strong>Select a Question Word</strong><p>You\'ll see what it means, a short example, and how it\'s used.</p></div>';
-            }
-            updateWhereCandy();
-
-            if (conversationExploreVerbs3) {
-                conversationExploreVerbs3.textContent = "🍬 Explore More";
-            }
-            if (essentialVerbsExplorer) essentialVerbsExplorer.hidden = true;
-            if (speakCandy) speakCandy.hidden = true;
-            speakPerson = "i";
-            speakLanguage = "russian";
-            document.querySelectorAll(".speak-person-choice").forEach((b) => b.classList.toggle("selected", b.dataset.person === "i"));
-            document.querySelectorAll(".speak-language-choice").forEach((b) => b.classList.toggle("selected", b.dataset.language === "russian"));
-            document.querySelectorAll("#conversation-essential-verbs .essential-verb-tile").forEach((b) => b.classList.remove("selected"));
-            if (essentialVerbInfo) {
-                essentialVerbInfo.innerHTML = '<div class="essential-verb-info__prompt"><span class="essential-verb-info__icon">✦</span><strong>Select an Essential Verb</strong><p>You\'ll see what it means, a short example, and how it\'s used.</p></div>';
-            }
-            updateSpeakCandy();
-
-
-
-            document
-                .querySelectorAll(".conversation-ability__choice")
-                .forEach((choice) => {
-                    choice.classList.remove("selected");
-                });
-
-
-            exploreConversationRoom?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        });
-
-    });
 
 // ==================================================
 // EXPLORE — DOOR 4
