@@ -6048,7 +6048,6 @@ document
         'purple': 'Test a Theory — learning activity coming soon.',
         'gold': 'Try It Yourself — learning activity coming soon.',
         'gears': 'How It Works? — experience coming soon.',
-        'microscope': 'Under the Microscope — experience coming soon.',
         'gauge': 'The Pressure Gauge — experience coming soon.',
         'lamp': 'Small Discoveries — experience coming soon.',
         'drawer-examples': 'Examples drawer — content coming soon.',
@@ -6059,10 +6058,187 @@ document
         'reset': 'Reset Experiment — available when experiments are connected.',
         'next': 'Next Experiment — available when experiments are connected.'
     };
+    // BEGIN UNDER THE MICROSCOPE — interactive first experiment
+    const microscope = lab.querySelector('.door-four__microscope');
+    const stage = lab.querySelector('.door-four__stage');
+    const returnButton = lab.querySelector('.door-four__return');
+    const examples = {
+        brother: {my:'мой', noun:'брат', english:'my brother'},
+        sister: {my:'моя', noun:'сестра', english:'my sister'},
+        name: {my:'моё', noun:'имя', english:'my name'},
+        parents: {my:'мои', noun:'родители', english:'my parents'}
+    };
+    const examined = new Set();
+    const phrase = microscope.querySelector('.door-four__microscope-phrase');
+    const hint = microscope.querySelector('.door-four__microscope-hint');
+    const feedback = microscope.querySelector('.door-four__microscope-feedback');
+    function resetMicroscope() {
+        examined.clear();
+        microscope.querySelectorAll('[data-micro-choice]').forEach(b => {
+            b.classList.remove('is-selected');
+            b.setAttribute('aria-pressed', 'false');
+        });
+        phrase.hidden = true;
+        hint.hidden = false;
+        microscope.querySelector('.door-four__microscope-translation').textContent = '';
+        microscope.querySelector('.door-four__microscope-count').textContent = '0 of 4 expressions examined';
+        feedback.textContent = 'Select a word to begin your investigation.';
+    }
+    function showMicroscope() {
+        setMicroMode('guided');
+        stage.hidden = true;
+        returnButton.hidden = true;
+        status.hidden = true;
+        microscope.hidden = false;
+        microscope.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    function closeMicroscope() {
+        microscope.hidden = true;
+        stage.hidden = false;
+        returnButton.hidden = false;
+        lab.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    microscope.querySelectorAll('.door-four__microscope-close').forEach(b => b.addEventListener('click', closeMicroscope));
+    microscope.querySelector('.door-four__microscope-reset').addEventListener('click', resetMicroscope);
+    microscope.querySelectorAll('[data-micro-choice]').forEach(button => button.addEventListener('click', () => {
+        const key = button.dataset.microChoice;
+        const item = examples[key];
+        examined.add(key);
+        microscope.querySelectorAll('[data-micro-choice]').forEach(b => {
+            const active = b === button;
+            b.classList.toggle('is-selected', active);
+            b.setAttribute('aria-pressed', String(active));
+        });
+        hint.hidden = true;
+        phrase.hidden = false;
+        microscope.querySelector('.door-four__microscope-my').textContent = item.my;
+        microscope.querySelector('.door-four__microscope-noun').textContent = item.noun;
+        microscope.querySelector('.door-four__microscope-translation').textContent = item.english;
+        microscope.querySelector('.door-four__microscope-count').textContent =
+            `${examined.size} of 4 expressions examined`;
+        if (examined.size === 4) feedback.textContent = 'Discovery! MY changes to match the noun: masculine, feminine, neuter, or plural.';
+    }));
+    // BEGIN MICROSCOPE — GUIDED / YOU CHOOSE (scoped, additive)
+    const choosePanel = microscope.querySelector('.door-four__microscope-choose');
+    const referenceGrid = microscope.querySelector('.door-four__microscope-discovery');
+    const guidedButtons = microscope.querySelector('.door-four__microscope-choices');
+    const guidedPrompt = microscope.querySelector('.door-four__microscope-prompt');
+    const genderSelect = microscope.querySelector('[data-micro-gender]');
+    const wordSelect = microscope.querySelector('[data-micro-word]');
+    const changeMessage = microscope.querySelector('.door-four__microscope-change');
+    const reason = microscope.querySelector('.door-four__microscope-reason');
+    const explainButton = microscope.querySelector('.door-four__microscope-explain');
+    // BEGIN MICROSCOPE — EXPANDED WORD BANK
+    const microscopeWords = [
+        {"id": "brother", "label": "Brother", "singular": "брат", "plural": "братья", "gender": "masculine", "my": "мой", "enPlural": "brothers", "note": ""},
+        {"id": "sister", "label": "Sister", "singular": "сестра", "plural": "сёстры", "gender": "feminine", "my": "моя", "enPlural": "sisters", "note": ""},
+        {"id": "relative-m", "label": "Relative (male)", "singular": "родственник", "plural": "родственники", "gender": "masculine", "my": "мой", "enPlural": "male relatives", "note": ""},
+        {"id": "relative-f", "label": "Relative (female)", "singular": "родственница", "plural": "родственницы", "gender": "feminine", "my": "моя", "enPlural": "female relatives", "note": ""},
+        {"id": "cousin-m", "label": "Cousin (male)", "singular": "двоюродный брат", "plural": "двоюродные братья", "gender": "masculine", "my": "мой", "enPlural": "male cousins", "note": ""},
+        {"id": "cousin-f", "label": "Cousin (female)", "singular": "двоюродная сестра", "plural": "двоюродные сёстры", "gender": "feminine", "my": "моя", "enPlural": "female cousins", "note": ""},
+        {"id": "father", "label": "Father", "singular": "отец", "plural": "отцы", "gender": "masculine", "my": "мой", "enPlural": "fathers", "note": ""},
+        {"id": "mother", "label": "Mother", "singular": "мать", "plural": "матери", "gender": "feminine", "my": "моя", "enPlural": "mothers", "note": "Notice the unusual plural: мать → матери."},
+        {"id": "uncle", "label": "Uncle", "singular": "дядя", "plural": "дяди", "gender": "masculine", "my": "мой", "enPlural": "uncles", "note": "Masculine, despite its -я ending."},
+        {"id": "aunt", "label": "Aunt", "singular": "тётя", "plural": "тёти", "gender": "feminine", "my": "моя", "enPlural": "aunts", "note": ""},
+        {"id": "name", "label": "Name", "singular": "имя", "plural": "имена", "gender": "neuter", "my": "моё", "enPlural": "names", "note": ""},
+        {"id": "child-archaic", "label": "Child (дитя)", "singular": "дитя", "plural": "дети", "gender": "neuter", "my": "моё", "enPlural": "children", "note": "Дитя is a literary word; everyday Russian usually uses ребёнок."},
+        {"id": "grandfather", "label": "Grandfather", "singular": "дедушка", "plural": "дедушки", "gender": "masculine", "my": "мой", "enPlural": "grandfathers", "note": "Masculine even though дедушка ends in -а."},
+        {"id": "grandmother", "label": "Grandmother", "singular": "бабушка", "plural": "бабушки", "gender": "feminine", "my": "моя", "enPlural": "grandmothers", "note": ""},
+        {"id": "dog", "label": "Dog", "singular": "собака", "plural": "собаки", "gender": "feminine", "my": "моя", "enPlural": "dogs", "note": "Собака is grammatically feminine, even when referring to a male dog."},
+        {"id": "cat-m", "label": "Cat (male)", "singular": "кот", "plural": "коты", "gender": "masculine", "my": "мой", "enPlural": "male cats", "note": ""},
+        {"id": "cat-f", "label": "Cat (female)", "singular": "кошка", "plural": "кошки", "gender": "feminine", "my": "моя", "enPlural": "female cats", "note": ""},
+        {"id": "bird", "label": "Bird", "singular": "птица", "plural": "птицы", "gender": "feminine", "my": "моя", "enPlural": "birds", "note": ""},
+        {"id": "surname", "label": "Last name / surname", "singular": "фамилия", "plural": "фамилии", "gender": "feminine", "my": "моя", "enPlural": "last names", "note": "“My last names” is possible when someone has multiple surnames, but uncommon."},
+        {"id": "son", "label": "Son", "singular": "сын", "plural": "сыновья", "gender": "masculine", "my": "мой", "enPlural": "sons", "note": "Сын → сыновья is an irregular plural."},
+        {"id": "daughter", "label": "Daughter", "singular": "дочь", "plural": "дочери", "gender": "feminine", "my": "моя", "enPlural": "daughters", "note": "Дочь → дочери changes its stem."},
+        {"id": "husband", "label": "Husband", "singular": "муж", "plural": "мужья", "gender": "masculine", "my": "мой", "enPlural": "husbands", "note": "Муж → мужья is an irregular plural."},
+        {"id": "wife", "label": "Wife", "singular": "жена", "plural": "жёны", "gender": "feminine", "my": "моя", "enPlural": "wives", "note": ""},
+        {"id": "friend", "label": "Friend (male)", "singular": "друг", "plural": "друзья", "gender": "masculine", "my": "мой", "enPlural": "male friends", "note": "Друг → друзья is an irregular plural."},
+        {"id": "patronymic", "label": "Patronymic", "singular": "отчество", "plural": "отчества", "gender": "neuter", "my": "моё", "enPlural": "patronymics", "note": ""},
+        {"id": "animal", "label": "Animal", "singular": "животное", "plural": "животные", "gender": "neuter", "my": "моё", "enPlural": "animals", "note": "Животное is a neuter noun formed from an adjective."},
+        {"id": "letter", "label": "Letter (message)", "singular": "письмо", "plural": "письма", "gender": "neuter", "my": "моё", "enPlural": "letters", "note": ""},
+        {"id": "word", "label": "Word", "singular": "слово", "plural": "слова", "gender": "neuter", "my": "моё", "enPlural": "words", "note": ""},
+        {"id": "child", "label": "Child (ребёнок)", "singular": "ребёнок", "plural": "дети", "gender": "masculine", "my": "мой", "enPlural": "children", "note": "Ребёнок → дети: the plural uses a different root."},
+        {"id": "person", "label": "Person", "singular": "человек", "plural": "люди", "gender": "masculine", "my": "мой", "enPlural": "people", "note": "Человек → люди: the plural uses a different root. “My people” needs context."},
+        {"id": "parents", "label": "Parent(s)", "singular": "родитель", "plural": "родители", "gender": "masculine", "my": "мой", "enPlural": "parents", "note": "Родитель is one parent; родители usually means parents together."},
+    ];
+    // END MICROSCOPE — EXPANDED WORD BANK
+    let microNumber = 'singular';
+    function updateMicroWordOptions() {
+        const filtered = microscopeWords.filter(w => genderSelect.value === 'all' || w.gender === genderSelect.value);
+        const old = wordSelect.value;
+        wordSelect.replaceChildren();
+        filtered.forEach(w => {
+            const option = document.createElement('option');
+            option.value = w.id;
+            option.textContent = w.label;
+            wordSelect.appendChild(option);
+        });
+        if (filtered.some(w => w.id === old)) wordSelect.value = old;
+        updateMicroChoice();
+    }
+    function updateMicroChoice() {
+        const w = microscopeWords.find(item => item.id === wordSelect.value);
+        if (!w) return;
+        const plural = microNumber === 'plural';
+        const possessive = plural ? 'мои' : w.my;
+        hint.hidden = true;
+        phrase.hidden = false;
+        microscope.querySelector('.door-four__microscope-my').textContent = possessive;
+        microscope.querySelector('.door-four__microscope-noun').textContent = plural ? w.plural : w.singular;
+        microscope.querySelector('.door-four__microscope-translation').textContent =
+            'my ' + (plural ? w.enPlural : w.label.toLowerCase());
+        microscope.querySelectorAll('[data-micro-number]').forEach(b =>
+            b.setAttribute('aria-pressed', String(b.dataset.microNumber === microNumber)));
+        changeMessage.textContent = plural
+            ? `One → many: ${w.singular} → ${w.plural}; ${w.my} → мои.`
+            : `One ${w.label.toLowerCase()}: ${w.my} ${w.singular}. Try “More than one.”`;
+        const singularComparison = microscope.querySelector('[data-micro-compare-singular]');
+        const pluralComparison = microscope.querySelector('[data-micro-compare-plural]');
+        const discoveryNote = microscope.querySelector('[data-micro-discovery-note]');
+        singularComparison.textContent = `${w.my} ${w.singular}`;
+        pluralComparison.textContent = `мои ${w.plural}`;
+        // Keep the illuminated comparison synchronized for every word and category.
+        singularComparison.parentElement.classList.toggle('is-active', !plural);
+        pluralComparison.parentElement.classList.toggle('is-active', plural);
+        discoveryNote.textContent = w.note || 'Compare the noun and the word for MY. What changes?';
+        reason.textContent = plural
+            ? `Plural nouns use мои, regardless of the noun’s singular gender. The noun also changes to its plural form: ${w.plural}.`
+            : `${w.singular} is a ${w.gender} singular noun, so MY is ${w.my}. Grammatical gender belongs to the noun.`;
+    }
+    function setMicroMode(mode) {
+        const choosing = mode === 'choose';
+        choosePanel.hidden = !choosing;
+        referenceGrid.hidden = false;
+        guidedButtons.hidden = false;
+        guidedPrompt.hidden = false;
+        microscope.querySelectorAll('[data-micro-mode]').forEach(b =>
+            b.setAttribute('aria-pressed', String(b.dataset.microMode === mode)));
+        if (choosing) updateMicroChoice();
+        else {
+            resetMicroscope();
+            feedback.textContent = 'Guided Discovery is ready. Click брат, сестра, имя, or родители to examine the four forms of MY.';
+        }
+    }
+    microscope.querySelectorAll('[data-micro-mode]').forEach(b => b.addEventListener('click', () => setMicroMode(b.dataset.microMode)));
+    genderSelect.addEventListener('change', updateMicroWordOptions);
+    wordSelect.addEventListener('change', updateMicroChoice);
+    microscope.querySelectorAll('[data-micro-number]').forEach(b => b.addEventListener('click', () => {
+        microNumber = b.dataset.microNumber;
+        updateMicroChoice();
+    }));
+    explainButton.addEventListener('click', () => {
+        reason.hidden = !reason.hidden;
+        explainButton.setAttribute('aria-expanded', String(!reason.hidden));
+    });
+    updateMicroWordOptions();
+    // END MICROSCOPE — GUIDED / YOU CHOOSE
+    // END UNDER THE MICROSCOPE — interactive first experiment
     lab.addEventListener('click', (event) => {
         const hotspot = event.target.closest('[data-lab-action]');
         if (!hotspot || !lab.contains(hotspot)) return;
         const action = hotspot.dataset.labAction;
+        if (action === 'microscope') { showMicroscope(); return; }
         status.textContent = messages[action] || 'This discovery is being prepared.';
         status.hidden = false;
     });

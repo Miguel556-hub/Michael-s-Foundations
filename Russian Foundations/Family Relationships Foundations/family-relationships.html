@@ -6413,6 +6413,87 @@ LESSON 2 — EXTENDED FAMILY
             <button type="button" class="door-four__hotspot" data-lab-action="next" aria-label="Next Experiment"
               style="--x:70.9%;--y:88.3%;--w:15.0%;--h:7.0%"></button>
           </div>
+          <!-- BEGIN DOOR FOUR — UNDER THE MICROSCOPE EXPERIENCE -->
+          <section class="door-four__microscope" aria-label="Under the Microscope experiment" hidden>
+            <div class="door-four__microscope-scene">
+              <img src="../../Images/door-four/under-the-microscope-landing-screen.png"
+                alt="Victorian laboratory with a giant brass magnifying glass, titled Under the Microscope"
+                draggable="false">
+              <button type="button" class="door-four__microscope-close door-four__microscope-image-back"
+                aria-label="Back to Laboratory"></button>
+              <div class="door-four__microscope-lens" aria-live="polite">
+                <span class="door-four__microscope-hint">Select a word below</span>
+                <div class="door-four__microscope-phrase" hidden><strong class="door-four__microscope-my"></strong>
+                  <span class="door-four__microscope-noun"></span>
+                </div>
+                <p class="door-four__microscope-translation"></p>
+              </div>
+              <div class="door-four__microscope-workbench">
+                <p class="door-four__microscope-prompt">Select a word. Watch the Russian word for <strong>MY</strong> change.</p>
+                <div class="door-four__microscope-choices" role="group" aria-label="Choose a family word">
+                  <button type="button" data-micro-choice="brother">брат <small>brother</small></button>
+                  <button type="button" data-micro-choice="sister">сестра <small>sister</small></button>
+                  <button type="button" data-micro-choice="name">имя <small>name</small></button>
+                  <button type="button" data-micro-choice="parents">родители <small>parents</small></button>
+                </div>
+                <!-- BEGIN MICROSCOPE — FOUR FORMS REFERENCE PANEL -->
+                <div class="door-four__microscope-discovery" aria-label="Four Russian forms of my">
+                  <h3 class="door-four__microscope-reference-title">Four Ways to Say MY</h3>
+                  <p class="door-four__microscope-reference-intro">English uses one word: <strong>my</strong>. Russian changes it to match the noun.</p>
+                  <div class="door-four__microscope-reference-grid">
+                    <div><span>Masculine</span><strong lang="ru">мой</strong><small lang="ru">мой брат</small></div>
+                    <div><span>Feminine</span><strong lang="ru">моя</strong><small lang="ru">моя сестра</small></div>
+                    <div><span>Neuter</span><strong lang="ru">моё</strong><small lang="ru">моё имя</small></div>
+                    <div><span>Plural</span><strong lang="ru">мои</strong><small lang="ru">мои родители</small></div>
+                  </div>
+                  <p class="door-four__microscope-count" aria-live="polite">0 of 4 expressions examined</p>
+                  <p class="door-four__microscope-instruction">Explore all four words. Notice how MY changes.</p>
+                  <p class="door-four__microscope-feedback" role="status" aria-live="polite">Select a word to begin your investigation.</p>
+                </div>
+                <!-- END MICROSCOPE — FOUR FORMS REFERENCE PANEL -->
+                <!-- BEGIN MICROSCOPE — GUIDED / YOU CHOOSE CONTROLS -->
+                <div class="door-four__microscope-mode" role="group" aria-label="Investigation mode">
+                  <button type="button" data-micro-mode="guided" aria-pressed="true">Guided Discovery</button>
+                  <button type="button" data-micro-mode="choose" aria-pressed="false">You Choose!</button>
+                </div>
+                <div class="door-four__microscope-choose" hidden>
+                  <label>Word category
+                    <select data-micro-gender>
+                      <option value="all">All words</option><option value="masculine">Masculine</option>
+                      <option value="feminine">Feminine</option><option value="neuter">Neuter</option>
+                    </select>
+                  </label>
+                  <label>Family word
+                    <select data-micro-word></select>
+                  </label>
+                  <div class="door-four__microscope-number" role="group" aria-label="One or more than one">
+                    <button type="button" data-micro-number="singular" aria-pressed="true">One</button>
+                    <button type="button" data-micro-number="plural" aria-pressed="false">More than one</button>
+                  </div>
+                  <!-- BEGIN MICROSCOPE — SINGULAR / PLURAL COMPARISON -->
+                  <div class="door-four__microscope-comparison" aria-label="Compare singular and plural">
+                    <div><span>ONE</span><strong lang="ru" data-micro-compare-singular></strong></div>
+                    <div><span>MORE THAN ONE</span><strong lang="ru" data-micro-compare-plural></strong></div>
+                  </div>
+                  <p class="door-four__microscope-discovery-note" data-micro-discovery-note></p>
+                  <!-- END MICROSCOPE — SINGULAR / PLURAL COMPARISON -->
+                  <p class="door-four__microscope-change" aria-live="polite"></p>
+                  <button type="button" class="door-four__microscope-explain" aria-expanded="false">Why did it change?</button>
+                  <p class="door-four__microscope-reason" hidden></p>
+                </div>
+                <!-- END MICROSCOPE — GUIDED / YOU CHOOSE CONTROLS -->
+
+                <div class="door-four__microscope-actions" role="group" aria-label="Experiment navigation">
+
+                  <button type="button" class="door-four__microscope-reset" aria-label="Reset Experiment"
+                    hidden></button>
+                  <button type="button" class="door-four__microscope-next" aria-label="Next Experiment" disabled
+                    hidden></button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- END DOOR FOUR — UNDER THE MICROSCOPE EXPERIENCE -->
           <div class="door-four__status" role="status" aria-live="polite" hidden></div>
           <button type="button" class="door-four__return explore-return-hallway">← Back to the Four Doors</button>
         </div>

@@ -15577,6 +15577,663 @@ h1 {
     height: auto;
 }
 
+
+/* BEGIN DOOR FOUR — UNDER THE MICROSCOPE EXPERIENCE */
+#door-four-laboratory .door-four__microscope[hidden],
+#door-four-laboratory .door-four__stage[hidden],
+#door-four-laboratory .door-four__return[hidden] {
+    display: none !important;
+}
+
+#door-four-laboratory .door-four__microscope {
+    max-width: 1120px;
+    margin: 0 auto 24px;
+    padding: clamp(18px, 3vw, 36px);
+    border: 3px solid #987343;
+    border-radius: 18px;
+    background: radial-gradient(circle at 50% 0%, #304a56, #14232d 72%);
+    color: #f7eedc;
+    box-shadow: 0 16px 40px #0005;
+}
+
+#door-four-laboratory .door-four__microscope-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #b9956080;
+    padding-bottom: 18px;
+}
+
+#door-four-laboratory .door-four__microscope h2 {
+    color: #f6d69a;
+    margin: 4px 0;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+#door-four-laboratory .door-four__microscope-eyebrow {
+    color: #c9b188;
+    letter-spacing: .14em;
+    font-size: .78rem;
+    font-weight: 800;
+}
+
+#door-four-laboratory .door-four__microscope-workbench {
+    max-width: 860px;
+    margin: 24px auto 0;
+}
+
+#door-four-laboratory .door-four__microscope-prompt {
+    font-size: 1.08rem;
+}
+
+#door-four-laboratory .door-four__microscope-choices,
+#door-four-laboratory .door-four__microscope-theories,
+#door-four-laboratory .door-four__microscope-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+#door-four-laboratory .door-four__microscope button {
+    border: 1px solid #b99a62;
+    border-radius: 10px;
+    background: #f7edd8;
+    color: #273843;
+    padding: 12px 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#door-four-laboratory .door-four__microscope button:hover,
+#door-four-laboratory .door-four__microscope button:focus-visible {
+    background: #fbe0a0;
+    outline: 2px solid #f6d69a;
+    outline-offset: 2px;
+}
+
+#door-four-laboratory .door-four__microscope button.is-selected {
+    background: #b8e1df;
+    border-color: #4ca4a4;
+}
+
+#door-four-laboratory .door-four__microscope-choices button {
+    flex: 1 1 150px;
+    font-size: 1.4rem;
+}
+
+#door-four-laboratory .door-four__microscope-choices small {
+    display: block;
+    font-size: .76rem;
+    font-weight: 400;
+}
+
+#door-four-laboratory .door-four__microscope-lens {
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #bb955e;
+    border-radius: 50% / 25%;
+    background: #e5f5ee12;
+    text-align: center;
+    padding: 25px;
+    margin: 24px auto;
+    max-width: 600px;
+}
+
+#door-four-laboratory .door-four__microscope-phrase {
+    font-size: clamp(2rem, 5vw, 3.6rem);
+}
+
+#door-four-laboratory .door-four__microscope-my {
+    color: #ffda8e;
+}
+
+#door-four-laboratory .door-four__microscope-translation {
+    margin: 6px 0;
+    color: #cce8e7;
+}
+
+#door-four-laboratory .door-four__microscope-count {
+    color: #f6d69a;
+    font-weight: 700;
+}
+
+#door-four-laboratory .door-four__microscope-discovery {
+    border-top: 1px solid #b9956080;
+    padding-top: 16px;
+}
+
+#door-four-laboratory .door-four__microscope-feedback {
+    min-height: 3em;
+    color: #c7f1e9;
+    font-weight: 700;
+}
+
+#door-four-laboratory .door-four__microscope-actions {
+    justify-content: space-between;
+    margin-top: 28px;
+}
+
+/* END DOOR FOUR — UNDER THE MICROSCOPE EXPERIENCE */
+
 /* ============================================================
    END DOOR FOUR — RUSSIAN LANGUAGE LABORATORY
    ============================================================ */
+
+/* BEGIN DOOR FOUR — MICROSCOPE ON ILLUSTRATED LANDING PAGE (V3) */
+#door-four-laboratory .door-four__microscope {
+    padding: 0;
+    max-width: 1166px;
+    overflow: hidden;
+    border: 0;
+    background: #152530;
+}
+
+#door-four-laboratory .door-four__microscope-scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1166 / 720;
+    isolation: isolate;
+}
+
+#door-four-laboratory .door-four__microscope-scene>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    user-select: none;
+}
+
+/* Navigation is the existing PNG asset, not a text button. */
+#door-four-laboratory .door-four__microscope-image-back {
+    position: absolute;
+    left: 4.7%;
+    top: 83% !important;
+    width: 26.7%;
+    height: 10%;
+    z-index: 4;
+    padding: 0;
+    border: 0;
+    border-radius: 30px !important;
+    background: transparent url('../../Images/door-four/button-back-to-laboratory.png') center/contain no-repeat;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px #0009);
+}
+
+#door-four-laboratory .door-four__microscope-image-back {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#door-four-laboratory .door-four__microscope-image-back:hover,
+#door-four-laboratory .door-four__microscope-image-back:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+#door-four-laboratory .door-four__microscope-image-back:hover,
+#door-four-laboratory .door-four__microscope-image-back:focus-visible {
+    background-color: transparent;
+    filter: brightness(1.2) drop-shadow(0 0 8px #ffe2a5);
+    outline: 2px solid #ffe0a2;
+    outline-offset: 2px;
+}
+
+/* The glass is the main output surface. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-lens {
+    position: absolute;
+    left: 40.2%;
+    top: 24.5%;
+    width: 28.5%;
+    height: 32%;
+    min-height: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 1%;
+    border: 0;
+    border-radius: 50%;
+    background: #09233340;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: inset 0 0 16px #a8e4ff44;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-phrase {
+    font-size: clamp(12px, 3.4vw, 40px);
+    line-height: 1.15;
+    text-shadow: 0 2px 7px #000;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-hint {
+    font-size: clamp(9px, 1.25vw, 15px);
+    text-align: center;
+    color: #fff6dc;
+    text-shadow: 0 2px 7px #000;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-translation {
+    font-size: clamp(9px, 1.15vw, 14px);
+    margin: 3px 0 0;
+    text-shadow: 0 2px 7px #000;
+}
+
+/* All learner controls are on the artwork. Panels use 75% opacity (25% transparent). */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-workbench {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    font-size: clamp(9px, 1.05vw, 13px);
+    line-height: 1.25;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-prompt,
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices,
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery,
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-actions {
+    position: absolute;
+    z-index: 3;
+    pointer-events: auto;
+    margin: 0;
+    background: rgba(15, 34, 44, .75);
+    border: 1px solid #d6ae72;
+    border-radius: 10px;
+    color: #fff5df;
+    box-shadow: 0 4px 16px #0007;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-prompt {
+    left: 2%;
+    top: 51%;
+    width: 29%;
+    padding: 1%;
+    text-align: center;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices {
+    left: 2%;
+    top: 60%;
+    width: 29%;
+    padding: .8%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices button {
+    min-width: 0;
+    min-height: 0;
+    padding: 5px 3px;
+    font-size: clamp(11px, 1.55vw, 19px);
+    line-height: 1.1;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices small {
+    font-size: clamp(8px, .9vw, 11px);
+    margin-top: 3px;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+    right: 1.5%;
+    top: 47%;
+    width: 34%;
+    padding: 1.1%;
+    border-top: 1px solid #d6ae72;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery p {
+    margin: 0 0 7px;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-theories {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin: 5px 0;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-theories button {
+    padding: 5px 6px;
+    font-size: clamp(9px, 1.03vw, 12px);
+    text-align: left;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-feedback {
+    min-height: 0;
+    margin: 5px 0 0;
+    font-size: clamp(9px, 1vw, 12px);
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-actions {
+    right: 1.5%;
+    bottom: 3%;
+    padding: .6%;
+    display: block;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-actions button {
+    padding: 6px 12px;
+    font-size: clamp(10px, 1.1vw, 13px);
+}
+
+/* Do not let global rules display hidden lesson content. */
+#door-four-laboratory .door-four__microscope [hidden] {
+    display: none !important;
+}
+
+/* Keep the illustrated composition intact at small widths; scale the whole scene through its aspect ratio. */
+@media(max-width:650px) {
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-workbench {
+        font-size: 8px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-prompt {
+        top: 49%;
+        padding: 3px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices {
+        top: 59%;
+        gap: 2px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices button {
+        padding: 2px;
+        font-size: 9px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices small {
+        font-size: 7px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+        top: 44%;
+        padding: 4px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery p {
+        margin-bottom: 3px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-theories button {
+        padding: 2px;
+        font-size: 8px;
+    }
+
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-feedback {
+        font-size: 8px;
+    }
+}
+
+/* END DOOR FOUR — MICROSCOPE ON ILLUSTRATED LANDING PAGE (V3) */
+
+/* BEGIN DOOR FOUR — MICROSCOPE NAVIGATION & PANEL REFINEMENT */
+/* Keep the right-hand discovery panel away from the magnifying glass. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+    right: 1.4%;
+    left: auto;
+    top: 45%;
+    width: 28%;
+    height: auto;
+    padding: 1%;
+    font-size: clamp(9px, .98vw, 12px);
+    line-height: 1.2;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-theories button {
+    padding: 4px 6px;
+    font-size: clamp(9px, .95vw, 12px);
+}
+
+/* Back to Laboratory: transparent clickable area on the button already printed in the image. */
+#door-four-laboratory .door-four__microscope-image-back {
+    left: 2.4%;
+    top: 79%;
+    width: 28%;
+    height: 11%;
+    background: none !important;
+    border: 0;
+    box-shadow: none;
+    filter: none;
+}
+
+#door-four-laboratory .door-four__microscope-image-back:hover,
+#door-four-laboratory .door-four__microscope-image-back:focus-visible {
+    background: none !important;
+    filter: drop-shadow(0 0 5px #f9c56e);
+}
+
+/* Three illustrated brass buttons, all positioned on the workbench. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-actions {
+    position: absolute;
+    inset: auto 1.5% 1.1% 1.5%;
+    width: 97%;
+    height: 10%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-actions button {
+    width: 23%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    flex: 0 0 23%;
+    background-color: transparent;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 0;
+    color: transparent;
+    pointer-events: auto;
+}
+
+#door-four-laboratory .door-four__microscope-previous {
+    background-image: url('../../Images/door-four/button-previous-experiment.png');
+}
+
+#door-four-laboratory .door-four__microscope-reset {
+    background-image: url('../../Images/door-four/button-reset-experiment.png');
+}
+
+#door-four-laboratory .door-four__microscope-next {
+    background-image: url('../../Images/door-four/button-next-experiment.png');
+}
+
+#door-four-laboratory .door-four__microscope-actions button:hover:not(:disabled),
+#door-four-laboratory .door-four__microscope-actions button:focus-visible {
+    background-color: transparent;
+    filter: brightness(1.2) drop-shadow(0 0 5px #fbd485);
+    outline: 2px solid #fbd485;
+    outline-offset: -3px;
+}
+
+#door-four-laboratory .door-four__microscope-actions button:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+    filter: grayscale(.25);
+}
+
+/* END DOOR FOUR — MICROSCOPE NAVIGATION & PANEL REFINEMENT */
+/* BEGIN DOOR FOUR — MICROSCOPE FOUR-FORM REFERENCE (2026-10-23) */
+/* Scoped to the existing illustrated microscope; preserves its image and hotspots. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+    right: 1.4%; left: auto; top: 43%; width: 28%;
+    padding: .85%; background: rgba(15,34,44,.75);
+    font-size: clamp(8px, .94vw, 12px); line-height: 1.18;
+}
+#door-four-laboratory .door-four__microscope-reference-title {
+    margin: 0 0 4px; color: #ffdb91;
+    font-size: clamp(11px, 1.4vw, 17px); line-height: 1.15;
+}
+#door-four-laboratory .door-four__microscope-reference-intro {
+    margin: 0 0 6px;
+}
+#door-four-laboratory .door-four__microscope-reference-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 5px;
+}
+#door-four-laboratory .door-four__microscope-reference-grid > div {
+    min-width: 0; padding: 5px 3px; border: 1px solid #d6ae7280;
+    border-radius: 6px; background: rgba(8,26,35,.7);
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+}
+#door-four-laboratory .door-four__microscope-reference-grid span {
+    font-size: clamp(8px,.82vw,11px); color: #ffe0a2;
+}
+#door-four-laboratory .door-four__microscope-reference-grid strong {
+    font-size: clamp(14px,1.75vw,22px); color: #fff8e7;
+}
+#door-four-laboratory .door-four__microscope-reference-grid small {
+    font-size: clamp(8px,.88vw,11px); color: #c4e8ed;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-count {
+    margin: 7px 0 3px; color: #ffdb91; font-weight: 700;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-instruction {
+    margin: 0 0 3px;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-feedback {
+    margin: 0; color: #c5f4f3;
+}
+@media (max-width:650px) {
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+        top: 40%; padding: 3px; font-size: 7px;
+    }
+    #door-four-laboratory .door-four__microscope-reference-title {font-size: 9px; margin-bottom: 2px;}
+    #door-four-laboratory .door-four__microscope-reference-grid {gap: 2px;}
+    #door-four-laboratory .door-four__microscope-reference-grid > div {padding: 2px 1px;}
+    #door-four-laboratory .door-four__microscope-reference-grid span,
+    #door-four-laboratory .door-four__microscope-reference-grid small {font-size: 6px;}
+    #door-four-laboratory .door-four__microscope-reference-grid strong {font-size: 11px;}
+}
+/* END DOOR FOUR — MICROSCOPE FOUR-FORM REFERENCE (2026-10-23) */
+
+/* BEGIN DOOR FOUR — MICROSCOPE GUIDED / YOU CHOOSE (2026-10-23) */
+/* Keep the existing illustrated scene and calibrated navigation untouched. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode {
+    position:absolute; left:2.1%; top:76%; width:33%; z-index:6;
+    display:flex; gap:4px; background:rgba(12,30,39,.78); padding:4px; border-radius:9px;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode button {
+    flex:1; min-width:0; padding:5px 2px; font-size:clamp(8px,.9vw,12px);
+    color:#fbe9c3; background:rgba(30,52,61,.95); border:1px solid #bd955c; border-radius:7px;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode button[aria-pressed="true"] {
+    background:#d3ac6d; color:#14252e;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose {
+    position:absolute; right:1.4%; left:auto; top:43%; width:28%; z-index:6;
+    padding:.9%; background:rgba(15,34,44,.78); border:1px solid #d6ae72;
+    border-radius:10px; color:#fff1d5; font-size:clamp(8px,.93vw,12px); line-height:1.2;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose label {
+    display:block; margin-bottom:5px; font-weight:700;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose select {
+    display:block; width:100%; min-width:0; margin-top:2px; padding:4px 3px;
+    font-size:clamp(9px,1vw,13px); color:#1d3039; background:#fff5df; border-radius:5px;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number {display:flex;gap:4px;margin:6px 0;}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button,
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-explain {
+    min-width:0; padding:5px 3px; font-size:clamp(8px,.9vw,12px);
+    background:#f7edd8; color:#273843; border-radius:6px;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button {flex:1;}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button[aria-pressed="true"] {background:#b8e1df;}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-change,
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-reason {margin:5px 0;}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose[hidden],
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery[hidden],
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices[hidden],
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-prompt[hidden] {display:none!important;}
+/* END DOOR FOUR — MICROSCOPE GUIDED / YOU CHOOSE (2026-10-23) */
+
+/* BEGIN MICROSCOPE — MODE CONTROL CLICK REPAIR (2026-10-23) */
+/* The full-scene workbench disables pointer events; restore them on its interactive children. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode,
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose {
+    pointer-events: auto;
+}
+/* END MICROSCOPE — MODE CONTROL CLICK REPAIR */
+
+/* BEGIN MICROSCOPE — SIDE-BY-SIDE NUMBER COMPARISON */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison {
+    display:grid; grid-template-columns:1fr 1fr; gap:5px; margin:7px 0;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison > div {
+    min-width:0; padding:5px 3px; border:1px solid rgba(222,185,119,.75);
+    border-radius:6px; background:rgba(6,21,29,.75); text-align:center;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison span {
+    display:block; color:#e9ca8b; font-size:clamp(7px,.72vw,10px); font-weight:700;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison strong {
+    display:block; overflow-wrap:anywhere; color:#fff4db; font-size:clamp(9px,1vw,14px);
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery-note {
+    margin:5px 0; color:#f5db9f; font-size:clamp(8px,.86vw,12px);
+}
+/* END MICROSCOPE — SIDE-BY-SIDE NUMBER COMPARISON */
+
+/* BEGIN MICROSCOPE — RELOCATE FOUR-FORM REFERENCE ABOVE GUIDED EXAMPLES */
+/* Move the original reference panel (not a duplicate) to the left column.
+   Keep the guided choices, You Choose panel, magnifying glass and hotspots unchanged. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+    left: 2%;
+    right: auto;
+    top: 3%;
+    width: 29%;
+    z-index: 3;
+}
+@media (max-width: 650px) {
+    #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
+        left: 2%;
+        right: auto;
+        top: 3%;
+        width: 29%;
+    }
+}
+/* END MICROSCOPE — RELOCATE FOUR-FORM REFERENCE ABOVE GUIDED EXAMPLES */
+
+/* BEGIN MICROSCOPE — ACTIVE SINGULAR / PLURAL REVEAL (2026-10-23) */
+/* Dim the unselected comparison without hiding it; illuminate the selected form. */
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison > div {
+    opacity: .56;
+    background: rgba(4, 15, 22, .88);
+    border-color: rgba(222, 185, 119, .35);
+    transition: opacity .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison > div.is-active {
+    opacity: 1;
+    background: #102B4A;
+    border-color: #e8c37b;
+    box-shadow: 0 0 0 1px rgba(255, 227, 156, .6), 0 0 12px rgba(96, 222, 218, .45);
+}
+/* END MICROSCOPE — ACTIVE SINGULAR / PLURAL REVEAL */
