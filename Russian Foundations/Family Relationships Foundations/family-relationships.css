@@ -24,7 +24,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--ink);
     background: var(--bg);
-    line-height: 1.5
+    line-height: 1.5;
 }
 
 button,
@@ -15507,6 +15507,40 @@ h1 {
     box-shadow: 0 0 18px 6px #c657ff99;
 }
 
+/* ==========================================
+   LABORATORY — FIVE EXPERIMENT BUTTON HOVERS
+   ========================================== */
+
+/* RED */
+#door-four-laboratory .door-four__hotspot[data-lab-action="red"]:hover {
+    background: rgba(255, 50, 50, .12);
+    box-shadow: 0 0 18px 6px rgba(255, 50, 50, .65);
+}
+
+/* BLUE */
+#door-four-laboratory .door-four__hotspot[data-lab-action="blue"]:hover {
+    background: rgba(33, 140, 255, .12);
+    box-shadow: 0 0 18px 6px rgba(33, 140, 255, .65);
+}
+
+/* GREEN */
+#door-four-laboratory .door-four__hotspot[data-lab-action="green"]:hover {
+    background: rgba(61, 255, 120, .12);
+    box-shadow: 0 0 18px 6px rgba(61, 255, 120, .65);
+}
+
+/* PURPLE */
+#door-four-laboratory .door-four__hotspot[data-lab-action="purple"]:hover {
+    background: rgba(198, 87, 255, .12);
+    box-shadow: 0 0 18px 6px rgba(198, 87, 255, .65);
+}
+
+/* GOLD */
+#door-four-laboratory .door-four__hotspot[data-lab-action="gold"]:hover {
+    background: rgba(255, 190, 45, .12);
+    box-shadow: 0 0 18px 6px rgba(255, 190, 45, .65);
+}
+
 #door-four-laboratory .door-four__status {
     margin: 12px auto;
     max-width: 650px;
@@ -15555,6 +15589,32 @@ h1 {
     aspect-ratio: 1 / 1;
     height: auto;
 }
+
+/* BEGIN LABORATORY LANDING — NON-CLICKABLE INSTRUCTION BANNER
+   Overlay covers the original bottom navigation artwork without modifying
+   the source background. Adjust only these positioning values if needed.
+   The historical bottom navigation hotspot rules remain below for reuse. */
+#door-four-laboratory .door-four__landing-instruction {
+    position: absolute;
+    left: 32%;
+    bottom: 0.4%;
+    width: 40%;
+    height: auto;
+    display: block;
+    z-index: 3;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Landing-only presentation: keep status and return controls in the DOM,
+   but do not display them beneath the main artwork. On other screens,
+   their existing styling and JavaScript remain available. */
+#door-four-laboratory .door-four__stage:not([hidden])~.door-four__status,
+#door-four-laboratory .door-four__stage:not([hidden])~.door-four__return {
+    display: none !important;
+}
+
+/* END LABORATORY LANDING — NON-CLICKABLE INSTRUCTION BANNER */
 
 /* DOOR FOUR — BOTTOM NAVIGATION HOTSPOTS */
 
@@ -16084,95 +16144,208 @@ h1 {
 /* BEGIN DOOR FOUR — MICROSCOPE FOUR-FORM REFERENCE (2026-10-23) */
 /* Scoped to the existing illustrated microscope; preserves its image and hotspots. */
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
-    right: 1.4%; left: auto; top: 43%; width: 28%;
-    padding: .85%; background: rgba(15,34,44,.75);
-    font-size: clamp(8px, .94vw, 12px); line-height: 1.18;
+    right: 1.4%;
+    left: auto;
+    top: 43%;
+    width: 28%;
+    padding: .85%;
+    background: rgba(15, 34, 44, .75);
+    font-size: clamp(8px, .94vw, 12px);
+    line-height: 1.18;
 }
+
 #door-four-laboratory .door-four__microscope-reference-title {
-    margin: 0 0 4px; color: #ffdb91;
-    font-size: clamp(11px, 1.4vw, 17px); line-height: 1.15;
+    margin: 0 0 4px;
+    color: #ffdb91;
+    font-size: clamp(11px, 1.4vw, 17px);
+    line-height: 1.15;
 }
+
 #door-four-laboratory .door-four__microscope-reference-intro {
     margin: 0 0 6px;
 }
+
 #door-four-laboratory .door-four__microscope-reference-grid {
-    display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
 }
-#door-four-laboratory .door-four__microscope-reference-grid > div {
-    min-width: 0; padding: 5px 3px; border: 1px solid #d6ae7280;
-    border-radius: 6px; background: rgba(8,26,35,.7);
-    display: flex; flex-direction: column; align-items: center; gap: 1px;
+
+#door-four-laboratory .door-four__microscope-reference-grid>div {
+    min-width: 0;
+    padding: 5px 3px;
+    border: 1px solid #d6ae7280;
+    border-radius: 6px;
+    background: rgba(8, 26, 35, .7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
 }
+
 #door-four-laboratory .door-four__microscope-reference-grid span {
-    font-size: clamp(8px,.82vw,11px); color: #ffe0a2;
+    font-size: clamp(8px, .82vw, 11px);
+    color: #ffe0a2;
 }
+
 #door-four-laboratory .door-four__microscope-reference-grid strong {
-    font-size: clamp(14px,1.75vw,22px); color: #fff8e7;
+    font-size: clamp(14px, 1.75vw, 22px);
+    color: #fff8e7;
 }
+
 #door-four-laboratory .door-four__microscope-reference-grid small {
-    font-size: clamp(8px,.88vw,11px); color: #c4e8ed;
+    font-size: clamp(8px, .88vw, 11px);
+    color: #c4e8ed;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-count {
-    margin: 7px 0 3px; color: #ffdb91; font-weight: 700;
+    margin: 7px 0 3px;
+    color: #ffdb91;
+    font-weight: 700;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-instruction {
     margin: 0 0 3px;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-feedback {
-    margin: 0; color: #c5f4f3;
+    margin: 0;
+    color: #c5f4f3;
 }
+
 @media (max-width:650px) {
     #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
-        top: 40%; padding: 3px; font-size: 7px;
+        top: 40%;
+        padding: 3px;
+        font-size: 7px;
     }
-    #door-four-laboratory .door-four__microscope-reference-title {font-size: 9px; margin-bottom: 2px;}
-    #door-four-laboratory .door-four__microscope-reference-grid {gap: 2px;}
-    #door-four-laboratory .door-four__microscope-reference-grid > div {padding: 2px 1px;}
+
+    #door-four-laboratory .door-four__microscope-reference-title {
+        font-size: 9px;
+        margin-bottom: 2px;
+    }
+
+    #door-four-laboratory .door-four__microscope-reference-grid {
+        gap: 2px;
+    }
+
+    #door-four-laboratory .door-four__microscope-reference-grid>div {
+        padding: 2px 1px;
+    }
+
     #door-four-laboratory .door-four__microscope-reference-grid span,
-    #door-four-laboratory .door-four__microscope-reference-grid small {font-size: 6px;}
-    #door-four-laboratory .door-four__microscope-reference-grid strong {font-size: 11px;}
+    #door-four-laboratory .door-four__microscope-reference-grid small {
+        font-size: 6px;
+    }
+
+    #door-four-laboratory .door-four__microscope-reference-grid strong {
+        font-size: 11px;
+    }
 }
+
 /* END DOOR FOUR — MICROSCOPE FOUR-FORM REFERENCE (2026-10-23) */
 
 /* BEGIN DOOR FOUR — MICROSCOPE GUIDED / YOU CHOOSE (2026-10-23) */
 /* Keep the existing illustrated scene and calibrated navigation untouched. */
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode {
-    position:absolute; left:2.1%; top:76%; width:33%; z-index:6;
-    display:flex; gap:4px; background:rgba(12,30,39,.78); padding:4px; border-radius:9px;
+    position: absolute;
+    left: 2.1%;
+    top: 76%;
+    width: 33%;
+    z-index: 6;
+    display: flex;
+    gap: 4px;
+    background: rgba(12, 30, 39, .78);
+    padding: 4px;
+    border-radius: 9px;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode button {
-    flex:1; min-width:0; padding:5px 2px; font-size:clamp(8px,.9vw,12px);
-    color:#fbe9c3; background:rgba(30,52,61,.95); border:1px solid #bd955c; border-radius:7px;
+    flex: 1;
+    min-width: 0;
+    padding: 5px 2px;
+    font-size: clamp(8px, .9vw, 12px);
+    color: #fbe9c3;
+    background: rgba(30, 52, 61, .95);
+    border: 1px solid #bd955c;
+    border-radius: 7px;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-mode button[aria-pressed="true"] {
-    background:#d3ac6d; color:#14252e;
+    background: #d3ac6d;
+    color: #14252e;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose {
-    position:absolute; right:1.4%; left:auto; top:43%; width:28%; z-index:6;
-    padding:.9%; background:rgba(15,34,44,.78); border:1px solid #d6ae72;
-    border-radius:10px; color:#fff1d5; font-size:clamp(8px,.93vw,12px); line-height:1.2;
+    position: absolute;
+    right: 1.4%;
+    left: auto;
+    top: 43%;
+    width: 28%;
+    z-index: 6;
+    padding: .9%;
+    background: rgba(15, 34, 44, .78);
+    border: 1px solid #d6ae72;
+    border-radius: 10px;
+    color: #fff1d5;
+    font-size: clamp(8px, .93vw, 12px);
+    line-height: 1.2;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose label {
-    display:block; margin-bottom:5px; font-weight:700;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose select {
-    display:block; width:100%; min-width:0; margin-top:2px; padding:4px 3px;
-    font-size:clamp(9px,1vw,13px); color:#1d3039; background:#fff5df; border-radius:5px;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin-top: 2px;
+    padding: 4px 3px;
+    font-size: clamp(9px, 1vw, 13px);
+    color: #1d3039;
+    background: #fff5df;
+    border-radius: 5px;
 }
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number {display:flex;gap:4px;margin:6px 0;}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number {
+    display: flex;
+    gap: 4px;
+    margin: 6px 0;
+}
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button,
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-explain {
-    min-width:0; padding:5px 3px; font-size:clamp(8px,.9vw,12px);
-    background:#f7edd8; color:#273843; border-radius:6px;
+    min-width: 0;
+    padding: 5px 3px;
+    font-size: clamp(8px, .9vw, 12px);
+    background: #f7edd8;
+    color: #273843;
+    border-radius: 6px;
 }
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button {flex:1;}
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button[aria-pressed="true"] {background:#b8e1df;}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button {
+    flex: 1;
+}
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-number button[aria-pressed="true"] {
+    background: #b8e1df;
+}
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-change,
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-reason {margin:5px 0;}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-reason {
+    margin: 5px 0;
+}
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose[hidden],
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery[hidden],
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choices[hidden],
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-prompt[hidden] {display:none!important;}
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-prompt[hidden] {
+    display: none !important;
+}
+
 /* END DOOR FOUR — MICROSCOPE GUIDED / YOU CHOOSE (2026-10-23) */
 
 /* BEGIN MICROSCOPE — MODE CONTROL CLICK REPAIR (2026-10-23) */
@@ -16181,25 +16354,46 @@ h1 {
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-choose {
     pointer-events: auto;
 }
+
 /* END MICROSCOPE — MODE CONTROL CLICK REPAIR */
 
 /* BEGIN MICROSCOPE — SIDE-BY-SIDE NUMBER COMPARISON */
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison {
-    display:grid; grid-template-columns:1fr 1fr; gap:5px; margin:7px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin: 7px 0;
 }
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison > div {
-    min-width:0; padding:5px 3px; border:1px solid rgba(222,185,119,.75);
-    border-radius:6px; background:rgba(6,21,29,.75); text-align:center;
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison>div {
+    min-width: 0;
+    padding: 5px 3px;
+    border: 1px solid rgba(222, 185, 119, .75);
+    border-radius: 6px;
+    background: rgba(6, 21, 29, .75);
+    text-align: center;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison span {
-    display:block; color:#e9ca8b; font-size:clamp(7px,.72vw,10px); font-weight:700;
+    display: block;
+    color: #e9ca8b;
+    font-size: clamp(7px, .72vw, 10px);
+    font-weight: 700;
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison strong {
-    display:block; overflow-wrap:anywhere; color:#fff4db; font-size:clamp(9px,1vw,14px);
+    display: block;
+    overflow-wrap: anywhere;
+    color: #fff4db;
+    font-size: clamp(9px, 1vw, 14px);
 }
+
 #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery-note {
-    margin:5px 0; color:#f5db9f; font-size:clamp(8px,.86vw,12px);
+    margin: 5px 0;
+    color: #f5db9f;
+    font-size: clamp(8px, .86vw, 12px);
 }
+
 /* END MICROSCOPE — SIDE-BY-SIDE NUMBER COMPARISON */
 
 /* BEGIN MICROSCOPE — RELOCATE FOUR-FORM REFERENCE ABOVE GUIDED EXAMPLES */
@@ -16212,6 +16406,7 @@ h1 {
     width: 29%;
     z-index: 3;
 }
+
 @media (max-width: 650px) {
     #door-four-laboratory .door-four__microscope-scene .door-four__microscope-discovery {
         left: 2%;
@@ -16220,20 +16415,999 @@ h1 {
         width: 29%;
     }
 }
+
 /* END MICROSCOPE — RELOCATE FOUR-FORM REFERENCE ABOVE GUIDED EXAMPLES */
 
 /* BEGIN MICROSCOPE — ACTIVE SINGULAR / PLURAL REVEAL (2026-10-23) */
 /* Dim the unselected comparison without hiding it; illuminate the selected form. */
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison > div {
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison>div {
     opacity: .56;
     background: rgba(4, 15, 22, .88);
     border-color: rgba(222, 185, 119, .35);
     transition: opacity .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
-#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison > div.is-active {
+
+#door-four-laboratory .door-four__microscope-scene .door-four__microscope-comparison>div.is-active {
     opacity: 1;
     background: #102B4A;
     border-color: #e8c37b;
     box-shadow: 0 0 0 1px rgba(255, 227, 156, .6), 0 0 12px rgba(96, 222, 218, .45);
 }
+
 /* END MICROSCOPE — ACTIVE SINGULAR / PLURAL REVEAL */
+/* ============================================================
+   BEGIN DOOR FOUR — EXPLORE THE DRAWERS SECONDARY SCREEN
+   Match the Laboratory's 16:9 image-based hotspot architecture.
+   ============================================================ */
+#door-four-laboratory .door-four__drawers[hidden] {
+    display: none !important;
+}
+
+#door-four-laboratory .door-four__drawers {
+    width: 100%;
+    margin: 0 auto 24px;
+}
+
+#door-four-laboratory .door-four__drawers-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    isolation: isolate;
+}
+
+#door-four-laboratory .door-four__drawers-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+}
+
+#door-four-laboratory .door-four__drawers-back {
+    border-radius: 30px;
+}
+
+#door-four-laboratory .door-four__drawers-back:hover {
+    background: rgba(255, 211, 106, .04);
+    box-shadow: 0 0 8px 2px rgba(255, 202, 83, .35);
+}
+
+/* END DOOR FOUR — EXPLORE THE DRAWERS SECONDARY SCREEN */
+
+/* ==========================================
+   LABORATORY DRAWERS — MAHOGANY HOVER
+   Main cabinet + four secondary drawer labels
+   ========================================== */
+
+#door-four-laboratory .door-four__hotspot[data-lab-action="drawers"]:hover,
+
+#door-four-laboratory .door-four__drawers-stage .door-four__hotspot:not(.door-four__drawers-back):hover {
+
+    background: rgba(105, 55, 25, 0.25);
+
+    box-shadow:
+        0 0 18px 6px rgba(139, 69, 19, 0.65),
+        inset 0 0 12px rgba(160, 82, 45, 0.35);
+}
+
+/* ============================================================
+   BEGIN DRAWER HOVER PREVIEWS — HOVER / FOCUS -> PREVIEW -> CLICK
+   CSS-only: original drawer glow, coordinates and click actions
+   remain unchanged. Position/size here can be calibrated later.
+   ============================================================ */
+#door-four-laboratory .door-four__drawers-stage .door-four__drawer-preview {
+    position: absolute;
+    left: 72%;
+    top: 20%;
+    width: 24%;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .2s ease, transform .2s ease;
+    color: #422710;
+}
+
+#door-four-laboratory .door-four__drawer-preview-card {
+    display: none;
+}
+
+#door-four-laboratory .door-four__drawer-preview-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    filter: drop-shadow(0 7px 12px rgba(20, 8, 1, .65));
+}
+
+#door-four-laboratory .door-four__drawers-stage:has(.door-four__hotspot:is([data-lab-action="drawer-examples"], [data-lab-action="drawer-special"], [data-lab-action="drawer-real"], [data-lab-action="drawer-notes"]):is(:hover, :focus-visible)) .door-four__drawer-preview {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#door-four-laboratory .door-four__drawers-stage:has([data-lab-action="drawer-examples"]:is(:hover, :focus-visible)) [data-drawer-preview="examples"],
+#door-four-laboratory .door-four__drawers-stage:has([data-lab-action="drawer-special"]:is(:hover, :focus-visible)) [data-drawer-preview="special"],
+#door-four-laboratory .door-four__drawers-stage:has([data-lab-action="drawer-real"]:is(:hover, :focus-visible)) [data-drawer-preview="real"],
+#door-four-laboratory .door-four__drawers-stage:has([data-lab-action="drawer-notes"]:is(:hover, :focus-visible)) [data-drawer-preview="notes"] {
+    display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #door-four-laboratory .door-four__drawer-preview {
+        transition: none;
+        transform: none;
+    }
+}
+
+/* END DRAWER HOVER PREVIEWS */
+
+/* ==========================================================
+   BEGIN SHARED DRAWER INTERIOR LANDING PAGE — 4 drawers, 1 shell
+   ========================================================== */
+#door-four-laboratory .door-four__drawer-interior[hidden] {
+    display: none !important;
+}
+
+#door-four-laboratory .door-four__drawer-interior {
+    width: 100%;
+    margin: 0 auto 24px;
+}
+
+#door-four-laboratory .door-four__drawer-interior-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    isolation: isolate;
+}
+
+#door-four-laboratory .door-four__drawer-interior-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+}
+
+#door-four-laboratory .door-four__interior-back {
+    border-radius: 30px;
+}
+
+#door-four-laboratory .door-four__interior-back:hover {
+    background: rgba(255, 211, 106, .04);
+    box-shadow: 0 0 8px 2px rgba(255, 202, 83, .35);
+}
+
+#door-four-laboratory .door-four__interior-tab {
+    border-radius: 20px;
+}
+
+#door-four-laboratory .door-four__interior-tab:hover {
+    background: rgba(255, 211, 106, .10);
+    box-shadow: 0 0 13px 3px rgba(255, 202, 83, .55);
+}
+
+#door-four-laboratory .door-four__interior-tab.is-active {
+    border-color: rgba(255, 219, 126, .75);
+    box-shadow: 0 0 11px 2px rgba(255, 202, 83, .48);
+}
+
+/* END SHARED DRAWER INTERIOR LANDING PAGE */
+
+/* BEGIN LIVING SENTENCE — scoped to Examples drawer; illustration and hotspots untouched */
+#door-four-laboratory .living-sentence[hidden] {
+    display: none !important
+}
+
+#door-four-laboratory .living-sentence {
+    max-width: 1150px;
+    margin: 20px auto 36px;
+    padding: clamp(18px, 3vw, 34px);
+    border: 2px solid #a17b45;
+    border-radius: 16px;
+    background: #f8f0df;
+    color: #33251b;
+    box-shadow: 0 10px 30px #20120826;
+    font-family: Georgia, serif
+}
+
+#door-four-laboratory .living-sentence__eyebrow {
+    letter-spacing: .15em;
+    font: 700 .8rem Arial, sans-serif;
+    color: #79562c
+}
+
+#door-four-laboratory .living-sentence h3 {
+    margin: 8px 0;
+    font-size: clamp(1.5rem, 3vw, 2.3rem)
+}
+
+#door-four-laboratory .living-sentence__output {
+    background: #fffaf0;
+    border: 1px solid #c6a775;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0
+}
+
+#door-four-laboratory .living-sentence__russian {
+    font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+    line-height: 1.7;
+    font-weight: bold;
+    color: #492c18
+}
+
+#door-four-laboratory .living-sentence__english {
+    font: 1.02rem/1.6 Arial, sans-serif;
+    color: #5d5043;
+    margin: 10px 0
+}
+
+#door-four-laboratory .living-sentence__people {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px
+}
+
+#door-four-laboratory .living-sentence__person {
+    background: #fffaf2;
+    border: 1px solid #ccb88d;
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 0
+}
+
+#door-four-laboratory .living-sentence__person h4 {
+    margin: 0 0 12px;
+    color: #63401d;
+    font-size: 1.2rem
+}
+
+#door-four-laboratory .living-sentence__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px
+}
+
+#door-four-laboratory .living-sentence label {
+    display: grid;
+    gap: 5px;
+    font: 700 .84rem/1.4 Arial, sans-serif;
+    color: #4b3b2c
+}
+
+#door-four-laboratory .living-sentence select,
+#door-four-laboratory .living-sentence input {
+    min-width: 0;
+    width: 100%;
+    padding: 9px 7px;
+    border: 1px solid #9d8667;
+    border-radius: 7px;
+    background: white;
+    color: #30261e;
+    font: 1rem Arial, sans-serif
+}
+
+#door-four-laboratory .living-sentence button {
+    border: 1px solid #8b6538;
+    background: #6d492b;
+    color: #fff5df;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font: 700 .88rem Arial, sans-serif
+}
+
+#door-four-laboratory .living-sentence button:hover {
+    background: #875a34
+}
+
+#door-four-laboratory .living-sentence__lens {
+    margin: 20px 0;
+    padding: 16px;
+    background: #eae0c7;
+    border-left: 5px solid #956e34;
+    border-radius: 9px
+}
+
+#door-four-laboratory .living-sentence__lens-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px
+}
+
+#door-four-laboratory .living-sentence__lens p {
+    font: 1rem/1.55 Arial, sans-serif
+}
+
+@media(max-width:750px) {
+    #door-four-laboratory .living-sentence__people {
+        grid-template-columns: 1fr
+    }
+
+    #door-four-laboratory .living-sentence__fields {
+        grid-template-columns: 1fr 1fr
+    }
+}
+
+/* END LIVING SENTENCE — MILESTONE 1 */
+
+/* ============================================================
+   LIVING SENTENCE — HYBRID ILLUSTRATED DRAWER EXPERIENCE
+   The illustrated landing stays dominant; the workbench opens below.
+   Scoped entirely to Drawer One / Examples.
+   ============================================================ */
+#door-four-laboratory .door-four__drawer-interior {
+    position: relative;
+}
+
+#door-four-laboratory .living-sentence:not([hidden]) {
+    display: block;
+}
+
+/* The spotlight lives INSIDE the illustrated stage. Show it only for Examples. */
+#door-four-laboratory .door-four__drawer-interior-stage .living-sentence__spotlight {
+    display: none;
+}
+
+#door-four-laboratory .door-four__drawer-interior[data-active-drawer="examples"]:not([hidden]) .living-sentence__spotlight:not([hidden]) {
+    display: block;
+}
+
+#door-four-laboratory .living-sentence__spotlight[hidden] {
+    display: none !important;
+}
+
+#door-four-laboratory .door-four__drawer-interior[hidden] .living-sentence__spotlight {
+    display: none !important;
+}
+
+#door-four-laboratory .living-sentence__spotlight {
+    position: absolute;
+    z-index: 3;
+    top: 20%;
+    left: 17%;
+    width: 66%;
+    max-height: 53%;
+    overflow: auto;
+    padding: clamp(10px, 1.4vw, 20px);
+    border: 2px solid #b7955d;
+    border-radius: 13px;
+    background: rgba(249, 239, 213, .94);
+    box-shadow: 0 10px 32px #140d0b75;
+    backdrop-filter: blur(3px);
+    color: #33251b;
+}
+
+#door-four-laboratory .living-sentence__heading h3 {
+    font-size: clamp(1.05rem, 2vw, 1.7rem);
+    margin: 3px 0;
+}
+
+#door-four-laboratory .living-sentence__heading p:last-child {
+    font: clamp(.73rem, 1vw, .9rem)/1.4 Arial, sans-serif;
+    margin: 4px 0;
+}
+
+#door-four-laboratory .living-sentence__output {
+    margin: 8px 0 0;
+    padding: clamp(8px, 1vw, 14px);
+}
+
+#door-four-laboratory .living-sentence__russian {
+    font-size: clamp(1rem, 1.7vw, 1.55rem);
+    line-height: 1.5;
+}
+
+#door-four-laboratory .living-sentence__english {
+    font-size: clamp(.76rem, 1vw, .95rem);
+    margin: 5px 0;
+}
+
+#door-four-laboratory .living-sentence__listen {
+    padding: 6px 10px;
+}
+
+#door-four-laboratory .living-sentence__workbench {
+    display: block;
+    max-width: 1150px;
+    width: calc(100% - 28px);
+    margin: 14px auto 34px;
+    border: 2px solid #a17b45;
+    border-radius: 13px;
+    background: #f8f0df;
+    box-shadow: 0 10px 30px #20120826;
+    color: #33251b;
+}
+
+#door-four-laboratory .living-sentence__workbench>summary {
+    cursor: pointer;
+    padding: 16px 20px;
+    background: #e9d9b8;
+    border-radius: 11px;
+    font: bold 1rem Arial, sans-serif;
+    color: #54351b;
+}
+
+#door-four-laboratory .living-sentence__workbench[open]>summary {
+    border-radius: 11px 11px 0 0;
+}
+
+#door-four-laboratory .living-sentence__workbench-note {
+    padding: 0 20px;
+    font: .9rem/1.5 Arial, sans-serif;
+}
+
+#door-four-laboratory .living-sentence__people,
+#door-four-laboratory .living-sentence__lens {
+    margin: 14px 20px;
+}
+
+#door-four-laboratory #living-sentence-reset {
+    margin: 0 20px 20px;
+}
+
+@media(max-width:700px) {
+    #door-four-laboratory .living-sentence__spotlight {
+        top: 19%;
+        left: 7%;
+        width: 86%;
+        max-height: 59%;
+        padding: 8px;
+    }
+
+    #door-four-laboratory .living-sentence__heading .living-sentence__eyebrow {
+        display: none;
+    }
+
+    #door-four-laboratory .living-sentence__heading h3 {
+        font-size: 1rem;
+    }
+
+    #door-four-laboratory .living-sentence__heading p:last-child {
+        display: none;
+    }
+
+    #door-four-laboratory .living-sentence__russian {
+        font-size: .95rem;
+    }
+
+    #door-four-laboratory .living-sentence__english {
+        font-size: .75rem;
+    }
+}
+
+/* BEGIN LIVING SENTENCE — ALL STYLES STRICTLY INSIDE ILLUSTRATED EXAMPLES STAGE */
+#door-four-laboratory .ls-scene[hidden],
+#door-four-laboratory .door-four__drawer-interior[hidden] .ls-scene {
+    display: none !important
+}
+
+#door-four-laboratory .ls-scene {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    font-family: Georgia, serif;
+    color: #1c2635;
+}
+
+#door-four-laboratory .ls-scene * {
+    box-sizing: border-box
+}
+
+#door-four-laboratory .ls-panel {
+    position: absolute;
+    pointer-events: auto;
+    background: rgba(245, 235, 213, .75);
+    border: 1px solid rgba(244, 206, 134, .8);
+    border-radius: 1.2%;
+    box-shadow: 0 6px 19px #170b0555, inset 0 1px 0 #fff8;
+    backdrop-filter: blur(2px);
+    overflow: hidden;
+    padding: 1.5%;
+}
+
+#door-four-laboratory .ls-main {
+    left: 2.4%;
+    top: 15.6%;
+    width: 61.7%;
+    height: 36.7%
+}
+
+#door-four-laboratory .ls-discovery {
+    left: 2.4%;
+    top: 54%;
+    width: 61.7%;
+    height: 27.8%
+}
+
+#door-four-laboratory .ls-expansion {
+    left: 66.5%;
+    top: 4%;
+    width: 31.2%;
+    height: 77.8%;
+    padding: 1.05%;
+    display: flex;
+    flex-direction: column;
+    gap: .55%;
+}
+
+#door-four-laboratory .ls-kicker {
+    font: 700 clamp(8px, .78vw, 12px) Arial, sans-serif;
+    letter-spacing: .12em;
+    color: #67421c
+}
+
+#door-four-laboratory .ls-panel h3 {
+    margin: .4% 0 0;
+    font: 700 clamp(13px, 1.55vw, 24px) Georgia, serif;
+    color: #132c48
+}
+
+#door-four-laboratory .ls-main h3 span {
+    font-weight: 400
+}
+
+#door-four-laboratory .ls-tip {
+    font: clamp(9px, .84vw, 13px) Arial, sans-serif;
+    margin: .5% 0 1.2%;
+    color: #473d33
+}
+
+#door-four-laboratory .ls-paper {
+    background: rgba(255, 251, 240, .92);
+    border: 1px solid #d6b981;
+    border-radius: 9px;
+    padding: 1.2%;
+}
+
+#door-four-laboratory .ls-sentence-box {
+    height: 48%;
+    overflow-y: auto;
+    padding: 1.4% 2%
+}
+
+#door-four-laboratory .ls-russian {
+    font: 700 clamp(12px, 1.35vw, 21px)/1.5 Georgia, serif;
+    color: #392b21
+}
+
+#door-four-laboratory .ls-english {
+    font: clamp(9px, .84vw, 13px)/1.35 Arial, sans-serif;
+    color: #655748;
+    margin-top: 1%
+}
+
+#door-four-laboratory .ls-word {
+    display: inline;
+    border: 0;
+    border-bottom: 1px dashed #276497;
+    background: transparent;
+    color: inherit;
+    padding: 0 1px;
+    font: inherit;
+    cursor: pointer;
+    border-radius: 2px
+}
+
+#door-four-laboratory .ls-word:hover,
+#door-four-laboratory .ls-word:focus-visible {
+    background: #d8ebff;
+    color: #092f58;
+    box-shadow: 0 0 0 2px #b8d8f4
+}
+
+#door-four-laboratory .ls-actions {
+    display: flex;
+    gap: 1.5%;
+    justify-content: center;
+    margin-top: 1.4%;
+    flex-wrap: wrap
+}
+
+#door-four-laboratory .ls-scene button:not(.ls-word) {
+    font: 700 clamp(9px, .88vw, 13px) Arial, sans-serif;
+    cursor: pointer
+}
+
+#door-four-laboratory .ls-actions button,
+#door-four-laboratory .ls-form-actions button {
+    border: 1px solid #d3ad64;
+    border-radius: 6px;
+    background: linear-gradient(#21466d, #102a49);
+    color: #fff6dc;
+    padding: 1.2% 2.4%;
+    box-shadow: 0 2px 4px #0005
+}
+
+#door-four-laboratory .ls-scene button:disabled {
+    opacity: .5;
+    cursor: not-allowed
+}
+
+#door-four-laboratory .ls-discovery-paper {
+    height: 62%;
+    overflow: auto;
+    font: clamp(10px, 1vw, 15px)/1.4 Arial, sans-serif;
+    padding: 1.5% 2%;
+    margin-top: 1.5%
+}
+
+#door-four-laboratory .ls-ribbon {
+    margin: 0;
+    background: linear-gradient(95deg, #0e263f, #173e65 75%, #0b2139);
+    border: 1px solid #ba8a38;
+    color: #f9dfa0;
+    text-align: center;
+    border-radius: 16px;
+    padding: 1.8% 2%;
+    font: 700 clamp(11px, 1.12vw, 18px) Georgia, serif;
+    box-shadow: 0 2px 5px #0007
+}
+
+#door-four-laboratory .ls-ribbon span {
+    float: right;
+    font: 700 .8em Arial, sans-serif
+}
+
+#door-four-laboratory .ls-small {
+    margin: 1% 0;
+    font: clamp(8px, .78vw, 12px) Arial, sans-serif;
+    text-align: center
+}
+
+#door-four-laboratory .ls-choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px
+}
+
+#door-four-laboratory .ls-choice-grid button {
+    border: 1px solid #cda767;
+    border-radius: 7px;
+    background: rgba(255, 248, 226, .93);
+    color: #173454;
+    text-align: left;
+    padding: 7px 4px;
+    min-height: 32px
+}
+
+#door-four-laboratory .ls-choice-grid button:hover {
+    background: #d9e8f5
+}
+
+#door-four-laboratory .ls-subhead {
+    font-size: clamp(10px, .96vw, 15px);
+    margin-top: 2%
+}
+
+#door-four-laboratory .ls-additions {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    background: rgba(255, 249, 230, .45);
+    border-radius: 6px;
+    padding: 1%;
+}
+
+#door-four-laboratory .ls-added {
+    display: flex;
+    justify-content: space-between;
+    gap: 3px;
+    background: #fff7e5e8;
+    border: 1px solid #caa96f;
+    border-radius: 5px;
+    padding: 4px;
+    margin-bottom: 4px;
+    font: clamp(8px, .77vw, 12px) Arial, sans-serif
+}
+
+#door-four-laboratory .ls-added span {
+    min-width: 0;
+    overflow-wrap: anywhere
+}
+
+#door-four-laboratory .ls-added small {
+    display: block;
+    color: #68523d
+}
+
+#door-four-laboratory .ls-added>div {
+    display: flex;
+    gap: 2px;
+    align-items: center
+}
+
+#door-four-laboratory .ls-added button {
+    border: 1px solid #c5a66b;
+    border-radius: 4px;
+    background: #163b60;
+    color: white;
+    padding: 3px 4px;
+    white-space: nowrap
+}
+
+#door-four-laboratory .ls-added button[data-ls-remove] {
+    background: #783528
+}
+
+#door-four-laboratory .ls-empty {
+    font: italic clamp(9px, .75vw, 12px) Arial, sans-serif;
+    text-align: center
+}
+
+#door-four-laboratory .ls-editor {
+    background: #fff7e9;
+    border: 1px solid #a77e43;
+    border-radius: 7px;
+    padding: 6px;
+    max-height: 42%;
+    overflow-y: auto;
+    font: clamp(9px, .8vw, 13px) Arial, sans-serif
+}
+
+#door-four-laboratory .ls-editor[hidden] {
+    display: none !important
+}
+
+#door-four-laboratory .ls-editor form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 5px
+}
+
+#door-four-laboratory .ls-editor label {
+    display: grid;
+    gap: 2px;
+    color: #1c3552
+}
+
+#door-four-laboratory .ls-editor select,
+#door-four-laboratory .ls-editor input {
+    width: 100%;
+    min-width: 0;
+    background: white;
+    color: #1c2635;
+    border: 1px solid #bba47d;
+    border-radius: 4px;
+    padding: 4px;
+    font: inherit
+}
+
+#door-four-laboratory .ls-form-actions {
+    grid-column: 1/-1;
+    display: flex;
+    gap: 5px
+}
+
+#door-four-laboratory .ls-form-actions button {
+    padding: 6px 8px
+}
+
+@media(max-width:800px) {
+    #door-four-laboratory .ls-scene .ls-tip {
+        display: none
+    }
+
+    #door-four-laboratory .ls-main {
+        top: 15%;
+        height: 37%
+    }
+
+    #door-four-laboratory .ls-russian {
+        font-size: clamp(9px, 1.3vw, 14px)
+    }
+
+    #door-four-laboratory .ls-choice-grid button {
+        padding: 3px 2px;
+        min-height: 18px
+    }
+
+    #door-four-laboratory .ls-actions button {
+        padding: 2px 4px
+    }
+}
+
+/* END LIVING SENTENCE */
+
+/* Living Sentence — five compact, independent starting-sentence selectors */
+#door-four-laboratory .ls-presets {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px 7px;
+    margin: 1% 0 .5%;
+    padding: 0;
+    border: 0;
+    min-width: 0
+}
+
+#door-four-laboratory .ls-presets legend {
+    float: left;
+    margin-right: 7px;
+    padding: 3px 0;
+    color: #173454;
+    font: 700 clamp(8px, .75vw, 12px) Arial, sans-serif
+}
+
+#door-four-laboratory .ls-presets label {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 5px;
+    border: 1px solid #b89b68;
+    border-radius: 12px;
+    background: rgba(255, 249, 233, .85);
+    font: 700 clamp(8px, .72vw, 11px) Arial, sans-serif;
+    color: #163657;
+    cursor: pointer;
+    white-space: nowrap
+}
+
+#door-four-laboratory .ls-presets label:has(input:checked) {
+    background: #183b60;
+    color: #fff1c8;
+    border-color: #e0bb72
+}
+
+#door-four-laboratory .ls-presets input {
+    accent-color: #d5a550;
+    margin: 0;
+    width: 12px;
+    height: 12px
+}
+
+#door-four-laboratory .ls-main .ls-tip {
+    margin: .4% 0 .6%
+}
+
+#door-four-laboratory .ls-main .ls-sentence-box {
+    height: 39%;
+}
+
+/* ==========================================
+   LIVING SENTENCE — WORKSHOP HEADING COLOR
+   ========================================== */
+
+#door-four-laboratory .ls-expansion h3.ls-ribbon {
+    color: #F5D58A;
+}
+
+#door-four-laboratory .ls-expansion h3.ls-ribbon span {
+    color: #F5D58A;
+}
+/* ==========================================================
+   LIVING SENTENCE — COMPACT SELECTORS / ALWAYS-VISIBLE ACTIONS
+   2026-10-23. Scoped to the illustrated Laboratory workspace.
+   Keeps the current artwork, navigation hotspots, and transparency.
+   ========================================================== */
+#door-four-laboratory .ls-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+#door-four-laboratory .ls-main .ls-kicker,
+#door-four-laboratory .ls-main > h3,
+#door-four-laboratory .ls-main .ls-presets,
+#door-four-laboratory .ls-main .ls-tip,
+#door-four-laboratory .ls-main .ls-actions {
+    flex-shrink: 0;
+}
+
+#door-four-laboratory .ls-main .ls-presets {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 3px;
+    margin: .4% 0;
+    min-width: 0;
+}
+
+#door-four-laboratory .ls-main .ls-presets legend {
+    float: none;
+    padding: 0;
+    margin: 0 4px 0 0;
+    font-size: clamp(7px, .66vw, 10px);
+    white-space: nowrap;
+}
+
+#door-four-laboratory .ls-main .ls-presets label {
+    gap: 2px;
+    padding: 2px 4px;
+    font-size: clamp(7px, .65vw, 10px);
+    white-space: nowrap;
+}
+
+#door-four-laboratory .ls-main .ls-presets input {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+}
+
+#door-four-laboratory .ls-main .ls-tip {
+    margin: .2% 0 .4%;
+    line-height: 1.15;
+}
+
+#door-four-laboratory .ls-main .ls-sentence-box {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    padding: .8% 1.5%;
+}
+
+#door-four-laboratory .ls-main .ls-russian {
+    font-size: clamp(11px, 1.12vw, 17px);
+    line-height: 1.32;
+}
+
+#door-four-laboratory .ls-main .ls-actions {
+    margin-top: .6%;
+    flex-wrap: nowrap;
+    gap: 1.2%;
+}
+
+#door-four-laboratory .ls-main .ls-actions button {
+    padding: .65% 1.8%;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+/* END LIVING SENTENCE — COMPACT ACTION VISIBILITY */
+
+/* ==========================================================
+   LIVING SENTENCE — MORE READING ROOM / COMPACT DISCOVERY
+   Transfer vertical space within the existing illustrated scene.
+   No change to the right workshop, transparency, or navigation.
+   ========================================================== */
+#door-four-laboratory .ls-main {
+    height: 43.2%; /* formerly 36.7%: room for more Russian */
+}
+
+#door-four-laboratory .ls-discovery {
+    top: 60.5%; /* formerly 54% */
+    height: 21.3%; /* formerly 27.8%; bottom stays aligned */
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#door-four-laboratory .ls-discovery .ls-kicker,
+#door-four-laboratory .ls-discovery > h3 {
+    flex: 0 0 auto;
+}
+
+#door-four-laboratory .ls-discovery .ls-discovery-paper {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    overflow-y: auto;
+    margin-top: .7%;
+    padding: 1% 1.6%;
+}
+
+@media (max-width: 800px) {
+    #door-four-laboratory .ls-main {
+        height: 43.2%;
+    }
+}
+/* END LIVING SENTENCE — MORE READING ROOM */
+
+/* ==========================================================
+   LIVING SENTENCE — SINGLE-LINE DISCOVERY HEADING
+   Reclaim header space for the explanation; scoped to Lab.
+   ========================================================== */
+#door-four-laboratory .ls-discovery > .ls-discovery-heading {
+    margin: 0;
+    color: #173b60;
+    font: 700 clamp(13px, 1.28vw, 20px)/1.2 Georgia, serif;
+    letter-spacing: 0;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+#door-four-laboratory .ls-discovery .ls-discovery-paper {
+    margin-top: .65%;
+}
+/* END SINGLE-LINE DISCOVERY HEADING */

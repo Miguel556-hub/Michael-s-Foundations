@@ -6059,6 +6059,65 @@ document
         'next': 'Next Experiment — available when experiments are connected.'
     };
     // BEGIN UNDER THE MICROSCOPE — interactive first experiment
+    // BEGIN DRAWERS SECONDARY SCREEN — independent of Microscope
+    const interior = lab.querySelector('.door-four__drawer-interior');
+    const interiorTabs = [...interior.querySelectorAll('[data-drawer-tab]')];
+    const sentenceSpotlight = interior.querySelector('#ls-scene');
+    function hideSentenceSpotlight() { if (sentenceSpotlight) sentenceSpotlight.hidden = true; }
+    function showDrawerInterior(drawerKey) {
+        drawers.hidden = true;
+        stage.hidden = true;
+        microscope.hidden = true;
+        returnButton.hidden = true;
+        status.hidden = true;
+        interior.hidden = false;
+        interiorTabs.forEach(tab => {
+            const selected = tab.dataset.drawerTab === drawerKey;
+            tab.classList.toggle('is-active', selected);
+            tab.setAttribute('aria-pressed', String(selected));
+        });
+        interior.dataset.activeDrawer = drawerKey;
+        if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
+        const livingSentence = null;
+        if (livingSentence) livingSentence.hidden = drawerKey !== 'examples';
+        interior.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    function returnFromDrawerInterior(to) {
+        hideSentenceSpotlight();
+        interior.hidden = true;
+        const livingSentence = null;
+        if (livingSentence) livingSentence.hidden = true;
+        if (to === 'drawers') {
+            showDrawers();
+        } else {
+            closeDrawers();
+        }
+    }
+    const drawers = lab.querySelector('.door-four__drawers');
+    function showDrawers() {
+        hideSentenceSpotlight();
+        interior.hidden = true;
+        const livingSentence = null;
+        if (livingSentence) livingSentence.hidden = true;
+        stage.hidden = true;
+        microscope.hidden = true;
+        returnButton.hidden = true;
+        status.hidden = true;
+        drawers.hidden = false;
+        drawers.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    function closeDrawers() {
+        hideSentenceSpotlight();
+        interior.hidden = true;
+        const livingSentence = null;
+        if (livingSentence) livingSentence.hidden = true;
+        drawers.hidden = true;
+        stage.hidden = false;
+        returnButton.hidden = false;
+        status.hidden = true;
+        lab.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    // END DRAWERS SECONDARY SCREEN
     const microscope = lab.querySelector('.door-four__microscope');
     const stage = lab.querySelector('.door-four__stage');
     const returnButton = lab.querySelector('.door-four__return');
@@ -6235,10 +6294,18 @@ document
     // END MICROSCOPE — GUIDED / YOU CHOOSE
     // END UNDER THE MICROSCOPE — interactive first experiment
     lab.addEventListener('click', (event) => {
-        const hotspot = event.target.closest('[data-lab-action]');
+        // The shared drawer workspace has its own navigation attributes.
+        // Delegate all three hotspot types so the six illustrated buttons work.
+        const hotspot = event.target.closest('[data-lab-action], [data-drawer-tab], [data-drawer-nav]');
         if (!hotspot || !lab.contains(hotspot)) return;
         const action = hotspot.dataset.labAction;
         if (action === 'microscope') { showMicroscope(); return; }
+        if (action === 'drawers') { showDrawers(); return; }
+        if (hotspot.dataset.drawerTab) { showDrawerInterior(hotspot.dataset.drawerTab); return; }
+        if (hotspot.dataset.drawerNav) { returnFromDrawerInterior(hotspot.dataset.drawerNav); return; }
+        const drawerActions = {'drawer-examples':'examples', 'drawer-special':'special', 'drawer-real':'real', 'drawer-notes':'notes'};
+        if (drawerActions[action]) { showDrawerInterior(drawerActions[action]); return; }
+        if (action === 'drawers-back') { closeDrawers(); return; }
         status.textContent = messages[action] || 'This discovery is being prepared.';
         status.hidden = false;
     });
@@ -9865,3 +9932,83 @@ function initPets() {
 // ==================================================
 //    END — DOOR 1 FAMILY IDENTITY CARD (Screens 1–4)
 // ==================================================
+
+// ============================================================
+
+// BEGIN LIVING SENTENCE — isolated three-panel workspace
+(() => {
+ const scene=document.getElementById('ls-scene');if(!scene)return;
+ const $=id=>scene.querySelector('#'+id);
+ const lex={brother:['брат','братья','brother','m'],sister:['сестра','сёстры','sister','f'],uncle:['дядя','дяди','uncle','m'],aunt:['тётя','тёти','aunt','f'],father:['отец','отцы','father','m'],mother:['мама','мамы','mother','f'],son:['сын','сыновья','son','m'],daughter:['дочь','дочери','daughter','f'],grandfather:['дедушка','дедушки','grandfather','m'],grandmother:['бабушка','бабушки','grandmother','f'],cousin_m:['двоюродный брат','двоюродные братья','male cousin','m'],cousin_f:['двоюродная сестра','двоюродные сёстры','female cousin','f']};
+ const nameBank={m:['Иван','Алексей','Дмитрий'],f:['Анна','Мария','Елена']};
+ const nameGender=name=>Object.entries(nameBank).find(([,names])=>names.includes(name))?.[0];
+ const nameChoices=(gender,current)=>select('name',nameBank[gender].map(name=>[name,name]),nameBank[gender].includes(current)?current:nameBank[gender][0]);
+ const nameForRelationship=(rel,current)=>{const gender=lex[rel][3];return nameGender(current)===gender?current:nameBank[gender][0];};
+ const poss={my:['мой','моя','мои','my'],your:['твой','твоя','твои','your'],your_formal:['ваш','ваша','ваши','your (formal)'],his:['его','его','его','his'],her:['её','её','её','her'],our:['наш','наша','наши','our'],their:['их','их','их','their']};
+ const fam={my:['моей','my'],your:['твоей','your'],your_formal:['вашей','your (formal)'],our:['нашей','our'],their:['их','their']};
+ const desc={oldest:['самый старший','самая старшая','самые старшие','oldest'],youngest:['самый младший','самая младшая','самые младшие','youngest'],tallest:['самый высокий','самая высокая','самые высокие','tallest'],shortest:['самый низкий','самая низкая','самые низкие','shortest']};
+ const nums=['ноль','один','два','три','четыре','пять','шесть','семь','восемь','девять','десять','одиннадцать','двенадцать','тринадцать','четырнадцать','пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать','двадцать'];
+ const tens=['','','двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят','восемьдесят','девяносто'];
+ const number=n=>n<=20?nums[n]:n<100?(tens[Math.floor(n/10)]+(n%10?' '+nums[n%10]:'')):String(n);
+ const years=n=>{let k=n%100;return k>=11&&k<=14?'лет':n%10===1?'год':n%10>=2&&n%10<=4?'года':'лет'};
+ // Five independently editable starting points. Each selection has its own state and undo stack.
+ const makePerson=(id,owner,rel,name,descriptor,family)=>({id,owner,rel,name,count:1,descriptor,family});
+ const presets=[
+  {title:'Introductions',hint:'Meet two family members. Change names, relationships and ownership.',people:[makePerson('p1','my','brother','Иван','oldest','our'),makePerson('p2','your','sister','Анна','youngest','your')],additions:[]},
+  {title:'Ages',hint:'Explore how ages are expressed. Add comparisons when you are ready.',people:[makePerson('p1','my','brother','Иван','oldest','our')],additions:[{id:'seed-age',type:'age',person:'p1',value:'25'}]},
+  {title:'Heights',hint:'Explore descriptions of height and comparisons.',people:[makePerson('p1','my','sister','Анна','tallest','our')],additions:[{id:'seed-height',type:'height',person:'p1',value:'170'}]},
+  {title:'Our Families',hint:'Change family references and add people to compare families.',people:[makePerson('p1','our','brother','Алексей','youngest','our'),makePerson('p2','their','sister','Мария','oldest','their')],additions:[]},
+  {title:'Connections',hint:'Explore several relationships and build a family story.',people:[makePerson('p1','my','cousin_f','Елена','youngest','our'),makePerson('p2','her','uncle','Дмитрий','oldest','their')],additions:[]}
+ ];
+ let activePreset=0;
+ const initial=(index=activePreset)=>({people:JSON.parse(JSON.stringify(presets[index].people)),additions:JSON.parse(JSON.stringify(presets[index].additions))});
+ const sessions=presets.map((_,i)=>({state:initial(i),history:[],seq:0,discovery:''}));
+ let state=sessions[0].state,history=sessions[0].history,editing=null,mode=null,seq=0;
+ function saveSession(){const current=sessions[activePreset];current.state=state;current.history=history;current.seq=seq;current.discovery=$('ls-discovery').innerHTML;}
+ function choosePreset(index){if(index===activePreset||!sessions[index])return;saveSession();activePreset=index;const session=sessions[index];state=session.state;history=session.history;seq=session.seq;editing=null;mode=null;$('ls-editor').hidden=true;$('ls-discovery').innerHTML=session.discovery||('Sentence '+(index+1)+' — '+presets[index].title+'. '+presets[index].hint);$('ls-preset-hint').textContent=presets[index].hint;render();}
+ scene.querySelectorAll('input[name="ls-preset"]').forEach(radio=>radio.addEventListener('change',()=>{if(radio.checked)choosePreset(Number(radio.value));}));
+ const clone=x=>JSON.parse(JSON.stringify(x));
+ const button=(text,kind,id,field)=>`<button type="button" class="ls-word" data-ls-person="${id}" data-ls-field="${field}" title="Change ${kind}">${text}</button>`;
+ const pinfo=p=>{let g=lex[p.rel][3],pl=p.count>1,k=pl?2:g==='m'?0:1;return {g,pl,k,pro:pl?'они':g==='m'?'он':'она',enpro:pl?'they':g==='m'?'he':'she'};};
+ function personRu(p){const a=pinfo(p),l=lex[p.rel],d=desc[p.descriptor];return `это ${button(poss[p.owner][a.k]+' '+l[a.pl?1:0],'relationship',p.id,'identity')} ${button(p.name,'name',p.id,'name')}, и ${a.pro} ${button(d[a.k],'description',p.id,'descriptor')} ${button('в '+fam[p.family][0]+' семье','family reference',p.id,'family')}`;}
+ function personEn(p){const a=pinfo(p),l=lex[p.rel];return `this ${a.pl?'group includes':'is'} ${poss[p.owner][3]} ${l[2]}${a.pl?'s':''} ${p.name}, and ${a.enpro} ${a.pl?'are':'is'} the ${desc[p.descriptor][3]} in ${fam[p.family][1]} family`;}
+ const getP=id=>state.people.find(p=>p.id===id);
+ const genitiveName=name=>{if(/а$/i.test(name))return name.slice(0,-1)+'ы';if(/я$/i.test(name))return name.slice(0,-1)+'и';if(/й$/i.test(name))return name.slice(0,-1)+'я';if(/ь$/i.test(name))return name.slice(0,-1)+'я';if(/[бвгджзклмнпрстфхцчшщ]$/i.test(name))return name+'а';return name;};
+ function addition(a){const p=getP(a.person)||state.people[0],name=p?p.name:'этот человек',info=p?pinfo(p):{g:'m'};switch(a.type){
+ case 'age':return {ru:`${info.g==='f'?'ей':'ему'} ${number(+a.value)} ${years(+a.value)}`,en:`${name} is ${a.value} years old`};
+ case 'height':return {ru:`рост ${genitiveName(name)} — ${a.value} см`,en:`${name} is ${a.value} cm tall`};
+ case 'comparison':{const other=getP(a.other)||state.people[1]||p;const words={older:'старше',younger:'младше',taller:'выше',shorter:'ниже'};return {ru:`${name} ${words[a.value]} ${genitiveName(other.name)}`,en:`${name} is ${a.value} than ${other.name}`};}
+ case 'description':{const d=desc[a.value],k=info.k;return {ru:`${info.pro} ${d[k]} в ${fam[a.family||'our'][0]} семье`,en:`${name} is the ${d[3]} in ${fam[a.family||'our'][1]} family`};}
+ case 'family':return {ru:`${info.pro} живёт в ${fam[a.value][0]} семье`,en:`${name} lives in ${fam[a.value][1]} family`};
+ default:return {ru:'',en:''};}}
+ function render(){const base=state.people.map(personRu).join(', а ');const extra=state.additions.map(a=>addition(a).ru).filter(Boolean);$('ls-russian').innerHTML=(base+(extra.length?', а '+extra.join(', а '):'')+'.');$('ls-english').textContent=state.people.map(personEn).join(', while ')+(state.additions.length?'; '+state.additions.map(a=>addition(a).en).join('; '):'')+'.';$('ls-undo').disabled=!history.length;$('ls-reset').disabled=!history.length;
+ $('ls-additions').innerHTML=state.additions.length?state.additions.map(a=>{const v=addition(a);return `<div class="ls-added"><span>${v.en}<small lang="ru">${v.ru}</small></span><div><button type="button" data-ls-edit="${a.id}">✎ Edit</button><button type="button" data-ls-remove="${a.id}">× Remove</button></div></div>`}).join(''):'<p class="ls-empty">Your additions will appear here.</p>';}
+ function commit(message,detail){history.push(clone(state));$('ls-discovery').innerHTML=`<strong>${message}</strong><br>${detail}`;}
+ function changePerson(id,field,value){const p=getP(id);if(!p||String(p[field])===String(value))return;const before=p[field];commit('You changed '+field.replace('rel','relationship')+'.','The Laboratory updates linked Russian words automatically. Watch agreement, pronouns and descriptions change together.');p[field]=field==='count'?Number(value):value;render();}
+ const select=(name,items,current)=>`<label>${name}<select name="${name}">${items.map(([k,v])=>`<option value="${k}" ${String(k)===String(current)?'selected':''}>${v}</option>`).join('')}</select></label>`;
+ const opts=o=>Object.entries(o).map(([k,v])=>[k,v]);
+ const personOpts=()=>state.people.map(p=>[p.id,p.name]);
+ function editPhrase(id,field){const p=getP(id);if(!p)return;editing=null;mode='phrase';let body='';if(field==='identity'){body=select('owner',opts(Object.fromEntries(Object.entries(poss).map(([k,v])=>[k,v[3]]))),p.owner)+select('relationship',opts(Object.fromEntries(Object.entries(lex).map(([k,v])=>[k,v[2]]))),p.rel)+select('count',[[1,'One'],[2,'Two'],[3,'Three']],p.count);}if(field==='name')body=nameChoices(lex[p.rel][3],p.name);if(field==='descriptor')body=select('descriptor',opts(Object.fromEntries(Object.entries(desc).map(([k,v])=>[k,v[3]]))),p.descriptor);if(field==='family')body=select('family',opts(Object.fromEntries(Object.entries(fam).map(([k,v])=>[k,v[1]]))),p.family);$('ls-editor').hidden=false;$('ls-editor').innerHTML=`<strong>✎ Change this phrase</strong><form id="ls-form">${body}<div class="ls-form-actions"><button type="submit">Apply Change</button><button type="button" data-ls-cancel>Cancel</button></div></form>`;$('ls-editor').dataset.person=id;$('ls-editor').dataset.field=field;}
+ function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+ function openAdd(type,existing){mode=type;editing=existing||null;const a=existing?clone(state.additions.find(x=>x.id===existing)): {person:state.people[0].id,other:state.people[1]?.id||state.people[0].id,value:type==='age'?25:type==='height'?175:type==='comparison'?'older':type==='description'?'tallest':'our',family:'our'};
+ let form='';if(type==='person'){form=select('owner',opts(Object.fromEntries(Object.entries(poss).map(([k,v])=>[k,v[3]]))),'my')+select('relationship',opts(Object.fromEntries(Object.entries(lex).map(([k,v])=>[k,v[2]]))),'sister')+select('count',[[1,'One'],[2,'Two'],[3,'Three']],1)+nameChoices('f','Мария');}
+ else {form=select('person',personOpts(),a.person);if(type==='comparison')form+=select('value',opts({older:'Older than',younger:'Younger than',taller:'Taller than',shorter:'Shorter than'}),a.value)+select('other',personOpts(),a.other);if(type==='age'||type==='height')form+=`<label>${type==='age'?'Age in years':'Height in cm'}<input name="value" type="number" min="${type==='age'?0:40}" max="${type==='age'?110:250}" value="${a.value}"></label>`;if(type==='description')form+=select('value',opts(Object.fromEntries(Object.entries(desc).map(([k,v])=>[k,v[3]]))),a.value)+select('family',opts(Object.fromEntries(Object.entries(fam).map(([k,v])=>[k,v[1]]))),a.family);if(type==='family')form+=select('value',opts(Object.fromEntries(Object.entries(fam).map(([k,v])=>[k,v[1]]))),a.value);}
+ $('ls-editor').hidden=false;$('ls-editor').dataset.field='';$('ls-editor').innerHTML=`<strong>${editing?'✎ Edit':'✚ Add'} ${type}</strong><form id="ls-form">${form}<div class="ls-form-actions"><button type="submit">${editing?'Save Changes':'Add This Information'}</button><button type="button" data-ls-cancel>Cancel</button></div></form>`;}
+ function syncNamePicker(form){
+   const relationship=form.querySelector('select[name="relationship"]');
+   const name=form.querySelector('select[name="name"]');
+   if(!relationship||!name)return;
+   const gender=lex[relationship.value]?.[3];
+   if(!gender)return;
+   const selected=name.value;
+   name.innerHTML=nameBank[gender].map(n=>`<option value="${n}">${n}</option>`).join('');
+   name.value=nameBank[gender].includes(selected)?selected:nameBank[gender][0];
+ }
+ scene.addEventListener('click',e=>{const w=e.target.closest('[data-ls-person]');if(w){editPhrase(w.dataset.lsPerson,w.dataset.lsField);return;}const add=e.target.closest('[data-ls-add]');if(add){openAdd(add.dataset.lsAdd);return;}const ed=e.target.closest('[data-ls-edit]');if(ed){const a=state.additions.find(x=>x.id===ed.dataset.lsEdit);if(a)openAdd(a.type,a.id);return;}const rm=e.target.closest('[data-ls-remove]');if(rm){const a=state.additions.find(x=>x.id===rm.dataset.lsRemove);if(a){commit('Addition removed.','The entire expression was removed without leaving broken punctuation.');state.additions=state.additions.filter(x=>x.id!==a.id);render();}return;}if(e.target.closest('[data-ls-cancel]')){ $('ls-editor').hidden=true;}});
+ scene.addEventListener('change',e=>{const form=e.target.closest('#ls-form');if(form){if(e.target.name==='relationship')syncNamePicker(form);}});
+ scene.addEventListener('submit',e=>{if(e.target.id!=='ls-form')return;e.preventDefault();const d=Object.fromEntries(new FormData(e.target));if(mode==='phrase'){const id=$('ls-editor').dataset.person;const field=$('ls-editor').dataset.field;const p=getP(id);if(p){const updates=Object.entries(d).map(([k,v])=>[k==='relationship'?'rel':k,k==='count'?Number(v):v]);const changed=updates.filter(([k,v])=>String(p[k])!==String(v));if(changed.length){commit('The sentence has changed.','Russian agreement adjusts to match the relationship, number and meaning you selected.');changed.forEach(([k,v])=>p[k]=v);if(changed.some(([k])=>k==='rel'))p.name=nameForRelationship(p.rel,p.name);}}}else if(mode==='person'){commit('A new person was added.','The new family member becomes part of the Living Sentence and can be clicked and changed.');state.people.push({id:'p'+(++seq+2),owner:d.owner,rel:d.relationship,count:+d.count,name:nameForRelationship(d.relationship,d.name),descriptor:'youngest',family:'our'});}else{if(editing){const a=state.additions.find(x=>x.id===editing);if(a){commit('Addition updated.','The Russian expression has been reconstructed from your choices.');Object.assign(a,d);}}else{commit('New information added.','Your sentence has grown. This addition can be edited or removed independently.');state.additions.push({id:'a'+(++seq),type:mode,...d});}}$('ls-editor').hidden=true;render();});
+ $('ls-listen').addEventListener('click',()=>{if(typeof speakRussian==='function')speakRussian($('ls-russian').textContent);});
+ $('ls-undo').addEventListener('click',()=>{if(!history.length)return;state=history.pop();$('ls-discovery').textContent='Last change undone. Your earlier choices have been preserved.';$('ls-editor').hidden=true;render();});
+ $('ls-reset').addEventListener('click',()=>{if(!history.length)return;state=initial();history=[];$('ls-editor').hidden=true;$('ls-discovery').textContent='Starting sentence restored. All additions have been cleared.';render();});render();
+})();
+// END LIVING SENTENCE
