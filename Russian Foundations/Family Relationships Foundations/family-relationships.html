@@ -6531,6 +6531,40 @@ LESSON 2 — EXTENDED FAMILY
               </section>
               <!-- END DRAWER THREE — SIGNS EXPLORER -->
 
+
+              <!-- BEGIN DRAWER THREE — MESSAGES (INTERACTIVE CONVERSATION) -->
+              <section class="rw-messages" id="rw-messages" aria-label="Family Messages" hidden>
+                <header class="rw-messages__header"><h3>MESSAGES <span lang="ru">— Сообщения</span></h3><p>Choose a conversation. Watch the messages come to life.</p></header>
+                <div class="rw-messages__layout">
+                  <div class="rw-messages__controls">
+                    <fieldset class="rw-messages__choices"><legend>FAMILY CONVERSATIONS</legend>
+                      <label><input type="radio" name="rw-message-choice" value="0" checked><span><b>01</b> Dinner at Grandma's <small lang="ru">Ужин у бабушки</small></span></label>
+                      <label><input type="radio" name="rw-message-choice" value="1"><span><b>02</b> Family Weekend Plans <small lang="ru">Планы на выходные</small></span></label>
+                      <label><input type="radio" name="rw-message-choice" value="2"><span><b>03</b> Grandpa's Birthday <small lang="ru">День рождения дедушки</small></span></label>
+                    </fieldset>
+                    <section class="rw-messages__discovery" aria-label="Language Discovery"><h4>✦ DISCOVERY PANEL</h4><p id="rw-messages-discovery">Select any message bubble to discover its meaning and hear it spoken.</p></section>
+                    <section class="rw-messages__composer" aria-label="Response Composer"><h4>YOUR RESPONSE</h4><p id="rw-messages-instruction">Choose a reply to preview it in the conversation.</p><div id="rw-messages-replies" class="rw-messages__replies" role="group" aria-label="Choose your Russian reply"></div><div class="rw-messages__composer-buttons"><button type="button" id="rw-messages-clear">CLEAR</button><button type="button" id="rw-messages-send">SEND ➤</button><button type="button" id="rw-messages-rewind">↶ REWIND</button></div></section>
+                  </div>
+                  <div class="rw-messages__phone-area">
+                    <div class="rw-messages__phone">
+                      <div class="rw-messages__screen" aria-label="Interactive family messenger">
+                        <div class="rw-messages__contact"><span class="rw-messages__avatar" aria-hidden="true">👵</span><span><strong id="rw-messages-contact">Бабушка</strong><small>Family Messenger</small></span></div>
+                        <div class="rw-messages__thread" id="rw-messages-thread" aria-live="polite"></div>
+                        <div class="rw-messages__phone-bottom">● &nbsp; Family Messenger &nbsp; ●</div>
+                      </div>
+                    </div>
+                    <section class="rw-messages__grammar" aria-label="Message-specific language discoveries">
+                      <div class="rw-messages__grammar-heading"><h4>✦ LOOK CLOSER — HOW DOES IT WORK?</h4><button type="button" id="rw-messages-grammar-toggle" aria-expanded="false" aria-controls="rw-messages-grammar-body">Explore this message ▾</button></div>
+                      <div id="rw-messages-grammar-body" class="rw-messages__grammar-body" hidden>
+                        <p class="rw-messages__grammar-prompt">Select a conversation bubble to explore its Russian.</p>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+                <footer class="rw-messages__footer"><button type="button" id="rw-messages-back">← Back to Explorer's Desk</button></footer>
+              </section>
+              <!-- END DRAWER THREE — MESSAGES (INTERACTIVE CONVERSATION) -->
+
               <!-- BEGIN LIVING SENTENCE — THREE-PANEL ILLUSTRATED WORKSPACE -->
               <div class="ls-scene" id="ls-scene" hidden>
                 <section class="ls-panel ls-main" aria-label="The Living Sentence">

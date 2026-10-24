@@ -18357,3 +18357,104 @@ h1 {
 @media(max-width:900px){#door-four-laboratory .rw-signs__choices{grid-template-columns:repeat(2,minmax(0,1fr))}#door-four-laboratory .rw-signs__workspace{grid-template-columns:1fr}#door-four-laboratory .rw-signs__choice{min-height:85px}}
 @media(prefers-reduced-motion:reduce){#door-four-laboratory .rw-signs__choice{transition:none}}
 /* END DRAWER THREE — SIGNS EXPLORER */
+
+
+/* BEGIN DRAWER THREE — MESSAGES / CHECKPOINT ONE — fully isolated */
+#door-four-laboratory .rw-messages[hidden]{display:none!important}
+#door-four-laboratory .rw-messages{position:absolute;inset:0 0 -40px;z-index:13;overflow:auto;background:radial-gradient(ellipse at 50% 0%,#173e68,#0a2241 65%,#06152b);color:#f4f8ff;padding:12px clamp(16px,2vw,30px);font-family:Georgia,serif;box-shadow:inset 0 0 0 2px #5e86ae}
+#door-four-laboratory .rw-messages__header{text-align:center;margin-bottom:10px}
+#door-four-laboratory .rw-messages__header h3{font-size:clamp(23px,2.4vw,34px);color:#f9df9f;margin:0;line-height:1.1}
+#door-four-laboratory .rw-messages__header h3 span{font-size:.72em;color:#e5efff}
+#door-four-laboratory .rw-messages__header p{margin:4px 0;color:#c6d8ee;font-size:13px}
+#door-four-laboratory .rw-messages__layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,2.5vw,36px);align-items:start;max-width:1150px;margin:0 auto}
+#door-four-laboratory .rw-messages__controls{display:grid;gap:12px;min-width:0}
+#door-four-laboratory .rw-messages__choices{border:0;margin:0;padding:0;display:grid;gap:8px;min-width:0}
+#door-four-laboratory .rw-messages__choices legend{font:800 12px Arial,sans-serif;letter-spacing:.16em;color:#a7d5ff;margin-bottom:8px}
+#door-four-laboratory .rw-messages__choices label{position:relative;display:block;cursor:pointer}
+#door-four-laboratory .rw-messages__choices input{position:absolute;opacity:0;width:1px;height:1px}
+#door-four-laboratory .rw-messages__choices label>span{display:block;border:1px solid #6889ae;border-radius:12px;padding:10px 13px;background:linear-gradient(115deg,#15385e,#0c2646);box-shadow:0 4px 12px #0005;color:#fff;font:700 clamp(13px,1.4vw,17px) Arial,sans-serif;transition:border-color .15s,background .15s}
+#door-four-laboratory .rw-messages__choices label b{display:inline-grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#264d78;color:#ffe4a2;margin-right:8px;font-size:12px}
+#door-four-laboratory .rw-messages__choices label small{display:block;margin:3px 0 0 43px;color:#a9d1f6;font-size:12px;font-weight:400}
+#door-four-laboratory .rw-messages__choices input:checked+span{border-color:#ffda8c;background:linear-gradient(115deg,#285e92,#12345b);box-shadow:0 0 0 2px #f6d88a55,0 6px 18px #0006}
+#door-four-laboratory .rw-messages__choices input:focus-visible+span{outline:3px solid #fff;outline-offset:3px}
+#door-four-laboratory .rw-messages__discovery,#door-four-laboratory .rw-messages__composer{background:#102e51;border:1px solid #51799e;border-radius:12px;padding:12px 16px;box-shadow:inset 0 1px 0 #ffffff16}
+#door-four-laboratory .rw-messages__discovery h4,#door-four-laboratory .rw-messages__composer h4{font:800 12px Arial,sans-serif;letter-spacing:.15em;color:#f8dc9c;margin:0 0 7px}
+#door-four-laboratory .rw-messages__discovery p,#door-four-laboratory .rw-messages__composer p{font:13px/1.5 Arial,sans-serif;color:#d6e7f9;margin:0}
+#door-four-laboratory .rw-messages__composer-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+#door-four-laboratory .rw-messages__composer-buttons button{font:700 11px Arial,sans-serif;padding:7px 10px;background:#234665;color:#d2e2ef;border:1px solid #557494}
+#door-four-laboratory .rw-messages__composer-buttons button:disabled{cursor:not-allowed;opacity:.55}
+#door-four-laboratory .rw-messages__phone-area{text-align:center;min-width:0}
+#door-four-laboratory .rw-messages__phone{position:relative;display:block;width:min(100%,335px);margin:0 auto;isolation:isolate}
+#door-four-laboratory .rw-messages__phone>img{display:block;width:100%;height:auto;user-select:none}
+/* Adjust ONLY these four values after inspecting the actual phone image. */
+#door-four-laboratory .rw-messages__screen{position:absolute;left:10%;right:10%;top:12%;bottom:12%;display:flex;flex-direction:column;overflow:hidden;background:#f7faff;color:#16334f;border-radius:8px;font:12px Arial,sans-serif}
+#door-four-laboratory .rw-messages__contact{flex:none;display:flex;align-items:center;gap:7px;text-align:left;padding:7px;background:#e5f0fb;border-bottom:1px solid #b5cadf}
+#door-four-laboratory .rw-messages__contact strong{display:block;font-size:13px}
+#door-four-laboratory .rw-messages__contact small{display:block;font-size:9px;color:#607991}
+#door-four-laboratory .rw-messages__avatar{display:grid;place-items:center;width:29px;height:29px;background:#c6dff6;border-radius:50%;font-size:18px}
+#door-four-laboratory .rw-messages__thread{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding:11px 8px;scrollbar-width:thin;overscroll-behavior:contain}
+#door-four-laboratory .rw-messages__bubble{max-width:85%;padding:8px 10px;border-radius:13px;text-align:left;line-height:1.35;overflow-wrap:anywhere;font-size:12px}
+#door-four-laboratory .rw-messages__bubble--incoming{align-self:flex-start;background:#d7eafa;color:#17334e;border-bottom-left-radius:3px}
+#door-four-laboratory .rw-messages__bubble--outgoing{align-self:flex-end;background:#1e5c9a;color:#fff;border-bottom-right-radius:3px}
+#door-four-laboratory .rw-messages__phone-bottom{flex:none;background:#e5f0fb;border-top:1px solid #b5cadf;padding:7px;font-size:10px;color:#64809b}
+#door-four-laboratory .rw-messages__fit-note{font:11px/1.4 Arial,sans-serif;color:#a6c6e7;margin:8px auto 0;max-width:360px}
+#door-four-laboratory .rw-messages__footer{text-align:center;margin:9px auto 0}
+#door-four-laboratory .rw-messages__footer button{background:linear-gradient(#f5e0a7,#c59b4b);border:1px solid #fff0c5;color:#182d48;border-radius:22px;padding:8px 20px;font:800 13px Arial,sans-serif}
+@media(max-width:760px){#door-four-laboratory .rw-messages__layout{grid-template-columns:1fr}#door-four-laboratory .rw-messages__phone{width:min(100%,330px)}}
+/* END DRAWER THREE — MESSAGES / CHECKPOINT ONE */
+
+/* DRAWER THREE — MESSAGES: response choices and progressive message states */
+#door-four-laboratory .rw-messages__replies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}
+#door-four-laboratory .rw-messages__reply{display:block;text-align:left;font:600 12px/1.3 Arial,sans-serif;color:#e9f5ff;background:#19416b;border:1px solid #6289b0;border-radius:8px;padding:9px 10px;min-width:0;white-space:normal}
+#door-four-laboratory .rw-messages__reply:hover,#door-four-laboratory .rw-messages__reply--selected{background:#28669e;border-color:#f8d88a;color:#fff}
+#door-four-laboratory .rw-messages__composer-buttons button:not(:disabled){background:#e6c67b;color:#122b46;border-color:#ffecba;cursor:pointer}
+#door-four-laboratory .rw-messages__bubble{border:0;cursor:pointer;font-weight:500;font-family:Arial,sans-serif;flex-shrink:0}
+#door-four-laboratory .rw-messages__bubble--draft{border:2px dashed #f1bb53;opacity:.78}
+#door-four-laboratory .rw-messages__discovery strong{display:block;color:#fff;font:700 14px Arial,sans-serif}
+#door-four-laboratory .rw-messages__discovery-listen{font:700 11px Arial,sans-serif;margin-top:8px;padding:5px 9px;background:#e6c67b;color:#153353;border:0}
+@media(max-width:950px){#door-four-laboratory .rw-messages__replies{grid-template-columns:1fr}}
+
+/* BEGIN DRAWER THREE — MESSAGES: EXPANDED MESSENGER (NO PHONE IMAGE)
+   Scoped overrides: preserve SIGNS, hotspots, and other drawers. */
+#door-four-laboratory .rw-messages__layout{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);max-width:1320px;gap:clamp(18px,3vw,44px)}
+#door-four-laboratory .rw-messages__phone-area{min-width:0;text-align:left;align-self:stretch}
+#door-four-laboratory .rw-messages__phone{width:100%;max-width:none;margin:0;min-height:610px;height:min(72vh,760px);background:transparent;isolation:auto}
+#door-four-laboratory .rw-messages__screen{position:relative;inset:auto;left:auto;right:auto;top:auto;bottom:auto;width:100%;height:100%;min-height:610px;border:2px solid #8aafcf;border-radius:17px;background:#f7faff;box-shadow:0 16px 38px #0006;font:clamp(14px,1.1vw,17px) Arial,sans-serif}
+#door-four-laboratory .rw-messages__contact{padding:15px 18px;gap:12px}
+#door-four-laboratory .rw-messages__contact strong{font-size:18px}
+#door-four-laboratory .rw-messages__contact small{font-size:12px}
+#door-four-laboratory .rw-messages__avatar{width:44px;height:44px;font-size:27px}
+#door-four-laboratory .rw-messages__thread{padding:20px 17px;gap:14px}
+#door-four-laboratory .rw-messages__bubble{max-width:82%;font-size:clamp(15px,1.15vw,18px);line-height:1.45;padding:12px 16px;border-radius:16px}
+#door-four-laboratory .rw-messages__bubble--incoming{border-bottom-left-radius:4px}
+#door-four-laboratory .rw-messages__bubble--outgoing{border-bottom-right-radius:4px}
+#door-four-laboratory .rw-messages__phone-bottom{font-size:12px;padding:10px}
+@media(max-width:760px){#door-four-laboratory .rw-messages__layout{grid-template-columns:1fr}#door-four-laboratory .rw-messages__phone{width:100%;min-height:420px;height:60vh}#door-four-laboratory .rw-messages__screen{min-height:420px}}
+/* END DRAWER THREE — MESSAGES: EXPANDED MESSENGER */
+
+/* BEGIN DRAWER THREE — MESSAGES: COMPACT THREAD + CONTEXTUAL DISCOVERY */
+#door-four-laboratory .rw-messages__phone-area{display:flex;flex-direction:column;gap:12px}
+#door-four-laboratory .rw-messages__phone{height:clamp(295px,43vh,390px);min-height:295px;flex:none}
+#door-four-laboratory .rw-messages__screen{min-height:0;height:100%}
+#door-four-laboratory .rw-messages__contact{padding:9px 14px}
+#door-four-laboratory .rw-messages__avatar{width:35px;height:35px;font-size:22px}
+#door-four-laboratory .rw-messages__contact strong{font-size:15px}
+#door-four-laboratory .rw-messages__thread{padding:13px;gap:10px}
+#door-four-laboratory .rw-messages__bubble{font-size:15px;padding:9px 12px}
+#door-four-laboratory .rw-messages__phone-bottom{padding:6px;font-size:10px}
+#door-four-laboratory .rw-messages__grammar{background:#102e51;border:1px solid #7299be;border-radius:12px;padding:12px 15px;color:#e8f2ff;min-width:0;box-shadow:inset 0 1px 0 #ffffff19}
+#door-four-laboratory .rw-messages__grammar-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#door-four-laboratory .rw-messages__grammar h4{margin:0;font:800 12px Arial,sans-serif;letter-spacing:.12em;color:#f8dc9c}
+#door-four-laboratory .rw-messages__grammar-heading button{font:700 11px Arial,sans-serif;border:1px solid #e6c67b;color:#172f49;background:#e6c67b;padding:7px 10px}
+#door-four-laboratory .rw-messages__grammar-body{max-height:190px;overflow-y:auto;margin-top:10px;padding-top:9px;border-top:1px solid #53769a;scrollbar-width:thin}
+#door-four-laboratory .rw-messages__grammar-body[hidden]{display:none!important}
+#door-four-laboratory .rw-messages__grammar-body p{font:13px/1.5 Arial,sans-serif;margin:0 0 8px;color:#e1efff}
+#door-four-laboratory .rw-messages__grammar-body strong{color:#ffdf97}
+#door-four-laboratory .rw-messages__grammar-body .rw-messages__grammar-phrase{font:700 16px Arial,sans-serif;color:#fff;margin-bottom:9px}
+#door-four-laboratory .rw-messages__bubble:focus-visible{outline:3px solid #f8d88a;outline-offset:2px}
+@media(max-width:760px){#door-four-laboratory .rw-messages__phone{height:350px;min-height:0}}
+/* END DRAWER THREE — MESSAGES: COMPACT THREAD + CONTEXTUAL DISCOVERY */
+
+/* BEGIN DRAWER THREE — MESSAGES: BOTTOM BREATHING ROOM */
+#door-four-laboratory .rw-messages{bottom:-76px;padding-bottom:34px}
+/* END DRAWER THREE — MESSAGES: BOTTOM BREATHING ROOM */

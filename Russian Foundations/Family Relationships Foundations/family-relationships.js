@@ -6117,6 +6117,257 @@ document
     renderSign(0);
     // END DRAWER THREE — SIGNS EXPLORER
 
+
+    // BEGIN DRAWER THREE — MESSAGES / INTERACTIVE BRANCHING ENGINE
+    // Each node contains the sender's message and meaningful response directions.
+    // Unknown/off-topic responses share ONE universal clarification and do not advance.
+    const messagesExplorer = interior.querySelector('#rw-messages');
+    const messengerThread = messagesExplorer.querySelector('#rw-messages-thread');
+    const messengerReplies = messagesExplorer.querySelector('#rw-messages-replies');
+    const messengerDiscovery = messagesExplorer.querySelector('#rw-messages-discovery');
+    const messengerInstruction = messagesExplorer.querySelector('#rw-messages-instruction');
+    const messengerSend = messagesExplorer.querySelector('#rw-messages-send');
+    const messengerClear = messagesExplorer.querySelector('#rw-messages-clear');
+    const messengerRewind = messagesExplorer.querySelector('#rw-messages-rewind');
+    const universalClarification = 'Извини, я не понимаю. Попробуй ещё раз!';
+    // Each distinct message has its own short, contextual explanation.
+    const messengerGrammarNotes = {
+    "Ты придёшь сегодня на ужин?": "<strong>Ты</strong> is informal “you,” natural with family. <strong>придёшь</strong> means “will you come” (from прийти). <strong>на ужин</strong> means “for dinner.”",
+    "Да, конечно!": "<strong>Да</strong> means “yes”; <strong>конечно</strong> adds “of course.” A warm, confident acceptance.",
+    "Во сколько?": "A compact way to ask “At what time?” <strong>во</strong> is used before <strong>сколько</strong> in this expression.",
+    "Сегодня не могу.": "<strong>Сегодня</strong> means “today.” <strong>не могу</strong> means “I can’t”; Russian can omit the verb that English would repeat.",
+    "Меня зовут Майкл.": "<strong>Меня зовут</strong> literally means “they call me.” It introduces your name, but does not answer a dinner invitation.",
+    "Отлично! Приходи в шесть часов.": "<strong>Приходи</strong> is a friendly informal invitation or instruction: “Come.” <strong>в шесть часов</strong> gives the time: “at six o’clock.”",
+    "Что-нибудь купить?": "<strong>Что-нибудь</strong> means “something/anything.” <strong>купить</strong> is “to buy.” The short question leaves “Should I” understood.",
+    "Спасибо! До вечера!": "<strong>Спасибо</strong> is “thank you.” <strong>до вечера</strong> literally points to “until evening,” a natural farewell.",
+    "В шесть часов.": "<strong>в</strong> marks a specific time. <strong>шесть</strong> is six; <strong>часов</strong> is the form used after numbers like six.",
+    "Хорошо! Я приду.": "<strong>Хорошо</strong> means “okay/good.” <strong>приду</strong> means “I will come,” a future form of прийти.",
+    "Жаль! Может быть, завтра?": "<strong>Жаль</strong> expresses regret (“What a shame”). <strong>Может быть</strong> means “maybe”; <strong>завтра</strong> means “tomorrow.”",
+    "Да, завтра могу!": "<strong>Завтра</strong> means “tomorrow”; <strong>могу</strong> means “I can.” The action is understood from context.",
+    "Извини, завтра тоже не могу.": "<strong>Извини</strong> is informal “sorry.” <strong>тоже</strong> means “also/either”; <strong>не могу</strong> is “I can’t.”",
+    "Нет, спасибо! Всё готово.": "<strong>Нет, спасибо</strong> politely declines. <strong>Всё готово</strong> means “Everything is ready.”",
+    "Хорошо! До вечера!": "<strong>Хорошо</strong> is “okay”; <strong>до вечера</strong> is a friendly “see you this evening.”",
+    "Отлично! Тогда до завтра!": "<strong>Тогда</strong> means “then/in that case.” <strong>до завтра</strong> is “see you tomorrow.”",
+    "Ничего страшного! Увидимся в другой раз.": "<strong>Ничего страшного</strong> reassures: “No problem.” <strong>Увидимся</strong> means “we’ll see each other”; <strong>в другой раз</strong> means “another time.”",
+    "До вечера! Обнимаю!": "<strong>До вечера</strong> means “see you this evening.” <strong>Обнимаю</strong> literally means “I hug (you),” a warm sign-off.",
+    "Что ты делаешь в субботу?": "<strong>Что ты делаешь</strong> is “what are you doing?” <strong>в субботу</strong> means “on Saturday.”",
+    "Пока ничего. А что?": "<strong>Пока</strong> means “so far/yet”; <strong>ничего</strong> means “nothing.” <strong>А что?</strong> naturally asks “Why?/What’s up?”",
+    "Я свободен в субботу.": "<strong>Свободен</strong> means “free/available” for a male speaker; a female speaker says <strong>свободна</strong>. <strong>в субботу</strong> means “on Saturday.”",
+    "У меня уже есть планы.": "<strong>У меня есть</strong> is a common Russian way to say “I have.” <strong>уже</strong> means “already”; <strong>планы</strong> means “plans.”",
+    "Пойдём в парк всей семьёй!": "<strong>Пойдём</strong> suggests “Let’s go.” <strong>в парк</strong> gives the destination; <strong>всей семьёй</strong> means “as a whole family.”",
+    "Мама и папа тоже пойдут?": "<strong>тоже</strong> means “too/also.” <strong>пойдут</strong> means “will go” for several people.",
+    "Отлично! Я приду!": "<strong>Отлично</strong> means “great!” <strong>Я приду</strong> means “I will come,” a future form of прийти.",
+    "Отличная идея! Я приду!": "<strong>Отличная идея</strong> means “great idea”; <strong>отличная</strong> agrees with feminine <strong>идея</strong>. <strong>приду</strong> means “I’ll come.”",
+    "Да, и бабушка с дедушкой!": "<strong>с дедушкой</strong> means “with Grandpa”; after <strong>с</strong>, дедушка changes to дедушкой. <strong>и</strong> adds “and.”",
+    "Во сколько встречаемся?": "<strong>Во сколько</strong> asks “at what time?” <strong>встречаемся</strong> means “are we meeting?”",
+    "В два часа дня, у входа.": "<strong>в два часа дня</strong> means “at two in the afternoon.” <strong>у входа</strong> means “by/near the entrance.”",
+    "Хорошо! До субботы!": "<strong>До субботы</strong> means “see you Saturday.” After <strong>до</strong>, суббота changes to субботы.",
+    "Понятно! Может быть, в воскресенье?": "<strong>Понятно</strong> means “I see/understood.” <strong>в воскресенье</strong> means “on Sunday.”",
+    "В воскресенье могу!": "<strong>в воскресенье</strong> means “on Sunday”; <strong>могу</strong> means “I can,” with the rest understood.",
+    "В эти выходные не могу.": "<strong>эти выходные</strong> means “this weekend.” <strong>не могу</strong> means “I can’t.”",
+    "Отлично! Тогда договорились!": "<strong>Договорились</strong> is a natural way to say “Agreed!/It’s a plan!” <strong>Тогда</strong> means “then.”",
+    "Хорошо! Увидимся в другой раз.": "<strong>Увидимся</strong> means “we’ll see each other”; <strong>в другой раз</strong> means “another time.”",
+    "Ура! До встречи!": "<strong>Ура</strong> is “Hooray!” <strong>До встречи</strong> is a common “See you!” farewell.",
+    "Сегодня день рождения дедушки!": "<strong>Сегодня</strong> means “today.” <strong>день рождения</strong> is “birthday” (literally “day of birth”). <strong>дедушки</strong> means “Grandpa’s”; its ending marks whose birthday.",
+    "Ой! Я забыл!": "<strong>Ой</strong> is an exclamation (“Oh!”). <strong>забыл</strong> means “forgot,” said by a male speaker; a female speaker uses <strong>забыла</strong>.",
+    "Ой! Я забыла!": "<strong>Ой</strong> is “Oh!” <strong>забыла</strong> means “forgot,” said by a female speaker; a male speaker uses <strong>забыл</strong>.",
+    "Я помню! Позвоню ему.": "<strong>помню</strong> means “I remember.” <strong>позвоню</strong> means “I’ll call”; <strong>ему</strong> means “him/to him.”",
+    "Позвони ему сегодня.": "<strong>Позвони</strong> is an informal command: “Call!” <strong>ему</strong> means “him”; <strong>сегодня</strong> means “today.”",
+    "Хорошо! Сейчас позвоню.": "<strong>Сейчас</strong> means “now/right away.” <strong>позвоню</strong> means “I’ll call,” with “I” understood.",
+    "А какой у него номер?": "<strong>какой</strong> asks “what/which kind.” <strong>у него</strong> means “he has”; <strong>номер</strong> is “number.”",
+    "Я пришлю тебе его номер.": "<strong>пришлю</strong> means “I’ll send.” <strong>тебе</strong> means “to you” informally; <strong>его номер</strong> is “his number.”",
+    "Спасибо! Сейчас позвоню.": "<strong>Спасибо</strong> means “thanks.” <strong>сейчас позвоню</strong> means “I’ll call right now.”",
+    "Передай ему привет от меня!": "<strong>Передай</strong> means “pass along.” <strong>ему привет</strong> is “greetings to him”; <strong>от меня</strong> means “from me.”",
+    "Конечно, мама!": "<strong>Конечно</strong> means “of course.” <strong>мама</strong> is a familiar way to address Mom.",
+    "Обязательно!": "<strong>Обязательно</strong> means “definitely/certainly.” It works as a complete, enthusiastic answer.",
+    "Спасибо! Обнимаю!": "<strong>Спасибо</strong> is “thanks”; <strong>обнимаю</strong> is a warm sign-off meaning “hugs.”",
+    "Извини, я не понимаю. Попробуй ещё раз!": "<strong>Извини</strong> is informal “sorry.” <strong>я не понимаю</strong> means “I don’t understand”; <strong>попробуй ещё раз</strong> means “try again.” These forms do not depend on the speaker’s gender."
+};
+    const messengerGrammarBody = messagesExplorer.querySelector('#rw-messages-grammar-body');
+    const messengerGrammarToggle = messagesExplorer.querySelector('#rw-messages-grammar-toggle');
+    let messengerSelectedMessage = null;
+    function messengerShowGrammar(ru) {
+      messengerSelectedMessage = ru;
+      messengerGrammarBody.replaceChildren();
+      const title = document.createElement('p');
+      title.className = 'rw-messages__grammar-phrase';
+      title.lang = 'ru'; title.textContent = ru;
+      const detail = document.createElement('p');
+      // Authored local HTML notes contain only trusted <strong> emphasis.
+      detail.innerHTML = messengerGrammarNotes[ru] || 'Look at the words and endings in this message. Listen, compare, and try the phrase in context.';
+      messengerGrammarBody.append(title, detail);
+    }
+    messengerGrammarToggle.addEventListener('click', () => {
+      const opening = messengerGrammarBody.hidden;
+      messengerGrammarBody.hidden = !opening;
+      messengerGrammarToggle.setAttribute('aria-expanded', String(opening));
+      messengerGrammarToggle.textContent = opening ? 'Close explanation ▴' : 'Explore this message ▾';
+    });
+
+    const messengerConversations = [
+      {contact:'Бабушка',avatar:'👵',start:'invite',nodes:{
+        invite:{say:'Ты придёшь сегодня на ужин?',en:'Are you coming to dinner today?',replies:[
+          {ru:'Да, конечно!',en:'Yes, of course!',next:'yes'},
+          {ru:'Во сколько?',en:'What time?',next:'time'},
+          {ru:'Сегодня не могу.',en:'I can’t today.',next:'no'},
+          {ru:'Меня зовут Майкл.',en:'My name is Michael.',unknown:true}]},
+        yes:{say:'Отлично! Приходи в шесть часов.',en:'Wonderful! Come at six o’clock.',replies:[
+          {ru:'Что-нибудь купить?',en:'Should I buy anything?',next:'bring'},
+          {ru:'Спасибо! До вечера!',en:'Thanks! See you tonight!',next:'bye'},
+          {ru:'Во сколько?',en:'What time?',next:'time'}]},
+        time:{say:'В шесть часов.',en:'At six o’clock.',replies:[
+          {ru:'Хорошо! Я приду.',en:'Okay! I’ll come.',next:'bring'},
+          {ru:'Спасибо! До вечера!',en:'Thanks! See you tonight!',next:'bye'},
+          {ru:'Сегодня не могу.',en:'I can’t today.',next:'no'}]},
+        no:{say:'Жаль! Может быть, завтра?',en:'That’s a shame! Maybe tomorrow?',replies:[
+          {ru:'Да, завтра могу!',en:'Yes, I can tomorrow!',next:'tomorrow'},
+          {ru:'Извини, завтра тоже не могу.',en:'Sorry, I can’t tomorrow either.',next:'another'}]},
+        bring:{say:'Нет, спасибо! Всё готово.',en:'No, thanks! Everything is ready.',replies:[
+          {ru:'Хорошо! До вечера!',en:'Okay! See you tonight!',next:'bye'}]},
+        tomorrow:{say:'Отлично! Тогда до завтра!',en:'Great! See you tomorrow, then!',replies:[]},
+        another:{say:'Ничего страшного! Увидимся в другой раз.',en:'No worries! We’ll see each other another time.',replies:[]},
+        bye:{say:'До вечера! Обнимаю!',en:'See you tonight! Hugs!',replies:[]}
+      }},
+      {contact:'Сестра',avatar:'👩',start:'weekend',nodes:{
+        weekend:{say:'Что ты делаешь в субботу?',en:'What are you doing on Saturday?',replies:[
+          {ru:'Пока ничего. А что?',en:'Nothing yet. Why?',next:'park'},
+          {ru:'Я свободен в субботу.',en:'I’m free on Saturday (masculine).',next:'park'},
+          {ru:'У меня уже есть планы.',en:'I already have plans.',next:'busy'},
+          {ru:'Меня зовут Майкл.',en:'My name is Michael.',unknown:true}]},
+        park:{say:'Пойдём в парк всей семьёй!',en:'Let’s go to the park with the whole family!',replies:[
+          {ru:'Мама и папа тоже пойдут?',en:'Are Mom and Dad coming too?',next:'parents'},
+          {ru:'Отличная идея! Я приду!',en:'Great idea! I’ll come!',next:'great'},
+          {ru:'Во сколько?',en:'At what time?',next:'parkTime'}]},
+        parents:{say:'Да, и бабушка с дедушкой!',en:'Yes, and Grandma and Grandpa too!',replies:[
+          {ru:'Отлично! Я приду!',en:'Great! I’ll come!',next:'great'},
+          {ru:'Во сколько встречаемся?',en:'What time are we meeting?',next:'parkTime'}]},
+        parkTime:{say:'В два часа дня, у входа.',en:'At two in the afternoon, by the entrance.',replies:[
+          {ru:'Хорошо! До субботы!',en:'Okay! See you Saturday!',next:'great'}]},
+        busy:{say:'Понятно! Может быть, в воскресенье?',en:'I see! Maybe on Sunday?',replies:[
+          {ru:'В воскресенье могу!',en:'I can on Sunday!',next:'sunday'},
+          {ru:'В эти выходные не могу.',en:'I can’t this weekend.',next:'later'}]},
+        sunday:{say:'Отлично! Тогда договорились!',en:'Great! It’s a plan!',replies:[]},
+        later:{say:'Хорошо! Увидимся в другой раз.',en:'Okay! We’ll see each other another time.',replies:[]},
+        great:{say:'Ура! До встречи!',en:'Hooray! See you!',replies:[]}
+      }},
+      {contact:'Мама',avatar:'👩',start:'birthday',nodes:{
+        birthday:{say:'Сегодня день рождения дедушки!',en:'Today is Grandpa’s birthday!',replies:[
+          {ru:'Ой! Я забыл!',en:'Oh! I forgot! (masculine)',next:'call'},
+          {ru:'Ой! Я забыла!',en:'Oh! I forgot! (feminine)',next:'call'},
+          {ru:'Я помню! Позвоню ему.',en:'I remember! I’ll call him.',next:'greeting'},
+          {ru:'Меня зовут Майкл.',en:'My name is Michael.',unknown:true}]},
+        call:{say:'Позвони ему сегодня.',en:'Call him today.',replies:[
+          {ru:'Хорошо! Сейчас позвоню.',en:'Okay! I’ll call now.',next:'greeting'},
+          {ru:'А какой у него номер?',en:'What’s his number?',next:'number'}]},
+        number:{say:'Я пришлю тебе его номер.',en:'I’ll send you his number.',replies:[
+          {ru:'Спасибо! Сейчас позвоню.',en:'Thanks! I’ll call now.',next:'greeting'}]},
+        greeting:{say:'Передай ему привет от меня!',en:'Say hello to him for me!',replies:[
+          {ru:'Конечно, мама!',en:'Of course, Mom!',next:'love'},
+          {ru:'Обязательно!',en:'Absolutely!',next:'love'}]},
+        love:{say:'Спасибо! Обнимаю!',en:'Thanks! Hugs!',replies:[]}
+      }}
+    ];
+    let messengerIndex = 0;
+    let messengerNode = 'invite';
+    let messengerHistory = [];
+    let messengerDraft = null;
+    let messengerMessages = [];
+    let messengerClarificationShown = false;
+    function messengerBubble(side,ru,en,isDraft=false){
+      const bubble=document.createElement('button');bubble.type='button';
+      bubble.className='rw-messages__bubble rw-messages__bubble--'+(side==='in'?'incoming':'outgoing')+(isDraft?' rw-messages__bubble--draft':'');
+      bubble.lang='ru';bubble.textContent=ru;
+      bubble.title='Tap to discover the meaning and hear Russian';
+      bubble.addEventListener('click',()=>{
+        messengerDiscovery.replaceChildren();
+        const phrase=document.createElement('strong');phrase.lang='ru';phrase.textContent=ru;
+        const meaning=document.createElement('p');meaning.textContent=en;
+        const listen=document.createElement('button');listen.type='button';listen.textContent='🔊 Listen';
+        listen.className='rw-messages__discovery-listen';listen.addEventListener('click',()=>speakRussian(ru));
+        messengerDiscovery.append(phrase,meaning,listen);
+        messengerShowGrammar(ru);
+        messengerGrammarBody.hidden = false;
+        messengerGrammarToggle.setAttribute('aria-expanded','true');
+        messengerGrammarToggle.textContent = 'Close explanation ▴';
+      });
+      return bubble;
+    }
+    function messengerRender(){
+      const conversation=messengerConversations[messengerIndex];
+      const node=conversation.nodes[messengerNode];
+      messagesExplorer.querySelector('#rw-messages-contact').textContent=conversation.contact;
+      messagesExplorer.querySelector('.rw-messages__avatar').textContent=conversation.avatar;
+      messengerThread.replaceChildren();
+      messengerMessages.forEach(m=>messengerThread.append(messengerBubble(m.side,m.ru,m.en)));
+      if(messengerDraft)messengerThread.append(messengerBubble('out',messengerDraft.ru,messengerDraft.en,true));
+      messengerReplies.replaceChildren();
+      node.replies.forEach((reply,index)=>{
+        const button=document.createElement('button');button.type='button';button.lang='ru';
+        button.className='rw-messages__reply'+(messengerDraft===reply?' rw-messages__reply--selected':'');
+        button.textContent=reply.ru;button.title=reply.en;
+        button.setAttribute('aria-pressed',String(messengerDraft===reply));
+        button.addEventListener('click',()=>{messengerDraft=reply;messengerRender();});
+        messengerReplies.append(button);
+      });
+      const done=node.replies.length===0;
+      messengerInstruction.textContent=done?'Conversation complete! Rewind to explore another direction.':
+        messengerDraft?'Draft ready. Press SEND to send it, or choose another reply.':'Choose a Russian reply. Preview it in the conversation before sending.';
+      messengerSend.disabled=!messengerDraft;
+      messengerClear.disabled=!messengerDraft;
+      messengerRewind.disabled=messengerHistory.length===0;
+      messengerThread.scrollTop=messengerThread.scrollHeight;
+    }
+    function messengerReset(index){
+      messengerIndex=index;const c=messengerConversations[index];messengerNode=c.start;
+      messengerHistory=[];messengerDraft=null;messengerClarificationShown=false;
+      const n=c.nodes[messengerNode];messengerMessages=[{side:'in',ru:n.say,en:n.en}];
+      messengerDiscovery.textContent='Select any message bubble to discover its meaning and hear it spoken.';
+      messengerSelectedMessage = null;
+      messengerGrammarBody.replaceChildren();
+      const prompt=document.createElement('p');prompt.textContent='Select a message bubble to explore its Russian.';
+      messengerGrammarBody.append(prompt);
+      messengerGrammarBody.hidden=true;
+      messengerGrammarToggle.setAttribute('aria-expanded','false');
+      messengerGrammarToggle.textContent='Explore this message ▾';
+      messengerRender();
+    }
+    messengerSend.addEventListener('click',()=>{
+      if(!messengerDraft)return;
+      const reply=messengerDraft;
+      if(reply.unknown){
+        // A repeated unknown reply does not flood the phone with identical clarifications.
+        if(!messengerClarificationShown){
+          messengerMessages.push({side:'out',ru:reply.ru,en:reply.en});
+          messengerMessages.push({side:'in',ru:universalClarification,en:'Sorry, I don’t understand. Try again!'});
+          messengerClarificationShown=true;
+        }
+        messengerDraft=null;messengerRender();return;
+      }
+      messengerHistory.push({node:messengerNode,messages:messengerMessages.map(m=>({...m})),clarification:messengerClarificationShown});
+      messengerMessages.push({side:'out',ru:reply.ru,en:reply.en});
+      messengerNode=reply.next;
+      const response=messengerConversations[messengerIndex].nodes[messengerNode];
+      messengerMessages.push({side:'in',ru:response.say,en:response.en});
+      messengerDraft=null;messengerClarificationShown=false;messengerRender();
+    });
+    messengerClear.addEventListener('click',()=>{messengerDraft=null;messengerRender();});
+    messengerRewind.addEventListener('click',()=>{
+      const previous=messengerHistory.pop();if(!previous)return;
+      messengerNode=previous.node;messengerMessages=previous.messages;
+      messengerClarificationShown=previous.clarification;messengerDraft=null;messengerRender();
+    });
+    messagesExplorer.querySelectorAll('input[name="rw-message-choice"]').forEach(input=>input.addEventListener('change',()=>{
+      if(input.checked)messengerReset(Number(input.value));
+    }));
+    messagesExplorer.querySelector('#rw-messages-back').addEventListener('click',()=>{messagesExplorer.hidden=true;});
+    interior.querySelector('[data-rw-spot="messages"]').addEventListener('click',()=>{
+      if(interior.dataset.activeDrawer!=='real')return;
+      messengerReset(Number(messagesExplorer.querySelector('input[name="rw-message-choice"]:checked').value));
+      messagesExplorer.hidden=false;messagesExplorer.scrollTop=0;
+    });
+    messengerReset(0);
+    // END DRAWER THREE — MESSAGES / INTERACTIVE BRANCHING ENGINE
+
     function showDrawerInterior(drawerKey) {
         drawers.hidden = true;
         stage.hidden = true;
@@ -6131,6 +6382,7 @@ document
         });
         interior.dataset.activeDrawer = drawerKey;
         signsExplorer.hidden = true;
+        messagesExplorer.hidden = true;
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
         if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;
