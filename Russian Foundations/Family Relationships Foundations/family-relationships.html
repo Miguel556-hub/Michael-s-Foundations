@@ -6456,11 +6456,10 @@ LESSON 2 — EXTENDED FAMILY
                 src="../../Images/door-four/drawer-secondary-landing-for-each-drawer.png"
                 alt="Victorian Russian Laboratory study desk with four drawer navigation tabs and two return buttons"
                 draggable="false">
+
               <!-- Drawer Three ONLY: independent artwork, never replaces the shared image. -->
-              <img class="door-four__drawer-three-art"
-                src="../../Images/door-four/drawer-real-world-landing-page.png"
-                alt="Explorer's desk: signs, messages, menus, conversations, and cultural notes"
-                draggable="false">
+              <img class="door-four__drawer-three-art" src="../../Images/door-four/drawer-real-world-landing-page.png"
+                alt="Explorer's desk: signs, messages, menus, conversations, and cultural notes" draggable="false">
               <button type="button" class="door-four__hotspot door-four__interior-tab" data-drawer-tab="examples"
                 aria-label="Open Examples" style="--x:1.7%;--y:8.3%;--w:13.6%;--h:5.1%"></button>
               <button type="button" class="door-four__hotspot door-four__interior-tab" data-drawer-tab="special"
@@ -6470,9 +6469,68 @@ LESSON 2 — EXTENDED FAMILY
               <button type="button" class="door-four__hotspot door-four__interior-tab" data-drawer-tab="notes"
                 aria-label="Open Notes & Insights" style="--x:52.0%;--y:8.3%;--w:13.6%;--h:5.1%"></button>
               <button type="button" class="door-four__hotspot door-four__interior-back" data-drawer-nav="laboratory"
-                aria-label="Back to Laboratory" style="--x:2.6%;--y:84%;--w:26.8%;--h:10%;"></button>
+                aria-label="Back to Laboratory" style="--x:6.6%;--y:84%;--w:26.8%;--h:10%;"></button>
               <button type="button" class="door-four__hotspot door-four__interior-back" data-drawer-nav="drawers"
-                aria-label="Back to Explore the Drawers" style="--x:68.5%;--y:84%;--w:29.0%;--h:10%;"></button>
+                aria-label="Back to Explore the Drawers" style="--x:66.5%;--y:84%;--w:29.0%;--h:10%;"></button>
+
+              <!-- BEGIN DRAWER THREE ONLY — FIVE CIRCULAR HOTSPOTS -->
+              <button type="button" class="door-four__hotspot rw-circle-hotspot" data-rw-spot="signs"
+                aria-label="Explore Signs" title="Signs" style="--rw-x:19.0%;--rw-y:75.9%"></button>
+              <button type="button" class="door-four__hotspot rw-circle-hotspot" data-rw-spot="messages"
+                aria-label="Explore Messages" title="Messages" style="--rw-x:35.8%;--rw-y:75.9%"></button>
+              <button type="button" class="door-four__hotspot rw-circle-hotspot" data-rw-spot="menus"
+                aria-label="Explore Menus" title="Menus" style="--rw-x:51.9%;--rw-y:75.9%"></button>
+              <button type="button" class="door-four__hotspot rw-circle-hotspot" data-rw-spot="conversations"
+                aria-label="Explore Conversations" title="Conversations" style="--rw-x:67.5%;--rw-y:75.9%"></button>
+              <button type="button" class="door-four__hotspot rw-circle-hotspot" data-rw-spot="cultural-notes"
+                aria-label="Explore Cultural Notes" title="Cultural Notes" style="--rw-x:83.1%;--rw-y:75.9%"></button>
+              <!-- END DRAWER THREE CIRCULAR HOTSPOTS -->
+
+
+              <!-- BEGIN DRAWER THREE — SIGNS EXPLORER (ISOLATED EXPERIENCE) -->
+              <section class="rw-signs" id="rw-signs" aria-label="Signs Explorer" hidden>
+                <header class="rw-signs__header">
+                  <h3>SIGNS <span lang="ru">— Вывески и указатели</span></h3>
+                  <p>Choose a Russian place. Explore its photograph, words, and meaning.</p>
+                </header>
+                <fieldset class="rw-signs__choices">
+                  <legend>Choose a place to investigate</legend>
+                  <label class="rw-signs__choice" style="--accent:#56baff"><input type="radio" name="rw-sign-choice"
+                      value="0" checked><span class="rw-signs__medallion">01</span><span class="rw-signs__choice-text"
+                      lang="ru">Детский сад</span><span class="rw-signs__indicator" aria-hidden="true"></span></label>
+                  <label class="rw-signs__choice" style="--accent:#67e1a7"><input type="radio" name="rw-sign-choice"
+                      value="1"><span class="rw-signs__medallion">02</span><span class="rw-signs__choice-text"
+                      lang="ru">Детская площадка</span><span class="rw-signs__indicator"
+                      aria-hidden="true"></span></label>
+                  <label class="rw-signs__choice" style="--accent:#ffd181"><input type="radio" name="rw-sign-choice"
+                      value="2"><span class="rw-signs__medallion">03</span><span class="rw-signs__choice-text"
+                      lang="ru">Детская поликлиника</span><span class="rw-signs__indicator"
+                      aria-hidden="true"></span></label>
+                  <label class="rw-signs__choice" style="--accent:#c9a5ff"><input type="radio" name="rw-sign-choice"
+                      value="3"><span class="rw-signs__medallion">04</span><span class="rw-signs__choice-text"
+                      lang="ru">Семейная клиника</span><span class="rw-signs__indicator"
+                      aria-hidden="true"></span></label>
+                </fieldset>
+                <div class="rw-signs__workspace">
+                  <figure class="rw-signs__photo"><img id="rw-signs-photo"
+                      src="../../Images/door-four/signs-kindergarten.png" alt="Kindergarten classroom">
+                    <figcaption id="rw-signs-caption">A place you might encounter in Russia</figcaption>
+                  </figure>
+                  <div class="rw-signs__investigate">
+                    <p class="rw-signs__eyebrow">TOUCH A RUSSIAN WORD TO EXPLORE</p>
+                    <div id="rw-signs-words" class="rw-signs__words" lang="ru"></div><button type="button"
+                      class="rw-signs__action" id="rw-signs-listen">🔊 Listen to the phrase</button>
+                    <div class="rw-signs__discovery" id="rw-signs-discovery" aria-live="polite">Select a word above to
+                      discover its meaning and a little language surprise.</div><button type="button"
+                      class="rw-signs__action" id="rw-signs-reveal">Reveal full meaning</button>
+                    <p id="rw-signs-meaning" class="rw-signs__meaning" hidden></p>
+                  </div>
+                </div>
+                <footer class="rw-signs__footer"><button type="button" id="rw-signs-back">← Back to Explorer's
+                    Desk</button></footer>
+              </section>
+              <!-- END DRAWER THREE — SIGNS EXPLORER -->
+
               <!-- BEGIN LIVING SENTENCE — THREE-PANEL ILLUSTRATED WORKSPACE -->
               <div class="ls-scene" id="ls-scene" hidden>
                 <section class="ls-panel ls-main" aria-label="The Living Sentence">

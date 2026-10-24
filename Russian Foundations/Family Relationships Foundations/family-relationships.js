@@ -6076,6 +6076,47 @@ document
     const curiosityCabinet = interior.querySelector('#cc-scene');
     function hideCuriosityCabinet() { if (curiosityCabinet) curiosityCabinet.hidden = true; }
     function hideSentenceSpotlight() { if (sentenceSpotlight) sentenceSpotlight.hidden = true; }
+
+    // BEGIN DRAWER THREE — SIGNS EXPLORER (NO SHARED DRAWER CHANGES)
+    const signsExplorer = interior.querySelector('#rw-signs');
+    const signsData = [
+      {ru:'Детский сад',en:'Kindergarten',img:'signs-kindergarten.png',alt:'Children learning in a kindergarten classroom',caption:'A kindergarten classroom — the Russian expression is displayed separately.',words:[['Детский','For children / children’s','DET-skee','The ending -ий matches the masculine noun сад.'],['сад','Garden; in this expression, kindergarten','saht','Together, детский сад names a kindergarten, not an ordinary garden.']]},
+      {ru:'Детская площадка',en:'Children’s playground',img:'signs-playground.png',alt:'Outdoor playground with climbing equipment and slide',caption:'A playground — the Russian expression is displayed separately.',words:[['Детская','For children / children’s','DET-ska-ya','The ending -ая matches the feminine noun площадка.'],['площадка','Area, grounds; here, playground','pla-SHCHAT-ka','Together, детская площадка means a children’s playground.']]},
+      {ru:'Детская поликлиника',en:'Children’s outpatient clinic',img:'signs-childrens-clinic.png',alt:'Children’s clinic building with the Russian words Детская поликлиника on its entrance',caption:'Authentic Russian lettering is visible above the entrance.',words:[['Детская','For children / children’s','DET-ska-ya','Compare детский сад and детская поликлиника: the ending changes with the noun.'],['поликлиника','Outpatient clinic','pa-lee-KLEE-nee-ka','A поликлиника provides outpatient medical care.']]},
+      {ru:'Семейная клиника',en:'Family clinic',img:'signs-family-clinic.png',alt:'White clinic building',caption:'A clinic building — the Russian expression is displayed separately.',words:[['Семейная','Family / relating to a family','see-MEY-na-ya','Семейная comes from семья, the Russian word for family.'],['клиника','Clinic','KLEE-nee-ka','Клиника is a feminine noun, so семейная has the ending -ая.']]}
+    ];
+    const signsWords = signsExplorer.querySelector('#rw-signs-words');
+    const signsDiscovery = signsExplorer.querySelector('#rw-signs-discovery');
+    const signsMeaning = signsExplorer.querySelector('#rw-signs-meaning');
+    let activeSign = 0;
+    function renderSign(index){
+      activeSign=index;
+      const item=signsData[index];
+      signsExplorer.querySelector('#rw-signs-photo').src='../../Images/door-four/'+item.img;
+      signsExplorer.querySelector('#rw-signs-photo').alt=item.alt;
+      signsExplorer.querySelector('#rw-signs-caption').textContent=item.caption;
+      signsWords.replaceChildren();
+      item.words.forEach(([word,meaning,pronunciation,note])=>{
+        const button=document.createElement('button');button.type='button';button.textContent=word;button.setAttribute('aria-pressed','false');
+        button.addEventListener('click',()=>{
+          signsWords.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+          signsDiscovery.replaceChildren();
+          const title=document.createElement('strong');title.textContent=word+' — '+meaning;
+          const detail=document.createElement('p');detail.textContent='Pronunciation: '+pronunciation+'. '+note;
+          signsDiscovery.append(title,detail);
+        });signsWords.appendChild(button);
+      });
+      signsDiscovery.textContent='Select a word above to discover its meaning and a little language surprise.';
+      signsMeaning.hidden=true;signsMeaning.textContent=item.ru+' — '+item.en;
+    }
+    signsExplorer.querySelectorAll('input[name="rw-sign-choice"]').forEach(input=>input.addEventListener('change',()=>{if(input.checked)renderSign(Number(input.value));}));
+    signsExplorer.querySelector('#rw-signs-listen').addEventListener('click',()=>speakRussian(signsData[activeSign].ru));
+    signsExplorer.querySelector('#rw-signs-reveal').addEventListener('click',()=>{signsMeaning.hidden=!signsMeaning.hidden;});
+    signsExplorer.querySelector('#rw-signs-back').addEventListener('click',()=>{signsExplorer.hidden=true;});
+    interior.querySelector('[data-rw-spot="signs"]').addEventListener('click',()=>{if(interior.dataset.activeDrawer!=='real')return;renderSign(Number(signsExplorer.querySelector('input[name="rw-sign-choice"]:checked').value));signsExplorer.hidden=false;signsExplorer.scrollTop=0;});
+    renderSign(0);
+    // END DRAWER THREE — SIGNS EXPLORER
+
     function showDrawerInterior(drawerKey) {
         drawers.hidden = true;
         stage.hidden = true;
@@ -6089,6 +6130,7 @@ document
             tab.setAttribute('aria-pressed', String(selected));
         });
         interior.dataset.activeDrawer = drawerKey;
+        signsExplorer.hidden = true;
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
         if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;
