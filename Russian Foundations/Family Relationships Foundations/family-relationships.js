@@ -4281,15 +4281,15 @@ document
 const PIRATE_FOLDER = "../../Images/door-three/";
 
 const PIRATE_FILES = {
-    male:   ["image-pirate-male-1.png", "image-pirate-male-2.png", "image-pirate-male-3.png",
-             "image-pirate-male-4.png", "image-pirate-male-5.png"],
+    male: ["image-pirate-male-1.png", "image-pirate-male-2.png", "image-pirate-male-3.png",
+        "image-pirate-male-4.png", "image-pirate-male-5.png"],
     female: ["image-pirate-female-1.png", "image-pirate-female-2.png", "image-pirate-female-3.png",
-             "image-pirate-female-4.png", "image-pirate-female-5.png"],
-    family:   ["image-pirate-family.png"],
+        "image-pirate-female-4.png", "image-pirate-female-5.png"],
+    family: ["image-pirate-family.png"],
     children: ["image-pirate-children.png"],
-    kids:     ["image-pirate-bro-sis.png", "image-pirate-bro-sis-2.png"],
-    they:     ["image-pirate-they-have-a-sister.png"],
-    sisters:  ["image-pirate-two-sisters.png"]
+    kids: ["image-pirate-bro-sis.png", "image-pirate-bro-sis-2.png"],
+    they: ["image-pirate-they-have-a-sister.png"],
+    sisters: ["image-pirate-two-sisters.png"]
 };
 
 // Which group each role belongs to
@@ -4590,21 +4590,21 @@ compassMarkers.forEach((marker) => {
 // ==================================================
 
 const NORTH_FAMILY = [
-    { label: "Brother (брат)",             ru: "брат",             en: "a brother" },
-    { label: "Sister (сестра)",            ru: "сестра",           en: "a sister" },
-    { label: "Father (папа)",              ru: "папа",             en: "a father" },
-    { label: "Mother (мама)",              ru: "мама",             en: "a mother" },
-    { label: "Grandfather (дедушка)",      ru: "дедушка",          en: "a grandfather" },
-    { label: "Grandmother (бабушка)",      ru: "бабушка",          en: "a grandmother" },
-    { label: "Uncle (дядя)",               ru: "дядя",             en: "an uncle" },
-    { label: "Aunt (тётя)",                ru: "тётя",             en: "an aunt" },
+    { label: "Brother (брат)", ru: "брат", en: "a brother" },
+    { label: "Sister (сестра)", ru: "сестра", en: "a sister" },
+    { label: "Father (папа)", ru: "папа", en: "a father" },
+    { label: "Mother (мама)", ru: "мама", en: "a mother" },
+    { label: "Grandfather (дедушка)", ru: "дедушка", en: "a grandfather" },
+    { label: "Grandmother (бабушка)", ru: "бабушка", en: "a grandmother" },
+    { label: "Uncle (дядя)", ru: "дядя", en: "an uncle" },
+    { label: "Aunt (тётя)", ru: "тётя", en: "an aunt" },
     { label: "Cousin (двоюродный брат/сестра)", ru: "двоюродный брат", en: "a cousin" },
-    { label: "Son (сын)",                  ru: "сын",              en: "a son" },
-    { label: "Daughter (дочь)",            ru: "дочь",             en: "a daughter" },
-    { label: "Parents (родители)",         ru: "родители",         en: "parents" },
-    { label: "Children (дети)",            ru: "дети",             en: "children" },
-    { label: "Grandchildren (внуки)",      ru: "внуки",            en: "grandchildren" },
-    { label: "Family (семья)",             ru: "семья",            en: "a family" }
+    { label: "Son (сын)", ru: "сын", en: "a son" },
+    { label: "Daughter (дочь)", ru: "дочь", en: "a daughter" },
+    { label: "Parents (родители)", ru: "родители", en: "parents" },
+    { label: "Children (дети)", ru: "дети", en: "children" },
+    { label: "Grandchildren (внуки)", ru: "внуки", en: "grandchildren" },
+    { label: "Family (семья)", ru: "семья", en: "a family" }
 ];
 
 const northSelect = document.querySelector("#north-select");
@@ -4677,17 +4677,17 @@ if (northSelect) {
 // g = grammatical gender (m / f). "more" lists the "Tell me more" choices
 // that sound natural for that person.
 const SOUTH_PEOPLE = [
-    { label: "Brother (брат)",       ru: "брат",             en: "brother",   g: "m", more: ["older", "younger", "twin"] },
-    { label: "Sister (сестра)",      ru: "сестра",           en: "sister",    g: "f", more: ["older", "younger", "twin"] },
-    { label: "Father (папа)",        ru: "папа",             en: "father",    g: "m", more: [] },
-    { label: "Mother (мама)",        ru: "мама",             en: "mother",    g: "f", more: [] },
-    { label: "Grandfather (дедушка)", ru: "дедушка",         en: "grandfather", g: "m", more: [] },
-    { label: "Grandmother (бабушка)", ru: "бабушка",         en: "grandmother", g: "f", more: [] },
-    { label: "Uncle (дядя)",         ru: "дядя",             en: "uncle",     g: "m", more: [] },
-    { label: "Aunt (тётя)",          ru: "тётя",             en: "aunt",      g: "f", more: [] },
+    { label: "Brother (брат)", ru: "брат", en: "brother", g: "m", more: ["older", "younger", "twin"] },
+    { label: "Sister (сестра)", ru: "сестра", en: "sister", g: "f", more: ["older", "younger", "twin"] },
+    { label: "Father (папа)", ru: "папа", en: "father", g: "m", more: [] },
+    { label: "Mother (мама)", ru: "мама", en: "mother", g: "f", more: [] },
+    { label: "Grandfather (дедушка)", ru: "дедушка", en: "grandfather", g: "m", more: [] },
+    { label: "Grandmother (бабушка)", ru: "бабушка", en: "grandmother", g: "f", more: [] },
+    { label: "Uncle (дядя)", ru: "дядя", en: "uncle", g: "m", more: [] },
+    { label: "Aunt (тётя)", ru: "тётя", en: "aunt", g: "f", more: [] },
     { label: "Cousin (двоюродный брат)", ru: "двоюродный брат", en: "cousin", g: "m", more: ["older", "younger"] },
-    { label: "Son (сын)",            ru: "сын",              en: "son",       g: "m", more: ["older", "younger"] },
-    { label: "Daughter (дочь)",      ru: "дочь",             en: "daughter",  g: "f", more: ["older", "younger"] }
+    { label: "Son (сын)", ru: "сын", en: "son", g: "m", more: ["older", "younger"] },
+    { label: "Daughter (дочь)", ru: "дочь", en: "daughter", g: "f", more: ["older", "younger"] }
 ];
 
 const southWho = document.querySelector("#south-who");
@@ -4698,7 +4698,7 @@ function southModifier(kind, person) {
 
     const feminine = person.g === "f";
 
-    if (kind === "older")   return { ru: feminine ? "старшая" : "старший", en: "an older" };
+    if (kind === "older") return { ru: feminine ? "старшая" : "старший", en: "an older" };
     if (kind === "younger") return { ru: feminine ? "младшая" : "младший", en: "a younger" };
     if (kind === "twin") {
         return {
@@ -4841,20 +4841,20 @@ document.querySelectorAll('.cd-content[data-content="south"] .cd-speak[data-say]
 
 // "gen" is the family word after нет (genitive). We only ask the learner to NOTICE it.
 const EAST_PEOPLE = [
-    { key: "brother",       label: "Brother (брат)",           gen: "брата",           en: "a brother" },
-    { key: "sister",        label: "Sister (сестра)",          gen: "сестры",          en: "a sister" },
-    { key: "father",        label: "Father (отец)",            gen: "отца",            en: "a father" },
-    { key: "mother",        label: "Mother (мать)",            gen: "матери",          en: "a mother" },
-    { key: "grandfather",   label: "Grandfather (дедушка)",    gen: "дедушки",         en: "a grandfather" },
-    { key: "grandmother",   label: "Grandmother (бабушка)",    gen: "бабушки",         en: "a grandmother" },
-    { key: "uncle",         label: "Uncle (дядя)",             gen: "дяди",            en: "an uncle" },
-    { key: "aunt",          label: "Aunt (тётя)",              gen: "тёти",            en: "an aunt" },
-    { key: "cousin",        label: "Cousin (двоюродный брат)", gen: "двоюродного брата", en: "a cousin" },
-    { key: "son",           label: "Son (сын)",                gen: "сына",            en: "a son" },
-    { key: "daughter",      label: "Daughter (дочь)",          gen: "дочери",          en: "a daughter" },
-    { key: "parents",       label: "Parents (родители)",       gen: "родителей",       en: "parents" },
-    { key: "children",      label: "Children (дети)",          gen: "детей",           en: "children" },
-    { key: "grandchildren", label: "Grandchildren (внуки)",    gen: "внуков",          en: "grandchildren" }
+    { key: "brother", label: "Brother (брат)", gen: "брата", en: "a brother" },
+    { key: "sister", label: "Sister (сестра)", gen: "сестры", en: "a sister" },
+    { key: "father", label: "Father (отец)", gen: "отца", en: "a father" },
+    { key: "mother", label: "Mother (мать)", gen: "матери", en: "a mother" },
+    { key: "grandfather", label: "Grandfather (дедушка)", gen: "дедушки", en: "a grandfather" },
+    { key: "grandmother", label: "Grandmother (бабушка)", gen: "бабушки", en: "a grandmother" },
+    { key: "uncle", label: "Uncle (дядя)", gen: "дяди", en: "an uncle" },
+    { key: "aunt", label: "Aunt (тётя)", gen: "тёти", en: "an aunt" },
+    { key: "cousin", label: "Cousin (двоюродный брат)", gen: "двоюродного брата", en: "a cousin" },
+    { key: "son", label: "Son (сын)", gen: "сына", en: "a son" },
+    { key: "daughter", label: "Daughter (дочь)", gen: "дочери", en: "a daughter" },
+    { key: "parents", label: "Parents (родители)", gen: "родителей", en: "parents" },
+    { key: "children", label: "Children (дети)", gen: "детей", en: "children" },
+    { key: "grandchildren", label: "Grandchildren (внуки)", gen: "внуков", en: "grandchildren" }
 ];
 
 // Two choosers: "a" drives the main sentence, "b" is "try another person"
@@ -4954,30 +4954,30 @@ if (document.querySelector("#east-a-select")) {
 // ==================================================
 
 const WEST_PEOPLE = [
-    { key: "i",    ru: "у меня", en: "I",    subject: "I",    verb: "have" },
-    { key: "you",  ru: "у тебя", en: "you",  subject: "You",  verb: "have" },
-    { key: "he",   ru: "у него", en: "he",   subject: "He",   verb: "has" },
-    { key: "she",  ru: "у неё",  en: "she",  subject: "She",  verb: "has" },
-    { key: "we",   ru: "у нас",  en: "we",   subject: "We",   verb: "have" },
-    { key: "they", ru: "у них",  en: "they", subject: "They", verb: "have" }
+    { key: "i", ru: "у меня", en: "I", subject: "I", verb: "have" },
+    { key: "you", ru: "у тебя", en: "you", subject: "You", verb: "have" },
+    { key: "he", ru: "у него", en: "he", subject: "He", verb: "has" },
+    { key: "she", ru: "у неё", en: "she", subject: "She", verb: "has" },
+    { key: "we", ru: "у нас", en: "we", subject: "We", verb: "have" },
+    { key: "they", ru: "у них", en: "they", subject: "They", verb: "have" }
 ];
 
 const WEST_MEMBERS = [
-    { key: "brother",       ru: "брат",             en: "a brother" },
-    { key: "sister",        ru: "сестра",           en: "a sister" },
-    { key: "father",        ru: "папа",             en: "a father" },
-    { key: "mother",        ru: "мама",             en: "a mother" },
-    { key: "grandfather",   ru: "дедушка",          en: "a grandfather" },
-    { key: "grandmother",   ru: "бабушка",          en: "a grandmother" },
-    { key: "uncle",         ru: "дядя",             en: "an uncle" },
-    { key: "aunt",          ru: "тётя",             en: "an aunt" },
-    { key: "cousin",        ru: "двоюродный брат",  en: "a cousin" },
-    { key: "son",           ru: "сын",              en: "a son" },
-    { key: "daughter",      ru: "дочь",             en: "a daughter" },
-    { key: "parents",       ru: "родители",         en: "parents" },
-    { key: "children",      ru: "дети",             en: "children" },
-    { key: "grandchildren", ru: "внуки",            en: "grandchildren" },
-    { key: "family",        ru: "семья",            en: "a family" }
+    { key: "brother", ru: "брат", en: "a brother" },
+    { key: "sister", ru: "сестра", en: "a sister" },
+    { key: "father", ru: "папа", en: "a father" },
+    { key: "mother", ru: "мама", en: "a mother" },
+    { key: "grandfather", ru: "дедушка", en: "a grandfather" },
+    { key: "grandmother", ru: "бабушка", en: "a grandmother" },
+    { key: "uncle", ru: "дядя", en: "an uncle" },
+    { key: "aunt", ru: "тётя", en: "an aunt" },
+    { key: "cousin", ru: "двоюродный брат", en: "a cousin" },
+    { key: "son", ru: "сын", en: "a son" },
+    { key: "daughter", ru: "дочь", en: "a daughter" },
+    { key: "parents", ru: "родители", en: "parents" },
+    { key: "children", ru: "дети", en: "children" },
+    { key: "grandchildren", ru: "внуки", en: "grandchildren" },
+    { key: "family", ru: "семья", en: "a family" }
 ];
 
 // Start on "he" + "sister", like the concept picture
@@ -5326,8 +5326,8 @@ const EAST_CRATES = {
     stepfamily: {
         title: "Stepfamily",
         people: [
-            { role: "uncle", ru: "отчим",  en: "stepfather" },
-            { role: "aunt",  ru: "мачеха", en: "stepmother" }
+            { role: "uncle", ru: "отчим", en: "stepfather" },
+            { role: "aunt", ru: "мачеха", en: "stepmother" }
         ],
         meaning: "Your mother's husband, or your father's wife, who is not your birth parent."
     },
@@ -5342,7 +5342,7 @@ const EAST_CRATES = {
     husband: {
         title: "Husband's Parents",
         people: [
-            { role: "he",  ru: "свёкор",   en: "father-in-law (husband's father)" },
+            { role: "he", ru: "свёкор", en: "father-in-law (husband's father)" },
             { role: "she", ru: "свекровь", en: "mother-in-law (husband's mother)" }
         ],
         meaning: "A wife's words for her husband's parents."
@@ -5351,14 +5351,14 @@ const EAST_CRATES = {
         title: "Wife's Parents",
         people: [
             { role: "cousin", ru: "тесть", en: "father-in-law (wife's father)" },
-            { role: "you",    ru: "тёща", en: "mother-in-law (wife's mother)" }
+            { role: "you", ru: "тёща", en: "mother-in-law (wife's mother)" }
         ],
         meaning: "A husband's words for his wife's parents."
     },
     stepsib: {
         title: "Step-Siblings",
         people: [
-            { role: "boat-boy",       ru: "сводный брат",  en: "stepbrother" },
+            { role: "boat-boy", ru: "сводный брат", en: "stepbrother" },
             { role: "younger-sister", ru: "сводная сестра", en: "stepsister" }
         ],
         meaning: "Children of your stepparent, who are not your birth siblings."
@@ -5366,7 +5366,7 @@ const EAST_CRATES = {
     other: {
         title: "Other Relationships",
         people: [
-            { role: "i",        ru: "зять",    en: "son-in-law" },
+            { role: "i", ru: "зять", en: "son-in-law" },
             { role: "daughter", ru: "невестка", en: "daughter-in-law" }
         ],
         meaning: "Married into the family. зять is also a sister's husband; невестка is also a brother's wife."
@@ -5451,7 +5451,7 @@ const WEST_TALKS = [
         role: "brother",
         ask: "У вас есть брат?", askEn: "Do you have a brother?",
         answers: [
-            { ru: "Да, у меня есть брат.",  en: "Yes, I have a brother." },
+            { ru: "Да, у меня есть брат.", en: "Yes, I have a brother." },
             { ru: "Нет, у меня нет брата.", en: "No, I don't have a brother." }
         ],
         reply: "У меня есть брат. Он капитан!", replyEn: "I have a brother. He is a captain!"
@@ -5460,7 +5460,7 @@ const WEST_TALKS = [
         role: "sister",
         ask: "У вас есть сестра?", askEn: "Do you have a sister?",
         answers: [
-            { ru: "Да, у меня есть сестра.",  en: "Yes, I have a sister." },
+            { ru: "Да, у меня есть сестра.", en: "Yes, I have a sister." },
             { ru: "Нет, у меня нет сестры.", en: "No, I don't have a sister." }
         ],
         reply: "У меня есть сестра. Она штурман!", replyEn: "I have a sister. She is the navigator!"
@@ -5469,7 +5469,7 @@ const WEST_TALKS = [
         role: "children",
         ask: "У вас есть дети?", askEn: "Do you have children?",
         answers: [
-            { ru: "Да, у меня есть дети.",  en: "Yes, I have children." },
+            { ru: "Да, у меня есть дети.", en: "Yes, I have children." },
             { ru: "Нет, у меня нет детей.", en: "No, I don't have children." }
         ],
         reply: "У меня есть дети. Они матросы!", replyEn: "I have children. They are sailors!"
@@ -5477,10 +5477,10 @@ const WEST_TALKS = [
 ];
 
 const WEST_ASKBACK = [
-    { ru: "А у вас?",   en: "And do you have (one)?", correct: true },
-    { ru: "А вы?",      en: "And you?", hint: "А вы? asks about you in general. We want to ask about having, so keep у вас." },
-    { ru: "А у меня?",  en: "And do I have (one)?", hint: "That asks about you, the speaker. Ask about the pirate: у вас." },
-    { ru: "А вас?",     en: "And you? (object form)", hint: "Close! We need у вас, “you have,” to ask about having." }
+    { ru: "А у вас?", en: "And do you have (one)?", correct: true },
+    { ru: "А вы?", en: "And you?", hint: "А вы? asks about you in general. We want to ask about having, so keep у вас." },
+    { ru: "А у меня?", en: "And do I have (one)?", hint: "That asks about you, the speaker. Ask about the pirate: у вас." },
+    { ru: "А вас?", en: "And you? (object form)", hint: "Close! We need у вас, “you have,” to ask about having." }
 ];
 
 let westIndex = 0;
@@ -5608,11 +5608,11 @@ BOAT_RESETTERS.west = () => {
 // States: closed → opening → open → scroll-opening → scroll-preview
 // Every timer is tracked so leaving the room can cancel it all.
 // ---------------------------------------------------------------
-const chestRoom   = document.querySelector("#chest-room");
-const tcChestBtn  = document.querySelector("#tc-chest");
-const tcScrolls   = document.querySelectorAll("#chest-room .tc-scroll");
-const tcCloseBtn  = document.querySelector("#tc-close");
-const tcSubtitle  = document.querySelector("#tc-subtitle");
+const chestRoom = document.querySelector("#chest-room");
+const tcChestBtn = document.querySelector("#tc-chest");
+const tcScrolls = document.querySelectorAll("#chest-room .tc-scroll");
+const tcCloseBtn = document.querySelector("#tc-close");
+const tcSubtitle = document.querySelector("#tc-subtitle");
 
 const TC_IMG = "../../Images/door-three/";
 let tcTimers = [];
@@ -5757,17 +5757,27 @@ const SB_BANK = [
 
 // "optionalEst": есть may be left out or kept (У меня есть сестра / У меня сестра)
 const SB_CHALLENGES = [
-    { en: "I have an older sister.",
-      answers: [["у", "меня", "есть", "старшая", "сестра"]], optionalEst: true },
-    { en: "She doesn’t have a brother.",
-      answers: [["у", "неё", "нет", "брата"]] },
-    { en: "I don’t have a son.",
-      answers: [["у", "меня", "нет", "сына"]] },
-    { en: "I have two younger sisters.",
-      answers: [["у", "меня", "есть", "две", "младшие", "сестры"]], optionalEst: true },
-    { en: "She has three children.",
-      answers: [["у", "неё", "трое", "детей"], ["у", "неё", "три", "ребёнка"]],
-      optionalEst: true, another: true }
+    {
+        en: "I have an older sister.",
+        answers: [["у", "меня", "есть", "старшая", "сестра"]], optionalEst: true
+    },
+    {
+        en: "She doesn’t have a brother.",
+        answers: [["у", "неё", "нет", "брата"]]
+    },
+    {
+        en: "I don’t have a son.",
+        answers: [["у", "меня", "нет", "сына"]]
+    },
+    {
+        en: "I have two younger sisters.",
+        answers: [["у", "меня", "есть", "две", "младшие", "сестры"]], optionalEst: true
+    },
+    {
+        en: "She has three children.",
+        answers: [["у", "неё", "трое", "детей"], ["у", "неё", "три", "ребёнка"]],
+        optionalEst: true, another: true
+    }
 ];
 
 const sbBank = document.querySelector("#sb-bank");
@@ -6063,6 +6073,8 @@ document
     const interior = lab.querySelector('.door-four__drawer-interior');
     const interiorTabs = [...interior.querySelectorAll('[data-drawer-tab]')];
     const sentenceSpotlight = interior.querySelector('#ls-scene');
+    const curiosityCabinet = interior.querySelector('#cc-scene');
+    function hideCuriosityCabinet() { if (curiosityCabinet) curiosityCabinet.hidden = true; }
     function hideSentenceSpotlight() { if (sentenceSpotlight) sentenceSpotlight.hidden = true; }
     function showDrawerInterior(drawerKey) {
         drawers.hidden = true;
@@ -6078,12 +6090,14 @@ document
         });
         interior.dataset.activeDrawer = drawerKey;
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
+        if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;
         if (livingSentence) livingSentence.hidden = drawerKey !== 'examples';
-        interior.scrollIntoView({behavior:'smooth', block:'start'});
+        interior.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function returnFromDrawerInterior(to) {
         hideSentenceSpotlight();
+        hideCuriosityCabinet();
         interior.hidden = true;
         const livingSentence = null;
         if (livingSentence) livingSentence.hidden = true;
@@ -6096,6 +6110,7 @@ document
     const drawers = lab.querySelector('.door-four__drawers');
     function showDrawers() {
         hideSentenceSpotlight();
+        hideCuriosityCabinet();
         interior.hidden = true;
         const livingSentence = null;
         if (livingSentence) livingSentence.hidden = true;
@@ -6104,10 +6119,11 @@ document
         returnButton.hidden = true;
         status.hidden = true;
         drawers.hidden = false;
-        drawers.scrollIntoView({behavior:'smooth', block:'start'});
+        drawers.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function closeDrawers() {
         hideSentenceSpotlight();
+        hideCuriosityCabinet();
         interior.hidden = true;
         const livingSentence = null;
         if (livingSentence) livingSentence.hidden = true;
@@ -6115,17 +6131,17 @@ document
         stage.hidden = false;
         returnButton.hidden = false;
         status.hidden = true;
-        lab.scrollIntoView({behavior:'smooth', block:'start'});
+        lab.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     // END DRAWERS SECONDARY SCREEN
     const microscope = lab.querySelector('.door-four__microscope');
     const stage = lab.querySelector('.door-four__stage');
     const returnButton = lab.querySelector('.door-four__return');
     const examples = {
-        brother: {my:'мой', noun:'брат', english:'my brother'},
-        sister: {my:'моя', noun:'сестра', english:'my sister'},
-        name: {my:'моё', noun:'имя', english:'my name'},
-        parents: {my:'мои', noun:'родители', english:'my parents'}
+        brother: { my: 'мой', noun: 'брат', english: 'my brother' },
+        sister: { my: 'моя', noun: 'сестра', english: 'my sister' },
+        name: { my: 'моё', noun: 'имя', english: 'my name' },
+        parents: { my: 'мои', noun: 'родители', english: 'my parents' }
     };
     const examined = new Set();
     const phrase = microscope.querySelector('.door-four__microscope-phrase');
@@ -6149,13 +6165,13 @@ document
         returnButton.hidden = true;
         status.hidden = true;
         microscope.hidden = false;
-        microscope.scrollIntoView({behavior:'smooth',block:'start'});
+        microscope.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function closeMicroscope() {
         microscope.hidden = true;
         stage.hidden = false;
         returnButton.hidden = false;
-        lab.scrollIntoView({behavior:'smooth',block:'start'});
+        lab.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     microscope.querySelectorAll('.door-four__microscope-close').forEach(b => b.addEventListener('click', closeMicroscope));
     microscope.querySelector('.door-four__microscope-reset').addEventListener('click', resetMicroscope);
@@ -6189,37 +6205,37 @@ document
     const explainButton = microscope.querySelector('.door-four__microscope-explain');
     // BEGIN MICROSCOPE — EXPANDED WORD BANK
     const microscopeWords = [
-        {"id": "brother", "label": "Brother", "singular": "брат", "plural": "братья", "gender": "masculine", "my": "мой", "enPlural": "brothers", "note": ""},
-        {"id": "sister", "label": "Sister", "singular": "сестра", "plural": "сёстры", "gender": "feminine", "my": "моя", "enPlural": "sisters", "note": ""},
-        {"id": "relative-m", "label": "Relative (male)", "singular": "родственник", "plural": "родственники", "gender": "masculine", "my": "мой", "enPlural": "male relatives", "note": ""},
-        {"id": "relative-f", "label": "Relative (female)", "singular": "родственница", "plural": "родственницы", "gender": "feminine", "my": "моя", "enPlural": "female relatives", "note": ""},
-        {"id": "cousin-m", "label": "Cousin (male)", "singular": "двоюродный брат", "plural": "двоюродные братья", "gender": "masculine", "my": "мой", "enPlural": "male cousins", "note": ""},
-        {"id": "cousin-f", "label": "Cousin (female)", "singular": "двоюродная сестра", "plural": "двоюродные сёстры", "gender": "feminine", "my": "моя", "enPlural": "female cousins", "note": ""},
-        {"id": "father", "label": "Father", "singular": "отец", "plural": "отцы", "gender": "masculine", "my": "мой", "enPlural": "fathers", "note": ""},
-        {"id": "mother", "label": "Mother", "singular": "мать", "plural": "матери", "gender": "feminine", "my": "моя", "enPlural": "mothers", "note": "Notice the unusual plural: мать → матери."},
-        {"id": "uncle", "label": "Uncle", "singular": "дядя", "plural": "дяди", "gender": "masculine", "my": "мой", "enPlural": "uncles", "note": "Masculine, despite its -я ending."},
-        {"id": "aunt", "label": "Aunt", "singular": "тётя", "plural": "тёти", "gender": "feminine", "my": "моя", "enPlural": "aunts", "note": ""},
-        {"id": "name", "label": "Name", "singular": "имя", "plural": "имена", "gender": "neuter", "my": "моё", "enPlural": "names", "note": ""},
-        {"id": "child-archaic", "label": "Child (дитя)", "singular": "дитя", "plural": "дети", "gender": "neuter", "my": "моё", "enPlural": "children", "note": "Дитя is a literary word; everyday Russian usually uses ребёнок."},
-        {"id": "grandfather", "label": "Grandfather", "singular": "дедушка", "plural": "дедушки", "gender": "masculine", "my": "мой", "enPlural": "grandfathers", "note": "Masculine even though дедушка ends in -а."},
-        {"id": "grandmother", "label": "Grandmother", "singular": "бабушка", "plural": "бабушки", "gender": "feminine", "my": "моя", "enPlural": "grandmothers", "note": ""},
-        {"id": "dog", "label": "Dog", "singular": "собака", "plural": "собаки", "gender": "feminine", "my": "моя", "enPlural": "dogs", "note": "Собака is grammatically feminine, even when referring to a male dog."},
-        {"id": "cat-m", "label": "Cat (male)", "singular": "кот", "plural": "коты", "gender": "masculine", "my": "мой", "enPlural": "male cats", "note": ""},
-        {"id": "cat-f", "label": "Cat (female)", "singular": "кошка", "plural": "кошки", "gender": "feminine", "my": "моя", "enPlural": "female cats", "note": ""},
-        {"id": "bird", "label": "Bird", "singular": "птица", "plural": "птицы", "gender": "feminine", "my": "моя", "enPlural": "birds", "note": ""},
-        {"id": "surname", "label": "Last name / surname", "singular": "фамилия", "plural": "фамилии", "gender": "feminine", "my": "моя", "enPlural": "last names", "note": "“My last names” is possible when someone has multiple surnames, but uncommon."},
-        {"id": "son", "label": "Son", "singular": "сын", "plural": "сыновья", "gender": "masculine", "my": "мой", "enPlural": "sons", "note": "Сын → сыновья is an irregular plural."},
-        {"id": "daughter", "label": "Daughter", "singular": "дочь", "plural": "дочери", "gender": "feminine", "my": "моя", "enPlural": "daughters", "note": "Дочь → дочери changes its stem."},
-        {"id": "husband", "label": "Husband", "singular": "муж", "plural": "мужья", "gender": "masculine", "my": "мой", "enPlural": "husbands", "note": "Муж → мужья is an irregular plural."},
-        {"id": "wife", "label": "Wife", "singular": "жена", "plural": "жёны", "gender": "feminine", "my": "моя", "enPlural": "wives", "note": ""},
-        {"id": "friend", "label": "Friend (male)", "singular": "друг", "plural": "друзья", "gender": "masculine", "my": "мой", "enPlural": "male friends", "note": "Друг → друзья is an irregular plural."},
-        {"id": "patronymic", "label": "Patronymic", "singular": "отчество", "plural": "отчества", "gender": "neuter", "my": "моё", "enPlural": "patronymics", "note": ""},
-        {"id": "animal", "label": "Animal", "singular": "животное", "plural": "животные", "gender": "neuter", "my": "моё", "enPlural": "animals", "note": "Животное is a neuter noun formed from an adjective."},
-        {"id": "letter", "label": "Letter (message)", "singular": "письмо", "plural": "письма", "gender": "neuter", "my": "моё", "enPlural": "letters", "note": ""},
-        {"id": "word", "label": "Word", "singular": "слово", "plural": "слова", "gender": "neuter", "my": "моё", "enPlural": "words", "note": ""},
-        {"id": "child", "label": "Child (ребёнок)", "singular": "ребёнок", "plural": "дети", "gender": "masculine", "my": "мой", "enPlural": "children", "note": "Ребёнок → дети: the plural uses a different root."},
-        {"id": "person", "label": "Person", "singular": "человек", "plural": "люди", "gender": "masculine", "my": "мой", "enPlural": "people", "note": "Человек → люди: the plural uses a different root. “My people” needs context."},
-        {"id": "parents", "label": "Parent(s)", "singular": "родитель", "plural": "родители", "gender": "masculine", "my": "мой", "enPlural": "parents", "note": "Родитель is one parent; родители usually means parents together."},
+        { "id": "brother", "label": "Brother", "singular": "брат", "plural": "братья", "gender": "masculine", "my": "мой", "enPlural": "brothers", "note": "" },
+        { "id": "sister", "label": "Sister", "singular": "сестра", "plural": "сёстры", "gender": "feminine", "my": "моя", "enPlural": "sisters", "note": "" },
+        { "id": "relative-m", "label": "Relative (male)", "singular": "родственник", "plural": "родственники", "gender": "masculine", "my": "мой", "enPlural": "male relatives", "note": "" },
+        { "id": "relative-f", "label": "Relative (female)", "singular": "родственница", "plural": "родственницы", "gender": "feminine", "my": "моя", "enPlural": "female relatives", "note": "" },
+        { "id": "cousin-m", "label": "Cousin (male)", "singular": "двоюродный брат", "plural": "двоюродные братья", "gender": "masculine", "my": "мой", "enPlural": "male cousins", "note": "" },
+        { "id": "cousin-f", "label": "Cousin (female)", "singular": "двоюродная сестра", "plural": "двоюродные сёстры", "gender": "feminine", "my": "моя", "enPlural": "female cousins", "note": "" },
+        { "id": "father", "label": "Father", "singular": "отец", "plural": "отцы", "gender": "masculine", "my": "мой", "enPlural": "fathers", "note": "" },
+        { "id": "mother", "label": "Mother", "singular": "мать", "plural": "матери", "gender": "feminine", "my": "моя", "enPlural": "mothers", "note": "Notice the unusual plural: мать → матери." },
+        { "id": "uncle", "label": "Uncle", "singular": "дядя", "plural": "дяди", "gender": "masculine", "my": "мой", "enPlural": "uncles", "note": "Masculine, despite its -я ending." },
+        { "id": "aunt", "label": "Aunt", "singular": "тётя", "plural": "тёти", "gender": "feminine", "my": "моя", "enPlural": "aunts", "note": "" },
+        { "id": "name", "label": "Name", "singular": "имя", "plural": "имена", "gender": "neuter", "my": "моё", "enPlural": "names", "note": "" },
+        { "id": "child-archaic", "label": "Child (дитя)", "singular": "дитя", "plural": "дети", "gender": "neuter", "my": "моё", "enPlural": "children", "note": "Дитя is a literary word; everyday Russian usually uses ребёнок." },
+        { "id": "grandfather", "label": "Grandfather", "singular": "дедушка", "plural": "дедушки", "gender": "masculine", "my": "мой", "enPlural": "grandfathers", "note": "Masculine even though дедушка ends in -а." },
+        { "id": "grandmother", "label": "Grandmother", "singular": "бабушка", "plural": "бабушки", "gender": "feminine", "my": "моя", "enPlural": "grandmothers", "note": "" },
+        { "id": "dog", "label": "Dog", "singular": "собака", "plural": "собаки", "gender": "feminine", "my": "моя", "enPlural": "dogs", "note": "Собака is grammatically feminine, even when referring to a male dog." },
+        { "id": "cat-m", "label": "Cat (male)", "singular": "кот", "plural": "коты", "gender": "masculine", "my": "мой", "enPlural": "male cats", "note": "" },
+        { "id": "cat-f", "label": "Cat (female)", "singular": "кошка", "plural": "кошки", "gender": "feminine", "my": "моя", "enPlural": "female cats", "note": "" },
+        { "id": "bird", "label": "Bird", "singular": "птица", "plural": "птицы", "gender": "feminine", "my": "моя", "enPlural": "birds", "note": "" },
+        { "id": "surname", "label": "Last name / surname", "singular": "фамилия", "plural": "фамилии", "gender": "feminine", "my": "моя", "enPlural": "last names", "note": "“My last names” is possible when someone has multiple surnames, but uncommon." },
+        { "id": "son", "label": "Son", "singular": "сын", "plural": "сыновья", "gender": "masculine", "my": "мой", "enPlural": "sons", "note": "Сын → сыновья is an irregular plural." },
+        { "id": "daughter", "label": "Daughter", "singular": "дочь", "plural": "дочери", "gender": "feminine", "my": "моя", "enPlural": "daughters", "note": "Дочь → дочери changes its stem." },
+        { "id": "husband", "label": "Husband", "singular": "муж", "plural": "мужья", "gender": "masculine", "my": "мой", "enPlural": "husbands", "note": "Муж → мужья is an irregular plural." },
+        { "id": "wife", "label": "Wife", "singular": "жена", "plural": "жёны", "gender": "feminine", "my": "моя", "enPlural": "wives", "note": "" },
+        { "id": "friend", "label": "Friend (male)", "singular": "друг", "plural": "друзья", "gender": "masculine", "my": "мой", "enPlural": "male friends", "note": "Друг → друзья is an irregular plural." },
+        { "id": "patronymic", "label": "Patronymic", "singular": "отчество", "plural": "отчества", "gender": "neuter", "my": "моё", "enPlural": "patronymics", "note": "" },
+        { "id": "animal", "label": "Animal", "singular": "животное", "plural": "животные", "gender": "neuter", "my": "моё", "enPlural": "animals", "note": "Животное is a neuter noun formed from an adjective." },
+        { "id": "letter", "label": "Letter (message)", "singular": "письмо", "plural": "письма", "gender": "neuter", "my": "моё", "enPlural": "letters", "note": "" },
+        { "id": "word", "label": "Word", "singular": "слово", "plural": "слова", "gender": "neuter", "my": "моё", "enPlural": "words", "note": "" },
+        { "id": "child", "label": "Child (ребёнок)", "singular": "ребёнок", "plural": "дети", "gender": "masculine", "my": "мой", "enPlural": "children", "note": "Ребёнок → дети: the plural uses a different root." },
+        { "id": "person", "label": "Person", "singular": "человек", "plural": "люди", "gender": "masculine", "my": "мой", "enPlural": "people", "note": "Человек → люди: the plural uses a different root. “My people” needs context." },
+        { "id": "parents", "label": "Parent(s)", "singular": "родитель", "plural": "родители", "gender": "masculine", "my": "мой", "enPlural": "parents", "note": "Родитель is one parent; родители usually means parents together." },
     ];
     // END MICROSCOPE — EXPANDED WORD BANK
     let microNumber = 'singular';
@@ -6303,7 +6319,7 @@ document
         if (action === 'drawers') { showDrawers(); return; }
         if (hotspot.dataset.drawerTab) { showDrawerInterior(hotspot.dataset.drawerTab); return; }
         if (hotspot.dataset.drawerNav) { returnFromDrawerInterior(hotspot.dataset.drawerNav); return; }
-        const drawerActions = {'drawer-examples':'examples', 'drawer-special':'special', 'drawer-real':'real', 'drawer-notes':'notes'};
+        const drawerActions = { 'drawer-examples': 'examples', 'drawer-special': 'special', 'drawer-real': 'real', 'drawer-notes': 'notes' };
         if (drawerActions[action]) { showDrawerInterior(drawerActions[action]); return; }
         if (action === 'drawers-back') { closeDrawers(); return; }
         status.textContent = messages[action] || 'This discovery is being prepared.';
@@ -9767,10 +9783,10 @@ function initTry() {
 // ==================================================
 
 const PET_FEELINGS = [
-    { key: "like",   en: "I like you." },
+    { key: "like", en: "I like you." },
     { key: "really", en: "I really like you." },
-    { key: "love",   en: "I love you." },
-    { key: "adore",  en: "I adore you." }
+    { key: "love", en: "I love you." },
+    { key: "adore", en: "I adore you." }
 ];
 
 function currentPet() {
@@ -9937,78 +9953,122 @@ function initPets() {
 
 // BEGIN LIVING SENTENCE — isolated three-panel workspace
 (() => {
- const scene=document.getElementById('ls-scene');if(!scene)return;
- const $=id=>scene.querySelector('#'+id);
- const lex={brother:['брат','братья','brother','m'],sister:['сестра','сёстры','sister','f'],uncle:['дядя','дяди','uncle','m'],aunt:['тётя','тёти','aunt','f'],father:['отец','отцы','father','m'],mother:['мама','мамы','mother','f'],son:['сын','сыновья','son','m'],daughter:['дочь','дочери','daughter','f'],grandfather:['дедушка','дедушки','grandfather','m'],grandmother:['бабушка','бабушки','grandmother','f'],cousin_m:['двоюродный брат','двоюродные братья','male cousin','m'],cousin_f:['двоюродная сестра','двоюродные сёстры','female cousin','f']};
- const nameBank={m:['Иван','Алексей','Дмитрий'],f:['Анна','Мария','Елена']};
- const nameGender=name=>Object.entries(nameBank).find(([,names])=>names.includes(name))?.[0];
- const nameChoices=(gender,current)=>select('name',nameBank[gender].map(name=>[name,name]),nameBank[gender].includes(current)?current:nameBank[gender][0]);
- const nameForRelationship=(rel,current)=>{const gender=lex[rel][3];return nameGender(current)===gender?current:nameBank[gender][0];};
- const poss={my:['мой','моя','мои','my'],your:['твой','твоя','твои','your'],your_formal:['ваш','ваша','ваши','your (formal)'],his:['его','его','его','his'],her:['её','её','её','her'],our:['наш','наша','наши','our'],their:['их','их','их','their']};
- const fam={my:['моей','my'],your:['твоей','your'],your_formal:['вашей','your (formal)'],our:['нашей','our'],their:['их','their']};
- const desc={oldest:['самый старший','самая старшая','самые старшие','oldest'],youngest:['самый младший','самая младшая','самые младшие','youngest'],tallest:['самый высокий','самая высокая','самые высокие','tallest'],shortest:['самый низкий','самая низкая','самые низкие','shortest']};
- const nums=['ноль','один','два','три','четыре','пять','шесть','семь','восемь','девять','десять','одиннадцать','двенадцать','тринадцать','четырнадцать','пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать','двадцать'];
- const tens=['','','двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят','восемьдесят','девяносто'];
- const number=n=>n<=20?nums[n]:n<100?(tens[Math.floor(n/10)]+(n%10?' '+nums[n%10]:'')):String(n);
- const years=n=>{let k=n%100;return k>=11&&k<=14?'лет':n%10===1?'год':n%10>=2&&n%10<=4?'года':'лет'};
- // Five independently editable starting points. Each selection has its own state and undo stack.
- const makePerson=(id,owner,rel,name,descriptor,family)=>({id,owner,rel,name,count:1,descriptor,family});
- const presets=[
-  {title:'Introductions',hint:'Meet two family members. Change names, relationships and ownership.',people:[makePerson('p1','my','brother','Иван','oldest','our'),makePerson('p2','your','sister','Анна','youngest','your')],additions:[]},
-  {title:'Ages',hint:'Explore how ages are expressed. Add comparisons when you are ready.',people:[makePerson('p1','my','brother','Иван','oldest','our')],additions:[{id:'seed-age',type:'age',person:'p1',value:'25'}]},
-  {title:'Heights',hint:'Explore descriptions of height and comparisons.',people:[makePerson('p1','my','sister','Анна','tallest','our')],additions:[{id:'seed-height',type:'height',person:'p1',value:'170'}]},
-  {title:'Our Families',hint:'Change family references and add people to compare families.',people:[makePerson('p1','our','brother','Алексей','youngest','our'),makePerson('p2','their','sister','Мария','oldest','their')],additions:[]},
-  {title:'Connections',hint:'Explore several relationships and build a family story.',people:[makePerson('p1','my','cousin_f','Елена','youngest','our'),makePerson('p2','her','uncle','Дмитрий','oldest','their')],additions:[]}
- ];
- let activePreset=0;
- const initial=(index=activePreset)=>({people:JSON.parse(JSON.stringify(presets[index].people)),additions:JSON.parse(JSON.stringify(presets[index].additions))});
- const sessions=presets.map((_,i)=>({state:initial(i),history:[],seq:0,discovery:''}));
- let state=sessions[0].state,history=sessions[0].history,editing=null,mode=null,seq=0;
- function saveSession(){const current=sessions[activePreset];current.state=state;current.history=history;current.seq=seq;current.discovery=$('ls-discovery').innerHTML;}
- function choosePreset(index){if(index===activePreset||!sessions[index])return;saveSession();activePreset=index;const session=sessions[index];state=session.state;history=session.history;seq=session.seq;editing=null;mode=null;$('ls-editor').hidden=true;$('ls-discovery').innerHTML=session.discovery||('Sentence '+(index+1)+' — '+presets[index].title+'. '+presets[index].hint);$('ls-preset-hint').textContent=presets[index].hint;render();}
- scene.querySelectorAll('input[name="ls-preset"]').forEach(radio=>radio.addEventListener('change',()=>{if(radio.checked)choosePreset(Number(radio.value));}));
- const clone=x=>JSON.parse(JSON.stringify(x));
- const button=(text,kind,id,field)=>`<button type="button" class="ls-word" data-ls-person="${id}" data-ls-field="${field}" title="Change ${kind}">${text}</button>`;
- const pinfo=p=>{let g=lex[p.rel][3],pl=p.count>1,k=pl?2:g==='m'?0:1;return {g,pl,k,pro:pl?'они':g==='m'?'он':'она',enpro:pl?'they':g==='m'?'he':'she'};};
- function personRu(p){const a=pinfo(p),l=lex[p.rel],d=desc[p.descriptor];return `это ${button(poss[p.owner][a.k]+' '+l[a.pl?1:0],'relationship',p.id,'identity')} ${button(p.name,'name',p.id,'name')}, и ${a.pro} ${button(d[a.k],'description',p.id,'descriptor')} ${button('в '+fam[p.family][0]+' семье','family reference',p.id,'family')}`;}
- function personEn(p){const a=pinfo(p),l=lex[p.rel];return `this ${a.pl?'group includes':'is'} ${poss[p.owner][3]} ${l[2]}${a.pl?'s':''} ${p.name}, and ${a.enpro} ${a.pl?'are':'is'} the ${desc[p.descriptor][3]} in ${fam[p.family][1]} family`;}
- const getP=id=>state.people.find(p=>p.id===id);
- const genitiveName=name=>{if(/а$/i.test(name))return name.slice(0,-1)+'ы';if(/я$/i.test(name))return name.slice(0,-1)+'и';if(/й$/i.test(name))return name.slice(0,-1)+'я';if(/ь$/i.test(name))return name.slice(0,-1)+'я';if(/[бвгджзклмнпрстфхцчшщ]$/i.test(name))return name+'а';return name;};
- function addition(a){const p=getP(a.person)||state.people[0],name=p?p.name:'этот человек',info=p?pinfo(p):{g:'m'};switch(a.type){
- case 'age':return {ru:`${info.g==='f'?'ей':'ему'} ${number(+a.value)} ${years(+a.value)}`,en:`${name} is ${a.value} years old`};
- case 'height':return {ru:`рост ${genitiveName(name)} — ${a.value} см`,en:`${name} is ${a.value} cm tall`};
- case 'comparison':{const other=getP(a.other)||state.people[1]||p;const words={older:'старше',younger:'младше',taller:'выше',shorter:'ниже'};return {ru:`${name} ${words[a.value]} ${genitiveName(other.name)}`,en:`${name} is ${a.value} than ${other.name}`};}
- case 'description':{const d=desc[a.value],k=info.k;return {ru:`${info.pro} ${d[k]} в ${fam[a.family||'our'][0]} семье`,en:`${name} is the ${d[3]} in ${fam[a.family||'our'][1]} family`};}
- case 'family':return {ru:`${info.pro} живёт в ${fam[a.value][0]} семье`,en:`${name} lives in ${fam[a.value][1]} family`};
- default:return {ru:'',en:''};}}
- function render(){const base=state.people.map(personRu).join(', а ');const extra=state.additions.map(a=>addition(a).ru).filter(Boolean);$('ls-russian').innerHTML=(base+(extra.length?', а '+extra.join(', а '):'')+'.');$('ls-english').textContent=state.people.map(personEn).join(', while ')+(state.additions.length?'; '+state.additions.map(a=>addition(a).en).join('; '):'')+'.';$('ls-undo').disabled=!history.length;$('ls-reset').disabled=!history.length;
- $('ls-additions').innerHTML=state.additions.length?state.additions.map(a=>{const v=addition(a);return `<div class="ls-added"><span>${v.en}<small lang="ru">${v.ru}</small></span><div><button type="button" data-ls-edit="${a.id}">✎ Edit</button><button type="button" data-ls-remove="${a.id}">× Remove</button></div></div>`}).join(''):'<p class="ls-empty">Your additions will appear here.</p>';}
- function commit(message,detail){history.push(clone(state));$('ls-discovery').innerHTML=`<strong>${message}</strong><br>${detail}`;}
- function changePerson(id,field,value){const p=getP(id);if(!p||String(p[field])===String(value))return;const before=p[field];commit('You changed '+field.replace('rel','relationship')+'.','The Laboratory updates linked Russian words automatically. Watch agreement, pronouns and descriptions change together.');p[field]=field==='count'?Number(value):value;render();}
- const select=(name,items,current)=>`<label>${name}<select name="${name}">${items.map(([k,v])=>`<option value="${k}" ${String(k)===String(current)?'selected':''}>${v}</option>`).join('')}</select></label>`;
- const opts=o=>Object.entries(o).map(([k,v])=>[k,v]);
- const personOpts=()=>state.people.map(p=>[p.id,p.name]);
- function editPhrase(id,field){const p=getP(id);if(!p)return;editing=null;mode='phrase';let body='';if(field==='identity'){body=select('owner',opts(Object.fromEntries(Object.entries(poss).map(([k,v])=>[k,v[3]]))),p.owner)+select('relationship',opts(Object.fromEntries(Object.entries(lex).map(([k,v])=>[k,v[2]]))),p.rel)+select('count',[[1,'One'],[2,'Two'],[3,'Three']],p.count);}if(field==='name')body=nameChoices(lex[p.rel][3],p.name);if(field==='descriptor')body=select('descriptor',opts(Object.fromEntries(Object.entries(desc).map(([k,v])=>[k,v[3]]))),p.descriptor);if(field==='family')body=select('family',opts(Object.fromEntries(Object.entries(fam).map(([k,v])=>[k,v[1]]))),p.family);$('ls-editor').hidden=false;$('ls-editor').innerHTML=`<strong>✎ Change this phrase</strong><form id="ls-form">${body}<div class="ls-form-actions"><button type="submit">Apply Change</button><button type="button" data-ls-cancel>Cancel</button></div></form>`;$('ls-editor').dataset.person=id;$('ls-editor').dataset.field=field;}
- function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
- function openAdd(type,existing){mode=type;editing=existing||null;const a=existing?clone(state.additions.find(x=>x.id===existing)): {person:state.people[0].id,other:state.people[1]?.id||state.people[0].id,value:type==='age'?25:type==='height'?175:type==='comparison'?'older':type==='description'?'tallest':'our',family:'our'};
- let form='';if(type==='person'){form=select('owner',opts(Object.fromEntries(Object.entries(poss).map(([k,v])=>[k,v[3]]))),'my')+select('relationship',opts(Object.fromEntries(Object.entries(lex).map(([k,v])=>[k,v[2]]))),'sister')+select('count',[[1,'One'],[2,'Two'],[3,'Three']],1)+nameChoices('f','Мария');}
- else {form=select('person',personOpts(),a.person);if(type==='comparison')form+=select('value',opts({older:'Older than',younger:'Younger than',taller:'Taller than',shorter:'Shorter than'}),a.value)+select('other',personOpts(),a.other);if(type==='age'||type==='height')form+=`<label>${type==='age'?'Age in years':'Height in cm'}<input name="value" type="number" min="${type==='age'?0:40}" max="${type==='age'?110:250}" value="${a.value}"></label>`;if(type==='description')form+=select('value',opts(Object.fromEntries(Object.entries(desc).map(([k,v])=>[k,v[3]]))),a.value)+select('family',opts(Object.fromEntries(Object.entries(fam).map(([k,v])=>[k,v[1]]))),a.family);if(type==='family')form+=select('value',opts(Object.fromEntries(Object.entries(fam).map(([k,v])=>[k,v[1]]))),a.value);}
- $('ls-editor').hidden=false;$('ls-editor').dataset.field='';$('ls-editor').innerHTML=`<strong>${editing?'✎ Edit':'✚ Add'} ${type}</strong><form id="ls-form">${form}<div class="ls-form-actions"><button type="submit">${editing?'Save Changes':'Add This Information'}</button><button type="button" data-ls-cancel>Cancel</button></div></form>`;}
- function syncNamePicker(form){
-   const relationship=form.querySelector('select[name="relationship"]');
-   const name=form.querySelector('select[name="name"]');
-   if(!relationship||!name)return;
-   const gender=lex[relationship.value]?.[3];
-   if(!gender)return;
-   const selected=name.value;
-   name.innerHTML=nameBank[gender].map(n=>`<option value="${n}">${n}</option>`).join('');
-   name.value=nameBank[gender].includes(selected)?selected:nameBank[gender][0];
- }
- scene.addEventListener('click',e=>{const w=e.target.closest('[data-ls-person]');if(w){editPhrase(w.dataset.lsPerson,w.dataset.lsField);return;}const add=e.target.closest('[data-ls-add]');if(add){openAdd(add.dataset.lsAdd);return;}const ed=e.target.closest('[data-ls-edit]');if(ed){const a=state.additions.find(x=>x.id===ed.dataset.lsEdit);if(a)openAdd(a.type,a.id);return;}const rm=e.target.closest('[data-ls-remove]');if(rm){const a=state.additions.find(x=>x.id===rm.dataset.lsRemove);if(a){commit('Addition removed.','The entire expression was removed without leaving broken punctuation.');state.additions=state.additions.filter(x=>x.id!==a.id);render();}return;}if(e.target.closest('[data-ls-cancel]')){ $('ls-editor').hidden=true;}});
- scene.addEventListener('change',e=>{const form=e.target.closest('#ls-form');if(form){if(e.target.name==='relationship')syncNamePicker(form);}});
- scene.addEventListener('submit',e=>{if(e.target.id!=='ls-form')return;e.preventDefault();const d=Object.fromEntries(new FormData(e.target));if(mode==='phrase'){const id=$('ls-editor').dataset.person;const field=$('ls-editor').dataset.field;const p=getP(id);if(p){const updates=Object.entries(d).map(([k,v])=>[k==='relationship'?'rel':k,k==='count'?Number(v):v]);const changed=updates.filter(([k,v])=>String(p[k])!==String(v));if(changed.length){commit('The sentence has changed.','Russian agreement adjusts to match the relationship, number and meaning you selected.');changed.forEach(([k,v])=>p[k]=v);if(changed.some(([k])=>k==='rel'))p.name=nameForRelationship(p.rel,p.name);}}}else if(mode==='person'){commit('A new person was added.','The new family member becomes part of the Living Sentence and can be clicked and changed.');state.people.push({id:'p'+(++seq+2),owner:d.owner,rel:d.relationship,count:+d.count,name:nameForRelationship(d.relationship,d.name),descriptor:'youngest',family:'our'});}else{if(editing){const a=state.additions.find(x=>x.id===editing);if(a){commit('Addition updated.','The Russian expression has been reconstructed from your choices.');Object.assign(a,d);}}else{commit('New information added.','Your sentence has grown. This addition can be edited or removed independently.');state.additions.push({id:'a'+(++seq),type:mode,...d});}}$('ls-editor').hidden=true;render();});
- $('ls-listen').addEventListener('click',()=>{if(typeof speakRussian==='function')speakRussian($('ls-russian').textContent);});
- $('ls-undo').addEventListener('click',()=>{if(!history.length)return;state=history.pop();$('ls-discovery').textContent='Last change undone. Your earlier choices have been preserved.';$('ls-editor').hidden=true;render();});
- $('ls-reset').addEventListener('click',()=>{if(!history.length)return;state=initial();history=[];$('ls-editor').hidden=true;$('ls-discovery').textContent='Starting sentence restored. All additions have been cleared.';render();});render();
+    const scene = document.getElementById('ls-scene'); if (!scene) return;
+    const $ = id => scene.querySelector('#' + id);
+    const lex = { brother: ['брат', 'братья', 'brother', 'm'], sister: ['сестра', 'сёстры', 'sister', 'f'], uncle: ['дядя', 'дяди', 'uncle', 'm'], aunt: ['тётя', 'тёти', 'aunt', 'f'], father: ['отец', 'отцы', 'father', 'm'], mother: ['мама', 'мамы', 'mother', 'f'], son: ['сын', 'сыновья', 'son', 'm'], daughter: ['дочь', 'дочери', 'daughter', 'f'], grandfather: ['дедушка', 'дедушки', 'grandfather', 'm'], grandmother: ['бабушка', 'бабушки', 'grandmother', 'f'], cousin_m: ['двоюродный брат', 'двоюродные братья', 'male cousin', 'm'], cousin_f: ['двоюродная сестра', 'двоюродные сёстры', 'female cousin', 'f'] };
+    const nameBank = { m: ['Иван', 'Алексей', 'Дмитрий'], f: ['Анна', 'Мария', 'Елена'] };
+    const nameGender = name => Object.entries(nameBank).find(([, names]) => names.includes(name))?.[0];
+    const nameChoices = (gender, current) => select('name', nameBank[gender].map(name => [name, name]), nameBank[gender].includes(current) ? current : nameBank[gender][0]);
+    const nameForRelationship = (rel, current) => { const gender = lex[rel][3]; return nameGender(current) === gender ? current : nameBank[gender][0]; };
+    const poss = { my: ['мой', 'моя', 'мои', 'my'], your: ['твой', 'твоя', 'твои', 'your'], your_formal: ['ваш', 'ваша', 'ваши', 'your (formal)'], his: ['его', 'его', 'его', 'his'], her: ['её', 'её', 'её', 'her'], our: ['наш', 'наша', 'наши', 'our'], their: ['их', 'их', 'их', 'their'] };
+    const fam = { my: ['моей', 'my'], your: ['твоей', 'your'], your_formal: ['вашей', 'your (formal)'], our: ['нашей', 'our'], their: ['их', 'their'] };
+    const desc = { oldest: ['самый старший', 'самая старшая', 'самые старшие', 'oldest'], youngest: ['самый младший', 'самая младшая', 'самые младшие', 'youngest'], tallest: ['самый высокий', 'самая высокая', 'самые высокие', 'tallest'], shortest: ['самый низкий', 'самая низкая', 'самые низкие', 'shortest'] };
+    const nums = ['ноль', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать', 'двадцать'];
+    const tens = ['', '', 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто'];
+    const number = n => n <= 20 ? nums[n] : n < 100 ? (tens[Math.floor(n / 10)] + (n % 10 ? ' ' + nums[n % 10] : '')) : String(n);
+    const years = n => { let k = n % 100; return k >= 11 && k <= 14 ? 'лет' : n % 10 === 1 ? 'год' : n % 10 >= 2 && n % 10 <= 4 ? 'года' : 'лет' };
+    // Five independently editable starting points. Each selection has its own state and undo stack.
+    const makePerson = (id, owner, rel, name, descriptor, family) => ({ id, owner, rel, name, count: 1, descriptor, family });
+    const presets = [
+        { title: 'Introductions', hint: 'Meet two family members. Change names, relationships and ownership.', people: [makePerson('p1', 'my', 'brother', 'Иван', 'oldest', 'our'), makePerson('p2', 'your', 'sister', 'Анна', 'youngest', 'your')], additions: [] },
+        { title: 'Ages', hint: 'Explore how ages are expressed. Add comparisons when you are ready.', people: [makePerson('p1', 'my', 'brother', 'Иван', 'oldest', 'our')], additions: [{ id: 'seed-age', type: 'age', person: 'p1', value: '25' }] },
+        { title: 'Heights', hint: 'Explore descriptions of height and comparisons.', people: [makePerson('p1', 'my', 'sister', 'Анна', 'tallest', 'our')], additions: [{ id: 'seed-height', type: 'height', person: 'p1', value: '170' }] },
+        { title: 'Our Families', hint: 'Change family references and add people to compare families.', people: [makePerson('p1', 'our', 'brother', 'Алексей', 'youngest', 'our'), makePerson('p2', 'their', 'sister', 'Мария', 'oldest', 'their')], additions: [] },
+        { title: 'Connections', hint: 'Explore several relationships and build a family story.', people: [makePerson('p1', 'my', 'cousin_f', 'Елена', 'youngest', 'our'), makePerson('p2', 'her', 'uncle', 'Дмитрий', 'oldest', 'their')], additions: [] }
+    ];
+    let activePreset = 0;
+    const initial = (index = activePreset) => ({ people: JSON.parse(JSON.stringify(presets[index].people)), additions: JSON.parse(JSON.stringify(presets[index].additions)) });
+    const sessions = presets.map((_, i) => ({ state: initial(i), history: [], seq: 0, discovery: '' }));
+    let state = sessions[0].state, history = sessions[0].history, editing = null, mode = null, seq = 0;
+    function saveSession() { const current = sessions[activePreset]; current.state = state; current.history = history; current.seq = seq; current.discovery = $('ls-discovery').innerHTML; }
+    function choosePreset(index) { if (index === activePreset || !sessions[index]) return; saveSession(); activePreset = index; const session = sessions[index]; state = session.state; history = session.history; seq = session.seq; editing = null; mode = null; $('ls-editor').hidden = true; $('ls-discovery').innerHTML = session.discovery || ('Sentence ' + (index + 1) + ' — ' + presets[index].title + '. ' + presets[index].hint); $('ls-preset-hint').textContent = presets[index].hint; render(); }
+    scene.querySelectorAll('input[name="ls-preset"]').forEach(radio => radio.addEventListener('change', () => { if (radio.checked) choosePreset(Number(radio.value)); }));
+    const clone = x => JSON.parse(JSON.stringify(x));
+    const button = (text, kind, id, field) => `<button type="button" class="ls-word" data-ls-person="${id}" data-ls-field="${field}" title="Change ${kind}">${text}</button>`;
+    const pinfo = p => { let g = lex[p.rel][3], pl = p.count > 1, k = pl ? 2 : g === 'm' ? 0 : 1; return { g, pl, k, pro: pl ? 'они' : g === 'm' ? 'он' : 'она', enpro: pl ? 'they' : g === 'm' ? 'he' : 'she' }; };
+    function personRu(p) { const a = pinfo(p), l = lex[p.rel], d = desc[p.descriptor]; return `это ${button(poss[p.owner][a.k] + ' ' + l[a.pl ? 1 : 0], 'relationship', p.id, 'identity')} ${button(p.name, 'name', p.id, 'name')}, и ${a.pro} ${button(d[a.k], 'description', p.id, 'descriptor')} ${button('в ' + fam[p.family][0] + ' семье', 'family reference', p.id, 'family')}`; }
+    function personEn(p) { const a = pinfo(p), l = lex[p.rel]; return `this ${a.pl ? 'group includes' : 'is'} ${poss[p.owner][3]} ${l[2]}${a.pl ? 's' : ''} ${p.name}, and ${a.enpro} ${a.pl ? 'are' : 'is'} the ${desc[p.descriptor][3]} in ${fam[p.family][1]} family`; }
+    const getP = id => state.people.find(p => p.id === id);
+    const genitiveName = name => { if (/а$/i.test(name)) return name.slice(0, -1) + 'ы'; if (/я$/i.test(name)) return name.slice(0, -1) + 'и'; if (/й$/i.test(name)) return name.slice(0, -1) + 'я'; if (/ь$/i.test(name)) return name.slice(0, -1) + 'я'; if (/[бвгджзклмнпрстфхцчшщ]$/i.test(name)) return name + 'а'; return name; };
+    function addition(a) {
+        const p = getP(a.person) || state.people[0], name = p ? p.name : 'этот человек', info = p ? pinfo(p) : { g: 'm' }; switch (a.type) {
+            case 'age': return { ru: `${info.g === 'f' ? 'ей' : 'ему'} ${number(+a.value)} ${years(+a.value)}`, en: `${name} is ${a.value} years old` };
+            case 'height': return { ru: `рост ${genitiveName(name)} — ${a.value} см`, en: `${name} is ${a.value} cm tall` };
+            case 'comparison': { const other = getP(a.other) || state.people[1] || p; const words = { older: 'старше', younger: 'младше', taller: 'выше', shorter: 'ниже' }; return { ru: `${name} ${words[a.value]} ${genitiveName(other.name)}`, en: `${name} is ${a.value} than ${other.name}` }; }
+            case 'description': { const d = desc[a.value], k = info.k; return { ru: `${info.pro} ${d[k]} в ${fam[a.family || 'our'][0]} семье`, en: `${name} is the ${d[3]} in ${fam[a.family || 'our'][1]} family` }; }
+            case 'family': return { ru: `${info.pro} живёт в ${fam[a.value][0]} семье`, en: `${name} lives in ${fam[a.value][1]} family` };
+            default: return { ru: '', en: '' };
+        }
+    }
+    function render() {
+        const base = state.people.map(personRu).join(', а '); const extra = state.additions.map(a => addition(a).ru).filter(Boolean); $('ls-russian').innerHTML = (base + (extra.length ? ', а ' + extra.join(', а ') : '') + '.'); $('ls-english').textContent = state.people.map(personEn).join(', while ') + (state.additions.length ? '; ' + state.additions.map(a => addition(a).en).join('; ') : '') + '.'; $('ls-undo').disabled = !history.length; $('ls-reset').disabled = !history.length;
+        $('ls-additions').innerHTML = state.additions.length ? state.additions.map(a => { const v = addition(a); return `<div class="ls-added"><span>${v.en}<small lang="ru">${v.ru}</small></span><div><button type="button" data-ls-edit="${a.id}">✎ Edit</button><button type="button" data-ls-remove="${a.id}">× Remove</button></div></div>` }).join('') : '<p class="ls-empty">Your additions will appear here.</p>';
+    }
+    function commit(message, detail) { history.push(clone(state)); $('ls-discovery').innerHTML = `<strong>${message}</strong><br>${detail}`; }
+    function changePerson(id, field, value) { const p = getP(id); if (!p || String(p[field]) === String(value)) return; const before = p[field]; commit('You changed ' + field.replace('rel', 'relationship') + '.', 'The Laboratory updates linked Russian words automatically. Watch agreement, pronouns and descriptions change together.'); p[field] = field === 'count' ? Number(value) : value; render(); }
+    const select = (name, items, current) => `<label>${name}<select name="${name}">${items.map(([k, v]) => `<option value="${k}" ${String(k) === String(current) ? 'selected' : ''}>${v}</option>`).join('')}</select></label>`;
+    const opts = o => Object.entries(o).map(([k, v]) => [k, v]);
+    const personOpts = () => state.people.map(p => [p.id, p.name]);
+    function editPhrase(id, field) { const p = getP(id); if (!p) return; editing = null; mode = 'phrase'; let body = ''; if (field === 'identity') { body = select('owner', opts(Object.fromEntries(Object.entries(poss).map(([k, v]) => [k, v[3]]))), p.owner) + select('relationship', opts(Object.fromEntries(Object.entries(lex).map(([k, v]) => [k, v[2]]))), p.rel) + select('count', [[1, 'One'], [2, 'Two'], [3, 'Three']], p.count); } if (field === 'name') body = nameChoices(lex[p.rel][3], p.name); if (field === 'descriptor') body = select('descriptor', opts(Object.fromEntries(Object.entries(desc).map(([k, v]) => [k, v[3]]))), p.descriptor); if (field === 'family') body = select('family', opts(Object.fromEntries(Object.entries(fam).map(([k, v]) => [k, v[1]]))), p.family); $('ls-editor').hidden = false; $('ls-editor').innerHTML = `<strong>✎ Change this phrase</strong><form id="ls-form">${body}<div class="ls-form-actions"><button type="submit">Apply Change</button><button type="button" data-ls-cancel>Cancel</button></div></form>`; $('ls-editor').dataset.person = id; $('ls-editor').dataset.field = field; }
+    function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+    function openAdd(type, existing) {
+        mode = type; editing = existing || null; const a = existing ? clone(state.additions.find(x => x.id === existing)) : { person: state.people[0].id, other: state.people[1]?.id || state.people[0].id, value: type === 'age' ? 25 : type === 'height' ? 175 : type === 'comparison' ? 'older' : type === 'description' ? 'tallest' : 'our', family: 'our' };
+        let form = ''; if (type === 'person') { form = select('owner', opts(Object.fromEntries(Object.entries(poss).map(([k, v]) => [k, v[3]]))), 'my') + select('relationship', opts(Object.fromEntries(Object.entries(lex).map(([k, v]) => [k, v[2]]))), 'sister') + select('count', [[1, 'One'], [2, 'Two'], [3, 'Three']], 1) + nameChoices('f', 'Мария'); }
+        else { form = select('person', personOpts(), a.person); if (type === 'comparison') form += select('value', opts({ older: 'Older than', younger: 'Younger than', taller: 'Taller than', shorter: 'Shorter than' }), a.value) + select('other', personOpts(), a.other); if (type === 'age' || type === 'height') form += `<label>${type === 'age' ? 'Age in years' : 'Height in cm'}<input name="value" type="number" min="${type === 'age' ? 0 : 40}" max="${type === 'age' ? 110 : 250}" value="${a.value}"></label>`; if (type === 'description') form += select('value', opts(Object.fromEntries(Object.entries(desc).map(([k, v]) => [k, v[3]]))), a.value) + select('family', opts(Object.fromEntries(Object.entries(fam).map(([k, v]) => [k, v[1]]))), a.family); if (type === 'family') form += select('value', opts(Object.fromEntries(Object.entries(fam).map(([k, v]) => [k, v[1]]))), a.value); }
+        $('ls-editor').hidden = false; $('ls-editor').dataset.field = ''; $('ls-editor').innerHTML = `<strong>${editing ? '✎ Edit' : '✚ Add'} ${type}</strong><form id="ls-form">${form}<div class="ls-form-actions"><button type="submit">${editing ? 'Save Changes' : 'Add This Information'}</button><button type="button" data-ls-cancel>Cancel</button></div></form>`;
+    }
+    function syncNamePicker(form) {
+        const relationship = form.querySelector('select[name="relationship"]');
+        const name = form.querySelector('select[name="name"]');
+        if (!relationship || !name) return;
+        const gender = lex[relationship.value]?.[3];
+        if (!gender) return;
+        const selected = name.value;
+        name.innerHTML = nameBank[gender].map(n => `<option value="${n}">${n}</option>`).join('');
+        name.value = nameBank[gender].includes(selected) ? selected : nameBank[gender][0];
+    }
+    scene.addEventListener('click', e => { const w = e.target.closest('[data-ls-person]'); if (w) { editPhrase(w.dataset.lsPerson, w.dataset.lsField); return; } const add = e.target.closest('[data-ls-add]'); if (add) { openAdd(add.dataset.lsAdd); return; } const ed = e.target.closest('[data-ls-edit]'); if (ed) { const a = state.additions.find(x => x.id === ed.dataset.lsEdit); if (a) openAdd(a.type, a.id); return; } const rm = e.target.closest('[data-ls-remove]'); if (rm) { const a = state.additions.find(x => x.id === rm.dataset.lsRemove); if (a) { commit('Addition removed.', 'The entire expression was removed without leaving broken punctuation.'); state.additions = state.additions.filter(x => x.id !== a.id); render(); } return; } if (e.target.closest('[data-ls-cancel]')) { $('ls-editor').hidden = true; } });
+    scene.addEventListener('change', e => { const form = e.target.closest('#ls-form'); if (form) { if (e.target.name === 'relationship') syncNamePicker(form); } });
+    scene.addEventListener('submit', e => { if (e.target.id !== 'ls-form') return; e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); if (mode === 'phrase') { const id = $('ls-editor').dataset.person; const field = $('ls-editor').dataset.field; const p = getP(id); if (p) { const updates = Object.entries(d).map(([k, v]) => [k === 'relationship' ? 'rel' : k, k === 'count' ? Number(v) : v]); const changed = updates.filter(([k, v]) => String(p[k]) !== String(v)); if (changed.length) { commit('The sentence has changed.', 'Russian agreement adjusts to match the relationship, number and meaning you selected.'); changed.forEach(([k, v]) => p[k] = v); if (changed.some(([k]) => k === 'rel')) p.name = nameForRelationship(p.rel, p.name); } } } else if (mode === 'person') { commit('A new person was added.', 'The new family member becomes part of the Living Sentence and can be clicked and changed.'); state.people.push({ id: 'p' + (++seq + 2), owner: d.owner, rel: d.relationship, count: +d.count, name: nameForRelationship(d.relationship, d.name), descriptor: 'youngest', family: 'our' }); } else { if (editing) { const a = state.additions.find(x => x.id === editing); if (a) { commit('Addition updated.', 'The Russian expression has been reconstructed from your choices.'); Object.assign(a, d); } } else { commit('New information added.', 'Your sentence has grown. This addition can be edited or removed independently.'); state.additions.push({ id: 'a' + (++seq), type: mode, ...d }); } } $('ls-editor').hidden = true; render(); });
+    $('ls-listen').addEventListener('click', () => { if (typeof speakRussian === 'function') speakRussian($('ls-russian').textContent); });
+    $('ls-undo').addEventListener('click', () => { if (!history.length) return; state = history.pop(); $('ls-discovery').textContent = 'Last change undone. Your earlier choices have been preserved.'; $('ls-editor').hidden = true; render(); });
+    $('ls-reset').addEventListener('click', () => { if (!history.length) return; state = initial(); history = []; $('ls-editor').hidden = true; $('ls-discovery').textContent = 'Starting sentence restored. All additions have been cleared.'; render(); }); render();
 })();
 // END LIVING SENTENCE
+
+
+// BEGIN DRAWER TWO — SECRET INNER DRAWERS: ISOLATED INVESTIGATION LOGIC
+(() => {
+    const scene = document.getElementById('cc-scene'); if (!scene) return;
+    const $ = id => scene.querySelector('#' + id);
+    const investigations = {
+        ending: { title: 'Why That Ending?', intro: 'The same person appears in both sentences. Why does the name look different?', sentences: [['Это <mark>Анна</mark>.', 'This is Anna.'], ['Иван старше <mark>Анны</mark>.', 'Ivan is older than Anna.']], question: 'What happened to Анна? Can you find the difference?', observation: 'Анна becomes Анны. The person stays the same.', prompt: 'Алексей старше ______.', options: ['Анна', 'Анну', 'Анны'], correct: 'Анны', from: 'Анна', to: 'Анны', labels: 'Nominative → Genitive · comparison reference', lens: { what: 'Анна changes to Анны. The ending -а becomes -ы; Anna herself has not changed.', why: 'In the comparison Иван старше Анны, Anna is the person used as the comparison reference. Russian can use the genitive case after a comparative such as старше.', how: 'For the name Анна, the nominative ending -а changes to genitive -ы. Other names can follow different patterns: Мария → Марии; Иван → Ивана.', when: 'This genitive comparison pattern is used without чем: Иван старше Анны. Another valid construction is Иван старше, чем Анна — with nominative after чем.', more: 'Мария выше Ивана. (Maria is taller than Ivan.)\nАлексей младше Марии. (Alexey is younger than Maria.)' } },
+        mine: { title: 'My or Mine?', intro: 'English says “my” for every noun. Russian chooses a form that matches the noun.', sentences: [['Это <mark>мой</mark> брат.', 'This is my brother.'], ['Это <mark>моя</mark> сестра.', 'This is my sister.']], question: 'Why did мой become моя?', observation: 'The possessive word changes with the noun.', prompt: 'Это ______ имя. (This is my name.)', options: ['мой', 'моя', 'моё'], correct: 'моё', from: 'мой', to: 'моя', labels: 'Masculine → Feminine · possessive agreement', lens: { what: 'мой changes to моя when we switch from брат to сестра.', why: 'Russian possessives agree with the grammatical gender and number of the noun they describe. This is agreement, not necessarily a case change.', how: 'мой брат (masculine), моя сестра (feminine), моё имя (neuter), мои родители (plural).', when: 'Choose the form that matches the noun. These examples use nominative forms; other grammatical cases can change the possessive again.', more: 'Это моё имя. (This is my name.)\nЭто мои родители. (These are my parents.)' } },
+        count: { title: 'One, Two, Five?', intro: 'Russian changes the noun form as the number changes.', sentences: [['У меня один <mark>брат</mark>.', 'I have one brother.'], ['У меня два <mark>брата</mark>.', 'I have two brothers.'], ['У меня пять <mark>братьев</mark>.', 'I have five brothers.']], question: 'Why are there three forms of “brother”?', observation: 'брат → брата → братьев as the number changes.', prompt: 'У меня три ______. (I have three brothers.)', options: ['брат', 'брата', 'братьев'], correct: 'брата', from: 'брат', to: 'братьев', labels: 'One → Five · counting changes noun form', lens: { what: 'After один: брат. After два: брата. After пять: братьев.', why: 'Russian numeral constructions select different noun forms. In basic counting, 2–4 typically use a genitive singular form; 5 and above typically use genitive plural.', how: 'один брат · два брата · пять братьев. These are patterns for the noun брат, not a universal ending for all nouns.', when: 'For simple counts, pay attention to the last digits and exceptions: 11–14 take the 5+ pattern. Other cases and constructions introduce additional rules.', more: 'одна сестра · две сестры · пять сестёр.\nодин человек · два человека · пять человек.' } },
+        age: { title: 'How Old Are You?', intro: 'Russian expresses age with a different construction and different forms of “year.”', sentences: [['Мне один <mark>год</mark>.', 'I am one year old.'], ['Мне два <mark>года</mark>.', 'I am two years old.'], ['Мне пять <mark>лет</mark>.', 'I am five years old.']], question: 'Why does “year” change from год to года to лет?', observation: 'год → года → лет with different numbers.', prompt: 'Анне двадцать три ______. (Anna is 23.)', options: ['год', 'года', 'лет'], correct: 'года', from: 'год', to: 'лет', labels: 'One → Five · age and counting', lens: { what: 'год, года, and лет are used with different numbers in age expressions.', why: 'Russian expresses age as “to someone [there are] N years”: Мне двадцать лет. The number determines the form of “year.”', how: '1 год · 2, 3, 4 года · 5–20 лет. For 21: год; 22–24: года; 25: лет.', when: 'Look at the last two digits first: 11–14 use лет. Otherwise endings in 1 use год, 2–4 use года, and the rest use лет.', more: 'Мне двадцать один год. (I am 21.)\nЕй двадцать два года. (She is 22.)\nЕму двадцать пять лет. (He is 25.)' } }
+    };
+
+    const order = ['mine', 'count', 'ending', 'age'];
+    const titles = { what: 'What Changed?', why: 'Why Did It Change?', how: 'How Does It Work?', when: 'When Does It Happen?', more: 'More Examples' };
+    const state = Object.fromEntries(order.map(k => [k, { picked: null, checked: false, lens: 'what' }]));
+    let active = 'ending', view = 'cabinet';
+    const escape = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    function show(viewName) { view = viewName; scene.querySelectorAll('[data-cc-view]').forEach(el => { el.hidden = el.dataset.ccView !== viewName; }); }
+    function feedback() { const s = state[active], d = investigations[active]; const el = $('cc-feedback'); if (!s.picked) { el.textContent = 'Choose a form, then check your prediction.'; el.dataset.result = ''; } else if (!s.checked) { el.textContent = 'Prediction selected. Ready to check?'; el.dataset.result = ''; } else if (s.picked === d.correct) { el.textContent = 'Excellent discovery! ' + d.correct + ' is correct. Open the Microscope to discover WHY.'; el.dataset.result = 'correct'; } else { el.textContent = 'Not quite yet. Look at the examples, then choose another form and try again.'; el.dataset.result = 'retry'; } }
+    function showLens(key) { state[active].lens = key; const d = investigations[active]; $('cc-explanation-title').textContent = titles[key]; $('cc-explanation-text').textContent = d.lens[key]; scene.querySelectorAll('[data-cc-lens]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ccLens === key))); }
+    function render() {
+        const d = investigations[active], s = state[active]; $('cc-case-counter').textContent = 'SECRET DRAWER ' + ['I', 'II', 'III', 'IV'][order.indexOf(active)]; $('cc-case-title').textContent = d.title; $('cc-case-intro').textContent = d.intro;
+        $('cc-case-sentences').innerHTML = d.sentences.map(([ru, en]) => `<div class="cc-sentence"><div lang="ru">${ru.replace(/<mark>/g, '<span class="cc-mark">').replace(/<\/mark>/g, '</span>')}</div><em>${escape(en)}</em></div>`).join('');
+        $('cc-case-question').textContent = d.question; $('cc-observation').textContent = d.observation; $('cc-prompt').textContent = d.prompt;
+        $('cc-options').replaceChildren(); d.options.forEach(value => { const b = document.createElement('button'); b.type = 'button'; b.textContent = value; b.setAttribute('aria-pressed', String(s.picked === value)); b.addEventListener('click', () => { s.picked = value; s.checked = false; scene.querySelectorAll('#cc-options button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); feedback(); }); $('cc-options').append(b); });
+        $('cc-micro-title').textContent = d.title; $('cc-transform').innerHTML = `<span class="cc-from">${escape(d.from)}</span><span class="cc-arrow">⟶</span><span class="cc-to">${escape(d.to)}</span>`; $('cc-transform-label').textContent = d.labels; feedback(); showLens(s.lens);
+    }
+    scene.querySelectorAll('[data-cc-open]').forEach(b => b.addEventListener('click', () => { active = b.dataset.ccOpen; render(); show('investigation'); }));
+    scene.querySelectorAll('[data-cc-nav]').forEach(b => b.addEventListener('click', () => { show(b.dataset.ccNav); if (b.dataset.ccNav === 'microscope') showLens(state[active].lens); }));
+    scene.querySelectorAll('[data-cc-lens]').forEach(b => b.addEventListener('click', () => showLens(b.dataset.ccLens)));
+    $('cc-check').addEventListener('click', () => { if (!state[active].picked) { feedback(); $('cc-feedback').textContent = 'Choose a Russian form first.'; return; } state[active].checked = true; feedback(); });
+    $('cc-reset').addEventListener('click', () => { state[active].picked = null; state[active].checked = false; render(); });
+    $('cc-listen').addEventListener('click', () => { const lines = investigations[active].sentences.map(([ru]) => ru.replace(/<\/?mark>/g, '')); if (typeof speakRussian === 'function') speakRussian(lines.join(' ')); });
+    render(); show('cabinet');
+})();
+// END DRAWER TWO — SECRET INNER DRAWERS

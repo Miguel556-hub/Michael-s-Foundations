@@ -6517,6 +6517,90 @@ LESSON 2 — EXTENDED FAMILY
                 </aside>
               </div>
               <!-- END LIVING SENTENCE — THREE-PANEL ILLUSTRATED WORKSPACE -->
+              <!-- BEGIN SPECIAL CASES — SECRET INNER DRAWERS (SCOPED) -->
+              <div class="cc-scene" id="cc-scene" hidden>
+                <section class="cc-view cc-landing" data-cc-view="cabinet" aria-label="The Curiosity Cabinet">
+                  <div class="cc-cabinet-heading"><span class="cc-overline">✦ SPECIAL CASES · FOUR HIDDEN MYSTERIES
+                      ✦</span>
+                    <h2>The Curiosity Cabinet</h2>
+                    <p>Every word has a story. Choose a secret drawer to uncover one.</p>
+                  </div>
+                  <div class="cc-cabinet" role="group" aria-label="Choose a secret mystery drawer">
+                    <button type="button" class="cc-secret" data-cc-open="mine"><span
+                        class="cc-secret-number">I</span><span class="cc-secret-main">My or Mine?<small>мой · моя · моё
+                          · мои</small></span><span class="cc-secret-key" aria-hidden="true"></span></button>
+                    <button type="button" class="cc-secret" data-cc-open="count"><span
+                        class="cc-secret-number">II</span><span class="cc-secret-main">One, Two, Five?<small>брат ·
+                          брата · братьев</small></span><span class="cc-secret-key" aria-hidden="true"></span></button>
+                    <button type="button" class="cc-secret" data-cc-open="ending"><span
+                        class="cc-secret-number">III</span><span class="cc-secret-main">Why That Ending?<small>Анна →
+                          Анны</small></span><span class="cc-secret-key" aria-hidden="true"></span></button>
+                    <button type="button" class="cc-secret" data-cc-open="age"><span
+                        class="cc-secret-number">IV</span><span class="cc-secret-main">How Old Are You?<small>год · года
+                          · лет</small></span><span class="cc-secret-key" aria-hidden="true"></span></button>
+                  </div>
+                  <p class="cc-landing-foot">⚙ Open any drawer · No wrong order · Your discoveries stay with you</p>
+                </section>
+                <section class="cc-view cc-investigation" data-cc-view="investigation" hidden
+                  aria-label="Mystery investigation">
+                  <div class="cc-view-top"><button type="button" data-cc-nav="cabinet">← Close Secret
+                      Drawer</button><span id="cc-case-counter">SECRET DRAWER III</span><button type="button"
+                      data-cc-nav="microscope">🔬 Open the Microscope →</button></div>
+                  <div class="cc-invest-grid">
+                    <article class="cc-file"><span class="cc-overline">✦ THE DETECTIVE'S CASE FILE</span>
+                      <h2 id="cc-case-title"></h2>
+                      <p id="cc-case-intro"></p>
+                      <div class="cc-case-sentences" id="cc-case-sentences"></div>
+                      <p class="cc-case-question" id="cc-case-question"></p><button type="button" id="cc-listen">🔊
+                        Listen to the Russian</button>
+                    </article>
+                    <article class="cc-notebook"><span class="cc-overline">✒ THE DETECTIVE'S NOTEBOOK</span>
+                      <div class="cc-notebook-scroll">
+                        <h3>1 What do you notice?</h3>
+                        <p id="cc-observation"></p>
+                        <h3>2 Make a prediction</h3>
+                        <p id="cc-prompt"></p>
+                        <div id="cc-options" class="cc-answer-options" role="group" aria-label="Choose a Russian form">
+                        </div>
+                        <div class="cc-notebook-actions"><button type="button" id="cc-check">Check My
+                            Answer</button><button type="button" id="cc-reset">Reset Prediction</button></div>
+                        <div class="cc-feedback" id="cc-feedback" aria-live="polite"></div>
+                      </div>
+                    </article>
+                  </div>
+
+                </section>
+                <section class="cc-view cc-microscope" data-cc-view="microscope" hidden
+                  aria-label="Under the Microscope">
+                  <div class="cc-view-top"><button type="button" data-cc-nav="investigation">← Back to
+                      Investigation</button><span>UNDER THE MICROSCOPE</span><button type="button"
+                      data-cc-nav="cabinet">Close Secret Drawer ✕</button></div>
+                  <div class="cc-micro-layout">
+                    <div class="cc-apparatus"><span class="cc-overline">⚙ THE GRAMMATICAL TRANSFORMATION</span>
+                      <h2 id="cc-micro-title">Under the Microscope</h2>
+                      <div class="cc-transform-frame">
+                        <div class="cc-plate">THE TRANSFORMATION</div>
+                        <div id="cc-transform" class="cc-transform" lang="ru"></div>
+                        <div id="cc-transform-label" class="cc-transform-label"></div>
+                      </div>
+                      <p class="cc-micro-instruction">Select WHAT, WHY, HOW, or WHEN on the right to investigate this
+                        change.</p>
+                    </div>
+                    <div class="cc-analysis"><span class="cc-overline">🔎 THE QUESTIONS BEHIND THE CHANGE</span>
+                      <div class="cc-lens-nav" role="group" aria-label="Choose an explanation"><button type="button"
+                          data-cc-lens="what">WHAT</button><button type="button" data-cc-lens="why">WHY</button><button
+                          type="button" data-cc-lens="how">HOW</button><button type="button"
+                          data-cc-lens="when">WHEN</button><button type="button" data-cc-lens="more">EXAMPLES</button>
+                      </div>
+                      <div class="cc-analysis-paper">
+                        <h3 id="cc-explanation-title"></h3>
+                        <p id="cc-explanation-text" aria-live="polite"></p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <!-- END SPECIAL CASES — SECRET INNER DRAWERS -->
               <!-- Drawer-specific learning layouts will be added here later. -->
               <span class="door-four__interior-current" aria-live="polite" hidden></span>
             </div>
