@@ -6368,6 +6368,59 @@ document
     messengerReset(0);
     // END DRAWER THREE — MESSAGES / INTERACTIVE BRANCHING ENGINE
 
+
+    // BEGIN DRAWER THREE — MENUS RECONSTRUCTION
+    // Hotspots are authored in HTML; JavaScript only attaches behavior.
+    const menusExplorer = interior.querySelector('#rw-menus');
+    const menuButtons = [...menusExplorer.querySelectorAll('[data-menu-item]')];
+    const menuItems = [{"ru": "Борщ", "en": "Borscht", "order": "Мне, пожалуйста, борщ.", "translation": "Could I have borscht, please?"}, {"ru": "Щи", "en": "Cabbage soup", "order": "Мне, пожалуйста, щи.", "translation": "Could I have cabbage soup, please?"}, {"ru": "Пельмени", "en": "Dumplings", "order": "Мне, пожалуйста, пельмени.", "translation": "Could I have dumplings, please?"}, {"ru": "Вареники", "en": "Filled dumplings", "order": "Мне, пожалуйста, вареники.", "translation": "Could I have filled dumplings, please?"}, {"ru": "Блины", "en": "Blini", "order": "Мне, пожалуйста, блины.", "translation": "Could I have blini, please?"}, {"ru": "Сырники", "en": "Cheese pancakes", "order": "Мне, пожалуйста, сырники.", "translation": "Could I have cheese pancakes, please?"}, {"ru": "Оливье", "en": "Olivier salad", "order": "Мне, пожалуйста, оливье.", "translation": "Could I have olivier salad, please?"}, {"ru": "Винегрет", "en": "Beet salad", "order": "Мне, пожалуйста, винегрет.", "translation": "Could I have beet salad, please?"}, {"ru": "Голубцы", "en": "Stuffed cabbage rolls", "order": "Мне, пожалуйста, голубцы.", "translation": "Could I have stuffed cabbage rolls, please?"}, {"ru": "Котлеты", "en": "Cutlets", "order": "Мне, пожалуйста, котлеты.", "translation": "Could I have cutlets, please?"}, {"ru": "Гречка", "en": "Buckwheat", "order": "Мне, пожалуйста, гречку.", "translation": "Could I have buckwheat, please?"}, {"ru": "Картофель", "en": "Potatoes", "order": "Мне, пожалуйста, картофель.", "translation": "Could I have potatoes, please?"}, {"ru": "Пирожки", "en": "Stuffed pastries", "order": "Мне, пожалуйста, пирожки.", "translation": "Could I have stuffed pastries, please?"}, {"ru": "Медовик", "en": "Honey cake", "order": "Мне, пожалуйста, медовик.", "translation": "Could I have honey cake, please?"}, {"ru": "Компот", "en": "Fruit drink", "order": "Мне, пожалуйста, компот.", "translation": "Could I have fruit drink, please?"}, {"ru": "Чай", "en": "Tea", "order": "Мне, пожалуйста, чай.", "translation": "Could I have tea, please?"}];
+    let currentMenuIndex = -1;
+    const menuArt = menusExplorer.querySelector('#rw-menus-art');
+    const menuStage = menusExplorer.querySelector('.rw-menus__menu-stage');
+    const markMenuArt = () => menuStage.classList.toggle('has-art', menuArt.complete && menuArt.naturalWidth > 0);
+    menuArt.addEventListener('load',markMenuArt);
+    menuArt.addEventListener('error',()=>{menuArt.hidden=true;menuStage.classList.remove('has-art');});
+    markMenuArt();
+    function selectMenuItem(index){
+      const item=menuItems[index];if(!item)return;
+      currentMenuIndex=index;
+      menuButtons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+      menusExplorer.querySelector('#rw-menus-dish').textContent=item.ru;
+      menusExplorer.querySelector('#rw-menus-english').textContent=item.en;
+      menusExplorer.querySelector('#rw-menus-order').textContent=item.order;
+      menusExplorer.querySelector('#rw-menus-translation').textContent=item.translation;
+      menusExplorer.querySelector('#rw-menus-listen').disabled=false;
+      menusExplorer.querySelector('#rw-menus-grammar').textContent='Мне, пожалуйста… is a polite way to ask for something for yourself. Russian food names may change form in an order; compare the menu name with the ordering phrase.';
+    }
+    menuButtons.forEach(button=>button.addEventListener('click',()=>selectMenuItem(Number(button.dataset.menuItem))));
+    menusExplorer.querySelector('#rw-menus-listen').addEventListener('click',()=>{if(currentMenuIndex>=0)speakRussian(menuItems[currentMenuIndex].order);});
+    menusExplorer.querySelector('#rw-menus-reset').addEventListener('click',()=>{
+      currentMenuIndex=-1;menuButtons.forEach(b=>b.setAttribute('aria-pressed','false'));
+      menusExplorer.querySelector('#rw-menus-dish').textContent='Выберите блюдо';
+      menusExplorer.querySelector('#rw-menus-english').textContent='Choose a dish on the menu to begin.';
+      menusExplorer.querySelector('#rw-menus-order').textContent='—';
+      menusExplorer.querySelector('#rw-menus-translation').textContent='Your English meaning appears here.';
+      menusExplorer.querySelector('#rw-menus-grammar').textContent='Choose another dish to investigate a polite Russian ordering expression.';
+      menusExplorer.querySelector('#rw-menus-listen').disabled=true;
+    });
+    const screenTwo=menusExplorer.querySelector('#rw-menus-screen-two');
+    menusExplorer.querySelector('#rw-menus-next').addEventListener('click',()=>{screenTwo.hidden=false;screenTwo.scrollIntoView({block:'nearest',behavior:'smooth'});});
+    menusExplorer.querySelector('#rw-menus-screen-one').addEventListener('click',()=>{screenTwo.hidden=true;});
+    const quantity=menusExplorer.querySelector('#rw-menus-quantity');
+    quantity.addEventListener('change',()=>{
+      const n=Number(quantity.value);
+      const forms=['','одна порция','две порции','три порции','четыре порции','пять порций','шесть порций'];
+      menusExplorer.querySelector('#rw-menus-family-phrase').textContent=forms[n];
+      menusExplorer.querySelector('#rw-menus-family-discovery').textContent=n===1?'After one, Russian uses порция.':n<=4?'After two, three, or four, Russian uses порции.':'After five or more (in this range), Russian uses порций.';
+      menusExplorer.querySelector('#rw-menus-family-form').textContent=n===1?'порция':n<=4?'порции':'порций';
+    });
+    menusExplorer.querySelector('#rw-menus-back').addEventListener('click',()=>{menusExplorer.hidden=true;screenTwo.hidden=true;});
+    interior.querySelector('[data-rw-spot="menus"]').addEventListener('click',()=>{
+      if(interior.dataset.activeDrawer!=='real')return;
+      menusExplorer.hidden=false;screenTwo.hidden=true;menusExplorer.scrollTop=0;
+    });
+    // END DRAWER THREE — MENUS RECONSTRUCTION
+
     function showDrawerInterior(drawerKey) {
         drawers.hidden = true;
         stage.hidden = true;
@@ -6383,6 +6436,7 @@ document
         interior.dataset.activeDrawer = drawerKey;
         signsExplorer.hidden = true;
         messagesExplorer.hidden = true;
+        menusExplorer.hidden = true;
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
         if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;

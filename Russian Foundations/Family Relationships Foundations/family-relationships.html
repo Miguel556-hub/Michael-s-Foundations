@@ -6534,36 +6534,189 @@ LESSON 2 — EXTENDED FAMILY
 
               <!-- BEGIN DRAWER THREE — MESSAGES (INTERACTIVE CONVERSATION) -->
               <section class="rw-messages" id="rw-messages" aria-label="Family Messages" hidden>
-                <header class="rw-messages__header"><h3>MESSAGES <span lang="ru">— Сообщения</span></h3><p>Choose a conversation. Watch the messages come to life.</p></header>
+                <header class="rw-messages__header">
+                  <h3>MESSAGES <span lang="ru">— Сообщения</span></h3>
+                  <p>Choose a conversation. Watch the messages come to life.</p>
+                </header>
                 <div class="rw-messages__layout">
                   <div class="rw-messages__controls">
-                    <fieldset class="rw-messages__choices"><legend>FAMILY CONVERSATIONS</legend>
-                      <label><input type="radio" name="rw-message-choice" value="0" checked><span><b>01</b> Dinner at Grandma's <small lang="ru">Ужин у бабушки</small></span></label>
-                      <label><input type="radio" name="rw-message-choice" value="1"><span><b>02</b> Family Weekend Plans <small lang="ru">Планы на выходные</small></span></label>
-                      <label><input type="radio" name="rw-message-choice" value="2"><span><b>03</b> Grandpa's Birthday <small lang="ru">День рождения дедушки</small></span></label>
+                    <fieldset class="rw-messages__choices">
+                      <legend>FAMILY CONVERSATIONS</legend>
+                      <label><input type="radio" name="rw-message-choice" value="0" checked><span><b>01</b> Dinner at
+                          Grandma's <small lang="ru">Ужин у бабушки</small></span></label>
+                      <label><input type="radio" name="rw-message-choice" value="1"><span><b>02</b> Family Weekend Plans
+                          <small lang="ru">Планы на выходные</small></span></label>
+                      <label><input type="radio" name="rw-message-choice" value="2"><span><b>03</b> Grandpa's Birthday
+                          <small lang="ru">День рождения дедушки</small></span></label>
                     </fieldset>
-                    <section class="rw-messages__discovery" aria-label="Language Discovery"><h4>✦ DISCOVERY PANEL</h4><p id="rw-messages-discovery">Select any message bubble to discover its meaning and hear it spoken.</p></section>
-                    <section class="rw-messages__composer" aria-label="Response Composer"><h4>YOUR RESPONSE</h4><p id="rw-messages-instruction">Choose a reply to preview it in the conversation.</p><div id="rw-messages-replies" class="rw-messages__replies" role="group" aria-label="Choose your Russian reply"></div><div class="rw-messages__composer-buttons"><button type="button" id="rw-messages-clear">CLEAR</button><button type="button" id="rw-messages-send">SEND ➤</button><button type="button" id="rw-messages-rewind">↶ REWIND</button></div></section>
+                    <section class="rw-messages__discovery" aria-label="Language Discovery">
+                      <h4>✦ DISCOVERY PANEL</h4>
+                      <p id="rw-messages-discovery">Select any message bubble to discover its meaning and hear it
+                        spoken.</p>
+                    </section>
+                    <section class="rw-messages__composer" aria-label="Response Composer">
+                      <h4>YOUR RESPONSE</h4>
+                      <p id="rw-messages-instruction">Choose a reply to preview it in the conversation.</p>
+                      <div id="rw-messages-replies" class="rw-messages__replies" role="group"
+                        aria-label="Choose your Russian reply"></div>
+                      <div class="rw-messages__composer-buttons"><button type="button"
+                          id="rw-messages-clear">CLEAR</button><button type="button" id="rw-messages-send">SEND
+                          ➤</button><button type="button" id="rw-messages-rewind">↶ REWIND</button></div>
+                    </section>
                   </div>
                   <div class="rw-messages__phone-area">
                     <div class="rw-messages__phone">
                       <div class="rw-messages__screen" aria-label="Interactive family messenger">
-                        <div class="rw-messages__contact"><span class="rw-messages__avatar" aria-hidden="true">👵</span><span><strong id="rw-messages-contact">Бабушка</strong><small>Family Messenger</small></span></div>
+                        <div class="rw-messages__contact"><span class="rw-messages__avatar"
+                            aria-hidden="true">👵</span><span><strong
+                              id="rw-messages-contact">Бабушка</strong><small>Family Messenger</small></span></div>
                         <div class="rw-messages__thread" id="rw-messages-thread" aria-live="polite"></div>
                         <div class="rw-messages__phone-bottom">● &nbsp; Family Messenger &nbsp; ●</div>
                       </div>
                     </div>
                     <section class="rw-messages__grammar" aria-label="Message-specific language discoveries">
-                      <div class="rw-messages__grammar-heading"><h4>✦ LOOK CLOSER — HOW DOES IT WORK?</h4><button type="button" id="rw-messages-grammar-toggle" aria-expanded="false" aria-controls="rw-messages-grammar-body">Explore this message ▾</button></div>
+                      <div class="rw-messages__grammar-heading">
+                        <h4>✦ LOOK CLOSER — HOW DOES IT WORK?</h4><button type="button" id="rw-messages-grammar-toggle"
+                          aria-expanded="false" aria-controls="rw-messages-grammar-body">Explore this message ▾</button>
+                      </div>
                       <div id="rw-messages-grammar-body" class="rw-messages__grammar-body" hidden>
                         <p class="rw-messages__grammar-prompt">Select a conversation bubble to explore its Russian.</p>
                       </div>
                     </section>
                   </div>
                 </div>
-                <footer class="rw-messages__footer"><button type="button" id="rw-messages-back">← Back to Explorer's Desk</button></footer>
+                <footer class="rw-messages__footer"><button type="button" id="rw-messages-back">← Back to Explorer's
+                    Desk</button></footer>
               </section>
               <!-- END DRAWER THREE — MESSAGES (INTERACTIVE CONVERSATION) -->
+
+
+              <!-- BEGIN DRAWER THREE — MENUS RECONSTRUCTION / SCREEN ONE -->
+              <section class="rw-menus" id="rw-menus" aria-label="Russian restaurant menu" hidden>
+                <header class="rw-menus__header">
+                  <h3>MENUS <span lang="ru">— Меню</span></h3>
+                  <p>Choose something from the Russian menu. Then discover how to order it.</p>
+                </header>
+                <div class="rw-menus__layout">
+                  <div class="rw-menus__menu-area">
+                    <div class="rw-menus__eyebrow">EXPLORE THE MENU · 16 CHOICES</div>
+                    <div class="rw-menus__menu-stage">
+                      <img id="rw-menus-art" src="../../Images/door-four/drawer-menus-russian-foods.png"
+                        alt="Russian restaurant menu with sixteen selectable dishes" draggable="false">
+                      <div class="rw-menus__hotspots" role="group" aria-label="Select a menu dish">
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="0" aria-label="Choose Borscht"
+                          title="Борщ — Borscht" style="--menu-x:12.5%;--menu-y:31.5%"><span
+                            class="rw-menus__hotspot-label" lang="ru">Борщ</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="1"
+                          aria-label="Choose Cabbage soup" title="Щи — Cabbage soup"
+                          style="--menu-x:37.5%;--menu-y:31.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Щи</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="2" aria-label="Choose Dumplings"
+                          title="Пельмени — Dumplings" style="--menu-x:62.5%;--menu-y:31.5%"><span
+                            class="rw-menus__hotspot-label" lang="ru">Пельмени</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="3"
+                          aria-label="Choose Filled dumplings" title="Вареники — Filled dumplings"
+                          style="--menu-x:87.5%;--menu-y:31.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Вареники</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="4" aria-label="Choose Blini"
+                          title="Блины — Blini" style="--menu-x:12.5%;--menu-y:50.5%"><span
+                            class="rw-menus__hotspot-label" lang="ru">Блины</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="5"
+                          aria-label="Choose Cheese pancakes" title="Сырники — Cheese pancakes"
+                          style="--menu-x:37.5%;--menu-y:50.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Сырники</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="6"
+                          aria-label="Choose Olivier salad" title="Оливье — Olivier salad"
+                          style="--menu-x:62.5%;--menu-y:50.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Оливье</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="7"
+                          aria-label="Choose Beet salad" title="Винегрет — Beet salad"
+                          style="--menu-x:87.5%;--menu-y:50.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Винегрет</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="8"
+                          aria-label="Choose Stuffed cabbage rolls" title="Голубцы — Stuffed cabbage rolls"
+                          style="--menu-x:12.5%;--menu-y:67.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Голубцы</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="9" aria-label="Choose Cutlets"
+                          title="Котлеты — Cutlets" style="--menu-x:37.5%;--menu-y:67.5%"><span
+                            class="rw-menus__hotspot-label" lang="ru">Котлеты</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="10"
+                          aria-label="Choose Buckwheat" title="Гречка — Buckwheat"
+                          style="--menu-x:62.5%;--menu-y:67.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Гречка</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="11" aria-label="Choose Potatoes"
+                          title="Картофель — Potatoes" style="--menu-x:87.5%;--menu-y:67.5%"><span
+                            class="rw-menus__hotspot-label" lang="ru">Картофель</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="12"
+                          aria-label="Choose Stuffed pastries" title="Пирожки — Stuffed pastries"
+                          style="--menu-x:12.5%;--menu-y:86.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Пирожки</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="13"
+                          aria-label="Choose Honey cake" title="Медовик — Honey cake"
+                          style="--menu-x:37.5%;--menu-y:86.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Медовик</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="14"
+                          aria-label="Choose Fruit drink" title="Компот — Fruit drink"
+                          style="--menu-x:62.5%;--menu-y:86.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Компот</span></button>
+                        <button type="button" class="rw-menus__hotspot" data-menu-item="15" aria-label="Choose Tea"
+                          title="Чай — Tea" style="--menu-x:87.5%;--menu-y:86.5%"><span class="rw-menus__hotspot-label"
+                            lang="ru">Чай</span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rw-menus__learning">
+                    <div class="rw-menus__eyebrow">YOUR ORDER</div>
+                    <h4 id="rw-menus-dish" lang="ru">Выберите блюдо</h4>
+                    <p id="rw-menus-english">Choose a dish on the menu to begin.</p>
+                    <div class="rw-menus__order-box">
+                      <div class="rw-menus__eyebrow">SAY IT IN RUSSIAN</div>
+                      <p id="rw-menus-order" lang="ru">—</p>
+                      <p id="rw-menus-translation">Your English meaning appears here.</p>
+                      <button type="button" id="rw-menus-listen" disabled>🔊 Listen to my order</button>
+                    </div>
+                    <div class="rw-menus__grammar">
+                      <div class="rw-menus__eyebrow">✦ GRAMMAR BREAKDOWN</div>
+                      <p id="rw-menus-grammar">Notice how a polite Russian order can begin with <strong>Мне,
+                          пожалуйста…</strong> (“For me, please…”). Choose a dish to investigate.</p>
+                    </div>
+                    <div class="rw-menus__actions">
+                      <button type="button" id="rw-menus-reset">Make a New Choice!</button>
+                      <button type="button" id="rw-menus-next">Wait! There's More…</button>
+                    </div>
+                  </div>
+                </div>
+                <section class="rw-menus__screen-two" id="rw-menus-screen-two" hidden>
+                  <h4>Ordering for the Family <span lang="ru">— Заказ для семьи</span></h4>
+                  <p>Now choose how many portions your family needs. Watch the Russian word for “portion” change.</p>
+                  <div class="rw-menus__family-columns">
+                    <div class="rw-menus__family-choice">
+                      <label for="rw-menus-quantity">How many servings?</label>
+                      <select id="rw-menus-quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                      </select>
+                      <p class="rw-menus__family-phrase" id="rw-menus-family-phrase" lang="ru">одна порция</p>
+                    </div>
+                    <div class="rw-menus__family-rule">
+                      <p id="rw-menus-family-discovery" aria-live="polite">After one, Russian uses порция.</p>
+                      <div class="rw-menus__family-visual" aria-label="Russian word form transformation">
+                        <span lang="ru">порция</span>
+                        <span class="rw-menus__family-arrow" aria-hidden="true"></span>
+                        <span id="rw-menus-family-form" lang="ru">порция</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" id="rw-menus-screen-one">← Return to the Menu</button>
+                </section>
+                <footer class="rw-menus__footer"><button type="button" id="rw-menus-back">← Back to Explorer's
+                    Desk</button></footer>
+              </section>
+              <!-- END DRAWER THREE — MENUS RECONSTRUCTION -->
 
               <!-- BEGIN LIVING SENTENCE — THREE-PANEL ILLUSTRATED WORKSPACE -->
               <div class="ls-scene" id="ls-scene" hidden>
