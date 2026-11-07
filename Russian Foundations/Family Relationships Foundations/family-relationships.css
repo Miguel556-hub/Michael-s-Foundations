@@ -19476,55 +19476,831 @@ h1 {
 #door-four-laboratory .rw-menus__hotspot-label {
     display: none
 }
+
 /* MENUS Screen Two — compact side-by-side grammar visual (Nov 6 review) */
-#door-four-laboratory .rw-menus__screen-two { margin: 6px auto; padding: 12px 15px; }
-#door-four-laboratory .rw-menus__screen-two h4 { margin: 0 0 4px; }
-#door-four-laboratory .rw-menus__screen-two > p { margin: 0 0 8px; line-height: 1.3; }
-#door-four-laboratory .rw-menus__family-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; margin-bottom: 9px; }
-#door-four-laboratory .rw-menus__family-choice label { font-weight: 700; }
-#door-four-laboratory .rw-menus__family-choice select { margin: 0 0 0 12px; padding: 3px 5px; }
-#door-four-laboratory .rw-menus__family-choice .rw-menus__family-phrase { margin: 3px 0 0; line-height: 1.2; }
-#door-four-laboratory .rw-menus__family-rule { text-align: center; }
-#door-four-laboratory .rw-menus__family-rule > p { margin: 0 0 5px; line-height: 1.3; }
-#door-four-laboratory .rw-menus__family-visual { display: flex; align-items: center; justify-content: center; gap: 22px; color: #ffe0a1; font-size: 20px; font-weight: 700; line-height: 1.3; }
-#door-four-laboratory .rw-menus__family-arrow { position: relative; width: 38px; height: 13px; background: #ee7927; flex: 0 0 38px; }
-#door-four-laboratory .rw-menus__family-arrow::after { content: ''; position: absolute; left: 100%; top: -8px; border-top: 14px solid transparent; border-bottom: 14px solid transparent; border-left: 17px solid #ee7927; }
-@media (max-width: 650px) { #door-four-laboratory .rw-menus__family-columns { grid-template-columns: 1fr; gap: 9px; } }
+#door-four-laboratory .rw-menus__screen-two {
+    margin: 6px auto;
+    padding: 12px 15px;
+}
+
+#door-four-laboratory .rw-menus__screen-two h4 {
+    margin: 0 0 4px;
+}
+
+#door-four-laboratory .rw-menus__screen-two>p {
+    margin: 0 0 8px;
+    line-height: 1.3;
+}
+
+#door-four-laboratory .rw-menus__family-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 9px;
+}
+
+#door-four-laboratory .rw-menus__family-choice label {
+    font-weight: 700;
+}
+
+#door-four-laboratory .rw-menus__family-choice select {
+    margin: 0 0 0 12px;
+    padding: 3px 5px;
+}
+
+#door-four-laboratory .rw-menus__family-choice .rw-menus__family-phrase {
+    margin: 3px 0 0;
+    line-height: 1.2;
+}
+
+#door-four-laboratory .rw-menus__family-rule {
+    text-align: center;
+}
+
+#door-four-laboratory .rw-menus__family-rule>p {
+    margin: 0 0 5px;
+    line-height: 1.3;
+}
+
+#door-four-laboratory .rw-menus__family-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    color: #ffe0a1;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+#door-four-laboratory .rw-menus__family-arrow {
+    position: relative;
+    width: 38px;
+    height: 13px;
+    background: #ee7927;
+    flex: 0 0 38px;
+}
+
+#door-four-laboratory .rw-menus__family-arrow::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: -8px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 17px solid #ee7927;
+}
+
+@media (max-width: 650px) {
+    #door-four-laboratory .rw-menus__family-columns {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+}
+
 /* END MENUS Screen Two compact grammar visual */
 
-/* MENUS — fit both activities inside the existing drawer stage.
-   Preserve the underlying white drawer navigation buttons. */
-#door-four-laboratory .rw-menus__menu-stage {
-    max-width: 225px;
+
+/* MENUS two-screen layout — only one page visible at a time */
+#door-four-laboratory .rw-menus {
+    inset: 0;
+    overflow: hidden;
+    padding: 5px 12px 8px
 }
+
+#door-four-laboratory .rw-menus__menu-stage {
+    max-width: 225px
+}
+
 #door-four-laboratory .rw-menus__menu-area,
 #door-four-laboratory .rw-menus__learning {
-    padding: 6px 8px;
+    padding: 6px 8px
 }
+
 #door-four-laboratory .rw-menus__header {
-    margin-bottom: 3px;
+    margin-bottom: 3px
 }
+
 #door-four-laboratory .rw-menus__header h3 {
     font-size: 26px;
-    line-height: 1.1;
+    line-height: 1.1
 }
+
 #door-four-laboratory .rw-menus__eyebrow {
-    margin-top: 3px;
-    margin-bottom: 2px;
+    margin: 2px 0
 }
+
 #door-four-laboratory .rw-menus__screen-two {
     margin: 5px auto 0;
-    padding: 8px 13px;
+    padding: 8px 13px
 }
+
 #door-four-laboratory .rw-menus__screen-two h4 {
-    font-size: 19px;
+    font-size: 19px
 }
-#door-four-laboratory .rw-menus__screen-two > p {
-    margin-bottom: 5px;
+
+#door-four-laboratory .rw-menus__screen-two>p {
+    margin: 2px 0 5px
 }
-#door-four-laboratory .rw-menus__family-columns {
-    margin-bottom: 5px;
-}
+
 #door-four-laboratory .rw-menus__footer {
-    margin-top: 4px;
+    margin-top: 4px
+}
+
+#door-four-laboratory .rw-menus__family-columns {
+    margin-bottom: 5px
+}
+
+#door-four-laboratory .rw-menus__hotspot {
+    width: 38px;
+    height: 38px
+}
+
+#door-four-laboratory .rw-bill[hidden] {
+    display: none !important
+}
+
+#door-four-laboratory .rw-bill {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    overflow: hidden;
+    padding: 7px 14px 12px;
+    background: #102f52;
+    color: white;
+    font-family: Georgia, serif;
+    box-shadow: inset 0 0 0 2px #5e86ae
+}
+
+#door-four-laboratory .rw-bill__header {
+    text-align: center;
+    margin: 0 0 5px
+}
+
+#door-four-laboratory .rw-bill__header h3 {
+    font-size: clamp(23px, 2.4vw, 31px);
+    line-height: 1;
+    margin: 0;
+    color: #ffca27
+}
+
+#door-four-laboratory .rw-bill__header p {
+    font-size: 17px;
+    margin: 2px 0;
+    font-weight: bold
+}
+
+#door-four-laboratory .rw-bill__columns {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 18px;
+    height: calc(100% - 55px);
+    max-width: 1100px;
+    margin: auto;
+    min-height: 0
+}
+
+#door-four-laboratory .rw-bill__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+    gap: 9px
+}
+
+#door-four-laboratory .rw-bill__art {
+    height: min(100%, 480px);
+    aspect-ratio: 3/4;
+    max-width: 100%;
+    position: relative;
+    flex: 0 1 auto;
+    min-height: 0
+}
+
+#door-four-laboratory .rw-bill__art img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill
+}
+
+#door-four-laboratory .rw-bill__spots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none
+}
+
+#door-four-laboratory .rw-bill__hotspot {
+    position: absolute;
+    left: var(--menu-x);
+    top: var(--menu-y);
+    transform: translate(-50%, -50%);
+    width: 39px;
+    height: 39px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid #fce3a9a0;
+    background: #ffe69c22;
+    pointer-events: auto;
+    cursor: pointer
+}
+
+#door-four-laboratory .rw-bill__hotspot:hover,
+#door-four-laboratory .rw-bill__hotspot:focus-visible,
+#door-four-laboratory .rw-bill__hotspot[aria-pressed="true"] {
+    background: #ffdf6588;
+    border-color: #fff3b8;
+    outline: 2px solid #fff0b0;
+    outline-offset: 1px
+}
+
+#door-four-laboratory .rw-bill__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px
+}
+
+#door-four-laboratory .rw-bill__nav button {
+    padding: 7px 9px;
+    font: 700 12px Arial, sans-serif;
+    background: linear-gradient(#f9e5b1, #c9a46b);
+    color: #182b40;
+    border: 1px solid #f4d99b;
+    border-radius: 6px
+}
+
+#door-four-laboratory .rw-bill__right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+    font-family: Arial, sans-serif
+}
+
+#door-four-laboratory .rw-bill__stripe {
+    background: linear-gradient(#577eb8, #1b3867);
+    border: 1px solid #e4bd37;
+    border-radius: 13px;
+    text-align: center;
+    padding: 7px 8px;
+    display: grid;
+    gap: 3px
+}
+
+#door-four-laboratory .rw-bill__stripe strong {
+    font-size: clamp(15px, 1.7vw, 21px);
+    line-height: 1.12
+}
+
+#door-four-laboratory .rw-bill__stripe em {
+    font-size: clamp(12px, 1.35vw, 17px)
+}
+
+#door-four-laboratory .rw-bill__count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: #ffcf28;
+    font-size: clamp(15px, 1.8vw, 22px)
+}
+
+#door-four-laboratory .rw-bill__count>div {
+    display: flex;
+    gap: 2px;
+    padding: 3px 7px;
+    border: 1px solid #e5bd3c;
+    border-radius: 9px;
+    background: linear-gradient(#577eb8, #183867)
+}
+
+#door-four-laboratory .rw-bill__number {
+    background: transparent;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 19px
+}
+
+#door-four-laboratory .rw-bill__number[aria-pressed="true"] {
+    border-color: white;
+    background: #ffffff25
+}
+
+#door-four-laboratory .rw-bill__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #d9b64b;
+    border-radius: 10px;
+    padding: 7px 12px;
+    color: #ffe29a;
+    font-size: 18px
+}
+
+#door-four-laboratory .rw-bill__grammar {
+    background: linear-gradient(#456fa9, #223e70);
+    border: 1px solid #e0b638;
+    border-radius: 28px;
+    padding: 12px 20px;
+    flex: 0 0 auto;
+    min-height: 0
+}
+
+#door-four-laboratory .rw-bill__grammar h4 {
+    color: #ffca27;
+    font-size: clamp(19px, 2vw, 27px);
+    margin: 0 0 6px
+}
+
+#door-four-laboratory .rw-bill__grammar p {
+    font-size: clamp(13px, 1.3vw, 17px);
+    line-height: 1.4;
+    margin: 0
+}
+
+@media(max-width:750px) {
+    #door-four-laboratory .rw-bill__columns {
+        gap: 8px;
+        grid-template-columns: 40% 1fr
+    }
+
+    #door-four-laboratory .rw-bill__right {
+        gap: 5px
+    }
+
+    #door-four-laboratory .rw-bill__number {
+        width: 26px;
+        height: 26px;
+        font-size: 14px
+    }
+
+    #door-four-laboratory .rw-bill__grammar {
+        padding: 8px
+    }
+}
+
+/* MENUS navigation recovery: keep the original drawer-return control visible
+   without increasing page height or changing Page One's visual content. */
+#door-four-laboratory .rw-menus__footer {
+    position: absolute;
+    top: 7px;
+    right: 14px;
+    z-index: 25;
+    margin: 0;
+    width: auto;
+    max-width: none;
+}
+
+#door-four-laboratory #rw-menus-back {
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+}
+
+
+/* ==============================================================
+   MENUS PAGE TWO — RUBle DISCOVERY LENS (scoped, review build)
+   ============================================================== */
+#door-four-laboratory .rw-bill__grammar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 15px;
+    border-radius: 19px
+}
+
+#door-four-laboratory .rw-bill__grammar h4 {
+    margin: 0;
+    font-size: clamp(19px, 1.8vw, 25px)
+}
+
+#door-four-laboratory .rw-bill__grammar>p {
+    font-size: clamp(12px, 1.04vw, 14px);
+    line-height: 1.3
+}
+
+#door-four-laboratory .rw-ruble__snapshot {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+#door-four-laboratory .rw-ruble__snapshot>div {
+    background: #193657;
+    border: 1px solid #6d8caf;
+    border-radius: 9px;
+    padding: 7px 12px;
+    min-width: 130px;
+    display: grid;
+    gap: 2px
+}
+
+#door-four-laboratory .rw-ruble__snapshot small {
+    font: 700 10px Arial, sans-serif;
+    letter-spacing: .1em;
+    color: #bcd1e7
+}
+
+#door-four-laboratory .rw-ruble__snapshot strong {
+    font: 700 clamp(16px, 1.6vw, 22px) Georgia, serif;
+    color: #ffd482;
+    white-space: nowrap
+}
+
+#door-four-laboratory .rw-ruble__snapshot>span {
+    font-size: 23px;
+    color: #f5aa55
+}
+
+#door-four-laboratory .rw-ruble__snapshot p {
+    font: 600 13px/1.3 Arial, sans-serif;
+    margin: 0;
+    color: #eef5ff
+}
+
+#door-four-laboratory .rw-ruble__open {
+    align-self: flex-start;
+    background: linear-gradient(#f6c57d, #d37a2b);
+    border: 1px solid #ffd58f;
+    color: #182b44;
+    padding: 7px 13px;
+    font: 700 13px Arial, sans-serif;
+    border-radius: 8px
+}
+
+#door-four-laboratory .rw-ruble__open:hover {
+    background: linear-gradient(#ffe1a2, #e79a48)
+}
+
+#door-four-laboratory .rw-ruble__overlay[hidden] {
+    display: none !important
+}
+
+#door-four-laboratory .rw-ruble__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    background: #08172bd9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-family: Arial, sans-serif;
+    color: #f3f6fc
+}
+
+#door-four-laboratory .rw-ruble__lens {
+    width: min(100%, 920px);
+    max-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(7px, 1.3vh, 13px);
+    padding: clamp(12px, 2vh, 22px);
+    border: 1px solid #cda65d;
+    border-radius: 19px;
+    background: linear-gradient(150deg, #192f4e, #0e213b 65%, #172e4d);
+    box-shadow: 0 18px 45px #0009, inset 0 1px #ffffff21
+}
+
+#door-four-laboratory .rw-ruble__lens-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start
+}
+
+#door-four-laboratory .rw-ruble__lens-head small {
+    font: 700 10px Arial, sans-serif;
+    letter-spacing: .12em;
+    color: #d7b474
+}
+
+#door-four-laboratory .rw-ruble__lens-head h3 {
+    font: 700 clamp(21px, 2.6vw, 30px) Georgia, serif;
+    color: #ffd98e;
+    margin: 3px 0
+}
+
+#door-four-laboratory .rw-ruble__lens-head p {
+    font-size: 13px;
+    margin: 0;
+    color: #d0ddec
+}
+
+#door-four-laboratory #rw-ruble-close {
+    flex: none;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: #263e5d;
+    color: white;
+    border: 1px solid #8196ae;
+    border-radius: 50%;
+    font-size: 17px
+}
+
+#door-four-laboratory .rw-ruble__patterns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px
+}
+
+#door-four-laboratory .rw-ruble__pattern {
+    border: 1px solid var(--ruble-accent);
+    background: var(--ruble-bg);
+    border-radius: 12px;
+    padding: clamp(7px, 1.3vh, 12px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-align: center;
+    opacity: .78;
+    transition: opacity .15s, box-shadow .15s
+}
+
+#door-four-laboratory .rw-ruble__pattern.is-active {
+    opacity: 1;
+    box-shadow: 0 0 0 2px var(--ruble-accent), 0 0 18px #ffffff14
+}
+
+#door-four-laboratory .rw-ruble__pattern--one {
+    --ruble-accent: #86d4b2;
+    --ruble-bg: #1a3b42
+}
+
+#door-four-laboratory .rw-ruble__pattern--few {
+    --ruble-accent: #a2caff;
+    --ruble-bg: #213c5d
+}
+
+#door-four-laboratory .rw-ruble__pattern--many {
+    --ruble-accent: #f2bd82;
+    --ruble-bg: #45372f
+}
+
+#door-four-laboratory .rw-ruble__pattern strong {
+    font-size: clamp(21px, 2.5vw, 29px);
+    color: var(--ruble-accent)
+}
+
+#door-four-laboratory .rw-ruble__pattern b {
+    font: 700 clamp(17px, 2vw, 23px) Georgia, serif;
+    color: white
+}
+
+#door-four-laboratory .rw-ruble__pattern small {
+    font-size: 12px;
+    color: #dce6f3
+}
+
+#door-four-laboratory .rw-ruble__pattern span {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ruble-accent)
+}
+
+#door-four-laboratory .rw-ruble__experiment {
+    background: #203b5a;
+    border-radius: 12px;
+    padding: clamp(8px, 1.5vh, 13px);
+    display: grid;
+    gap: 7px
+}
+
+#door-four-laboratory .rw-ruble__experiment-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center
+}
+
+#door-four-laboratory .rw-ruble__experiment-top small {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    color: #cbd8e9
+}
+
+#door-four-laboratory .rw-ruble__stepper {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 6px
+}
+
+#door-four-laboratory .rw-ruble__stepper button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #18304e;
+    border: 1px solid #7f96af;
+    color: white
+}
+
+#door-four-laboratory .rw-ruble__stepper input {
+    width: 80px;
+    height: 32px;
+    text-align: center;
+    background: #122842;
+    border: 1px solid #6487ac;
+    border-radius: 6px;
+    color: white;
+    font: 700 18px Arial, sans-serif
+}
+
+#door-four-laboratory .rw-ruble__answer {
+    text-align: right;
+    display: grid;
+    gap: 4px
+}
+
+#door-four-laboratory .rw-ruble__answer strong {
+    font: 700 clamp(19px, 2.2vw, 27px) Georgia, serif;
+    color: #ffcf81
+}
+
+#door-four-laboratory .rw-ruble__answer span {
+    font-size: 12px;
+    color: #e1eaf5
+}
+
+#door-four-laboratory #rw-ruble-slider {
+    width: 100%;
+    accent-color: #f3c17a;
+    cursor: pointer
+}
+
+#door-four-laboratory .rw-ruble__surprise {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #213650;
+    border: 1px solid #4b6788;
+    border-radius: 11px;
+    padding: 9px 12px
+}
+
+#door-four-laboratory .rw-ruble__surprise>span {
+    color: #ffcf81;
+    font-size: 26px
+}
+
+#door-four-laboratory .rw-ruble__surprise strong {
+    color: #ffdb92;
+    font-size: 18px
+}
+
+#door-four-laboratory .rw-ruble__surprise p {
+    font-size: 18px;
+    margin: 3px 0;
+    color: #e1eaf5
+}
+
+#door-four-laboratory .rw-ruble__surprise small {
+    color: #f8d49c;
+    font-size: 18px
+}
+
+@media(max-height:610px) {
+    #door-four-laboratory .rw-ruble__lens {
+        gap: 5px;
+        padding: 9px
+    }
+
+    #door-four-laboratory .rw-ruble__pattern {
+        padding: 5px
+    }
+
+    #door-four-laboratory .rw-ruble__lens-head h3 {
+        font-size: 21px
+    }
+
+    #door-four-laboratory .rw-ruble__experiment {
+        padding: 6px
+    }
+}
+
+/* ==============================================================
+   MENUS — PAGE TWO VISUAL REFINEMENT
+   Keeps the Discovery Lens palette and compact vertical spacing.
+   ============================================================== */
+
+#door-four-laboratory .rw-bill {
+    background: #101f36;
+    box-shadow: inset 0 0 0 1px #b28d50;
+}
+
+#door-four-laboratory .rw-bill__header h3 {
+    color: #ffdb8d;
+}
+
+#door-four-laboratory .rw-bill__right {
+    gap: 6px;
+}
+
+#door-four-laboratory .rw-bill__stripe {
+    background: linear-gradient(145deg, #203d60, #172e4d);
+    border: 1px solid #59799b;
+    border-left: 3px solid #cba65f;
+    border-radius: 10px;
+    padding: 7px 10px;
+    gap: 2px;
+}
+
+#door-four-laboratory .rw-bill__stripe strong {
+    color: #f7f3ec;
+}
+
+#door-four-laboratory .rw-bill__stripe em {
+    color: #cddcec;
+}
+
+#door-four-laboratory .rw-bill__count>div {
+    background: #203b5a;
+    border-color: #7a92ac;
+}
+
+#door-four-laboratory .rw-bill__total {
+    background: #172f4c;
+    border-color: #cba65f;
+    color: #ffda90;
+    padding: 6px 12px;
+}
+
+#door-four-laboratory .rw-bill__grammar {
+    background: linear-gradient(145deg, #192f4e, #132940);
+    border: 1px solid #cba65f;
+    border-radius: 15px;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 10px 13px;
+}
+
+#door-four-laboratory .rw-bill__grammar h4 {
+    color: #ffdb8d;
+    line-height: 1.1;
+    margin: 0;
+}
+
+#door-four-laboratory .rw-bill__grammar>p {
+    color: #dce7f5;
+    line-height: 1.15;
+    margin: 0;
+}
+
+#door-four-laboratory .rw-ruble__snapshot {
+    gap: 9px;
+    margin: 1px 0;
+}
+
+#door-four-laboratory .rw-ruble__snapshot>div {
+    padding: 5px 10px;
+    gap: 1px;
+}
+
+#door-four-laboratory .rw-ruble__snapshot p {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+#door-four-laboratory .rw-ruble__open {
+    padding: 6px 11px;
+    margin-top: 1px;
+}
+
+/* The changing endings are highlighted everywhere they appear. */
+#door-four-laboratory .rw-ruble__ending,
+#door-four-laboratory .rw-menus__ending {
+    color: #ffad60;
+    font-weight: 900;
+    text-shadow: 0 0 5px #ffad6022;
+}
+
+#door-four-laboratory .rw-ruble__pattern .rw-ruble__ending {
+    color: #ffcc7d;
+}
+
+/* Keep highlighted endings the same size as the Russian word. */
+#door-four-laboratory .rw-ruble__pattern b .rw-ruble__ending,
+#door-four-laboratory .rw-ruble__pattern>span .rw-ruble__ending,
+#door-four-laboratory .rw-ruble__answer strong .rw-ruble__ending,
+#door-four-laboratory .rw-ruble__surprise p .rw-ruble__ending,
+#door-four-laboratory .rw-ruble__surprise small .rw-ruble__ending,
+#door-four-laboratory .rw-ruble__snapshot strong .rw-ruble__ending,
+#door-four-laboratory .rw-bill__cost .rw-ruble__ending {
+    font-size: inherit;
+    line-height: inherit;
+    font-family: inherit;
+}
+
+#door-four-laboratory .rw-bill__cost .rw-ruble__ending {
+    color: #ffbd75;
 }

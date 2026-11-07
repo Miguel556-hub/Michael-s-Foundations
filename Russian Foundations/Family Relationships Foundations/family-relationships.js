@@ -6404,20 +6404,130 @@ document
       menusExplorer.querySelector('#rw-menus-listen').disabled=true;
     });
     const screenTwo=menusExplorer.querySelector('#rw-menus-screen-two');
-    menusExplorer.querySelector('#rw-menus-next').addEventListener('click',()=>{screenTwo.hidden=false;screenTwo.scrollIntoView({block:'nearest',behavior:'smooth'});});
-    menusExplorer.querySelector('#rw-menus-screen-one').addEventListener('click',()=>{screenTwo.hidden=true;});
+    const bill=interior.querySelector('#rw-bill');
     const quantity=menusExplorer.querySelector('#rw-menus-quantity');
-    quantity.addEventListener('change',()=>{
+    function updateFamily(){
       const n=Number(quantity.value);
       const forms=['','одна порция','две порции','три порции','четыре порции','пять порций','шесть порций'];
+      const ending=n===1?'порция':n<=4?'порции':'порций';
       menusExplorer.querySelector('#rw-menus-family-phrase').textContent=forms[n];
+      renderRussianEnding(
+          menusExplorer.querySelector('#rw-menus-family-form'),
+          "",
+          "порци",
+          ending.slice(5)
+      );
       menusExplorer.querySelector('#rw-menus-family-discovery').textContent=n===1?'After one, Russian uses порция.':n<=4?'After two, three, or four, Russian uses порции.':'After five or more (in this range), Russian uses порций.';
-      menusExplorer.querySelector('#rw-menus-family-form').textContent=n===1?'порция':n<=4?'порции':'порций';
-    });
-    menusExplorer.querySelector('#rw-menus-back').addEventListener('click',()=>{menusExplorer.hidden=true;screenTwo.hidden=true;});
+    }
+    quantity.addEventListener('change',updateFamily);
+    updateFamily();
+    // Page One always shows both activities; its existing Next button opens Page Two.
+    menusExplorer.querySelector('#rw-menus-next').addEventListener('click',()=>{bill.hidden=false;menusExplorer.hidden=true;});
+    bill.querySelector('#rw-bill-back').addEventListener('click',()=>{closeRubleLens();bill.hidden=true;menusExplorer.hidden=false;});
+    bill.querySelector('#rw-bill-exit').addEventListener('click',()=>{closeRubleLens();bill.hidden=true;menusExplorer.hidden=true;});
+    const billDishes=[
+      ['борщ','Borscht',150,'стоит'],['оливье','Olivier salad',180,'стоит'],['пельмени','Pelmeni',120,'стоят'],['блины','Blini',140,'стоят'],
+      ['бефстроганов','Beef Stroganoff',290,'стоит'],['голубцы','Golubtsy',230,'стоят'],['солянка','Solyanka',210,'стоит'],['пирожки','Pirozhki',110,'стоят'],
+      ['каша','Kasha',100,'стоит'],['селёдка под шубой','Herring under a fur coat',190,'стоит'],['окрошка','Okroshka',170,'стоит'],['драники','Draniki',160,'стоят'],
+      ['квас','Kvass',80,'стоит'],['кулич','Kulich',130,'стоит'],['сырники','Syrniki',200,'стоят'],['пирог','Pirog',240,'стоит']
+    ];
+    const billHotspots=[...bill.querySelectorAll('[data-bill-item]')];
+    const billNumbers=[...bill.querySelectorAll('[data-bill-people]')];
+    let billIndex=-1,billPeople=3;
+    const rubleForm=n=>{const last=n%10,teens=n%100;return teens>=11&&teens<=14?'рублей':last===1?'рубль':last>=2&&last<=4?'рубля':'рублей';};
+    // Highlight only the changing word ending; keep all other text unmodified.
+    function renderRussianEnding(element, prefix, stem, ending, suffix = "") {
+        element.replaceChildren();
+        element.appendChild(document.createTextNode(prefix + stem));
+
+        const endingSpan = document.createElement("span");
+        endingSpan.className = "rw-ruble__ending";
+        endingSpan.textContent = ending;
+        element.appendChild(endingSpan);
+
+        if (suffix) {
+            element.appendChild(document.createTextNode(suffix));
+        }
+    }
+
+    function rubleEnding(amount) {
+        const form = rubleForm(amount);
+        return form.slice(3);
+    }
+
+    const peopleWords=['','одного','двоих','троих','четверых'];
+    // Ruble Discovery Lens: all controls are authored in HTML; JS updates their content.
+    const rubleOverlay=bill.querySelector('#rw-ruble-overlay');
+    const rubleInput=bill.querySelector('#rw-ruble-amount');
+    const rubleSlider=bill.querySelector('#rw-ruble-slider');
+    const rubleOpen=bill.querySelector('#rw-ruble-open');
+    const rubleClose=bill.querySelector('#rw-ruble-close');
+    let rubleReturnFocus=null;
+    let currentBillTotal=null;
+    const rubleCategory=n=>{const last=n%10, lastTwo=n%100;return lastTwo>=11&&lastTwo<=14?'many':last===1?'one':last>=2&&last<=4?'few':'many';};
+    const rubleReason=n=>{const last=n%10,lastTwo=n%100;if(lastTwo>=11&&lastTwo<=14)return `${n} ends in ${lastTwo}. That's the surprise: use рублей!`;return `${n} ends in ${last}, so use ${rubleForm(n)}.`;};
+    function updateRubleSnapshot(total){
+      currentBillTotal=total;
+      const currentDisplay = bill.querySelector('#rw-ruble-current');
+      if (total === null) {
+          currentDisplay.textContent = "—";
+      } else {
+          renderRussianEnding(currentDisplay, `${total} `, "руб", rubleEnding(total));
+      }
+      bill.querySelector('#rw-ruble-why').textContent=total===null?'Select a dish to discover the rule.':rubleReason(total);
+    }
+    function renderRubleExperiment(value){
+      const n=Math.max(1,Math.min(9999,Math.round(Number(value)||1)));
+      rubleInput.value=String(n);
+      rubleSlider.value=String(Math.min(n,200));
+      renderRussianEnding(
+          bill.querySelector('#rw-ruble-result'),
+          `${n} `,
+          "руб",
+          rubleEnding(n)
+      );
+      bill.querySelector('#rw-ruble-reason').textContent=rubleReason(n);
+      bill.querySelectorAll('[data-ruble-pattern]').forEach(card=>card.classList.toggle('is-active',card.dataset.rublePattern===rubleCategory(n)));
+    }
+    function closeRubleLens(){rubleOverlay.hidden=true;if(rubleReturnFocus&&rubleReturnFocus.isConnected)rubleReturnFocus.focus();}
+    rubleOpen.addEventListener('click',()=>{rubleReturnFocus=document.activeElement;renderRubleExperiment(currentBillTotal===null?121:currentBillTotal);rubleOverlay.hidden=false;rubleClose.focus();});
+    rubleClose.addEventListener('click',closeRubleLens);
+    rubleOverlay.addEventListener('click',event=>{if(event.target===rubleOverlay)closeRubleLens();});
+    rubleOverlay.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();closeRubleLens();}if(event.key==='Tab'){const controls=[rubleClose,bill.querySelector('#rw-ruble-minus'),rubleInput,bill.querySelector('#rw-ruble-plus'),rubleSlider];const i=controls.indexOf(document.activeElement);if(event.shiftKey&&i===0){event.preventDefault();controls[controls.length-1].focus();}else if(!event.shiftKey&&i===controls.length-1){event.preventDefault();controls[0].focus();}}});
+    bill.querySelector('#rw-ruble-minus').addEventListener('click',()=>renderRubleExperiment(Number(rubleInput.value)-1));
+    bill.querySelector('#rw-ruble-plus').addEventListener('click',()=>renderRubleExperiment(Number(rubleInput.value)+1));
+    rubleInput.addEventListener('input',()=>{if(rubleInput.value!=='')renderRubleExperiment(rubleInput.value);});
+    rubleInput.addEventListener('change',()=>renderRubleExperiment(rubleInput.value));
+    rubleSlider.addEventListener('input',()=>renderRubleExperiment(rubleSlider.value));
+    function renderBill(){
+      billHotspots.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===billIndex)));
+      billNumbers.forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.billPeople)===billPeople)));
+      bill.querySelector('#rw-bill-people-count').textContent=String(billPeople);
+      bill.querySelector('#rw-bill-request').textContent=`На ${peopleWords[billPeople]}, пожалуйста.`;
+      bill.querySelector('#rw-bill-request-en').textContent=`For ${billPeople} ${billPeople===1?'person':'people'}, please.`;
+      if(billIndex<0){bill.querySelector('#rw-bill-question').textContent='Сколько стоит блюдо?';bill.querySelector('#rw-bill-question-en').textContent='How much does the dish cost?';bill.querySelector('#rw-bill-unit').textContent='Выберите блюдо.';bill.querySelector('#rw-bill-unit-en').textContent='Choose a dish to see its price.';bill.querySelector('#rw-bill-total').textContent='—';bill.querySelector('#rw-bill-grammar').textContent='Choose a dish to see the ruble ending change.';updateRubleSnapshot(null);return;}
+      const [ru,en,price,verb]=billDishes[billIndex];const total=price*billPeople;
+      bill.querySelector('#rw-bill-question').textContent=`Сколько ${verb} ${ru}?`;
+      bill.querySelector('#rw-bill-question-en').textContent=`How much ${verb==='стоят'?'do':'does'} the ${en.toLowerCase()} cost?`;
+      renderRussianEnding(
+          bill.querySelector('#rw-bill-unit'),
+          `Одна порция — ${price} `,
+          "руб",
+          rubleEnding(price),
+          "."
+      );
+      bill.querySelector('#rw-bill-unit-en').textContent=`One serving costs ${price} rubles.`;
+      bill.querySelector('#rw-bill-total').textContent=`${total} ₽`;
+      bill.querySelector('#rw-bill-grammar').textContent='Watch the colored ending change with your total.';
+      updateRubleSnapshot(total);
+    }
+    billHotspots.forEach(b=>b.addEventListener('click',()=>{billIndex=Number(b.dataset.billItem);renderBill();}));
+    billNumbers.forEach(b=>b.addEventListener('click',()=>{billPeople=Number(b.dataset.billPeople);renderBill();}));
+    renderBill();
+    menusExplorer.querySelector('#rw-menus-back').addEventListener('click',()=>{menusExplorer.hidden=true;bill.hidden=true;});
     interior.querySelector('[data-rw-spot="menus"]').addEventListener('click',()=>{
       if(interior.dataset.activeDrawer!=='real')return;
-      menusExplorer.hidden=false;screenTwo.hidden=true;menusExplorer.scrollTop=0;
+      menusExplorer.hidden=false;bill.hidden=true;screenTwo.hidden=false;
     });
     // END DRAWER THREE — MENUS RECONSTRUCTION
 
@@ -6437,6 +6547,7 @@ document
         signsExplorer.hidden = true;
         messagesExplorer.hidden = true;
         menusExplorer.hidden = true;
+        bill.hidden = true;
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
         if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;
