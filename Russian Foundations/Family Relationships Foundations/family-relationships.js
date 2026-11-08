@@ -6541,23 +6541,13 @@ document
     const conversationsGallery = interior.querySelector("#rw-conversations");
     const conversationsStatus = interior.querySelector("#rw-conversations-status");
     const conversationsBack = interior.querySelector("#rw-conversations-back");
-    const conversationExperiences = interior.querySelectorAll("[data-conversation-experience]");
-
-    function hideConversationExperiences() {
-        conversationExperiences.forEach((experience) => {
-            experience.hidden = true;
-        });
-    }
-
     function showConversationGallery() {
-        hideConversationExperiences();
         conversationsStatus.hidden = true;
         conversationsStatus.textContent = "";
         conversationsGallery.hidden = false;
     }
 
     function returnToConversationDesk() {
-        hideConversationExperiences();
         conversationsGallery.hidden = true;
         conversationsStatus.hidden = true;
     }
@@ -6572,41 +6562,7 @@ document
 
     conversationsBack.addEventListener("click", returnToConversationDesk);
 
-    conversationsGallery.querySelectorAll("[data-conversation-scenario]").forEach((button) => {
-        button.addEventListener("click", () => {
-            const experience = interior.querySelector(
-                `[data-conversation-experience="${button.dataset.conversationScenario}"]`
-            );
-
-            if (!experience) {
-                return;
-            }
-
-            conversationsGallery.hidden = true;
-            hideConversationExperiences();
-            experience.hidden = false;
-        });
-    });
-
-    conversationExperiences.forEach((experience) => {
-        experience.querySelectorAll("[data-conversation-back]").forEach((button) => {
-            button.addEventListener("click", () => {
-                if (button.dataset.conversationBack === "gallery") {
-                    showConversationGallery();
-                } else {
-                    returnToConversationDesk();
-                }
-            });
-        });
-
-        const picture = experience.querySelector(".rw-conversation-experience__picture img");
-
-        if (picture) {
-            picture.addEventListener("error", () => {
-                picture.hidden = true;
-            });
-        }
-    });
+    // Scenario tiles intentionally have no click handlers until their direct experiences are ready.
 
     // END DRAWER THREE — CONVERSATION GALLERY LANDING PAGE
 
@@ -6628,7 +6584,6 @@ document
         menusExplorer.hidden = true;
         bill.hidden = true;
         conversationsGallery.hidden = true;
-        hideConversationExperiences();
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
         if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;
