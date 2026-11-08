@@ -6491,95 +6491,114 @@ LESSON 2 — EXTENDED FAMILY
               <!-- The Victorian background is a separate image asset.
                    All seven choices, text, and navigation are authored in HTML. -->
               <section class="rw-conversations" id="rw-conversations" aria-label="Conversation Gallery" hidden>
-                  <header class="rw-conversations__header">
-                      <h3>The Conversation Gallery</h3>
-                  </header>
+                <header class="rw-conversations__header">
+                  <h3>The Conversation Gallery</h3>
+                </header>
 
-                  <div class="rw-conversations__choices" role="group" aria-label="Choose a conversation scenario">
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="01" aria-label="Family Dinner">
-                          <span class="rw-conversations__number">01</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <circle cx="8" cy="12" r="5"/><path d="M1 3v7m3-7v7m-3-3h3m15-4v18m0-18c-3 2-4 5-4 8h4"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Family Dinner</span>
-                          <span class="rw-conversations__russian" lang="ru">За семейным столом</span>
-                          <span class="rw-conversations__description">Taste, share, respond</span>
-                      </button>
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="02" aria-label="Planning Dinner">
-                          <span class="rw-conversations__number">02</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h3M15 15h1"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Planning Dinner</span>
-                          <span class="rw-conversations__russian" lang="ru">Что будем есть?</span>
-                          <span class="rw-conversations__description">Suggest, agree, decide</span>
-                      </button>
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="03" aria-label="Grocery Shopping">
-                          <span class="rw-conversations__number">03</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <circle cx="9" cy="20" r="1"/><circle cx="19" cy="20" r="1"/><path d="M2 3h2l3 13h13l2-10H5M8 10h12"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Grocery Shopping</span>
-                          <span class="rw-conversations__russian" lang="ru">В магазине</span>
-                          <span class="rw-conversations__description">Ask, choose, buy</span>
-                      </button>
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="04" aria-label="Cooking Together">
-                          <span class="rw-conversations__number">04</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <path d="m3 3 7 7m-5-7 5 5M3 5l5 5m2 0 11 11M21 3c-5 0-8 3-8 8l-10 10"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Cooking Together</span>
-                          <span class="rw-conversations__russian" lang="ru">Готовим вместе</span>
-                          <span class="rw-conversations__description">Listen, help, explain</span>
-                      </button>
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="05" aria-label="Family Picnic">
-                          <span class="rw-conversations__number">05</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <path d="m4 18 5-8 4 5 3-4 5 7H4ZM2 21h20M6 8l2-4 2 4M16 8l2-5 2 5"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Family Picnic</span>
-                          <span class="rw-conversations__russian" lang="ru">На пикнике</span>
-                          <span class="rw-conversations__description">Offer, share, improvise</span>
-                      </button>
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="06" aria-label="Visiting Relatives">
-                          <span class="rw-conversations__number">06</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <path d="m2 11 10-8 10 8M4 10v11h16V10M9 21v-8h6v8M17 4h3v4"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Visiting Relatives</span>
-                          <span class="rw-conversations__russian" lang="ru">В гостях у родных</span>
-                          <span class="rw-conversations__description">Visit, accept, politely decline</span>
-                      </button>
-                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="07" aria-label="Vacation Restaurant">
-                          <span class="rw-conversations__number">07</span>
-                          <span class="rw-conversations__icon" aria-hidden="true">
-                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                  <path d="M3 6h18M5 6l2 12h10l2-12M9 6V3h6v3M4 21h16M9 10v5m4-5v5"/>
-                              </svg>
-                          </span>
-                          <span class="rw-conversations__title">Vacation Restaurant</span>
-                          <span class="rw-conversations__russian" lang="ru">В ресторане на отдыхе</span>
-                          <span class="rw-conversations__description">Explore, order, respond</span>
-                      </button>
-                  </div>
-
-                  <p class="rw-conversations__status" id="rw-conversations-status" role="status" aria-live="polite" hidden></p>
-
-                  <button type="button" class="rw-conversations__back" id="rw-conversations-back">
-                      <span aria-hidden="true">←</span> Back to Explorer's Desk
+                <div class="rw-conversations__choices" role="group" aria-label="Choose a conversation scenario">
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="01"
+                    aria-label="Family Dinner">
+                    <span class="rw-conversations__number">01</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <circle cx="8" cy="12" r="5" />
+                        <path d="M1 3v7m3-7v7m-3-3h3m15-4v18m0-18c-3 2-4 5-4 8h4" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Family Dinner</span>
+                    <span class="rw-conversations__russian" lang="ru">За семейным столом</span>
+                    <span class="rw-conversations__description">Taste, share, respond</span>
                   </button>
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="02"
+                    aria-label="Planning Dinner">
+                    <span class="rw-conversations__number">02</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <rect x="5" y="3" width="14" height="18" rx="1" />
+                        <path d="M9 7h6M9 11h6M9 15h3M15 15h1" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Planning Dinner</span>
+                    <span class="rw-conversations__russian" lang="ru">Что будем есть?</span>
+                    <span class="rw-conversations__description">Suggest, agree, decide</span>
+                  </button>
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="03"
+                    aria-label="Grocery Shopping">
+                    <span class="rw-conversations__number">03</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <circle cx="9" cy="20" r="1" />
+                        <circle cx="19" cy="20" r="1" />
+                        <path d="M2 3h2l3 13h13l2-10H5M8 10h12" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Grocery Shopping</span>
+                    <span class="rw-conversations__russian" lang="ru">В магазине</span>
+                    <span class="rw-conversations__description">Ask, choose, buy</span>
+                  </button>
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="04"
+                    aria-label="Cooking Together">
+                    <span class="rw-conversations__number">04</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="m3 3 7 7m-5-7 5 5M3 5l5 5m2 0 11 11M21 3c-5 0-8 3-8 8l-10 10" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Cooking Together</span>
+                    <span class="rw-conversations__russian" lang="ru">Готовим вместе</span>
+                    <span class="rw-conversations__description">Listen, help, explain</span>
+                  </button>
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="05"
+                    aria-label="Family Picnic">
+                    <span class="rw-conversations__number">05</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="m4 18 5-8 4 5 3-4 5 7H4ZM2 21h20M6 8l2-4 2 4M16 8l2-5 2 5" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Family Picnic</span>
+                    <span class="rw-conversations__russian" lang="ru">На пикнике</span>
+                    <span class="rw-conversations__description">Offer, share, improvise</span>
+                  </button>
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="06"
+                    aria-label="Visiting Relatives">
+                    <span class="rw-conversations__number">06</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="m2 11 10-8 10 8M4 10v11h16V10M9 21v-8h6v8M17 4h3v4" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Visiting Relatives</span>
+                    <span class="rw-conversations__russian" lang="ru">В гостях у родных</span>
+                    <span class="rw-conversations__description">Visit, accept, politely decline</span>
+                  </button>
+                  <button type="button" class="rw-conversations__choice" data-conversation-scenario="07"
+                    aria-label="Vacation Restaurant">
+                    <span class="rw-conversations__number">07</span>
+                    <span class="rw-conversations__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M3 6h18M5 6l2 12h10l2-12M9 6V3h6v3M4 21h16M9 10v5m4-5v5" />
+                      </svg>
+                    </span>
+                    <span class="rw-conversations__title">Vacation Restaurant</span>
+                    <span class="rw-conversations__russian" lang="ru">В ресторане на отдыхе</span>
+                    <span class="rw-conversations__description">Explore, order, respond</span>
+                  </button>
+                </div>
+
+                <p class="rw-conversations__status" id="rw-conversations-status" role="status" aria-live="polite"
+                  hidden></p>
+
+                <button type="button" class="rw-conversations__back" id="rw-conversations-back">
+                  <span aria-hidden="true">←</span> Back to Explorer's Desk
+                </button>
               </section>
               <!-- END DRAWER THREE — CONVERSATION GALLERY LANDING PAGE -->
 
@@ -6809,65 +6828,146 @@ LESSON 2 — EXTENDED FAMILY
                       </div>
                     </div>
                   </div>
-                  
+
                 </section>
                 <footer class="rw-menus__footer"><button type="button" id="rw-menus-back">← Back to Explorer's
                     Desk</button></footer>
               </section>
               <section class="rw-bill" id="rw-bill" hidden aria-label="MENUS page two: the family bill">
- <header class="rw-bill__header"><h3>Wait! There’s more?</h3><p lang="ru">Подождите! Это ещё не всё?</p></header>
- <div class="rw-bill__columns">
-  <div class="rw-bill__left"><div class="rw-bill__art"><img src="../../Images/door-four/drawer-menus-russian-foods.png" alt="16 Russian dishes arranged in four rows"><div class="rw-bill__spots" role="group" aria-label="Choose a Russian dish"><button type="button" class="rw-bill__hotspot" data-bill-item="0" style="--menu-x:12.5%;--menu-y:31.5%" aria-label="Choose Borscht" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="1" style="--menu-x:37.5%;--menu-y:31.5%" aria-label="Choose Olivier salad" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="2" style="--menu-x:62.5%;--menu-y:31.5%" aria-label="Choose Pelmeni" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="3" style="--menu-x:87.5%;--menu-y:31.5%" aria-label="Choose Blini" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="4" style="--menu-x:12.5%;--menu-y:50.5%" aria-label="Choose Beef Stroganoff" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="5" style="--menu-x:37.5%;--menu-y:50.5%" aria-label="Choose Golubtsy" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="6" style="--menu-x:62.5%;--menu-y:50.5%" aria-label="Choose Solyanka" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="7" style="--menu-x:87.5%;--menu-y:50.5%" aria-label="Choose Pirozhki" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="8" style="--menu-x:12.5%;--menu-y:67.5%" aria-label="Choose Kasha" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="9" style="--menu-x:37.5%;--menu-y:67.5%" aria-label="Choose Herring under a fur coat" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="10" style="--menu-x:62.5%;--menu-y:67.5%" aria-label="Choose Okroshka" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="11" style="--menu-x:87.5%;--menu-y:67.5%" aria-label="Choose Draniki" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="12" style="--menu-x:12.5%;--menu-y:86.5%" aria-label="Choose Kvass" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="13" style="--menu-x:37.5%;--menu-y:86.5%" aria-label="Choose Kulich" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="14" style="--menu-x:62.5%;--menu-y:86.5%" aria-label="Choose Syrniki" aria-pressed="false"></button>
-<button type="button" class="rw-bill__hotspot" data-bill-item="15" style="--menu-x:87.5%;--menu-y:86.5%" aria-label="Choose Pirog" aria-pressed="false"></button></div></div><div class="rw-bill__nav"><button type="button" id="rw-bill-back">← Go back to choices</button><button type="button" id="rw-bill-exit">← Back to Explorer's Desk</button></div></div>
-  <div class="rw-bill__right"><div class="rw-bill__stripe"><strong id="rw-bill-question" lang="ru">Сколько стоит блюдо?</strong><em id="rw-bill-question-en">How much does the dish cost?</em></div>
-   <div class="rw-bill__count"><strong>For how many people?</strong><div role="group" aria-label="Number of people"><button type="button" class="rw-bill__number" data-bill-people="1" aria-pressed="false">1</button><button type="button" class="rw-bill__number" data-bill-people="2" aria-pressed="false">2</button><button type="button" class="rw-bill__number" data-bill-people="3" aria-pressed="true">3</button><button type="button" class="rw-bill__number" data-bill-people="4" aria-pressed="false">4</button></div></div>
-   <div class="rw-bill__stripe"><strong id="rw-bill-request" lang="ru">На троих, пожалуйста.</strong><em id="rw-bill-request-en">For three people, please.</em></div>
-   <div class="rw-bill__stripe rw-bill__cost"><strong id="rw-bill-unit" lang="ru">Выберите блюдо.</strong><em id="rw-bill-unit-en">Choose a dish to see its price.</em></div>
-   <div class="rw-bill__total"><span>Total for <span id="rw-bill-people-count">3</span>:</span> <strong id="rw-bill-total">—</strong></div>
-   <div class="rw-bill__grammar">
-     <h4>Grammar Breakdown</h4>
-     <p id="rw-bill-grammar" aria-live="polite">Choose a dish to see the ruble ending change.</p>
-     <div class="rw-ruble__snapshot" aria-live="polite">
-       <div>
-         <small>YOUR TOTAL</small>
-         <strong id="rw-ruble-current" lang="ru">—</strong>
-       </div>
-       <span aria-hidden="true">➜</span>
-       <p id="rw-ruble-why">Select a dish to discover the rule.</p>
-     </div>
-     <button type="button" class="rw-ruble__open" id="rw-ruble-open" aria-haspopup="dialog">
-       Explore the Ruble Rule ↗
-     </button>
-   </div>
-  </div>
- </div>
-  <section class="rw-ruble__overlay" id="rw-ruble-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="rw-ruble-title">
-    <div class="rw-ruble__lens">
-      <header class="rw-ruble__lens-head"><div><small>THE LABORATORY · LANGUAGE DISCOVERY</small><h3 id="rw-ruble-title">The Ruble Discovery Lens</h3><p>Three patterns. One little surprise.</p></div><button type="button" id="rw-ruble-close" aria-label="Close Ruble Discovery Lens">✕</button></header>
-      <div class="rw-ruble__patterns" aria-label="Ruble word patterns">
-        <div class="rw-ruble__pattern rw-ruble__pattern--one" data-ruble-pattern="one"><strong>1</strong><b lang="ru">руб<span class="rw-ruble__ending">ль</span></b><small>Ends in 1</small><span>21 руб<span class="rw-ruble__ending">ль</span></span></div>
-        <div class="rw-ruble__pattern rw-ruble__pattern--few" data-ruble-pattern="few"><strong>2, 3, 4</strong><b lang="ru">руб<span class="rw-ruble__ending">ля</span></b><small>Ends in 2, 3, or 4</small><span>23 руб<span class="rw-ruble__ending">ля</span></span></div>
-        <div class="rw-ruble__pattern rw-ruble__pattern--many" data-ruble-pattern="many"><strong>0, 5–9</strong><b lang="ru">руб<span class="rw-ruble__ending">лей</span></b><small>Ends in 0 or 5–9</small><span>25 руб<span class="rw-ruble__ending">лей</span></span></div>
-      </div>
-      <div class="rw-ruble__experiment"><div class="rw-ruble__experiment-top"><div><small>TRY A DIFFERENT AMOUNT</small><div class="rw-ruble__stepper"><button type="button" id="rw-ruble-minus" aria-label="Subtract one ruble">−</button><input type="number" id="rw-ruble-amount" min="1" max="9999" value="121" aria-label="Experiment with a ruble amount"><button type="button" id="rw-ruble-plus" aria-label="Add one ruble">+</button></div></div><div class="rw-ruble__answer"><strong id="rw-ruble-result" lang="ru">121 рубль</strong><span id="rw-ruble-reason">121 ends in 1, so use рубль.</span></div></div><input type="range" id="rw-ruble-slider" min="1" max="200" value="121" aria-label="Adjust ruble amount from 1 to 200"></div>
-      <div class="rw-ruble__surprise"><span aria-hidden="true">✦</span><div><strong>One little surprise!</strong><p>If the number ends in <b>11, 12, 13, or 14</b>, always use <b lang="ru">руб<span class="rw-ruble__ending">лей</span></b>.</p><small lang="ru">11 рублей · 12 рублей · 113 рублей</small></div></div>
-    </div>
-  </section>
-</section>
+                <header class="rw-bill__header">
+                  <h3>Wait! There’s more?</h3>
+                  <p lang="ru">Подождите! Это ещё не всё?</p>
+                </header>
+                <div class="rw-bill__columns">
+                  <div class="rw-bill__left">
+                    <div class="rw-bill__art"><img src="../../Images/door-four/drawer-menus-russian-foods.png"
+                        alt="16 Russian dishes arranged in four rows">
+                      <div class="rw-bill__spots" role="group" aria-label="Choose a Russian dish"><button type="button"
+                          class="rw-bill__hotspot" data-bill-item="0" style="--menu-x:12.5%;--menu-y:31.5%"
+                          aria-label="Choose Borscht" aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="1"
+                          style="--menu-x:37.5%;--menu-y:31.5%" aria-label="Choose Olivier salad"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="2"
+                          style="--menu-x:62.5%;--menu-y:31.5%" aria-label="Choose Pelmeni"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="3"
+                          style="--menu-x:87.5%;--menu-y:31.5%" aria-label="Choose Blini" aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="4"
+                          style="--menu-x:12.5%;--menu-y:50.5%" aria-label="Choose Beef Stroganoff"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="5"
+                          style="--menu-x:37.5%;--menu-y:50.5%" aria-label="Choose Golubtsy"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="6"
+                          style="--menu-x:62.5%;--menu-y:50.5%" aria-label="Choose Solyanka"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="7"
+                          style="--menu-x:87.5%;--menu-y:50.5%" aria-label="Choose Pirozhki"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="8"
+                          style="--menu-x:12.5%;--menu-y:67.5%" aria-label="Choose Kasha" aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="9"
+                          style="--menu-x:37.5%;--menu-y:67.5%" aria-label="Choose Herring under a fur coat"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="10"
+                          style="--menu-x:62.5%;--menu-y:67.5%" aria-label="Choose Okroshka"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="11"
+                          style="--menu-x:87.5%;--menu-y:67.5%" aria-label="Choose Draniki"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="12"
+                          style="--menu-x:12.5%;--menu-y:86.5%" aria-label="Choose Kvass" aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="13"
+                          style="--menu-x:37.5%;--menu-y:86.5%" aria-label="Choose Kulich"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="14"
+                          style="--menu-x:62.5%;--menu-y:86.5%" aria-label="Choose Syrniki"
+                          aria-pressed="false"></button>
+                        <button type="button" class="rw-bill__hotspot" data-bill-item="15"
+                          style="--menu-x:87.5%;--menu-y:86.5%" aria-label="Choose Pirog" aria-pressed="false"></button>
+                      </div>
+                    </div>
+                    <div class="rw-bill__nav"><button type="button" id="rw-bill-back">← Go back to
+                        choices</button><button type="button" id="rw-bill-exit">← Back to Explorer's Desk</button></div>
+                  </div>
+                  <div class="rw-bill__right">
+                    <div class="rw-bill__stripe"><strong id="rw-bill-question" lang="ru">Сколько стоит
+                        блюдо?</strong><em id="rw-bill-question-en">How much does the dish cost?</em></div>
+                    <div class="rw-bill__count"><strong>For how many people?</strong>
+                      <div role="group" aria-label="Number of people"><button type="button" class="rw-bill__number"
+                          data-bill-people="1" aria-pressed="false">1</button><button type="button"
+                          class="rw-bill__number" data-bill-people="2" aria-pressed="false">2</button><button
+                          type="button" class="rw-bill__number" data-bill-people="3"
+                          aria-pressed="true">3</button><button type="button" class="rw-bill__number"
+                          data-bill-people="4" aria-pressed="false">4</button></div>
+                    </div>
+                    <div class="rw-bill__stripe"><strong id="rw-bill-request" lang="ru">На троих,
+                        пожалуйста.</strong><em id="rw-bill-request-en">For three people, please.</em></div>
+                    <div class="rw-bill__stripe rw-bill__cost"><strong id="rw-bill-unit" lang="ru">Выберите
+                        блюдо.</strong><em id="rw-bill-unit-en">Choose a dish to see its price.</em></div>
+                    <div class="rw-bill__total"><span>Total for <span id="rw-bill-people-count">3</span>:</span> <strong
+                        id="rw-bill-total">—</strong></div>
+                    <div class="rw-bill__grammar">
+                      <h4>Grammar Breakdown</h4>
+                      <p id="rw-bill-grammar" aria-live="polite">Choose a dish to see the ruble ending change.</p>
+                      <div class="rw-ruble__snapshot" aria-live="polite">
+                        <div>
+                          <small>YOUR TOTAL</small>
+                          <strong id="rw-ruble-current" lang="ru">—</strong>
+                        </div>
+                        <span aria-hidden="true">➜</span>
+                        <p id="rw-ruble-why">Select a dish to discover the rule.</p>
+                      </div>
+                      <button type="button" class="rw-ruble__open" id="rw-ruble-open" aria-haspopup="dialog">
+                        Explore the Ruble Rule ↗
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <section class="rw-ruble__overlay" id="rw-ruble-overlay" hidden role="dialog" aria-modal="true"
+                  aria-labelledby="rw-ruble-title">
+                  <div class="rw-ruble__lens">
+                    <header class="rw-ruble__lens-head">
+                      <div><small>THE LABORATORY · LANGUAGE DISCOVERY</small>
+                        <h3 id="rw-ruble-title">The Ruble Discovery Lens</h3>
+                        <p>Three patterns. One little surprise.</p>
+                      </div><button type="button" id="rw-ruble-close" aria-label="Close Ruble Discovery Lens">✕</button>
+                    </header>
+                    <div class="rw-ruble__patterns" aria-label="Ruble word patterns">
+                      <div class="rw-ruble__pattern rw-ruble__pattern--one" data-ruble-pattern="one">
+                        <strong>1</strong><b lang="ru">руб<span class="rw-ruble__ending">ль</span></b><small>Ends in
+                          1</small><span>21 руб<span class="rw-ruble__ending">ль</span></span></div>
+                      <div class="rw-ruble__pattern rw-ruble__pattern--few" data-ruble-pattern="few"><strong>2, 3,
+                          4</strong><b lang="ru">руб<span class="rw-ruble__ending">ля</span></b><small>Ends in 2, 3, or
+                          4</small><span>23 руб<span class="rw-ruble__ending">ля</span></span></div>
+                      <div class="rw-ruble__pattern rw-ruble__pattern--many" data-ruble-pattern="many"><strong>0,
+                          5–9</strong><b lang="ru">руб<span class="rw-ruble__ending">лей</span></b><small>Ends in 0 or
+                          5–9</small><span>25 руб<span class="rw-ruble__ending">лей</span></span></div>
+                    </div>
+                    <div class="rw-ruble__experiment">
+                      <div class="rw-ruble__experiment-top">
+                        <div><small>TRY A DIFFERENT AMOUNT</small>
+                          <div class="rw-ruble__stepper"><button type="button" id="rw-ruble-minus"
+                              aria-label="Subtract one ruble">−</button><input type="number" id="rw-ruble-amount"
+                              min="1" max="9999" value="121" aria-label="Experiment with a ruble amount"><button
+                              type="button" id="rw-ruble-plus" aria-label="Add one ruble">+</button></div>
+                        </div>
+                        <div class="rw-ruble__answer"><strong id="rw-ruble-result" lang="ru">121 рубль</strong><span
+                            id="rw-ruble-reason">121 ends in 1, so use рубль.</span></div>
+                      </div><input type="range" id="rw-ruble-slider" min="1" max="200" value="121"
+                        aria-label="Adjust ruble amount from 1 to 200">
+                    </div>
+                    <div class="rw-ruble__surprise"><span aria-hidden="true">✦</span>
+                      <div><strong>One little surprise!</strong>
+                        <p>If the number ends in <b>11, 12, 13, or 14</b>, always use <b lang="ru">руб<span
+                              class="rw-ruble__ending">лей</span></b>.</p><small lang="ru">11 рублей · 12 рублей · 113
+                          рублей</small>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </section>
               <!-- END DRAWER THREE — MENUS RECONSTRUCTION -->
 
               <!-- BEGIN LIVING SENTENCE — THREE-PANEL ILLUSTRATED WORKSPACE -->
@@ -7113,6 +7213,818 @@ LESSON 2 — EXTENDED FAMILY
     <nav class="page-navigation" aria-label="Lesson navigation"><a href="#">← Back</a><a href="#">🏠 Home</a></nav>
 
   </main>
+
+  <!-- ============================================================
+       BEGIN SCENARIO 01 — ANNA CONVERSATION LABORATORY
+       Full-screen experience EMBEDDED IN THIS FOUNDATION HTML.
+       Shadow DOM isolates Anna's styles and IDs from the Foundation.
+       ============================================================ -->
+  <section id="anna-scenario-01" hidden aria-label="Scenario 01 — Talk with Anna">
+    <template shadowrootmode="open">
+      <style>
+        .anna-page {
+          font-family: Georgia, serif;
+          color: #f6ecda;
+          background: #06172b;
+          --gold: #e4ba72;
+          --blue: #0b2844;
+          --muted: #b9cad9;
+          --highlight: #ffd077
+        }
+
+        .anna-page,
+        .anna-page * {
+          box-sizing: border-box
+        }
+
+        .anna-page {
+          margin: 0;
+          min-height: 100vh;
+          background: radial-gradient(circle at 50% 0, #183f5a, #06172b 70%)
+        }
+
+        .shell {
+          max-width: 1480px;
+          margin: auto;
+          padding: 18px 22px 28px
+        }
+
+        .masthead {
+          text-align: center;
+          padding: 5px 0 18px;
+          border-bottom: 1px solid #9b7948
+        }
+
+        .brand {
+          font: 700 12px system-ui;
+          letter-spacing: 2px;
+          color: var(--gold)
+        }
+
+        .brand span {
+          color: #a8c0d0
+        }
+
+        h1 {
+          font-size: clamp(24px, 2.7vw, 37px);
+          font-weight: 500;
+          color: #f1d19b;
+          margin: 9px 0 0
+        }
+
+        .layout {
+          display: grid;
+          grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+          gap: 20px;
+          margin-top: 20px;
+          align-items: start
+        }
+
+        .portrait-panel,
+        .conversation {
+          border: 1px solid #bd9354;
+          border-radius: 14px;
+          background: linear-gradient(160deg, #0a2945, #071d34);
+          box-shadow: 0 16px 45px #0006;
+          overflow: hidden
+        }
+
+        .portrait-frame {
+          height: 410px;
+          position: relative;
+          overflow: hidden;
+          background: #302925
+        }
+
+        .portrait-frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 35%
+        }
+
+        .portrait-frame.speaking img {}
+
+        .glow {
+          position: absolute;
+          inset: 0;
+          box-shadow: inset 0 -35px 45px #071d3480;
+          pointer-events: none
+        }
+
+        .presence {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 9px;
+          padding: 10px;
+          color: #ead09c;
+          font: 13px system-ui
+        }
+
+        .light {
+          width: 8px;
+          height: 8px;
+          background: #6ab88e;
+          border-radius: 50%
+        }
+
+        .light.active {
+          background: #f4c36d;
+          box-shadow: 0 0 12px #eec77e
+        }
+
+        .discovery-space {
+          padding: 13px 17px 19px;
+          border-top: 1px solid #35536b
+        }
+
+        .discovery-tabs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          margin-bottom: 12px
+        }
+
+        .discovery-tabs button {
+          font: 600 15px Georgia;
+          background: #163b5a;
+          border-color: #cba264;
+          padding: 13px 8px
+        }
+
+        .discovery-tabs button[aria-expanded=true] {
+          background: #a97c38;
+          color: #081b2b
+        }
+
+        .visual-stage {
+          min-height: 255px;
+          border: 1px solid #54728a;
+          border-radius: 12px;
+          background: radial-gradient(ellipse at 50% 10%, #204966 0, #102c49 45%, #09223b 100%);
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          gap: 12px;
+          position: relative;
+          overflow: hidden
+        }
+
+        .visual-stage:before,
+        .visual-stage:after {
+          content: '✦';
+          position: absolute;
+          color: #c99c5733;
+          font-size: 55px;
+          top: 8px;
+          left: 15px
+        }
+
+        .visual-stage:after {
+          left: auto;
+          right: 15px
+        }
+
+        .stage-eyebrow {
+          font: 700 11px system-ui;
+          letter-spacing: 2.2px;
+          color: #c9ac77;
+          text-transform: uppercase
+        }
+
+        .stage-russian {
+          font-size: clamp(29px, 3vw, 43px);
+          line-height: 1.25;
+          color: #fff3d9
+        }
+
+        .stage-english {
+          font: italic 16px Georgia;
+          color: #d0dce7
+        }
+
+        .stage-row {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 100%
+        }
+
+        .stage-tile {
+          flex: 1 1 145px;
+          max-width: 250px;
+          background: #09233dc9;
+          border: 1px solid #6b8495;
+          border-radius: 11px;
+          padding: 15px 10px
+        }
+
+        .stage-tile small {
+          display: block;
+          color: #b9cddc;
+          font: 11px system-ui;
+          margin-bottom: 8px
+        }
+
+        .stage-tile strong {
+          font-size: 25px;
+          font-weight: 500
+        }
+
+        .stage-hint {
+          font: 13px/1.5 system-ui;
+          color: #d6e2eb;
+          max-width: 460px
+        }
+
+        .ending {
+          color: var(--highlight);
+          font-weight: 700;
+          text-shadow: 0 0 12px #b47a3266
+        }
+
+        .discovery-detail {
+          margin-top: 11px;
+          border: 1px solid #70869a;
+          border-radius: 11px;
+          padding: 16px 18px;
+          background: #102f4a;
+          font: 14px/1.65 system-ui;
+          color: #dce6ef
+        }
+
+        .discovery-detail[hidden],
+        .assist-panel[hidden] {
+          display: none
+        }
+
+        .discovery-detail p {
+          margin: 6px 0 10px
+        }
+
+        .discovery-detail .russian-example {
+          font: 19px Georgia;
+          color: #fff0cc
+        }
+
+        .conversation {
+          padding: 24px
+        }
+
+        .label,
+        .who {
+          font: 700 12px system-ui;
+          letter-spacing: 1.8px;
+          color: #efc27d
+        }
+
+        .dialogue {
+          border-bottom: 1px solid #3d617b;
+          padding: 13px 0 24px
+        }
+
+        .dialogue #russian {
+          font-size: clamp(30px, 3vw, 41px);
+          margin: 13px 0 8px
+        }
+
+        .dialogue #translation {
+          font: italic 17px Georgia;
+          color: #c5d8e8;
+          margin: 0
+        }
+
+        .buttons,
+        .assist-actions {
+          display: flex;
+          gap: 9px;
+          flex-wrap: wrap;
+          margin-top: 18px
+        }
+
+        button {
+          background: #163c5d;
+          color: #fff0d9;
+          border: 1px solid #cda66a;
+          border-radius: 9px;
+          padding: 12px 15px;
+          font: 600 13px system-ui;
+          cursor: pointer;
+          transition: background .16s
+        }
+
+        button:hover,
+        button:focus-visible {
+          background: #285c80;
+          outline: 2px solid #e9c27d;
+          outline-offset: 2px
+        }
+
+        button.primary {
+          background: #c2944b;
+          color: #0b1d2f
+        }
+
+        button:disabled {
+          opacity: .5;
+          cursor: not-allowed
+        }
+
+        .heard {
+          background: #102d48;
+          border: 1px solid #3d617b;
+          border-radius: 10px;
+          padding: 15px;
+          margin-top: 20px
+        }
+
+        .heard p {
+          font: 16px/1.5 system-ui;
+          color: #e8eff5;
+          margin: 8px 0 0;
+          min-height: 22px
+        }
+
+        .feedback {
+          font: 13px/1.5 system-ui;
+          color: #f0ca83;
+          min-height: 24px;
+          margin-top: 9px
+        }
+
+        .assistance {
+          border-top: 1px solid #4b6477;
+          margin-top: 18px;
+          padding-top: 18px
+        }
+
+        .assistance h2 {
+          font: normal 23px Georgia;
+          color: #f0d09b;
+          margin: 0
+        }
+
+        .assist-actions button {
+          flex: 1 1 125px
+        }
+
+        .assist-actions button[aria-expanded=true] {
+          background: #aa7c3b;
+          color: #091e32
+        }
+
+        .assist-panel {
+          border: 1px solid #66849a;
+          background: #0e2b46;
+          border-radius: 10px;
+          padding: 15px;
+          margin-top: 12px;
+          font: 14px system-ui
+        }
+
+        .assist-panel p {
+          margin: 10px 0
+        }
+
+        .russian-example {
+          font: 19px Georgia;
+          color: #fff1d6
+        }
+
+        .english-example {
+          color: #c6d6e3
+        }
+
+        .assist-note {
+          font: 12px/1.5 system-ui;
+          color: #b7ccdb
+        }
+
+        .fallback {
+          margin-top: 24px;
+          font: 13px system-ui;
+          color: #c8d8e5
+        }
+
+        .type-row {
+          display: flex;
+          gap: 8px;
+          margin-top: 8px
+        }
+
+        input {
+          flex: 1;
+          min-width: 0;
+          border: 1px solid #8b9cad;
+          border-radius: 8px;
+          background: #f7f8f7;
+          color: #14283a;
+          padding: 12px;
+          font: 16px system-ui
+        }
+
+        @keyframes subtle {
+
+          0%,
+          100% {
+            transform: scale(1)
+          }
+
+          50% {
+            transform: scale(1.012)
+          }
+        }
+
+        @media(max-width:850px) {
+          .layout {
+            grid-template-columns: 1fr
+          }
+
+          .portrait-frame {
+            height: 350px
+          }
+
+          .conversation {
+            padding: 18px
+          }
+        }
+
+        @media(max-width:480px) {
+          .shell {
+            padding: 10px
+          }
+
+          .visual-stage {
+            padding: 15px
+          }
+
+          .stage-russian {
+            font-size: 29px
+          }
+
+          .portrait-frame {
+            height: 285px
+          }
+
+          .type-row {
+            flex-wrap: wrap
+          }
+
+          .type-row button {
+            width: 100%
+          }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+          .portrait-frame.speaking img {
+            animation: none
+          }
+        }
+
+        /* Refined conversation / discovery */
+        .scenario {
+          font: 18px Georgia;
+          color: var(--gold);
+          margin-bottom: 4px
+        }
+
+        .conversation h2 {
+          font: normal 36px Georgia;
+          color: #f3d39c;
+          margin: 0 0 8px
+        }
+
+        .conversation h3 {
+          font: normal 23px Georgia;
+          color: #f0d09b;
+          margin: 0
+        }
+
+        .dialogue {
+          background: #102d48;
+          border: 1px solid #446b86;
+          border-radius: 12px;
+          padding: 17px;
+          margin-top: 18px
+        }
+
+        .dialogue #russian {
+          font-size: clamp(25px, 2.6vw, 36px);
+          margin: 9px 0 4px
+        }
+
+        .dialogue #translation {
+          font-size: 16px
+        }
+
+        .visual-stage {
+          min-height: 320px;
+          padding: 23px
+        }
+
+        .visual-stage:before,
+        .visual-stage:after {
+          pointer-events: none
+        }
+
+        .discovery-detail {
+          max-height: none
+        }
+
+        .discovery-detail[hidden] {
+          display: none
+        }
+
+        .assist-panel[hidden] {
+          display: none
+        }
+
+        .assist-panel {
+          max-height: 350px;
+          overflow: auto
+        }
+
+        .answer-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: start;
+          gap: 8px;
+          padding: 11px 0;
+          border-bottom: 1px solid #34556d
+        }
+
+        .answer-item:last-child {
+          border: 0
+        }
+
+        .answer-copy {
+          flex: 1
+        }
+
+        .answer-ru {
+          font: 19px/1.35 Georgia;
+          color: #fff0cc
+        }
+
+        .answer-en {
+          font: 13px/1.5 system-ui;
+          color: #c3d5e3;
+          margin-top: 3px
+        }
+
+        .answer-level {
+          font: 10px system-ui;
+          letter-spacing: 1px;
+          color: #efc27d;
+          text-transform: uppercase;
+          padding-top: 4px;
+          white-space: nowrap
+        }
+
+        .stage-head {
+          font: 700 11px system-ui;
+          letter-spacing: 2px;
+          color: #e7bd77;
+          text-transform: uppercase
+        }
+
+        .stage-word {
+          font: clamp(28px, 3vw, 44px)/1.3 Georgia;
+          color: #fff2d9
+        }
+
+        .stage-sub {
+          font: italic 17px Georgia;
+          color: #d6e4ef
+        }
+
+        .stage-tiles {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: center;
+          width: 100%
+        }
+
+        .stage-box {
+          flex: 1 1 150px;
+          border: 1px solid #6c8ca0;
+          border-radius: 12px;
+          background: #0a2844;
+          padding: 14px 10px;
+          min-width: 0
+        }
+
+        .stage-box small {
+          display: block;
+          font: 11px system-ui;
+          color: #a9c3d5;
+          margin-bottom: 8px
+        }
+
+        .stage-box strong {
+          font: 24px Georgia;
+          color: #f8e6c9
+        }
+
+        .stage-note {
+          font: 13px/1.6 system-ui;
+          color: #cbdbe6;
+          max-width: 480px
+        }
+
+        .stage-choice {
+          padding: 10px 12px;
+          flex: 1 1 135px
+        }
+
+        .stage-choice.selected {
+          background: #86602e
+        }
+
+        .stage-result {
+          font: 14px/1.6 system-ui;
+          color: #ffdfa0;
+          min-height: 22px
+        }
+
+        .ending {
+          color: #ffd077;
+          font-weight: 700;
+          text-shadow: 0 0 10px #b47a3266
+        }
+
+        .discovery-detail h4 {
+          font: 24px Georgia;
+          color: #f2d59e;
+          margin: 3px 0 12px
+        }
+
+        .discovery-detail h5 {
+          font: 17px Georgia;
+          color: #f4d59d;
+          margin: 16px 0 5px
+        }
+
+        .discovery-detail p {
+          margin: 8px 0
+        }
+
+        .discovery-detail .example {
+          border-left: 3px solid #d2a76b;
+          padding: 9px 12px;
+          background: #0b2843;
+          margin: 9px 0
+        }
+
+        .discovery-detail .ru {
+          font: 22px Georgia;
+          color: #fff0d5
+        }
+
+        .discovery-detail .en {
+          font: italic 13px Georgia;
+          color: #c4d7e5
+        }
+
+        .discovery-detail .rule {
+          padding: 12px;
+          background: #09253f;
+          border: 1px solid #416781;
+          border-radius: 10px
+        }
+
+        .discovery-detail .rule strong {
+          color: #f5d28b
+        }
+
+        .practice-choices {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 10px
+        }
+
+        .practice-choices button {
+          font-size: 17px
+        }
+
+        .practice-feedback {
+          font: 13px system-ui;
+          color: #f5d28b;
+          margin-top: 8px;
+          min-height: 18px
+        }
+
+        .heard {
+          margin-top: 14px
+        }
+
+        .assistance {
+          margin-top: 15px
+        }
+
+        .fallback {
+          margin-top: 18px
+        }
+
+        .buttons button,
+        .assist-actions button {
+          padding: 10px 12px
+        }
+
+        @media(max-width:850px) {
+          .conversation h2 {
+            font-size: 31px
+          }
+        }
+
+        /* BEGIN SCENARIO 01 — FULL-VIEWPORT LABORATORY AND RETURN CONTROL */
+        .anna-page {
+          height: 100vh;
+          overflow-y: auto;
+          overscroll-behavior: contain
+        }
+
+        .anna-page .back-to-gallery {
+          display: block;
+          margin: 12px auto 0;
+          background: #173d5a;
+          color: #f6d49c;
+          border: 1px solid #e4ba72
+        }
+
+        .anna-page .back-to-gallery:hover {
+          background: #285c80
+        }
+
+        /* END SCENARIO 01 */
+      </style>
+      <div class="anna-page">
+        <main class="shell">
+
+          <header class="masthead">
+            <h1>Conversation Laboratory - Scenario 1</h1>
+            <button type="button" id="anna-back-gallery" class="back-to-gallery">← Back to Conversation Gallery</button>
+          </header>
+          <div class="layout">
+            <section class="portrait-panel" aria-label="Anna and visual discovery">
+              <img src="../../Images/door-four/avatar-anna.png" alt="Anna in her kitchen">
+              <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Anna is ready</span>
+              </div>
+              <div class="discovery-space">
+                <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                    Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                    Expression</button>
+                </div>
+                <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+                <div id="discovery-detail" class="discovery-detail" hidden></div>
+              </div>
+            </section>
+            <section class="conversation" aria-label="Conversation">
+              <div class="scenario">Family Dinner</div>
+              <h2>Talk with Anna</h2>
+              <div class="dialogue">
+                <div class="scenario">ANNA SAYS</div>
+                <p id="russian" lang="ru"></p>
+                <p id="translation"></p>
+              </div>
+              <div class="buttons"><button id="hear">▶ Hear Anna</button><button id="answer" class="primary">🎙 Answer
+                  aloud</button><button id="repeat">↻ Start over</button></div>
+              <div class="heard">
+                <div class="scenario">I HEARD</div>
+                <p id="transcript"></p>
+              </div>
+              <div id="feedback" class="feedback" role="status"></div>
+              <section class="assistance">
+                <h3>Conversation Assistance</h3>
+                <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                    Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                    Anna Say It Again</button></div>
+                <div id="answers-panel" class="assist-panel" hidden></div>
+                <p id="practice-status" class="assist-note" role="status"></p>
+              </section>
+              <div class="fallback"><label for="typed">Or type your response</label>
+                <div class="type-row"><input id="typed" lang="ru" autocomplete="off" placeholder="Ваш ответ…"><button
+                    id="send">Submit Response</button></div>
+              </div>
+            </section>
+          </div>
+
+        </main>
+      </div>
+    </template>
+  </section>
+  <!-- ============================================================
+       END SCENARIO 01 — ANNA CONVERSATION LABORATORY
+       ============================================================ -->
+
   <!-- ==================================================
        REMAKE JAVASCRIPT
   ================================================== -->

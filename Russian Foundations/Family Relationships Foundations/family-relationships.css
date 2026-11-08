@@ -20488,3 +20488,17 @@ h1 {
     outline-offset: 2px;
 }
 
+
+/* ============================================================
+   BEGIN SCENARIO 01 — FULL-SCREEN ANNA HOST
+   The laboratory's original CSS lives inside the HTML shadow root.
+   ============================================================ */
+#anna-scenario-01:not([hidden]) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #06172b;
+}
+#anna-scenario-01[hidden] { display: none !important; }
+/* END SCENARIO 01 — FULL-SCREEN ANNA HOST */
