@@ -10579,9 +10579,10 @@ function initPets() {
 // ============================================================
 function initAnnaScenario() {
     const annaHost = document.getElementById('anna-scenario-01');
-    const annaRoot = annaHost.shadowRoot;
+    // Anna's HTML now lives directly in the Foundation document.
+    const annaRoot = annaHost;
 const anna = { name: 'Anna', voiceLanguage: 'ru-RU' };
-const $ = id => annaRoot.getElementById(id);
+const $ = id => annaRoot.querySelector(`[id="${id}"]`);
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
 let turn='opening', activeRecognition=null, practiceMode=false, activeDetail=null, audioToken=0;
 const item=(ru,en,level,intent)=>({ru,en,level,intent});
@@ -10682,6 +10683,11 @@ function reset(){activeRecognition?.abort();activeRecognition=null;practiceMode=
 $('hear').addEventListener('click',speak);$('hear-again').addEventListener('click',speak);$('answer').addEventListener('click',()=>listen(false));$('practice-phrase').addEventListener('click',()=>listen(true));$('repeat').addEventListener('click',reset);$('show-meaning').addEventListener('click',()=>toggleDetail('meaning'));$('show-discovery').addEventListener('click',()=>toggleDetail('discovery'));$('show-answers').addEventListener('click',()=>{const show=$('answers-panel').hidden;$('answers-panel').hidden=!show;$('show-answers').setAttribute('aria-expanded',String(show));});$('send').addEventListener('click',()=>{const value=$('typed').value.trim();if(value){practiceMode=false;respond(value);}else status('Type a Russian response.');});$('typed').addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click()});reset();
 
     $('anna-back-gallery').addEventListener('click', closeAnnaScenario);
+    // Reuse the Gallery's existing return-to-desk behavior.
+    $('anna-back-desk').addEventListener('click', () => {
+        closeAnnaScenario();
+        document.getElementById('rw-conversations-back')?.click();
+    });
 }
 function openAnnaScenario() {
     const host = document.getElementById('anna-scenario-01');
