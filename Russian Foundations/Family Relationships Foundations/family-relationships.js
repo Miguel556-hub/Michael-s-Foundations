@@ -6531,6 +6531,85 @@ document
     });
     // END DRAWER THREE — MENUS RECONSTRUCTION
 
+
+    // ==========================================================
+    // DRAWER THREE — CONVERSATION GALLERY LANDING PAGE
+    // All seven scenario buttons are explicitly authored in HTML.
+    // Individual conversation environments will be built later.
+    // ==========================================================
+
+    const conversationsGallery = interior.querySelector("#rw-conversations");
+    const conversationsStatus = interior.querySelector("#rw-conversations-status");
+    const conversationsBack = interior.querySelector("#rw-conversations-back");
+    const conversationExperiences = interior.querySelectorAll("[data-conversation-experience]");
+
+    function hideConversationExperiences() {
+        conversationExperiences.forEach((experience) => {
+            experience.hidden = true;
+        });
+    }
+
+    function showConversationGallery() {
+        hideConversationExperiences();
+        conversationsStatus.hidden = true;
+        conversationsStatus.textContent = "";
+        conversationsGallery.hidden = false;
+    }
+
+    function returnToConversationDesk() {
+        hideConversationExperiences();
+        conversationsGallery.hidden = true;
+        conversationsStatus.hidden = true;
+    }
+
+    interior.querySelector('[data-rw-spot="conversations"]').addEventListener("click", () => {
+        if (interior.dataset.activeDrawer !== "real") {
+            return;
+        }
+
+        showConversationGallery();
+    });
+
+    conversationsBack.addEventListener("click", returnToConversationDesk);
+
+    conversationsGallery.querySelectorAll("[data-conversation-scenario]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const experience = interior.querySelector(
+                `[data-conversation-experience="${button.dataset.conversationScenario}"]`
+            );
+
+            if (!experience) {
+                return;
+            }
+
+            conversationsGallery.hidden = true;
+            hideConversationExperiences();
+            experience.hidden = false;
+        });
+    });
+
+    conversationExperiences.forEach((experience) => {
+        experience.querySelectorAll("[data-conversation-back]").forEach((button) => {
+            button.addEventListener("click", () => {
+                if (button.dataset.conversationBack === "gallery") {
+                    showConversationGallery();
+                } else {
+                    returnToConversationDesk();
+                }
+            });
+        });
+
+        const picture = experience.querySelector(".rw-conversation-experience__picture img");
+
+        if (picture) {
+            picture.addEventListener("error", () => {
+                picture.hidden = true;
+            });
+        }
+    });
+
+    // END DRAWER THREE — CONVERSATION GALLERY LANDING PAGE
+
     function showDrawerInterior(drawerKey) {
         drawers.hidden = true;
         stage.hidden = true;
@@ -6548,6 +6627,8 @@ document
         messagesExplorer.hidden = true;
         menusExplorer.hidden = true;
         bill.hidden = true;
+        conversationsGallery.hidden = true;
+        hideConversationExperiences();
         if (sentenceSpotlight) sentenceSpotlight.hidden = drawerKey !== 'examples';
         if (curiosityCabinet) curiosityCabinet.hidden = drawerKey !== 'special';
         const livingSentence = null;

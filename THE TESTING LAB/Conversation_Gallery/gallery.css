@@ -1,0 +1,144 @@
+/* ============================================================
+   CONVERSATION GALLERY — THE TESTING LAB
+   One authoritative Gallery, with Anna linked to Scenario 01.
+   The original Victorian background is a separate image asset.
+   Tiles, labels, and navigation remain editable HTML/CSS.
+   ============================================================ */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: #0a1420; font-family: Arial, Helvetica, sans-serif; }
+
+.rw-conversations {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1672 / 941;
+    overflow: hidden;
+    color: #fff;
+    background: #112d46 url('gallery-background.png') center center / 100% 100% no-repeat;
+}
+
+.rw-conversations__header {
+    position: absolute;
+    top: 14.1%;
+    left: 20%;
+    width: 60%;
+    text-align: center;
+}
+.rw-conversations__header h3 {
+    margin: 0;
+    color: #ffdc7a;
+    font-size: clamp(16px, 2.7vw, 42px);
+    line-height: 1.1;
+    font-weight: 700;
+    text-shadow: 0 1px 3px #0b1624;
+}
+
+.rw-conversations__choices {
+    position: absolute;
+    top: 23.4%;
+    left: 20.55%;
+    width: 58.8%;
+    height: 41.7%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 2.4% 1.8%;
+}
+.rw-conversations__choice {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 0;
+    min-height: 0;
+    padding: 9% 8% 5%;
+    border: 1px solid rgba(232, 220, 196, .68);
+    border-radius: 11px;
+    background: rgba(49, 69, 88, .68);
+    box-shadow: 0 2px 5px #07121a44;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    line-height: 1.15;
+    transition: background .15s ease, border-color .15s ease;
+}
+.rw-conversations__choice:nth-child(7) { grid-column: 2; }
+.rw-conversations__choice:hover,
+.rw-conversations__choice:focus-visible {
+    border-color: #ffda86;
+    background: rgba(67, 89, 111, .9);
+    outline: 2px solid #f1c976;
+    outline-offset: 1px;
+}
+.rw-conversations__number {
+    position: absolute;
+    top: 10%;
+    left: 8%;
+    font-size: clamp(7px, .9vw, 14px);
+    font-weight: 400;
+}
+.rw-conversations__icon {
+    position: absolute;
+    top: 9%;
+    right: 7%;
+    font-size: clamp(12px, 2.1vw, 30px);
+    line-height: 1;
+    color: #f1e6d7;
+}
+.rw-conversations__title {
+    font-size: clamp(8px, .94vw, 15px);
+    font-weight: 700;
+}
+.rw-conversations__russian,
+.rw-conversations__description {
+    font-size: clamp(7px, .9vw, 14px);
+    font-weight: 400;
+}
+.rw-conversations__status {
+    position: absolute;
+    top: 67%;
+    left: 30%;
+    width: 40%;
+    margin: 0;
+    padding: 7px;
+    border-radius: 5px;
+    background: #172e45;
+    color: #ffe7a6;
+    font-size: clamp(10px, 1vw, 14px);
+    text-align: center;
+}
+.rw-conversations__status[hidden] { display: none; }
+.rw-conversations__back {
+    position: absolute;
+    top: 77.3%;
+    left: 39.3%;
+    width: 20.6%;
+    height: 4.4%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(#ffe36d, #d7a51e 55%, #a97909);
+    box-shadow: 0 2px 6px #0009;
+    color: #0b0b0b;
+    font-size: clamp(8px, 1vw, 15px);
+    font-weight: 700;
+    cursor: pointer;
+}
+.rw-conversations__back:hover,
+.rw-conversations__back:focus-visible {
+    background: linear-gradient(#ffed9a, #e8b932 60%, #bb8d17);
+    outline: 2px solid #ffec9e;
+}
+
+/* On smaller screens keep the Gallery image and seven-tile layout intact. */
+@media (max-width: 600px) {
+    .rw-conversations__header h3 { font-size: 2.7vw; }
+    .rw-conversations__number { font-size: 1.05vw; }
+    .rw-conversations__title { font-size: 1.15vw; }
+    .rw-conversations__russian,
+    .rw-conversations__description { font-size: 1vw; }
+    .rw-conversations__icon { font-size: 2.3vw; }
+    .rw-conversations__choice { border-radius: 6px; }
+}

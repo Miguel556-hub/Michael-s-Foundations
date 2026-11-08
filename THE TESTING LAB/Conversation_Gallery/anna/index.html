@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Anna | Conversation Laboratory</title><link rel="stylesheet" href="styles.css"></head>
+<body><main class="shell">
+<header class="masthead"><a href="../index.html" style="color:#ffe2a3;display:inline-block;margin:0 0 12px;text-decoration:underline;font-weight:bold">← Back to Conversation Gallery</a><div class="brand">✦ MICHAEL’S FOUNDATIONS <span> / THE TESTING LAB</span></div><h1>Anna · Conversation Laboratory</h1></header>
+<div class="layout">
+<section class="portrait-panel" aria-label="Anna and visual language discovery">
+<div class="portrait-frame" id="portrait"><img src="anna-portrait.png" alt="Anna in her kitchen"><div class="glow"></div></div>
+<div class="presence"><span id="light" class="light"></span><span id="avatar-state">Anna is ready</span></div>
+<div class="discovery-space">
+<div class="discovery-tabs" role="group" aria-label="Explore Russian"><button id="show-meaning" type="button" aria-expanded="false" aria-controls="meaning-panel">Meaning &amp; Usage</button><button id="show-discovery" type="button" aria-expanded="false" aria-controls="discovery-panel">Language Discovery</button></div>
+<div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+<div id="meaning-panel" class="discovery-detail" hidden><div id="meaning-content"></div></div>
+<div id="discovery-panel" class="discovery-detail" hidden><div id="discovery-content"></div></div>
+</div></section>
+<section class="conversation" aria-label="Conversation center">
+<div class="label">SCENARIO ONE · FAMILY DINNER</div>
+<div class="dialogue"><div class="who">ANNA</div><p id="russian" lang="ru">Ты любишь борщ?</p><p id="translation">Do you like borscht?</p></div>
+<div class="buttons"><button id="hear">▶ Hear Anna</button><button id="answer" class="primary">🎙 Answer aloud</button><button id="repeat">↻ Start over</button></div>
+<div class="heard"><div class="who">I HEARD</div><p id="transcript">—</p></div><div id="feedback" class="feedback" role="status"></div>
+<section class="assistance" aria-label="Conversation assistance"><h2>Conversation Assistance</h2>
+<div class="assist-actions"><button type="button" id="show-answers" aria-expanded="false" aria-controls="answers-panel">Possible Answers</button><button type="button" id="practice-phrase">Try Saying It</button><button type="button" id="hear-again">Hear Anna Again</button></div>
+<div id="answers-panel" class="assist-panel" hidden><div id="help-content"></div></div><p id="practice-status" class="assist-note" role="status"></p>
+</section>
+<div class="fallback"><label for="typed">Or type your response</label><div class="type-row"><input id="typed" lang="ru" placeholder="Ваш ответ…"/><button id="send">Submit Response</button></div></div>
+</section></div><footer>Anna is a static portrait for now. Live Server recommended for microphone access.</footer></main><script type="module" src="app.js"></script></body></html>

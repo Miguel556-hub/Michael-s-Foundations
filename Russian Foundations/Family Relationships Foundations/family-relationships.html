@@ -6487,6 +6487,270 @@ LESSON 2 — EXTENDED FAMILY
               <!-- END DRAWER THREE CIRCULAR HOTSPOTS -->
 
 
+              <!-- BEGIN DRAWER THREE — CONVERSATION GALLERY LANDING PAGE -->
+              <!-- The Victorian background is a separate image asset.
+                   All seven choices, text, and navigation are authored in HTML. -->
+              <section class="rw-conversations" id="rw-conversations" aria-label="Conversation Gallery" hidden>
+                  <header class="rw-conversations__header">
+                      <h3>The Conversation Gallery</h3>
+                  </header>
+
+                  <div class="rw-conversations__choices" role="group" aria-label="Choose a conversation scenario">
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="01" aria-label="Family Dinner">
+                          <span class="rw-conversations__number">01</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <circle cx="8" cy="12" r="5"/><path d="M1 3v7m3-7v7m-3-3h3m15-4v18m0-18c-3 2-4 5-4 8h4"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Family Dinner</span>
+                          <span class="rw-conversations__russian" lang="ru">За семейным столом</span>
+                          <span class="rw-conversations__description">Taste, share, respond</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="02" aria-label="Planning Dinner">
+                          <span class="rw-conversations__number">02</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h3M15 15h1"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Planning Dinner</span>
+                          <span class="rw-conversations__russian" lang="ru">Что будем есть?</span>
+                          <span class="rw-conversations__description">Suggest, agree, decide</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="03" aria-label="Grocery Shopping">
+                          <span class="rw-conversations__number">03</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <circle cx="9" cy="20" r="1"/><circle cx="19" cy="20" r="1"/><path d="M2 3h2l3 13h13l2-10H5M8 10h12"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Grocery Shopping</span>
+                          <span class="rw-conversations__russian" lang="ru">В магазине</span>
+                          <span class="rw-conversations__description">Ask, choose, buy</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="04" aria-label="Cooking Together">
+                          <span class="rw-conversations__number">04</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <path d="m3 3 7 7m-5-7 5 5M3 5l5 5m2 0 11 11M21 3c-5 0-8 3-8 8l-10 10"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Cooking Together</span>
+                          <span class="rw-conversations__russian" lang="ru">Готовим вместе</span>
+                          <span class="rw-conversations__description">Listen, help, explain</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="05" aria-label="Family Picnic">
+                          <span class="rw-conversations__number">05</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <path d="m4 18 5-8 4 5 3-4 5 7H4ZM2 21h20M6 8l2-4 2 4M16 8l2-5 2 5"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Family Picnic</span>
+                          <span class="rw-conversations__russian" lang="ru">На пикнике</span>
+                          <span class="rw-conversations__description">Offer, share, improvise</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="06" aria-label="Visiting Relatives">
+                          <span class="rw-conversations__number">06</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <path d="m2 11 10-8 10 8M4 10v11h16V10M9 21v-8h6v8M17 4h3v4"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Visiting Relatives</span>
+                          <span class="rw-conversations__russian" lang="ru">В гостях у родных</span>
+                          <span class="rw-conversations__description">Visit, accept, politely decline</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="07" aria-label="Vacation Restaurant">
+                          <span class="rw-conversations__number">07</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                  <path d="M3 6h18M5 6l2 12h10l2-12M9 6V3h6v3M4 21h16M9 10v5m4-5v5"/>
+                              </svg>
+                          </span>
+                          <span class="rw-conversations__title">Vacation Restaurant</span>
+                          <span class="rw-conversations__russian" lang="ru">В ресторане на отдыхе</span>
+                          <span class="rw-conversations__description">Explore, order, respond</span>
+                      </button>
+                  </div>
+
+                  <p class="rw-conversations__status" id="rw-conversations-status" role="status" aria-live="polite" hidden></p>
+
+                  <button type="button" class="rw-conversations__back" id="rw-conversations-back">
+                      <span aria-hidden="true">←</span> Back to Explorer's Desk
+                  </button>
+              </section>
+              <!-- END DRAWER THREE — CONVERSATION GALLERY LANDING PAGE -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 01: Family Dinner -->
+              <section class="rw-conversation-experience" data-conversation-experience="01" aria-label="Family Dinner" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-family-dinner.png" alt="Family Dinner scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">01</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Family Dinner</h3>
+                          <p lang="ru">За семейным столом</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 01 -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 02: Planning Dinner -->
+              <section class="rw-conversation-experience" data-conversation-experience="02" aria-label="Planning Dinner" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-planning-dinner.png" alt="Planning Dinner scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">02</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Planning Dinner</h3>
+                          <p lang="ru">Что будем есть?</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 02 -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 03: Grocery Shopping -->
+              <section class="rw-conversation-experience" data-conversation-experience="03" aria-label="Grocery Shopping" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-grocery-shopping.png" alt="Grocery Shopping scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">03</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Grocery Shopping</h3>
+                          <p lang="ru">В магазине</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 03 -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 04: Cooking Together -->
+              <section class="rw-conversation-experience" data-conversation-experience="04" aria-label="Cooking Together" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-cooking-together.png" alt="Cooking Together scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">04</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Cooking Together</h3>
+                          <p lang="ru">Готовим вместе</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 04 -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 05: Family Picnic -->
+              <section class="rw-conversation-experience" data-conversation-experience="05" aria-label="Family Picnic" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-family-picnic.png" alt="Family Picnic scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">05</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Family Picnic</h3>
+                          <p lang="ru">На пикнике</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 05 -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 06: Visiting Relatives -->
+              <section class="rw-conversation-experience" data-conversation-experience="06" aria-label="Visiting Relatives" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-visiting-relatives.png" alt="Visiting Relatives scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">06</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Visiting Relatives</h3>
+                          <p lang="ru">В гостях у родных</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 06 -->
+
+              <!-- BEGIN CONVERSATION EXPERIENCE 07: Vacation Restaurant -->
+              <section class="rw-conversation-experience" data-conversation-experience="07" aria-label="Vacation Restaurant" hidden>
+                  <header class="rw-conversation-experience__header">
+                      <div class="rw-conversation-experience__picture">
+                          <img src="../../Images/door-four/drawer-conversations-vacation-restaurant.png" alt="Vacation Restaurant scenario photograph" loading="lazy">
+                          <span class="rw-conversation-experience__picture-fallback" aria-hidden="true">
+                              <span class="rw-conversation-experience__label-word">SCENARIO</span>
+                              <span class="rw-conversation-experience__label-number">07</span>
+                          </span>
+                      </div>
+                      <div class="rw-conversation-experience__heading">
+                          <h3>Vacation Restaurant</h3>
+                          <p lang="ru">В ресторане на отдыхе</p>
+                      </div>
+                  </header>
+                  <!-- Open workspace reserved for the future interactive conversation. -->
+                  <div class="rw-conversation-experience__workspace"></div>
+                  <nav class="rw-conversation-experience__navigation" aria-label="Conversation navigation">
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="desk">← Back to Explorer's Desk</button>
+                      <button type="button" class="rw-conversation-experience__nav-button" data-conversation-back="gallery">← Back to Conversation Gallery</button>
+                  </nav>
+              </section>
+              <!-- END CONVERSATION EXPERIENCE 07 -->
+
               <!-- BEGIN DRAWER THREE — SIGNS EXPLORER (ISOLATED EXPERIENCE) -->
               <section class="rw-signs" id="rw-signs" aria-label="Signs Explorer" hidden>
                 <header class="rw-signs__header">

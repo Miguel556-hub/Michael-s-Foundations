@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewprt" content="width=device-width,initial-scale=1">
+    <title>Conversation Laboratory</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main class="shell">
+        <header class="masthead">
+            <h1>Conversation Laboratory</h1>
+        </header>
+        <div class="layout">
+            <section class="portrait-panel" aria-label="Anna and visual discovery">
+                <div class="portrait-frame" id="portrait"><img src="anna-portrait.png" alt="Anna in her kitchen"></div>
+                <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Anna is ready</span>
+                </div>
+                <div class="discovery-space">
+                    <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                            Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                            Expression</button>
+                    </div>
+                    <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+                    <div id="discovery-detail" class="discovery-detail" hidden></div>
+                </div>
+            </section>
+            <section class="conversation" aria-label="Conversation">
+                <div class="scenario">Scenario One – Family Dinner</div>
+                <h2>Talk with Anna</h2>
+                <div class="dialogue">
+                    <div class="who">ANNA SAYS</div>
+                    <p id="russian" lang="ru"></p>
+                    <p id="translation"></p>
+                </div>
+                <div class="buttons"><button id="hear">▶ Hear Anna</button><button id="answer" class="primary">🎙 Answer
+                        aloud</button><button id="repeat">↻ Start over</button></div>
+                <div class="heard">
+                    <div class="who">I HEARD</div>
+                    <p id="transcript"></p>
+                </div>
+                <div id="feedback" class="feedback" role="status"></div>
+                <section class="assistance">
+                    <h3>Conversation Assistance</h3>
+                    <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                            Answers</button><button id="practice-phrase">You Try To Say It</button><button
+                            id="hear-again">Hear Anna Say It Again</button></div>
+                    <div id="answers-panel" class="assist-panel" hidden></div>
+                    <p id="practice-status" class="assist-note" role="status"></p>
+                </section>
+                <div class="fallback"><label for="typed">Or type your response</label>
+                    <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                            placeholder="Ваш ответ…"><button id="send">Submit Response</button></div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

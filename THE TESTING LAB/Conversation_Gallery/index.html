@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conversation Gallery | The Testing Lab</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <main>
+
+              <!-- Original Victorian background; all tiles remain editable HTML. -->
+              <section class="rw-conversations" id="rw-conversations" aria-label="Conversation Gallery">
+                  <header class="rw-conversations__header">
+                      <h3>The Conversation Gallery</h3>
+                  </header>
+
+                  <div class="rw-conversations__choices" role="group" aria-label="Choose a conversation scenario">
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="01" aria-label="Family Dinner">
+                          <span class="rw-conversations__number">01</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">🍽</span>
+                          <span class="rw-conversations__title">Family Dinner</span>
+                          <span class="rw-conversations__russian" lang="ru">За семейным столом</span>
+                          <span class="rw-conversations__description">Taste, share, respond</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="02" aria-label="Planning Dinner">
+                          <span class="rw-conversations__number">02</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">▤</span>
+                          <span class="rw-conversations__title">Planning Dinner</span>
+                          <span class="rw-conversations__russian" lang="ru">Что будем есть?</span>
+                          <span class="rw-conversations__description">Suggest, agree, decide</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="03" aria-label="Grocery Shopping">
+                          <span class="rw-conversations__number">03</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">🛒</span>
+                          <span class="rw-conversations__title">Grocery Shopping</span>
+                          <span class="rw-conversations__russian" lang="ru">В магазине</span>
+                          <span class="rw-conversations__description">Ask, choose, buy</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="04" aria-label="Cooking Together">
+                          <span class="rw-conversations__number">04</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">✦</span>
+                          <span class="rw-conversations__title">Cooking Together</span>
+                          <span class="rw-conversations__russian" lang="ru">Готовим вместе</span>
+                          <span class="rw-conversations__description">Listen, help, explain</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="05" aria-label="Family Picnic">
+                          <span class="rw-conversations__number">05</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">♣</span>
+                          <span class="rw-conversations__title">Family Picnic</span>
+                          <span class="rw-conversations__russian" lang="ru">На пикнике</span>
+                          <span class="rw-conversations__description">Offer, share, improvise</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="06" aria-label="Visiting Relatives">
+                          <span class="rw-conversations__number">06</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">⌂</span>
+                          <span class="rw-conversations__title">Visiting Relatives</span>
+                          <span class="rw-conversations__russian" lang="ru">В гостях у родных</span>
+                          <span class="rw-conversations__description">Visit, accept, politely decline</span>
+                      </button>
+                      <button type="button" class="rw-conversations__choice" data-conversation-scenario="07" aria-label="Vacation Restaurant">
+                          <span class="rw-conversations__number">07</span>
+                          <span class="rw-conversations__icon" aria-hidden="true">♜</span>
+                          <span class="rw-conversations__title">Vacation Restaurant</span>
+                          <span class="rw-conversations__russian" lang="ru">В ресторане на отдыхе</span>
+                          <span class="rw-conversations__description">Explore, order, respond</span>
+                      </button>
+                  </div>
+
+                  <p class="rw-conversations__status" id="rw-conversations-status" role="status" aria-live="polite" hidden></p>
+
+                  <button type="button" class="rw-conversations__back" id="rw-conversations-back">
+                      Back to Explorers Page
+                  </button>
+              </section>
+              
+    </main>
+    <script src="gallery.js"></script>
+</body>
+</html>
