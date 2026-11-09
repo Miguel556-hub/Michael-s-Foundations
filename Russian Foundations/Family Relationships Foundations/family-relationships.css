@@ -2152,15 +2152,18 @@ h1 {
 
 /* ==========================================
    BEGIN EXPLORE HALLWAY — VICTORIAN FOUR DOORS
-   One shared door asset; original data-door buttons
-   and navigation event handlers are preserved.
+   Expanded viewport-centered hallway up to 1600px; the text is engraved
+   over the brass plaques already IN the door image.
+   Original data-door buttons/handlers are preserved.
    ========================================== */
-
 .explore-hallway {
-    max-width: 1200px;
-    margin: 34px auto 50px;
-    padding: 28px clamp(16px, 3vw, 38px) 36px;
-    /* Subtle Victorian wallpaper: layered woven diamonds and damask-like medallions. */
+    width: min(1600px, calc(100vw - 12px));
+    max-width: none;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 34px 0 50px;
+    padding: 20px clamp(4px, .65vw, 10px) 22px;
     background-color: #102a45;
     background-image:
         radial-gradient(ellipse 18px 29px at 50% 50%, rgba(155,177,194,.12) 0 16%, transparent 19%),
@@ -2172,29 +2175,28 @@ h1 {
     background-size: 84px 112px, 84px 112px, 84px 112px, auto, auto, auto;
     border: 1px solid #ad8b52;
     border-radius: 16px;
-    box-shadow: inset 0 0 0 5px rgba(205,167,97,.12), inset 0 0 35px rgba(0,0,0,.28), 0 7px 20px rgba(0,0,0,.17);
+    box-shadow: inset 0 0 0 4px rgba(205,167,97,.12), inset 0 0 35px rgba(0,0,0,.28), 0 7px 20px rgba(0,0,0,.17);
 }
-.explore-hallway__intro {
-    text-align: center;
-    margin: 0 auto 26px;
-}
+.explore-hallway__intro { text-align: center; margin: 0 auto 16px; }
 .explore-hallway__intro h2 {
-    margin: 0 0 3px;
+    margin: 0 0 2px;
     color: #fff1d4;
-    text-shadow: 0 2px 5px rgba(0,0,0,.5);
-    font-size: clamp(1.55rem, 2.6vw, 2.3rem);
+    font-family: Georgia, 'Times New Roman', serif;
+    text-shadow: 0 2px 5px rgba(0,0,0,.55);
+    font-size: clamp(1.6rem, 2.7vw, 2.7rem);
 }
 .explore-hallway__intro p {
     margin: 0;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
     color: #e9c98d;
     text-shadow: 0 1px 3px rgba(0,0,0,.5);
     font-style: italic;
+    font-family: Georgia, 'Times New Roman', serif;
 }
 .explore-doors {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(6px, 1vw, 14px);
+    gap: 0;
     align-items: end;
 }
 .explore-door {
@@ -2202,66 +2204,68 @@ h1 {
     display: block;
     width: 100%;
     min-width: 0;
-    /* Eight percent wider than the previous silhouette, without major distortion. */
-    aspect-ratio: 0.72;
+    aspect-ratio: 0.59;
     min-height: 0;
     padding: 0;
     border: 0;
     border-radius: 0;
-    background: transparent url("../../Images/four-doors-initial-entry.png") center / 100% 100% no-repeat;
+    background: transparent url("../../Images/four-doors-initial-entry.png") center / 110% 100% no-repeat;
     box-shadow: none;
-    color: #fff;
     cursor: pointer;
     transform-origin: center bottom;
     transition: transform .22s ease, filter .22s ease;
 }
-.explore-door::before,
-.explore-door::after,
-.explore-door__title::before,
-.explore-door__title::after { content: none; }
+.explore-door::before, .explore-door::after,
+.explore-door__title::before, .explore-door__title::after { content: none; }
+/* Only lettering: NO gold rectangle, border, or overlaid nameplate.
+   The door PNG supplies the brass-edged plaque underneath. */
 .explore-door__title {
     position: absolute;
     z-index: 1;
-    top: 30%;
-    left: 19%;
-    width: 58%;
-    min-height: 0;
+    top: 43.1%;
+    left: 17%;
+    width: 63%;
+    height: 12%;
     padding: 0;
-    display: block;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    color: #fff8e9;
-    font-size: clamp(.68rem, 1.25vw, 1.05rem);
+    color: #e7bf70;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(.69rem, 1.10vw, 1.18rem);
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.12;
+    letter-spacing: -.045em;
     text-align: center;
-    text-shadow: 0 2px 4px #2b100a, 0 0 5px #2b100a;
+    /* Chiseled engraving: dark lower recess + thin top glint. */
+    text-shadow: 0 1px 1px #291407, 0 2px 1px #2a170b, 0 -1px 0 rgba(255,226,153,.46);
     pointer-events: none;
 }
-.explore-door:hover,
-.explore-door:focus-visible {
+/* Long inscriptions retain a comfortable margin inside the brass plate. */
+.explore-door:nth-child(n+3) .explore-door__title {
+    font-size: clamp(.72rem, 1.08vw, 1.12rem);
+    line-height: 1.05;
+}
+.explore-door:hover, .explore-door:focus-visible {
     transform: translateY(-6px);
-    filter: brightness(1.13) drop-shadow(0 10px 8px rgba(53,28,10,.25));
-    background: transparent url("../../Images/four-doors-initial-entry.png") center / 100% 100% no-repeat;
+    filter: brightness(1.12) drop-shadow(0 10px 8px rgba(53,28,10,.25));
+    background: transparent url("../../Images/four-doors-initial-entry.png") center / 110% 100% no-repeat;
     box-shadow: none;
 }
-.explore-door:focus-visible {
-    outline: 3px solid #d6a747;
-    outline-offset: 3px;
-}
+.explore-door:focus-visible { outline: 3px solid #d6a747; outline-offset: 3px; }
 @media (max-width: 720px) {
-    .explore-doors { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-    .explore-door__title { font-size: clamp(.85rem, 2.6vw, 1.1rem); }
+    .explore-doors { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 8px; }
+    .explore-door__title, .explore-door:nth-child(n+3) .explore-door__title { font-size: clamp(.75rem, 2.3vw, 1.05rem); }
 }
 @media (max-width: 400px) {
-    .explore-hallway { padding: 18px 12px 24px; }
-    .explore-door__title { font-size: .75rem; }
+    .explore-hallway { padding: 18px 5px 24px; }
+    .explore-door__title, .explore-door:nth-child(n+3) .explore-door__title { font-size: clamp(.61rem, 2.7vw, .78rem); }
 }
-@media (prefers-reduced-motion: reduce) {
-    .explore-door { transition: none; }
-}
+@media (prefers-reduced-motion: reduce) { .explore-door { transition: none; } }
 /* END EXPLORE HALLWAY — VICTORIAN FOUR DOORS */
 
 /* ==========================================
@@ -20264,7 +20268,7 @@ h1 {
    BEGIN SCENARIO 01 — FULL-SCREEN ANNA HOST
    The laboratory's original CSS lives inside the HTML shadow root.
    ============================================================ */
-#anna-scenario-01:not([hidden]) {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07):not([hidden]) {
     display: block;
     position: fixed;
     inset: 0;
@@ -20272,7 +20276,7 @@ h1 {
     background: #06172b;
 }
 
-#anna-scenario-01[hidden] {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07)[hidden] {
     display: none !important;
 }
 
@@ -20283,7 +20287,7 @@ h1 {
    BEGIN SCENARIO 01 — ANNA LABORATORY STYLES (SCOPED)
    Extracted from the working HTML Shadow DOM; no inline CSS.
    ============================================================ */
-#anna-scenario-01 .anna-page {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page {
     font-family: Georgia, serif;
     color: #f6ecda;
     background: #06172b;
@@ -20293,47 +20297,47 @@ h1 {
     --highlight: #ffd077
 }
 
-#anna-scenario-01 .anna-page,
-#anna-scenario-01 .anna-page * {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page * {
     box-sizing: border-box
 }
 
-#anna-scenario-01 .anna-page {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page {
     margin: 0;
     min-height: 100vh;
     background: radial-gradient(circle at 50% 0, #183f5a, #06172b 70%)
 }
 
-#anna-scenario-01 .shell {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .shell {
     max-width: 1480px;
     margin: auto;
     padding: 18px 22px 28px
 }
 
-#anna-scenario-01 .masthead {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .masthead {
     text-align: center;
     padding: 5px 0 18px;
     border-bottom: 1px solid #9b7948
 }
 
-#anna-scenario-01 .brand {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .brand {
     font: 700 12px system-ui;
     letter-spacing: 2px;
     color: var(--gold)
 }
 
-#anna-scenario-01 .brand span {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .brand span {
     color: #a8c0d0
 }
 
-#anna-scenario-01 h1 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) h1 {
     font-size: clamp(24px, 2.7vw, 37px);
     font-weight: 500;
     color: #f1d19b;
     margin: 9px 0 0
 }
 
-#anna-scenario-01 .layout {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .layout {
     display: grid;
     grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
     gap: 20px;
@@ -20341,8 +20345,8 @@ h1 {
     align-items: start
 }
 
-#anna-scenario-01 .portrait-panel,
-#anna-scenario-01 .conversation {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-panel,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .conversation {
     border: 1px solid #bd9354;
     border-radius: 14px;
     background: linear-gradient(160deg, #0a2945, #071d34);
@@ -20350,14 +20354,14 @@ h1 {
     overflow: hidden
 }
 
-#anna-scenario-01 .portrait-frame {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-frame {
     height: 410px;
     position: relative;
     overflow: hidden;
     background: #302925
 }
 
-#anna-scenario-01 .portrait-frame img {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-frame img {
     display: block;
     width: 100%;
     height: 100%;
@@ -20365,16 +20369,16 @@ h1 {
     object-position: center 35%
 }
 
-#anna-scenario-01 .portrait-frame.speaking img {}
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-frame.speaking img {}
 
-#anna-scenario-01 .glow {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .glow {
     position: absolute;
     inset: 0;
     box-shadow: inset 0 -35px 45px #071d3480;
     pointer-events: none
 }
 
-#anna-scenario-01 .presence {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .presence {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20384,43 +20388,43 @@ h1 {
     font: 13px system-ui
 }
 
-#anna-scenario-01 .light {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .light {
     width: 8px;
     height: 8px;
     background: #6ab88e;
     border-radius: 50%
 }
 
-#anna-scenario-01 .light.active {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .light.active {
     background: #f4c36d;
     box-shadow: 0 0 12px #eec77e
 }
 
-#anna-scenario-01 .discovery-space {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-space {
     padding: 13px 17px 19px;
     border-top: 1px solid #35536b
 }
 
-#anna-scenario-01 .discovery-tabs {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-tabs {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-bottom: 12px
 }
 
-#anna-scenario-01 .discovery-tabs button {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-tabs button {
     font: 600 15px Georgia;
     background: #163b5a;
     border-color: #cba264;
     padding: 13px 8px
 }
 
-#anna-scenario-01 .discovery-tabs button[aria-expanded=true] {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-tabs button[aria-expanded=true] {
     background: #a97c38;
     color: #081b2b
 }
 
-#anna-scenario-01 .visual-stage {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage {
     min-height: 255px;
     border: 1px solid #54728a;
     border-radius: 12px;
@@ -20436,8 +20440,8 @@ h1 {
     overflow: hidden
 }
 
-#anna-scenario-01 .visual-stage:before,
-#anna-scenario-01 .visual-stage:after {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage:before,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage:after {
     content: "✦";
     position: absolute;
     color: #c99c5733;
@@ -20446,30 +20450,30 @@ h1 {
     left: 15px
 }
 
-#anna-scenario-01 .visual-stage:after {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage:after {
     left: auto;
     right: 15px
 }
 
-#anna-scenario-01 .stage-eyebrow {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-eyebrow {
     font: 700 11px system-ui;
     letter-spacing: 2.2px;
     color: #c9ac77;
     text-transform: uppercase
 }
 
-#anna-scenario-01 .stage-russian {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-russian {
     font-size: clamp(29px, 3vw, 43px);
     line-height: 1.25;
     color: #fff3d9
 }
 
-#anna-scenario-01 .stage-english {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-english {
     font: italic 16px Georgia;
     color: #d0dce7
 }
 
-#anna-scenario-01 .stage-row {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-row {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
@@ -20477,7 +20481,7 @@ h1 {
     width: 100%
 }
 
-#anna-scenario-01 .stage-tile {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-tile {
     flex: 1 1 145px;
     max-width: 250px;
     background: #09233dc9;
@@ -20486,31 +20490,31 @@ h1 {
     padding: 15px 10px
 }
 
-#anna-scenario-01 .stage-tile small {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-tile small {
     display: block;
     color: #b9cddc;
     font: 11px system-ui;
     margin-bottom: 8px
 }
 
-#anna-scenario-01 .stage-tile strong {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-tile strong {
     font-size: 25px;
     font-weight: 500
 }
 
-#anna-scenario-01 .stage-hint {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-hint {
     font: 13px/1.5 system-ui;
     color: #d6e2eb;
     max-width: 460px
 }
 
-#anna-scenario-01 .ending {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .ending {
     color: var(--highlight);
     font-weight: 700;
     text-shadow: 0 0 12px #b47a3266
 }
 
-#anna-scenario-01 .discovery-detail {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail {
     margin-top: 11px;
     border: 1px solid #70869a;
     border-radius: 11px;
@@ -20520,56 +20524,56 @@ h1 {
     color: #dce6ef
 }
 
-#anna-scenario-01 .discovery-detail[hidden],
-#anna-scenario-01 .assist-panel[hidden] {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail[hidden],
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-panel[hidden] {
     display: none
 }
 
-#anna-scenario-01 .discovery-detail p {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail p {
     margin: 6px 0 10px
 }
 
-#anna-scenario-01 .discovery-detail .russian-example {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail .russian-example {
     font: 19px Georgia;
     color: #fff0cc
 }
 
-#anna-scenario-01 .conversation {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .conversation {
     padding: 24px
 }
 
-#anna-scenario-01 .label,
-#anna-scenario-01 .who {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .label,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .who {
     font: 700 12px system-ui;
     letter-spacing: 1.8px;
     color: #efc27d
 }
 
-#anna-scenario-01 .dialogue {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .dialogue {
     border-bottom: 1px solid #3d617b;
     padding: 13px 0 24px
 }
 
-#anna-scenario-01 .dialogue #russian {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .dialogue #russian {
     font-size: clamp(30px, 3vw, 41px);
     margin: 13px 0 8px
 }
 
-#anna-scenario-01 .dialogue #translation {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .dialogue #translation {
     font: italic 17px Georgia;
     color: #c5d8e8;
     margin: 0
 }
 
-#anna-scenario-01 .buttons,
-#anna-scenario-01 .assist-actions {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .buttons,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-actions {
     display: flex;
     gap: 9px;
     flex-wrap: wrap;
     margin-top: 18px
 }
 
-#anna-scenario-01 button {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) button {
     background: #163c5d;
     color: #fff0d9;
     border: 1px solid #cda66a;
@@ -20580,24 +20584,24 @@ h1 {
     transition: background .16s
 }
 
-#anna-scenario-01 button:hover,
-#anna-scenario-01 button:focus-visible {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) button:hover,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) button:focus-visible {
     background: #285c80;
     outline: 2px solid #e9c27d;
     outline-offset: 2px
 }
 
-#anna-scenario-01 button.primary {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) button.primary {
     background: #c2944b;
     color: #0b1d2f
 }
 
-#anna-scenario-01 button:disabled {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) button:disabled {
     opacity: .5;
     cursor: not-allowed
 }
 
-#anna-scenario-01 .heard {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .heard {
     background: #102d48;
     border: 1px solid #3d617b;
     border-radius: 10px;
@@ -20605,42 +20609,42 @@ h1 {
     margin-top: 20px
 }
 
-#anna-scenario-01 .heard p {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .heard p {
     font: 16px/1.5 system-ui;
     color: #e8eff5;
     margin: 8px 0 0;
     min-height: 22px
 }
 
-#anna-scenario-01 .feedback {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .feedback {
     font: 13px/1.5 system-ui;
     color: #f0ca83;
     min-height: 24px;
     margin-top: 9px
 }
 
-#anna-scenario-01 .assistance {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assistance {
     border-top: 1px solid #4b6477;
     margin-top: 18px;
     padding-top: 18px
 }
 
-#anna-scenario-01 .assistance h2 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assistance h2 {
     font: normal 23px Georgia;
     color: #f0d09b;
     margin: 0
 }
 
-#anna-scenario-01 .assist-actions button {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-actions button {
     flex: 1 1 125px
 }
 
-#anna-scenario-01 .assist-actions button[aria-expanded=true] {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-actions button[aria-expanded=true] {
     background: #aa7c3b;
     color: #091e32
 }
 
-#anna-scenario-01 .assist-panel {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-panel {
     border: 1px solid #66849a;
     background: #0e2b46;
     border-radius: 10px;
@@ -20649,37 +20653,37 @@ h1 {
     font: 14px system-ui
 }
 
-#anna-scenario-01 .assist-panel p {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-panel p {
     margin: 10px 0
 }
 
-#anna-scenario-01 .russian-example {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .russian-example {
     font: 19px Georgia;
     color: #fff1d6
 }
 
-#anna-scenario-01 .english-example {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .english-example {
     color: #c6d6e3
 }
 
-#anna-scenario-01 .assist-note {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-note {
     font: 12px/1.5 system-ui;
     color: #b7ccdb
 }
 
-#anna-scenario-01 .fallback {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .fallback {
     margin-top: 24px;
     font: 13px system-ui;
     color: #c8d8e5
 }
 
-#anna-scenario-01 .type-row {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .type-row {
     display: flex;
     gap: 8px;
     margin-top: 8px
 }
 
-#anna-scenario-01 input {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) input {
     flex: 1;
     min-width: 0;
     border: 1px solid #8b9cad;
@@ -20703,70 +20707,70 @@ h1 {
 }
 
 @media (max-width:850px) {
-    #anna-scenario-01 .layout {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .layout {
         grid-template-columns: 1fr
     }
 
-    #anna-scenario-01 .portrait-frame {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-frame {
         height: 350px
     }
 
-    #anna-scenario-01 .conversation {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .conversation {
         padding: 18px
     }
 }
 
 @media (max-width:480px) {
-    #anna-scenario-01 .shell {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .shell {
         padding: 10px
     }
 
-    #anna-scenario-01 .visual-stage {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage {
         padding: 15px
     }
 
-    #anna-scenario-01 .stage-russian {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-russian {
         font-size: 29px
     }
 
-    #anna-scenario-01 .portrait-frame {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-frame {
         height: 285px
     }
 
-    #anna-scenario-01 .type-row {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .type-row {
         flex-wrap: wrap
     }
 
-    #anna-scenario-01 .type-row button {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .type-row button {
         width: 100%
     }
 }
 
 @media (prefers-reduced-motion:reduce) {
-    #anna-scenario-01 .portrait-frame.speaking img {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .portrait-frame.speaking img {
         animation: none
     }
 }
 
-#anna-scenario-01 .scenario {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .scenario {
     font: 18px Georgia;
     color: var(--gold);
     margin-bottom: 4px
 }
 
-#anna-scenario-01 .conversation h2 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .conversation h2 {
     font: normal 36px Georgia;
     color: #f3d39c;
     margin: 0 0 8px
 }
 
-#anna-scenario-01 .conversation h3 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .conversation h3 {
     font: normal 23px Georgia;
     color: #f0d09b;
     margin: 0
 }
 
-#anna-scenario-01 .dialogue {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .dialogue {
     background: #102d48;
     border: 1px solid #446b86;
     border-radius: 12px;
@@ -20774,43 +20778,43 @@ h1 {
     margin-top: 18px
 }
 
-#anna-scenario-01 .dialogue #russian {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .dialogue #russian {
     font-size: clamp(25px, 2.6vw, 36px);
     margin: 9px 0 4px
 }
 
-#anna-scenario-01 .dialogue #translation {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .dialogue #translation {
     font-size: 16px
 }
 
-#anna-scenario-01 .visual-stage {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage {
     min-height: 320px;
     padding: 23px
 }
 
-#anna-scenario-01 .visual-stage:before,
-#anna-scenario-01 .visual-stage:after {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage:before,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage:after {
     pointer-events: none
 }
 
-#anna-scenario-01 .discovery-detail {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail {
     max-height: none
 }
 
-#anna-scenario-01 .discovery-detail[hidden] {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail[hidden] {
     display: none
 }
 
-#anna-scenario-01 .assist-panel[hidden] {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-panel[hidden] {
     display: none
 }
 
-#anna-scenario-01 .assist-panel {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-panel {
     max-height: 350px;
     overflow: auto
 }
 
-#anna-scenario-01 .answer-item {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .answer-item {
     display: flex;
     justify-content: space-between;
     align-items: start;
@@ -20819,26 +20823,26 @@ h1 {
     border-bottom: 1px solid #34556d
 }
 
-#anna-scenario-01 .answer-item:last-child {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .answer-item:last-child {
     border: 0
 }
 
-#anna-scenario-01 .answer-copy {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .answer-copy {
     flex: 1
 }
 
-#anna-scenario-01 .answer-ru {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .answer-ru {
     font: 19px/1.35 Georgia;
     color: #fff0cc
 }
 
-#anna-scenario-01 .answer-en {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .answer-en {
     font: 13px/1.5 system-ui;
     color: #c3d5e3;
     margin-top: 3px
 }
 
-#anna-scenario-01 .answer-level {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .answer-level {
     font: 10px system-ui;
     letter-spacing: 1px;
     color: #efc27d;
@@ -20847,24 +20851,24 @@ h1 {
     white-space: nowrap
 }
 
-#anna-scenario-01 .stage-head {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-head {
     font: 700 11px system-ui;
     letter-spacing: 2px;
     color: #e7bd77;
     text-transform: uppercase
 }
 
-#anna-scenario-01 .stage-word {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-word {
     font: clamp(28px, 3vw, 44px)/1.3 Georgia;
     color: #fff2d9
 }
 
-#anna-scenario-01 .stage-sub {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-sub {
     font: italic 17px Georgia;
     color: #d6e4ef
 }
 
-#anna-scenario-01 .stage-tiles {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-tiles {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -20872,7 +20876,7 @@ h1 {
     width: 100%
 }
 
-#anna-scenario-01 .stage-box {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-box {
     flex: 1 1 150px;
     border: 1px solid #6c8ca0;
     border-radius: 12px;
@@ -20881,137 +20885,137 @@ h1 {
     min-width: 0
 }
 
-#anna-scenario-01 .stage-box small {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-box small {
     display: block;
     font: 11px system-ui;
     color: #a9c3d5;
     margin-bottom: 8px
 }
 
-#anna-scenario-01 .stage-box strong {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-box strong {
     font: 24px Georgia;
     color: #f8e6c9
 }
 
-#anna-scenario-01 .stage-note {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-note {
     font: 13px/1.6 system-ui;
     color: #cbdbe6;
     max-width: 480px
 }
 
-#anna-scenario-01 .stage-choice {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-choice {
     padding: 10px 12px;
     flex: 1 1 135px
 }
 
-#anna-scenario-01 .stage-choice.selected {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-choice.selected {
     background: #86602e
 }
 
-#anna-scenario-01 .stage-result {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .stage-result {
     font: 14px/1.6 system-ui;
     color: #ffdfa0;
     min-height: 22px
 }
 
-#anna-scenario-01 .ending {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .ending {
     color: #ffd077;
     font-weight: 700;
     text-shadow: 0 0 10px #b47a3266
 }
 
-#anna-scenario-01 .discovery-detail h4 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail h4 {
     font: 24px Georgia;
     color: #f2d59e;
     margin: 3px 0 12px
 }
 
-#anna-scenario-01 .discovery-detail h5 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail h5 {
     font: 17px Georgia;
     color: #f4d59d;
     margin: 16px 0 5px
 }
 
-#anna-scenario-01 .discovery-detail p {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail p {
     margin: 8px 0
 }
 
-#anna-scenario-01 .discovery-detail .example {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail .example {
     border-left: 3px solid #d2a76b;
     padding: 9px 12px;
     background: #0b2843;
     margin: 9px 0
 }
 
-#anna-scenario-01 .discovery-detail .ru {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail .ru {
     font: 22px Georgia;
     color: #fff0d5
 }
 
-#anna-scenario-01 .discovery-detail .en {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail .en {
     font: italic 13px Georgia;
     color: #c4d7e5
 }
 
-#anna-scenario-01 .discovery-detail .rule {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail .rule {
     padding: 12px;
     background: #09253f;
     border: 1px solid #416781;
     border-radius: 10px
 }
 
-#anna-scenario-01 .discovery-detail .rule strong {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .discovery-detail .rule strong {
     color: #f5d28b
 }
 
-#anna-scenario-01 .practice-choices {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .practice-choices {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 10px
 }
 
-#anna-scenario-01 .practice-choices button {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .practice-choices button {
     font-size: 17px
 }
 
-#anna-scenario-01 .practice-feedback {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .practice-feedback {
     font: 13px system-ui;
     color: #f5d28b;
     margin-top: 8px;
     min-height: 18px
 }
 
-#anna-scenario-01 .heard {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .heard {
     margin-top: 14px
 }
 
-#anna-scenario-01 .assistance {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assistance {
     margin-top: 15px
 }
 
-#anna-scenario-01 .fallback {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .fallback {
     margin-top: 18px
 }
 
-#anna-scenario-01 .buttons button,
-#anna-scenario-01 .assist-actions button {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .buttons button,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .assist-actions button {
     padding: 10px 12px
 }
 
 @media (max-width:850px) {
-    #anna-scenario-01 .conversation h2 {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .conversation h2 {
         font-size: 31px
     }
 }
 
-#anna-scenario-01 .anna-page {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page {
     height: 100vh;
     overflow-y: auto;
     overscroll-behavior: contain
 }
 
-#anna-scenario-01 .anna-page .back-to-gallery {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .back-to-gallery {
     display: block;
     margin: 12px auto 0;
     background: #173d5a;
@@ -21019,31 +21023,31 @@ h1 {
     border: 1px solid #e4ba72
 }
 
-#anna-scenario-01 .anna-page .back-to-gallery:hover {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .back-to-gallery:hover {
     background: #285c80
 }
 
 /* Overrides for Foundation-wide main/layout rules; Anna remains full-page. */
-#anna-scenario-01 main.shell {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) main.shell {
     margin: 0 auto;
     padding: 18px 22px 28px;
     max-width: 1480px;
     width: 100%;
 }
 
-#anna-scenario-01 .anna-page {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page {
     line-height: normal;
 }
 
-#anna-scenario-01 .anna-page button,
-#anna-scenario-01 .anna-page input {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page button,
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page input {
     font-family: Georgia, serif;
 }
 
 /* END SCENARIO 01 — ANNA LABORATORY STYLES (SCOPED) */
 
 /* BEGIN ANNA — TWO HEADER NAVIGATION BUTTONS */
-#anna-scenario-01 .anna-navigation {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-navigation {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21052,7 +21056,7 @@ h1 {
     margin-top: 12px;
 }
 
-#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery {
     margin: 0;
 }
 
@@ -21063,7 +21067,7 @@ h1 {
    BEGIN ANNA — 3D GRADIENT NAVIGATION BUTTONS
    Appearance only: preserve existing placement and click behavior.
    ============================================================ */
-#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery {
     appearance: none;
     position: relative;
     display: inline-flex;
@@ -21090,7 +21094,7 @@ h1 {
         background .16s ease, border-color .16s ease;
 }
 
-#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery:hover {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery:hover {
     background: linear-gradient(180deg, #6597b7 0%, #397096 44%, #1a4c70 100%);
     border-color: #ffe1a5;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55),
@@ -21100,20 +21104,20 @@ h1 {
     transform: translateY(-1px);
 }
 
-#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery:active {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery:active {
     transform: translateY(3px);
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, .35),
         0 1px 0 #071b2d,
         0 2px 5px rgba(0, 0, 0, .25);
 }
 
-#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery:focus-visible {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery:focus-visible {
     outline: 3px solid #ffe1a5;
     outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    #anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery {
         transition: none;
     }
 }
@@ -21121,7 +21125,7 @@ h1 {
 /* END ANNA — 3D GRADIENT NAVIGATION BUTTONS */
 
 /* BEGIN ANNA — VERTICAL SPACE OPTIMIZATION */
-#anna-scenario-01 .masthead {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .masthead {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21131,48 +21135,48 @@ h1 {
     padding: 4px 0 11px;
 }
 
-#anna-scenario-01 .masthead h1 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .masthead h1 {
     margin: 0;
     font-size: clamp(22px, 2.1vw, 30px);
     line-height: 1.2;
     flex: 0 1 auto;
 }
 
-#anna-scenario-01 .anna-navigation {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-navigation {
     margin-top: 0;
     justify-content: flex-end;
     gap: 9px;
 }
 
-#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page .anna-navigation .back-to-gallery {
     min-height: 36px;
     padding: 7px 12px;
     font-size: 12px;
 }
 
-#anna-scenario-01 .layout {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .layout {
     margin-top: 12px;
 }
 
-#anna-scenario-01 .visual-stage {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage {
     min-height: 215px;
     padding: 14px 16px;
     gap: 8px;
 }
 
-#anna-scenario-01 .visual-stage .stage-tiles {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage .stage-tiles {
     gap: 8px;
 }
 
-#anna-scenario-01 .visual-stage .stage-box {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage .stage-box {
     padding: 10px 9px;
 }
 
-#anna-scenario-01 .visual-stage .stage-box small {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage .stage-box small {
     margin-bottom: 4px;
 }
 
-#anna-scenario-01 .anna-recall-row {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21181,47 +21185,47 @@ h1 {
     margin-top: 12px;
 }
 
-#anna-scenario-01 .anna-recall-prompt {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-prompt {
     flex: 1 1 165px;
     min-width: 0;
 }
 
-#anna-scenario-01 .anna-recall-prompt h5 {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-prompt h5 {
     margin: 0 0 4px;
 }
 
-#anna-scenario-01 .anna-recall-prompt p {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-prompt p {
     margin: 0;
 }
 
-#anna-scenario-01 .anna-recall-row .practice-choices {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-row .practice-choices {
     flex: 0 1 auto;
     margin-top: 0;
     align-items: center;
 }
 
 @media (max-width:700px) {
-    #anna-scenario-01 .masthead {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .masthead {
         justify-content: center;
         text-align: center;
     }
 
-    #anna-scenario-01 .anna-navigation {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-navigation {
         justify-content: center;
     }
 }
 
 @media (max-width:480px) {
-    #anna-scenario-01 .visual-stage {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .visual-stage {
         min-height: 195px;
         padding: 12px;
     }
 
-    #anna-scenario-01 .anna-recall-row {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-row {
         display: block;
     }
 
-    #anna-scenario-01 .anna-recall-row .practice-choices {
+    :is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-recall-row .practice-choices {
         margin-top: 8px;
     }
 }
@@ -21230,28 +21234,28 @@ h1 {
 
 
 /* Anna — italicize the response placeholder */
-#anna-scenario-01 #typed::placeholder {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) #typed::placeholder {
     font-style: italic;
 }
 /* ============================================================
-   BEGIN ANNA — VICTORIAN NAVY WALLPAPER
-   Reuses the Four Doors CSS wallpaper motif; only the Anna
-   full-screen host and its page background are affected.
-   All conversation panels retain their original backgrounds.
+   BEGIN CONVERSATION LABORATORIES — SHARED NAVY WALLPAPER
+   One identical supplied texture for all seven scenarios.
+   Conversation panels, portraits and controls are unchanged.
    ============================================================ */
-#anna-scenario-01:not([hidden]),
-#anna-scenario-01 .anna-page {
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07):not([hidden]),
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page {
     background-color: #102a45;
-    background-image:
-        radial-gradient(ellipse 18px 29px at 50% 50%, rgba(155,177,194,.12) 0 16%, transparent 19%),
-        radial-gradient(ellipse 5px 14px at 50% 18%, rgba(185,201,213,.10) 0 45%, transparent 50%),
-        radial-gradient(ellipse 5px 14px at 50% 82%, rgba(185,201,213,.10) 0 45%, transparent 50%),
-        repeating-linear-gradient(45deg, transparent 0 31px, rgba(190,210,223,.035) 32px, transparent 33px 64px),
-        repeating-linear-gradient(-45deg, transparent 0 31px, rgba(190,210,223,.035) 32px, transparent 33px 64px),
-        linear-gradient(135deg, #193b5b, #0d233b 72%);
-    background-size: 84px 112px, 84px 112px, 84px 112px, auto, auto, auto;
+    background-image: url("../../Images/door-four/conversation-laboratory-wallpaper.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
 }
-/* END ANNA — VICTORIAN NAVY WALLPAPER */
+/* The outer scenario owns the wallpaper; do not draw a second copy inside. */
+:is(#anna-scenario-01, #dmitri-scenario-02, #amina-scenario-03, #timur-scenario-04, #ruslan-scenario-05, #elena-scenario-06, #sofia-scenario-07) .anna-page {
+    background-image: none;
+    background-color: transparent;
+}
+/* END CONVERSATION LABORATORIES — SHARED NAVY WALLPAPER */
 
 /* BEGIN LABORATORY LANDING — BACK TO FOUR DOORS IMAGE BUTTON */
 #door-four-laboratory .door-four__stage .door-four__landing-back {

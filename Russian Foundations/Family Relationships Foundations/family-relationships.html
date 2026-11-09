@@ -2458,26 +2458,26 @@ LESSON 2 — EXTENDED FAMILY
         <div class="explore-doors">
 
           <button type="button" class="explore-door" data-door="personal">
-            
+
             <span class="explore-door__title">Make It Personal</span>
           </button>
 
 
           <button type="button" class="explore-door" data-door="people">
-            
+
             <span class="explore-door__title">Look Deeper</span>
           </button>
 
 
           <button type="button" class="explore-door" data-door="conversation">
-            
-            <span class="explore-door__title">Where Can This Take Me?</span>
+
+            <span class="explore-door__title">Where Can This<br>Take Me?</span>
           </button>
 
 
           <button type="button" class="explore-door" data-door="russian">
-            
-            <span class="explore-door__title">The Language Laboratory</span>
+
+            <span class="explore-door__title">The Language<br>Laboratory</span>
           </button>
 
         </div> <!-- END explore doors -->
@@ -6934,7 +6934,8 @@ LESSON 2 — EXTENDED FAMILY
                     <div class="rw-ruble__patterns" aria-label="Ruble word patterns">
                       <div class="rw-ruble__pattern rw-ruble__pattern--one" data-ruble-pattern="one">
                         <strong>1</strong><b lang="ru">руб<span class="rw-ruble__ending">ль</span></b><small>Ends in
-                          1</small><span>21 руб<span class="rw-ruble__ending">ль</span></span></div>
+                          1</small><span>21 руб<span class="rw-ruble__ending">ль</span></span>
+                      </div>
                       <div class="rw-ruble__pattern rw-ruble__pattern--few" data-ruble-pattern="few"><strong>2, 3,
                           4</strong><b lang="ru">руб<span class="rw-ruble__ending">ля</span></b><small>Ends in 2, 3, or
                           4</small><span>23 руб<span class="rw-ruble__ending">ля</span></span></div>
@@ -7218,68 +7219,458 @@ LESSON 2 — EXTENDED FAMILY
        ============================================================ -->
   <section id="anna-scenario-01" hidden aria-label="Scenario 01 — Talk with Anna">
     <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
-      <div class="anna-page">
-        <main class="shell">
+    <div class="anna-page">
+      <main class="shell">
 
-          <header class="masthead">
-            <h1>Conversation Laboratory - Scenario 1</h1>
-            <div class="anna-navigation" role="group" aria-label="Conversation navigation">
-              <button type="button" id="anna-back-gallery" class="back-to-gallery">← Back to Conversation Gallery</button>
-              <button type="button" id="anna-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
-            </div>
-          </header>
-          <div class="layout">
-            <section class="portrait-panel" aria-label="Anna and visual discovery">
-              <img src="../../Images/door-four/avatar-anna.png" alt="Anna in her kitchen">
-              <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Anna is ready</span>
-              </div>
-              <div class="discovery-space">
-                <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
-                    Usage</button><button id="show-discovery" aria-expanded="false">Explore This
-                    Expression</button>
-                </div>
-                <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
-                <div id="discovery-detail" class="discovery-detail" hidden></div>
-              </div>
-            </section>
-            <section class="conversation" aria-label="Conversation">
-              <div class="scenario">Family Dinner</div>
-              <h2>Talk with Anna</h2>
-              <div class="dialogue">
-                <div class="scenario">ANNA SAYS</div>
-                <p id="russian" lang="ru"></p>
-                <p id="translation"></p>
-              </div>
-              <div class="buttons"><button id="hear">▶ Hear Anna</button><button id="answer" class="primary">🎙 Answer
-                  aloud</button><button id="repeat">↻ Start over</button></div>
-              <div class="heard">
-                <div class="scenario">I HEARD</div>
-                <p id="transcript"></p>
-              </div>
-              <div id="feedback" class="feedback" role="status"></div>
-              <section class="assistance">
-                <h3>Conversation Assistance</h3>
-                <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
-                    Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
-                    Anna Say It Again</button></div>
-                <div id="answers-panel" class="assist-panel" hidden></div>
-                <p id="practice-status" class="assist-note" role="status"></p>
-              </section>
-              <div class="fallback"><label for="typed">Or type your response</label>
-                <div class="type-row"><input id="typed" lang="ru" autocomplete="off" placeholder="your answer - Ваш ответ…"><button
-                    id="send">Submit Response</button></div>
-              </div>
-            </section>
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 1</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="anna-back-gallery" class="back-to-gallery">← Back to Conversation Gallery</button>
+            <button type="button" id="anna-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
           </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Anna and visual discovery">
+            <img src="../../Images/door-four/avatar-anna.png" alt="Anna in her kitchen">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Anna is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Family Dinner</div>
+            <h2>Talk with Anna</h2>
+            <div class="dialogue">
+              <div class="scenario">ANNA SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Anna</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
 
-        </main>
-      </div>
-    
+      </main>
+    </div>
+
     <!-- END ANNA LABORATORY — HTML STRUCTURE -->
   </section>
   <!-- ============================================================
        END SCENARIO 01 — ANNA CONVERSATION LABORATORY
        ============================================================ -->
+
+  <!-- BEGIN SCENARIO 02 — DMITRI LABORATORY -->
+  <section id="dmitri-scenario-02" hidden aria-label="Scenario 02 — Talk with Dmitri">
+    <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
+    <div class="anna-page">
+      <main class="shell">
+
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 2</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="dmitri-back-gallery" class="back-to-gallery">← Back to Conversation
+              Gallery</button>
+            <button type="button" id="dmitri-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
+          </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Dmitri and visual discovery">
+            <img src="../../Images/door-four/avatar-dimitri.png" alt="Dmitri in their conversation setting">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Dmitri is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Planning Dinner</div>
+            <h2>Talk with Dmitri</h2>
+            <div class="dialogue">
+              <div class="scenario">DMITRI SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Dmitri</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- END ANNA LABORATORY — HTML STRUCTURE -->
+  </section>
+  <!-- END SCENARIO 02 — DMITRI LABORATORY -->
+
+  <!-- BEGIN SCENARIO 03 — AMINA LABORATORY -->
+  <section id="amina-scenario-03" hidden aria-label="Scenario 03 — Talk with Amina">
+    <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
+    <div class="anna-page">
+      <main class="shell">
+
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 3</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="amina-back-gallery" class="back-to-gallery">← Back to Conversation
+              Gallery</button>
+            <button type="button" id="amina-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
+          </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Amina and visual discovery">
+            <img src="../../Images/door-four/avatar-amina.png" alt="Amina in their conversation setting">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Amina is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Grocery Shopping</div>
+            <h2>Talk with Amina</h2>
+            <div class="dialogue">
+              <div class="scenario">AMINA SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Amina</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- END ANNA LABORATORY — HTML STRUCTURE -->
+  </section>
+  <!-- END SCENARIO 03 — AMINA LABORATORY -->
+
+  <!-- BEGIN SCENARIO 04 — TIMUR LABORATORY -->
+  <section id="timur-scenario-04" hidden aria-label="Scenario 04 — Talk with Timur">
+    <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
+    <div class="anna-page">
+      <main class="shell">
+
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 4</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="timur-back-gallery" class="back-to-gallery">← Back to Conversation
+              Gallery</button>
+            <button type="button" id="timur-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
+          </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Timur and visual discovery">
+            <img src="../../Images/door-four/avatar-timur.png" alt="Timur in their conversation setting">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Timur is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Cooking Together</div>
+            <h2>Talk with Timur</h2>
+            <div class="dialogue">
+              <div class="scenario">TIMUR SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Timur</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- END ANNA LABORATORY — HTML STRUCTURE -->
+  </section>
+  <!-- END SCENARIO 04 — TIMUR LABORATORY -->
+
+  <!-- BEGIN SCENARIO 05 — RUSLAN LABORATORY -->
+  <section id="ruslan-scenario-05" hidden aria-label="Scenario 05 — Talk with Ruslan">
+    <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
+    <div class="anna-page">
+      <main class="shell">
+
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 5</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="ruslan-back-gallery" class="back-to-gallery">← Back to Conversation
+              Gallery</button>
+            <button type="button" id="ruslan-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
+          </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Ruslan and visual discovery">
+            <img src="../../Images/door-four/avatar-ruslan.png" alt="Ruslan in their conversation setting">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Ruslan is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Family Picnic</div>
+            <h2>Talk with Ruslan</h2>
+            <div class="dialogue">
+              <div class="scenario">RUSLAN SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Ruslan</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- END ANNA LABORATORY — HTML STRUCTURE -->
+  </section>
+  <!-- END SCENARIO 05 — RUSLAN LABORATORY -->
+
+  <!-- BEGIN SCENARIO 06 — ELENA LABORATORY -->
+  <section id="elena-scenario-06" hidden aria-label="Scenario 06 — Talk with Elena">
+    <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
+    <div class="anna-page">
+      <main class="shell">
+
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 6</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="elena-back-gallery" class="back-to-gallery">← Back to Conversation
+              Gallery</button>
+            <button type="button" id="elena-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
+          </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Elena and visual discovery">
+            <img src="../../Images/door-four/avatar-elena.png" alt="Elena in their conversation setting">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Elena is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Visiting Relatives</div>
+            <h2>Talk with Elena</h2>
+            <div class="dialogue">
+              <div class="scenario">ELENA SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Elena</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- END ANNA LABORATORY — HTML STRUCTURE -->
+  </section>
+  <!-- END SCENARIO 06 — ELENA LABORATORY -->
+
+  <!-- BEGIN SCENARIO 07 — SOFIA LABORATORY -->
+  <section id="sofia-scenario-07" hidden aria-label="Scenario 07 — Talk with Sofia">
+    <!-- BEGIN ANNA LABORATORY — HTML STRUCTURE (CSS IN FAMILY-RELATIONSHIPS.CSS) -->
+    <div class="anna-page">
+      <main class="shell">
+
+        <header class="masthead">
+          <h1>Conversation Laboratory - Scenario 7</h1>
+          <div class="anna-navigation" role="group" aria-label="Conversation navigation">
+            <button type="button" id="sofia-back-gallery" class="back-to-gallery">← Back to Conversation
+              Gallery</button>
+            <button type="button" id="sofia-back-desk" class="back-to-gallery">← Back to Explorer's Desk</button>
+          </div>
+        </header>
+        <div class="layout">
+          <section class="portrait-panel" aria-label="Sofia and visual discovery">
+            <img src="../../Images/door-four/avatar-sofia.png" alt="Sofia in their conversation setting">
+            <div class="presence"><span id="light" class="light"></span><span id="avatar-state">Sofia is ready</span>
+            </div>
+            <div class="discovery-space">
+              <div class="discovery-tabs"><button id="show-meaning" aria-expanded="false">Meaning &amp;
+                  Usage</button><button id="show-discovery" aria-expanded="false">Explore This
+                  Expression</button>
+              </div>
+              <div id="visual-stage" class="visual-stage" aria-live="polite"></div>
+              <div id="discovery-detail" class="discovery-detail" hidden></div>
+            </div>
+          </section>
+          <section class="conversation" aria-label="Conversation">
+            <div class="scenario">Vacation Restaurant</div>
+            <h2>Talk with Sofia</h2>
+            <div class="dialogue">
+              <div class="scenario">SOFIA SAYS</div>
+              <p id="russian" lang="ru"></p>
+              <p id="translation"></p>
+            </div>
+            <div class="buttons"><button id="hear">▶ Hear Sofia</button><button id="answer" class="primary">🎙 Answer
+                aloud</button><button id="repeat">↻ Start over</button></div>
+            <div class="heard">
+              <div class="scenario">I HEARD</div>
+              <p id="transcript"></p>
+            </div>
+            <div id="feedback" class="feedback" role="status"></div>
+            <section class="assistance">
+              <h3>Conversation Assistance</h3>
+              <div class="assist-actions"><button id="show-answers" aria-expanded="false">See Possible
+                  Answers</button><button id="practice-phrase">You Try To Say It</button><button id="hear-again">Hear
+                  Anna Say It Again</button></div>
+              <div id="answers-panel" class="assist-panel" hidden></div>
+              <p id="practice-status" class="assist-note" role="status"></p>
+            </section>
+            <div class="fallback"><label for="typed">Or type your response</label>
+              <div class="type-row"><input id="typed" lang="ru" autocomplete="off"
+                  placeholder="your answer - Ваш ответ…"><button id="send">Submit Response</button></div>
+            </div>
+          </section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- END ANNA LABORATORY — HTML STRUCTURE -->
+  </section>
+  <!-- END SCENARIO 07 — SOFIA LABORATORY -->
 
   <!-- ==================================================
        REMAKE JAVASCRIPT
