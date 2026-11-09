@@ -2151,347 +2151,118 @@ h1 {
 
 
 /* ==========================================
-   EXPLORE HALLWAY
-========================================== */
+   BEGIN EXPLORE HALLWAY — VICTORIAN FOUR DOORS
+   One shared door asset; original data-door buttons
+   and navigation event handlers are preserved.
+   ========================================== */
 
 .explore-hallway {
-    max-width: 1100px;
-    margin: 40px auto 50px;
-    padding: 38px;
-    background: #ffffff;
-    border: 1px solid #d7e5e2;
+    max-width: 1200px;
+    margin: 34px auto 50px;
+    padding: 28px clamp(16px, 3vw, 38px) 36px;
+    /* Subtle Victorian wallpaper: layered woven diamonds and damask-like medallions. */
+    background-color: #102a45;
+    background-image:
+        radial-gradient(ellipse 18px 29px at 50% 50%, rgba(155,177,194,.12) 0 16%, transparent 19%),
+        radial-gradient(ellipse 5px 14px at 50% 18%, rgba(185,201,213,.10) 0 45%, transparent 50%),
+        radial-gradient(ellipse 5px 14px at 50% 82%, rgba(185,201,213,.10) 0 45%, transparent 50%),
+        repeating-linear-gradient(45deg, transparent 0 31px, rgba(190,210,223,.035) 32px, transparent 33px 64px),
+        repeating-linear-gradient(-45deg, transparent 0 31px, rgba(190,210,223,.035) 32px, transparent 33px 64px),
+        linear-gradient(135deg, #193b5b, #0d233b 72%);
+    background-size: 84px 112px, 84px 112px, 84px 112px, auto, auto, auto;
+    border: 1px solid #ad8b52;
     border-radius: 16px;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 0 0 5px rgba(205,167,97,.12), inset 0 0 35px rgba(0,0,0,.28), 0 7px 20px rgba(0,0,0,.17);
 }
-
 .explore-hallway__intro {
     text-align: center;
-    max-width: 760px;
-    margin: 0 auto 36px;
+    margin: 0 auto 26px;
 }
-
-.explore-hallway__intro .eyebrow {
-    color: #176c63;
-}
-
 .explore-hallway__intro h2 {
-    margin: 8px 0 12px;
-    font-size: 2.15rem;
-    color: #174f4a;
+    margin: 0 0 3px;
+    color: #fff1d4;
+    text-shadow: 0 2px 5px rgba(0,0,0,.5);
+    font-size: clamp(1.55rem, 2.6vw, 2.3rem);
 }
-
 .explore-hallway__intro p {
-    font-size: 1.05rem;
-    color: #52677d;
+    margin: 0;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: #e9c98d;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    font-style: italic;
 }
-
-
-/* ==========================================
-   EXPLORE — FOUR DOOR GRID
-========================================== */
-
 .explore-doors {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 24px;
+    gap: clamp(6px, 1vw, 14px);
     align-items: end;
 }
-
-/* ==========================================
-   EXPLORE — REAL DOORS
-========================================== */
-
 .explore-door {
     position: relative;
-
+    display: block;
     width: 100%;
     min-width: 0;
-    box-sizing: border-box;
-
-    min-height: 400px;
+    /* Eight percent wider than the previous silhouette, without major distortion. */
+    aspect-ratio: 0.72;
+    min-height: 0;
     padding: 0;
-
-    display: block;
-
-    background:
-        linear-gradient(90deg,
-            #f1e8d8 0%,
-            #fffaf0 48%,
-            #eee2cf 100%);
-
-    border: 7px solid #72583d;
-    border-bottom-width: 11px;
-
-    border-radius: 3px 3px 2px 2px;
-
-    color: #3d3023;
-
-    box-shadow:
-        inset 0 0 0 3px #c8a985,
-        inset 0 0 18px rgba(80, 55, 30, 0.08),
-        0 10px 18px rgba(0, 0, 0, 0.18);
-
+    border: 0;
+    border-radius: 0;
+    background: transparent url("../../Images/four-doors-initial-entry.png") center / 100% 100% no-repeat;
+    box-shadow: none;
+    color: #fff;
     cursor: pointer;
-
-    transform-origin: left center;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        filter 0.25s ease;
+    transform-origin: center bottom;
+    transition: transform .22s ease, filter .22s ease;
 }
-
-
-/* ==========================================
-   RECESSED DOOR PANELS
-========================================== */
-
 .explore-door::before,
-.explore-door::after {
-    content: "";
-    position: absolute;
-
-    left: 18%;
-    width: 64%;
-
-    background:
-        linear-gradient(135deg,
-            rgba(255, 255, 255, 0.42),
-            rgba(214, 195, 166, 0.10));
-
-    border: 2px solid rgba(115, 88, 55, 0.34);
-
-    box-shadow:
-        inset 0 0 0 5px rgba(255, 255, 255, 0.28),
-        inset 0 5px 10px rgba(90, 65, 40, 0.07);
-}
-
-.explore-door::before {
-    top: 27%;
-    height: 27%;
-}
-
-.explore-door::after {
-    bottom: 8%;
-    height: 27%;
-}
-
-
-/* ==========================================
-   BRASS DOORKNOB
-========================================== */
-
-.explore-door__symbol {
-    position: absolute;
-    z-index: 4;
-
-    top: 55%;
-    right: 7%;
-
-    width: 23px;
-    height: 23px;
-    padding: 0;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(circle at 34% 28%,
-            #fff5bd 0%,
-            #e5b64d 30%,
-            #b5791e 62%,
-            #714510 100%);
-
-    border: 2px solid #76501c;
-
-    box-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.35),
-        inset 1px 1px 2px rgba(255, 255, 255, 0.8);
-
-    font-size: 0;
-}
-
-
-/* Small knob base */
-
-.explore-door__symbol::after {
-    content: "";
-    position: absolute;
-
-    width: 8px;
-    height: 8px;
-
-    right: -5px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    border-radius: 2px;
-
-    background: #9d671c;
-
-    z-index: -1;
-}
-
-
-/* ==========================================
-   BRASS OFFICE DOOR SIGN
-========================================== */
-
+.explore-door::after,
+.explore-door__title::before,
+.explore-door__title::after { content: none; }
 .explore-door__title {
     position: absolute;
-    z-index: 4;
-
-    top: 7%;
-    left: 11%;
-
-    width: 78%;
-    min-height: 58px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 8px 15px;
-
-    background:
-        linear-gradient(180deg,
-            #f8d778 0%,
-            #d6a747 52%,
-            #bd872e 100%);
-
-    border: 2px solid #8c621f;
-    border-radius: 5px;
-
-    color: #21180d;
-
-    font-size: 0.9rem;
-    font-weight: 800;
-    line-height: 1.15;
+    z-index: 1;
+    top: 30%;
+    left: 19%;
+    width: 58%;
+    min-height: 0;
+    padding: 0;
+    display: block;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    color: #fff8e9;
+    font-size: clamp(.68rem, 1.25vw, 1.05rem);
+    font-weight: 700;
+    line-height: 1.25;
     text-align: center;
-
-    text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.35);
-
-    box-shadow:
-        0 3px 6px rgba(0, 0, 0, 0.24),
-        inset 0 1px 2px rgba(255, 255, 255, 0.65);
+    text-shadow: 0 2px 4px #2b100a, 0 0 5px #2b100a;
+    pointer-events: none;
 }
-
-
-/* Four mounting screws */
-
-.explore-door__title::before,
-.explore-door__title::after {
-    content: "•";
-    position: absolute;
-
-    top: 50%;
-    transform: translateY(-50%);
-
-    color: #684714;
-    font-size: 0.8rem;
-}
-
-.explore-door__title::before {
-    left: 6px;
-}
-
-.explore-door__title::after {
-    right: 6px;
-}
-
-
-/* ==========================================
-   DOOR INTERACTION
-========================================== */
-
-.explore-door:hover,
-.explore-door:focus-visible {
-    transform: translateY(-5px);
-
-    filter: brightness(1.025);
-
-    box-shadow:
-        inset 0 0 0 3px #c8a985,
-        inset 0 0 18px rgba(80, 55, 30, 0.08),
-        0 16px 26px rgba(0, 0, 0, 0.23);
-}
-
-
-/* Small mounting screws on the office sign */
-
-.explore-door__title::before,
-.explore-door__title::after {
-    content: "";
-    position: absolute;
-
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: #8c672d;
-
-    box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, 0.55);
-}
-
-.explore-door__title::before {
-    left: 6px;
-}
-
-.explore-door__title::after {
-    right: 6px;
-}
-
-
-/* Door interaction */
 .explore-door:hover,
 .explore-door:focus-visible {
     transform: translateY(-6px);
-
-    background:
-        linear-gradient(90deg,
-            rgba(255, 255, 255, 0.22),
-            transparent 18%,
-            transparent 82%,
-            rgba(0, 0, 0, 0.06)),
-        #f7f3e8;
-
-    box-shadow:
-        inset 0 0 0 3px #d6c6aa,
-        0 16px 28px rgba(0, 0, 0, 0.20);
+    filter: brightness(1.13) drop-shadow(0 10px 8px rgba(53,28,10,.25));
+    background: transparent url("../../Images/four-doors-initial-entry.png") center / 100% 100% no-repeat;
+    box-shadow: none;
 }
-
-
-/* Give Door 3 the feeling that something is beyond it */
-.explore-door[data-door="conversation"] {
-    box-shadow:
-        inset -12px 0 16px rgba(255, 218, 117, 0.20),
-        inset 0 0 0 3px #c8b89e,
-        0 10px 18px rgba(0, 0, 0, 0.16);
+.explore-door:focus-visible {
+    outline: 3px solid #d6a747;
+    outline-offset: 3px;
 }
-
-
-/* Responsive layout */
-@media (max-width: 1050px) {
-    .explore-doors {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+@media (max-width: 720px) {
+    .explore-doors { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+    .explore-door__title { font-size: clamp(.85rem, 2.6vw, 1.1rem); }
 }
-
-@media (max-width: 650px) {
-    .explore-doors {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .explore-door {
-        min-height: 260px;
-    }
+@media (max-width: 400px) {
+    .explore-hallway { padding: 18px 12px 24px; }
+    .explore-door__title { font-size: .75rem; }
 }
+@media (prefers-reduced-motion: reduce) {
+    .explore-door { transition: none; }
+}
+/* END EXPLORE HALLWAY — VICTORIAN FOUR DOORS */
 
 /* ==========================================
    EXPLORE ROOM — SHARED SHELL
@@ -20500,7 +20271,11 @@ h1 {
     z-index: 99999;
     background: #06172b;
 }
-#anna-scenario-01[hidden] { display: none !important; }
+
+#anna-scenario-01[hidden] {
+    display: none !important;
+}
+
 /* END SCENARIO 01 — FULL-SCREEN ANNA HOST */
 
 
@@ -20509,744 +20284,744 @@ h1 {
    Extracted from the working HTML Shadow DOM; no inline CSS.
    ============================================================ */
 #anna-scenario-01 .anna-page {
-          font-family: Georgia, serif;
-          color: #f6ecda;
-          background: #06172b;
-          --gold: #e4ba72;
-          --blue: #0b2844;
-          --muted: #b9cad9;
-          --highlight: #ffd077
-        }
+    font-family: Georgia, serif;
+    color: #f6ecda;
+    background: #06172b;
+    --gold: #e4ba72;
+    --blue: #0b2844;
+    --muted: #b9cad9;
+    --highlight: #ffd077
+}
 
 #anna-scenario-01 .anna-page,
 #anna-scenario-01 .anna-page * {
-          box-sizing: border-box
-        }
+    box-sizing: border-box
+}
 
 #anna-scenario-01 .anna-page {
-          margin: 0;
-          min-height: 100vh;
-          background: radial-gradient(circle at 50% 0, #183f5a, #06172b 70%)
-        }
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 0, #183f5a, #06172b 70%)
+}
 
 #anna-scenario-01 .shell {
-          max-width: 1480px;
-          margin: auto;
-          padding: 18px 22px 28px
-        }
+    max-width: 1480px;
+    margin: auto;
+    padding: 18px 22px 28px
+}
 
 #anna-scenario-01 .masthead {
-          text-align: center;
-          padding: 5px 0 18px;
-          border-bottom: 1px solid #9b7948
-        }
+    text-align: center;
+    padding: 5px 0 18px;
+    border-bottom: 1px solid #9b7948
+}
 
 #anna-scenario-01 .brand {
-          font: 700 12px system-ui;
-          letter-spacing: 2px;
-          color: var(--gold)
-        }
+    font: 700 12px system-ui;
+    letter-spacing: 2px;
+    color: var(--gold)
+}
 
 #anna-scenario-01 .brand span {
-          color: #a8c0d0
-        }
+    color: #a8c0d0
+}
 
 #anna-scenario-01 h1 {
-          font-size: clamp(24px, 2.7vw, 37px);
-          font-weight: 500;
-          color: #f1d19b;
-          margin: 9px 0 0
-        }
+    font-size: clamp(24px, 2.7vw, 37px);
+    font-weight: 500;
+    color: #f1d19b;
+    margin: 9px 0 0
+}
 
 #anna-scenario-01 .layout {
-          display: grid;
-          grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
-          gap: 20px;
-          margin-top: 20px;
-          align-items: start
-        }
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+    align-items: start
+}
 
 #anna-scenario-01 .portrait-panel,
 #anna-scenario-01 .conversation {
-          border: 1px solid #bd9354;
-          border-radius: 14px;
-          background: linear-gradient(160deg, #0a2945, #071d34);
-          box-shadow: 0 16px 45px #0006;
-          overflow: hidden
-        }
+    border: 1px solid #bd9354;
+    border-radius: 14px;
+    background: linear-gradient(160deg, #0a2945, #071d34);
+    box-shadow: 0 16px 45px #0006;
+    overflow: hidden
+}
 
 #anna-scenario-01 .portrait-frame {
-          height: 410px;
-          position: relative;
-          overflow: hidden;
-          background: #302925
-        }
+    height: 410px;
+    position: relative;
+    overflow: hidden;
+    background: #302925
+}
 
 #anna-scenario-01 .portrait-frame img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center 35%
-        }
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%
+}
 
 #anna-scenario-01 .portrait-frame.speaking img {}
 
 #anna-scenario-01 .glow {
-          position: absolute;
-          inset: 0;
-          box-shadow: inset 0 -35px 45px #071d3480;
-          pointer-events: none
-        }
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 -35px 45px #071d3480;
+    pointer-events: none
+}
 
 #anna-scenario-01 .presence {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 9px;
-          padding: 10px;
-          color: #ead09c;
-          font: 13px system-ui
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 10px;
+    color: #ead09c;
+    font: 13px system-ui
+}
 
 #anna-scenario-01 .light {
-          width: 8px;
-          height: 8px;
-          background: #6ab88e;
-          border-radius: 50%
-        }
+    width: 8px;
+    height: 8px;
+    background: #6ab88e;
+    border-radius: 50%
+}
 
 #anna-scenario-01 .light.active {
-          background: #f4c36d;
-          box-shadow: 0 0 12px #eec77e
-        }
+    background: #f4c36d;
+    box-shadow: 0 0 12px #eec77e
+}
 
 #anna-scenario-01 .discovery-space {
-          padding: 13px 17px 19px;
-          border-top: 1px solid #35536b
-        }
+    padding: 13px 17px 19px;
+    border-top: 1px solid #35536b
+}
 
 #anna-scenario-01 .discovery-tabs {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-          margin-bottom: 12px
-        }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px
+}
 
 #anna-scenario-01 .discovery-tabs button {
-          font: 600 15px Georgia;
-          background: #163b5a;
-          border-color: #cba264;
-          padding: 13px 8px
-        }
+    font: 600 15px Georgia;
+    background: #163b5a;
+    border-color: #cba264;
+    padding: 13px 8px
+}
 
 #anna-scenario-01 .discovery-tabs button[aria-expanded=true] {
-          background: #a97c38;
-          color: #081b2b
-        }
+    background: #a97c38;
+    color: #081b2b
+}
 
 #anna-scenario-01 .visual-stage {
-          min-height: 255px;
-          border: 1px solid #54728a;
-          border-radius: 12px;
-          background: radial-gradient(ellipse at 50% 10%, #204966 0, #102c49 45%, #09223b 100%);
-          padding: 20px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          gap: 12px;
-          position: relative;
-          overflow: hidden
-        }
+    min-height: 255px;
+    border: 1px solid #54728a;
+    border-radius: 12px;
+    background: radial-gradient(ellipse at 50% 10%, #204966 0, #102c49 45%, #09223b 100%);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden
+}
 
 #anna-scenario-01 .visual-stage:before,
 #anna-scenario-01 .visual-stage:after {
-          content: "✦";
-          position: absolute;
-          color: #c99c5733;
-          font-size: 55px;
-          top: 8px;
-          left: 15px
-        }
+    content: "✦";
+    position: absolute;
+    color: #c99c5733;
+    font-size: 55px;
+    top: 8px;
+    left: 15px
+}
 
 #anna-scenario-01 .visual-stage:after {
-          left: auto;
-          right: 15px
-        }
+    left: auto;
+    right: 15px
+}
 
 #anna-scenario-01 .stage-eyebrow {
-          font: 700 11px system-ui;
-          letter-spacing: 2.2px;
-          color: #c9ac77;
-          text-transform: uppercase
-        }
+    font: 700 11px system-ui;
+    letter-spacing: 2.2px;
+    color: #c9ac77;
+    text-transform: uppercase
+}
 
 #anna-scenario-01 .stage-russian {
-          font-size: clamp(29px, 3vw, 43px);
-          line-height: 1.25;
-          color: #fff3d9
-        }
+    font-size: clamp(29px, 3vw, 43px);
+    line-height: 1.25;
+    color: #fff3d9
+}
 
 #anna-scenario-01 .stage-english {
-          font: italic 16px Georgia;
-          color: #d0dce7
-        }
+    font: italic 16px Georgia;
+    color: #d0dce7
+}
 
 #anna-scenario-01 .stage-row {
-          display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
-          justify-content: center;
-          width: 100%
-        }
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%
+}
 
 #anna-scenario-01 .stage-tile {
-          flex: 1 1 145px;
-          max-width: 250px;
-          background: #09233dc9;
-          border: 1px solid #6b8495;
-          border-radius: 11px;
-          padding: 15px 10px
-        }
+    flex: 1 1 145px;
+    max-width: 250px;
+    background: #09233dc9;
+    border: 1px solid #6b8495;
+    border-radius: 11px;
+    padding: 15px 10px
+}
 
 #anna-scenario-01 .stage-tile small {
-          display: block;
-          color: #b9cddc;
-          font: 11px system-ui;
-          margin-bottom: 8px
-        }
+    display: block;
+    color: #b9cddc;
+    font: 11px system-ui;
+    margin-bottom: 8px
+}
 
 #anna-scenario-01 .stage-tile strong {
-          font-size: 25px;
-          font-weight: 500
-        }
+    font-size: 25px;
+    font-weight: 500
+}
 
 #anna-scenario-01 .stage-hint {
-          font: 13px/1.5 system-ui;
-          color: #d6e2eb;
-          max-width: 460px
-        }
+    font: 13px/1.5 system-ui;
+    color: #d6e2eb;
+    max-width: 460px
+}
 
 #anna-scenario-01 .ending {
-          color: var(--highlight);
-          font-weight: 700;
-          text-shadow: 0 0 12px #b47a3266
-        }
+    color: var(--highlight);
+    font-weight: 700;
+    text-shadow: 0 0 12px #b47a3266
+}
 
 #anna-scenario-01 .discovery-detail {
-          margin-top: 11px;
-          border: 1px solid #70869a;
-          border-radius: 11px;
-          padding: 16px 18px;
-          background: #102f4a;
-          font: 14px/1.65 system-ui;
-          color: #dce6ef
-        }
+    margin-top: 11px;
+    border: 1px solid #70869a;
+    border-radius: 11px;
+    padding: 16px 18px;
+    background: #102f4a;
+    font: 14px/1.65 system-ui;
+    color: #dce6ef
+}
 
 #anna-scenario-01 .discovery-detail[hidden],
 #anna-scenario-01 .assist-panel[hidden] {
-          display: none
-        }
+    display: none
+}
 
 #anna-scenario-01 .discovery-detail p {
-          margin: 6px 0 10px
-        }
+    margin: 6px 0 10px
+}
 
 #anna-scenario-01 .discovery-detail .russian-example {
-          font: 19px Georgia;
-          color: #fff0cc
-        }
+    font: 19px Georgia;
+    color: #fff0cc
+}
 
 #anna-scenario-01 .conversation {
-          padding: 24px
-        }
+    padding: 24px
+}
 
 #anna-scenario-01 .label,
 #anna-scenario-01 .who {
-          font: 700 12px system-ui;
-          letter-spacing: 1.8px;
-          color: #efc27d
-        }
+    font: 700 12px system-ui;
+    letter-spacing: 1.8px;
+    color: #efc27d
+}
 
 #anna-scenario-01 .dialogue {
-          border-bottom: 1px solid #3d617b;
-          padding: 13px 0 24px
-        }
+    border-bottom: 1px solid #3d617b;
+    padding: 13px 0 24px
+}
 
 #anna-scenario-01 .dialogue #russian {
-          font-size: clamp(30px, 3vw, 41px);
-          margin: 13px 0 8px
-        }
+    font-size: clamp(30px, 3vw, 41px);
+    margin: 13px 0 8px
+}
 
 #anna-scenario-01 .dialogue #translation {
-          font: italic 17px Georgia;
-          color: #c5d8e8;
-          margin: 0
-        }
+    font: italic 17px Georgia;
+    color: #c5d8e8;
+    margin: 0
+}
 
 #anna-scenario-01 .buttons,
 #anna-scenario-01 .assist-actions {
-          display: flex;
-          gap: 9px;
-          flex-wrap: wrap;
-          margin-top: 18px
-        }
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 18px
+}
 
 #anna-scenario-01 button {
-          background: #163c5d;
-          color: #fff0d9;
-          border: 1px solid #cda66a;
-          border-radius: 9px;
-          padding: 12px 15px;
-          font: 600 13px system-ui;
-          cursor: pointer;
-          transition: background .16s
-        }
+    background: #163c5d;
+    color: #fff0d9;
+    border: 1px solid #cda66a;
+    border-radius: 9px;
+    padding: 12px 15px;
+    font: 600 13px system-ui;
+    cursor: pointer;
+    transition: background .16s
+}
 
 #anna-scenario-01 button:hover,
 #anna-scenario-01 button:focus-visible {
-          background: #285c80;
-          outline: 2px solid #e9c27d;
-          outline-offset: 2px
-        }
+    background: #285c80;
+    outline: 2px solid #e9c27d;
+    outline-offset: 2px
+}
 
 #anna-scenario-01 button.primary {
-          background: #c2944b;
-          color: #0b1d2f
-        }
+    background: #c2944b;
+    color: #0b1d2f
+}
 
 #anna-scenario-01 button:disabled {
-          opacity: .5;
-          cursor: not-allowed
-        }
+    opacity: .5;
+    cursor: not-allowed
+}
 
 #anna-scenario-01 .heard {
-          background: #102d48;
-          border: 1px solid #3d617b;
-          border-radius: 10px;
-          padding: 15px;
-          margin-top: 20px
-        }
+    background: #102d48;
+    border: 1px solid #3d617b;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px
+}
 
 #anna-scenario-01 .heard p {
-          font: 16px/1.5 system-ui;
-          color: #e8eff5;
-          margin: 8px 0 0;
-          min-height: 22px
-        }
+    font: 16px/1.5 system-ui;
+    color: #e8eff5;
+    margin: 8px 0 0;
+    min-height: 22px
+}
 
 #anna-scenario-01 .feedback {
-          font: 13px/1.5 system-ui;
-          color: #f0ca83;
-          min-height: 24px;
-          margin-top: 9px
-        }
+    font: 13px/1.5 system-ui;
+    color: #f0ca83;
+    min-height: 24px;
+    margin-top: 9px
+}
 
 #anna-scenario-01 .assistance {
-          border-top: 1px solid #4b6477;
-          margin-top: 18px;
-          padding-top: 18px
-        }
+    border-top: 1px solid #4b6477;
+    margin-top: 18px;
+    padding-top: 18px
+}
 
 #anna-scenario-01 .assistance h2 {
-          font: normal 23px Georgia;
-          color: #f0d09b;
-          margin: 0
-        }
+    font: normal 23px Georgia;
+    color: #f0d09b;
+    margin: 0
+}
 
 #anna-scenario-01 .assist-actions button {
-          flex: 1 1 125px
-        }
+    flex: 1 1 125px
+}
 
 #anna-scenario-01 .assist-actions button[aria-expanded=true] {
-          background: #aa7c3b;
-          color: #091e32
-        }
+    background: #aa7c3b;
+    color: #091e32
+}
 
 #anna-scenario-01 .assist-panel {
-          border: 1px solid #66849a;
-          background: #0e2b46;
-          border-radius: 10px;
-          padding: 15px;
-          margin-top: 12px;
-          font: 14px system-ui
-        }
+    border: 1px solid #66849a;
+    background: #0e2b46;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 12px;
+    font: 14px system-ui
+}
 
 #anna-scenario-01 .assist-panel p {
-          margin: 10px 0
-        }
+    margin: 10px 0
+}
 
 #anna-scenario-01 .russian-example {
-          font: 19px Georgia;
-          color: #fff1d6
-        }
+    font: 19px Georgia;
+    color: #fff1d6
+}
 
 #anna-scenario-01 .english-example {
-          color: #c6d6e3
-        }
+    color: #c6d6e3
+}
 
 #anna-scenario-01 .assist-note {
-          font: 12px/1.5 system-ui;
-          color: #b7ccdb
-        }
+    font: 12px/1.5 system-ui;
+    color: #b7ccdb
+}
 
 #anna-scenario-01 .fallback {
-          margin-top: 24px;
-          font: 13px system-ui;
-          color: #c8d8e5
-        }
+    margin-top: 24px;
+    font: 13px system-ui;
+    color: #c8d8e5
+}
 
 #anna-scenario-01 .type-row {
-          display: flex;
-          gap: 8px;
-          margin-top: 8px
-        }
+    display: flex;
+    gap: 8px;
+    margin-top: 8px
+}
 
 #anna-scenario-01 input {
-          flex: 1;
-          min-width: 0;
-          border: 1px solid #8b9cad;
-          border-radius: 8px;
-          background: #f7f8f7;
-          color: #14283a;
-          padding: 12px;
-          font: 16px system-ui
-        }
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #8b9cad;
+    border-radius: 8px;
+    background: #f7f8f7;
+    color: #14283a;
+    padding: 12px;
+    font: 16px system-ui
+}
 
 @keyframes subtle {
 
-          0%,
-          100% {
-            transform: scale(1)
-          }
+    0%,
+    100% {
+        transform: scale(1)
+    }
 
-          50% {
-            transform: scale(1.012)
-          }
-        }
+    50% {
+        transform: scale(1.012)
+    }
+}
 
 @media (max-width:850px) {
-#anna-scenario-01 .layout {
-            grid-template-columns: 1fr
-          }
+    #anna-scenario-01 .layout {
+        grid-template-columns: 1fr
+    }
 
-#anna-scenario-01 .portrait-frame {
-            height: 350px
-          }
+    #anna-scenario-01 .portrait-frame {
+        height: 350px
+    }
 
-#anna-scenario-01 .conversation {
-            padding: 18px
-          }
+    #anna-scenario-01 .conversation {
+        padding: 18px
+    }
 }
 
 @media (max-width:480px) {
-#anna-scenario-01 .shell {
-            padding: 10px
-          }
+    #anna-scenario-01 .shell {
+        padding: 10px
+    }
 
-#anna-scenario-01 .visual-stage {
-            padding: 15px
-          }
+    #anna-scenario-01 .visual-stage {
+        padding: 15px
+    }
 
-#anna-scenario-01 .stage-russian {
-            font-size: 29px
-          }
+    #anna-scenario-01 .stage-russian {
+        font-size: 29px
+    }
 
-#anna-scenario-01 .portrait-frame {
-            height: 285px
-          }
+    #anna-scenario-01 .portrait-frame {
+        height: 285px
+    }
 
-#anna-scenario-01 .type-row {
-            flex-wrap: wrap
-          }
+    #anna-scenario-01 .type-row {
+        flex-wrap: wrap
+    }
 
-#anna-scenario-01 .type-row button {
-            width: 100%
-          }
+    #anna-scenario-01 .type-row button {
+        width: 100%
+    }
 }
 
 @media (prefers-reduced-motion:reduce) {
-#anna-scenario-01 .portrait-frame.speaking img {
-            animation: none
-          }
+    #anna-scenario-01 .portrait-frame.speaking img {
+        animation: none
+    }
 }
 
 #anna-scenario-01 .scenario {
-          font: 18px Georgia;
-          color: var(--gold);
-          margin-bottom: 4px
-        }
+    font: 18px Georgia;
+    color: var(--gold);
+    margin-bottom: 4px
+}
 
 #anna-scenario-01 .conversation h2 {
-          font: normal 36px Georgia;
-          color: #f3d39c;
-          margin: 0 0 8px
-        }
+    font: normal 36px Georgia;
+    color: #f3d39c;
+    margin: 0 0 8px
+}
 
 #anna-scenario-01 .conversation h3 {
-          font: normal 23px Georgia;
-          color: #f0d09b;
-          margin: 0
-        }
+    font: normal 23px Georgia;
+    color: #f0d09b;
+    margin: 0
+}
 
 #anna-scenario-01 .dialogue {
-          background: #102d48;
-          border: 1px solid #446b86;
-          border-radius: 12px;
-          padding: 17px;
-          margin-top: 18px
-        }
+    background: #102d48;
+    border: 1px solid #446b86;
+    border-radius: 12px;
+    padding: 17px;
+    margin-top: 18px
+}
 
 #anna-scenario-01 .dialogue #russian {
-          font-size: clamp(25px, 2.6vw, 36px);
-          margin: 9px 0 4px
-        }
+    font-size: clamp(25px, 2.6vw, 36px);
+    margin: 9px 0 4px
+}
 
 #anna-scenario-01 .dialogue #translation {
-          font-size: 16px
-        }
+    font-size: 16px
+}
 
 #anna-scenario-01 .visual-stage {
-          min-height: 320px;
-          padding: 23px
-        }
+    min-height: 320px;
+    padding: 23px
+}
 
 #anna-scenario-01 .visual-stage:before,
 #anna-scenario-01 .visual-stage:after {
-          pointer-events: none
-        }
+    pointer-events: none
+}
 
 #anna-scenario-01 .discovery-detail {
-          max-height: none
-        }
+    max-height: none
+}
 
 #anna-scenario-01 .discovery-detail[hidden] {
-          display: none
-        }
+    display: none
+}
 
 #anna-scenario-01 .assist-panel[hidden] {
-          display: none
-        }
+    display: none
+}
 
 #anna-scenario-01 .assist-panel {
-          max-height: 350px;
-          overflow: auto
-        }
+    max-height: 350px;
+    overflow: auto
+}
 
 #anna-scenario-01 .answer-item {
-          display: flex;
-          justify-content: space-between;
-          align-items: start;
-          gap: 8px;
-          padding: 11px 0;
-          border-bottom: 1px solid #34556d
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 8px;
+    padding: 11px 0;
+    border-bottom: 1px solid #34556d
+}
 
 #anna-scenario-01 .answer-item:last-child {
-          border: 0
-        }
+    border: 0
+}
 
 #anna-scenario-01 .answer-copy {
-          flex: 1
-        }
+    flex: 1
+}
 
 #anna-scenario-01 .answer-ru {
-          font: 19px/1.35 Georgia;
-          color: #fff0cc
-        }
+    font: 19px/1.35 Georgia;
+    color: #fff0cc
+}
 
 #anna-scenario-01 .answer-en {
-          font: 13px/1.5 system-ui;
-          color: #c3d5e3;
-          margin-top: 3px
-        }
+    font: 13px/1.5 system-ui;
+    color: #c3d5e3;
+    margin-top: 3px
+}
 
 #anna-scenario-01 .answer-level {
-          font: 10px system-ui;
-          letter-spacing: 1px;
-          color: #efc27d;
-          text-transform: uppercase;
-          padding-top: 4px;
-          white-space: nowrap
-        }
+    font: 10px system-ui;
+    letter-spacing: 1px;
+    color: #efc27d;
+    text-transform: uppercase;
+    padding-top: 4px;
+    white-space: nowrap
+}
 
 #anna-scenario-01 .stage-head {
-          font: 700 11px system-ui;
-          letter-spacing: 2px;
-          color: #e7bd77;
-          text-transform: uppercase
-        }
+    font: 700 11px system-ui;
+    letter-spacing: 2px;
+    color: #e7bd77;
+    text-transform: uppercase
+}
 
 #anna-scenario-01 .stage-word {
-          font: clamp(28px, 3vw, 44px)/1.3 Georgia;
-          color: #fff2d9
-        }
+    font: clamp(28px, 3vw, 44px)/1.3 Georgia;
+    color: #fff2d9
+}
 
 #anna-scenario-01 .stage-sub {
-          font: italic 17px Georgia;
-          color: #d6e4ef
-        }
+    font: italic 17px Georgia;
+    color: #d6e4ef
+}
 
 #anna-scenario-01 .stage-tiles {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-          justify-content: center;
-          width: 100%
-        }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%
+}
 
 #anna-scenario-01 .stage-box {
-          flex: 1 1 150px;
-          border: 1px solid #6c8ca0;
-          border-radius: 12px;
-          background: #0a2844;
-          padding: 14px 10px;
-          min-width: 0
-        }
+    flex: 1 1 150px;
+    border: 1px solid #6c8ca0;
+    border-radius: 12px;
+    background: #0a2844;
+    padding: 14px 10px;
+    min-width: 0
+}
 
 #anna-scenario-01 .stage-box small {
-          display: block;
-          font: 11px system-ui;
-          color: #a9c3d5;
-          margin-bottom: 8px
-        }
+    display: block;
+    font: 11px system-ui;
+    color: #a9c3d5;
+    margin-bottom: 8px
+}
 
 #anna-scenario-01 .stage-box strong {
-          font: 24px Georgia;
-          color: #f8e6c9
-        }
+    font: 24px Georgia;
+    color: #f8e6c9
+}
 
 #anna-scenario-01 .stage-note {
-          font: 13px/1.6 system-ui;
-          color: #cbdbe6;
-          max-width: 480px
-        }
+    font: 13px/1.6 system-ui;
+    color: #cbdbe6;
+    max-width: 480px
+}
 
 #anna-scenario-01 .stage-choice {
-          padding: 10px 12px;
-          flex: 1 1 135px
-        }
+    padding: 10px 12px;
+    flex: 1 1 135px
+}
 
 #anna-scenario-01 .stage-choice.selected {
-          background: #86602e
-        }
+    background: #86602e
+}
 
 #anna-scenario-01 .stage-result {
-          font: 14px/1.6 system-ui;
-          color: #ffdfa0;
-          min-height: 22px
-        }
+    font: 14px/1.6 system-ui;
+    color: #ffdfa0;
+    min-height: 22px
+}
 
 #anna-scenario-01 .ending {
-          color: #ffd077;
-          font-weight: 700;
-          text-shadow: 0 0 10px #b47a3266
-        }
+    color: #ffd077;
+    font-weight: 700;
+    text-shadow: 0 0 10px #b47a3266
+}
 
 #anna-scenario-01 .discovery-detail h4 {
-          font: 24px Georgia;
-          color: #f2d59e;
-          margin: 3px 0 12px
-        }
+    font: 24px Georgia;
+    color: #f2d59e;
+    margin: 3px 0 12px
+}
 
 #anna-scenario-01 .discovery-detail h5 {
-          font: 17px Georgia;
-          color: #f4d59d;
-          margin: 16px 0 5px
-        }
+    font: 17px Georgia;
+    color: #f4d59d;
+    margin: 16px 0 5px
+}
 
 #anna-scenario-01 .discovery-detail p {
-          margin: 8px 0
-        }
+    margin: 8px 0
+}
 
 #anna-scenario-01 .discovery-detail .example {
-          border-left: 3px solid #d2a76b;
-          padding: 9px 12px;
-          background: #0b2843;
-          margin: 9px 0
-        }
+    border-left: 3px solid #d2a76b;
+    padding: 9px 12px;
+    background: #0b2843;
+    margin: 9px 0
+}
 
 #anna-scenario-01 .discovery-detail .ru {
-          font: 22px Georgia;
-          color: #fff0d5
-        }
+    font: 22px Georgia;
+    color: #fff0d5
+}
 
 #anna-scenario-01 .discovery-detail .en {
-          font: italic 13px Georgia;
-          color: #c4d7e5
-        }
+    font: italic 13px Georgia;
+    color: #c4d7e5
+}
 
 #anna-scenario-01 .discovery-detail .rule {
-          padding: 12px;
-          background: #09253f;
-          border: 1px solid #416781;
-          border-radius: 10px
-        }
+    padding: 12px;
+    background: #09253f;
+    border: 1px solid #416781;
+    border-radius: 10px
+}
 
 #anna-scenario-01 .discovery-detail .rule strong {
-          color: #f5d28b
-        }
+    color: #f5d28b
+}
 
 #anna-scenario-01 .practice-choices {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-top: 10px
-        }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px
+}
 
 #anna-scenario-01 .practice-choices button {
-          font-size: 17px
-        }
+    font-size: 17px
+}
 
 #anna-scenario-01 .practice-feedback {
-          font: 13px system-ui;
-          color: #f5d28b;
-          margin-top: 8px;
-          min-height: 18px
-        }
+    font: 13px system-ui;
+    color: #f5d28b;
+    margin-top: 8px;
+    min-height: 18px
+}
 
 #anna-scenario-01 .heard {
-          margin-top: 14px
-        }
+    margin-top: 14px
+}
 
 #anna-scenario-01 .assistance {
-          margin-top: 15px
-        }
+    margin-top: 15px
+}
 
 #anna-scenario-01 .fallback {
-          margin-top: 18px
-        }
+    margin-top: 18px
+}
 
 #anna-scenario-01 .buttons button,
 #anna-scenario-01 .assist-actions button {
-          padding: 10px 12px
-        }
+    padding: 10px 12px
+}
 
 @media (max-width:850px) {
-#anna-scenario-01 .conversation h2 {
-            font-size: 31px
-          }
+    #anna-scenario-01 .conversation h2 {
+        font-size: 31px
+    }
 }
 
 #anna-scenario-01 .anna-page {
-          height: 100vh;
-          overflow-y: auto;
-          overscroll-behavior: contain
-        }
+    height: 100vh;
+    overflow-y: auto;
+    overscroll-behavior: contain
+}
 
 #anna-scenario-01 .anna-page .back-to-gallery {
-          display: block;
-          margin: 12px auto 0;
-          background: #173d5a;
-          color: #f6d49c;
-          border: 1px solid #e4ba72
-        }
+    display: block;
+    margin: 12px auto 0;
+    background: #173d5a;
+    color: #f6d49c;
+    border: 1px solid #e4ba72
+}
 
 #anna-scenario-01 .anna-page .back-to-gallery:hover {
-          background: #285c80
-        }
+    background: #285c80
+}
 
 /* Overrides for Foundation-wide main/layout rules; Anna remains full-page. */
 #anna-scenario-01 main.shell {
@@ -21255,9 +21030,15 @@ h1 {
     max-width: 1480px;
     width: 100%;
 }
-#anna-scenario-01 .anna-page { line-height: normal; }
+
+#anna-scenario-01 .anna-page {
+    line-height: normal;
+}
+
 #anna-scenario-01 .anna-page button,
-#anna-scenario-01 .anna-page input { font-family: Georgia, serif; }
+#anna-scenario-01 .anna-page input {
+    font-family: Georgia, serif;
+}
 
 /* END SCENARIO 01 — ANNA LABORATORY STYLES (SCOPED) */
 
@@ -21270,9 +21051,11 @@ h1 {
     gap: 12px;
     margin-top: 12px;
 }
+
 #anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
     margin: 0;
 }
+
 /* END ANNA — TWO HEADER NAVIGATION BUTTONS */
 
 
@@ -21296,38 +21079,213 @@ h1 {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.015em;
-    text-shadow: 0 1px 1px rgba(0,0,0,.65);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.40),
-                inset 0 -2px 0 rgba(3,17,32,.40),
-                0 4px 0 #071b2d,
-                0 7px 13px rgba(0,0,0,.35);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .65);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .40),
+        inset 0 -2px 0 rgba(3, 17, 32, .40),
+        0 4px 0 #071b2d,
+        0 7px 13px rgba(0, 0, 0, .35);
     cursor: pointer;
     transform: translateY(0);
     transition: transform .16s ease, box-shadow .16s ease,
-                background .16s ease, border-color .16s ease;
+        background .16s ease, border-color .16s ease;
 }
+
 #anna-scenario-01 .anna-page .anna-navigation .back-to-gallery:hover {
     background: linear-gradient(180deg, #6597b7 0%, #397096 44%, #1a4c70 100%);
     border-color: #ffe1a5;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.55),
-                inset 0 -2px 0 rgba(3,17,32,.35),
-                0 5px 0 #071b2d,
-                0 9px 16px rgba(0,0,0,.38);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55),
+        inset 0 -2px 0 rgba(3, 17, 32, .35),
+        0 5px 0 #071b2d,
+        0 9px 16px rgba(0, 0, 0, .38);
     transform: translateY(-1px);
 }
+
 #anna-scenario-01 .anna-page .anna-navigation .back-to-gallery:active {
     transform: translateY(3px);
-    box-shadow: inset 0 2px 5px rgba(0,0,0,.35),
-                0 1px 0 #071b2d,
-                0 2px 5px rgba(0,0,0,.25);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, .35),
+        0 1px 0 #071b2d,
+        0 2px 5px rgba(0, 0, 0, .25);
 }
+
 #anna-scenario-01 .anna-page .anna-navigation .back-to-gallery:focus-visible {
     outline: 3px solid #ffe1a5;
     outline-offset: 4px;
 }
+
 @media (prefers-reduced-motion: reduce) {
     #anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
         transition: none;
     }
 }
+
 /* END ANNA — 3D GRADIENT NAVIGATION BUTTONS */
+
+/* BEGIN ANNA — VERTICAL SPACE OPTIMIZATION */
+#anna-scenario-01 .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    text-align: left;
+    padding: 4px 0 11px;
+}
+
+#anna-scenario-01 .masthead h1 {
+    margin: 0;
+    font-size: clamp(22px, 2.1vw, 30px);
+    line-height: 1.2;
+    flex: 0 1 auto;
+}
+
+#anna-scenario-01 .anna-navigation {
+    margin-top: 0;
+    justify-content: flex-end;
+    gap: 9px;
+}
+
+#anna-scenario-01 .anna-page .anna-navigation .back-to-gallery {
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: 12px;
+}
+
+#anna-scenario-01 .layout {
+    margin-top: 12px;
+}
+
+#anna-scenario-01 .visual-stage {
+    min-height: 215px;
+    padding: 14px 16px;
+    gap: 8px;
+}
+
+#anna-scenario-01 .visual-stage .stage-tiles {
+    gap: 8px;
+}
+
+#anna-scenario-01 .visual-stage .stage-box {
+    padding: 10px 9px;
+}
+
+#anna-scenario-01 .visual-stage .stage-box small {
+    margin-bottom: 4px;
+}
+
+#anna-scenario-01 .anna-recall-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+#anna-scenario-01 .anna-recall-prompt {
+    flex: 1 1 165px;
+    min-width: 0;
+}
+
+#anna-scenario-01 .anna-recall-prompt h5 {
+    margin: 0 0 4px;
+}
+
+#anna-scenario-01 .anna-recall-prompt p {
+    margin: 0;
+}
+
+#anna-scenario-01 .anna-recall-row .practice-choices {
+    flex: 0 1 auto;
+    margin-top: 0;
+    align-items: center;
+}
+
+@media (max-width:700px) {
+    #anna-scenario-01 .masthead {
+        justify-content: center;
+        text-align: center;
+    }
+
+    #anna-scenario-01 .anna-navigation {
+        justify-content: center;
+    }
+}
+
+@media (max-width:480px) {
+    #anna-scenario-01 .visual-stage {
+        min-height: 195px;
+        padding: 12px;
+    }
+
+    #anna-scenario-01 .anna-recall-row {
+        display: block;
+    }
+
+    #anna-scenario-01 .anna-recall-row .practice-choices {
+        margin-top: 8px;
+    }
+}
+
+/* END ANNA — VERTICAL SPACE OPTIMIZATION */
+
+
+/* Anna — italicize the response placeholder */
+#anna-scenario-01 #typed::placeholder {
+    font-style: italic;
+}
+/* ============================================================
+   BEGIN ANNA — VICTORIAN NAVY WALLPAPER
+   Reuses the Four Doors CSS wallpaper motif; only the Anna
+   full-screen host and its page background are affected.
+   All conversation panels retain their original backgrounds.
+   ============================================================ */
+#anna-scenario-01:not([hidden]),
+#anna-scenario-01 .anna-page {
+    background-color: #102a45;
+    background-image:
+        radial-gradient(ellipse 18px 29px at 50% 50%, rgba(155,177,194,.12) 0 16%, transparent 19%),
+        radial-gradient(ellipse 5px 14px at 50% 18%, rgba(185,201,213,.10) 0 45%, transparent 50%),
+        radial-gradient(ellipse 5px 14px at 50% 82%, rgba(185,201,213,.10) 0 45%, transparent 50%),
+        repeating-linear-gradient(45deg, transparent 0 31px, rgba(190,210,223,.035) 32px, transparent 33px 64px),
+        repeating-linear-gradient(-45deg, transparent 0 31px, rgba(190,210,223,.035) 32px, transparent 33px 64px),
+        linear-gradient(135deg, #193b5b, #0d233b 72%);
+    background-size: 84px 112px, 84px 112px, 84px 112px, auto, auto, auto;
+}
+/* END ANNA — VICTORIAN NAVY WALLPAPER */
+
+/* BEGIN LABORATORY LANDING — BACK TO FOUR DOORS IMAGE BUTTON */
+#door-four-laboratory .door-four__stage .door-four__landing-back {
+    position: absolute;
+    z-index: 5;
+    left: 1.2%;
+    bottom: 1.6%;
+    width: 24%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: pointer;
+    line-height: 0;
+    transition: filter .2s ease, transform .2s ease;
+}
+#door-four-laboratory .door-four__stage .door-four__landing-back img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+#door-four-laboratory .door-four__stage .door-four__landing-back:hover {
+    background: transparent;
+    filter: brightness(1.13) drop-shadow(0 0 9px rgba(255, 191, 74, .8));
+    transform: translateY(-2px);
+}
+#door-four-laboratory .door-four__stage .door-four__landing-back:focus-visible {
+    outline: 3px solid #ffe2a2;
+    outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+    #door-four-laboratory .door-four__stage .door-four__landing-back { transition: none; }
+}
+/* END LABORATORY LANDING — BACK TO FOUR DOORS IMAGE BUTTON */

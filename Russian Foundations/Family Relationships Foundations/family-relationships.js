@@ -6040,6 +6040,11 @@ document
             room.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
+    // BEGIN LABORATORY LANDING — IMAGE BUTTON RETURNS THROUGH EXISTING NAVIGATION
+    lab.querySelector('.door-four__landing-back')?.addEventListener('click', () => {
+        lab.querySelector('.door-four__return')?.click();
+    });
+    // END LABORATORY LANDING — IMAGE BUTTON RETURNS THROUGH EXISTING NAVIGATION
     lab.querySelector('.door-four__return')?.addEventListener('click', () => {
         if (room) room.hidden = true;
         if (hallway) {
@@ -10634,7 +10639,7 @@ function renderDetail(mode){
  if(mode==='meaning'){
   host.innerHTML=`<h4>${escapeHtml(d.title)}</h4><p class="stage-sub">${escapeHtml(d.summary)}</p>${d.blocks.map(([ru,en])=>`<div class="example"><div class="ru" lang="ru">${escapeHtml(ru)}</div><div class="en">${escapeHtml(en)}</div></div>`).join('')}`;
  }else{
-  host.innerHTML=`<h4>${escapeHtml(d.title)}</h4><p>${escapeHtml(d.intro)}</p><div class="stage-tiles">${d.compare.map(([ru,en])=>`<div class="stage-box"><small>${escapeHtml(en)}</small><strong lang="ru">${ru}</strong></div>`).join('')}</div><p class="rule">${escapeHtml(d.note)}</p><h5>See what you remember</h5><p>${escapeHtml(d.quiz.prompt)}</p><div class="practice-choices">${d.quiz.options.map((v,i)=>`<button type="button" data-quiz="${i}" lang="ru">${escapeHtml(v)}</button>`).join('')}</div><div class="practice-feedback" id="quiz-feedback" role="status"></div>`;
+  host.innerHTML=`<h4>${escapeHtml(d.title)}</h4><p>${escapeHtml(d.intro)}</p><div class="stage-tiles">${d.compare.map(([ru,en])=>`<div class="stage-box"><small>${escapeHtml(en)}</small><strong lang="ru">${ru}</strong></div>`).join('')}</div><p class="rule">${escapeHtml(d.note)}</p><div class="anna-recall-row"><div class="anna-recall-prompt"><h5>See what you remember</h5><p>${escapeHtml(d.quiz.prompt)}</p></div><div class="practice-choices">${d.quiz.options.map((v,i)=>`<button type="button" data-quiz="${i}" lang="ru">${escapeHtml(v)}</button>`).join('')}</div></div><div class="practice-feedback" id="quiz-feedback" role="status"></div>`;
   host.querySelectorAll('[data-quiz]').forEach(btn=>btn.addEventListener('click',()=>{host.querySelectorAll('[data-quiz]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');$('quiz-feedback').textContent=Number(btn.dataset.quiz)===d.quiz.correct?'Exactly! You spotted the pattern.':'Try the other form. Look at the highlighted change.';}));
  }
  host.hidden=false;
