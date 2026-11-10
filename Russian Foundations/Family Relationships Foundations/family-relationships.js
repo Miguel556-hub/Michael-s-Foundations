@@ -11202,3 +11202,50 @@ const conversations = {
   window.openAdditionalConversation = key => controllers[key]?.open();
 })();
 // END SCENARIOS 02–07 — ANNA-STYLE CONVERSATION LABORATORIES
+
+
+// ==========================================================
+// CULTURAL NOTES — FIVE-SCREEN ROTATING GALLERY (V1)
+// ==========================================================
+(function initCulturalNotesGallery(){
+  const interior=document.querySelector('#door-four-laboratory .door-four__drawer-interior');
+  if(!interior)return;
+  const gallery=interior.querySelector('#rw-cultural-notes');
+  const hotspot=interior.querySelector('[data-rw-spot="cultural-notes"]');
+  if(!gallery||!hotspot)return;
+  // Move the experience out of the Laboratory's stacking/positioning context.
+  // It remains the same gallery with the same event handlers and assets.
+  document.body.appendChild(gallery);
+  const screens=[...gallery.querySelectorAll('[data-cn-scene]')];
+  const dots=[...gallery.querySelectorAll('[data-cn-jump]')];
+  const detail=gallery.querySelector('#rw-cultural-detail');
+  let active=0,returnFocus=null;
+  function closeDetail(){detail.hidden=true;if(returnFocus){returnFocus.focus();returnFocus=null;}}
+  function showScene(index){closeDetail();active=(index+screens.length)%screens.length;
+    screens.forEach((s,i)=>{s.hidden=i!==active;});
+    dots.forEach((d,i)=>d.setAttribute('aria-current',String(i===active)));
+  }
+  function openGallery(){
+    if(interior.dataset.activeDrawer!=='real')return;
+    interior.querySelectorAll('#rw-signs,#rw-messages,#rw-menus,#rw-conversations').forEach(el=>{if(el)el.hidden=true;});
+    document.body.classList.add('cn-immersive-active');
+    gallery.hidden=false;showScene(0);
+    gallery.scrollTop=0;
+  }
+  function closeGallery(){closeDetail();gallery.hidden=true;document.body.classList.remove('cn-immersive-active');hotspot.focus();}
+  hotspot.addEventListener('click',openGallery);
+  gallery.querySelector('#rw-cultural-back').addEventListener('click',closeGallery);
+  gallery.querySelectorAll('[data-cn-direction]').forEach(b=>b.addEventListener('click',()=>showScene(active+Number(b.dataset.cnDirection))));
+  dots.forEach(b=>b.addEventListener('click',()=>showScene(Number(b.dataset.cnJump))));
+  gallery.querySelectorAll('[data-cn-discovery]').forEach(b=>b.addEventListener('click',()=>{
+    returnFocus=b;
+    detail.querySelector('#cn-detail-title').textContent=b.querySelector('strong').textContent;
+    detail.querySelector('#cn-detail-subtitle').textContent=b.querySelector('small').textContent;
+    detail.hidden=false;detail.querySelector('.cn-detail-close').focus();
+  }));
+  detail.querySelector('.cn-detail-close').addEventListener('click',closeDetail);
+  detail.querySelector('.cn-detail-return').addEventListener('click',closeDetail);
+  gallery.addEventListener('keydown',e=>{if(e.key==='Escape'&&!detail.hidden){e.preventDefault();closeDetail();}else if(detail.hidden&&e.key==='ArrowLeft'){showScene(active-1);}else if(detail.hidden&&e.key==='ArrowRight'){showScene(active+1);}});
+  // Existing drawer controller may switch to another tab; never overlay it.
+  interior.querySelectorAll('[data-drawer-tab],[data-drawer-nav]').forEach(b=>b.addEventListener('click',()=>{gallery.hidden=true;detail.hidden=true;document.body.classList.remove('cn-immersive-active');}));
+})();
