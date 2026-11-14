@@ -12258,8 +12258,8 @@ const conversations = {
             ]
         },
         sentences: {
-            title: 'Sentence Patterns & Expressions', russian: 'Предложения и выражения',
-            introduction: 'A complete Russian thought does not always follow an English sentence pattern. Practice the patterns you have already met.',
+            title: 'Sentence Patterns, Adverbs & Expressions', russian: 'Предложения, наречия и выражения',
+            introduction: 'Build natural sentences and discover how adverbs describe time, place, frequency and manner without changing for gender or case.',
             discoveries: [
                 ['Who is this?', 'Кто это? — Это мой брат.', 'Present-tense Russian does not need a separate “is” in this identification.'],
                 ['Having someone', 'У меня есть сестра.', 'Russian uses у + genitive pronoun + есть for possession.'],
@@ -12288,7 +12288,1399 @@ const conversations = {
         }
     };
 
+
+    // PLATFORM 02 EXPANSION — curated examples and application across every category.
+    collections.nouns.discoveries.push(...[
+        [
+                "Family members",
+                "мама · папа · брат · сестра · сын · дочь",
+                "These words name people. Their grammatical gender is not always predictable from the last letter: папа is masculine, дочь is feminine."
+        ],
+        [
+                "Grandparents",
+                "бабушка · дедушка · внук · внучка",
+                "Бабушка is feminine; дедушка is masculine even though it ends in -а. Внук is masculine; внучка is feminine."
+        ],
+        [
+                "Aunts and uncles",
+                "тётя · дядя · племянник · племянница",
+                "Тётя and племянница are feminine; дядя and племянник are masculine. Дядя is an important -я exception."
+        ],
+        [
+                "Spouses and partners",
+                "муж · жена · супруг · супруга",
+                "Муж and супруг are masculine; жена and супруга are feminine. Choose the matching possessive or adjective."
+        ],
+        [
+                "Relatives by marriage",
+                "свекровь · свёкор · тёща · тесть",
+                "These words distinguish a husband’s and a wife’s parents. Свекровь and тёща are feminine; свёкор and тесть are masculine."
+        ],
+        [
+                "More relatives",
+                "зять · невестка · двоюродный брат · двоюродная сестра",
+                "A cousin is often described with двоюродный/двоюродная plus брат/сестра. The adjective agrees with the noun."
+        ],
+        [
+                "Family and household",
+                "семья · родственник · родственница · человек",
+                "Семья is feminine, человек masculine. The plural of человек is often люди; counting uses человек: пять человек."
+        ],
+        [
+                "Common objects",
+                "стол · стул · дом · чай · суп",
+                "These are masculine nouns ending in a consonant. Practice matching мой, этот, новый, большой."
+        ],
+        [
+                "Everyday feminine nouns",
+                "книга · комната · школа · работа · помощь",
+                "Most nouns ending in -а are feminine; помощь is feminine despite ending in -ь."
+        ],
+        [
+                "Everyday neuter nouns",
+                "окно · письмо · место · слово · имя",
+                "Most nouns ending in -о or -е are neuter. Имя is neuter and belongs to a special declension pattern."
+        ],
+        [
+                "Soft-sign contrasts",
+                "мать · дочь · день · словарь",
+                "Мать and дочь are feminine, but день and словарь are masculine. A final -ь alone does not determine gender."
+        ],
+        [
+                "Plural discoveries",
+                "братья · сёстры · дети · люди · друзья",
+                "Some plurals change the stem or use an unexpected form: брат → братья, ребёнок → дети, человек → люди."
+        ],
+        [
+                "One, two, five",
+                "один брат · два брата · пять братьев",
+                "After one use the nominative singular; after two–four the genitive singular; after five and many other numbers the genitive plural in basic counting."
+        ],
+        [
+                "Counting family members",
+                "одна сестра · три сестры · семь сестёр",
+                "The same counting pattern applies to feminine nouns, but the actual forms differ: сестра → сестры → сестёр."
+        ],
+        [
+                "Prices and exceptions",
+                "один рубль · четыре рубля · двенадцать рублей",
+                "The last two digits matter for 11–14: they take рублей, even though 12 ends in 2."
+        ]
+]);
+    collections.nouns.questions.push(...[
+        [
+                "Choose “my grandfather.”",
+                "мой дедушка",
+                "моя дедушка",
+                "моё дедушка",
+                "мои дедушка",
+                "Дедушка is grammatically masculine despite ending in -а."
+        ],
+        [
+                "Choose “my daughter.”",
+                "моя дочь",
+                "мой дочь",
+                "моё дочь",
+                "мои дочь",
+                "Дочь is feminine despite its soft sign."
+        ],
+        [
+                "Choose “my day.”",
+                "мой день",
+                "моя день",
+                "моё день",
+                "мои день",
+                "День is masculine."
+        ],
+        [
+                "Choose “my help.”",
+                "моя помощь",
+                "мой помощь",
+                "моё помощь",
+                "мои помощь",
+                "Помощь is feminine."
+        ],
+        [
+                "Choose “my window.”",
+                "моё окно",
+                "мой окно",
+                "моя окно",
+                "мои окно",
+                "Окно is neuter."
+        ],
+        [
+                "Choose “my cousins” (male or mixed group).",
+                "мои двоюродные братья",
+                "мой двоюродные братья",
+                "моя двоюродные братья",
+                "моё двоюродные братья",
+                "Братья is plural, so мои and двоюродные agree."
+        ],
+        [
+                "Choose “two sisters.”",
+                "две сестры",
+                "два сестры",
+                "две сестра",
+                "пять сестры",
+                "Сестра is feminine; use две and the genitive singular сестры."
+        ],
+        [
+                "Choose “five sisters.”",
+                "пять сестёр",
+                "пять сестры",
+                "пять сестра",
+                "пять сёстры",
+                "Five takes genitive plural сестёр."
+        ],
+        [
+                "Choose “three people.”",
+                "три человека",
+                "три люди",
+                "три человек",
+                "три людей",
+                "With three, the counting form is человека."
+        ],
+        [
+                "Choose “seven people.”",
+                "семь человек",
+                "семь человека",
+                "семь люди",
+                "семь людя",
+                "The counting expression is семь человек."
+        ],
+        [
+                "Choose “my friends.”",
+                "мои друзья",
+                "мой друзья",
+                "моя друзья",
+                "моё друзья",
+                "Друзья is plural."
+        ],
+        [
+                "Choose “my mother.”",
+                "моя мать",
+                "мой мать",
+                "моё мать",
+                "мои мать",
+                "Мать is feminine."
+        ],
+        [
+                "Choose “four rubles.”",
+                "четыре рубля",
+                "четыре рубль",
+                "четыре рублей",
+                "четыре рубли",
+                "Four takes рубля."
+        ],
+        [
+                "Choose “fourteen rubles.”",
+                "четырнадцать рублей",
+                "четырнадцать рубля",
+                "четырнадцать рубль",
+                "четырнадцать рубли",
+                "11–14 use рублей."
+        ]
+]);
+    collections.nouns.build.push(...[
+        [
+                "This is my grandfather.",
+                [
+                        "Это",
+                        "мой",
+                        "дедушка."
+                ],
+                [
+                        "Это",
+                        "моя",
+                        "дедушка."
+                ],
+                "Это мой дедушка."
+        ],
+        [
+                "These are my children.",
+                [
+                        "Это",
+                        "мои",
+                        "дети."
+                ],
+                [
+                        "Это",
+                        "мой",
+                        "дети."
+                ],
+                "Это мои дети."
+        ],
+        [
+                "I have three sisters.",
+                [
+                        "У",
+                        "меня",
+                        "три",
+                        "сестры."
+                ],
+                [
+                        "У",
+                        "меня",
+                        "три",
+                        "сестёр."
+                ],
+                "У меня три сестры."
+        ],
+        [
+                "There are seven people in our family.",
+                [
+                        "В",
+                        "нашей",
+                        "семье",
+                        "семь",
+                        "человек."
+                ],
+                [
+                        "В",
+                        "наша",
+                        "семья",
+                        "семь",
+                        "люди."
+                ],
+                "В нашей семье семь человек."
+        ]
+]);
+    collections.pronouns.discoveries.push(...[
+        [
+                "Personal pronouns: subjects",
+                "я · ты · он · она · оно · мы · вы · они",
+                "These are nominative forms, commonly used for the subject of a sentence: я читаю; они читают."
+        ],
+        [
+                "I: all six cases",
+                "я · меня · мне · меня · мной · мне",
+                "Nominative я (subject); genitive меня (у меня); dative мне (дай мне); accusative меня (видит меня); instrumental мной (со мной); prepositional мне (обо мне). Some forms repeat across cases."
+        ],
+        [
+                "You, familiar: all cases",
+                "ты · тебя · тебе · тебя · тобой · тебе",
+                "Ты is nominative; тебя is genitive or accusative; тебе is dative or prepositional; тобой is instrumental. Examples: у тебя, к тебе, с тобой, о тебе."
+        ],
+        [
+                "He: forms and prepositions",
+                "он · его · ему · его · им · нём",
+                "Он is nominative. After many prepositions the third-person pronoun adds н-: у него, к нему, с ним, о нём."
+        ],
+        [
+                "She: forms and prepositions",
+                "она · её · ей · её · ей/ею · ней",
+                "Она is nominative. Compare у неё (genitive), к ней (dative), с ней (instrumental), о ней (prepositional)."
+        ],
+        [
+                "We and they",
+                "мы · нас · нам · нами · они · их · им · ими",
+                "Plural personal pronouns change by case too. Compare у нас, к нам, с нами and у них, к ним, с ними."
+        ],
+        [
+                "My: four nominative forms",
+                "мой брат · моя сестра · моё имя · мои родители",
+                "The possessive agrees with the noun owned—not the gender of the person speaking."
+        ],
+        [
+                "Your: familiar and polite",
+                "твой брат · твоя сестра · ваш отец · ваша мать",
+                "Твой is familiar singular; ваш is polite singular or plural. Each still agrees with the noun it describes."
+        ],
+        [
+                "Our and their",
+                "наш дом · наша семья · наши друзья · их семья",
+                "Наш changes for gender and number. Их (their) does not change to agree with the noun."
+        ],
+        [
+                "Whose?",
+                "чей брат? · чья сестра? · чьё имя? · чьи дети?",
+                "Choose чей, чья, чьё or чьи based on the noun being asked about."
+        ],
+        [
+                "My own / your own",
+                "Я люблю свою семью. · Она любит свою семью.",
+                "Свой points back to the grammatical subject. Here свою agrees with feminine accusative семью."
+        ],
+        [
+                "Possessives change case",
+                "моя сестра · моей сестры · моей сестре · мою сестру",
+                "The possessive and noun change together: nominative, genitive, dative and accusative forms are shown in order."
+        ],
+        [
+                "Who and whom",
+                "кто? · кого? · кому? · кем? · о ком?",
+                "Кто is nominative, кого genitive/accusative, кому dative, кем instrumental, о ком prepositional."
+        ],
+        [
+                "This person / these people",
+                "этот брат · эта сестра · это имя · эти дети",
+                "Demonstratives agree with noun gender and number, just as possessives do."
+        ]
+]);
+    collections.pronouns.questions.push(...[
+        [
+                "Which case is я in “Я читаю”?",
+                "nominative",
+                "instrumental",
+                "genitive",
+                "dative",
+                "Я is the nominative subject."
+        ],
+        [
+                "Which case is меня after у in “У меня есть брат”?",
+                "genitive",
+                "instrumental",
+                "nominative",
+                "dative",
+                "У governs genitive: у меня."
+        ],
+        [
+                "Which case is меня in “Он видит меня”?",
+                "accusative",
+                "genitive",
+                "dative",
+                "prepositional",
+                "Меня is the direct object, so accusative."
+        ],
+        [
+                "Which case is мне in “Дай мне книгу”?",
+                "dative",
+                "instrumental",
+                "accusative",
+                "nominative",
+                "Мне is the recipient, dative."
+        ],
+        [
+                "Which case is мной in “Она говорит со мной”?",
+                "instrumental",
+                "nominative",
+                "dative",
+                "genitive",
+                "С(о) meaning with governs instrumental: мной."
+        ],
+        [
+                "Which case is мне in “Обо мне”?",
+                "prepositional",
+                "dative",
+                "instrumental",
+                "nominative",
+                "Обо governs prepositional here: обо мне."
+        ],
+        [
+                "Choose “with you” (familiar).",
+                "с тобой",
+                "с тебя",
+                "с тебе",
+                "с ты",
+                "С governs instrumental: тобой."
+        ],
+        [
+                "Choose “to her” after к.",
+                "к ней",
+                "к её",
+                "к она",
+                "к ею",
+                "К takes dative; after the preposition use ней."
+        ],
+        [
+                "Choose “about him.”",
+                "о нём",
+                "о его",
+                "о он",
+                "о ему",
+                "О takes prepositional: о нём."
+        ],
+        [
+                "Choose “our family.”",
+                "наша семья",
+                "наш семья",
+                "наше семья",
+                "наши семья",
+                "Наша agrees with feminine семья."
+        ],
+        [
+                "Choose “their family.”",
+                "их семья",
+                "ихняя семья",
+                "ихой семья",
+                "ихое семья",
+                "Их is the standard invariable possessive form."
+        ],
+        [
+                "Choose “whose children?”",
+                "чьи дети?",
+                "чей дети?",
+                "чья дети?",
+                "чьё дети?",
+                "Дети is plural; use чьи."
+        ],
+        [
+                "Choose “my sister” as a direct object.",
+                "мою сестру",
+                "моя сестра",
+                "моей сестре",
+                "моей сестрой",
+                "Feminine accusative: мою сестру."
+        ],
+        [
+                "Choose “I love my own family.”",
+                "Я люблю свою семью.",
+                "Я люблю свой семью.",
+                "Я люблю своё семью.",
+                "Я люблю свои семью.",
+                "Свою agrees with feminine accusative семью."
+        ]
+]);
+    collections.pronouns.build.push(...[
+        [
+                "She is speaking with me.",
+                [
+                        "Она",
+                        "говорит",
+                        "со",
+                        "мной."
+                ],
+                [
+                        "Она",
+                        "говорит",
+                        "со",
+                        "меня."
+                ],
+                "Она говорит со мной."
+        ],
+        [
+                "We are talking about him.",
+                [
+                        "Мы",
+                        "говорим",
+                        "о",
+                        "нём."
+                ],
+                [
+                        "Мы",
+                        "говорим",
+                        "о",
+                        "его."
+                ],
+                "Мы говорим о нём."
+        ],
+        [
+                "This is our family.",
+                [
+                        "Это",
+                        "наша",
+                        "семья."
+                ],
+                [
+                        "Это",
+                        "наш",
+                        "семья."
+                ],
+                "Это наша семья."
+        ],
+        [
+                "I am going to her.",
+                [
+                        "Я",
+                        "иду",
+                        "к",
+                        "ней."
+                ],
+                [
+                        "Я",
+                        "иду",
+                        "к",
+                        "её."
+                ],
+                "Я иду к ней."
+        ]
+]);
+    collections.cases.discoveries.push(...[
+        [
+                "What is a case?",
+                "брат · брата · брату · братом · брате",
+                "A case marks a word’s grammatical role. The same person can be a subject, object, recipient, companion, or topic; the noun form changes accordingly."
+        ],
+        [
+                "What is declension?",
+                "сестра → сестры → сестре → сестру → сестрой",
+                "Declension means the pattern of case endings a noun (and its agreeing words) takes. Different noun groups follow different patterns."
+        ],
+        [
+                "Nominative: the subject",
+                "Моя сестра читает.",
+                "WHO is acting? Сестра is the subject, so nominative is used. It also names or identifies: Это моя сестра."
+        ],
+        [
+                "Genitive: absence",
+                "У меня нет брата.",
+                "Нет commonly requires the genitive for what is absent: нет брата, нет сестры. The construction у меня also uses genitive меня."
+        ],
+        [
+                "Genitive: possession and origin",
+                "книга брата · у сестры · из дома",
+                "Genitive can express whose, with у (at/with), and after prepositions such as из, без, для, от."
+        ],
+        [
+                "Genitive: quantities",
+                "два брата · пять братьев · много людей",
+                "Counting and quantity expressions trigger particular forms. Basic 2–4 uses genitive singular; 5+ commonly genitive plural, with important exceptions."
+        ],
+        [
+                "Dative: recipient",
+                "Я даю брату книгу.",
+                "WHO receives something? Брату is dative. Verbs such as давать and помогать often govern dative."
+        ],
+        [
+                "Dative: experiencer",
+                "Мне нравится чай. · Ей холодно.",
+                "The person experiencing a feeling or preference often appears in dative: мне, ей, брату."
+        ],
+        [
+                "Dative: toward a person",
+                "Я иду к сестре.",
+                "The preposition к takes dative: к брату, к сестре, к родителям."
+        ],
+        [
+                "Accusative: direct object",
+                "Я люблю сестру. · Я вижу брата.",
+                "WHOM or WHAT does the action affect directly? Сестру and брата are accusative objects."
+        ],
+        [
+                "Accusative: destination",
+                "Я иду в школу. · Мы идём на работу.",
+                "With movement toward a destination, в and на commonly take accusative. Contrast location: в школе, на работе."
+        ],
+        [
+                "Instrumental: with someone",
+                "Я говорю с сестрой.",
+                "С + instrumental expresses accompaniment: с братом, с сестрой, с друзьями."
+        ],
+        [
+                "Instrumental: means or role",
+                "Я пишу ручкой. · Он работает учителем.",
+                "Instrumental can identify a tool or means, and may express a profession or role after certain verbs."
+        ],
+        [
+                "Prepositional: location",
+                "Я живу в Москве. · Она в школе.",
+                "After в or на indicating location rather than destination, use prepositional: в Москве, в школе, на работе."
+        ],
+        [
+                "Prepositional: topic",
+                "Мы говорим о семье.",
+                "О/об takes prepositional when meaning about: о брате, о сестре, об имени."
+        ],
+        [
+                "One preposition, two cases",
+                "в школу → в школе · на работу → на работе",
+                "В/на + accusative often marks movement to a place; в/на + prepositional often marks location there. Meaning matters."
+        ],
+        [
+                "Animate masculine objects",
+                "Я вижу брата. · Я вижу стол.",
+                "Masculine animate singular accusative often matches genitive (брата), while inanimate accusative often matches nominative (стол)."
+        ],
+        [
+                "Declension: feminine -а",
+                "сестра · сестры · сестре · сестру · сестрой · сестре",
+                "Follow one noun through nominative, genitive, dative, accusative, instrumental, and prepositional."
+        ],
+        [
+                "Declension: masculine consonant",
+                "брат · брата · брату · брата · братом · брате",
+                "Masculine брат changes differently from сестра. Its accusative matches genitive because it is animate."
+        ],
+        [
+                "Agreement travels together",
+                "моя сестра → моей сестры → моей сестре",
+                "The possessive changes with the noun. Learn whole phrases, not isolated endings."
+        ]
+]);
+    collections.cases.questions.push(...[
+        [
+                "Which case is the subject in “Брат читает”?",
+                "nominative",
+                "instrumental",
+                "genitive",
+                "dative",
+                "Брат is doing the action: nominative."
+        ],
+        [
+                "After нет, which case is normally required?",
+                "genitive",
+                "nominative",
+                "dative",
+                "instrumental",
+                "Нет commonly requires genitive: нет брата."
+        ],
+        [
+                "Which case follows к in “к сестре”?",
+                "dative",
+                "accusative",
+                "instrumental",
+                "nominative",
+                "К takes dative."
+        ],
+        [
+                "Which case is the direct object in “Я вижу сестру”?",
+                "accusative",
+                "prepositional",
+                "nominative",
+                "instrumental",
+                "Сестру receives the action: accusative."
+        ],
+        [
+                "Which case follows с meaning “with” in “с братом”?",
+                "instrumental",
+                "genitive",
+                "dative",
+                "nominative",
+                "С + instrumental expresses accompaniment."
+        ],
+        [
+                "Which case follows о in “о семье”?",
+                "prepositional",
+                "accusative",
+                "nominative",
+                "instrumental",
+                "О governs prepositional when meaning “about.”"
+        ],
+        [
+                "Choose “I am going to school.”",
+                "Я иду в школу.",
+                "Я иду в школе.",
+                "Я иду в школой.",
+                "Я иду в школы.",
+                "Destination after в uses accusative: в школу."
+        ],
+        [
+                "Choose “I am at school.”",
+                "Я в школе.",
+                "Я в школу.",
+                "Я в школой.",
+                "Я в школы.",
+                "Location after в uses prepositional: в школе."
+        ],
+        [
+                "Choose “I have no sister.”",
+                "У меня нет сестры.",
+                "У меня нет сестра.",
+                "У меня нет сестре.",
+                "У меня нет сестрой.",
+                "Нет triggers genitive сестры."
+        ],
+        [
+                "Choose “I give a book to my brother.”",
+                "Я даю книгу брату.",
+                "Я даю книгу братом.",
+                "Я даю книгу брата.",
+                "Я даю книгу брат.",
+                "Recipient брату is dative."
+        ],
+        [
+                "Choose “I am talking with my sister.”",
+                "Я говорю с сестрой.",
+                "Я говорю с сестру.",
+                "Я говорю с сестра.",
+                "Я говорю с сестре.",
+                "With someone takes instrumental сестрой."
+        ],
+        [
+                "Choose “We are talking about our family.”",
+                "Мы говорим о нашей семье.",
+                "Мы говорим о наша семья.",
+                "Мы говорим о нашу семью.",
+                "Мы говорим о нашей семью.",
+                "О + prepositional: о нашей семье."
+        ],
+        [
+                "Choose “I see my brother.”",
+                "Я вижу брата.",
+                "Я вижу брат.",
+                "Я вижу брату.",
+                "Я вижу братом.",
+                "Animate masculine accusative братa matches genitive."
+        ],
+        [
+                "Choose “I see the table.”",
+                "Я вижу стол.",
+                "Я вижу стола.",
+                "Я вижу столом.",
+                "Я вижу столу.",
+                "Inanimate masculine accusative стол matches nominative."
+        ],
+        [
+                "What does declension describe?",
+                "a pattern of case-form changes",
+                "the stress of every Russian word",
+                "a verb tense",
+                "the number of syllables",
+                "Declension is the pattern of case forms of nouns and agreeing words."
+        ],
+        [
+                "Choose “from the house.”",
+                "из дома",
+                "из дом",
+                "из домом",
+                "из доме",
+                "Из normally governs genitive: из дома."
+        ]
+]);
+    collections.cases.build.push(...[
+        [
+                "I am going to school.",
+                [
+                        "Я",
+                        "иду",
+                        "в",
+                        "школу."
+                ],
+                [
+                        "Я",
+                        "иду",
+                        "в",
+                        "школе."
+                ],
+                "Я иду в школу."
+        ],
+        [
+                "I am at school.",
+                [
+                        "Я",
+                        "в",
+                        "школе."
+                ],
+                [
+                        "Я",
+                        "в",
+                        "школу."
+                ],
+                "Я в школе."
+        ],
+        [
+                "I give a book to my brother.",
+                [
+                        "Я",
+                        "даю",
+                        "книгу",
+                        "брату."
+                ],
+                [
+                        "Я",
+                        "даю",
+                        "книгу",
+                        "брата."
+                ],
+                "Я даю книгу брату."
+        ],
+        [
+                "I am talking with my sister.",
+                [
+                        "Я",
+                        "говорю",
+                        "с",
+                        "сестрой."
+                ],
+                [
+                        "Я",
+                        "говорю",
+                        "с",
+                        "сестру."
+                ],
+                "Я говорю с сестрой."
+        ]
+]);
+    collections.adjectives.discoveries.push(...[
+        [
+                "Big: four agreements",
+                "большой дом · большая семья · большое окно · большие дома",
+                "Большой changes for masculine, feminine, neuter and plural nouns."
+        ],
+        [
+                "Small: four agreements",
+                "маленький брат · маленькая сестра · маленькое окно · маленькие дети",
+                "Adjectives ending in -ий often use -яя, -ее, -ие in other forms; learn the full pattern."
+        ],
+        [
+                "New: four agreements",
+                "новый друг · новая книга · новое имя · новые друзья",
+                "The noun controls adjective agreement. Compare the adjective endings."
+        ],
+        [
+                "Good: four agreements",
+                "хороший отец · хорошая мать · хорошее место · хорошие люди",
+                "The stem ends in ш, affecting spelling of the adjective endings."
+        ],
+        [
+                "Beautiful: four agreements",
+                "красивый дом · красивая семья · красивое имя · красивые города",
+                "A productive adjective pattern for descriptions."
+        ],
+        [
+                "Kind: family descriptions",
+                "добрый дедушка · добрая бабушка · доброе слово · добрые люди",
+                "The adjective agrees with grammatical gender: дедушка is masculine despite -а."
+        ],
+        [
+                "Smart: family descriptions",
+                "умный сын · умная дочь · умное решение · умные дети",
+                "Use -ый, -ая, -ое, -ые with this adjective pattern."
+        ],
+        [
+                "Friendly and close",
+                "дружная семья · близкий друг · близкая подруга",
+                "Дружная describes a close-knit family; близкий/близкая describe closeness."
+        ],
+        [
+                "Older and younger siblings",
+                "старший брат · старшая сестра · младший сын · младшая дочь",
+                "Старший/младший often indicate birth order. They are adjectives and agree with the noun."
+        ],
+        [
+                "Taller and shorter",
+                "Анна выше Ивана. · Иван ниже Анны.",
+                "Выше and ниже are comparative forms; they do not change for gender."
+        ],
+        [
+                "Older and younger: comparison",
+                "Сестра старше брата. · Брат младше сестры.",
+                "Старше and младше are comparative forms. The person compared against often appears in genitive."
+        ],
+        [
+                "More and less",
+                "более интересный · менее сложная",
+                "Более/менее combine with an adjective. The adjective still agrees with its noun."
+        ],
+        [
+                "Superlative agreement",
+                "самый старший брат · самая младшая сестра",
+                "Самый changes for the noun: самый, самая, самое, самые."
+        ],
+        [
+                "Adjectives change with case",
+                "новая книга → новой книги → новую книгу",
+                "An adjective and noun decline together; the feminine endings change when case changes."
+        ],
+        [
+                "Describing a person",
+                "высокий брат · весёлая сестра · спокойный отец",
+                "These are descriptions, not comparisons. Match adjective form to noun gender."
+        ]
+]);
+    collections.adjectives.questions.push(...[
+        [
+                "Choose “big family.”",
+                "большая семья",
+                "большой семья",
+                "большое семья",
+                "большие семья",
+                "Семья is feminine."
+        ],
+        [
+                "Choose “big window.”",
+                "большое окно",
+                "большая окно",
+                "большой окно",
+                "большие окно",
+                "Окно is neuter."
+        ],
+        [
+                "Choose “small children.”",
+                "маленькие дети",
+                "маленький дети",
+                "маленькая дети",
+                "маленькое дети",
+                "Дети is plural."
+        ],
+        [
+                "Choose “new book.”",
+                "новая книга",
+                "новый книга",
+                "новое книга",
+                "новые книга",
+                "Книга is feminine."
+        ],
+        [
+                "Choose “good mother.”",
+                "хорошая мать",
+                "хороший мать",
+                "хорошее мать",
+                "хорошие мать",
+                "Мать is feminine."
+        ],
+        [
+                "Choose “kind grandfather.”",
+                "добрый дедушка",
+                "добрая дедушка",
+                "доброе дедушка",
+                "добрые дедушка",
+                "Дедушка is masculine."
+        ],
+        [
+                "Choose “smart daughter.”",
+                "умная дочь",
+                "умный дочь",
+                "умное дочь",
+                "умные дочь",
+                "Дочь is feminine."
+        ],
+        [
+                "Choose “beautiful name.”",
+                "красивое имя",
+                "красивый имя",
+                "красивая имя",
+                "красивые имя",
+                "Имя is neuter."
+        ],
+        [
+                "Choose “older sister.”",
+                "старшая сестра",
+                "старший сестра",
+                "старшее сестра",
+                "старшие сестра",
+                "Старшая agrees with feminine сестра."
+        ],
+        [
+                "Choose “younger son.”",
+                "младший сын",
+                "младшая сын",
+                "младшее сын",
+                "младшие сын",
+                "Младший agrees with masculine сын."
+        ],
+        [
+                "Choose “Anna is taller than Ivan.”",
+                "Анна выше Ивана.",
+                "Анна высокая Ивана.",
+                "Анна выше Иван.",
+                "Анна высшая Ивану.",
+                "Comparative выше + genitive Ивана."
+        ],
+        [
+                "Choose “the youngest daughter.”",
+                "самая младшая дочь",
+                "самый младшая дочь",
+                "самое младшая дочь",
+                "самые младшая дочь",
+                "Самая agrees with feminine дочь."
+        ],
+        [
+                "Choose “a new book” as a direct object.",
+                "новую книгу",
+                "новая книга",
+                "новой книге",
+                "новой книгой",
+                "Feminine accusative: новую книгу."
+        ],
+        [
+                "Choose “my close friend” (male).",
+                "мой близкий друг",
+                "моя близкий друг",
+                "моё близкий друг",
+                "мои близкий друг",
+                "Both possessive and adjective agree with masculine друг."
+        ]
+]);
+    collections.adjectives.build.push(...[
+        [
+                "This is my kind grandfather.",
+                [
+                        "Это",
+                        "мой",
+                        "добрый",
+                        "дедушка."
+                ],
+                [
+                        "Это",
+                        "моя",
+                        "добрая",
+                        "дедушка."
+                ],
+                "Это мой добрый дедушка."
+        ],
+        [
+                "I see a new book.",
+                [
+                        "Я",
+                        "вижу",
+                        "новую",
+                        "книгу."
+                ],
+                [
+                        "Я",
+                        "вижу",
+                        "новая",
+                        "книга."
+                ],
+                "Я вижу новую книгу."
+        ],
+        [
+                "This is my beautiful family.",
+                [
+                        "Это",
+                        "моя",
+                        "красивая",
+                        "семья."
+                ],
+                [
+                        "Это",
+                        "мой",
+                        "красивый",
+                        "семья."
+                ],
+                "Это моя красивая семья."
+        ],
+        [
+                "The sister is younger than the brother.",
+                [
+                        "Сестра",
+                        "младше",
+                        "брата."
+                ],
+                [
+                        "Сестра",
+                        "младшая",
+                        "брат."
+                ],
+                "Сестра младше брата."
+        ]
+]);
+    collections.sentences.discoveries.push(...[
+        [
+                "Introducing people",
+                "Кто это? — Это моя сестра.",
+                "Russian normally omits present-tense “is” when identifying someone."
+        ],
+        [
+                "Family possession",
+                "У меня есть брат. · У нас есть дети.",
+                "Use у + genitive person + есть to say someone has something or someone."
+        ],
+        [
+                "Absence and genitive",
+                "У меня нет сестры. · У него нет брата.",
+                "Нет commonly takes genitive for what is missing."
+        ],
+        [
+                "Family size",
+                "В нашей семье пять человек.",
+                "В + prepositional indicates location/context. After пять, use человек in this counting construction."
+        ],
+        [
+                "Age",
+                "Моему брату десять лет.",
+                "Russian age expressions use dative for the person: моему брату; the years word changes with the number."
+        ],
+        [
+                "Preferences",
+                "Мне нравится чай. · Мне нравятся книги.",
+                "The thing liked is the grammatical subject; нравится is singular, нравятся plural."
+        ],
+        [
+                "Comparing relatives",
+                "Моя сестра старше меня.",
+                "The person compared against appears in genitive: меня."
+        ],
+        [
+                "Introducing relatives",
+                "Это мой дядя. · Это моя тётя.",
+                "Choose possessive agreement according to the grammatical gender of the relative."
+        ],
+        [
+                "Speaking politely",
+                "Как поживаешь? · Как поживаете?",
+                "Use -ешь for familiar singular ты, -ете for polite/plural вы in this verb."
+        ],
+        [
+                "Offering food",
+                "Угощайся! · Угощайтесь!",
+                "One familiar person: угощайся. Polite or several people: угощайтесь."
+        ],
+        [
+                "Wishing a good meal",
+                "Приятного аппетита!",
+                "A fixed social expression; its genitive forms are part of the conventional wish."
+        ],
+        [
+                "After introductions",
+                "Очень приятно!",
+                "A common expression meaning “Very pleased to meet you.”"
+        ],
+        [
+                "Talking about family",
+                "Мы говорим о нашей семье.",
+                "О + prepositional: о нашей семье, о брате, о сестре."
+        ],
+        [
+                "Going to a place",
+                "Мы идём в гости. · Она идёт в школу.",
+                "Movement toward a destination commonly uses accusative after в."
+        ],
+        [
+                "At a place",
+                "Мы дома. · Она в школе.",
+                "Location uses prepositional after в/на; дома is an adverb meaning “at home.”"
+        ],
+        [
+                "Adverbs: time",
+                "сегодня · вчера · завтра · сейчас · потом",
+                "These answer WHEN? They do not change for gender or case."
+        ],
+        [
+                "Adverbs: frequency",
+                "всегда · часто · иногда · редко · никогда",
+                "These answer HOW OFTEN? Use them to make realistic family routines."
+        ],
+        [
+                "Adverbs: manner",
+                "хорошо · плохо · быстро · медленно · тихо",
+                "These answer HOW? Unlike adjectives, adverbs do not agree with a noun."
+        ],
+        [
+                "Adverbs: place",
+                "здесь · там · дома · рядом · далеко",
+                "These answer WHERE? Compare дома (at home) with домой (toward home)."
+        ],
+        [
+                "Adverbs: degree",
+                "очень · слишком · немного · совсем",
+                "These modify degree: очень хорошо, немного устал, совсем близко."
+        ],
+        [
+                "Adjective or adverb?",
+                "хороший брат · брат хорошо говорит",
+                "Хороший describes a noun (brother); хорошо describes how he speaks. The adverb does not change."
+        ],
+        [
+                "Time in a sentence",
+                "Сегодня мы вместе. · Завтра мы дома.",
+                "Time adverbs can appear early in a sentence for emphasis without changing form."
+        ],
+        [
+                "Frequency in a sentence",
+                "Мы часто говорим. · Она редко опаздывает.",
+                "Frequency adverbs add meaning to verbs; they do not take case endings."
+        ]
+]);
+    collections.sentences.questions.push(...[
+        [
+                "Choose “Today we are home.”",
+                "Сегодня мы дома.",
+                "Сегодня мы домой.",
+                "Сегодня нас дома.",
+                "Сегодня мы дому.",
+                "Сегодня is a time adverb; дома means at home."
+        ],
+        [
+                "Choose “Tomorrow we will be at home.”",
+                "Завтра мы будем дома.",
+                "Завтра мы быть дома.",
+                "Завтра мы была дома.",
+                "Завтра мы будут дома.",
+                "Будем is the мы future form of быть."
+        ],
+        [
+                "Choose “We often talk.”",
+                "Мы часто говорим.",
+                "Мы частый говорим.",
+                "Мы частая говорим.",
+                "Мы частое говорим.",
+                "Часто is an adverb; it does not agree with мы."
+        ],
+        [
+                "Choose “She speaks slowly.”",
+                "Она говорит медленно.",
+                "Она говорит медленная.",
+                "Она говорит медленный.",
+                "Она говорит медленное.",
+                "Медленно describes how she speaks."
+        ],
+        [
+                "Choose “He speaks well.”",
+                "Он хорошо говорит.",
+                "Он хороший говорит.",
+                "Он хорошая говорит.",
+                "Он хорошие говорит.",
+                "Хорошо is an adverb; хороший is an adjective."
+        ],
+        [
+                "Choose “a good brother.”",
+                "хороший брат",
+                "хорошо брат",
+                "хорошая брат",
+                "хорошее брат",
+                "Хороший is an adjective modifying брат."
+        ],
+        [
+                "Choose “My sister is here.”",
+                "Моя сестра здесь.",
+                "Моя сестра здесья.",
+                "Моя сестра здесем.",
+                "Моя сестра здесой.",
+                "Здесь is an invariable place adverb."
+        ],
+        [
+                "Choose “We live nearby.”",
+                "Мы живём рядом.",
+                "Мы живём рядомая.",
+                "Мы живём рядомый.",
+                "Мы живём рядомое.",
+                "Рядом is an adverb of place."
+        ],
+        [
+                "Choose “She rarely arrives late.”",
+                "Она редко опаздывает.",
+                "Она редкая опаздывает.",
+                "Она редкий опаздывает.",
+                "Она редкое опаздывает.",
+                "Редко is an adverb of frequency."
+        ],
+        [
+                "Choose “I am going home.”",
+                "Я иду домой.",
+                "Я иду дома.",
+                "Я иду домом.",
+                "Я иду доме.",
+                "Домой indicates direction toward home; дома means at home."
+        ],
+        [
+                "Choose “We are talking about the family.”",
+                "Мы говорим о семье.",
+                "Мы говорим о семью.",
+                "Мы говорим о семья.",
+                "Мы говорим о семьёй.",
+                "О takes prepositional семье."
+        ],
+        [
+                "Choose “They are always together.”",
+                "Они всегда вместе.",
+                "Они всегда вместая.",
+                "Они всегда вместый.",
+                "Они всегда вместое.",
+                "Всегда and вместе are adverbs and do not decline."
+        ],
+        [
+                "Choose “I sometimes read.”",
+                "Я иногда читаю.",
+                "Я иногда читаешь.",
+                "Я иногда читают.",
+                "Я иногда читает.",
+                "Иногда is a frequency adverb; я takes читаю."
+        ],
+        [
+                "Choose “The children are very happy.”",
+                "Дети очень рады.",
+                "Дети очень рад.",
+                "Дети очень рада.",
+                "Дети очень радо.",
+                "Очень is an adverb of degree; рады is plural short adjective."
+        ]
+]);
+    collections.sentences.build.push(...[
+        [
+                "Today we are at home.",
+                [
+                        "Сегодня",
+                        "мы",
+                        "дома."
+                ],
+                [
+                        "Сегодня",
+                        "мы",
+                        "домой."
+                ],
+                "Сегодня мы дома."
+        ],
+        [
+                "She speaks Russian well.",
+                [
+                        "Она",
+                        "хорошо",
+                        "говорит",
+                        "по-русски."
+                ],
+                [
+                        "Она",
+                        "хорошая",
+                        "говорит",
+                        "по-русски."
+                ],
+                "Она хорошо говорит по-русски."
+        ],
+        [
+                "We often read together.",
+                [
+                        "Мы",
+                        "часто",
+                        "читаем",
+                        "вместе."
+                ],
+                [
+                        "Мы",
+                        "частый",
+                        "читаем",
+                        "вместе."
+                ],
+                "Мы часто читаем вместе."
+        ],
+        [
+                "I am going home.",
+                [
+                        "Я",
+                        "иду",
+                        "домой."
+                ],
+                [
+                        "Я",
+                        "иду",
+                        "дома."
+                ],
+                "Я иду домой."
+        ]
+]);
+
     const state = {category: 'nouns', stage: 'remember', discovery: 0, question: 0, score: 0, answered: false, builder: 0, builderChoice: -1};
+
+    // Learner-controlled meaning support is scoped to Platform 02.
+    // Keep support when moving between categories; do not affect other stations.
+    let grammarMeaningMode = 'show';
+
+    const grammarMeaningGlosses = {
+        'мой брат · мой отец': 'my brother · my father',
+        'моя сестра · моя мама': 'my sister · my mom',
+        'моё имя': 'my name',
+        'мои родители · мои братья': 'my parents · my brothers',
+        'один брат · два брата · пять братьев': 'one brother · two brothers · five brothers',
+        'один рубль · два рубля · пять рублей': 'one ruble · two rubles · five rubles',
+        'мой · моя · моё · мои': 'my (masculine · feminine · neuter · plural)',
+        'чей · чья · чьё · чьи': 'whose (masculine · feminine · neuter · plural)',
+        'твой · ваш': 'your (familiar singular · polite or plural)',
+        'Я люблю свою семью.': 'I love my family.',
+        'У меня есть брат.': 'I have a brother.',
+        'я → меня → мне → мной': 'I → me / of me → to me / for me → with me (case depends on context)'
+    };
+
+    function meaningIsVisible() {
+        return grammarMeaningMode === 'show';
+    }
+
+    function renderMeaningControls() {
+        return `<div class="gt-meaning-controls" role="group" aria-label="English meaning support">
+            <span class="gt-meaning-controls-title">ENGLISH MEANING SUPPORT</span>
+            <div class="gt-meaning-switches">
+                <button type="button" data-grammar-meaning-mode="show" aria-pressed="${grammarMeaningMode === 'show'}">Show English Meanings</button>
+                <button type="button" data-grammar-meaning-mode="russian" aria-pressed="${grammarMeaningMode === 'russian'}">Russian Only</button>
+            </div>
+        </div>`;
+    }
+
+    function renderMeaningSupport(russian, fallback) {
+        if (!meaningIsVisible()) return '';
+        const exact = grammarMeaningGlosses[russian];
+        return `<p class="gt-meaning-gloss"><strong>${exact ? 'English meaning:' : 'Meaning & usage:'}</strong> ${escapeHTML(exact || fallback)}</p>`;
+    }
+
     const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
     const current = () => collections[state.category];
 
@@ -12303,17 +13695,295 @@ const conversations = {
         window.speechSynthesis.speak(utterance);
     }
 
+    // PLATFORM 02 — VISIBLE GRAMMATICAL CHANGES
+    // Only explicitly reviewed forms are highlighted. This avoids pretending
+    // that every Russian word has a simple, separable ending.
+    const grammarEndingForms = {
+        'люблю': ['любл', 'ю'], 'любишь': ['люб', 'ишь'],
+        'любит': ['люб', 'ит'], 'любим': ['люб', 'им'],
+        'любите': ['люб', 'ите'], 'любят': ['люб', 'ят'],
+        'обожаю': ['обожа', 'ю'], 'обожаешь': ['обожа', 'ешь'],
+        'обожает': ['обожа', 'ет'], 'обожаем': ['обожа', 'ем'],
+        'обожаете': ['обожа', 'ете'], 'обожают': ['обожа', 'ют'],
+        'мой': ['мо', 'й'], 'моя': ['мо', 'я'],
+        'моё': ['мо', 'ё'], 'мои': ['мо', 'и'],
+        'твой': ['тво', 'й'], 'твоя': ['тво', 'я'],
+        'твоё': ['тво', 'ё'], 'твои': ['тво', 'и'],
+        'ваш': ['ва', 'ш'], 'ваша': ['ваш', 'а'],
+        'ваше': ['ваш', 'е'], 'ваши': ['ваш', 'и'],
+        'чей': ['ч', 'ей'], 'чья': ['ч', 'ья'],
+        'чьё': ['ч', 'ьё'], 'чьи': ['ч', 'ьи'],
+        'свой': ['сво', 'й'], 'свою': ['сво', 'ю'],
+        'своя': ['сво', 'я'], 'своё': ['сво', 'ё'],
+        'свои': ['сво', 'и'],
+        'брат': ['брат', ''], 'брата': ['брат', 'а'],
+        'братьев': ['брать', 'ев'], 'братья': ['брать', 'я'],
+        'рубль': ['рубл', 'ь'], 'рубля': ['рубл', 'я'],
+        'рублей': ['рубл', 'ей'],
+        'семья': ['семь', 'я'], 'семью': ['семь', 'ю'],
+        'семье': ['семь', 'е'], 'семьёй': ['семь', 'ёй'],
+        'сестра': ['сестр', 'а'], 'сестру': ['сестр', 'у'],
+        'сестре': ['сестр', 'е'], 'сестрой': ['сестр', 'ой'],
+        'братом': ['брат', 'ом'], 'брату': ['брат', 'у'],
+        'иван': ['Иван', ''], 'ивана': ['Иван', 'а'],
+        'был': ['бы', 'л'], 'была': ['бы', 'ла'],
+        'хочешь': ['хоч', 'ешь'], 'хотите': ['хот', 'ите'],
+        'угощайся': ['угощай', 'ся'], 'угощайтесь': ['угощай', 'тесь']
+    };
+
+    function highlightGrammar(text) {
+        // Escapes all input before adding our own trusted markup.
+        return String(text).split(/([А-Яа-яЁё]+)/g).map(part => {
+            const form = grammarEndingForms[part.toLowerCase()];
+            if (!form || !form[1]) return escapeHTML(part);
+            const stem = part[0] === part[0].toUpperCase()
+                ? form[0][0].toUpperCase() + form[0].slice(1)
+                : form[0];
+            return `<span class="gt-grammar-form">${escapeHTML(stem)}<span class="gt-grammar-ending">${escapeHTML(form[1])}</span></span>`;
+        }).join('');
+    }
+
+    // Platform 02: verb review navigator. The conjugation view stays within
+    // Verbs & Conjugations > Remember and never changes the other platforms.
+    const grammarVerbLibrary = [
+        {name:'любить', meaning:'to love / like', type:'Present tense', stem:'люб', forms:['люблю','любишь','любит','любим','любите','любят'], endings:['ю','ишь','ит','им','ите','ят'], note:'Notice the stem alternation in я люблю: любл- rather than люб-.'},
+        {name:'обожать', meaning:'to adore', type:'Present tense', forms:['обожаю','обожаешь','обожает','обожаем','обожаете','обожают'], endings:['ю','ешь','ет','ем','ете','ют'], note:'A stronger expression of affection than любить.'},
+        {name:'жить', meaning:'to live', type:'Present tense', forms:['живу','живёшь','живёт','живём','живёте','живут'], endings:['у','ёшь','ёт','ём','ёте','ут'], note:'Notice the change from жи- to жив- in the present-tense forms.'},
+        {name:'хотеть', meaning:'to want', type:'Present tense · irregular', forms:['хочу','хочешь','хочет','хотим','хотите','хотят'], endings:['у','ешь','ет','им','ите','ят'], note:'An irregular pattern: хоч- in the singular, хот- in the plural; я хочу is special.'},
+        {name:'есть', meaning:'to eat', type:'Present tense · irregular', forms:['ем','ешь','ест','едим','едите','едят'], endings:['м','шь','ст','им','ите','ят'], note:'Here есть means “to eat.” In у меня есть, the same written word expresses existence; that is a different use.'},
+        {name:'нравиться', meaning:'to be pleasing / to like', type:'Present tense · reflexive', forms:['нравлюсь','нравишься','нравится','нравимся','нравитесь','нравятся'], endings:['юсь','ишься','ится','имся','итесь','ятся'], note:'Important: Мне нравится чай uses чай as the grammatical subject, not я. This table shows agreement with the subject.'},
+        {name:'говорить', meaning:'to speak / say', type:'Present tense', forms:['говорю','говоришь','говорит','говорим','говорите','говорят'], endings:['ю','ишь','ит','им','ите','ят'], note:'Compare Я говорю and Мы говорим. The ending identifies the subject.'},
+        {name:'угощаться', meaning:'to help oneself / be treated', type:'Present tense · reflexive', forms:['угощаюсь','угощаешься','угощается','угощаемся','угощаетесь','угощаются'], endings:['юсь','ешься','ется','емся','етесь','ются'], note:'The invitation Угощайся! / Угощайтесь! uses the imperative, not these present-tense forms.'},
+        {name:'быть', meaning:'to be', type:'Past tense · special pattern', forms:['был','была','было','были'], endings:['л','ла','ло','ли'], labels:[['он','He'],['она','She'],['оно','It'],['они / мы / вы','They / we / you']], note:'Modern Russian usually omits a present-tense “am/is/are.” Past-tense forms agree in gender and number.'},
+        {name:'готовить', meaning:'to prepare / cook', type:'Present tense · imperfective', forms:['готовлю','готовишь','готовит','готовим','готовите','готовят'], endings:['лю','ишь','ит','им','ите','ят'], note:'Imperfective: focus on an activity, process, or repeated action.'},
+        {name:'приготовить', meaning:'to prepare (to completion)', type:'Simple future · perfective', forms:['приготовлю','приготовишь','приготовит','приготовим','приготовите','приготовят'], endings:['лю','ишь','ит','им','ите','ят'], note:'These forms refer to a future completed result, not present-tense action.'},
+        {name:'читать', meaning:'to read', type:'Present tense · imperfective', forms:['читаю','читаешь','читает','читаем','читаете','читают'], endings:['ю','ешь','ет','ем','ете','ют'], note:'Compare the ongoing activity with прочитать, which emphasizes completion.'},
+        {name:'прочитать', meaning:'to read through / finish reading', type:'Simple future · perfective', forms:['прочитаю','прочитаешь','прочитает','прочитаем','прочитаете','прочитают'], endings:['ю','ешь','ет','ем','ете','ют'], note:'Perfective forms here mean “will read (through)”—a completed event in the future.'},
+        {name:'писать', meaning:'to write', type:'Present tense · imperfective', forms:['пишу','пишешь','пишет','пишем','пишете','пишут'], endings:['у','ешь','ет','ем','ете','ут'], note:'Notice the stem change: писать → пишу. Compare написать for a completed result.'},
+        {name:'написать', meaning:'to write (to completion)', type:'Simple future · perfective', forms:['напишу','напишешь','напишет','напишем','напишете','напишут'], endings:['у','ешь','ет','ем','ете','ут'], note:'Perfective: Я напишу письмо means “I will write the letter” as a completed action.'},
+        {name:'делать', meaning:'to do / make', type:'Present tense · imperfective', forms:['делаю','делаешь','делает','делаем','делаете','делают'], endings:['ю','ешь','ет','ем','ете','ют'], note:'Imperfective describes doing or repeatedly doing something.'},
+        {name:'сделать', meaning:'to do / make (to completion)', type:'Simple future · perfective', forms:['сделаю','сделаешь','сделает','сделаем','сделаете','сделают'], endings:['ю','ешь','ет','ем','ете','ют'], note:'Perfective focuses on completion: Я сделаю это means “I will get this done.”'}
+    ];
+    // Additional high-frequency verbs that support family conversations and case practice.
+    grammarVerbLibrary.push(
+        {name:'видеть', meaning:'to see', type:'Present tense', forms:['вижу','видишь','видит','видим','видите','видят'], endings:['у','ишь','ит','им','ите','ят'], note:'The stem changes in я вижу. Видеть usually takes an accusative object: Я вижу брата.'},
+        {name:'давать', meaning:'to give', type:'Present tense · imperfective', forms:['даю','даёшь','даёт','даём','даёте','дают'], endings:['ю','ёшь','ёт','ём','ёте','ют'], note:'Давать commonly has a dative recipient: Я даю сестре книгу.'},
+        {name:'помогать', meaning:'to help', type:'Present tense', forms:['помогаю','помогаешь','помогает','помогаем','помогаете','помогают'], endings:['ю','ешь','ет','ем','ете','ют'], note:'Помогать governs dative: Я помогаю брату.'},
+        {name:'идти', meaning:'to go (on foot, in one direction)', type:'Present tense', forms:['иду','идёшь','идёт','идём','идёте','идут'], endings:['у','ёшь','ёт','ём','ёте','ут'], note:'Compare Я иду в школу (destination, accusative) with Я в школе (location, prepositional).'}
+    );
+
+    const grammarSubjectLabels = [
+        ['я','I'],['ты','You (informal)'],['он / она / оно','He / She / It'],
+        ['мы','We'],['вы','You (polite / plural)'],['они','They']
+    ];
+    let grammarVerbIndex = 0;
+
+    function renderConjugationTable() {
+        const entry = grammarVerbLibrary[grammarVerbIndex];
+        const labels = entry.labels || grammarSubjectLabels;
+        const forms = entry.forms.map((form, index) => {
+            const ending = entry.endings[index];
+            const start = form.slice(0, form.length - ending.length);
+            return `<tr><th scope="row" lang="ru">${escapeHTML(labels[index][0])}</th>
+                <td>${escapeHTML(labels[index][1])}</td>
+                <td lang="ru"><span class="gt-grammar-form">${escapeHTML(start)}<span class="gt-grammar-ending">${escapeHTML(ending)}</span></span></td></tr>`;
+        }).join('');
+        return `<div class="gt-grammar-conjugation" aria-label="Russian verb forms with pronouns">
+            <div class="gt-grammar-conjugation-caption">VERB REVIEW · ${grammarVerbIndex + 1} OF ${grammarVerbLibrary.length}</div>
+            <div class="gt-grammar-verb-heading"><strong lang="ru">${escapeHTML(entry.name)}</strong>
+                ${meaningIsVisible() ? `<span>${escapeHTML(entry.meaning)} · ${escapeHTML(entry.type)}</span>` : `<span>${escapeHTML(entry.type)}</span>`}</div>
+            <div class="gt-grammar-verb-navigation" aria-label="Choose another verb">
+                <button type="button" data-grammar-verb-nav="previous" ${grammarVerbIndex === 0 ? 'disabled' : ''}>← Previous Verb</button>
+                <button type="button" data-grammar-verb-nav="next" ${grammarVerbIndex === grammarVerbLibrary.length - 1 ? 'disabled' : ''}>Next Verb →</button>
+            </div>
+            <table><thead><tr><th scope="col">Russian pronoun</th><th scope="col">English</th><th scope="col">Verb form</th></tr></thead>
+                <tbody>${forms}</tbody></table>
+            <p class="gt-grammar-ending-key"><span class="gt-grammar-ending">Colored letters</span> highlight the changing form. ${escapeHTML(entry.note)}</p>
+            <button type="button" data-grammar-speak="${escapeHTML(entry.forms.join('. '))}">🔊 Listen to these forms</button>
+        </div>`;
+    }
+
+    // Guided conjugation workshop: pattern first, then 6–8 applications.
+    // Distractors are intentionally tied to the rule just introduced.
+    const grammarLearningLessons = [
+        {
+            title: 'Who is doing the action?', eyebrow: 'THE SIX SUBJECTS',
+            rule: 'In the present tense, the subject changes the verb ending. Compare all six forms of one familiar verb before choosing forms yourself.',
+            left: ['я читаю', 'I read'], right: ['они читают', 'They read'],
+            insight: 'Notice how the same action changes with я, ты, он/она/оно, мы, вы and они.',
+            questions: [
+                ['читать · I read', 'Я ___ книгу.', ['читаю','читаешь','читают'], 0, 'Я pairs with читаю.'],
+                ['читать · you (familiar) read', 'Ты ___ книгу.', ['читает','читаешь','читаем'], 1, 'Ты pairs with читаешь.'],
+                ['читать · she reads', 'Она ___ книгу.', ['читаю','читают','читает'], 2, 'Она pairs with читает.'],
+                ['читать · we read', 'Мы ___ книгу.', ['читаем','читаете','читаешь'], 0, 'Мы pairs with читаем.'],
+                ['читать · you (polite/plural) read', 'Вы ___ книгу.', ['читают','читаете','читаю'], 1, 'Вы pairs with читаете.'],
+                ['читать · they read', 'Они ___ книгу.', ['читает','читаем','читают'], 2, 'Они pairs with читают.']
+            ]
+        },
+        {
+            title: 'Two conjugation families', eyebrow: 'PATTERN DISCOVERY',
+            rule: 'Many Russian verbs follow one of two present-tense ending sets. First conjugation commonly has -ешь, -ет, -ем, -ете, -ут/-ют. Second conjugation commonly has -ишь, -ит, -им, -ите, -ат/-ят. Learn the pattern of the verb, not just its infinitive ending.',
+            left: ['ты читаешь', 'First conjugation'], right: ['ты говоришь', 'Second conjugation'],
+            insight: 'The ты form is a useful clue: читаешь versus говоришь. Some verbs are exceptions, so the infinitive alone is not a foolproof guide.',
+            questions: [
+                ['читать · you (familiar)', 'Ты ___ .', ['читаешь','читишь','читают'], 0, 'Читать: ты читаешь, a first-conjugation pattern.'],
+                ['говорить · you (familiar)', 'Ты ___ .', ['говорешь','говоришь','говорят'], 1, 'Говорить: ты говоришь, a second-conjugation pattern.'],
+                ['работать · we', 'Мы ___ .', ['работим','работают','работаем'], 2, 'Работать: мы работаем.'],
+                ['любить · we', 'Мы ___ .', ['любим','любаем','любят'], 0, 'Любить: мы любим.'],
+                ['обожать · she', 'Она ___ .', ['обожит','обожает','обожают'], 1, 'Обожать: она обожает.'],
+                ['готовить · they', 'Они ___ .', ['готовют','готовим','готовят'], 2, 'Готовить: они готовят.']
+            ]
+        },
+        {
+            title: 'У or Ю? УТ, ЮТ, АТ or ЯТ?', eyebrow: 'ENDING DETECTIVE',
+            rule: 'The я form often ends in -у or -ю. For они, first-conjugation verbs commonly use -ут/-ют, while second-conjugation verbs commonly use -ат/-ят. Spelling matters too: after ж, ш, ч, щ we write у or а, not ю or я, in these endings.',
+            left: ['я пишу · они пишут', 'Write: у / ут'], right: ['я говорю · они говорят', 'Speak: ю / ят'],
+            insight: 'Two separate decisions: the conjugation family helps choose the plural ending set; spelling and the stem help determine the vowel within that set.',
+            questions: [
+                ['писать · I write', 'Я ___ письмо.', ['пишю','пишу','пишу́т'], 1, 'After ш, write у: пишу. The stem changes from пис- to пиш-.'],
+                ['писать · they write', 'Они ___ письма.', ['пишют','пишат','пишут'], 2, 'Писать follows the first-conjugation pattern: пишут, with у after ш.'],
+                ['говорить · I speak', 'Я ___ по-русски.', ['говорю','говору','говорят'], 0, 'Я говорю uses -ю.'],
+                ['говорить · they speak', 'Они ___ по-русски.', ['говорют','говорят','говорут'], 1, 'Second-conjugation говорить: они говорят.'],
+                ['читать · they read', 'Они ___ .', ['читат','читаят','читают'], 2, 'First-conjugation читать: они читают.'],
+                ['любить · they love', 'Они ___ .', ['любят','любют','любут'], 0, 'Second-conjugation любить: они любят.'],
+                ['жить · I live', 'Я ___ здесь.', ['живю','живу','жию'], 1, 'Жить has the stem жив-: я живу.'],
+                ['жить · they live', 'Они ___ здесь.', ['живят','живют','живут'], 2, 'Жить: они живут.']
+            ]
+        },
+        {
+            title: 'When the stem changes', eyebrow: 'LOOK BEYOND THE ENDING',
+            rule: 'Some verbs change part of the stem when conjugated. The ending is only one piece of the puzzle: писать → пишу; любить → люблю; жить → живу. Learn the changed stem with the verb.',
+            left: ['писать → пишу', 'с becomes ш'], right: ['любить → люблю', 'б becomes бл in я'],
+            insight: 'A spelling rule cannot by itself predict every stem change. Notice the actual form, then use it confidently.',
+            questions: [
+                ['писать · I write', 'Я ___ .', ['писаю','пишу','писю'], 1, 'Писать changes its stem: пишу.'],
+                ['писать · she writes', 'Она ___ .', ['писет','пишит','пишет'], 2, 'The present stem is пиш-: пишет.'],
+                ['любить · I love', 'Я ___ .', ['люблю','любю','любляю'], 0, 'Я люблю has the special stem любл-.'],
+                ['любить · you (familiar) love', 'Ты ___ .', ['люблешь','любишь','любляешь'], 1, 'The other present forms use люб-: любишь.'],
+                ['жить · I live', 'Я ___ .', ['жию','житю','живу'], 2, 'Жить uses жив-: живу.'],
+                ['жить · she lives', 'Она ___ .', ['живёт','житёт','живит'], 0, 'Она живёт uses the present stem жив-.']
+            ]
+        },
+        {
+            title: 'Verbs with special behavior', eyebrow: 'EXPECTED SURPRISES',
+            rule: 'Not every verb fits a single regular table. Хотеть mixes ending patterns; есть (“to eat”) has unusual forms; нравиться uses the person or thing that is pleasing as its grammatical subject.',
+            left: ['я хочу · мы хотим', 'Want: mixed pattern'], right: ['мне нравится чай', 'Tea is the subject'],
+            insight: 'Do not force irregular verbs into a regular rule. Learn their distinctive patterns, then test them in meaningful sentences.',
+            questions: [
+                ['хотеть · I want', 'Я ___ чай.', ['хотю','хочу','хотим'], 1, 'Я хочу is an irregular form.'],
+                ['хотеть · we want', 'Мы ___ чай.', ['хочем','хочут','хотим'], 2, 'Мы хотим; хотеть mixes conjugation patterns.'],
+                ['хотеть · they want', 'Они ___ чай.', ['хотят','хочут','хотют'], 0, 'Они хотят.'],
+                ['есть · I eat', 'Я ___ суп.', ['ест','ем','едим'], 1, 'Я ем is an irregular form of есть (to eat).'],
+                ['есть · they eat', 'Они ___ суп.', ['ест','ем','едят'], 2, 'Они едят.'],
+                ['нравиться · I like tea', 'Мне ___ чай.', ['нравится','нравлюсь','нравятся'], 0, 'Чай is singular, so нравится agrees with чай.'],
+                ['нравиться · I like books', 'Мне ___ книги.', ['нравится','нравятся','нравлюсь'], 1, 'Книги is plural, so нравятся agrees with книги.']
+            ]
+        },
+        {
+            title: 'Put the patterns to work', eyebrow: 'CONFIDENCE CHECK',
+            rule: 'You have observed the endings, compared the two families, spotted stem changes, and met special verbs. Now choose forms in complete, meaningful sentences.',
+            left: ['Мы готовим ужин.', 'We are cooking dinner.'], right: ['Они любят семью.', 'They love the family.'],
+            insight: 'Accuracy first, speed later. The optional Express Challenge remains separate.',
+            questions: [
+                ['готовить · we cook', 'Мы ___ ужин.', ['готовим','готовем','готовят'], 0, 'Мы готовим is second conjugation.'],
+                ['обожать · I adore', 'Я ___ свою семью.', ['обожу','обожаю','обожают'], 1, 'Я обожаю follows the first-conjugation pattern.'],
+                ['говорить · you (polite) speak', 'Вы ___ по-русски?', ['говорят','говорешь','говорите'], 2, 'Вы говорите.'],
+                ['читать · they read', 'Они ___ вместе.', ['читают','читят','читает'], 0, 'Они читают.'],
+                ['любить · she loves', 'Она ___ брата.', ['любят','любит','любишь'], 1, 'Она любит.'],
+                ['писать · I write', 'Я ___ письмо.', ['писаю','пишю','пишу'], 2, 'Я пишу: stem change plus у after ш.'],
+                ['хотеть · they want', 'Они ___ поехать.', ['хотят','хочут','хотим'], 0, 'Они хотят.'],
+                ['жить · we live', 'Мы ___ в Москве.', ['живим','живём','живаем'], 1, 'Мы живём.']
+            ]
+        }
+    ];
+    const learnState = {lesson: 0, question: 0, selections: {}, completed: {}};
+
+    function renderLearn() {
+        const lesson = grammarLearningLessons[learnState.lesson];
+        const chosen = learnState.selections[learnState.lesson] || {};
+        const question = lesson.questions[learnState.question];
+        const answer = chosen[learnState.question];
+        const correctCount = lesson.questions.filter((q, i) => chosen[i] === q[3]).length;
+        const allCorrect = correctCount === lesson.questions.length;
+        const completedCount = grammarLearningLessons.filter((entry, i) => learnState.completed[i]).length;
+        return `<div class="gt-grammar-learn">
+          <div class="gt-learn-topline"><span>✦ THE CONJUGATION WORKSHOP</span><span>${completedCount} / ${grammarLearningLessons.length} discoveries mastered</span></div>
+          <div class="gt-learn-lesson-strip" aria-label="Choose a learning discovery">${grammarLearningLessons.map((entry, i) =>
+              `<button type="button" data-grammar-learn-lesson="${i}" class="${i === learnState.lesson ? 'is-current' : ''} ${learnState.completed[i] ? 'is-mastered' : ''}" aria-current="${i === learnState.lesson ? 'step' : 'false'}"><span>${learnState.completed[i] ? '✓' : String(i + 1).padStart(2, '0')}</span><strong>${escapeHTML(entry.title)}</strong></button>`
+          ).join('')}</div>
+          <section class="gt-learn-explanation" aria-label="Learn the conjugation pattern">
+            <div class="gt-learn-explanation-copy"><span class="gt-learn-eyebrow">DISCOVERY ${String(learnState.lesson + 1).padStart(2, '0')} · ${escapeHTML(lesson.eyebrow)}</span><h6>${escapeHTML(lesson.title)}</h6><p>${escapeHTML(lesson.rule)}</p></div>
+            <div class="gt-learn-comparison">${[lesson.left, lesson.right].map(pair => `<div class="gt-learn-example"><strong lang="ru">${highlightGrammar(pair[0])}</strong><span>${escapeHTML(pair[1])}</span><button type="button" data-grammar-speak="${escapeHTML(pair[0].split(' · ')[0])}" aria-label="Listen to ${escapeHTML(pair[0])}">🔊 Listen</button></div>`).join('')}</div>
+            <div class="gt-learn-insight"><span aria-hidden="true">✧</span><p>${escapeHTML(lesson.insight)}</p></div>
+          </section>
+          <section class="gt-learn-practice" aria-label="Apply the conjugation rule">
+            <div class="gt-learn-practice-head"><div><span class="gt-learn-eyebrow">NOW YOU TRY · GUIDED APPLICATION</span><h6>Choose the correct form</h6></div><div class="gt-learn-score">${correctCount}<span> / ${lesson.questions.length} correct</span></div></div>
+            <div class="gt-learn-progress" aria-label="Practice progress">${lesson.questions.map((q, i) => `<span class="${chosen[i] === q[3] ? 'is-right' : i === learnState.question ? 'is-active' : ''}"></span>`).join('')}</div>
+            <div class="gt-learn-question"><span>VERB ${learnState.question + 1} OF ${lesson.questions.length} · ${escapeHTML(question[0])}</span><strong lang="ru">${escapeHTML(question[1])}</strong></div>
+            <div class="gt-learn-answers">${question[2].map((choice, i) => `<button type="button" data-grammar-learn-answer="${i}" class="${answer === i ? (i === question[3] ? 'is-right' : 'is-wrong') : ''}" ${answer === question[3] ? 'disabled' : ''}>${highlightGrammar(choice)}</button>`).join('')}</div>
+            <div class="gt-learn-response" role="status" aria-live="polite">${answer === undefined ? 'Choose a form. You can try again if needed.' : answer === question[3] ? `<strong>✓ Beautifully done!</strong> ${escapeHTML(question[4])}` : '<strong>Not quite yet.</strong> Look again at the rule above and try another form.'}</div>
+            <div class="gt-learn-controls"><button type="button" data-grammar-learn-action="previous" ${learnState.question === 0 ? 'disabled' : ''}>← Previous Verb</button><span>${learnState.question + 1} / ${lesson.questions.length}</span><button type="button" data-grammar-learn-action="next" ${learnState.question === lesson.questions.length - 1 ? 'disabled' : ''}>Next Verb →</button></div>
+            ${allCorrect ? `<div class="gt-learn-victory"><strong>✦ Discovery mastered!</strong><span>You correctly applied all ${lesson.questions.length} examples.</span><button type="button" data-grammar-learn-action="advance" ${learnState.lesson === grammarLearningLessons.length - 1 ? 'disabled' : ''}>${learnState.lesson === grammarLearningLessons.length - 1 ? 'All discoveries complete' : 'Continue to the Next Discovery →'}</button></div>` : ''}
+          </section>
+        </div>`;
+    }
+
+
+    const grammarEnglishGuides = {
+        pronouns: `<section class="gt-expanded-guide" aria-label="Pronoun cases explained in English">
+          <h6>Why does “I” become меня, мне, or мной?</h6>
+          <p>Russian pronouns change form to show their grammatical job. <strong>Case</strong> names that job. The same written form may serve more than one case, so the sentence and its governing word matter.</p>
+          <div class="gt-expanded-guide-scroll"><table><thead><tr><th>Case</th><th>Russian</th><th>What it does</th><th>Example · English</th></tr></thead><tbody>
+            <tr><th>Nominative</th><td>я</td><td>Subject: who acts?</td><td>Я читаю. — I am reading.</td></tr>
+            <tr><th>Genitive</th><td>меня</td><td>After у; possession/absence</td><td>У меня есть брат. — I have a brother.</td></tr>
+            <tr><th>Dative</th><td>мне</td><td>Recipient or experiencer</td><td>Мне нравится чай. — I like tea.</td></tr>
+            <tr><th>Accusative</th><td>меня</td><td>Direct object: whom?</td><td>Он видит меня. — He sees me.</td></tr>
+            <tr><th>Instrumental</th><td>мной</td><td>Accompaniment after с/со</td><td>Она со мной. — She is with me.</td></tr>
+            <tr><th>Prepositional</th><td>мне</td><td>Topic after о/об</td><td>Она говорит обо мне. — She is talking about me.</td></tr>
+          </tbody></table></div>
+          <p class="gt-expanded-guide-note"><strong>Notice:</strong> меня is both genitive and accusative; мне is both dative and prepositional. Я is nominative, <em>not</em> instrumental.</p>
+        </section>`,
+        cases: `<section class="gt-expanded-guide" aria-label="Cases and declensions explained in English">
+          <h6>What triggers a case? What is declension?</h6>
+          <p><strong>A case</strong> tells you what job a noun or pronoun is doing. A <strong>trigger</strong> is the grammatical reason a particular case is needed: being the subject, receiving an action, following a preposition, or being governed by a verb or quantity.</p>
+          <p><strong>Declension</strong> is the pattern of forms a noun (and agreeing words) takes as its case changes. For example: сестра → сестры → сестре → сестру → сестрой → сестре. A case is the <em>job</em>; a declension is the <em>pattern of word changes</em>.</p>
+          <div class="gt-expanded-guide-scroll"><table><thead><tr><th>Case</th><th>Purpose</th><th>Typical triggers</th><th>Russian · English</th></tr></thead><tbody>
+            <tr><th>Nominative</th><td>Subject or identification</td><td>Who acts? Who/what is this?</td><td>Сестра читает. — Sister is reading.</td></tr>
+            <tr><th>Genitive</th><td>Absence, possession, quantity</td><td>нет, у, без, из; counting</td><td>Нет брата. — There is no brother.</td></tr>
+            <tr><th>Dative</th><td>Recipient, experiencer</td><td>дать, помогать, к, нравится</td><td>Дай сестре книгу. — Give sister a book.</td></tr>
+            <tr><th>Accusative</th><td>Direct object, destination</td><td>видеть, любить; в/на + direction</td><td>Вижу сестру. — I see sister.</td></tr>
+            <tr><th>Instrumental</th><td>With, by means of, certain roles</td><td>с, перед; certain verbs</td><td>С сестрой. — With sister.</td></tr>
+            <tr><th>Prepositional</th><td>Location, topic</td><td>в/на + location; о/об</td><td>О сестре. — About sister.</td></tr>
+          </tbody></table></div>
+          <p class="gt-expanded-guide-note"><strong>Important:</strong> a preposition can govern different cases with different meanings. Compare <strong>в школу</strong> (to school, accusative) and <strong>в школе</strong> (at school, prepositional). These are common triggers, not an exhaustive rulebook.</p>
+        </section>`
+    };
+
     function renderRemember() {
+        // Verbs use one coherent navigator: its heading, conjugations, notes,
+        // and audio all refer to the SAME selected verb. Other grammar
+        // categories retain their original discovery navigation.
+        if (state.category === 'verbs') {
+            const entry = grammarVerbLibrary[grammarVerbIndex];
+            return `<div class="gt-grammar-parchment gt-grammar-verb-library">
+                <span class="gt-grammar-kicker">REMEMBER · VERB REVIEW LIBRARY</span>
+                <h6>Explore Russian verbs, one at a time</h6>
+                <p>Choose Previous Verb or Next Verb to explore all ${grammarVerbLibrary.length} verbs. Every conjugation, explanation and listening activity belongs to the verb shown below.</p>
+                ${renderConjugationTable()}
+                <p class="gt-grammar-guidance">Ready to discover why the forms change? Select <strong>02 · Learn the Patterns</strong>. To apply what you know, continue to Experiment and Demonstrate.</p>
+            </div>`;
+        }
         const item = current().discoveries[state.discovery];
         const cards = current().discoveries.map((discovery, index) =>
             `<button type="button" data-grammar-discovery="${index}" ${index === state.discovery ? 'class="is-selected"' : ''}>${index + 1}. ${escapeHTML(discovery[0])}</button>`
         ).join('');
-        return `<div class="gt-grammar-discoveries">${cards}</div>
+        return `${grammarEnglishGuides[state.category] || ''}<div class="gt-expanded-navigator"><span>DISCOVERY ${state.discovery + 1} OF ${current().discoveries.length}</span><button type="button" data-grammar-discovery-nav="previous" ${state.discovery === 0 ? 'disabled' : ''}>← Previous Topic</button><button type="button" data-grammar-discovery-nav="next" ${state.discovery === current().discoveries.length - 1 ? 'disabled' : ''}>Next Topic →</button></div><div class="gt-grammar-discoveries">${cards}</div>
             <div class="gt-grammar-parchment">
               <span class="gt-grammar-kicker">REMEMBER · A FAMILIAR DISCOVERY</span>
               <h6>${escapeHTML(item[0])}</h6>
-              <strong lang="ru">${escapeHTML(item[1])}</strong>
-              <p>${escapeHTML(item[2])}</p>
+              <strong lang="ru">${highlightGrammar(item[1])}</strong>
+              ${state.category === 'verbs' ? renderConjugationTable() : ''}
+              ${renderMeaningSupport(item[1], item[2])}
               <button type="button" data-grammar-speak="${escapeHTML(item[1])}">🔊 Listen to the Russian</button>
             </div>
             <p class="gt-grammar-guidance">Choose another discovery, or move to Experiment when you are ready.</p>`;
@@ -12327,7 +13997,7 @@ const conversations = {
               <span class="gt-grammar-kicker">EXPERIMENT · CHOOSE, NOTICE, ADJUST</span>
               <h6>${escapeHTML(question[0])}</h6>
               <div class="gt-grammar-choices">${shuffledChoices.map(index =>
-                `<button type="button" data-grammar-choice="${index}" ${state.answered ? 'disabled' : ''}>${escapeHTML(question[index + 1])}</button>`
+                `<button type="button" data-grammar-choice="${index}" ${state.answered ? 'disabled' : ''}>${highlightGrammar(question[index + 1])}</button>`
               ).join('')}</div>
               <div class="gt-grammar-feedback" role="status" aria-live="polite"></div>
             </div>
@@ -12347,7 +14017,7 @@ const conversations = {
               <h6>${escapeHTML(item[0])}</h6>
               <p>Choose the word sequence that correctly expresses the meaning. Notice the endings and structure.</p>
               <div class="gt-grammar-build-options">${choices.map((choice, index) =>
-                `<button type="button" data-grammar-build="${choice.correct ? 'correct' : 'incorrect'}" class="${state.builderChoice === index ? 'is-selected' : ''}">${choice.words.map(word => `<span lang="ru">${escapeHTML(word)}</span>`).join('')}</button>`
+                `<button type="button" data-grammar-build="${choice.correct ? 'correct' : 'incorrect'}" class="${state.builderChoice === index ? 'is-selected' : ''}">${choice.words.map(word => `<span lang="ru">${highlightGrammar(word)}</span>`).join('')}</button>`
               ).join('')}</div>
               <div class="gt-grammar-feedback" role="status" aria-live="polite"></div>
               <div class="gt-grammar-actions">
@@ -12372,10 +14042,12 @@ const conversations = {
           </header>
           <nav class="gt-grammar-stages" aria-label="Grammar mastery stages">
             <button type="button" data-grammar-stage="remember" ${state.stage === 'remember' ? 'aria-current="step"' : ''}>01 · Remember</button>
-            <button type="button" data-grammar-stage="experiment" ${state.stage === 'experiment' ? 'aria-current="step"' : ''}>02 · Experiment</button>
-            <button type="button" data-grammar-stage="demonstrate" ${state.stage === 'demonstrate' ? 'aria-current="step"' : ''}>03 · Demonstrate</button>
+            ${state.category === 'verbs' ? `<button type="button" data-grammar-stage="learn" ${state.stage === 'learn' ? 'aria-current="step"' : ''}>02 · Learn the Patterns</button>` : ''}
+            <button type="button" data-grammar-stage="experiment" ${state.stage === 'experiment' ? 'aria-current="step"' : ''}>${state.category === 'verbs' ? '03' : '02'} · Experiment</button>
+            <button type="button" data-grammar-stage="demonstrate" ${state.stage === 'demonstrate' ? 'aria-current="step"' : ''}>${state.category === 'verbs' ? '04' : '03'} · Demonstrate</button>
           </nav>
-          <section class="gt-grammar-stage-content">${state.stage === 'remember' ? renderRemember() : state.stage === 'experiment' ? renderExperiment() : renderDemonstrate()}</section>`;
+          ${renderMeaningControls()}
+          <section class="gt-grammar-stage-content">${state.stage === 'remember' ? renderRemember() : state.stage === 'learn' && state.category === 'verbs' ? renderLearn() : state.stage === 'experiment' ? renderExperiment() : renderDemonstrate()}</section>`;
     }
 
     function resetCategory(category) {
@@ -12394,10 +14066,41 @@ const conversations = {
     root.addEventListener('click', event => {
         const button = event.target.closest('button');
         if (!button || !root.contains(button)) return;
-        if (button.hasAttribute('data-grammar-stage')) {
+        if (button.hasAttribute('data-grammar-meaning-mode')) {
+            grammarMeaningMode = button.dataset.grammarMeaningMode;
+            render();
+        } else if (button.hasAttribute('data-grammar-stage')) {
             state.stage = button.dataset.grammarStage;
             state.answered = false;
             state.builderChoice = -1;
+            render();
+        } else if (button.hasAttribute('data-grammar-learn-lesson')) {
+            learnState.lesson = Number(button.dataset.grammarLearnLesson);
+            learnState.question = 0;
+            render();
+        } else if (button.hasAttribute('data-grammar-learn-answer')) {
+            const lesson = grammarLearningLessons[learnState.lesson];
+            const answers = learnState.selections[learnState.lesson] || {};
+            const question = lesson.questions[learnState.question];
+            if (answers[learnState.question] === question[3]) return;
+            answers[learnState.question] = Number(button.dataset.grammarLearnAnswer);
+            learnState.selections[learnState.lesson] = answers;
+            learnState.completed[learnState.lesson] = lesson.questions.every((q, i) => answers[i] === q[3]);
+            render();
+        } else if (button.hasAttribute('data-grammar-learn-action')) {
+            const lesson = grammarLearningLessons[learnState.lesson];
+            if (button.dataset.grammarLearnAction === 'previous') learnState.question = Math.max(0, learnState.question - 1);
+            if (button.dataset.grammarLearnAction === 'next') learnState.question = Math.min(lesson.questions.length - 1, learnState.question + 1);
+            if (button.dataset.grammarLearnAction === 'advance' && learnState.completed[learnState.lesson]) {
+                learnState.lesson = Math.min(grammarLearningLessons.length - 1, learnState.lesson + 1);
+                learnState.question = 0;
+            }
+            render();
+        } else if (button.hasAttribute('data-grammar-verb-nav')) {
+            grammarVerbIndex = Math.max(0, Math.min(grammarVerbLibrary.length - 1, grammarVerbIndex + (button.dataset.grammarVerbNav === 'next' ? 1 : -1)));
+            render();
+        } else if (button.hasAttribute('data-grammar-discovery-nav')) {
+            state.discovery = Math.max(0, Math.min(current().discoveries.length - 1, state.discovery + (button.dataset.grammarDiscoveryNav === 'next' ? 1 : -1)));
             render();
         } else if (button.hasAttribute('data-grammar-discovery')) {
             state.discovery = Number(button.dataset.grammarDiscovery);
@@ -12497,7 +14200,7 @@ const conversations = {
     function renderDrillQuestion() {
         const item = drillQuestions[drillIndex];
         progress.textContent = `Question ${drillIndex + 1} of ${drillQuestions.length} · ${drillScore} correct`;
-        const options = shuffle(item.slice(1, 5));
+        const options = shuffle(item.length === 5 ? item.slice(1, 4) : item.slice(1, 5));
         content.innerHTML = `<div class="gt-grammar-express-question"><h5>${escapeHTML(item[0])}</h5>
           <div class="gt-grammar-express-options">${options.map((option, index) =>
             `<button type="button" data-grammar-express-answer="${index}">${escapeHTML(option)}</button>`
@@ -12523,10 +14226,24 @@ const conversations = {
           <p>Accuracy matters more than speed. You can return to untimed practice at any time.</p></div>`;
         restartButton.hidden = false;
     }
+    function getDrillBank(category) {
+        const bank = [...collections[category].questions];
+        if (category === 'verbs') {
+            grammarLearningLessons.forEach(lesson => {
+                lesson.questions.forEach(question => {
+                    const right = question[2][question[3]];
+                    const wrong = question[2].filter((choice, index) => index !== question[3]);
+                    bank.push([`${question[0]} · ${question[1]}`, right, ...wrong, question[4]]);
+                });
+            });
+        }
+        return bank;
+    }
+
     function beginDrill() {
         stopTimer();
         drillCategory = state.category;
-        drillQuestions = shuffle(collections[drillCategory].questions).slice(0, 8);
+        drillQuestions = shuffle(getDrillBank(drillCategory)).slice(0, 12);
         drillIndex = 0;
         drillScore = 0;
         drillElapsed = 0;
