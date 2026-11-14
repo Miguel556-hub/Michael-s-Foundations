@@ -15053,3 +15053,94 @@ const conversations = {
     render();
 })();
 // END PLATFORM 03 — RUSSIAN AS THEY SPEAK IT
+
+
+// ============================================================
+// BEGIN THE GEARS — LABORATORY ENTRY, ROTATION, PAGE SHELLS
+// ============================================================
+(() => {
+    const lab = document.getElementById('door-four-laboratory');
+    const experience = document.getElementById('gears-experience');
+    if (!lab || !experience) return;
+
+    const stage = lab.querySelector('.door-four__stage');
+    const landing = experience.querySelector('[data-gears-screen="landing"]');
+    const workshop = experience.querySelector('[data-gears-screen="workshop"]');
+    const title = document.getElementById('gears-workshop-title');
+    const subtitle = document.getElementById('gears-workshop-subtitle');
+    const wheels = [...experience.querySelectorAll('[data-gear-train]')];
+    const trains = {
+        a: ['Gear Train A — The Agreement Workshop', 'Gender & Possessives'],
+        b: ['Gear Train B — The Subject–Verb Engine', 'Subject–Verb Agreement'],
+        c: ['Gear Train C — Ownership & Existence', 'Possession & Existence']
+    };
+    let transitioning = false;
+    let transitionTimer = null;
+
+    function resetWheels() {
+        wheels.forEach(wheel => {
+            wheel.classList.remove('is-spinning');
+            void wheel.offsetWidth;
+        });
+    }
+
+    function showLanding() {
+        clearTimeout(transitionTimer);
+        transitioning = false;
+        resetWheels();
+        workshop.classList.remove('is-visible');
+        workshop.hidden = true;
+        landing.hidden = false;
+        stage.hidden = true;
+        experience.hidden = false;
+        experience.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+
+    function showWorkshop(train) {
+        if (transitioning || !trains[train]) return;
+        transitioning = true;
+        title.textContent = trains[train][0];
+        subtitle.textContent = trains[train][1];
+        resetWheels();
+        // Only the gear selected by the learner rotates. Other gears stay still.
+        const selectedWheel = wheels.find(wheel => wheel.dataset.gearTrain === train);
+        if (selectedWheel) selectedWheel.classList.add('is-spinning');
+        transitionTimer = setTimeout(() => {
+            landing.hidden = true;
+            workshop.hidden = false;
+            requestAnimationFrame(() => workshop.classList.add('is-visible'));
+            transitioning = false;
+        }, 2750);
+    }
+
+    // Capture the existing Laboratory hotspot before its generic status handler.
+    lab.addEventListener('click', event => {
+        const entry = event.target.closest('[data-lab-action="gears"]');
+        if (!entry || !lab.contains(entry)) return;
+        event.stopImmediatePropagation();
+        showLanding();
+    }, true);
+
+    wheels.forEach(wheel => {
+        wheel.addEventListener('click', () => showWorkshop(wheel.dataset.gearTrain));
+    });
+
+    experience.querySelectorAll('[data-gears-back]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.dataset.gearsBack === 'landing') {
+                showLanding();
+                return;
+            }
+            clearTimeout(transitionTimer);
+            transitioning = false;
+            resetWheels();
+            workshop.classList.remove('is-visible');
+            experience.hidden = true;
+            landing.hidden = false;
+            workshop.hidden = true;
+            stage.hidden = false;
+            stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        });
+    });
+})();
+// END THE GEARS

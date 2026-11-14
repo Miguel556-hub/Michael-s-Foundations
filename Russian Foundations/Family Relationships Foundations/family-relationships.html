@@ -6406,6 +6406,27 @@ LESSON 2 — EXTENDED FAMILY
             </button>
             <!-- END LABORATORY LANDING — BACK TO FOUR DOORS IMAGE BUTTON -->
           </div>
+
+          <!-- BEGIN THE GEARS — LANDING AND THREE DEVELOPMENT SHELLS -->
+          <section class="gears-experience" id="gears-experience" hidden aria-label="The Gears — How It Works?">
+            <div class="gears-landing" data-gears-screen="landing">
+              <div class="gears-stage">
+                <img class="gears-background" src="../../Images/door-four/gear-landing-page.png" alt="Victorian mechanical workshop with gear pedestals and lever" draggable="false">
+                <button class="gears-wheel gears-wheel--a" type="button" data-gear-train="a" aria-label="Open Gear Train A — Gender and Possessives"><img src="../../Images/door-four/gear-a.png" alt="" draggable="false"></button>
+                <button class="gears-wheel gears-wheel--b" type="button" data-gear-train="b" aria-label="Open Gear Train B — Subject–Verb Engine"><img src="../../Images/door-four/gear-b.png" alt="" draggable="false"></button>
+                <button class="gears-wheel gears-wheel--c" type="button" data-gear-train="c" aria-label="Open Gear Train C — Ownership and Existence"><img src="../../Images/door-four/gear-c.png" alt="" draggable="false"></button>
+                <div class="gears-instruction">Click any<br>gear to<br>begin</div>
+              </div>
+              <div class="gears-navigation"><button type="button" data-gears-back="laboratory">Back to Laboratory</button></div>
+            </div>
+            <div class="gears-workshop" data-gears-screen="workshop" hidden>
+              <header class="gears-workshop__header"><img class="gears-workshop__ornament" src="../../Images/door-four/gear-a.png" alt="" aria-hidden="true" draggable="false"><div><p>THE GEARS — HOW IT WORKS?</p><h2 id="gears-workshop-title">Gear Train</h2><span id="gears-workshop-subtitle">A Living Russian Grammar Machine</span></div></header>
+              <div class="gears-workshop__modes"><div><strong>INSPECT</strong><small>Discover how the mechanism fits together</small></div><div><strong>TURN &amp; TEST</strong><small>Change a component and observe</small></div><div><strong>REPAIR</strong><small>Restore agreement yourself</small></div></div>
+              <div class="gears-workshop__main"><section class="gears-workshop__mechanism"><h3>Working Gear Mechanism</h3><div class="gears-workshop__empty">Reserved for 2–5 independently controlled grammar gears</div></section><aside class="gears-workshop__sidebar"><section><h3>Sentence Workshop</h3><p>Sentence-building controls will be developed here.</p></section><section><h3>Machine Diagnostics</h3><p>Agreement feedback and repair guidance will appear here.</p></section></aside></div>
+              <div class="gears-navigation"><button type="button" data-gears-back="landing">Back to The Gears</button><button type="button" data-gears-back="laboratory">Back to Laboratory</button></div>
+            </div>
+          </section>
+          <!-- END THE GEARS — LANDING AND THREE DEVELOPMENT SHELLS -->
           <!-- BEGIN DOOR FOUR — EXPLORE THE DRAWERS -->
           <section class="door-four__drawers" aria-label="Explore the Drawers" hidden>
             <div class="door-four__drawers-stage">
@@ -6482,47 +6503,41 @@ LESSON 2 — EXTENDED FAMILY
                 <div class="gt-board">
                   <div class="gt-board-heading">
                     <h3>STATION DIRECTORY</h3>
+                    <div class="gt-scene-navigation" aria-label="Station directory navigation">
+                      <button type="button" data-gt-return="laboratory">Back to Laboratory</button>
+                      <button type="button" data-gt-return="drawers">Back to Explorers Desk</button>
+                    </div>
                   </div>
 
                   <div class="gt-board-scene">
                     <div class="gt-platforms" aria-label="Station platforms">
-                      <button type="button" class="gt-platform" data-gt-platform="vocabulary">
-                        <span>PLATFORM 01</span>
-                        <strong>VOCABULARY RAILWAY</strong>
-                        <em lang="ru">СЛОВАРЬ</em>
-                        <small>Review, practice and master vocabulary you have used in the entire Family Relationships
-                          Foundation</small>
-                      </button>
-                      <button type="button" class="gt-platform" data-gt-platform="grammar">
-                        <span>PLATFORM 02</span>
-                        <strong>GRAMMAR NOTES</strong>
-                        <em lang="ru">ГРАММАТИКА</em>
-                        <small>Revisit, practice and master the grammar you have discovered</small>
-                      </button>
-                      <button type="button" class="gt-platform" data-gt-platform="spoken-russian">
-                        <span>PLATFORM 03</span>
-                        <strong>RUSSIAN AS THEY SPEAK IT</strong>
-                        <em lang="ru">РУССКИЙ ТАК, КАК ГОВОРЯТ</em>
-                        <small>Sound more like a Russian native with these words and phrases</small>
-                      </button>
-                      <button type="button" class="gt-platform gt-platform--placeholder" data-gt-platform="future-four"
-                        aria-label="Platform 04: preview future destination">
-                        <span>PLATFORM 04</span>
-                        <strong>PLACE HOLDER</strong>
-                        <em lang="ru">Продолжение следует</em>
-                        <small>More to come</small>
-                      </button>
-                      <button type="button" class="gt-platform gt-platform--placeholder" data-gt-platform="future-five"
-                        aria-label="Platform 05: preview future destination">
-                        <span>PLATFORM 05</span>
-                        <strong>PLACE HOLDER</strong>
-                        <em lang="ru">Продолжение следует</em>
-                        <small>More to come</small>
-                      </button>
-                    </div>
-                    <div class="gt-scene-navigation">
-                      <button type="button" data-gt-return="laboratory">Back to Laboratory</button>
-                      <button type="button" data-gt-return="drawers">Back to Explorers Desk</button>
+                      <div class="gt-platform-column">
+                        <button type="button" class="gt-platform" data-gt-platform="vocabulary">
+                          <span>PLATFORM 01</span>
+                          <strong>VOCABULARY COLLECTION</strong>
+                          <em lang="ru">СЛОВАРЬ</em>
+                          <small>Review, practice and master vocabulary you have used in the entire Family Relationships Foundation</small>
+                        </button>
+                        <img class="gt-platform-image" src="../../Images/door-four/platform-01-station.png" alt="Leningradsky railway station interior" loading="lazy">
+                      </div>
+                      <div class="gt-platform-column">
+                        <button type="button" class="gt-platform" data-gt-platform="grammar">
+                          <span>PLATFORM 02</span>
+                          <strong>GRAMMAR NOTES</strong>
+                          <em lang="ru">ГРАММАТИКА</em>
+                          <small>Practical grammar you have used and explanations to help you understand</small>
+                        </button>
+                        <img class="gt-platform-image" src="../../Images/door-four/platform-02-station.png" alt="Vitebsky railway station interior" loading="lazy">
+                      </div>
+                      <div class="gt-platform-column">
+                        <button type="button" class="gt-platform" data-gt-platform="spoken-russian">
+                          <span>PLATFORM 03</span>
+                          <strong>RUSSIAN AS THEY SPEAK IT</strong>
+                          <em lang="ru">РУССКИЙ ТАК, КАК ГОВОРЯТ</em>
+                          <small>Sound more like a Russian native with these words and phrases</small>
+                        </button>
+                        <img class="gt-platform-image" src="../../Images/door-four/platform-03-station.png" alt="Kazansky railway station interior" loading="lazy">
+                      </div>
                     </div>
                   </div>
 
