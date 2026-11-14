@@ -11561,3 +11561,538 @@ const conversations = {
   // Existing drawer controller may switch to another tab; never overlay it.
   interior.querySelectorAll('[data-drawer-tab],[data-drawer-nav]').forEach(b=>b.addEventListener('click',()=>{gallery.hidden=true;detail.hidden=true;document.body.classList.remove('cn-immersive-active');}));
 })();
+// BEGIN PLATFORM 01 — VOCABULARY COLLECTION
+// Independent controller; initializes only inside the existing Grand Terminal.
+(function () {
+    'use strict';
+    function initVocabulary() {
+        const root = document.getElementById('gt-vocab');
+        if (!root || root.dataset.ready) return;
+        root.dataset.ready = 'true';
+        const area = root.querySelector('.gt-vocab-workspace');
+        const nounSets = {
+            'Family & People': [
+                ['семья','family','feminine','семьи','Это моя семья.'],
+                ['мать','mother','feminine','матери','Это моя мать.'],
+                ['отец','father','masculine','отцы','Это мой отец.'],
+                ['брат','brother','masculine','братья','У меня есть брат.'],
+                ['сестра','sister','feminine','сёстры','Это моя сестра.'],
+                ['дядя','uncle','masculine','дяди','Это мой дядя.'],
+                ['тётя','aunt','feminine','тёти','Это моя тётя.'],
+                ['бабушка','grandmother','feminine','бабушки','Моя бабушка дома.'],
+                ['дедушка','grandfather','masculine','дедушки','Мой дедушка дома.'],
+                ['друг','friend (male)','masculine','друзья','Это мой друг.'],
+                ['человек','person','masculine','люди','В семье четыре человека.']
+            ],
+            'Home, Food & Everyday Life': [
+                ['дом','house / home','masculine','дома','Это наш дом.'],
+                ['семейный ужин','family dinner','masculine phrase','семейные ужины','У нас семейный ужин.'],
+                ['кухня','kitchen','feminine','кухни','Мама на кухне.'],
+                ['стол','table','masculine','столы','Это большой стол.'],
+                ['еда','food','feminine','usually uncountable','Еда готова.'],
+                ['суп','soup','masculine','супы','Суп вкусный.'],
+                ['чай','tea','masculine','чаи (varieties)','Будешь чай?'],
+                ['порция','portion','feminine','порции','Одна порция, пожалуйста.'],
+                ['рубль','ruble','masculine','рубли','Один рубль.'],
+                ['меню','menu','neuter, indeclinable','меню','Можно меню?']
+            ],
+            'Ideas, Feelings & Time': [
+                ['любовь','love','feminine','usually uncountable','Любовь важна.'],
+                ['радость','joy','feminine','радости','Какая радость!'],
+                ['время','time','neuter','времена (periods)','У нас есть время.'],
+                ['день','day','masculine','дни','Хороший день.'],
+                ['вечер','evening','masculine','вечера','Добрый вечер!'],
+                ['год','year','masculine','годы / года','Сколько тебе лет?'],
+                ['счастье','happiness','neuter','usually uncountable','Счастье — это семья.'],
+                ['имя','name','neuter','имена','Как тебя зовут?']
+            ]
+        };
+        const state = { tab:'nouns', group:'Family & People', order:[], index:0, flipped:false, known:new Set(), pronoun:'я', gramCase:0, matchAnswer:'', matchIndex:0, gender:0, adjCase:0, bridge:0, aspect:0, verbIndex:0, expressionIndex:0, reveal:false };
+        const cases = ['Nominative','Genitive','Dative','Accusative','Instrumental','Prepositional'];
+        const pronouns = {
+            'я':['я','меня','мне','меня','мной','мне'],
+            'ты':['ты','тебя','тебе','тебя','тобой','тебе'],
+            'он':['он','его','ему','его','им','нём'],
+            'она':['она','её','ей','её','ей / ею','ней'],
+            'мы':['мы','нас','нам','нас','нами','нас'],
+            'вы':['вы','вас','вам','вас','вами','вас'],
+            'они':['они','их','им','их','ими','них']
+        };
+        const pronounExamples = {
+            'я':['Я дома.','У меня есть брат.','Мне нравится чай.','Он меня знает.','Он гордится мной.','Он говорит обо мне.'],
+            'ты':['Ты дома.','У тебя есть сестра.','Я тебе помогу.','Я тебя знаю.','Я горжусь тобой.','Я думаю о тебе.'],
+            'он':['Он дома.','У него есть брат.','Я ему помогу.','Я его знаю.','Я горжусь им.','Я думаю о нём.'],
+            'она':['Она дома.','У неё есть сестра.','Я ей помогу.','Я её знаю.','Я горжусь ею.','Я думаю о ней.'],
+            'мы':['Мы дома.','У нас есть семья.','Нам нравится чай.','Он нас знает.','Он гордится нами.','Он говорит о нас.'],
+            'вы':['Вы дома.','У вас есть семья.','Вам нравится чай.','Он вас знает.','Он гордится вами.','Он говорит о вас.'],
+            'они':['Они дома.','У них есть дети.','Им нравится чай.','Он их знает.','Он гордится ими.','Он говорит о них.']
+        };
+        const adjectivePairs = [
+            ['большой','big'],['маленький','small'],['старший','older (relative)'],
+            ['младший','younger (relative)'],['вкусный','tasty'],['новый','new']
+        ];
+        const genders = [
+            {label:'Masculine · дом', noun:'дом', adjective:['новый','нового'], phrase:['новый дом','Я вижу новый дом.','У нового дома есть сад.']},
+            {label:'Feminine · книга', noun:'книга', adjective:['новая','новой'], phrase:['новая книга','Я вижу новую книгу.','У новой книги красивая обложка.']},
+            {label:'Neuter · окно', noun:'окно', adjective:['новое','нового'], phrase:['новое окно','Я вижу новое окно.','У нового окна стоит стол.']},
+            {label:'Plural · друзья', noun:'друзья', adjective:['новые','новых'], phrase:['новые друзья','Я вижу новых друзей.','У новых друзей есть собака.']}
+        ];
+        const adjectiveExamples = [
+            [['новый дом','новая книга','новое окно','новые друзья'],['Я вижу новый дом.','Я вижу новую книгу.','Я вижу новое окно.','Я вижу новых друзей.']],
+            [['нового дома','новой книги','нового окна','новых друзей'],['У нового дома есть сад.','У новой книги красивая обложка.','У нового окна стоит стол.','У новых друзей есть собака.']]
+        ];
+        const adverbs = [
+            ['быстрый','быстро','быстрый поезд','Поезд едет быстро.','fast → quickly'],
+            ['громкий','громко','громкий голос','Он говорит громко.','loud → loudly'],
+            ['тихий','тихо','тихий голос','Она говорит тихо.','quiet → quietly'],
+            ['красивый','красиво','красивый дом','Она красиво поёт.','beautiful → beautifully'],
+            ['хороший','хорошо','хороший день','У нас всё хорошо.','good → well (irregular form)']
+        ];
+        const verbs = [
+            {a:'читать',b:'прочитать',aEx:'Я читаю книгу каждый вечер.',bEx:'Я прочитаю книгу завтра.',aEn:'I read a book every evening.',bEn:'I will read the book through tomorrow.'},
+            {a:'писать',b:'написать',aEx:'Я пишу письмо.',bEx:'Я написал письмо.',aEn:'I am writing a letter.',bEn:'I wrote the letter (as a complete event).'},
+            {a:'готовить',b:'приготовить',aEx:'Мы готовим ужин.',bEx:'Мы приготовили ужин.',aEn:'We are preparing dinner.',bEn:'We prepared dinner (completed).'},
+            {a:'делать',b:'сделать',aEx:'Я делаю домашнее задание.',bEx:'Я сделал домашнее задание.',aEn:'I am doing homework.',bEn:'I finished the homework.'}
+        ];
+        const expressions = [
+            {type:'Vintage postcard',ru:'Ни пуха ни пера!',en:'Good luck!',context:'Before an exam, audition, or other challenge.',note:'Literally “neither down nor feathers,” from a traditional hunting wish. The conventional reply is «К чёрту!» (roughly “To the devil!”).',prompt:'A friend has an important exam. What do you say?',options:['Ни пуха ни пера!','Добрый вечер!','До свидания!'],answer:0},
+            {type:'Family dinner invitation',ru:'Угощайся!',en:'Help yourself!',context:'A host warmly invites one person they know well to take some food.',note:'Informal singular imperative of угощаться. To address several people or speak politely, say «Угощайтесь!»',prompt:'You offer homemade food to a friend. What do you say?',options:['Угощайся!','Как тебя зовут?','До завтра!'],answer:0},
+            {type:'Station greeting card',ru:'Очень приятно!',en:'Very pleased to meet you!',context:'After being introduced to someone.',note:'A natural short response in introductions; the full meaning depends on the conversation.',prompt:'You have just met your host’s sister. Which expression fits?',options:['Сколько стоит?','Очень приятно!','Угощайся!'],answer:1},
+            {type:'Dinner table note',ru:'Приятного аппетита!',en:'Enjoy your meal!',context:'Said to people who are about to eat or are eating.',note:'A conventional wish rather than a literal command.',prompt:'Everyone sits down to dinner. What do you say?',options:['Приятного аппетита!','Как дела?','Спокойной ночи!'],answer:0},
+            {type:'Family conversation telegram',ru:'Как поживаешь?',en:'How have you been?',context:'A familiar, conversational way to ask how someone is doing.',note:'Informal singular. «Как поживаете?» is polite or plural.',prompt:'You greet a relative you have not seen for a while. Which fits?',options:['Как поживаешь?','Сколько рублей?','Я читаю.'],answer:0}
+        ];
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+        }
+        function speak(text) {
+            if (!('speechSynthesis' in window)) { feedback('Speech playback is unavailable in this browser.'); return; }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ru-RU'; utterance.rate = 0.82;
+            const voices = window.speechSynthesis.getVoices();
+            const voice = voices.find(v => v.lang.toLowerCase().startsWith('ru'));
+            if (voice) utterance.voice = voice;
+            window.speechSynthesis.speak(utterance);
+        }
+        function feedback(message, good) {
+            const el = area.querySelector('.gt-vfeedback');
+            if (el) { el.textContent = message; el.classList.toggle('gt-vcorrect', good === true); el.classList.toggle('gt-vincorrect', good === false); }
+        }
+        function button(label, action, extra='') { return `<button type="button" data-vaction="${action}" ${extra}>${label}</button>`; }
+        function title(text, hint) { return `<h5>${text}</h5><p class="gt-vhint">${hint}</p>`; }
+        function setGroup(group) { state.group=group; state.index=0; state.flipped=false; state.known=new Set(); state.order=nounSets[group].map((_,i)=>i); }
+        function renderNouns() {
+            if (!state.order.length) setGroup(state.group);
+            const entry = nounSets[state.group][state.order[state.index]];
+            const face = state.flipped
+                ? `<strong>${escapeHtml(entry[1])}</strong><span>Gender: ${escapeHtml(entry[2])} · Plural: ${escapeHtml(entry[3])}</span><span lang="ru">${escapeHtml(entry[4])}</span>`
+                : `<small>RUSSIAN · TAP TO FLIP</small><strong lang="ru">${escapeHtml(entry[0])}</strong><span>What does this mean?</span>`;
+            area.innerHTML = title('Nouns · Существительные','Flip each card to reveal meaning, gender, plural, and an example. Choose a collection below.')
+                + `<div class="gt-vcontrols">${Object.keys(nounSets).map((g,i)=>button(escapeHtml(g),'group',`data-value="${i}" class="${g===state.group?'is-selected':''}"`)).join('')}</div>`
+                + `<p class="gt-vhint">Card ${state.index+1} of ${state.order.length} · Marked known: ${state.known.size}</p>`
+                + `<div class="gt-vcard" role="button" tabindex="0" aria-label="Flip vocabulary card">${face}</div>`
+                + `<div class="gt-vcontrols">${button('← Previous','prev')}${button('Flip Card','flip')}${button('Next →','next')}${button('🔊 Listen','listen')}${button('✓ I Know This','known')}${button('Shuffle','shuffle')}${button('Reset','reset')}</div><div class="gt-vfeedback" role="status"></div>`;
+        }
+        function renderPronouns() {
+            const word=pronouns[state.pronoun][state.gramCase];
+            const example=pronounExamples[state.pronoun][state.gramCase];
+            const preposition=state.gramCase===5 && ['он','она','они'].includes(state.pronoun) ? 'After a preposition, third-person forms usually add н- (e.g., о нём, о ней, о них).' : 'Watch how the form responds to its grammatical role.';
+            area.innerHTML=title('Pronouns · Местоимения','Choose a pronoun and a grammatical case. The word and sentence change together.')
+                + `<div class="gt-vcontrols">${Object.keys(pronouns).map(x=>button(x,'pronoun',`data-value="${x}" class="${x===state.pronoun?'is-selected':''}"`)).join('')}</div>`
+                + `<div class="gt-vcontrols">${cases.map((x,i)=>button(x,'case',`data-value="${i}" class="${i===state.gramCase?'is-selected':''}"`)).join('')}</div>`
+                + `<div class="gt-vpanel"><p>${cases[state.gramCase]}</p><div class="gt-vbig" lang="ru">${escapeHtml(word)}</div><p class="gt-vsentence" lang="ru">${escapeHtml(example)}</p><p class="gt-vhint">${preposition}</p></div>`
+                + `<div class="gt-vcontrols">${button('🔊 Hear the sentence','listen')}</div><div class="gt-vfeedback" role="status"></div>`;
+        }
+        function renderAdjectives() {
+            const pair=adjectivePairs[state.matchIndex];
+            const answers=[pair[1], ...adjectivePairs.filter(x=>x!==pair).slice(0,2).map(x=>x[1])];
+            const shift=state.matchIndex%3; answers.push(...answers.splice(0,shift));
+            const phrase=adjectiveExamples[state.adjCase][0][state.gender];
+            const example=adjectiveExamples[state.adjCase][1][state.gender];
+            area.innerHTML=title('Adjectives · Прилагательные','First match a word to its meaning. Then watch «новый» change to agree with its noun.')
+                + `<div class="gt-vpanel"><h6>1 · Match the meaning</h6><div class="gt-vbig" lang="ru">${pair[0]}</div><div class="gt-vcontrols">${answers.map((a,i)=>button(escapeHtml(a),'match',`data-value="${i}"`)).join('')}</div><div class="gt-vfeedback" role="status"></div></div>`
+                + `<div class="gt-vpanel" style="margin-top:14px"><h6>2 · Gender & Case Chameleon</h6><div class="gt-vcontrols">${button('Nominative','adjcase',`data-value="0" class="${state.adjCase===0?'is-selected':''}"`)}${button('Genitive','adjcase',`data-value="1" class="${state.adjCase===1?'is-selected':''}"`)}</div><div class="gt-vcontrols">${genders.map((g,i)=>button(escapeHtml(g.label),'gender',`data-value="${i}" class="${state.gender===i?'is-selected':''}"`)).join('')}</div><div class="gt-vbig" lang="ru">${escapeHtml(phrase)}</div><p class="gt-vsentence" lang="ru">${escapeHtml(example)}</p><p class="gt-vhint">The adjective ending changes with gender, number and case. Some forms also change for animacy.</p>${button('🔊 Listen','listen')}</div>`;
+        }
+        function renderAdverbs() {
+            const a=adverbs[state.bridge];
+            area.innerHTML=title('Adverbs · Наречия','Move the locomotive across the bridge: describe a noun, then describe an action.')
+                + `<div class="gt-vcontrols"><label for="gt-bridge-slider">Bridge journey</label><input id="gt-bridge-slider" class="gt-vmeter" type="range" min="0" max="4" step="1" value="${state.bridge}" aria-label="Choose an adjective-to-adverb pair"></div>`
+                + `<div class="gt-vgrid"><div class="gt-vpanel"><h6>🚉 Departure · Adjective</h6><div class="gt-vbig" lang="ru">${a[0]}</div><p lang="ru">${a[2]}</p><p>Describes a noun</p></div><div class="gt-vpanel"><h6>🚂 Arrival · Adverb</h6><div class="gt-vbig" lang="ru">${a[1]}</div><p lang="ru">${a[3]}</p><p>Describes an action or state</p></div></div>`
+                + `<p class="gt-vhint">${a[4]}. Not every Russian adverb is formed from an adjective.</p><div class="gt-vcontrols">${button('← Previous pair','prev')}${button('Next pair →','next')}${button('🔊 Hear both examples','listen')}</div><div class="gt-vfeedback" role="status"></div>`;
+        }
+        function renderVerbs() {
+            const v=verbs[state.verbIndex], perfect=state.aspect===1;
+            area.innerHTML=title('Verbs · Глаголы','Switch railway tracks to compare an action as a process or habit with an action viewed as a whole.')
+                + `<div class="gt-vcontrols">${button('↻ Track A · Imperfective','aspect',`data-value="0" class="${!perfect?'is-selected':''}"`)}${button('⚑ Track B · Perfective','aspect',`data-value="1" class="${perfect?'is-selected':''}"`)}</div>`
+                + `<div class="gt-vtrack"><h6>${perfect?'⚑ Destination reached · Whole event':'↻ Continuing journey · Process or habit'}</h6><div class="gt-vbig" lang="ru">${perfect?v.b:v.a}</div><p class="gt-vsentence" lang="ru">${perfect?v.bEx:v.aEx}</p><p>${perfect?v.bEn:v.aEn}</p></div>`
+                + `<p class="gt-vhint">Perfective presents an event as a bounded whole; it does not always mean “successfully finished.” In the present-like form, perfective verbs normally refer to the future.</p>`
+                + `<div class="gt-vcontrols">${button('← Previous pair','prev')}${button('Next pair →','next')}${button('🔊 Hear sentence','listen')}</div><div class="gt-vfeedback" role="status"></div>`;
+        }
+        function renderExpressions() {
+            const e=expressions[state.expressionIndex];
+            area.innerHTML=title('Expressions & Idioms · Готовые фразы','Discover each phrase in a cultural artifact. Reveal its context, then choose what you would say.')
+                + `<div class="gt-vartifact"><small>${escapeHtml(e.type.toUpperCase())} · № ${state.expressionIndex+1} / ${expressions.length}</small><p><strong lang="ru">${escapeHtml(e.ru)}</strong></p><p>${state.reveal?escapeHtml(e.en):'What does this expression mean?'}</p></div>`
+                + `<div class="gt-vcontrols">${button(state.reveal?'Hide explanation':'Flip / Reveal meaning','reveal')}${button('🔊 Listen','listen')}${button('← Previous','prev')}${button('Next →','next')}</div>`
+                + (state.reveal?`<div class="gt-vpanel"><h6>When would you say it?</h6><p>${escapeHtml(e.context)}</p><p>${escapeHtml(e.note)}</p><h6>${escapeHtml(e.prompt)}</h6><div class="gt-vcontrols">${e.options.map((o,i)=>button(escapeHtml(o),'answer',`data-value="${i}"`)).join('')}</div><div class="gt-vfeedback" role="status"></div></div>`:'<p class="gt-vhint">Reveal the card to see its cultural meaning and try a short scenario.</p>');
+        }
+        function render() {
+            root.querySelectorAll('[data-vtab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.vtab===state.tab)));
+            ({nouns:renderNouns,pronouns:renderPronouns,adjectives:renderAdjectives,adverbs:renderAdverbs,verbs:renderVerbs,expressions:renderExpressions})[state.tab]();
+        }
+        root.addEventListener('click',event=>{
+            const tab=event.target.closest('[data-vtab]');
+            if(tab){state.tab=tab.dataset.vtab;render();return;}
+            if(event.target.closest('.gt-vcard')){state.flipped=!state.flipped;render();return;}
+            const b=event.target.closest('[data-vaction]'); if(!b)return;
+            const act=b.dataset.vaction, val=b.dataset.value;
+            if(act==='group'){setGroup(Object.keys(nounSets)[Number(val)]);render();return;}
+            if(act==='pronoun'){state.pronoun=val;render();return;}
+            if(act==='case'){state.gramCase=Number(val);render();return;}
+            if(act==='gender'){state.gender=Number(val);render();return;}
+            if(act==='adjcase'){state.adjCase=Number(val);render();return;}
+            if(act==='aspect'){state.aspect=Number(val);render();return;}
+            if(act==='flip'){state.flipped=!state.flipped;render();return;}
+            if(act==='reveal'){state.reveal=!state.reveal;render();return;}
+            if(act==='reset'){setGroup(state.group);render();return;}
+            if(act==='shuffle'){for(let i=state.order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[state.order[i],state.order[j]]=[state.order[j],state.order[i]];}state.index=0;state.flipped=false;render();return;}
+            if(act==='known'){state.known.add(state.order[state.index]);state.index=(state.index+1)%state.order.length;state.flipped=false;render();return;}
+            if(act==='prev'||act==='next'){
+                const delta=act==='prev'?-1:1;
+                if(state.tab==='nouns'){state.index=(state.index+delta+state.order.length)%state.order.length;state.flipped=false;}
+                if(state.tab==='adverbs')state.bridge=(state.bridge+delta+adverbs.length)%adverbs.length;
+                if(state.tab==='verbs')state.verbIndex=(state.verbIndex+delta+verbs.length)%verbs.length;
+                if(state.tab==='expressions'){state.expressionIndex=(state.expressionIndex+delta+expressions.length)%expressions.length;state.reveal=false;}
+                render();return;
+            }
+            if(act==='match'){
+                const pair=adjectivePairs[state.matchIndex];
+                const answers=[pair[1],...adjectivePairs.filter(x=>x!==pair).slice(0,2).map(x=>x[1])];
+                const shift=state.matchIndex%3;answers.push(...answers.splice(0,shift));
+                if(answers[Number(val)]===pair[1]){state.matchIndex=(state.matchIndex+1)%adjectivePairs.length;render();feedback('Correct! Try the next adjective.',true);}
+                else feedback('Try again. Look for the closest meaning.',false);
+                return;
+            }
+            if(act==='answer'){const e=expressions[state.expressionIndex];feedback(Number(val)===e.answer?'Exactly! That fits the situation.':'Not quite. Consider the social situation.',Number(val)===e.answer);return;}
+            if(act==='listen'){
+                if(state.tab==='nouns')speak(state.flipped?nounSets[state.group][state.order[state.index]][4]:nounSets[state.group][state.order[state.index]][0]);
+                if(state.tab==='pronouns')speak(pronounExamples[state.pronoun][state.gramCase]);
+                if(state.tab==='adjectives')speak(adjectiveExamples[state.adjCase][1][state.gender]);
+                if(state.tab==='adverbs')speak(adverbs[state.bridge][2]+'. '+adverbs[state.bridge][3]);
+                if(state.tab==='verbs')speak(verbs[state.verbIndex][state.aspect?'bEx':'aEx']);
+                if(state.tab==='expressions')speak(expressions[state.expressionIndex].ru);
+            }
+        });
+        root.addEventListener('keydown',event=>{
+            if((event.key==='Enter'||event.key===' ')&&event.target.classList.contains('gt-vcard')){event.preventDefault();state.flipped=!state.flipped;render();}
+        });
+        root.addEventListener('input',event=>{if(event.target.id==='gt-bridge-slider'){state.bridge=Number(event.target.value);render();}});
+        render();
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initVocabulary);
+    else initVocabulary();
+})();
+// END PLATFORM 01 — VOCABULARY COLLECTION
+
+
+// ============================================================
+// PLATFORM 01 — SEPARATE OPTIONAL EXPRESS SPEED DRILL
+// Deliberately independent of the six existing vocabulary tabs.
+// No original vocabulary functions, listeners, or state are changed.
+// ============================================================
+(function initializePlatform01ExpressDrill() {
+    'use strict';
+
+    const root = document.getElementById('gt-vocab');
+    const overlay = document.getElementById('gt-express-dialog');
+    const openButton = document.getElementById('gt-express-open');
+
+    if (!root || !overlay || !openButton) {
+        return;
+    }
+
+    const content = document.getElementById('gt-express-content');
+    const category = document.getElementById('gt-express-category');
+    const progress = document.getElementById('gt-express-progress');
+    const clock = document.getElementById('gt-express-time');
+    const restartButton = document.getElementById('gt-express-restart');
+    const closeButton = document.getElementById('gt-express-close');
+    const returnButton = document.getElementById('gt-express-return');
+    const storagePrefix = 'michaels-foundations:grand-terminal:express:v1:';
+
+    // Each category has its own compact, independently scored drill.
+    // Every question is an actual choice, not a flip-card click-through.
+    const banks = {
+        nouns: [
+            ['семья', 'family', 'brother', 'table', 'time'],
+            ['сестра', 'sister', 'mother', 'daughter', 'aunt'],
+            ['дядя', 'uncle', 'grandfather', 'father', 'friend'],
+            ['порция', 'portion', 'menu', 'ruble', 'kitchen'],
+            ['время', 'time', 'evening', 'year', 'day'],
+            ['бабушка', 'grandmother', 'aunt', 'mother', 'sister'],
+            ['кухня', 'kitchen', 'house', 'dinner', 'table'],
+            ['рубль', 'ruble', 'portion', 'tea', 'soup']
+        ],
+        pronouns: [
+            ['Which is the dative form of «я»?', 'мне', 'меня', 'мной', 'я'],
+            ['Which is the instrumental form of «ты»?', 'тобой', 'тебе', 'тебя', 'ты'],
+            ['Complete: У ___ есть брат. (I have a brother.)', 'меня', 'мне', 'мной', 'я'],
+            ['Complete: Я говорю о ___. (I am talking about her.)', 'ней', 'её', 'ей', 'она'],
+            ['Which is the dative form of «мы»?', 'нам', 'нас', 'нами', 'мы'],
+            ['Complete: Он гордится ___. (He is proud of them.)', 'ими', 'их', 'им', 'они'],
+            ['Complete: Я помогу ___. (I will help you, polite/plural.)', 'вам', 'вас', 'вами', 'вы'],
+            ['Complete: Я думаю о ___. (I am thinking about him.)', 'нём', 'его', 'ему', 'он']
+        ],
+        adjectives: [
+            ['новый дом — which word means “new”?', 'новый', 'дом', 'старший', 'вкусный'],
+            ['Choose “a new book” in nominative.', 'новая книга', 'новый книга', 'новое книга', 'новые книга'],
+            ['Choose “a new window” in nominative.', 'новое окно', 'новая окно', 'новый окно', 'новые окно'],
+            ['Choose “new friends” in nominative.', 'новые друзья', 'новый друзья', 'новая друзья', 'новое друзья'],
+            ['Complete: У ___ дома есть сад.', 'нового', 'новый', 'новая', 'новые'],
+            ['Complete: У ___ книги красивая обложка.', 'новой', 'нового', 'новая', 'новое'],
+            ['Which adjective means “tasty”?', 'вкусный', 'маленький', 'старший', 'новый'],
+            ['Which adjective means “younger (relative)”?', 'младший', 'старший', 'большой', 'вкусный']
+        ],
+        adverbs: [
+            ['Which word means “quickly”?', 'быстро', 'быстрый', 'громкий', 'тихий'],
+            ['Complete: Он говорит ___. (loudly)', 'громко', 'громкий', 'хороший', 'тихий'],
+            ['Which is the adverb related to «тихий»?', 'тихо', 'тихий', 'быстро', 'красивый'],
+            ['Complete: Она ___ поёт. (beautifully)', 'красиво', 'красивый', 'громкий', 'быстрый'],
+            ['Which word means “well”?', 'хорошо', 'хороший', 'громко', 'быстрый'],
+            ['Which word describes an action rather than a noun?', 'быстро', 'быстрый', 'тихий', 'громкий'],
+            ['Choose the natural phrase.', 'Она говорит тихо.', 'Она говорит тихий.', 'Она тихий говорит.', 'Она говорить тихая.'],
+            ['Choose the adverb in «Поезд едет быстро».', 'быстро', 'поезд', 'едет', 'быстрый']
+        ],
+        verbs: [
+            ['Which is the perfective partner of «читать»?', 'прочитать', 'читаю', 'писать', 'готовить'],
+            ['Which is the imperfective partner of «написать»?', 'писать', 'прочитать', 'сделать', 'приготовить'],
+            ['Choose the habitual action: “I read every evening.”', 'Я читаю каждый вечер.', 'Я прочитаю каждый вечер.', 'Я написал письмо.', 'Я приготовил ужин.'],
+            ['Choose the completed whole event: “We prepared dinner.”', 'Мы приготовили ужин.', 'Мы готовим ужин.', 'Мы читаем ужин.', 'Мы пишем ужин.'],
+            ['Which is the perfective partner of «делать»?', 'сделать', 'читать', 'писать', 'готовить'],
+            ['Choose the ongoing action: “I am writing a letter.”', 'Я пишу письмо.', 'Я написал письмо.', 'Я прочитал письмо.', 'Я сделал письмо.'],
+            ['Choose the future whole event: “I will read the book through tomorrow.”', 'Я прочитаю книгу завтра.', 'Я читаю книгу каждый вечер.', 'Я написал письмо.', 'Я готовлю ужин.'],
+            ['Which is the imperfective partner of «приготовить»?', 'готовить', 'сделать', 'прочитать', 'написать']
+        ],
+        expressions: [
+            ['What do you say to wish a friend luck before an exam?', 'Ни пуха ни пера!', 'Добрый вечер!', 'До свидания!', 'Сколько стоит?'],
+            ['A host invites one familiar person to take food. What do they say?', 'Угощайся!', 'Как поживаешь?', 'До завтра!', 'Очень приятно!'],
+            ['You have just been introduced to someone. What fits?', 'Очень приятно!', 'Приятного аппетита!', 'Сколько рублей?', 'Угощайся!'],
+            ['Everyone sits down to dinner. What do you say?', 'Приятного аппетита!', 'Ни пуха ни пера!', 'Как тебя зовут?', 'До свидания!'],
+            ['You meet a relative you have not seen in a while. What fits?', 'Как поживаешь?', 'Сколько стоит?', 'Приятного аппетита!', 'Я читаю.'],
+            ['What is the traditional response to «Ни пуха ни пера!»?', 'К чёрту!', 'Очень приятно!', 'Спасибо за ужин!', 'До завтра!'],
+            ['Which is the polite/plural version of «Угощайся!»?', 'Угощайтесь!', 'Угощайся!', 'Как поживаете?', 'Очень приятно!'],
+            ['Which means “Enjoy your meal”?', 'Приятного аппетита!', 'Очень приятно!', 'Ни пуха ни пера!', 'Как поживаешь?']
+        ]
+    };
+
+    const labels = {
+        nouns: 'Nouns · Существительные',
+        pronouns: 'Pronouns · Местоимения',
+        adjectives: 'Adjectives · Прилагательные',
+        adverbs: 'Adverbs · Наречия',
+        verbs: 'Verbs · Глаголы',
+        expressions: 'Expressions · Готовые фразы'
+    };
+
+    let currentTab = 'nouns';
+    let questions = [];
+    let questionIndex = 0;
+    let correctCount = 0;
+    let running = false;
+    let startedAt = 0;
+    let timerHandle = null;
+    let elapsed = 0;
+    let previouslyFocused = null;
+
+    function shuffleCopy(items) {
+        const copy = [...items];
+        for (let index = copy.length - 1; index > 0; index--) {
+            const other = Math.floor(Math.random() * (index + 1));
+            [copy[index], copy[other]] = [copy[other], copy[index]];
+        }
+        return copy;
+    }
+
+    function formatTime(milliseconds) {
+        const tenths = Math.floor(milliseconds / 100) % 10;
+        const seconds = Math.floor(milliseconds / 1000) % 60;
+        const minutes = Math.floor(milliseconds / 60000);
+        return String(minutes).padStart(2, '0') + ':' +
+            String(seconds).padStart(2, '0') + '.' + tenths;
+    }
+
+    function stopClock() {
+        if (timerHandle !== null) {
+            clearInterval(timerHandle);
+            timerHandle = null;
+        }
+        if (running) {
+            elapsed = performance.now() - startedAt;
+            running = false;
+        }
+        clock.textContent = formatTime(elapsed);
+    }
+
+    function readBest(tab) {
+        try {
+            const value = Number(localStorage.getItem(storagePrefix + tab));
+            return Number.isFinite(value) && value > 0 ? value : null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function saveBest(tab, value) {
+        try {
+            localStorage.setItem(storagePrefix + tab, String(value));
+        } catch (error) {
+            // Private browsing may block storage. The drill still works.
+        }
+    }
+
+    function makeElement(tag, className, text) {
+        const element = document.createElement(tag);
+        if (className) element.className = className;
+        if (text !== undefined) element.textContent = text;
+        return element;
+    }
+
+    function showReady() {
+        stopClock();
+        elapsed = 0;
+        clock.textContent = '00:00.0';
+        progress.textContent = 'Ready to depart';
+        category.textContent = labels[currentTab];
+        restartButton.hidden = true;
+        content.replaceChildren();
+        content.appendChild(makeElement('h5', '', 'Ready for a quick challenge?'));
+        content.appendChild(makeElement('p', '', 'Answer 8 questions from this vocabulary category. The stopwatch starts only when you choose Depart.'));
+        content.appendChild(makeElement('p', '', 'Get all 8 right to earn a personal-best time. There is no countdown and no penalty for practicing.'));
+        const best = readBest(currentTab);
+        content.appendChild(makeElement('p', 'gt-express-feedback',
+            best === null ? 'No personal best yet — your first journey awaits!' :
+                'Your personal best: ' + formatTime(best)));
+        const depart = makeElement('button', 'gt-express-primary', '🚂 Depart — Start Drill!');
+        depart.type = 'button';
+        depart.addEventListener('click', startDrill);
+        content.appendChild(depart);
+        depart.focus();
+    }
+
+    function startDrill() {
+        stopClock();
+        questions = shuffleCopy(banks[currentTab]).map(function (entry) {
+            return {
+                prompt: entry[0],
+                correct: entry[1],
+                options: shuffleCopy(entry.slice(1))
+            };
+        });
+        questionIndex = 0;
+        correctCount = 0;
+        elapsed = 0;
+        restartButton.hidden = true;
+        startedAt = performance.now();
+        running = true;
+        timerHandle = setInterval(function () {
+            clock.textContent = formatTime(performance.now() - startedAt);
+        }, 100);
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const question = questions[questionIndex];
+        progress.textContent = 'Question ' + (questionIndex + 1) + ' of ' + questions.length;
+        content.replaceChildren();
+        content.appendChild(makeElement('h5', '', question.prompt));
+        const choices = makeElement('div', 'gt-express-answers');
+        question.options.forEach(function (option) {
+            const answerButton = makeElement('button', '', option);
+            answerButton.type = 'button';
+            answerButton.addEventListener('click', function () {
+                if (!running) return;
+                if (option === question.correct) correctCount++;
+                questionIndex++;
+                if (questionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    finishDrill();
+                }
+            });
+            choices.appendChild(answerButton);
+        });
+        content.appendChild(choices);
+        const first = choices.querySelector('button');
+        if (first) first.focus();
+    }
+
+    function finishDrill() {
+        stopClock();
+        progress.textContent = 'Arrived at the station';
+        restartButton.hidden = false;
+        content.replaceChildren();
+        content.appendChild(makeElement('h5', '', '🏁 Journey complete!'));
+        content.appendChild(makeElement('p', '', 'Your journey time: ' + formatTime(elapsed)));
+        content.appendChild(makeElement('p', '', 'Accuracy: ' + correctCount + ' / ' + questions.length));
+        if (correctCount === questions.length) {
+            const previous = readBest(currentTab);
+            if (previous === null || elapsed < previous) {
+                saveBest(currentTab, elapsed);
+                content.appendChild(makeElement('p', 'gt-express-feedback', '🏆 New personal best!'));
+            } else {
+                content.appendChild(makeElement('p', 'gt-express-feedback',
+                    'Personal best: ' + formatTime(previous) + ' — can you beat it?'));
+            }
+        } else {
+            content.appendChild(makeElement('p', 'gt-express-feedback',
+                'Keep practicing! A perfect 8 / 8 earns a personal-best time.'));
+        }
+        restartButton.focus();
+    }
+
+    function closeDrill() {
+        stopClock();
+        overlay.hidden = true;
+        document.body.style.overflow = '';
+        if (previouslyFocused && previouslyFocused.isConnected) {
+            previouslyFocused.focus();
+        }
+    }
+
+    openButton.addEventListener('click', function () {
+        // Read the active original tab without changing its state or listeners.
+        const selected = root.querySelector('[data-vtab][aria-selected="true"]');
+        const requestedTab = selected ? selected.dataset.vtab : 'nouns';
+        currentTab = Object.prototype.hasOwnProperty.call(banks, requestedTab) ? requestedTab : 'nouns';
+        previouslyFocused = document.activeElement;
+        overlay.hidden = false;
+        document.body.style.overflow = 'hidden';
+        showReady();
+    });
+
+    closeButton.addEventListener('click', closeDrill);
+    returnButton.addEventListener('click', closeDrill);
+    restartButton.addEventListener('click', showReady);
+    overlay.addEventListener('click', function (event) {
+        if (event.target === overlay) closeDrill();
+    });
+    document.addEventListener('keydown', function (event) {
+        if (overlay.hidden) return;
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            closeDrill();
+        }
+        if (event.key === 'Tab') {
+            const focusables = Array.from(overlay.querySelectorAll('button:not([hidden]):not([disabled])'));
+            if (!focusables.length) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+    });
+})();

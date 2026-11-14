@@ -23017,3 +23017,125 @@ body.cn-immersive-active > #rw-cultural-notes .cn-scene[hidden] {
     #door-four-laboratory .gt-station-photo img { height: 240px; }
 }
 /* END GRAND TERMINAL — FIVE STATION ARRIVAL PAGES */
+
+/* BEGIN PLATFORM 01 — INTERACTIVE VOCABULARY COLLECTION */
+#door-four-laboratory .gt-vocab { color:#f9f1df; font-family:Arial,sans-serif; }
+#door-four-laboratory .gt-vocab * { box-sizing:border-box; }
+#door-four-laboratory .gt-vocab-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 16px; }
+#door-four-laboratory .gt-vocab button { cursor:pointer; border:1px solid #b69a61; border-radius:9px; padding:10px 14px; color:#fff5df; background:#354c3b; font:600 14px/1.3 Arial,sans-serif; }
+#door-four-laboratory .gt-vocab button:hover, #door-four-laboratory .gt-vocab button:focus-visible { background:#536a4c; outline:2px solid #e9c57a; outline-offset:2px; }
+#door-four-laboratory .gt-vocab-tabs button[aria-selected="true"], #door-four-laboratory .gt-vocab button.is-selected { background:#c59c54; color:#142b22; border-color:#ffe2a0; }
+#door-four-laboratory .gt-vocab-workspace { min-height:340px; background:linear-gradient(135deg,#152a22,#243b2d); border:1px solid #947747; border-radius:14px; padding:20px; }
+#door-four-laboratory .gt-vocab h5 { font:700 25px/1.25 Georgia,serif; color:#f5dca4; margin:0 0 8px; }
+#door-four-laboratory .gt-vocab h6 { font:700 19px/1.3 Georgia,serif; color:#f4dfb6; margin:0 0 9px; }
+#door-four-laboratory .gt-vocab .gt-vhint { font:15px/1.5 Arial,sans-serif; color:#e3d8c3; margin:0 0 14px; }
+#door-four-laboratory .gt-vocab .gt-vcontrols { display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin:13px 0; }
+#door-four-laboratory .gt-vocab .gt-vcard { background:linear-gradient(145deg,#f8edd4,#e4c994); color:#273c2c; border:3px double #9a7336; border-radius:16px; padding:25px 15px; min-height:205px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:9px; }
+#door-four-laboratory .gt-vocab .gt-vcard strong { font:700 clamp(25px,4vw,39px)/1.25 Georgia,serif; }
+#door-four-laboratory .gt-vocab .gt-vcard span { font:16px/1.4 Arial,sans-serif; }
+#door-four-laboratory .gt-vocab .gt-vcard small { color:#4b553e; }
+#door-four-laboratory .gt-vocab .gt-vcard[role="button"] { cursor:pointer; }
+#door-four-laboratory .gt-vocab .gt-vcard:focus-visible { outline:3px solid #f7d478; }
+#door-four-laboratory .gt-vocab .gt-vgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr)); gap:12px; margin:15px 0; }
+#door-four-laboratory .gt-vocab .gt-vpanel { border:1px solid #8c794e; border-radius:12px; padding:16px; background:#30483a; }
+#door-four-laboratory .gt-vocab .gt-vpanel p { margin:8px 0; }
+#door-four-laboratory .gt-vocab .gt-vbig { font:700 clamp(29px,4vw,46px)/1.3 Georgia,serif; color:#ffe1a1; }
+#door-four-laboratory .gt-vocab .gt-vsentence { font:20px/1.5 Georgia,serif; color:#fff3d9; }
+#door-four-laboratory .gt-vocab .gt-vfeedback { color:#f6dfab; font-weight:600; min-height:25px; margin:12px 0; }
+#door-four-laboratory .gt-vocab .gt-vfootnote, #door-four-laboratory .gt-vocab-footnote { font-size:13px; color:#d4c7a9; margin:14px 0 0; }
+#door-four-laboratory .gt-vocab .gt-vtrack { padding:15px; border:2px dashed #ba9959; border-radius:12px; background:#1a3229; }
+#door-four-laboratory .gt-vocab .gt-vmeter { width:100%; accent-color:#d8af67; }
+#door-four-laboratory .gt-vocab .gt-vartifact { background:#eee0bd; color:#3a2f21; border:2px solid #a77c46; border-radius:8px; padding:20px; transform:rotate(-.5deg); }
+#door-four-laboratory .gt-vocab .gt-vartifact p { color:#3a2f21; }
+#door-four-laboratory .gt-vocab .gt-vartifact strong { font:700 25px Georgia,serif; }
+#door-four-laboratory .gt-vocab .gt-vcorrect { color:#bff0bd; }
+#door-four-laboratory .gt-vocab .gt-vincorrect { color:#ffcaaf; }
+@media(max-width:700px){#door-four-laboratory .gt-vocab-workspace{padding:12px}#door-four-laboratory .gt-vocab button{padding:9px 10px;font-size:13px}}
+/* END PLATFORM 01 — INTERACTIVE VOCABULARY COLLECTION */
+
+
+/* ============================================================
+   PLATFORM 01 — OPTIONAL EXPRESS CHALLENGE (ISOLATED STYLES)
+   Existing vocabulary panels and tabs are intentionally untouched.
+   ============================================================ */
+.gt-express-invitation {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 14px 0 18px;
+    padding: 15px 18px;
+    border: 2px solid #bd974d;
+    border-radius: 16px;
+    background: linear-gradient(120deg, #163f35, #275e4b 65%, #174035);
+    color: #fff4d5;
+    box-shadow: 0 5px 16px #00000025;
+}
+.gt-express-invitation__seal {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border: 2px solid #e8c777;
+    border-radius: 50%;
+    background: #0e2d29;
+    font-size: 29px;
+}
+.gt-express-invitation__copy { display: grid; gap: 3px; flex: 1 1 240px; }
+.gt-express-invitation__copy strong { color: #ffe3a0; letter-spacing: .07em; font-size: .92rem; }
+.gt-express-invitation__copy span { color: white; font-size: .94rem; }
+.gt-express-invitation__copy small { color: #d5e6dc; font-size: .78rem; }
+.gt-express-invitation .gt-express-invitation__button,
+.gt-express-dialog button.gt-express-primary {
+    border: 2px solid #fff1bc;
+    border-radius: 10px;
+    background: linear-gradient(#ffe7a3, #c9943f);
+    color: #27382e;
+    padding: 12px 17px;
+    font-weight: 900;
+    box-shadow: 0 4px 0 #6e4e25;
+}
+.gt-express-invitation .gt-express-invitation__button:hover,
+.gt-express-dialog button.gt-express-primary:hover { filter: brightness(1.07); transform: translateY(-1px); }
+.gt-express-overlay[hidden] { display: none !important; }
+.gt-express-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: #071c1bd9;
+}
+.gt-express-dialog {
+    width: min(650px, 100%);
+    max-height: min(90vh, 800px);
+    overflow: auto;
+    padding: 25px;
+    border: 5px double #c8a05b;
+    border-radius: 18px;
+    background: #fff9e9;
+    color: #26382f;
+    box-shadow: 0 22px 75px #0009;
+}
+.gt-express-dialog__top { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.gt-express-eyebrow { color: #80602c; font-weight: 900; letter-spacing: .13em; font-size: .75rem; }
+.gt-express-dialog h4 { margin: 5px 0 10px; color: #204b3d; font-size: 1.6rem; }
+.gt-express-dialog .gt-express-close { border-radius: 50%; width: 38px; height: 38px; flex: 0 0 38px; }
+.gt-express-category { margin: 0 0 15px; font-weight: 700; }
+.gt-express-status { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 11px 14px; background: #e5eadf; border-radius: 10px; }
+.gt-express-clock { font-family: ui-monospace, Consolas, monospace; font-weight: 900; font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.gt-express-content { padding: 18px 0; min-height: 175px; }
+.gt-express-content h5 { margin: 8px 0 18px; font-size: 1.35rem; color: #214b3e; }
+.gt-express-answers { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.gt-express-answers button { min-height: 54px; padding: 12px; background: white; border: 1px solid #9baea1; border-radius: 9px; color: #183f34; }
+.gt-express-answers button:hover { background: #e4f0e8; }
+.gt-express-feedback { font-weight: 700; margin: 12px 0; }
+.gt-express-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-top: 1px solid #d9c9a7; padding-top: 14px; }
+.gt-express-dialog button:focus-visible, .gt-express-invitation button:focus-visible { outline: 3px solid #2c8eab; outline-offset: 3px; }
+@media (max-width: 600px) {
+    .gt-express-invitation__button { width: 100%; }
+    .gt-express-dialog { padding: 16px; }
+    .gt-express-answers { grid-template-columns: 1fr; }
+}

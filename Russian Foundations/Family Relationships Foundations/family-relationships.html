@@ -6467,11 +6467,14 @@ LESSON 2 — EXTENDED FAMILY
                   <div class="gt-hero-layout">
                     <div class="gt-hero-copy">
                       <h2>The Grand Terminal</h2>
-                      <p>Every discovery is a new destination. Choose a platform and explore the Russian language in your own way.</p>
+                      <p>Every discovery is a new destination. Choose a platform and explore the Russian language in
+                        your own way.</p>
 
                     </div>
                     <figure class="gt-locomotive-figure">
-                      <img src="../../Images/door-four/grand-terminal-locomotive.png" alt="Historic green steam locomotive with red driving wheels, displayed inside a railway museum" loading="lazy">
+                      <img src="../../Images/door-four/grand-terminal-locomotive.png"
+                        alt="Historic green steam locomotive with red driving wheels, displayed inside a railway museum"
+                        loading="lazy">
                     </figure>
                   </div>
                 </div>
@@ -6487,7 +6490,8 @@ LESSON 2 — EXTENDED FAMILY
                         <span>PLATFORM 01</span>
                         <strong>VOCABULARY COLLECTION</strong>
                         <em lang="ru">СЛОВАРЬ</em>
-                        <small>Review, practice and master vocabulary you have used in the entire Family Relationships Foundation</small>
+                        <small>Review, practice and master vocabulary you have used in the entire Family Relationships
+                          Foundation</small>
                       </button>
                       <button type="button" class="gt-platform" data-gt-platform="grammar">
                         <span>PLATFORM 02</span>
@@ -6501,13 +6505,15 @@ LESSON 2 — EXTENDED FAMILY
                         <em lang="ru">РУССКИЙ ТАК, КАК ГОВОРЯТ</em>
                         <small>Sound more like a Russian native with these words and phrases</small>
                       </button>
-                      <button type="button" class="gt-platform gt-platform--placeholder" data-gt-platform="future-four" aria-label="Platform 04: preview future destination">
+                      <button type="button" class="gt-platform gt-platform--placeholder" data-gt-platform="future-four"
+                        aria-label="Platform 04: preview future destination">
                         <span>PLATFORM 04</span>
                         <strong>PLACE HOLDER</strong>
                         <em lang="ru">Продолжение следует</em>
                         <small>More to come</small>
                       </button>
-                      <button type="button" class="gt-platform gt-platform--placeholder" data-gt-platform="future-five" aria-label="Platform 05: preview future destination">
+                      <button type="button" class="gt-platform gt-platform--placeholder" data-gt-platform="future-five"
+                        aria-label="Platform 05: preview future destination">
                         <span>PLATFORM 05</span>
                         <strong>PLACE HOLDER</strong>
                         <em lang="ru">Продолжение следует</em>
@@ -6526,77 +6532,145 @@ LESSON 2 — EXTENDED FAMILY
                       <div class="gt-station-overline">PLATFORM 01 · ARRIVAL</div>
                       <div class="gt-station-intro">
                         <figure class="gt-station-photo">
-                          <img src="../../Images/door-four/station-leningradsky.jpg" alt="Photograph of Leningradsky Railway Station" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
+                          <img src="../../Images/door-four/leningrad-rail-station.png"
+                            alt="Photograph of Leningradsky Railway Station" loading="lazy"
+                            onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
                           <figcaption>Station photograph · Leningradsky Railway Station</figcaption>
                         </figure>
                         <div class="gt-station-story">
                           <span class="gt-station-location">Moscow · Москва</span>
                           <h3>Leningradsky Railway Station</h3>
                           <p class="gt-station-russian" lang="ru">Ленинградский вокзал</p>
-                          <p>Opened in 1851, Leningradsky Station connected Moscow with Saint Petersburg. Designed by Konstantin Thon, its historic clock tower recalls the early age of Russian passenger rail travel.</p>
+                          <p>Opened in 1851, Leningradsky Station connected Moscow with Saint Petersburg. Designed by
+                            Konstantin Thon, its historic clock tower recalls the early age of Russian passenger rail
+                            travel.</p>
                         </div>
                       </div>
                       <section class="gt-station-learning" aria-label="Platform 01 learning experience">
                         <span class="gt-station-section-label">YOUR LEARNING DESTINATION</span>
                         <h4>Vocabulary Collection <span lang="ru">· Словарь</span></h4>
                         <p>Explore and review the words you have encountered throughout Family Relationships.</p>
-                        <div class="gt-station-coming">Learning activities will be designed here after we approve the station page.</div>
+                        <!-- BEGIN PLATFORM 01 — INTERACTIVE VOCABULARY COLLECTION -->
+                        <div id="gt-vocab" class="gt-vocab">
+                          <div class="gt-vocab-tabs" role="tablist" aria-label="Vocabulary categories">
+                            <button type="button" role="tab" aria-selected="true" data-vtab="nouns">Nouns</button>
+                            <button type="button" role="tab" aria-selected="false"
+                              data-vtab="pronouns">Pronouns</button>
+                            <button type="button" role="tab" aria-selected="false"
+                              data-vtab="adjectives">Adjectives</button>
+                            <button type="button" role="tab" aria-selected="false" data-vtab="adverbs">Adverbs</button>
+                            <button type="button" role="tab" aria-selected="false" data-vtab="verbs">Verbs</button>
+                            <button type="button" role="tab" aria-selected="false"
+                              data-vtab="expressions">Expressions</button>
+                          </div>
+                          <!-- Optional standalone drill invitation; existing learning tabs are unchanged. -->
+                          <aside class="gt-express-invitation" aria-label="Optional vocabulary speed drill">
+                            <div class="gt-express-invitation__seal" aria-hidden="true">⏱</div>
+                            <div class="gt-express-invitation__copy">
+                              <strong>THE EXPRESS CHALLENGE <span lang="ru">· Экспресс</span></strong>
+                              <span>Think you know this stop? Try your hand at a speed drill!</span>
+                              <small>Completely optional · Your lessons stay just as they are.</small>
+                            </div>
+                            <button type="button" class="gt-express-invitation__button" id="gt-express-open">🚂 Take the
+                              Challenge!</button>
+                          </aside>
+                          <div class="gt-vocab-workspace" aria-live="polite"></div>
+                          <p class="gt-vocab-footnote">Explore · Experiment · Use. Listen buttons use your browser's
+                            Russian voice when available.</p>
+                        </div>
+                        <!-- BEGIN PLATFORM 01 — SEPARATE OPTIONAL EXPRESS DRILL -->
+                        <div id="gt-express-dialog" class="gt-express-overlay" hidden>
+                          <section class="gt-express-dialog" role="dialog" aria-modal="true"
+                            aria-labelledby="gt-express-heading">
+                            <div class="gt-express-dialog__top">
+                              <div><span class="gt-express-eyebrow">PLATFORM 01 · EXPRESS SERVICE</span>
+                                <h4 id="gt-express-heading">🚂 The Express Challenge</h4>
+                              </div>
+                              <button type="button" id="gt-express-close" class="gt-express-close"
+                                aria-label="Close speed drill">✕</button>
+                            </div>
+                            <p id="gt-express-category" class="gt-express-category"></p>
+                            <div class="gt-express-status"><span id="gt-express-progress">Ready to depart</span>
+                              <span id="gt-express-time" class="gt-express-clock"
+                                aria-label="Elapsed time">00:00.0</span>
+                            </div>
+                            <div id="gt-express-content" class="gt-express-content" aria-live="polite"></div>
+                            <div class="gt-express-footer"><button type="button" id="gt-express-restart" hidden>↻ Try
+                                Again</button>
+                              <button type="button" id="gt-express-return">Return to Vocabulary</button>
+                            </div>
+                          </section>
+                        </div>
+                        <!-- END PLATFORM 01 — SEPARATE OPTIONAL EXPRESS DRILL -->
+                        <!-- END PLATFORM 01 — INTERACTIVE VOCABULARY COLLECTION -->
                       </section>
                     </article>
                     <article class="gt-station-page" data-gt-station="grammar" hidden>
                       <div class="gt-station-overline">PLATFORM 02 · ARRIVAL</div>
                       <div class="gt-station-intro">
                         <figure class="gt-station-photo">
-                          <img src="../../Images/door-four/station-vitebsky.jpg" alt="Photograph of Vitebsky Railway Station" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
+                          <img src="../../Images/door-four/vitebsky-railway-station.png"
+                            alt="Photograph of Vitebsky Railway Station" loading="lazy"
+                            onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
                           <figcaption>Station photograph · Vitebsky Railway Station</figcaption>
                         </figure>
                         <div class="gt-station-story">
                           <span class="gt-station-location">Saint Petersburg · Санкт-Петербург</span>
                           <h3>Vitebsky Railway Station</h3>
                           <p class="gt-station-russian" lang="ru">Витебский вокзал</p>
-                          <p>Russia’s first passenger railway departed from this site in 1837. The present station, opened in 1904, is celebrated for its elegant Art Nouveau architecture and grand interiors.</p>
+                          <p>Russia’s first passenger railway departed from this site in 1837. The present station,
+                            opened in 1904, is celebrated for its elegant Art Nouveau architecture and grand interiors.
+                          </p>
                         </div>
                       </div>
                       <section class="gt-station-learning" aria-label="Platform 02 learning experience">
                         <span class="gt-station-section-label">YOUR LEARNING DESTINATION</span>
                         <h4>Grammar Notes <span lang="ru">· Грамматика</span></h4>
                         <p>Investigate the grammar patterns you have already used in Family Relationships.</p>
-                        <div class="gt-station-coming">Learning activities will be designed here after we approve the station page.</div>
+                        <div class="gt-station-coming">Learning activities will be designed here after we approve the
+                          station page.</div>
                       </section>
                     </article>
                     <article class="gt-station-page" data-gt-station="spoken-russian" hidden>
                       <div class="gt-station-overline">PLATFORM 03 · ARRIVAL</div>
                       <div class="gt-station-intro">
                         <figure class="gt-station-photo">
-                          <img src="../../Images/door-four/station-kazansky.jpg" alt="Photograph of Kazansky Railway Station" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
+                          <img src="../../Images/door-four/kazansky-railway-station.png"
+                            alt="Photograph of Kazansky Railway Station" loading="lazy"
+                            onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
                           <figcaption>Station photograph · Kazansky Railway Station</figcaption>
                         </figure>
                         <div class="gt-station-story">
                           <span class="gt-station-location">Moscow · Москва</span>
                           <h3>Kazansky Railway Station</h3>
                           <p class="gt-station-russian" lang="ru">Казанский вокзал</p>
-                          <p>The present station was designed by Alexey Shchusev and built in stages during the twentieth century. Its distinctive architecture draws on Russian and Tatar influences.</p>
+                          <p>The present station was designed by Alexey Shchusev and built in stages during the
+                            twentieth century. Its distinctive architecture draws on Russian and Tatar influences.</p>
                         </div>
                       </div>
                       <section class="gt-station-learning" aria-label="Platform 03 learning experience">
                         <span class="gt-station-section-label">YOUR LEARNING DESTINATION</span>
                         <h4>Russian As They Speak It! <span lang="ru">· Русский так, как говорят</span></h4>
                         <p>Discover how everyday Russian sounds in natural, authentic conversation.</p>
-                        <div class="gt-station-coming">Learning activities will be designed here after we approve the station page.</div>
+                        <div class="gt-station-coming">Learning activities will be designed here after we approve the
+                          station page.</div>
                       </section>
                     </article>
                     <article class="gt-station-page" data-gt-station="future-four" hidden>
                       <div class="gt-station-overline">PLATFORM 04 · ARRIVAL</div>
                       <div class="gt-station-intro">
                         <figure class="gt-station-photo">
-                          <img src="../../Images/door-four/station-novosibirsk.jpg" alt="Photograph of Novosibirsk-Glavny Railway Station" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
+                          <img src="../../Images/door-four/novosibirsk-glavny-railway-station.png"
+                            alt="Photograph of Novosibirsk-Glavny Railway Station" loading="lazy"
+                            onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
                           <figcaption>Station photograph · Novosibirsk-Glavny Railway Station</figcaption>
                         </figure>
                         <div class="gt-station-story">
                           <span class="gt-station-location">Novosibirsk · Новосибирск</span>
                           <h3>Novosibirsk-Glavny Railway Station</h3>
                           <p class="gt-station-russian" lang="ru">Новосибирск-Главный</p>
-                          <p>Opened in 1939, this monumental railway station is a landmark of Novosibirsk and an important stop along the Trans-Siberian Railway.</p>
+                          <p>Opened in 1939, this monumental railway station is a landmark of Novosibirsk and an
+                            important stop along the Trans-Siberian Railway.</p>
                         </div>
                       </div>
                       <section class="gt-station-learning" aria-label="Platform 04 learning experience">
@@ -6610,14 +6684,17 @@ LESSON 2 — EXTENDED FAMILY
                       <div class="gt-station-overline">PLATFORM 05 · ARRIVAL</div>
                       <div class="gt-station-intro">
                         <figure class="gt-station-photo">
-                          <img src="../../Images/door-four/station-vladivostok.jpg" alt="Photograph of Vladivostok Railway Station" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
+                          <img src="../../Images/door-four/vladivostok-railway-station.png"
+                            alt="Photograph of Vladivostok Railway Station" loading="lazy"
+                            onerror="this.hidden=true;this.parentElement.classList.add('gt-station-photo--missing');">
                           <figcaption>Station photograph · Vladivostok Railway Station</figcaption>
                         </figure>
                         <div class="gt-station-story">
                           <span class="gt-station-location">Vladivostok · Владивосток</span>
                           <h3>Vladivostok Railway Station</h3>
                           <p class="gt-station-russian" lang="ru">Вокзал Владивосток</p>
-                          <p>Vladivostok is the eastern endpoint of the Trans-Siberian Railway. Its historic station building reflects the architectural character of Russia’s great railway era.</p>
+                          <p>Vladivostok is the eastern endpoint of the Trans-Siberian Railway. Its historic station
+                            building reflects the architectural character of Russia’s great railway era.</p>
                         </div>
                       </div>
                       <section class="gt-station-learning" aria-label="Platform 05 learning experience">
@@ -6656,123 +6733,448 @@ LESSON 2 — EXTENDED FAMILY
 
 
 
-<!-- BEGIN CULTURAL NOTES — FIVE-SCREEN GALLERY V1 -->
-<section id="rw-cultural-notes" class="rw-cultural-notes" aria-label="Cultural Notes" hidden>
-<article class="cn-scene cn-scene--01" data-cn-scene="0" >
-<div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>01 / 05</span></div><header class="cn-head"><div><h2 lang="ru">У бабушки</h2><p>At Grandma’s</p></div><img src="../../Images/door-four/cultural-photo-v4-01.jpg" alt="Cultural atmosphere for At Grandma’s"></header>
-<div class="cn-discover"><h3>What You’ll Discover</h3><div class="cn-items">
-<button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-01-1.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Бабушка и дедушка</strong><small>Grandparents and family relationships</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-01-2.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Семейные истории</strong><small>Family stories and memories</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-01-3.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Ласковые слова</strong><small>Affectionate names and expressions</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-</div></div>
-<div class="cn-culture-landing"><button type="button" class="cn-culture-button" id="cn-grandparents-culture" aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span class="cn-culture-button-copy"><strong>The Cultural Heart of Russian Family Life</strong><small>Discover the traditions, relationships, and enduring role of grandparents</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button></div></article>
-<article class="cn-scene cn-scene--02" data-cn-scene="1" hidden>
-<div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>02 / 05</span></div><header class="cn-head"><div><h2 lang="ru">Кухонные разговоры</h2><p>Kitchen Conversations</p></div><img src="../../Images/door-four/cultural-photo-v4-02.jpg" alt="Cultural atmosphere for Kitchen Conversations"></header>
-<div class="cn-discover"><h3>What You’ll Discover</h3><div class="cn-items">
-<button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-02-1.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">За семейным столом</strong><small>Around the family table</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-02-2.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Русская кухня</strong><small>Russian food and family recipes</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-02-3.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Разговоры за чаем</strong><small>Conversations over tea</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-</div></div>
-<div class="cn-culture-landing"><button type="button" class="cn-culture-button cn-culture-button--kitchen" id="cn-kitchen-culture" aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span class="cn-culture-button-copy"><strong>The Heart of the Russian Home</strong><small>Discover the conversations, food, hospitality, and traditions that bring people together</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button></div></article>
-<article class="cn-scene cn-scene--03" data-cn-scene="2" hidden>
-<div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>03 / 05</span></div>
-<header class="cn-head"><div><h2 lang="ru">Живой русский язык</h2><p>Everyday Russian — Beyond the Textbook</p></div><img src="../../Images/door-four/cultural-photo-v4-03.jpg" alt="Atmosphere of everyday Russian life"></header>
-<div class="cn-discover"><h3>What You’ll Discover</h3><div class="cn-items">
-<button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-03-1.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Учебник и жизнь</strong><small>Textbook Russian vs. everyday speech · 12 comparisons</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-03-2.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Что это значит?</strong><small>What people say—and what they mean · 12 expressions</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-03-3.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Настоящие разговоры</strong><small>Real conversations · 10 everyday situations</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-</div></div><div class="cn-culture-landing"><button type="button" class="cn-culture-button cn-culture-button--living" id="cn-living-culture" aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span class="cn-culture-button-copy"><strong>The Unspoken Rules of Russian Conversation</strong><small>Discover respect, directness, affection, sincerity, and the meanings between words</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button></div></article>
-<article class="cn-scene cn-scene--04" data-cn-scene="3" hidden>
-<div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>04 / 05</span></div><header class="cn-head"><div><h2 lang="ru">Праздники</h2><p>Celebrations</p></div><img src="../../Images/door-four/cultural-photo-v4-04.jpg" alt="Cultural atmosphere for Celebrations"></header>
-<div class="cn-discover"><h3>What You’ll Discover</h3><div class="cn-items">
-<button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-04-1.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Новый год</strong><small>New Year · 12 discoveries &amp; festive foods</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-04-2.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Масленица</strong><small>Maslenitsa · 10 discoveries &amp; blini</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-04-3.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Семейные традиции</strong><small>Family traditions · 12 discoveries &amp; toasts</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-</div></div><div class="cn-culture-landing"><button type="button" class="cn-culture-button cn-culture-button--celebrations" id="cn-celebrations-culture" aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span class="cn-culture-button-copy"><strong>The Heart of Russian Celebrations</strong><small>Explore family rituals, seasonal meaning, toasts, and changing traditions</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button></div></article>
-<article class="cn-scene cn-scene--05" data-cn-scene="4" hidden>
-<div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>05 / 05</span></div><header class="cn-head"><div><h2 lang="ru">Гостеприимство</h2><p>Hospitality</p></div><img src="../../Images/door-four/cultural-photo-v4-05.jpg" alt="Cultural atmosphere for Hospitality"></header>
-<div class="cn-discover"><h3>What You’ll Discover</h3><div class="cn-items">
-<button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-05-1.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Добро пожаловать!</strong><small>Arriving at a Russian home</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-05-2.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">За столом</strong><small>Hospitality at the table</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-<button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img class="cn-icon" src="../../Images/door-four/cultural-icon-v4-05-3.png" alt="" aria-hidden="true"><span class="cn-item-text"><strong lang="ru">В гостях</strong><small>The language of being a guest</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
-</div></div><div class="cn-culture-landing"><button type="button" class="cn-culture-button cn-culture-button--hospitality" id="cn-hospitality-culture" aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span class="cn-culture-button-copy"><strong>The Unwritten Rules of Russian Hospitality</strong><small>Six cultural discoveries · 18 real-life situations</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button></div></article>
-<!-- BEGIN CULTURAL NOTES — SHARED BOTTOM NAVIGATION -->
-<footer class="cn-bottom-navigation" aria-label="Cultural Notes navigation">
-    <nav class="cn-navigation" aria-label="Cultural Notes scenes">
-        <button type="button" class="cn-rotate cn-rotate--left" data-cn-direction="-1">
-            <span class="cn-rotate-arrow" aria-hidden="true">←</span>
-            <span>Rotate Left</span>
-        </button>
-        <div class="cn-dots" aria-label="Select a scene">
-            <button type="button" data-cn-jump="0" aria-label="Scene 1" aria-current="true"></button>
-            <button type="button" data-cn-jump="1" aria-label="Scene 2" aria-current="false"></button>
-            <button type="button" data-cn-jump="2" aria-label="Scene 3" aria-current="false"></button>
-            <button type="button" data-cn-jump="3" aria-label="Scene 4" aria-current="false"></button>
-            <button type="button" data-cn-jump="4" aria-label="Scene 5" aria-current="false"></button>
-        </div>
-        <button type="button" class="cn-rotate cn-rotate--right" data-cn-direction="1">
-            <span>Rotate Right</span>
-            <span class="cn-rotate-arrow" aria-hidden="true">→</span>
-        </button>
-    </nav>
-    <div class="cn-bottom-divider" aria-hidden="true"></div>
-    <button type="button" class="cn-back" id="rw-cultural-back">
-        <span class="cn-back-book" aria-hidden="true">▤</span>
-        <span class="cn-back-arrow" aria-hidden="true">←</span>
-        <span>Back to Explorer’s Desk</span>
-    </button>
-</footer>
-<!-- END CULTURAL NOTES — SHARED BOTTOM NAVIGATION -->
-<div class="cn-detail" id="rw-cultural-detail" hidden role="dialog" aria-modal="true" aria-labelledby="cn-detail-title"><div class="cn-detail-inner"><button type="button" class="cn-detail-close" aria-label="Close discovery">×</button><p class="cn-detail-eyebrow">СЕМЬЯ И ДОМ</p><h3 id="cn-detail-title"></h3><p id="cn-detail-subtitle"></p><p class="cn-detail-note">This cultural experience is ready for its learning content.</p>
-<section class="cn-grandparents-culture" id="cn-grandparents-culture-panel" hidden aria-label="The cultural role of grandparents">
-  <div class="cn-gc-intro"><span class="cn-gc-eyebrow">THE CULTURAL HEART OF THE HOME</span><h4>More Than Grandparents</h4><p>In many Russian families, <em>babushka</em> and <em>dedushka</em> are caregivers, storytellers, mentors, and treasured connections between generations.</p></div>
-  <div class="cn-gc-tabs" role="group" aria-label="Explore grandparent traditions">
-    <button type="button" data-cn-gc="0">Everyday Care</button><button type="button" data-cn-gc="1">Family Memory</button><button type="button" data-cn-gc="2">The Dacha</button><button type="button" data-cn-gc="3">Their Roles</button><button type="button" data-cn-gc="4">Respect &amp; Care</button>
-  </div>
-  <div class="cn-gc-content"><div class="cn-gc-number" id="cn-gc-number">01 / 05</div><div class="cn-gc-main"><h5 id="cn-gc-heading"></h5><p id="cn-gc-body"></p></div><aside class="cn-gc-aside"><span>A WINDOW INTO RUSSIAN LIFE</span><strong id="cn-gc-russian" lang="ru"></strong><em id="cn-gc-meaning"></em><p id="cn-gc-context"></p></aside></div>
-  <div class="cn-gc-footer"><span>Every family is different. These are familiar cultural patterns, not universal expectations.</span><button type="button" id="cn-gc-return">← Back to At Grandma’s</button></div>
-</section>
-<section class="cn-kitchen-culture" id="cn-kitchen-culture-panel" hidden aria-label="Russian kitchen and food culture">
-  <div class="cn-gc-intro"><span class="cn-gc-eyebrow">LIFE AROUND THE RUSSIAN TABLE</span><h4>More Than a Place to Cook</h4><p>In many Russian homes, the kitchen is where food, friendship, family memory, and honest conversation come together.</p></div>
-  <div class="cn-gc-tabs cn-kc-tabs" role="group" aria-label="Explore Russian kitchen traditions"><button type="button" data-cn-kc="0">The Kitchen</button><button type="button" data-cn-kc="1">Feeding Is Caring</button><button type="button" data-cn-kc="2">Food &amp; Memory</button><button type="button" data-cn-kc="3">Table Rituals</button></div>
-  <div class="cn-gc-content"><div class="cn-gc-number" id="cn-kc-number">01 / 04</div><div class="cn-gc-main"><h5 id="cn-kc-heading"></h5><p id="cn-kc-body"></p></div><aside class="cn-gc-aside"><span>A WINDOW INTO RUSSIAN LIFE</span><strong id="cn-kc-russian" lang="ru"></strong><em id="cn-kc-meaning"></em><p id="cn-kc-context"></p></aside></div>
-  <div class="cn-gc-footer"><span>Traditions differ by family, region, and generation. Explore familiar patterns, not fixed rules.</span><button type="button" id="cn-kc-return">← Back to Kitchen Conversations</button></div>
-</section>
-<section class="cn-living-culture" id="cn-living-culture-panel" hidden aria-label="Unspoken rules of Russian conversation"><div class="cn-gc-intro"><span class="cn-gc-eyebrow">THE CULTURE BEHIND EVERYDAY SPEECH</span><h4>The Unspoken Rules</h4><p>Relationships, sincerity, and context can change the meaning of a simple sentence. Choose a cultural lens, then explore a real situation.</p></div><div class="cn-lc-tabs" role="group" aria-label="Cultural discoveries"><button type="button" data-cn-lc="0">Вы or Ты?</button><button type="button" data-cn-lc="1">Directness</button><button type="button" data-cn-lc="2">Smiles &amp; Small Talk</button><button type="button" data-cn-lc="3">Affection</button><button type="button" data-cn-lc="4">Heart-to-Heart</button><button type="button" data-cn-lc="5">Between the Lines</button></div><div class="cn-lc-body"><div class="cn-lc-intro"><span id="cn-lc-count"></span><h5 id="cn-lc-heading"></h5><p id="cn-lc-description"></p></div><div class="cn-lc-example"><label for="cn-lc-situation">Explore a situation</label><select id="cn-lc-situation"></select><div class="cn-lc-phrase" lang="ru" id="cn-lc-phrase"></div><div class="cn-lc-translation" id="cn-lc-translation"></div><button type="button" id="cn-lc-play">▶ Hear the Russian</button><p id="cn-lc-explanation"></p></div></div><div class="cn-gc-footer"><span>Social conventions vary by person, generation, and setting; no single pattern describes everyone.</span><button type="button" id="cn-lc-return">← Back to Everyday Russian</button></div></section>
-<section class="cn-celebrations-culture" id="cn-celebrations-culture-panel" hidden aria-label="The heart of Russian celebrations">
-<div class="cn-gc-intro"><span class="cn-gc-eyebrow">THE CULTURE BEHIND THE CELEBRATION</span><h4>The Heart of Russian Celebrations</h4><p>Explore what holidays mean to families—not a checklist of customs everyone must follow. Choose a theme, then a situation.</p></div>
-<div class="cn-ce-tabs" role="group" aria-label="Celebration cultural themes"><button type="button" data-cn-ce="0">Why New Year?</button><button type="button" data-cn-ce="1">Rituals &amp; Wishes</button><button type="button" data-cn-ce="2">Winter to Spring</button><button type="button" data-cn-ce="3">At the Table</button><button type="button" data-cn-ce="4">Generations</button><button type="button" data-cn-ce="5">Changing Traditions</button></div>
-<div class="cn-ce-body"><div class="cn-ce-intro"><span id="cn-ce-count"></span><h5 id="cn-ce-heading"></h5><p id="cn-ce-description"></p></div><div class="cn-ce-example"><label for="cn-ce-situation">Choose a cultural moment</label><select id="cn-ce-situation"></select><div class="cn-ce-phrase" lang="ru" id="cn-ce-phrase"></div><div class="cn-ce-translation" id="cn-ce-translation"></div><button type="button" id="cn-ce-play">▶ Hear the Russian</button><p id="cn-ce-explanation"></p></div></div>
-<div class="cn-ce-principle"><strong>One holiday, many family traditions.</strong> Just as some American families open gifts on Christmas Eve and others on Christmas morning, Russian celebrations vary by family, region, generation, faith, and preference.</div>
-<div class="cn-gc-footer"><span>Explore traditions as possibilities and shared meanings—not mandatory rules.</span><button type="button" id="cn-ce-return">← Back to Celebrations</button></div></section>
-<section class="cn-hospitality-culture" id="cn-hospitality-culture-panel" hidden aria-label="The unwritten rules of Russian hospitality">
-<div class="cn-gc-intro"><span class="cn-gc-eyebrow">A GUEST IN A RUSSIAN HOME</span><h4>The Unwritten Rules of Russian Hospitality</h4><p>Follow a visit from the doorway to the goodbye. Explore six cultural lenses and choose the moment you want to understand.</p></div>
-<div class="cn-hc-tabs" role="group" aria-label="Hospitality cultural themes"><button type="button" data-cn-hc="0">The Threshold</button><button type="button" data-cn-hc="1">Thoughtful Gifts</button><button type="button" data-cn-hc="2">Tea Means Care</button><button type="button" data-cn-hc="3">Offering &amp; Refusing</button><button type="button" data-cn-hc="4">Time Together</button><button type="button" data-cn-hc="5">Saying Goodbye</button></div>
-<div class="cn-hc-body"><div class="cn-hc-intro"><span id="cn-hc-count"></span><h5 id="cn-hc-heading"></h5><p id="cn-hc-description"></p></div><div class="cn-hc-example"><label for="cn-hc-situation">Choose a moment</label><select id="cn-hc-situation"></select><div class="cn-hc-phrase" lang="ru" id="cn-hc-phrase"></div><div class="cn-hc-translation" id="cn-hc-translation"></div><button type="button" id="cn-hc-play">▶ Hear the Russian</button><p id="cn-hc-explanation"></p><div class="cn-hc-choices" id="cn-hc-choices" role="group" aria-label="Choose how to respond"></div><p class="cn-hc-feedback" id="cn-hc-feedback" aria-live="polite"></p></div></div>
-<div class="cn-hc-principle"><strong>Hospitality is a relationship, not a rulebook.</strong> Customs vary by family, region, generation and circumstance. Respectful choices can look different in different homes.</div>
-<div class="cn-gc-footer"><span>Listen, observe, ask, and respect the host—and your own needs.</span><button type="button" id="cn-hc-return">← Back to Hospitality</button></div>
-</section>
+              <!-- BEGIN CULTURAL NOTES — FIVE-SCREEN GALLERY V1 -->
+              <section id="rw-cultural-notes" class="rw-cultural-notes" aria-label="Cultural Notes" hidden>
+                <article class="cn-scene cn-scene--01" data-cn-scene="0">
+                  <div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>01 / 05</span></div>
+                  <header class="cn-head">
+                    <div>
+                      <h2 lang="ru">У бабушки</h2>
+                      <p>At Grandma’s</p>
+                    </div><img src="../../Images/door-four/cultural-photo-v4-01.jpg"
+                      alt="Cultural atmosphere for At Grandma’s">
+                  </header>
+                  <div class="cn-discover">
+                    <h3>What You’ll Discover</h3>
+                    <div class="cn-items">
+                      <button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-01-1.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Бабушка и
+                            дедушка</strong><small>Grandparents and family relationships</small></span><span
+                          class="cn-plus" aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-01-2.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Семейные
+                            истории</strong><small>Family stories and memories</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-01-3.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Ласковые
+                            слова</strong><small>Affectionate names and expressions</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                    </div>
+                  </div>
+                  <div class="cn-culture-landing"><button type="button" class="cn-culture-button"
+                      id="cn-grandparents-culture" aria-haspopup="dialog"><span class="cn-culture-medallion"
+                        aria-hidden="true">❦</span><span class="cn-culture-button-copy"><strong>The Cultural Heart of
+                          Russian Family Life</strong><small>Discover the traditions, relationships, and enduring role
+                          of grandparents</small></span><span class="cn-culture-arrow"
+                        aria-hidden="true">✦</span></button></div>
+                </article>
+                <article class="cn-scene cn-scene--02" data-cn-scene="1" hidden>
+                  <div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>02 / 05</span></div>
+                  <header class="cn-head">
+                    <div>
+                      <h2 lang="ru">Кухонные разговоры</h2>
+                      <p>Kitchen Conversations</p>
+                    </div><img src="../../Images/door-four/cultural-photo-v4-02.jpg"
+                      alt="Cultural atmosphere for Kitchen Conversations">
+                  </header>
+                  <div class="cn-discover">
+                    <h3>What You’ll Discover</h3>
+                    <div class="cn-items">
+                      <button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-02-1.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">За семейным
+                            столом</strong><small>Around the family table</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-02-2.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Русская
+                            кухня</strong><small>Russian food and family recipes</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-02-3.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Разговоры за
+                            чаем</strong><small>Conversations over tea</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                    </div>
+                  </div>
+                  <div class="cn-culture-landing"><button type="button"
+                      class="cn-culture-button cn-culture-button--kitchen" id="cn-kitchen-culture"
+                      aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span
+                        class="cn-culture-button-copy"><strong>The Heart of the Russian Home</strong><small>Discover the
+                          conversations, food, hospitality, and traditions that bring people
+                          together</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button>
+                  </div>
+                </article>
+                <article class="cn-scene cn-scene--03" data-cn-scene="2" hidden>
+                  <div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>03 / 05</span></div>
+                  <header class="cn-head">
+                    <div>
+                      <h2 lang="ru">Живой русский язык</h2>
+                      <p>Everyday Russian — Beyond the Textbook</p>
+                    </div><img src="../../Images/door-four/cultural-photo-v4-03.jpg"
+                      alt="Atmosphere of everyday Russian life">
+                  </header>
+                  <div class="cn-discover">
+                    <h3>What You’ll Discover</h3>
+                    <div class="cn-items">
+                      <button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-03-1.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Учебник и
+                            жизнь</strong><small>Textbook Russian vs. everyday speech · 12
+                            comparisons</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-03-2.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Что это
+                            значит?</strong><small>What people say—and what they mean · 12
+                            expressions</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-03-3.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Настоящие
+                            разговоры</strong><small>Real conversations · 10 everyday situations</small></span><span
+                          class="cn-plus" aria-hidden="true">✦</span></button>
+                    </div>
+                  </div>
+                  <div class="cn-culture-landing"><button type="button"
+                      class="cn-culture-button cn-culture-button--living" id="cn-living-culture"
+                      aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span
+                        class="cn-culture-button-copy"><strong>The Unspoken Rules of Russian
+                          Conversation</strong><small>Discover respect, directness, affection, sincerity, and the
+                          meanings between words</small></span><span class="cn-culture-arrow"
+                        aria-hidden="true">✦</span></button></div>
+                </article>
+                <article class="cn-scene cn-scene--04" data-cn-scene="3" hidden>
+                  <div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>04 / 05</span></div>
+                  <header class="cn-head">
+                    <div>
+                      <h2 lang="ru">Праздники</h2>
+                      <p>Celebrations</p>
+                    </div><img src="../../Images/door-four/cultural-photo-v4-04.jpg"
+                      alt="Cultural atmosphere for Celebrations">
+                  </header>
+                  <div class="cn-discover">
+                    <h3>What You’ll Discover</h3>
+                    <div class="cn-items">
+                      <button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-04-1.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Новый год</strong><small>New
+                            Year · 12 discoveries &amp; festive foods</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-04-2.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong
+                            lang="ru">Масленица</strong><small>Maslenitsa · 10 discoveries &amp;
+                            blini</small></span><span class="cn-plus" aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-04-3.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Семейные
+                            традиции</strong><small>Family traditions · 12 discoveries &amp; toasts</small></span><span
+                          class="cn-plus" aria-hidden="true">✦</span></button>
+                    </div>
+                  </div>
+                  <div class="cn-culture-landing"><button type="button"
+                      class="cn-culture-button cn-culture-button--celebrations" id="cn-celebrations-culture"
+                      aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span
+                        class="cn-culture-button-copy"><strong>The Heart of Russian Celebrations</strong><small>Explore
+                          family rituals, seasonal meaning, toasts, and changing traditions</small></span><span
+                        class="cn-culture-arrow" aria-hidden="true">✦</span></button></div>
+                </article>
+                <article class="cn-scene cn-scene--05" data-cn-scene="4" hidden>
+                  <div class="cn-overline"><span>СЕМЬЯ И ДОМ</span><span>05 / 05</span></div>
+                  <header class="cn-head">
+                    <div>
+                      <h2 lang="ru">Гостеприимство</h2>
+                      <p>Hospitality</p>
+                    </div><img src="../../Images/door-four/cultural-photo-v4-05.jpg"
+                      alt="Cultural atmosphere for Hospitality">
+                  </header>
+                  <div class="cn-discover">
+                    <h3>What You’ll Discover</h3>
+                    <div class="cn-items">
+                      <button type="button" class="cn-item" data-cn-discovery="0" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-05-1.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">Добро
+                            пожаловать!</strong><small>Arriving at a Russian home</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="1" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-05-2.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">За
+                            столом</strong><small>Hospitality at the table</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                      <button type="button" class="cn-item" data-cn-discovery="2" aria-expanded="false"><img
+                          class="cn-icon" src="../../Images/door-four/cultural-icon-v4-05-3.png" alt=""
+                          aria-hidden="true"><span class="cn-item-text"><strong lang="ru">В гостях</strong><small>The
+                            language of being a guest</small></span><span class="cn-plus"
+                          aria-hidden="true">✦</span></button>
+                    </div>
+                  </div>
+                  <div class="cn-culture-landing"><button type="button"
+                      class="cn-culture-button cn-culture-button--hospitality" id="cn-hospitality-culture"
+                      aria-haspopup="dialog"><span class="cn-culture-medallion" aria-hidden="true">❦</span><span
+                        class="cn-culture-button-copy"><strong>The Unwritten Rules of Russian
+                          Hospitality</strong><small>Six cultural discoveries · 18 real-life
+                          situations</small></span><span class="cn-culture-arrow" aria-hidden="true">✦</span></button>
+                  </div>
+                </article>
+                <!-- BEGIN CULTURAL NOTES — SHARED BOTTOM NAVIGATION -->
+                <footer class="cn-bottom-navigation" aria-label="Cultural Notes navigation">
+                  <nav class="cn-navigation" aria-label="Cultural Notes scenes">
+                    <button type="button" class="cn-rotate cn-rotate--left" data-cn-direction="-1">
+                      <span class="cn-rotate-arrow" aria-hidden="true">←</span>
+                      <span>Rotate Left</span>
+                    </button>
+                    <div class="cn-dots" aria-label="Select a scene">
+                      <button type="button" data-cn-jump="0" aria-label="Scene 1" aria-current="true"></button>
+                      <button type="button" data-cn-jump="1" aria-label="Scene 2" aria-current="false"></button>
+                      <button type="button" data-cn-jump="2" aria-label="Scene 3" aria-current="false"></button>
+                      <button type="button" data-cn-jump="3" aria-label="Scene 4" aria-current="false"></button>
+                      <button type="button" data-cn-jump="4" aria-label="Scene 5" aria-current="false"></button>
+                    </div>
+                    <button type="button" class="cn-rotate cn-rotate--right" data-cn-direction="1">
+                      <span>Rotate Right</span>
+                      <span class="cn-rotate-arrow" aria-hidden="true">→</span>
+                    </button>
+                  </nav>
+                  <div class="cn-bottom-divider" aria-hidden="true"></div>
+                  <button type="button" class="cn-back" id="rw-cultural-back">
+                    <span class="cn-back-book" aria-hidden="true">▤</span>
+                    <span class="cn-back-arrow" aria-hidden="true">←</span>
+                    <span>Back to Explorer’s Desk</span>
+                  </button>
+                </footer>
+                <!-- END CULTURAL NOTES — SHARED BOTTOM NAVIGATION -->
+                <div class="cn-detail" id="rw-cultural-detail" hidden role="dialog" aria-modal="true"
+                  aria-labelledby="cn-detail-title">
+                  <div class="cn-detail-inner"><button type="button" class="cn-detail-close"
+                      aria-label="Close discovery">×</button>
+                    <p class="cn-detail-eyebrow">СЕМЬЯ И ДОМ</p>
+                    <h3 id="cn-detail-title"></h3>
+                    <p id="cn-detail-subtitle"></p>
+                    <p class="cn-detail-note">This cultural experience is ready for its learning content.</p>
+                    <section class="cn-grandparents-culture" id="cn-grandparents-culture-panel" hidden
+                      aria-label="The cultural role of grandparents">
+                      <div class="cn-gc-intro"><span class="cn-gc-eyebrow">THE CULTURAL HEART OF THE HOME</span>
+                        <h4>More Than Grandparents</h4>
+                        <p>In many Russian families, <em>babushka</em> and <em>dedushka</em> are caregivers,
+                          storytellers, mentors, and treasured connections between generations.</p>
+                      </div>
+                      <div class="cn-gc-tabs" role="group" aria-label="Explore grandparent traditions">
+                        <button type="button" data-cn-gc="0">Everyday Care</button><button type="button"
+                          data-cn-gc="1">Family Memory</button><button type="button" data-cn-gc="2">The
+                          Dacha</button><button type="button" data-cn-gc="3">Their Roles</button><button type="button"
+                          data-cn-gc="4">Respect &amp; Care</button>
+                      </div>
+                      <div class="cn-gc-content">
+                        <div class="cn-gc-number" id="cn-gc-number">01 / 05</div>
+                        <div class="cn-gc-main">
+                          <h5 id="cn-gc-heading"></h5>
+                          <p id="cn-gc-body"></p>
+                        </div>
+                        <aside class="cn-gc-aside"><span>A WINDOW INTO RUSSIAN LIFE</span><strong id="cn-gc-russian"
+                            lang="ru"></strong><em id="cn-gc-meaning"></em>
+                          <p id="cn-gc-context"></p>
+                        </aside>
+                      </div>
+                      <div class="cn-gc-footer"><span>Every family is different. These are familiar cultural patterns,
+                          not universal expectations.</span><button type="button" id="cn-gc-return">← Back to At
+                          Grandma’s</button></div>
+                    </section>
+                    <section class="cn-kitchen-culture" id="cn-kitchen-culture-panel" hidden
+                      aria-label="Russian kitchen and food culture">
+                      <div class="cn-gc-intro"><span class="cn-gc-eyebrow">LIFE AROUND THE RUSSIAN TABLE</span>
+                        <h4>More Than a Place to Cook</h4>
+                        <p>In many Russian homes, the kitchen is where food, friendship, family memory, and honest
+                          conversation come together.</p>
+                      </div>
+                      <div class="cn-gc-tabs cn-kc-tabs" role="group" aria-label="Explore Russian kitchen traditions">
+                        <button type="button" data-cn-kc="0">The Kitchen</button><button type="button"
+                          data-cn-kc="1">Feeding Is Caring</button><button type="button" data-cn-kc="2">Food &amp;
+                          Memory</button><button type="button" data-cn-kc="3">Table Rituals</button></div>
+                      <div class="cn-gc-content">
+                        <div class="cn-gc-number" id="cn-kc-number">01 / 04</div>
+                        <div class="cn-gc-main">
+                          <h5 id="cn-kc-heading"></h5>
+                          <p id="cn-kc-body"></p>
+                        </div>
+                        <aside class="cn-gc-aside"><span>A WINDOW INTO RUSSIAN LIFE</span><strong id="cn-kc-russian"
+                            lang="ru"></strong><em id="cn-kc-meaning"></em>
+                          <p id="cn-kc-context"></p>
+                        </aside>
+                      </div>
+                      <div class="cn-gc-footer"><span>Traditions differ by family, region, and generation. Explore
+                          familiar patterns, not fixed rules.</span><button type="button" id="cn-kc-return">← Back to
+                          Kitchen Conversations</button></div>
+                    </section>
+                    <section class="cn-living-culture" id="cn-living-culture-panel" hidden
+                      aria-label="Unspoken rules of Russian conversation">
+                      <div class="cn-gc-intro"><span class="cn-gc-eyebrow">THE CULTURE BEHIND EVERYDAY SPEECH</span>
+                        <h4>The Unspoken Rules</h4>
+                        <p>Relationships, sincerity, and context can change the meaning of a simple sentence. Choose a
+                          cultural lens, then explore a real situation.</p>
+                      </div>
+                      <div class="cn-lc-tabs" role="group" aria-label="Cultural discoveries"><button type="button"
+                          data-cn-lc="0">Вы or Ты?</button><button type="button"
+                          data-cn-lc="1">Directness</button><button type="button" data-cn-lc="2">Smiles &amp; Small
+                          Talk</button><button type="button" data-cn-lc="3">Affection</button><button type="button"
+                          data-cn-lc="4">Heart-to-Heart</button><button type="button" data-cn-lc="5">Between the
+                          Lines</button></div>
+                      <div class="cn-lc-body">
+                        <div class="cn-lc-intro"><span id="cn-lc-count"></span>
+                          <h5 id="cn-lc-heading"></h5>
+                          <p id="cn-lc-description"></p>
+                        </div>
+                        <div class="cn-lc-example"><label for="cn-lc-situation">Explore a situation</label><select
+                            id="cn-lc-situation"></select>
+                          <div class="cn-lc-phrase" lang="ru" id="cn-lc-phrase"></div>
+                          <div class="cn-lc-translation" id="cn-lc-translation"></div><button type="button"
+                            id="cn-lc-play">▶ Hear the Russian</button>
+                          <p id="cn-lc-explanation"></p>
+                        </div>
+                      </div>
+                      <div class="cn-gc-footer"><span>Social conventions vary by person, generation, and setting; no
+                          single pattern describes everyone.</span><button type="button" id="cn-lc-return">← Back to
+                          Everyday Russian</button></div>
+                    </section>
+                    <section class="cn-celebrations-culture" id="cn-celebrations-culture-panel" hidden
+                      aria-label="The heart of Russian celebrations">
+                      <div class="cn-gc-intro"><span class="cn-gc-eyebrow">THE CULTURE BEHIND THE CELEBRATION</span>
+                        <h4>The Heart of Russian Celebrations</h4>
+                        <p>Explore what holidays mean to families—not a checklist of customs everyone must follow.
+                          Choose a theme, then a situation.</p>
+                      </div>
+                      <div class="cn-ce-tabs" role="group" aria-label="Celebration cultural themes"><button
+                          type="button" data-cn-ce="0">Why New Year?</button><button type="button"
+                          data-cn-ce="1">Rituals &amp; Wishes</button><button type="button" data-cn-ce="2">Winter to
+                          Spring</button><button type="button" data-cn-ce="3">At the Table</button><button type="button"
+                          data-cn-ce="4">Generations</button><button type="button" data-cn-ce="5">Changing
+                          Traditions</button></div>
+                      <div class="cn-ce-body">
+                        <div class="cn-ce-intro"><span id="cn-ce-count"></span>
+                          <h5 id="cn-ce-heading"></h5>
+                          <p id="cn-ce-description"></p>
+                        </div>
+                        <div class="cn-ce-example"><label for="cn-ce-situation">Choose a cultural moment</label><select
+                            id="cn-ce-situation"></select>
+                          <div class="cn-ce-phrase" lang="ru" id="cn-ce-phrase"></div>
+                          <div class="cn-ce-translation" id="cn-ce-translation"></div><button type="button"
+                            id="cn-ce-play">▶ Hear the Russian</button>
+                          <p id="cn-ce-explanation"></p>
+                        </div>
+                      </div>
+                      <div class="cn-ce-principle"><strong>One holiday, many family traditions.</strong> Just as some
+                        American families open gifts on Christmas Eve and others on Christmas morning, Russian
+                        celebrations vary by family, region, generation, faith, and preference.</div>
+                      <div class="cn-gc-footer"><span>Explore traditions as possibilities and shared meanings—not
+                          mandatory rules.</span><button type="button" id="cn-ce-return">← Back to Celebrations</button>
+                      </div>
+                    </section>
+                    <section class="cn-hospitality-culture" id="cn-hospitality-culture-panel" hidden
+                      aria-label="The unwritten rules of Russian hospitality">
+                      <div class="cn-gc-intro"><span class="cn-gc-eyebrow">A GUEST IN A RUSSIAN HOME</span>
+                        <h4>The Unwritten Rules of Russian Hospitality</h4>
+                        <p>Follow a visit from the doorway to the goodbye. Explore six cultural lenses and choose the
+                          moment you want to understand.</p>
+                      </div>
+                      <div class="cn-hc-tabs" role="group" aria-label="Hospitality cultural themes"><button
+                          type="button" data-cn-hc="0">The Threshold</button><button type="button"
+                          data-cn-hc="1">Thoughtful Gifts</button><button type="button" data-cn-hc="2">Tea Means
+                          Care</button><button type="button" data-cn-hc="3">Offering &amp; Refusing</button><button
+                          type="button" data-cn-hc="4">Time Together</button><button type="button" data-cn-hc="5">Saying
+                          Goodbye</button></div>
+                      <div class="cn-hc-body">
+                        <div class="cn-hc-intro"><span id="cn-hc-count"></span>
+                          <h5 id="cn-hc-heading"></h5>
+                          <p id="cn-hc-description"></p>
+                        </div>
+                        <div class="cn-hc-example"><label for="cn-hc-situation">Choose a moment</label><select
+                            id="cn-hc-situation"></select>
+                          <div class="cn-hc-phrase" lang="ru" id="cn-hc-phrase"></div>
+                          <div class="cn-hc-translation" id="cn-hc-translation"></div><button type="button"
+                            id="cn-hc-play">▶ Hear the Russian</button>
+                          <p id="cn-hc-explanation"></p>
+                          <div class="cn-hc-choices" id="cn-hc-choices" role="group" aria-label="Choose how to respond">
+                          </div>
+                          <p class="cn-hc-feedback" id="cn-hc-feedback" aria-live="polite"></p>
+                        </div>
+                      </div>
+                      <div class="cn-hc-principle"><strong>Hospitality is a relationship, not a rulebook.</strong>
+                        Customs vary by family, region, generation and circumstance. Respectful choices can look
+                        different in different homes.</div>
+                      <div class="cn-gc-footer"><span>Listen, observe, ask, and respect the host—and your own
+                          needs.</span><button type="button" id="cn-hc-return">← Back to Hospitality</button></div>
+                    </section>
 
-<section class="cn-affection" id="cn-affection" hidden aria-label="Affectionate names and expressions">
-  <div class="cn-affection-phrase"><div class="cn-affection-ru" id="cn-affection-phrase" lang="ru"></div><div class="cn-affection-en" id="cn-affection-translation"></div></div>
-  <div class="cn-affection-audio"><button type="button" id="cn-affection-play">▶ Play Russian Audio</button><span id="cn-affection-audio-label">Hear the expression in Russian</span></div>
-  <div class="cn-affection-panels">
-    <section class="cn-affection-panel"><h4>SECTION 1: Suffix-Based Affection</h4><div class="cn-affection-comparison"><div><span>Neutral</span><strong id="cn-affection-neutral" lang="ru"></strong><small id="cn-affection-neutral-en"></small></div><div class="cn-affection-arrow">→</div><div><span>Affectionate</span><strong id="cn-affection-form" lang="ru"></strong><small id="cn-affection-form-en"></small></div></div><p id="cn-affection-suffix-note"></p></section>
-    <section class="cn-affection-panel"><h4>SECTION 2: Affectionate Expressions</h4><p class="cn-affection-intro">Another way to express warmth:</p><strong class="cn-affection-adjective" id="cn-affection-adjective" lang="ru"></strong><div class="cn-affection-adjective-en" id="cn-affection-adjective-en"></div><p id="cn-affection-context"></p></section>
-  </div>
-  <div class="cn-affection-action-row">
-  <div class="cn-affection-controls"><label for="cn-affection-family">More family members</label><select id="cn-affection-family" aria-label="Choose a family member"><option value="0">Grandson — внук</option><option value="1">Granddaughter — внучка</option><option value="2">Daughter — дочь</option><option value="3">Son — сын</option><option value="4">Mother — мама</option><option value="5">Father — папа</option><option value="6">Grandmother — бабушка</option><option value="7">Grandfather — дедушка</option></select></div>
-  <div class="cn-affection-bottom-nav"><button type="button" id="cn-affection-reset">↺ Start Again</button><button type="button" class="cn-detail-return">← Back to What You’ll Discover</button></div>
-  </div>
-</section>
-<section class="cn-experience" id="cn-experience" hidden aria-label="Cultural discovery">
- <div class="cn-exp-hero"><span class="cn-exp-kicker" id="cn-exp-kicker"></span><div class="cn-exp-ru" id="cn-exp-ru" lang="ru"></div><div class="cn-exp-en" id="cn-exp-en"></div></div>
- <div class="cn-exp-audio"><button type="button" id="cn-exp-play">▶ Hear the Russian</button><span id="cn-exp-audio-caption">Listen to the expression</span></div>
- <div class="cn-exp-panels" id="cn-exp-panels"><article class="cn-exp-panel"><span class="cn-exp-panel-label" id="cn-exp-left-title"></span><div class="cn-exp-panel-text" id="cn-exp-left-text"></div></article><article class="cn-exp-panel"><span class="cn-exp-panel-label" id="cn-exp-right-title"></span><div class="cn-exp-panel-text" id="cn-exp-right-text"></div></article></div>
- <div class="cn-exp-insight" id="cn-exp-insight"></div>
- <div class="cn-exp-toolbar"><label for="cn-exp-select">Explore</label><select id="cn-exp-select" aria-label="Choose a cultural example"></select><button type="button" id="cn-exp-reset">↺ Start Again</button><button type="button" class="cn-exp-return">← Back to What You’ll Discover</button></div>
-</section></div></div>
-</section><!-- END CULTURAL NOTES — FIVE-SCREEN GALLERY V1 -->
+                    <section class="cn-affection" id="cn-affection" hidden
+                      aria-label="Affectionate names and expressions">
+                      <div class="cn-affection-phrase">
+                        <div class="cn-affection-ru" id="cn-affection-phrase" lang="ru"></div>
+                        <div class="cn-affection-en" id="cn-affection-translation"></div>
+                      </div>
+                      <div class="cn-affection-audio"><button type="button" id="cn-affection-play">▶ Play Russian
+                          Audio</button><span id="cn-affection-audio-label">Hear the expression in Russian</span></div>
+                      <div class="cn-affection-panels">
+                        <section class="cn-affection-panel">
+                          <h4>SECTION 1: Suffix-Based Affection</h4>
+                          <div class="cn-affection-comparison">
+                            <div><span>Neutral</span><strong id="cn-affection-neutral" lang="ru"></strong><small
+                                id="cn-affection-neutral-en"></small></div>
+                            <div class="cn-affection-arrow">→</div>
+                            <div><span>Affectionate</span><strong id="cn-affection-form" lang="ru"></strong><small
+                                id="cn-affection-form-en"></small></div>
+                          </div>
+                          <p id="cn-affection-suffix-note"></p>
+                        </section>
+                        <section class="cn-affection-panel">
+                          <h4>SECTION 2: Affectionate Expressions</h4>
+                          <p class="cn-affection-intro">Another way to express warmth:</p><strong
+                            class="cn-affection-adjective" id="cn-affection-adjective" lang="ru"></strong>
+                          <div class="cn-affection-adjective-en" id="cn-affection-adjective-en"></div>
+                          <p id="cn-affection-context"></p>
+                        </section>
+                      </div>
+                      <div class="cn-affection-action-row">
+                        <div class="cn-affection-controls"><label for="cn-affection-family">More family
+                            members</label><select id="cn-affection-family" aria-label="Choose a family member">
+                            <option value="0">Grandson — внук</option>
+                            <option value="1">Granddaughter — внучка</option>
+                            <option value="2">Daughter — дочь</option>
+                            <option value="3">Son — сын</option>
+                            <option value="4">Mother — мама</option>
+                            <option value="5">Father — папа</option>
+                            <option value="6">Grandmother — бабушка</option>
+                            <option value="7">Grandfather — дедушка</option>
+                          </select></div>
+                        <div class="cn-affection-bottom-nav"><button type="button" id="cn-affection-reset">↺ Start
+                            Again</button><button type="button" class="cn-detail-return">← Back to What You’ll
+                            Discover</button></div>
+                      </div>
+                    </section>
+                    <section class="cn-experience" id="cn-experience" hidden aria-label="Cultural discovery">
+                      <div class="cn-exp-hero"><span class="cn-exp-kicker" id="cn-exp-kicker"></span>
+                        <div class="cn-exp-ru" id="cn-exp-ru" lang="ru"></div>
+                        <div class="cn-exp-en" id="cn-exp-en"></div>
+                      </div>
+                      <div class="cn-exp-audio"><button type="button" id="cn-exp-play">▶ Hear the Russian</button><span
+                          id="cn-exp-audio-caption">Listen to the expression</span></div>
+                      <div class="cn-exp-panels" id="cn-exp-panels">
+                        <article class="cn-exp-panel"><span class="cn-exp-panel-label" id="cn-exp-left-title"></span>
+                          <div class="cn-exp-panel-text" id="cn-exp-left-text"></div>
+                        </article>
+                        <article class="cn-exp-panel"><span class="cn-exp-panel-label" id="cn-exp-right-title"></span>
+                          <div class="cn-exp-panel-text" id="cn-exp-right-text"></div>
+                        </article>
+                      </div>
+                      <div class="cn-exp-insight" id="cn-exp-insight"></div>
+                      <div class="cn-exp-toolbar"><label for="cn-exp-select">Explore</label><select id="cn-exp-select"
+                          aria-label="Choose a cultural example"></select><button type="button" id="cn-exp-reset">↺
+                          Start Again</button><button type="button" class="cn-exp-return">← Back to What You’ll
+                          Discover</button></div>
+                    </section>
+                  </div>
+                </div>
+              </section><!-- END CULTURAL NOTES — FIVE-SCREEN GALLERY V1 -->
 
               <!-- BEGIN DRAWER THREE — CONVERSATION GALLERY LANDING PAGE -->
               <!-- The Victorian background is a separate image asset.
