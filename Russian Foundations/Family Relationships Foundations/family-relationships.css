@@ -22535,3 +22535,485 @@ body.cn-immersive-active > #rw-cultural-notes .cn-scene[hidden] {
   }
   #rw-cultural-notes .cn-hc-choices {grid-template-columns:1fr;}
 }
+
+/* ==========================================================
+   DRAWER FOUR — GRAND TERMINAL, PHASE ONE
+   All styles are scoped to the Notes drawer only.
+   ========================================================== */
+#door-four-laboratory .door-four__drawer-interior[data-active-drawer="notes"] .door-four__drawer-interior-stage { aspect-ratio:auto; }
+#door-four-laboratory .door-four__drawer-interior[data-active-drawer="notes"] .door-four__drawer-interior-art,
+#door-four-laboratory .door-four__drawer-interior[data-active-drawer="notes"] .door-four__interior-back { display:none !important; }
+#door-four-laboratory .gt-terminal[hidden],
+#door-four-laboratory .gt-destination[hidden] { display:none !important; }
+#door-four-laboratory .gt-terminal { position:relative; z-index:2; width:100%; min-height:680px; color:#f4efe4; background:#0e1714; border:3px solid #c99e44; border-radius:15px; overflow:hidden; font-family:Georgia,serif; box-shadow:0 16px 40px #0005; }
+#door-four-laboratory .gt-header { display:flex; align-items:center; gap:15px; padding:17px 26px; background:#152820; border-bottom:1px solid #c99e4477; }
+#door-four-laboratory .gt-crest { border:2px solid #c99e44; border-radius:50%; width:43px; height:43px; display:grid; place-items:center; color:#e3c170; font-size:27px; }
+#door-four-laboratory .gt-header strong { display:block; letter-spacing:.07em; font-size:17px; }
+#door-four-laboratory .gt-header small { display:block; color:#e3c170; font-style:italic; }
+#door-four-laboratory .gt-clock { margin-left:auto; font:700 16px monospace; color:#e3c170; border:1px solid #c99e4477; border-radius:6px; padding:8px; }
+#door-four-laboratory .gt-hero { padding:36px 28px 30px; text-align:center; background:radial-gradient(ellipse at top,#294536,#0e1714 75%); }
+#door-four-laboratory .gt-eyebrow { font:700 11px Arial,sans-serif; letter-spacing:.17em; color:#e3c170; }
+#door-four-laboratory .gt-hero h2 { font-size:clamp(30px,4vw,52px); color:#f4efe4; margin:10px 0; }
+#door-four-laboratory .gt-hero p { margin:0 auto 16px; max-width:650px; font-size:17px; }
+#door-four-laboratory .gt-railway { display:flex; justify-content:center; gap:22px; align-items:center; color:#e3c170; letter-spacing:.25em; font-size:13px; border-top:1px solid #c99e4444; padding-top:15px; }
+#door-four-laboratory .gt-board { margin:0 22px 22px; padding:20px; border:2px solid #c99e4477; border-radius:12px; background:#191c1b; }
+#door-four-laboratory .gt-board-heading { display:flex; justify-content:space-between; align-items:center; gap:15px; border-bottom:1px solid #c99e4455; margin-bottom:16px; padding-bottom:13px; }
+#door-four-laboratory .gt-board-heading small { color:#e3c170; font:11px monospace; }
+#door-four-laboratory .gt-board-heading h3 { color:#f4efe4; margin:5px 0 0; letter-spacing:.1em; font-size:23px; }
+#door-four-laboratory .gt-on-time { color:#a5e6bc; font:700 12px monospace; white-space:nowrap; }
+#door-four-laboratory .gt-platforms { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+#door-four-laboratory .gt-platform { text-align:left; display:flex; flex-direction:column; gap:6px; padding:17px; background:#152820; color:#f4efe4; border:1px solid #c99e4477; border-radius:9px; min-height:156px; font-family:Georgia,serif; transition:transform .2s,box-shadow .2s; }
+#door-four-laboratory .gt-platform:hover, #door-four-laboratory .gt-platform:focus-visible { background:#243b30; transform:translateY(-2px); box-shadow:0 0 12px #c99e4466; }
+#door-four-laboratory .gt-platform span { color:#e3c170; font:700 11px monospace; letter-spacing:.1em; }
+#door-four-laboratory .gt-platform strong { font-size:19px; line-height:1.15; }
+#door-four-laboratory .gt-platform em { color:#e3c170; font-size:18px; }
+#door-four-laboratory .gt-platform small { font:12px/1.5 Arial,sans-serif; color:#d5d4cb; }
+#door-four-laboratory .gt-destination { padding:25px; background:#f4efe4; color:#152820; border-radius:9px; }
+#door-four-laboratory .gt-destination h3 { font-size:25px; margin:15px 0; }
+#door-four-laboratory .gt-destination-back { background:#152820; color:#e3c170; border-color:#c99e44; }
+#door-four-laboratory .gt-footer { display:flex; justify-content:space-between; gap:14px; padding:0 22px 22px; }
+#door-four-laboratory .gt-footer button { color:#e3c170; background:#152820; border:1px solid #c99e44; padding:12px 18px; border-radius:8px; }
+#door-four-laboratory .gt-footer button:hover { background:#2d4838; }
+@media(max-width:850px) { #door-four-laboratory .gt-platforms {grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media(max-width:550px) { #door-four-laboratory .gt-platforms {grid-template-columns:1fr;} #door-four-laboratory .gt-header {padding:12px;} #door-four-laboratory .gt-board {margin:0 10px 14px;padding:12px;} #door-four-laboratory .gt-footer {flex-direction:column;} }
+/* END DRAWER FOUR — GRAND TERMINAL */
+
+#door-four-laboratory .gt-platforms[hidden] { display:none !important; }
+
+/* ==========================================================
+   DRAWER FOUR — GRAND TERMINAL LOCOMOTIVE HERO UPDATE
+   Keep the welcome heading and subtitles left of the photo.
+   ========================================================== */
+#door-four-laboratory .gt-hero {
+    padding: 28px 30px 30px;
+    text-align: left;
+}
+
+#door-four-laboratory .gt-hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 28px;
+    margin-top: 12px;
+}
+
+#door-four-laboratory .gt-hero-copy {
+    min-width: 0;
+}
+
+#door-four-laboratory .gt-hero h2 {
+    margin: 0 0 14px;
+    line-height: 1.1;
+}
+
+#door-four-laboratory .gt-hero p {
+    margin: 0 0 20px;
+    max-width: 490px;
+}
+
+#door-four-laboratory .gt-railway {
+    justify-content: flex-start;
+    gap: 12px;
+    letter-spacing: .1em;
+}
+
+#door-four-laboratory .gt-locomotive-figure {
+    margin: 0;
+    min-width: 0;
+    border: 2px solid #c99e44;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px #0008;
+    background: #152820;
+}
+
+#door-four-laboratory .gt-locomotive-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 550 / 413;
+    object-fit: cover;
+}
+
+@media (max-width: 760px) {
+    #door-four-laboratory .gt-hero-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    #door-four-laboratory .gt-hero {
+        padding: 22px 18px;
+    }
+}
+/* END DRAWER FOUR — GRAND TERMINAL LOCOMOTIVE HERO UPDATE */
+
+
+/* ==========================================================
+   DRAWER FOUR — GRAND TERMINAL HEADER REFINEMENTS
+   Changes 1–4; scoped exclusively to the Grand Terminal.
+   ========================================================== */
+#door-four-laboratory .gt-header-welcome {
+    flex: 1;
+    margin: 0;
+    color: #f4efe4;
+    font-family: Georgia, serif;
+    font-size: clamp(17px, 2.1vw, 27px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.025em;
+}
+
+#door-four-laboratory .gt-board-heading h3 {
+    margin: 0;
+}
+
+#door-four-laboratory .gt-platform span {
+    font-size: clamp(14px, 1.25vw, 17px);
+    line-height: 1.3;
+}
+
+/* Preserve the requested feathered photo edges and shared image path. */
+#door-four-laboratory .gt-locomotive-figure {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+#door-four-laboratory .gt-locomotive-figure img {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+}
+
+@media (max-width: 600px) {
+    #door-four-laboratory .gt-header {
+        flex-wrap: wrap;
+    }
+
+    #door-four-laboratory .gt-header-welcome {
+        flex-basis: calc(100% - 65px);
+    }
+}
+/* END GRAND TERMINAL HEADER REFINEMENTS */
+
+
+/* ==========================================================
+   DRAWER FOUR — GRAND TERMINAL STATION DIRECTORY
+   The following rules affect only the station directory.
+   Station photograph: Images/door-four/grand-terminal-station-directory.png
+   ========================================================== */
+#door-four-laboratory .gt-board {
+    margin: 0 22px 22px;
+    padding: 24px 26px 26px;
+    background: #191d1b;
+    border: 1px solid #a98236;
+    border-radius: 16px;
+}
+
+#door-four-laboratory .gt-board-heading {
+    margin-bottom: 18px;
+    padding: 0 0 15px;
+    border-bottom: 1px solid #a98236;
+}
+
+#door-four-laboratory .gt-board-heading h3 {
+    font: 400 clamp(25px, 2.5vw, 36px)/1.2 Georgia, serif;
+    letter-spacing: 0;
+    color: #f8f5ec;
+}
+
+#door-four-laboratory .gt-board-scene {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 28px 28px;
+    padding: 42px 36px 48px;
+    border-radius: 26px;
+    overflow: hidden;
+    background-image: url("../../Images/door-four/grand-terminal-station-directory.png");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* The translucent shape lies over the photograph, not the text. */
+#door-four-laboratory .gt-board-scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(13, 23, 19, 0.25); /* 75% transparency */
+    pointer-events: none;
+}
+
+#door-four-laboratory .gt-board-scene[hidden] {
+    display: none !important;
+}
+
+#door-four-laboratory .gt-board-scene .gt-platforms {
+    display: contents;
+}
+
+#door-four-laboratory .gt-board-scene .gt-platform {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-height: 215px;
+    padding: 22px 18px;
+    border: 2px solid #b88b3f;
+    border-radius: 44px;
+    background: rgba(13, 37, 28, 0.84);
+    color: #ffffff;
+    text-align: left;
+    font-family: Georgia, serif;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.12);
+    transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+#door-four-laboratory .gt-board-scene button.gt-platform:hover,
+#door-four-laboratory .gt-board-scene button.gt-platform:focus-visible {
+    transform: translateY(-3px);
+    background: rgba(20, 53, 40, 0.95);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#door-four-laboratory .gt-board-scene .gt-platform span {
+    font: 400 clamp(17px, 1.65vw, 24px)/1.25 Arial, sans-serif;
+    letter-spacing: 0;
+    color: #e3c170;
+    margin-bottom: 14px;
+}
+
+#door-four-laboratory .gt-board-scene .gt-platform strong {
+    font: 400 clamp(17px, 1.6vw, 23px)/1.15 Georgia, serif;
+    color: #fff;
+}
+
+#door-four-laboratory .gt-board-scene .gt-platform em {
+    font: normal clamp(18px, 1.65vw, 25px)/1.15 Georgia, serif;
+    color: #e3c170;
+}
+
+#door-four-laboratory .gt-board-scene .gt-platform small {
+    font: 400 clamp(13px, 1.1vw, 17px)/1.42 Arial, sans-serif;
+    color: #fff;
+}
+
+#door-four-laboratory .gt-board-scene .gt-platform--placeholder {
+    cursor: default;
+}
+
+#door-four-laboratory .gt-scene-navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 28px;
+    padding: 0 18px;
+}
+
+#door-four-laboratory .gt-scene-navigation button {
+    position: relative;
+    min-height: 56px;
+    padding: 10px 14px;
+    border: 1px solid #0b1612;
+    border-radius: 9px;
+    clip-path: polygon(5% 0, 95% 0, 100% 20%, 100% 84%, 95% 100%, 5% 100%, 0 84%, 0 20%);
+    background: linear-gradient(to bottom, #526e63 0%, #304c41 18%, #142b24 56%, #0a1915 100%);
+    color: #f4d581;
+    font: 400 clamp(15px, 1.5vw, 22px)/1.2 Arial, sans-serif;
+    text-shadow: 0 1px 2px #000;
+    box-shadow: inset 0 4px 3px #ffffff22, inset 0 -5px 4px #0008;
+    transition: filter 160ms ease, transform 160ms ease;
+}
+
+#door-four-laboratory .gt-scene-navigation button:hover,
+#door-four-laboratory .gt-scene-navigation button:focus-visible {
+    filter: brightness(1.18);
+}
+
+#door-four-laboratory .gt-scene-navigation button:active {
+    transform: translateY(2px);
+    filter: brightness(0.9);
+}
+
+@media (max-width: 1050px) {
+    #door-four-laboratory .gt-board-scene {
+        gap: 16px;
+        padding: 25px 18px;
+    }
+    #door-four-laboratory .gt-board-scene .gt-platform {
+        min-height: 195px;
+        border-radius: 26px;
+        padding: 17px 14px;
+    }
+    #door-four-laboratory .gt-scene-navigation {
+        padding: 0;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 720px) {
+    #door-four-laboratory .gt-board-scene {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    #door-four-laboratory .gt-scene-navigation {
+        grid-column: 1 / -1;
+        flex-direction: row;
+    }
+    #door-four-laboratory .gt-scene-navigation button {
+        flex: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    #door-four-laboratory .gt-board {
+        margin: 0 10px 14px;
+        padding: 14px;
+    }
+    #door-four-laboratory .gt-board-scene {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+    #door-four-laboratory .gt-scene-navigation {
+        flex-direction: column;
+    }
+}
+/* END DRAWER FOUR — GRAND TERMINAL STATION DIRECTORY */
+
+
+/* ==========================================================
+   GRAND TERMINAL — 30% WIDER DESKTOP PRESENTATION
+   Applies only while Drawer Four's Grand Terminal is visible.
+   Keeps other Laboratory drawers at their original width.
+   ========================================================== */
+@media (min-width: 901px) {
+    #door-four-laboratory:has(.gt-terminal:not([hidden])) {
+        width: min(130%, calc(100vw - 310px));
+        max-width: none;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+/* END GRAND TERMINAL — 30% WIDER DESKTOP PRESENTATION */
+
+
+/* ==========================================================
+   DRAWER FOUR — GRAND TERMINAL: FIVE STATION ARRIVAL PAGES
+   Scope: Grand Terminal only; other drawers are untouched.
+   ========================================================== */
+#door-four-laboratory .gt-destination {
+    margin: 0 20px 22px;
+    padding: 24px;
+    border: 1px solid #b88b3f;
+    border-radius: 18px;
+    background: #17251f;
+    color: #f6eee0;
+    font-family: Georgia, serif;
+}
+#door-four-laboratory .gt-destination-back {
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    border: 1px solid #b88b3f;
+    border-radius: 8px;
+    background: linear-gradient(#526e63, #213b30 45%, #0c1d16);
+    color: #f5d58c;
+    box-shadow: inset 0 3px 3px #ffffff22, inset 0 -3px 3px #0008;
+}
+#door-four-laboratory .gt-station-page[hidden] { display: none !important; }
+#door-four-laboratory .gt-station-overline,
+#door-four-laboratory .gt-station-section-label {
+    color: #e3c170;
+    font: 700 12px/1.4 Arial, sans-serif;
+    letter-spacing: .16em;
+}
+#door-four-laboratory .gt-station-overline { margin: 0 0 14px; }
+#door-four-laboratory .gt-station-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 26px;
+    align-items: center;
+}
+#door-four-laboratory .gt-station-photo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    min-height: 260px;
+    overflow: hidden;
+    border: 2px solid #b88b3f;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #3b4d42, #14271e 60%, #0e1915);
+}
+#door-four-laboratory .gt-station-photo img {
+    display: block;
+    width: 100%;
+    height: 310px;
+    object-fit: cover;
+}
+#door-four-laboratory .gt-station-photo figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(transparent, #0a1915ef);
+    color: #f3d99b;
+    font: 12px/1.4 Arial, sans-serif;
+}
+#door-four-laboratory .gt-station-photo--missing::before {
+    content: 'STATION PHOTOGRAPH TO BE ADDED';
+    padding: 30px;
+    color: #e3c170;
+    font: 700 13px/1.6 Arial, sans-serif;
+    text-align: center;
+    letter-spacing: .12em;
+}
+#door-four-laboratory .gt-station-photo--missing figcaption { position: static; text-align: center; }
+#door-four-laboratory .gt-station-story h3 {
+    margin: 9px 0 6px;
+    color: #fff4db;
+    font: 700 clamp(26px, 2.5vw, 38px)/1.12 Georgia, serif;
+}
+#door-four-laboratory .gt-station-location {
+    color: #e3c170;
+    font: 700 13px Arial, sans-serif;
+}
+#door-four-laboratory .gt-station-story p {
+    font: 17px/1.55 Georgia, serif;
+    color: #f3eee4;
+}
+#door-four-laboratory .gt-station-story .gt-station-russian {
+    color: #e3c170;
+    font-size: 22px;
+    margin: 5px 0 18px;
+}
+#door-four-laboratory .gt-station-learning {
+    margin-top: 24px;
+    padding: 25px;
+    border: 1px solid #b88b3f88;
+    border-radius: 14px;
+    background: #20382b;
+}
+#door-four-laboratory .gt-station-learning h4 {
+    margin: 10px 0;
+    font: 700 clamp(23px, 2.1vw, 32px)/1.25 Georgia, serif;
+    color: #fff5e3;
+}
+#door-four-laboratory .gt-station-learning h4 span { color: #e3c170; font-weight: 400; }
+#door-four-laboratory .gt-station-learning p { font: 17px/1.5 Arial, sans-serif; }
+#door-four-laboratory .gt-station-coming {
+    padding: 17px 20px;
+    border-left: 3px solid #b88b3f;
+    background: #14261d;
+    color: #e3d9c4;
+    font: 15px/1.5 Arial, sans-serif;
+}
+@media (max-width: 760px) {
+    #door-four-laboratory .gt-station-intro { grid-template-columns: 1fr; }
+    #door-four-laboratory .gt-destination { margin: 0 10px 14px; padding: 15px; }
+    #door-four-laboratory .gt-station-photo img { height: 240px; }
+}
+/* END GRAND TERMINAL — FIVE STATION ARRIVAL PAGES */

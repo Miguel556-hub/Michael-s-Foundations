@@ -6586,6 +6586,45 @@ document
 
     // END DRAWER THREE — CONVERSATION GALLERY LANDING PAGE
 
+    // BEGIN DRAWER FOUR — GRAND TERMINAL
+    const grandTerminal = interior.querySelector('.gt-terminal');
+    const terminalPlatforms = grandTerminal.querySelector('.gt-platforms');
+    const terminalScene = grandTerminal.querySelector('.gt-board-scene');
+    const terminalDestination = grandTerminal.querySelector('.gt-destination');
+    const stationPages = grandTerminal.querySelectorAll('.gt-station-page');
+    const terminalClock = grandTerminal.querySelector('.gt-clock');
+
+    function resetGrandTerminal() {
+        terminalPlatforms.hidden = false;
+        terminalScene.hidden = false;
+        terminalDestination.hidden = true;
+        stationPages.forEach(page => { page.hidden = true; });
+    }
+
+    function updateGrandTerminalClock() {
+        terminalClock.textContent = new Date().toLocaleTimeString('en-GB');
+    }
+
+    updateGrandTerminalClock();
+    setInterval(updateGrandTerminalClock, 1000);
+
+    grandTerminal.querySelectorAll('[data-gt-platform]').forEach((platform) => {
+        platform.addEventListener('click', () => {
+            stationPages.forEach(page => {
+                page.hidden = page.dataset.gtStation !== platform.dataset.gtPlatform;
+            });
+            terminalPlatforms.hidden = true;
+            terminalScene.hidden = true;
+            terminalDestination.hidden = false;
+        });
+    });
+
+    grandTerminal.querySelector('.gt-destination-back').addEventListener('click', resetGrandTerminal);
+    grandTerminal.querySelectorAll('[data-gt-return]').forEach((button) => {
+        button.addEventListener('click', () => returnFromDrawerInterior(button.dataset.gtReturn));
+    });
+    // END DRAWER FOUR — GRAND TERMINAL
+
     function showDrawerInterior(drawerKey) {
         drawers.hidden = true;
         stage.hidden = true;
@@ -6599,6 +6638,8 @@ document
             tab.setAttribute('aria-pressed', String(selected));
         });
         interior.dataset.activeDrawer = drawerKey;
+        grandTerminal.hidden = drawerKey !== 'notes';
+        if (drawerKey === 'notes') resetGrandTerminal();
         signsExplorer.hidden = true;
         messagesExplorer.hidden = true;
         menusExplorer.hidden = true;

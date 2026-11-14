@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Russian Foundation • Русский Фундамент — Grand Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500&display=swap"
+        rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pullman: '#152820',
+                        iron: '#0E1714',
+                        parchment: '#F4EFE4',
+                        parchmentDark: '#E6DEC8',
+                        brass: '#C99E44',
+                        brassLight: '#E3C170',
+                        brassDark: '#8F6B22',
+                        crimson: '#7A2021',
+                        crimsonLight: '#9E2B2D',
+                        flapBg: '#191C1B',
+                    },
+                    fontFamily: {
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    boxShadow: {
+                        brass: '0 10px 30px -5px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(201, 158, 68, 0.35)',
+                        gaslight: '0 0 45px rgba(227, 193, 112, 0.22)',
+                        ticket: '0 18px 38px -10px rgba(14, 23, 20, 0.45)',
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        /* Subtle noise & parchment grain texture */
+        .parchment-texture {
+            background-color: #F4EFE4;
+            background-image:
+                radial-gradient(rgba(143, 107, 34, 0.08) 1px, transparent 0),
+                radial-gradient(rgba(21, 40, 32, 0.05) 1px, transparent 0);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+
+        .iron-grid-bg {
+            background-color: #0E1714;
+            background-image:
+                linear-gradient(to bottom, rgba(14, 23, 20, 0.72), rgba(21, 40, 32, 0.92)),
+                repeating-linear-gradient(90deg, rgba(201, 158, 68, 0.04) 0px, rgba(201, 158, 68, 0.04) 1px, transparent 1px, transparent 64px);
+        }
+
+        /* Perforated Vintage Railway Ticket */
+        .vintage-ticket {
+            position: relative;
+            background: linear-gradient(135deg, #E8C77B 0%, #C99E44 52%, #B58932 100%);
+            color: #0E1714;
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 0 0 0 1.5px rgba(14, 23, 20, 0.35);
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+        }
+
+        .vintage-ticket::before,
+        .vintage-ticket::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background-color: #111E18;
+            border-radius: 9999px;
+            transform: translateY(-50%);
+            box-shadow: inset 0 0 0 1px rgba(201, 158, 68, 0.4);
+        }
+
+        .vintage-ticket::before {
+            left: -8px;
+        }
+
+        .vintage-ticket::after {
+            right: -8px;
+        }
+
+        .vintage-ticket:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(201, 158, 68, 0.32), inset 0 0 0 1.5px rgba(14, 23, 20, 0.55);
+        }
+
+        .vintage-ticket:active {
+            transform: translateY(1px) scale(0.99);
+        }
+
+        /* Split-flap mechanical tile styling */
+        .split-flap-tile {
+            position: relative;
+            background: linear-gradient(180deg, #222624 0%, #161918 49%, #111312 50%, #1C201E 100%);
+            border: 1px solid rgba(201, 158, 68, 0.3);
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 3px 6px rgba(0, 0, 0, 0.45);
+        }
+
+        .split-flap-tile::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.75);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        /* Drifting Locomotive Steam Animations */
+        @keyframes steamDrift1 {
+            0% {
+                transform: translate(0, 0) scale(0.7);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.35;
+            }
+
+            75% {
+                opacity: 0.16;
+            }
+
+            100% {
+                transform: translate(95px, -115px) scale(2.2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes steamDrift2 {
+            0% {
+                transform: translate(0, 0) scale(0.6);
+                opacity: 0;
+            }
+
+            25% {
+                opacity: 0.28;
+            }
+
+            80% {
+                opacity: 0.12;
+            }
+
+            100% {
+                transform: translate(135px, -95px) scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gaslightFlicker {
+
+            0%,
+            100% {
+                opacity: 0.88;
+                transform: scale(1);
+            }
+
+            48% {
+                opacity: 0.96;
+                transform: scale(1.03);
+            }
+
+            52% {
+                opacity: 0.78;
+                transform: scale(0.98);
+            }
+
+            76% {
+                opacity: 0.94;
+                transform: scale(1.01);
+            }
+        }
+
+        @keyframes stampSlam {
+            0% {
+                transform: scale(2.6) rotate(-18deg);
+                opacity: 0;
+            }
+
+            65% {
+                transform: scale(0.94) rotate(-6deg);
+                opacity: 1;
+            }
+
+            82% {
+                transform: scale(1.03) rotate(-7deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) rotate(-7deg);
+                opacity: 0.92;
+            }
+        }
+
+        @keyframes flapFlip {
+            0% {
+                transform: rotateX(0deg);
+            }
+
+            50% {
+                transform: rotateX(-85deg);
+            }
+
+            100% {
+                transform: rotateX(0deg);
+            }
+        }
+
+        .steam-1 {
+            animation: steamDrift1 6.5s ease-out infinite;
+        }
+
+        .steam-2 {
+            animation: steamDrift2 8s ease-out 2.1s infinite;
+        }
+
+        .steam-3 {
+            animation: steamDrift1 7.2s ease-out 4.2s infinite;
+        }
+
+        .gaslight-glow {
+            animation: gaslightFlicker 4.5s ease-in-out infinite;
+        }
+
+        .stamp-animate {
+            animation: stampSlam 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .flap-flipping {
+            animation: flapFlip 0.35s ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0E1714;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3C4D44;
+            border: 2px solid #0E1714;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C99E44;
+        }
+    </style>
+</head>
+
+<body class="bg-iron text-parchment font-sans antialiased selection:bg-brass selection:text-iron overflow-x-hidden">
+
+    <!-- TOP STATION HEADER & LIVE BRASS CLOCK -->
+    <header class="sticky top-0 z-40 bg-iron/95 backdrop-blur-md border-b border-brass/30 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+            <!-- Brand / Crest -->
+            <a href="#top" class="flex items-center gap-3 group focus:outline-none">
+                <div
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-pullman border-2 border-brass flex items-center justify-center shadow-gaslight group-hover:scale-105 transition-transform">
+                    <!-- Ornate Imperial Wheel & Wing Emblem -->
+                    <svg class="w-6 h-6 text-brass" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                        stroke-width="1.6">
+                        <circle cx="16" cy="16" r="10" />
+                        <circle cx="16" cy="16" r="3" fill="currentColor" />
+                        <line x1="16" y1="6" x2="16" y2="26" />
+                        <line x1="6" y1="16" x2="26" y2="16" />
+                        <line x1="8.9" y1="8.9" x2="23.1" y2="23.1" />
+                        <line x1="23.1" y1="8.9" x2="8.9" y2="23.1" />
+                    </svg>
+                </div>
+                <div>
+                    <div class="font-display font-bold text-base sm:text-lg tracking-wide text-parchment leading-tight">
+                        THE RUSSIAN FOUNDATION
+                    </div>
+                    <div class="font-serif italic text-xs sm:text-sm text-brassLight tracking-wider">
+                        Русский Фундамент • Est. Terminal I
+                    </div>
+                </div>
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-parchment/80">
+                <a href="#directory" class="hover:text-brassLight transition-colors">Station Directory</a>
+                <a href="#orientation" class="hover:text-brassLight transition-colors">How to Travel</a>
+                <a href="#ticket-booth" class="hover:text-brassLight transition-colors">Ticket Booth</a>
+            </nav>
+
+            <!-- Live Brass Station Clock -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2.5 bg-pullman/90 border border-brass/40 px-3 py-1.5 rounded-lg shadow-inner"
+                    title="Imperial Station Master Clock">
+                    <!-- Analog Mini SVG Clock -->
+                    <svg class="w-7 h-7 text-brass shrink-0" viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="18" fill="#F4EFE4" stroke="#C99E44" stroke-width="2.5" />
+                        <circle cx="20" cy="20" r="14.5" fill="none" stroke="#152820" stroke-width="0.6"
+                            stroke-dasharray="1.5 2.3" />
+                        <line id="clock-hour" x1="20" y1="20" x2="20" y2="11" stroke="#0E1714" stroke-width="2.2"
+                            stroke-linecap="round" />
+                        <line id="clock-min" x1="20" y1="20" x2="20" y2="7.5" stroke="#0E1714" stroke-width="1.5"
+                            stroke-linecap="round" />
+                        <line id="clock-sec" x1="20" y1="22" x2="20" y2="6.5" stroke="#7A2021" stroke-width="1"
+                            stroke-linecap="round" />
+                        <circle cx="20" cy="20" r="2" fill="#C99E44" stroke="#0E1714" stroke-width="0.8" />
+                    </svg>
+                    <div class="leading-none">
+                        <div id="digital-clock"
+                            class="font-mono text-xs sm:text-sm font-bold text-brassLight tracking-wider">12:00:00</div>
+                        <div class="text-[10px] uppercase tracking-widest text-parchment/60 mt-0.5">Platform Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION: THE GRAND TERMINAL -->
+    <section id="top" class="relative iron-grid-bg overflow-hidden border-b-2 border-brass/40">
+        <!-- Ornate Victorian Wrought-Iron Glass Canopy Arch SVG Backdrop -->
+        <div class="absolute inset-0 pointer-events-none opacity-35 flex justify-center">
+            <svg class="w-full max-w-6xl h-full" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMin slice"
+                fill="none">
+                <!-- Outer Iron Arch -->
+                <path d="M 60 680 L 60 360 C 60 120, 320 35, 600 35 C 880 35, 1140 120, 1140 360 L 1140 680"
+                    stroke="#C99E44" stroke-width="3" />
+                <path d="M 92 680 L 92 365 C 92 150, 338 68, 600 68 C 862 68, 1108 150, 1108 365 L 1108 680"
+                    stroke="#C99E44" stroke-width="1.2" stroke-dasharray="6 6" />
+                <!-- Glass Roof Ribs -->
+                <line x1="600" y1="35" x2="600" y2="210" stroke="#C99E44" stroke-width="1.2" />
+                <line x1="600" y1="35" x2="360" y2="240" stroke="#C99E44" stroke-width="1" />
+                <line x1="600" y1="35" x2="840" y2="240" stroke="#C99E44" stroke-width="1" />
+                <line x1="600" y1="35" x2="170" y2="300" stroke="#C99E44" stroke-width="1" />
+                <line x1="600" y1="35" x2="1030" y2="300" stroke="#C99E44" stroke-width="1" />
+                <!-- Decorative Iron Spandrel Rings -->
+                <circle cx="155" cy="195" r="24" stroke="#C99E44" stroke-width="1.5" />
+                <circle cx="1045" cy="195" r="24" stroke="#C99E44" stroke-width="1.5" />
+                <circle cx="240" cy="128" r="16" stroke="#C99E44" stroke-width="1.2" />
+                <circle cx="960" cy="128" r="16" stroke="#C99E44" stroke-width="1.2" />
+            </svg>
+        </div>
+
+        <!-- Warm Gaslight Ambient Orbs -->
+        <div
+            class="gaslight-glow absolute top-24 left-1/4 w-72 h-72 rounded-full bg-brass/15 blur-3xl pointer-events-none">
+        </div>
+        <div
+            class="gaslight-glow absolute top-32 right-1/4 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-0">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
+                <!-- Left Column: Copy & Vintage Ticket CTA -->
+                <div class="lg:col-span-7 text-center lg:text-left pb-8 lg:pb-16">
+                    <div
+                        class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-pullman/90 border border-brass/40 text-brassLight text-xs font-mono tracking-[0.18em] uppercase mb-6 shadow-md">
+                        <span class="w-2 h-2 rounded-full bg-brass animate-pulse"></span>
+                        ДОБРО ПОЖАЛОВАТЬ • WELCOME TO THE STATION
+                    </div>
+
+                    <h1
+                        class="font-display font-bold text-3xl sm:text-5xl lg:text-[3.4rem] text-parchment leading-[1.12] tracking-tight mb-6">
+                        Your Journey Into the <span class="text-brassLight italic font-serif font-semibold">Russian
+                            Language</span> Begins Here.
+                    </h1>
+
+                    <p
+                        class="text-base sm:text-lg text-parchment/85 leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8 font-light">
+                        Step onto the platform of <strong class="font-semibold text-parchment">The Russian
+                            Foundation</strong>—a structured, self-guided terminal designed to take you from your first
+                        Cyrillic letters to real-world fluency, one stop at a time.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-5">
+                        <a href="#directory"
+                            class="vintage-ticket w-full sm:w-auto px-7 py-4 flex items-center justify-center gap-3 font-display font-bold text-sm sm:text-base tracking-wide uppercase cursor-pointer group">
+                            <span class="border-r border-iron/30 pr-3 font-mono text-xs font-bold">№ 1894</span>
+                            <span>Board the Train — Begin Exploring</span>
+                            <span class="group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+
+                        <button type="button" onclick="openTicketModal()"
+                            class="w-full sm:w-auto px-6 py-3.5 rounded-lg border border-brass/50 bg-pullman/80 hover:bg-pullman text-brassLight hover:text-parchment font-serif italic text-lg tracking-wide transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer">
+                            <svg class="w-5 h-5 text-brass" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <path
+                                    d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V7z" />
+                                <line x1="9" y1="5" x2="9" y2="19" stroke-dasharray="2 2" />
+                            </svg>
+                            <span>Inspect &amp; Stamp Your Ticket</span>
+                        </button>
+                    </div>
+
+                    <!-- Station Quick Telemetry -->
+                    <div
+                        class="mt-9 pt-6 border-t border-brass/20 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
+                        <div>
+                            <div class="font-mono text-xs uppercase tracking-wider text-brass/80">Platforms</div>
+                            <div class="font-display font-bold text-lg sm:text-xl text-parchment">05 Terminals</div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs uppercase tracking-wider text-brass/80">Pace</div>
+                            <div class="font-display font-bold text-lg sm:text-xl text-parchment">Self-Guided</div>
+                        </div>
+                        <div>
+                            <div class="font-mono text-xs uppercase tracking-wider text-brass/80">Departure</div>
+                            <div class="font-display font-bold text-lg sm:text-xl text-brassLight">Now Boarding</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Illustrated Victorian Locomotive at Platform 1 -->
+                <div class="lg:col-span-5 relative flex flex-col items-center justify-end self-end">
+                    <!-- Hanging Platform Sign -->
+                    <div
+                        class="mb-4 px-5 py-2 bg-pullman border-2 border-brass rounded-md shadow-brass text-center relative">
+                        <div class="text-[10px] font-mono uppercase tracking-[0.25em] text-brassLight">ПУТЬ 1 • TRACK
+                            ONE</div>
+                        <div class="font-display font-bold text-sm sm:text-base text-parchment tracking-wide">IMPERIAL
+                            EXPRESS — МОСКВА</div>
+                    </div>
+
+                    <!-- Detailed Victorian Steam Locomotive & Gaslight Lamp SVG -->
+                    <div class="relative w-full max-w-md mx-auto">
+                        <svg viewBox="0 0 460 310" class="w-full h-auto drop-shadow-2xl overflow-visible" fill="none">
+                            <!-- Animated Steam Plumes rising from Smokestack -->
+                            <g class="steam-1">
+                                <circle cx="132" cy="78" r="16" fill="#F4EFE4" />
+                                <circle cx="146" cy="70" r="13" fill="#F4EFE4" />
+                            </g>
+                            <g class="steam-2">
+                                <circle cx="134" cy="76" r="14" fill="#E6DEC8" />
+                                <circle cx="152" cy="64" r="18" fill="#F4EFE4" />
+                            </g>
+                            <g class="steam-3">
+                                <circle cx="130" cy="80" r="12" fill="#F4EFE4" />
+                                <circle cx="144" cy="72" r="15" fill="#E6DEC8" />
+                            </g>
+
+                            <!-- Gaslight Station Lamp Post on Platform -->
+                            <g>
+                                <rect x="42" y="95" width="5" height="190" fill="#1E2B25" stroke="#C99E44"
+                                    stroke-width="0.8" />
+                                <path d="M 34 285 L 55 285 L 51 268 L 38 268 Z" fill="#152820" stroke="#C99E44"
+                                    stroke-width="1" />
+                                <!-- Lantern Cage -->
+                                <polygon points="33,95 56,95 52,70 37,70" fill="#FDE68A" fill-opacity="0.85"
+                                    stroke="#C99E44" stroke-width="1.5" />
+                                <polygon points="30,70 59,70 44.5,56" fill="#152820" stroke="#C99E44"
+                                    stroke-width="1.2" />
+                                <circle cx="44.5" cy="82" r="24" fill="#E3C170" fill-opacity="0.22"
+                                    class="gaslight-glow" />
+                            </g>
+
+                            <!-- Locomotive Boiler & Cab (Pullman Green & Brass) -->
+                            <!-- Cab -->
+                            <rect x="275" y="102" width="118" height="122" rx="4" fill="#152820" stroke="#C99E44"
+                                stroke-width="2" />
+                            <path d="M 267 102 Q 334 84 401 102 Z" fill="#7A2021" stroke="#C99E44" stroke-width="1.5" />
+                            <!-- Cab Arched Windows -->
+                            <rect x="292" y="122" width="34" height="44" rx="14" fill="#FDE68A" fill-opacity="0.78"
+                                stroke="#C99E44" stroke-width="2" />
+                            <rect x="342" y="122" width="34" height="44" rx="14" fill="#FDE68A" fill-opacity="0.78"
+                                stroke="#C99E44" stroke-width="2" />
+                            <!-- Brass Plaque on Cab -->
+                            <rect x="296" y="180" width="76" height="22" rx="2" fill="#C99E44" />
+                            <text x="334" y="194" text-anchor="middle" fill="#0E1714" font-family="Georgia, serif"
+                                font-weight="bold" font-size="9.5" letter-spacing="1">РФ • 1894</text>
+
+                            <!-- Main Cylindrical Boiler -->
+                            <rect x="115" y="128" width="160" height="96" rx="6" fill="#1A3329" stroke="#C99E44"
+                                stroke-width="2" />
+                            <!-- Brass Boiler Bands -->
+                            <line x1="152" y1="128" x2="152" y2="224" stroke="#C99E44" stroke-width="2.5" />
+                            <line x1="196" y1="128" x2="196" y2="224" stroke="#C99E44" stroke-width="2.5" />
+                            <line x1="240" y1="128" x2="240" y2="224" stroke="#C99E44" stroke-width="2.5" />
+
+                            <!-- Steam Dome & Brass Bell -->
+                            <path d="M 182 128 C 182 104, 210 104, 210 128 Z" fill="#C99E44" stroke="#0E1714"
+                                stroke-width="1" />
+                            <path d="M 228 128 C 228 112, 248 112, 248 128 Z" fill="#7A2021" stroke="#C99E44"
+                                stroke-width="1.2" />
+
+                            <!-- Flared Victorian Smokestack -->
+                            <polygon points="124,128 142,128 148,84 118,84" fill="#0E1714" stroke="#C99E44"
+                                stroke-width="1.8" />
+                            <rect x="115" y="80" width="36" height="6" rx="2" fill="#C99E44" />
+
+                            <!-- Front Headlamp -->
+                            <rect x="94" y="136" width="21" height="26" rx="3" fill="#152820" stroke="#C99E44"
+                                stroke-width="1.8" />
+                            <ellipse cx="94" cy="149" rx="4" ry="11" fill="#FEF3C7" />
+                            <polygon points="90,142 15,120 15,180 90,156" fill="#FDE68A" fill-opacity="0.16" />
+
+                            <!-- Crimson Cowcatcher & Chassis Frame -->
+                            <polygon points="115,224 76,268 115,268" fill="#7A2021" stroke="#C99E44"
+                                stroke-width="1.5" />
+                            <rect x="115" y="224" width="286" height="22" fill="#7A2021" stroke="#C99E44"
+                                stroke-width="1.5" />
+
+                            <!-- Large Driving Wheels with Brass Spokes -->
+                            <g>
+                                <circle cx="195" cy="256" r="28" fill="#0E1714" stroke="#C99E44" stroke-width="3.5" />
+                                <circle cx="195" cy="256" r="21" fill="none" stroke="#7A2021" stroke-width="2" />
+                                <line x1="195" y1="228" x2="195" y2="284" stroke="#C99E44" stroke-width="1.5" />
+                                <line x1="167" y1="256" x2="223" y2="256" stroke="#C99E44" stroke-width="1.5" />
+                                <circle cx="195" cy="256" r="6" fill="#C99E44" />
+                            </g>
+                            <g>
+                                <circle cx="262" cy="256" r="28" fill="#0E1714" stroke="#C99E44" stroke-width="3.5" />
+                                <circle cx="262" cy="256" r="21" fill="none" stroke="#7A2021" stroke-width="2" />
+                                <line x1="262" y1="228" x2="262" y2="284" stroke="#C99E44" stroke-width="1.5" />
+                                <line x1="234" y1="256" x2="290" y2="256" stroke="#C99E44" stroke-width="1.5" />
+                                <circle cx="262" cy="256" r="6" fill="#C99E44" />
+                            </g>
+                            <g>
+                                <circle cx="348" cy="256" r="28" fill="#0E1714" stroke="#C99E44" stroke-width="3.5" />
+                                <circle cx="348" cy="256" r="21" fill="none" stroke="#7A2021" stroke-width="2" />
+                                <line x1="348" y1="228" x2="348" y2="284" stroke="#C99E44" stroke-width="1.5" />
+                                <line x1="320" y1="256" x2="376" y2="256" stroke="#C99E44" stroke-width="1.5" />
+                                <circle cx="348" cy="256" r="6" fill="#C99E44" />
+                            </g>
+                            <!-- Front Pilot Wheel -->
+                            <circle cx="136" cy="268" r="16" fill="#0E1714" stroke="#C99E44" stroke-width="2.5" />
+                            <circle cx="136" cy="268" r="4" fill="#C99E44" />
+
+                            <!-- Connecting Brass Piston Rod -->
+                            <rect x="155" y="252" width="198" height="7" rx="3" fill="#E3C170" stroke="#0E1714"
+                                stroke-width="1" />
+
+                            <!-- Iron Railway Track & Stone Platform Edge -->
+                            <line x1="0" y1="286" x2="460" y2="286" stroke="#C99E44" stroke-width="3" />
+                            <rect x="0" y="289" width="460" height="21" fill="#152820" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: INTERACTIVE SPLIT-FLAP DEPARTURE BOARD & STATION DIRECTORY -->
+    <section id="directory" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <!-- Mechanical Departure Board Header -->
+        <div class="bg-flapBg border-2 border-brass/50 rounded-2xl p-5 sm:p-8 shadow-brass mb-12">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-brass/25">
+                <div>
+                    <div class="text-xs font-mono uppercase tracking-[0.25em] text-brass mb-2">
+                        CENTRAL CONCOURSE • РАСПИСАНИЕ ПОЕЗДОВ
+                    </div>
+                    <!-- Split-Flap Letter Tiles Title -->
+                    <div class="flex flex-wrap items-center gap-1.5" aria-label="STATION DIRECTORY — НАПРАВЛЕНИЯ">
+                        <span
+                            class="split-flap-tile px-2.5 py-1.5 font-mono font-bold text-lg sm:text-2xl text-brassLight tracking-widest">STATION
+                            DIRECTORY</span>
+                        <span class="mx-1 text-brass font-bold">—</span>
+                        <span
+                            class="split-flap-tile px-2.5 py-1.5 font-mono font-bold text-lg sm:text-2xl text-parchment tracking-widest">НАПРАВЛЕНИЯ</span>
+                    </div>
+                </div>
+
+                <!-- Status Indicator & Flap Refresh Button -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="split-flap-tile px-3.5 py-2 flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
+                        <span id="board-status-text"
+                            class="font-mono text-xs sm:text-sm font-bold text-emerald-300 tracking-wider">
+                            ON TIME / ПО РАСПИСАНИЮ
+                        </span>
+                    </div>
+                    <button type="button" onclick="triggerBoardFlip()"
+                        class="px-3.5 py-2 rounded-md bg-pullman hover:bg-pullman/80 border border-brass/40 text-xs font-mono text-brassLight uppercase tracking-wider transition-colors cursor-pointer"
+                        title="Cycle mechanical departure board">
+                        ↻ Refresh Board
+                    </button>
+                </div>
+            </div>
+
+            <p class="mt-5 text-parchment/80 text-sm sm:text-base max-w-3xl leading-relaxed">
+                Every great expedition needs a clear route. Select any of the <strong class="text-brassLight">five
+                    platforms</strong> below to inspect a live preview inside our brass-trimmed station dossier—complete
+                with interactive vocabulary, grammar blueprints, and your personal field journal.
+            </p>
+        </div>
+
+        <!-- 5 Interactive Platform Cards Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <!-- PLATFORM 1: Vocabulary Collection — Словарь -->
+            <article onclick="openPlatformModal('vocab')" role="button" tabindex="0"
+                onkeydown="if(event.key==='Enter')openPlatformModal('vocab')"
+                class="group relative bg-pullman/90 hover:bg-pullman border border-brass/35 hover:border-brass rounded-xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-brass cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                        <span
+                            class="split-flap-tile px-3 py-1 font-mono text-xs font-bold text-brassLight tracking-widest uppercase">
+                            PLATFORM 01
+                        </span>
+                        <span class="text-xs font-serif italic text-brass/90">The Cargo &amp; Provision Manifest</span>
+                    </div>
+
+                    <h3
+                        class="font-display font-bold text-xl sm:text-2xl text-parchment group-hover:text-brassLight transition-colors mb-1">
+                        Vocabulary Collection
+                    </h3>
+                    <div class="font-serif italic text-lg text-brass mb-4">
+                        — Словарь
+                    </div>
+
+                    <p class="text-sm sm:text-[15px] text-parchment/80 leading-relaxed mb-6">
+                        Explore Russian vocabulary, including dictionary forms, English meanings, and examples of how
+                        words are actually used in the Foundation.
+                    </p>
+                </div>
+
+                <div
+                    class="pt-4 border-t border-brass/20 flex items-center justify-between text-sm font-medium text-brassLight">
+                    <span class="font-serif italic text-base">Inspect the Lexicon</span>
+                    <span
+                        class="w-8 h-8 rounded-full border border-brass/40 flex items-center justify-center group-hover:bg-brass group-hover:text-iron transition-colors">→</span>
+                </div>
+            </article>
+
+            <!-- PLATFORM 2: Grammar Notes — Грамматика -->
+            <article onclick="openPlatformModal('grammar')" role="button" tabindex="0"
+                onkeydown="if(event.key==='Enter')openPlatformModal('grammar')"
+                class="group relative bg-pullman/90 hover:bg-pullman border border-brass/35 hover:border-brass rounded-xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-brass cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                        <span
+                            class="split-flap-tile px-3 py-1 font-mono text-xs font-bold text-brassLight tracking-widest uppercase">
+                            PLATFORM 02
+                        </span>
+                        <span class="text-xs font-serif italic text-brass/90">The Locomotive Mechanics</span>
+                    </div>
+
+                    <h3
+                        class="font-display font-bold text-xl sm:text-2xl text-parchment group-hover:text-brassLight transition-colors mb-1">
+                        Grammar Notes
+                    </h3>
+                    <div class="font-serif italic text-lg text-brass mb-4">
+                        — Грамматика
+                    </div>
+
+                    <p class="text-sm sm:text-[15px] text-parchment/80 leading-relaxed mb-6">
+                        Short, practical grammar explanations and reminders—not full grammar lessons.
+                    </p>
+                </div>
+
+                <div
+                    class="pt-4 border-t border-brass/20 flex items-center justify-between text-sm font-medium text-brassLight">
+                    <span class="font-serif italic text-base">Check the Blueprints</span>
+                    <span
+                        class="w-8 h-8 rounded-full border border-brass/40 flex items-center justify-center group-hover:bg-brass group-hover:text-iron transition-colors">→</span>
+                </div>
+            </article>
+
+            <!-- PLATFORM 3: My Discoveries — Мои открытия -->
+            <article onclick="openPlatformModal('discoveries')" role="button" tabindex="0"
+                onkeydown="if(event.key==='Enter')openPlatformModal('discoveries')"
+                class="group relative bg-pullman/90 hover:bg-pullman border border-brass/35 hover:border-brass rounded-xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-brass cursor-pointer flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                        <span
+                            class="split-flap-tile px-3 py-1 font-mono text-xs font-bold text-brassLight tracking-widest uppercase">
+                            PLATFORM 03
+                        </span>
+                        <span class="text-xs font-serif italic text-brass/90">The Traveler’s Field Journal</span>
+                    </div>
+
+                    <h3
+                        class="font-display font-bold text-xl sm:text-2xl text-parchment group-hover:text-brassLight transition-colors mb-1">
+                        My Discoveries
+                    </h3>
+                    <div class="font-serif italic text-lg text-brass mb-4">
+                        — Мои открытия
+                    </div>
+
+                    <p class="text-sm sm:text-[15px] text-parchment/80 leading-relaxed mb-6">
+                        A personal journal where learners record observations, questions, and things they've discovered
+                        about Russian.
+                    </p>
+                </div>
+
+                <div
+                    class="pt-4 border-t border-brass/20 flex items-center justify-between text-sm font-medium text-brassLight">
+                    <span class="font-serif italic text-base">Open Your Journal</span>
+                    <span
+                        class="w-8 h-8 rounded-full border border-brass/40 flex items-center justify-center group-hover:bg-brass group-hover:text-iron transition-colors">→</span>
+                </div>
+            </article>
+
+            <!-- PLATFORM 4: Connections & Patterns — Связи -->
+            <article onclick="openPlatformModal('connections')" role="button" tabindex="0"
+                onkeydown="if(event.key==='Enter')openPlatformModal('connections')"
+                class="group relative bg-pullman/90 hover:bg-pullman border border-brass/35 hover:border-brass rounded-xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-brass cursor-pointer flex flex-col justify-between lg:col-span-1">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                        <span
+                            class="split-flap-tile px-3 py-1 font-mono text-xs font-bold text-brassLight tracking-widest uppercase">
+                            PLATFORM 04
+                        </span>
+                        <span class="text-xs font-serif italic text-brass/90">The Railway Network Map</span>
+                    </div>
+
+                    <h3
+                        class="font-display font-bold text-xl sm:text-2xl text-parchment group-hover:text-brassLight transition-colors mb-1">
+                        Connections &amp; Patterns
+                    </h3>
+                    <div class="font-serif italic text-lg text-brass mb-4">
+                        — Связи
+                    </div>
+
+                    <p class="text-sm sm:text-[15px] text-parchment/80 leading-relaxed mb-6">
+                        Discover relationships between Russian words, grammatical patterns, and expressions.
+                    </p>
+                </div>
+
+                <div
+                    class="pt-4 border-t border-brass/20 flex items-center justify-between text-sm font-medium text-brassLight">
+                    <span class="font-serif italic text-base">Explore the Network</span>
+                    <span
+                        class="w-8 h-8 rounded-full border border-brass/40 flex items-center justify-center group-hover:bg-brass group-hover:text-iron transition-colors">→</span>
+                </div>
+            </article>
+
+            <!-- PLATFORM 5: Useful Expressions — Готовые фразы -->
+            <article onclick="openPlatformModal('expressions')" role="button" tabindex="0"
+                onkeydown="if(event.key==='Enter')openPlatformModal('expressions')"
+                class="group relative bg-pullman/90 hover:bg-pullman border border-brass/35 hover:border-brass rounded-xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-brass cursor-pointer flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                <div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                        <span
+                            class="split-flap-tile px-3 py-1 font-mono text-xs font-bold text-brassLight tracking-widest uppercase">
+                            PLATFORM 05 • EXPRESS LINE
+                        </span>
+                        <span class="text-xs font-serif italic text-brass/90">Ready-to-Use Transit Passes</span>
+                    </div>
+
+                    <div class="grid sm:grid-cols-12 gap-4 items-center">
+                        <div class="sm:col-span-8">
+                            <h3
+                                class="font-display font-bold text-xl sm:text-2xl text-parchment group-hover:text-brassLight transition-colors mb-1">
+                                Useful Expressions
+                            </h3>
+                            <div class="font-serif italic text-lg text-brass mb-3">
+                                — Готовые фразы
+                            </div>
+                            <p class="text-sm sm:text-[15px] text-parchment/80 leading-relaxed">
+                                A collection of practical Russian phrases and expressions learners can use in real
+                                conversations.
+                            </p>
+                        </div>
+                        <div class="sm:col-span-4 bg-iron/70 border border-brass/25 rounded-lg p-3.5 text-left">
+                            <div class="text-[11px] font-mono uppercase text-brass">Sample Transit Phrase</div>
+                            <div class="font-serif font-semibold text-lg text-parchment mt-0.5">«В добрый путь!»</div>
+                            <div class="text-xs text-parchment/70 italic">Have a safe &amp; good journey!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="mt-6 pt-4 border-t border-brass/20 flex items-center justify-between text-sm font-medium text-brassLight">
+                    <span class="font-serif italic text-base">Collect Your Phrases</span>
+                    <span
+                        class="w-8 h-8 rounded-full border border-brass/40 flex items-center justify-center group-hover:bg-brass group-hover:text-iron transition-colors">→</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- SECTION 2: PARCHMENT BROADSHEET ORIENTATION ("BUILT FOR EXPLORERS, NOT MEMORIZERS") -->
+    <section id="orientation"
+        class="parchment-texture text-iron py-16 sm:py-24 border-y-4 border-brass relative overflow-hidden">
+        <!-- Double Hairline Editorial Border Frame -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-2 border-iron/25 p-2 rounded-2xl">
+                <div class="border border-iron/40 rounded-xl p-6 sm:p-12 bg-parchment/70 shadow-sm">
+                    <div class="grid lg:grid-cols-12 gap-8 items-center">
+                        <!-- Engraved Brass Compass Ornament -->
+                        <div class="lg:col-span-4 flex flex-col items-center text-center">
+                            <div
+                                class="w-40 h-40 sm:w-48 sm:h-48 rounded-full border-2 border-iron/30 p-2 bg-parchmentDark/60 shadow-inner flex items-center justify-center">
+                                <svg viewBox="0 0 160 160" class="w-full h-full text-iron">
+                                    <circle cx="80" cy="80" r="72" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" />
+                                    <circle cx="80" cy="80" r="64" fill="none" stroke="#8F6B22" stroke-width="1"
+                                        stroke-dasharray="3 3" />
+                                    <!-- Cardinal Points -->
+                                    <text x="80" y="23" text-anchor="middle" font-family="Georgia, serif"
+                                        font-weight="bold" font-size="12" fill="#7A2021">С</text>
+                                    <text x="80" y="145" text-anchor="middle" font-family="Georgia, serif"
+                                        font-weight="bold" font-size="12">Ю</text>
+                                    <text x="142" y="84" text-anchor="middle" font-family="Georgia, serif"
+                                        font-weight="bold" font-size="12">В</text>
+                                    <text x="18" y="84" text-anchor="middle" font-family="Georgia, serif"
+                                        font-weight="bold" font-size="12">З</text>
+                                    <!-- Compass Rose Star -->
+                                    <polygon points="80,28 89,71 132,80 89,89 80,132 71,89 28,80 71,71" fill="none"
+                                        stroke="currentColor" stroke-width="1.2" />
+                                    <polygon points="80,28 86,74 80,80" fill="#7A2021" />
+                                    <polygon points="80,132 74,86 80,80" fill="#152820" />
+                                    <circle cx="80" cy="80" r="6" fill="#C99E44" stroke="#0E1714" stroke-width="1.5" />
+                                </svg>
+                            </div>
+                            <span class="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brassDark">
+                                Traveler’s Gazette • No. IV
+                            </span>
+                        </div>
+
+                        <!-- Editorial Copy & 3 Transit Tips -->
+                        <div class="lg:col-span-8">
+                            <div class="text-xs font-mono uppercase tracking-[0.22em] text-crimson font-bold mb-2">
+                                STATION ORIENTATION • ПУТЕВОДИТЕЛЬ
+                            </div>
+                            <h2 class="font-display font-bold text-3xl sm:text-4xl text-iron leading-tight mb-4">
+                                Built for Explorers, Not Memorizers
+                            </h2>
+                            <p class="font-serif text-lg sm:text-xl text-iron/90 leading-relaxed mb-8">
+                                Language learning isn’t a single non-stop express—it’s a scenic route where curiosity
+                                leads the way. Whether you’re looking up a single root word in the <em
+                                    class="font-semibold">Словарь</em>, jotting down a lightbulb moment in <em
+                                    class="font-semibold">Мои открытия</em>, or grabbing a phrase for tonight’s
+                                conversation, every platform connects seamlessly back to your core foundation.
+                            </p>
+
+                            <!-- 3 Quick-Step Transit Tips -->
+                            <div class="grid sm:grid-cols-3 gap-4 pt-6 border-t border-iron/20">
+                                <div class="bg-parchmentDark/55 border border-iron/15 rounded-lg p-4">
+                                    <div class="font-mono text-xs font-bold text-crimson mb-1">01 • OBSERVE</div>
+                                    <div class="font-display font-bold text-base text-iron mb-1">See Words in Context
+                                    </div>
+                                    <p class="text-xs text-iron/80 leading-relaxed">
+                                        Check dictionary forms alongside authentic sentences used directly inside the
+                                        Foundation.
+                                    </p>
+                                </div>
+                                <div class="bg-parchmentDark/55 border border-iron/15 rounded-lg p-4">
+                                    <div class="font-mono text-xs font-bold text-crimson mb-1">02 • CONNECT</div>
+                                    <div class="font-display font-bold text-base text-iron mb-1">Follow the Patterns
+                                    </div>
+                                    <p class="text-xs text-iron/80 leading-relaxed">
+                                        Use bite-sized grammar reminders and word-family tracks instead of heavy
+                                        textbook drills.
+                                    </p>
+                                </div>
+                                <div class="bg-parchmentDark/55 border border-iron/15 rounded-lg p-4">
+                                    <div class="font-mono text-xs font-bold text-crimson mb-1">03 • RECORD</div>
+                                    <div class="font-display font-bold text-base text-iron mb-1">Keep Field Notes</div>
+                                    <p class="text-xs text-iron/80 leading-relaxed">
+                                        Capture your personal breakthroughs in <em>Мои открытия</em> so every insight
+                                        stays with you.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: FINAL TICKET BOOTH CTA & PERSONALIZED BOARDING PASS GENERATOR -->
+    <section id="ticket-booth" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+            <div
+                class="inline-block px-3.5 py-1 rounded-full bg-crimson/25 border border-crimsonLight/50 text-brassLight font-mono text-xs uppercase tracking-[0.22em] mb-3">
+                THE TICKET BOOTH • БИЛЕТНАЯ КАССА
+            </div>
+            <h2 class="font-display font-bold text-3xl sm:text-5xl text-parchment mb-3">
+                All Aboard? — <span class="italic font-serif text-brassLight">Поехали!</span>
+            </h2>
+            <p class="text-parchment/80 text-base sm:text-lg max-w-xl mx-auto">
+                Your ticket is ready and the steam is rising. Enter your name below to issue and stamp your personal
+                Foundation Boarding Pass.
+            </p>
+        </div>
+
+        <!-- Interactive Ticket Generator Box -->
+        <div class="bg-pullman border-2 border-brass/45 rounded-2xl p-6 sm:p-10 shadow-brass">
+            <form onsubmit="issueBoardingPass(event)" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-10">
+                <div class="flex-1">
+                    <label for="passenger-name" class="sr-only">Passenger Name</label>
+                    <input id="passenger-name" type="text" maxlength="32" placeholder="Enter your name (e.g., Traveler)"
+                        class="w-full px-4 py-3.5 rounded-lg bg-iron border border-brass/40 text-parchment placeholder-parchment/45 focus:outline-none focus:border-brassLight font-serif text-lg" />
+                </div>
+                <button type="submit"
+                    class="vintage-ticket px-7 py-3.5 font-display font-bold text-sm sm:text-base uppercase tracking-wider cursor-pointer shrink-0">
+                    Issue Boarding Pass
+                </button>
+            </form>
+
+            <!-- Rendered Golden/Parchment Railway Boarding Pass -->
+            <div id="boarding-pass-card"
+                class="relative max-w-2xl mx-auto parchment-texture text-iron rounded-xl border-2 border-brass shadow-ticket overflow-hidden">
+                <!-- Top Crimson & Brass Banner -->
+                <div
+                    class="bg-crimson text-parchment px-5 py-2.5 flex items-center justify-between border-b-2 border-brass">
+                    <span class="font-mono text-xs tracking-[0.2em] uppercase">IMPERIAL RUSSIAN FOUNDATION
+                        RAILWAY</span>
+                    <span class="font-mono text-xs font-bold text-brassLight">CLASS I • ПЕРВЫЙ КЛАСС</span>
+                </div>
+
+                <div class="p-6 sm:p-8 grid sm:grid-cols-12 gap-6 items-center relative">
+                    <div class="sm:col-span-8 space-y-3">
+                        <div
+                            class="flex items-center justify-between text-xs font-mono text-iron/65 uppercase border-b border-iron/15 pb-2">
+                            <span>PASSENGER / ПАССАЖИР</span>
+                            <span id="pass-date">DATE: TODAY</span>
+                        </div>
+                        <div id="pass-holder"
+                            class="font-display font-bold text-2xl sm:text-3xl text-iron tracking-wide">
+                            HONORED TRAVELER
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-2 text-xs">
+                            <div>
+                                <div class="font-mono text-iron/60 uppercase">ORIGIN</div>
+                                <div class="font-serif font-bold text-base text-iron">First Cyrillic Steps</div>
+                            </div>
+                            <div>
+                                <div class="font-mono text-iron/60 uppercase">DESTINATION</div>
+                                <div class="font-serif font-bold text-base text-iron">All 5 Platforms</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Perforated Stub Right Side -->
+                    <div
+                        class="sm:col-span-4 sm:border-l-2 sm:border-dashed sm:border-iron/30 sm:pl-6 flex flex-col items-center justify-center text-center">
+                        <div class="font-mono text-[10px] uppercase tracking-widest text-iron/60 mb-1">TICKET SERIAL
+                        </div>
+                        <div id="pass-serial" class="font-mono font-bold text-sm text-iron mb-3">RF-1894-001</div>
+                        <a href="#directory"
+                            class="w-full py-2.5 px-4 rounded bg-pullman hover:bg-iron text-brassLight font-display font-bold text-xs uppercase tracking-wider transition-colors">
+                            Enter Foundation →
+                        </a>
+                    </div>
+
+                    <!-- Animated Ink Stamp Overlay -->
+                    <div id="pass-stamp"
+                        class="hidden pointer-events-none absolute right-10 sm:right-44 top-1/2 -translate-y-1/2 border-4 border-crimson text-crimson px-4 py-2 rounded-md font-mono font-extrabold text-sm sm:text-base tracking-widest uppercase bg-parchment/80 shadow-sm">
+                        ПОЕХАЛИ! • APPROVED
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-iron border-t border-brass/30 py-10 px-4 sm:px-6 lg:px-8 text-center">
+        <div
+            class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-parchment/60">
+            <div class="font-serif italic text-base text-brassLight">
+                The Russian Foundation — Русский Фундамент
+            </div>
+            <div class="font-mono tracking-wider">
+                PLATFORMS 01–05 • ALL TRAINS DEPART ON SCHEDULE
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE PLATFORM DOSSIER MODAL -->
+    <div id="platform-modal"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm" role="dialog"
+        aria-modal="true" aria-labelledby="modal-title">
+        <div
+            class="relative w-full max-w-2xl parchment-texture text-iron rounded-2xl border-2 border-brass shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <!-- Brass & Pullman Top Header -->
+            <div
+                class="bg-pullman text-parchment px-6 py-4 flex items-center justify-between border-b-2 border-brass shrink-0">
+                <div>
+                    <div id="modal-eyebrow" class="font-mono text-[11px] uppercase tracking-[0.22em] text-brassLight">
+                        PLATFORM 01 • STATION DOSSIER
+                    </div>
+                    <h3 id="modal-title" class="font-display font-bold text-xl sm:text-2xl text-parchment">
+                        Vocabulary Collection — Словарь
+                    </h3>
+                </div>
+                <button type="button" onclick="closePlatformModal()"
+                    class="w-9 h-9 rounded-full border border-brass/40 text-brassLight hover:bg-brass hover:text-iron flex items-center justify-center font-bold transition-colors cursor-pointer"
+                    aria-label="Close dossier">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Dynamic Interactive Dossier Content -->
+            <div id="modal-body" class="p-6 sm:p-8 overflow-y-auto space-y-5">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div
+                class="bg-parchmentDark/80 px-6 py-3.5 border-t border-iron/15 flex items-center justify-between shrink-0">
+                <div class="flex gap-1.5">
+                    <button type="button" onclick="openPlatformModal('vocab')"
+                        class="px-2.5 py-1 rounded text-xs font-mono bg-iron/10 hover:bg-iron hover:text-parchment transition-colors cursor-pointer">01</button>
+                    <button type="button" onclick="openPlatformModal('grammar')"
+                        class="px-2.5 py-1 rounded text-xs font-mono bg-iron/10 hover:bg-iron hover:text-parchment transition-colors cursor-pointer">02</button>
+                    <button type="button" onclick="openPlatformModal('discoveries')"
+                        class="px-2.5 py-1 rounded text-xs font-mono bg-iron/10 hover:bg-iron hover:text-parchment transition-colors cursor-pointer">03</button>
+                    <button type="button" onclick="openPlatformModal('connections')"
+                        class="px-2.5 py-1 rounded text-xs font-mono bg-iron/10 hover:bg-iron hover:text-parchment transition-colors cursor-pointer">04</button>
+                    <button type="button" onclick="openPlatformModal('expressions')"
+                        class="px-2.5 py-1 rounded text-xs font-mono bg-iron/10 hover:bg-iron hover:text-parchment transition-colors cursor-pointer">05</button>
+                </div>
+                <button type="button" onclick="closePlatformModal()"
+                    class="px-4 py-1.5 rounded-md bg-pullman text-brassLight font-display font-bold text-xs uppercase tracking-wider hover:bg-iron transition-colors cursor-pointer">
+                    Return to Concourse
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FOR LIVE CLOCK, SPLIT-FLAP ANIMATIONS, DOSSIER PREVIEWS & TICKET STAMPING -->
+    <script>
+        // 1. Live Analog & Digital Brass Station Clock
+        function updateStationClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const digitalEl = document.getElementById('digital-clock');
+            if (digitalEl) {
+                digitalEl.textContent = [
+                    String(hours).padStart(2, '0'),
+                    String(minutes).padStart(2, '0'),
+                    String(seconds).padStart(2, '0')
+                ].join(':');
+            }
+
+            const secDeg = seconds * 6;
+            const minDeg = minutes * 6 + seconds * 0.1;
+            const hourDeg = ((hours % 12) * 30) + (minutes * 0.5);
+
+            const secHand = document.getElementById('clock-sec');
+            const minHand = document.getElementById('clock-min');
+            const hourHand = document.getElementById('clock-hour');
+
+            if (secHand) secHand.setAttribute('transform', `rotate(${secDeg} 20 20)`);
+            if (minHand) minHand.setAttribute('transform', `rotate(${minDeg} 20 20)`);
+            if (hourHand) hourHand.setAttribute('transform', `rotate(${hourDeg} 20 20)`);
+        }
+        setInterval(updateStationClock, 1000);
+        updateStationClock();
+
+        // 2. Mechanical Split-Flap Departure Board Refresh Effect
+        const boardStatuses = [
+            'ON TIME / ПО РАСПИСАНИЮ',
+            'BOARDING / ПОСАДКА ОТКРЫТА',
+            'ALL PLATFORMS / ВСЕ ПУТИ ГОТОВЫ'
+        ];
+        let statusIdx = 0;
+
+        function triggerBoardFlip() {
+            const tiles = document.querySelectorAll('.split-flap-tile');
+            tiles.forEach((tile, i) => {
+                tile.classList.remove('flap-flipping');
+                setTimeout(() => {
+                    tile.classList.add('flap-flipping');
+                }, i * 45);
+            });
+
+            statusIdx = (statusIdx + 1) % boardStatuses.length;
+            const statusText = document.getElementById('board-status-text');
+            if (statusText) {
+                setTimeout(() => {
+                    statusText.textContent = boardStatuses[statusIdx];
+                }, 160);
+            }
+        }
+
+        // 3. Interactive Platform Dossier Data & Modal Logic
+        const platformPreviews = {
+            vocab: {
+                eyebrow: 'PLATFORM 01 • СЛОВАРЬ (VOCABULARY COLLECTION)',
+                title: 'Vocabulary Collection — Словарь',
+                render: () => `
+          <p class="text-sm text-iron/80 leading-relaxed">
+            Every entry in <strong>Словарь</strong> pairs the dictionary form with stress marks, clear English meanings, and authentic sentences showing how the word actually appears across the Foundation.
+          </p>
+          <div class="bg-parchmentDark/80 border-2 border-iron/20 rounded-xl p-5 space-y-4">
+            <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-iron/15 pb-3">
+              <div>
+                <span class="font-display font-bold text-3xl text-crimson">путь</span>
+                <span class="ml-2 font-mono text-xs text-iron/70">[putʹ] • masculine noun</span>
+              </div>
+              <span class="px-2.5 py-0.5 rounded bg-pullman text-brassLight font-mono text-xs">Dictionary Form</span>
+            </div>
+            <div>
+              <div class="text-xs font-mono uppercase text-iron/60">English Meaning</div>
+              <div class="font-serif font-bold text-xl text-iron">way, path, journey; railway track</div>
+            </div>
+            <div class="bg-parchment p-4 rounded-lg border border-iron/15">
+              <div class="text-xs font-mono uppercase text-brassDark mb-1">Example in the Foundation</div>
+              <div class="font-serif text-lg font-semibold text-iron">«Каждый большой путь начинается с первого шага.»</div>
+              <div class="text-xs text-iron/75 italic mt-1">“Every great journey begins with the first step.”</div>
+            </div>
+          </div>
+        `
+            },
+            grammar: {
+                eyebrow: 'PLATFORM 02 • ГРАММАТИКА (GRAMMAR NOTES)',
+                title: 'Grammar Notes — Грамматика',
+                render: () => `
+          <p class="text-sm text-iron/80 leading-relaxed">
+            <strong>Грамматика</strong> gives you concise, practical mechanical notes—designed to clarify a pattern in 60 seconds without derailing you into an exhaustive textbook lecture.
+          </p>
+          <div class="bg-parchmentDark/80 border-2 border-iron/20 rounded-xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-iron/15 pb-2">
+              <span class="font-display font-bold text-lg text-iron">Quick Note: Идти vs. Ехать</span>
+              <span class="font-mono text-xs text-crimson font-bold">2-MIN REMINDER</span>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="bg-parchment p-3.5 rounded-lg border border-iron/15">
+                <div class="font-display font-bold text-lg text-pullman">идти́ (on foot)</div>
+                <p class="text-xs text-iron/80 mt-1">Use when walking or moving under your own power in one direction right now.</p>
+                <div class="mt-2 font-serif italic text-sm text-crimson">Я иду на платформу. (I am walking to the platform.)</div>
+              </div>
+              <div class="bg-parchment p-3.5 rounded-lg border border-iron/15">
+                <div class="font-display font-bold text-lg text-pullman">е́хать (by vehicle/train)</div>
+                <p class="text-xs text-iron/80 mt-1">Use whenever traveling by train, car, bus, or bicycle.</p>
+                <div class="mt-2 font-serif italic text-sm text-crimson">Поезд едет в Москву. (The train is going to Moscow.)</div>
+              </div>
+            </div>
+          </div>
+        `
+            },
+            discoveries: {
+                eyebrow: 'PLATFORM 03 • МОИ ОТКРЫТИЯ (MY DISCOVERIES)',
+                title: 'My Discoveries — Мои открытия',
+                render: () => `
+          <p class="text-sm text-iron/80 leading-relaxed">
+            Your personal field journal for capturing observations, questions, and patterns you notice along the way. Try jotting down a sample note below:
+          </p>
+          <div class="bg-parchmentDark/80 border-2 border-iron/20 rounded-xl p-5 space-y-3">
+            <label for="journal-sample-input" class="block font-mono text-xs uppercase text-iron/70">Field Log Entry • Запись в дневнике</label>
+            <textarea id="journal-sample-input" rows="3" class="w-full p-3 rounded-lg bg-parchment border border-iron/25 font-serif text-base text-iron focus:outline-none focus:border-crimson" placeholder="Write an observation (e.g., 'Notice how вокзал means train station, while станция is a stop!')...">Notice how «путь» ends in a soft sign (-ь) like many feminine nouns, yet it is actually masculine!</textarea>
+            <div class="flex items-center justify-between">
+              <span id="journal-save-feedback" class="text-xs font-mono text-pullman font-bold"></span>
+              <button type="button" onclick="saveSampleDiscovery()" class="px-4 py-2 rounded bg-crimson text-parchment font-display font-bold text-xs uppercase tracking-wider hover:bg-crimsonLight transition-colors cursor-pointer">
+                Record Discovery
+              </button>
+            </div>
+          </div>
+        `
+            },
+            connections: {
+                eyebrow: 'PLATFORM 04 • СВЯЗИ (CONNECTIONS & PATTERNS)',
+                title: 'Connections & Patterns — Связи',
+                render: () => `
+          <p class="text-sm text-iron/80 leading-relaxed">
+            <strong>Связи</strong> maps the railway lines between related words and roots so vocabulary multiplies naturally instead of feeling like isolated facts.
+          </p>
+          <div class="bg-parchmentDark/80 border-2 border-iron/20 rounded-xl p-5">
+            <div class="text-center mb-4">
+              <span class="inline-block px-4 py-1.5 rounded-full bg-pullman text-brassLight font-display font-bold text-base">
+                Root Hub: -ХОД- (Motion / Passage)
+              </span>
+            </div>
+            <div class="grid sm:grid-cols-3 gap-3 text-center">
+              <div class="bg-parchment p-3 rounded-lg border border-iron/15">
+                <div class="font-display font-bold text-lg text-crimson">вход</div>
+                <div class="text-xs font-mono text-iron/60">в- (in) + ход</div>
+                <div class="text-xs text-iron/85 mt-1">Entrance</div>
+              </div>
+              <div class="bg-parchment p-3 rounded-lg border border-iron/15">
+                <div class="font-display font-bold text-lg text-crimson">вы́ход</div>
+                <div class="text-xs font-mono text-iron/60">вы- (out) + ход</div>
+                <div class="text-xs text-iron/85 mt-1">Exit</div>
+              </div>
+              <div class="bg-parchment p-3 rounded-lg border border-iron/15">
+                <div class="font-display font-bold text-lg text-crimson">перехо́д</div>
+                <div class="text-xs font-mono text-iron/60">пере- (across) + ход</div>
+                <div class="text-xs text-iron/85 mt-1">Crosswalk / Transfer</div>
+              </div>
+            </div>
+          </div>
+        `
+            },
+            expressions: {
+                eyebrow: 'PLATFORM 05 • ГОТОВЫЕ ФРАЗЫ (USEFUL EXPRESSIONS)',
+                title: 'Useful Expressions — Готовые фразы',
+                render: () => `
+          <p class="text-sm text-iron/80 leading-relaxed">
+            Ready-to-use conversational phrases you can carry straight off the platform into real dialogue.
+          </p>
+          <div class="space-y-3">
+            <div class="bg-parchmentDark/80 border border-iron/20 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <div class="font-display font-bold text-lg text-iron">Скажите, пожалуйста...</div>
+                <div class="text-xs font-mono text-iron/65">Skazhíte, pozháluysta...</div>
+              </div>
+              <div class="font-serif italic text-base text-crimson font-semibold">“Tell me, please...” (Polite opener)</div>
+            </div>
+            <div class="bg-parchmentDark/80 border border-iron/20 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <div class="font-display font-bold text-lg text-iron">Счастливого пути!</div>
+                <div class="text-xs font-mono text-iron/65">Schastlívogo putí!</div>
+              </div>
+              <div class="font-serif italic text-base text-crimson font-semibold">“Bon voyage! / Have a great trip!”</div>
+            </div>
+            <div class="bg-parchmentDark/80 border border-iron/20 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <div class="font-display font-bold text-lg text-iron">Я только начинаю учить русский.</div>
+                <div class="text-xs font-mono text-iron/65">Ya tólʹko nachináyu uchítʹ rússkiy.</div>
+              </div>
+              <div class="font-serif italic text-base text-crimson font-semibold">“I’m just starting to learn Russian.”</div>
+            </div>
+          </div>
+        `
+            }
+        };
+
+        function openPlatformModal(key) {
+            const data = platformPreviews[key];
+            if (!data) return;
+            document.getElementById('modal-eyebrow').textContent = data.eyebrow;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-body').innerHTML = data.render();
+
+            const modal = document.getElementById('platform-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePlatformModal() {
+            const modal = document.getElementById('platform-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveSampleDiscovery() {
+            const feedback = document.getElementById('journal-save-feedback');
+            if (feedback) {
+                feedback.textContent = '✓ Saved to your sample field journal!';
+            }
+        }
+
+        // Close modal on backdrop click or Escape key
+        document.getElementById('platform-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'platform-modal') closePlatformModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePlatformModal();
+        });
+
+        // 4. Ticket Booth Generator & Stamp Animation
+        function setTodayDateOnTicket() {
+            const dateEl = document.getElementById('pass-date');
+            if (dateEl) {
+                const d = new Date();
+                dateEl.textContent = 'DATE: ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
+            }
+        }
+        setTodayDateOnTicket();
+
+        function openTicketModal() {
+            const booth = document.getElementById('ticket-booth');
+            if (booth) {
+                booth.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => stampPass(), 550);
+            }
+        }
+
+        function stampPass() {
+            const stamp = document.getElementById('pass-stamp');
+            if (!stamp) return;
+            stamp.classList.remove('hidden', 'stamp-animate');
+            void stamp.offsetWidth; // trigger reflow for replay
+            stamp.classList.add('stamp-animate');
+        }
+
+        function issueBoardingPass(e) {
+            e.preventDefault();
+            const input = document.getElementById('passenger-name');
+            const holder = document.getElementById('pass-holder');
+            const serial = document.getElementById('pass-serial');
+
+            const rawName = input && input.value.trim() ? input.value.trim() : 'HONORED TRAVELER';
+            holder.textContent = rawName.toUpperCase();
+
+            const randomNum = Math.floor(100 + Math.random() * 899);
+            serial.textContent = `RF-1894-${randomNum}`;
+
+            stampPass();
+        }
+    </script>
+</body>
+
+</html>
