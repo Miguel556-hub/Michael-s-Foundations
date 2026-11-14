@@ -23139,3 +23139,302 @@ body.cn-immersive-active > #rw-cultural-notes .cn-scene[hidden] {
     .gt-express-dialog { padding: 16px; }
     .gt-express-answers { grid-template-columns: 1fr; }
 }
+
+
+/* ============================================================
+   PLATFORM 02 — GRAMMAR NOTES / SIX CATEGORY MASTERY COLLECTION
+   Scoped to the new grammar workspace; Platform 01 is untouched.
+   ============================================================ */
+#door-four-laboratory .gt-grammar {
+    color: #f9f1df;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#door-four-laboratory .gt-grammar *,
+#door-four-laboratory .gt-grammar-express-overlay * {
+    box-sizing: border-box;
+}
+#door-four-laboratory .gt-grammar button,
+#door-four-laboratory .gt-grammar-express-overlay button {
+    cursor: pointer;
+    border: 1px solid #b69a61;
+    border-radius: 9px;
+    padding: 10px 14px;
+    background: #354c3b;
+    color: #fff5df;
+    font: 600 14px/1.35 Arial, Helvetica, sans-serif;
+}
+#door-four-laboratory .gt-grammar button:hover,
+#door-four-laboratory .gt-grammar button:focus-visible,
+#door-four-laboratory .gt-grammar-express-overlay button:hover,
+#door-four-laboratory .gt-grammar-express-overlay button:focus-visible {
+    background: #536a4c;
+    outline: 2px solid #e9c57a;
+    outline-offset: 2px;
+}
+#door-four-laboratory .gt-grammar-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 22px 0 16px;
+}
+#door-four-laboratory .gt-grammar-tabs button[aria-selected="true"],
+#door-four-laboratory .gt-grammar .is-selected,
+#door-four-laboratory .gt-grammar-stages button[aria-current="step"] {
+    background: #c59c54;
+    color: #142b22;
+    border-color: #ffe2a0;
+}
+#door-four-laboratory .gt-grammar-express-invitation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin: 14px 0 18px;
+    padding: 15px 18px;
+    border: 2px solid #bd974d;
+    border-radius: 16px;
+    background: linear-gradient(120deg, #163f35, #275e4b 65%, #174035);
+    box-shadow: 0 5px 16px #00000025;
+}
+#door-four-laboratory .gt-grammar-express-seal {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    border: 2px solid #e8c777;
+    border-radius: 50%;
+    background: #0e2d29;
+    font-size: 29px;
+}
+#door-four-laboratory .gt-grammar-express-copy {
+    display: grid;
+    gap: 4px;
+    flex: 1 1 240px;
+}
+#door-four-laboratory .gt-grammar-express-copy strong {
+    color: #ffe3a0;
+    letter-spacing: .07em;
+}
+#door-four-laboratory .gt-grammar-express-copy small {
+    color: #d5e6dc;
+}
+#door-four-laboratory .gt-grammar-workspace {
+    min-height: 400px;
+    padding: 20px;
+    border: 1px solid #947747;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #152a22, #243b2d);
+}
+#door-four-laboratory .gt-grammar-heading > span,
+#door-four-laboratory .gt-grammar-kicker {
+    display: block;
+    color: #d8b56e;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+#door-four-laboratory .gt-grammar-heading h5 {
+    margin: 6px 0;
+    color: #f5dca4;
+    font: 700 27px/1.2 Georgia, serif;
+}
+#door-four-laboratory .gt-grammar-heading p {
+    margin: 6px 0 16px;
+    color: #e3d8c3;
+}
+#door-four-laboratory .gt-grammar-stages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 0 18px;
+    border-top: 1px solid #65745c;
+}
+#door-four-laboratory .gt-grammar-discoveries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+#door-four-laboratory .gt-grammar-parchment {
+    padding: 22px;
+    border: 3px double #9a7336;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #f8edd4, #e4c994);
+    color: #273c2c;
+}
+#door-four-laboratory .gt-grammar-parchment h6,
+#door-four-laboratory .gt-grammar-prompt h6 {
+    margin: 8px 0 12px;
+    font: 700 23px/1.3 Georgia, serif;
+}
+#door-four-laboratory .gt-grammar-parchment strong {
+    display: block;
+    margin: 12px 0;
+    color: #254a39;
+    font: 700 clamp(22px, 3vw, 33px)/1.4 Georgia, serif;
+}
+#door-four-laboratory .gt-grammar-parchment p {
+    color: #273c2c;
+    font-size: 16px;
+}
+#door-four-laboratory .gt-grammar-parchment button {
+    background: #31513e;
+}
+#door-four-laboratory .gt-grammar-guidance,
+#door-four-laboratory .gt-grammar-footnote {
+    margin: 14px 0 0;
+    color: #d4c7a9;
+    font-size: 13px;
+}
+#door-four-laboratory .gt-grammar-progress {
+    margin: 0 0 12px;
+    color: #d8caa9;
+    font-weight: 700;
+}
+#door-four-laboratory .gt-grammar-prompt {
+    padding: 20px;
+    border: 1px solid #8c794e;
+    border-radius: 12px;
+    background: #30483a;
+}
+#door-four-laboratory .gt-grammar-prompt h6 {
+    color: #f5dca4;
+}
+#door-four-laboratory .gt-grammar-choices,
+#door-four-laboratory .gt-grammar-build-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+#door-four-laboratory .gt-grammar-build-options button {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 100px;
+}
+#door-four-laboratory .gt-grammar-build-options button span {
+    display: inline-block;
+    padding: 5px 8px;
+    border: 1px solid #c3a971;
+    border-radius: 6px;
+    background: #1b352b;
+    color: #fff3d9;
+}
+#door-four-laboratory .gt-grammar-build-options button.is-selected span {
+    background: #f5e5b7;
+    color: #21372a;
+}
+#door-four-laboratory .gt-grammar-choices button:disabled {
+    cursor: default;
+    opacity: .8;
+}
+#door-four-laboratory .gt-grammar-choices button.gt-grammar-correct-choice {
+    border-color: #b7e4ad;
+    background: #286449;
+    color: #fff;
+    opacity: 1;
+}
+#door-four-laboratory .gt-grammar-feedback {
+    min-height: 25px;
+    margin-top: 14px;
+    font-weight: 700;
+}
+#door-four-laboratory .gt-grammar-feedback.is-correct {
+    color: #bff0bd;
+}
+#door-four-laboratory .gt-grammar-feedback.is-incorrect {
+    color: #ffcaaf;
+}
+#door-four-laboratory .gt-grammar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 16px;
+}
+#door-four-laboratory .gt-grammar-express-overlay[hidden] {
+    display: none !important;
+}
+#door-four-laboratory .gt-grammar-express-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #06150edb;
+}
+#door-four-laboratory .gt-grammar-express-dialog {
+    width: min(690px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    padding: 24px;
+    border: 3px double #c8a15a;
+    border-radius: 18px;
+    background: linear-gradient(150deg, #193c31, #10291f);
+    color: #f9f1df;
+    box-shadow: 0 20px 70px #0009;
+}
+#door-four-laboratory .gt-grammar-express-top,
+#door-four-laboratory .gt-grammar-express-status,
+#door-four-laboratory .gt-grammar-express-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+#door-four-laboratory .gt-grammar-express-top span {
+    color: #d6b875;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+#door-four-laboratory .gt-grammar-express-dialog h4,
+#door-four-laboratory .gt-grammar-express-dialog h5 {
+    margin: 8px 0 14px;
+    color: #ffe2a0;
+    font: 700 25px Georgia, serif;
+}
+#door-four-laboratory .gt-grammar-express-status {
+    padding: 12px;
+    border: 1px solid #9c8152;
+    border-radius: 9px;
+}
+#door-four-laboratory .gt-grammar-express-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+#door-four-laboratory .gt-grammar-express-question,
+#door-four-laboratory .gt-grammar-express-result {
+    padding: 16px 0;
+}
+#door-four-laboratory .gt-grammar-express-feedback {
+    min-height: 22px;
+    color: #e4d7ac;
+    font-weight: 700;
+}
+#door-four-laboratory .gt-grammar-express-footer {
+    padding-top: 14px;
+    border-top: 1px solid #786b4b;
+}
+@media (max-width: 700px) {
+    #door-four-laboratory .gt-grammar-workspace {
+        padding: 12px;
+    }
+    #door-four-laboratory .gt-grammar-choices,
+    #door-four-laboratory .gt-grammar-build-options,
+    #door-four-laboratory .gt-grammar-express-options {
+        grid-template-columns: 1fr;
+    }
+    #door-four-laboratory .gt-grammar-express-dialog {
+        padding: 15px;
+    }
+}
+/* END PLATFORM 02 — GRAMMAR NOTES */

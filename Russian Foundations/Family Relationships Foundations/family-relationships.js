@@ -12096,3 +12096,495 @@ const conversations = {
         }
     });
 })();
+
+
+// ============================================================
+// PLATFORM 02 — GRAMMAR NOTES / SIX CATEGORY MASTERY COLLECTION
+// Independent of Platform 01. The six tabs are defined in HTML.
+// ============================================================
+(function initializePlatform02Grammar() {
+    'use strict';
+
+    const root = document.getElementById('gt-grammar');
+    if (!root || root.dataset.initialized === 'true') {
+        return;
+    }
+    root.dataset.initialized = 'true';
+    const workspace = document.getElementById('gt-grammar-panel');
+    const tabs = Array.from(root.querySelectorAll('[data-gt-grammar-tab]'));
+
+    // All examples revisit grammar already encountered in Family Relationships.
+    // Each collection includes short reminders and independent practice questions.
+    const collections = {
+        nouns: {
+            title: 'Nouns & Gender', russian: 'Существительные и род',
+            introduction: 'A Russian noun has a gender. Gender and number affect the words that travel with it.',
+            discoveries: [
+                ['Masculine', 'мой брат · мой отец', 'Many masculine nouns end in a consonant; папа and дядя are masculine despite -а/-я.'],
+                ['Feminine', 'моя сестра · моя мама', 'Many feminine nouns end in -а or -я. Some end in -ь, such as мать.'],
+                ['Neuter', 'моё имя', 'Имя is neuter. This is why you learned моё имя, not мой имя.'],
+                ['Plural', 'мои родители · мои братья', 'Plural changes the noun and its agreeing words. Some plurals are irregular.'],
+                ['Counting people', 'один брат · два брата · пять братьев', 'The noun changes after numbers: one, two–four, and five or more follow different patterns.'],
+                ['Counting money', 'один рубль · два рубля · пять рублей', 'Numbers 11–14 take рублей even though they end in 1–4.']
+            ],
+            questions: [
+                ['Choose the correct phrase for “my brother.”', 'мой брат', 'моя брат', 'моё брат', 'мои брат', 'Брат is masculine.'],
+                ['Choose the correct phrase for “my sister.”', 'моя сестра', 'мой сестра', 'моё сестра', 'мои сестра', 'Сестра is feminine.'],
+                ['Complete: ___ имя.', 'моё', 'мой', 'моя', 'мои', 'Имя is neuter.'],
+                ['Choose “my parents.”', 'мои родители', 'мой родители', 'моя родители', 'моё родители', 'Родители is plural.'],
+                ['Choose “two brothers.”', 'два брата', 'два брат', 'два братьев', 'два братья', 'After два, use брата.'],
+                ['Choose “five brothers.”', 'пять братьев', 'пять брата', 'пять брат', 'пять братья', 'Five takes the genitive plural: братьев.'],
+                ['Choose “one ruble.”', 'один рубль', 'один рубля', 'один рублей', 'одна рубль', 'One ruble uses рубль.'],
+                ['Choose “three rubles.”', 'три рубля', 'три рублей', 'три рубль', 'три рубли', 'Three takes рубля.'],
+                ['Choose “twelve rubles.”', 'двенадцать рублей', 'двенадцать рубля', 'двенадцать рубль', 'двенадцать рубли', 'Numbers 11–14 take рублей.'],
+                ['Choose the plural of брат.', 'братья', 'браты', 'брата', 'братов', 'Брат has the irregular plural братья.']
+            ],
+            build: [
+                ['These are my parents.', ['Это', 'мои', 'родители.'], ['Это', 'мой', 'родители.'], 'Это мои родители.'],
+                ['I have five brothers.', ['У', 'меня', 'пять', 'братьев.'], ['У', 'меня', 'пять', 'брата.'], 'У меня пять братьев.']
+            ]
+        },
+        pronouns: {
+            title: 'Pronouns & Possessives', russian: 'Местоимения и принадлежность',
+            introduction: 'Pronouns point to people. Possessives tell whose person or thing it is—and must agree with what is owned.',
+            discoveries: [
+                ['The MY family', 'мой · моя · моё · мои', 'Choose the form based on the noun: brother, sister, name, or parents.'],
+                ['Whose?', 'чей · чья · чьё · чьи', 'The question word changes to match the noun you ask about.'],
+                ['Familiar and polite', 'твой · ваш', 'Use твой for one familiar person; ваш for polite singular or plural address.'],
+                ['Reflexive possession', 'Я люблю свою семью.', 'Свой refers back to the subject who owns something; свою agrees with семью.'],
+                ['Possession', 'У меня есть брат.', 'Russian often expresses having someone with у + genitive pronoun + есть.'],
+                ['Pronouns change by case', 'я → меня → мне → мной', 'A pronoun changes form depending on its role in the sentence.']
+            ],
+            questions: [
+                ['Complete: Это ___ брат. (my)', 'мой', 'моя', 'моё', 'мои', 'Брат is masculine.'],
+                ['Complete: Это ___ семья. (my)', 'моя', 'мой', 'моё', 'мои', 'Семья is feminine.'],
+                ['Complete: ___ имя? (whose)', 'Чьё', 'Чей', 'Чья', 'Чьи', 'Имя is neuter.'],
+                ['Complete: ___ родители? (whose)', 'Чьи', 'Чей', 'Чья', 'Чьё', 'Родители is plural.'],
+                ['Complete: Я люблю ___ семью.', 'свою', 'свой', 'своё', 'свои', 'Семью is feminine accusative.'],
+                ['Complete: У ___ есть сестра. (I have)', 'меня', 'мне', 'мной', 'я', 'У takes the genitive form меня.'],
+                ['Complete: ___ нравится чай. (I like tea)', 'Мне', 'Меня', 'Мной', 'Я', 'Нравится uses the dative experiencer мне.'],
+                ['Complete: Это ___ сестра. (your, polite)', 'ваша', 'ваш', 'ваше', 'ваши', 'Ваша agrees with сестра.'],
+                ['Complete: Это ___ отец. (your, familiar)', 'твой', 'твоя', 'твоё', 'твои', 'Отец is masculine.'],
+                ['Complete: Он гордится ___. (me)', 'мной', 'меня', 'мне', 'я', 'Гордиться takes the instrumental case.']
+            ],
+            build: [
+                ['This is my family.', ['Это', 'моя', 'семья.'], ['Это', 'мой', 'семья.'], 'Это моя семья.'],
+                ['I love my own family.', ['Я', 'люблю', 'свою', 'семью.'], ['Я', 'люблю', 'свой', 'семью.'], 'Я люблю свою семью.']
+            ]
+        },
+        cases: {
+            title: 'Cases & Declensions', russian: 'Падежи и склонение',
+            introduction: 'Russian endings show how words work together: who acts, whose it is, who receives, and where something happens.',
+            discoveries: [
+                ['Nominative: who or what?', 'Это моя сестра.', 'The nominative names the subject or identifies someone.'],
+                ['Genitive: of / absence / numbers', 'У меня нет брата. · пять братьев', 'Genitive appears after нет, у, many numbers, and some prepositions.'],
+                ['Dative: to / for someone', 'Мне нравится чай.', 'The dative marks a recipient or experiencer.'],
+                ['Accusative: direct object', 'Я люблю свою семью.', 'The object of любить changes to the accusative.'],
+                ['Instrumental: with / by', 'с сестрой · с братом', 'After с meaning “with,” use the instrumental.'],
+                ['Prepositional: about / in', 'о семье · в семье', 'After о and в for location/topic, the prepositional often appears.'],
+                ['Comparing people', 'Анна старше Ивана.', 'The person compared with often takes the genitive.']
+            ],
+            questions: [
+                ['Complete: У меня нет ___. (brother)', 'брата', 'брат', 'братом', 'брату', 'Нет takes genitive: брата.'],
+                ['Complete: Я люблю ___ семью.', 'свою', 'своя', 'своей', 'свой', 'The direct object семью takes свою.'],
+                ['Complete: Я говорю о ___. (family)', 'семье', 'семью', 'семья', 'семьёй', 'О takes prepositional: семье.'],
+                ['Complete: Я иду с ___. (sister)', 'сестрой', 'сестра', 'сестру', 'сестре', 'С meaning with takes instrumental.'],
+                ['Complete: ___ нравится чай. (I)', 'Мне', 'Меня', 'Мной', 'Я', 'The experiencer is dative.'],
+                ['Complete: Анна старше ___. (Ivan)', 'Ивана', 'Иван', 'Иваном', 'Ивану', 'Comparatives use genitive for the person compared.'],
+                ['Complete: В моей ___ четыре человека.', 'семье', 'семья', 'семью', 'семьёй', 'В for location takes prepositional.'],
+                ['Complete: Спасибо за ___. (help)', 'помощь', 'помощи', 'помощью', 'помощью́', 'За here takes accusative.'],
+                ['Complete: Я говорю с ___. (brother)', 'братом', 'брата', 'брату', 'брат', 'С meaning with takes instrumental.'],
+                ['Complete: До ___. (meeting)', 'встречи', 'встреча', 'встречу', 'встречей', 'До takes genitive.']
+            ],
+            build: [
+                ['There are four people in my family.', ['В', 'моей', 'семье', 'четыре', 'человека.'], ['В', 'моя', 'семья', 'четыре', 'человека.'], 'В моей семье четыре человека.'],
+                ['I am talking about my sister.', ['Я', 'говорю', 'о', 'моей', 'сестре.'], ['Я', 'говорю', 'о', 'мою', 'сестру.'], 'Я говорю о моей сестре.']
+            ]
+        },
+        verbs: {
+            title: 'Verbs & Conjugations', russian: 'Глаголы и спряжение',
+            introduction: 'Russian verbs change with the speaker, time, and intention. Practice choosing the form that fits the situation.',
+            discoveries: [
+                ['The six forms of любить', 'люблю · любишь · любит · любим · любите · любят', 'The verb ending tells us who loves.'],
+                ['Stronger feelings', 'Я обожаю свою семью.', 'Обожать expresses strong affection and conjugates with the subject.'],
+                ['Informal and polite commands', 'Угощайся! · Угощайтесь!', 'The form changes depending on who is being addressed.'],
+                ['Asking what someone wants', 'Хочешь чай? · Хотите чай?', 'Informal singular and polite/plural forms differ.'],
+                ['Aspect: process and result', 'готовить · приготовить', 'Imperfective presents activity; perfective views a complete event.'],
+                ['Past tense and gender', 'Он был дома. · Она была дома.', 'Past-tense singular forms often reflect the subject’s gender.']
+            ],
+            questions: [
+                ['Complete: Я ___ свою семью.', 'люблю', 'любишь', 'любит', 'любят', 'Я takes люблю.'],
+                ['Complete: Ты ___ брата.', 'любишь', 'люблю', 'любит', 'любим', 'Ты takes любишь.'],
+                ['Complete: Они ___ своих родителей.', 'любят', 'любим', 'любит', 'люблю', 'Они takes любят.'],
+                ['Complete: Мы ___ свою семью.', 'любим', 'люблю', 'любишь', 'любят', 'Мы takes любим.'],
+                ['Invite one friend to help themselves.', 'Угощайся!', 'Угощайтесь!', 'Угощаюсь!', 'Угощают!', 'Use the informal singular imperative.'],
+                ['Invite several guests to help themselves.', 'Угощайтесь!', 'Угощайся!', 'Угощаю!', 'Угощаем!', 'Use the polite/plural imperative.'],
+                ['Ask one friend if they want tea.', 'Хочешь чай?', 'Хотите чай?', 'Хочу чай?', 'Хотят чай?', 'Хочешь is informal singular.'],
+                ['Choose a completed dinner preparation.', 'Мы приготовили ужин.', 'Мы готовим ужин.', 'Мы готовили ужин.', 'Мы готовим ужины.', 'Приготовили presents a completed result.'],
+                ['Complete: Она ___ дома. (was)', 'была', 'был', 'были', 'будет', 'Feminine singular past tense is была.'],
+                ['Complete: Я ___ свою сестру. (adore)', 'обожаю', 'обожает', 'обожаешь', 'обожают', 'Я takes обожаю.']
+            ],
+            build: [
+                ['We love our family.', ['Мы', 'любим', 'свою', 'семью.'], ['Мы', 'любят', 'свою', 'семью.'], 'Мы любим свою семью.'],
+                ['She was at home.', ['Она', 'была', 'дома.'], ['Она', 'был', 'дома.'], 'Она была дома.']
+            ]
+        },
+        adjectives: {
+            title: 'Adjectives & Comparisons', russian: 'Прилагательные и сравнения',
+            introduction: 'Descriptions must agree with the noun. Comparisons let you describe family relationships more precisely.',
+            discoveries: [
+                ['Agreement by gender', 'старший брат · старшая сестра', 'Adjectives change endings to match masculine and feminine nouns.'],
+                ['Neuter and plural agreement', 'новое имя · новые друзья', 'Neuter and plural nouns have their own adjective forms.'],
+                ['Older and younger', 'старше · младше', 'Comparative forms describe age relationships.'],
+                ['Taller and shorter', 'выше · ниже', 'Comparative forms describe height.'],
+                ['Who is compared?', 'Анна старше Ивана.', 'The person you compare someone to often takes the genitive.'],
+                ['Superlatives in context', 'самый старший · самая младшая', 'Самый changes to agree with the person described.']
+            ],
+            questions: [
+                ['Choose “older brother.”', 'старший брат', 'старшая брат', 'старшее брат', 'старшие брат', 'Брат is masculine.'],
+                ['Choose “older sister.”', 'старшая сестра', 'старший сестра', 'старшее сестра', 'старшие сестра', 'Сестра is feminine.'],
+                ['Choose “new name.”', 'новое имя', 'новый имя', 'новая имя', 'новые имя', 'Имя is neuter.'],
+                ['Choose “new friends.”', 'новые друзья', 'новый друзья', 'новая друзья', 'новое друзья', 'Друзья is plural.'],
+                ['Complete: Моя сестра ___ меня. (older than)', 'старше', 'старший', 'старшая', 'старшие', 'Use comparative старше.'],
+                ['Complete: Мой брат ___ меня. (younger than)', 'младше', 'младший', 'младшая', 'младшие', 'Use comparative младше.'],
+                ['Complete: Иван ___ Анны. (taller than)', 'выше', 'высокий', 'высокая', 'высокое', 'Use comparative выше.'],
+                ['Complete: Анна старше ___. (Ivan)', 'Ивана', 'Иван', 'Иваном', 'Ивану', 'The comparison takes genitive Ивана.'],
+                ['Choose “the youngest sister.”', 'самая младшая сестра', 'самый младшая сестра', 'самое младшая сестра', 'самые младшая сестра', 'Самая agrees with feminine сестра.'],
+                ['Choose “the oldest brother.”', 'самый старший брат', 'самая старший брат', 'самое старший брат', 'самые старший брат', 'Самый agrees with masculine брат.']
+            ],
+            build: [
+                ['My sister is older than Ivan.', ['Моя', 'сестра', 'старше', 'Ивана.'], ['Моя', 'сестра', 'старшая', 'Иван.'], 'Моя сестра старше Ивана.'],
+                ['This is my younger brother.', ['Это', 'мой', 'младший', 'брат.'], ['Это', 'моя', 'младший', 'брат.'], 'Это мой младший брат.']
+            ]
+        },
+        sentences: {
+            title: 'Sentence Patterns & Expressions', russian: 'Предложения и выражения',
+            introduction: 'A complete Russian thought does not always follow an English sentence pattern. Practice the patterns you have already met.',
+            discoveries: [
+                ['Who is this?', 'Кто это? — Это мой брат.', 'Present-tense Russian does not need a separate “is” in this identification.'],
+                ['Having someone', 'У меня есть сестра.', 'Russian uses у + genitive pronoun + есть for possession.'],
+                ['Not having someone', 'У меня нет брата.', 'After нет, the noun appears in the genitive.'],
+                ['Counting a family', 'В моей семье четыре человека.', 'Location, possessive agreement, and number forms work together.'],
+                ['Polite conversation', 'Как поживаешь? · Как поживаете?', 'The ending changes for informal singular versus polite/plural address.'],
+                ['Real-world expressions', 'Приятного аппетита! · Очень приятно!', 'Useful expressions can contain grammatical forms worth noticing.'],
+                ['In-law relationships', 'моя свекровь · моя тёща', 'Family vocabulary can change according to the speaker’s relationship.']
+            ],
+            questions: [
+                ['Choose the natural answer to «Кто это?»', 'Это мой брат.', 'Это есть мой брат.', 'Это моего брата.', 'Это братом.', 'Russian normally omits present-tense “is” here.'],
+                ['Choose “I have a sister.”', 'У меня есть сестра.', 'Я есть сестра.', 'У мне сестра.', 'Мне есть сестра.', 'Use у меня есть.'],
+                ['Choose “I have no brother.”', 'У меня нет брата.', 'У меня нет брат.', 'Я нет брат.', 'Мне нет брата.', 'Нет takes genitive брата.'],
+                ['Choose “There are four people in my family.”', 'В моей семье четыре человека.', 'В моя семья четыре человек.', 'В моей семья четыре человека.', 'В мою семью четыре человек.', 'Location takes prepositional семье.'],
+                ['Choose the polite form of “How have you been?”', 'Как поживаете?', 'Как поживаешь?', 'Как поживаю?', 'Как поживают?', 'Поживаете addresses Вы.'],
+                ['At dinner, wish everyone a good meal.', 'Приятного аппетита!', 'Очень приятно!', 'До свидания!', 'Как дела?', 'Приятного аппетита is a customary wish.'],
+                ['You have just been introduced to someone.', 'Очень приятно!', 'Приятного аппетита!', 'Сколько рублей?', 'Угощайся!', 'Очень приятно means pleased to meet you.'],
+                ['Choose “Thank you for your help.”', 'Спасибо за помощь.', 'Спасибо с помощь.', 'Спасибо о помощь.', 'Спасибо до помощь.', 'За takes accusative here.'],
+                ['Complete: ___ это? (Who is this?)', 'Кто', 'Что', 'Где', 'Когда', 'Кто asks about a person.'],
+                ['Choose the natural way to ask “How many brothers?”', 'Сколько братьев?', 'Сколько братья?', 'Сколько брат?', 'Сколько брата?', 'Сколько generally takes genitive plural in this question.']
+            ],
+            build: [
+                ['Who is this? This is my sister.', ['Кто', 'это?', 'Это', 'моя', 'сестра.'], ['Кто', 'есть', 'это?', 'Это', 'моя', 'сестра.'], 'Кто это? Это моя сестра.'],
+                ['I have no brother.', ['У', 'меня', 'нет', 'брата.'], ['У', 'меня', 'нет', 'брат.'], 'У меня нет брата.']
+            ]
+        }
+    };
+
+    const state = {category: 'nouns', stage: 'remember', discovery: 0, question: 0, score: 0, answered: false, builder: 0, builderChoice: -1};
+    const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+    const current = () => collections[state.category];
+
+    function speak(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ru-RU';
+        utterance.rate = 0.83;
+        const voice = window.speechSynthesis.getVoices().find(item => item.lang.toLowerCase().startsWith('ru'));
+        if (voice) utterance.voice = voice;
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function renderRemember() {
+        const item = current().discoveries[state.discovery];
+        const cards = current().discoveries.map((discovery, index) =>
+            `<button type="button" data-grammar-discovery="${index}" ${index === state.discovery ? 'class="is-selected"' : ''}>${index + 1}. ${escapeHTML(discovery[0])}</button>`
+        ).join('');
+        return `<div class="gt-grammar-discoveries">${cards}</div>
+            <div class="gt-grammar-parchment">
+              <span class="gt-grammar-kicker">REMEMBER · A FAMILIAR DISCOVERY</span>
+              <h6>${escapeHTML(item[0])}</h6>
+              <strong lang="ru">${escapeHTML(item[1])}</strong>
+              <p>${escapeHTML(item[2])}</p>
+              <button type="button" data-grammar-speak="${escapeHTML(item[1])}">🔊 Listen to the Russian</button>
+            </div>
+            <p class="gt-grammar-guidance">Choose another discovery, or move to Experiment when you are ready.</p>`;
+    }
+
+    function renderExperiment() {
+        const question = current().questions[state.question];
+        const shuffledChoices = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+        return `<div class="gt-grammar-progress">Pattern ${state.question + 1} of ${current().questions.length}</div>
+            <div class="gt-grammar-prompt">
+              <span class="gt-grammar-kicker">EXPERIMENT · CHOOSE, NOTICE, ADJUST</span>
+              <h6>${escapeHTML(question[0])}</h6>
+              <div class="gt-grammar-choices">${shuffledChoices.map(index =>
+                `<button type="button" data-grammar-choice="${index}" ${state.answered ? 'disabled' : ''}>${escapeHTML(question[index + 1])}</button>`
+              ).join('')}</div>
+              <div class="gt-grammar-feedback" role="status" aria-live="polite"></div>
+            </div>
+            <div class="gt-grammar-actions">
+              <button type="button" data-grammar-action="next-question">Next Pattern →</button>
+              <button type="button" data-grammar-action="reset-questions">↻ Reset Practice</button>
+            </div>`;
+    }
+
+    function renderDemonstrate() {
+        const item = current().build[state.builder];
+        const choices = [{words: item[1], correct: true}, {words: item[2], correct: false}];
+        if (Math.random() > 0.5) choices.reverse();
+        return `<div class="gt-grammar-progress">Independent application ${state.builder + 1} of ${current().build.length}</div>
+            <div class="gt-grammar-prompt">
+              <span class="gt-grammar-kicker">DEMONSTRATE · BUILD A MEANINGFUL SENTENCE</span>
+              <h6>${escapeHTML(item[0])}</h6>
+              <p>Choose the word sequence that correctly expresses the meaning. Notice the endings and structure.</p>
+              <div class="gt-grammar-build-options">${choices.map((choice, index) =>
+                `<button type="button" data-grammar-build="${choice.correct ? 'correct' : 'incorrect'}" class="${state.builderChoice === index ? 'is-selected' : ''}">${choice.words.map(word => `<span lang="ru">${escapeHTML(word)}</span>`).join('')}</button>`
+              ).join('')}</div>
+              <div class="gt-grammar-feedback" role="status" aria-live="polite"></div>
+              <div class="gt-grammar-actions">
+                <button type="button" data-grammar-action="check-build">Check My Sentence</button>
+                <button type="button" data-grammar-action="next-build">Next Sentence →</button>
+                <button type="button" data-grammar-action="reset-build">↻ Reset</button>
+              </div>
+            </div>`;
+    }
+
+    function render() {
+        tabs.forEach(tab => {
+            const selected = tab.dataset.gtGrammarTab === state.category;
+            tab.setAttribute('aria-selected', String(selected));
+            tab.tabIndex = selected ? 0 : -1;
+        });
+        const collection = current();
+        workspace.innerHTML = `<header class="gt-grammar-heading">
+            <span>PLATFORM 02 · ${escapeHTML(collection.russian)}</span>
+            <h5>${escapeHTML(collection.title)}</h5>
+            <p>${escapeHTML(collection.introduction)}</p>
+          </header>
+          <nav class="gt-grammar-stages" aria-label="Grammar mastery stages">
+            <button type="button" data-grammar-stage="remember" ${state.stage === 'remember' ? 'aria-current="step"' : ''}>01 · Remember</button>
+            <button type="button" data-grammar-stage="experiment" ${state.stage === 'experiment' ? 'aria-current="step"' : ''}>02 · Experiment</button>
+            <button type="button" data-grammar-stage="demonstrate" ${state.stage === 'demonstrate' ? 'aria-current="step"' : ''}>03 · Demonstrate</button>
+          </nav>
+          <section class="gt-grammar-stage-content">${state.stage === 'remember' ? renderRemember() : state.stage === 'experiment' ? renderExperiment() : renderDemonstrate()}</section>`;
+    }
+
+    function resetCategory(category) {
+        state.category = category;
+        state.stage = 'remember';
+        state.discovery = 0;
+        state.question = 0;
+        state.score = 0;
+        state.answered = false;
+        state.builder = 0;
+        state.builderChoice = -1;
+        render();
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => resetCategory(tab.dataset.gtGrammarTab)));
+    root.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button || !root.contains(button)) return;
+        if (button.hasAttribute('data-grammar-stage')) {
+            state.stage = button.dataset.grammarStage;
+            state.answered = false;
+            state.builderChoice = -1;
+            render();
+        } else if (button.hasAttribute('data-grammar-discovery')) {
+            state.discovery = Number(button.dataset.grammarDiscovery);
+            render();
+        } else if (button.hasAttribute('data-grammar-speak')) {
+            speak(button.dataset.grammarSpeak);
+        } else if (button.hasAttribute('data-grammar-choice') && !state.answered) {
+            const question = current().questions[state.question];
+            const correct = Number(button.dataset.grammarChoice) === 0;
+            state.answered = true;
+            state.score += Number(correct);
+            workspace.querySelectorAll('[data-grammar-choice]').forEach(option => {
+                option.disabled = true;
+                option.classList.toggle('gt-grammar-correct-choice', Number(option.dataset.grammarChoice) === 0);
+            });
+            const feedback = workspace.querySelector('.gt-grammar-feedback');
+            feedback.className = 'gt-grammar-feedback ' + (correct ? 'is-correct' : 'is-incorrect');
+            feedback.textContent = (correct ? 'Exactly! ' : `Try that pattern again next time. Correct answer: ${question[1]}. `) + question[5];
+        } else if (button.hasAttribute('data-grammar-build')) {
+            const choices = Array.from(workspace.querySelectorAll('[data-grammar-build]'));
+            state.builderChoice = choices.indexOf(button);
+            choices.forEach((option, index) => option.classList.toggle('is-selected', index === state.builderChoice));
+            workspace.querySelector('.gt-grammar-feedback').textContent = '';
+        } else if (button.dataset.grammarAction === 'check-build') {
+            const feedback = workspace.querySelector('.gt-grammar-feedback');
+            if (state.builderChoice < 0) {
+                feedback.textContent = 'Choose a sentence first.';
+                return;
+            }
+            const selected = workspace.querySelectorAll('[data-grammar-build]')[state.builderChoice];
+            const correct = selected.dataset.grammarBuild === 'correct';
+            feedback.className = 'gt-grammar-feedback ' + (correct ? 'is-correct' : 'is-incorrect');
+            feedback.textContent = correct ? 'Excellent. You built a grammatically correct sentence.' : `Not quite. Compare the endings with: ${current().build[state.builder][3]}`;
+            if (correct) speak(current().build[state.builder][3]);
+        } else if (button.dataset.grammarAction === 'next-question') {
+            state.question = (state.question + 1) % current().questions.length;
+            state.answered = false;
+            render();
+        } else if (button.dataset.grammarAction === 'reset-questions') {
+            state.question = 0;
+            state.score = 0;
+            state.answered = false;
+            render();
+        } else if (button.dataset.grammarAction === 'next-build') {
+            state.builder = (state.builder + 1) % current().build.length;
+            state.builderChoice = -1;
+            render();
+        } else if (button.dataset.grammarAction === 'reset-build') {
+            state.builder = 0;
+            state.builderChoice = -1;
+            render();
+        }
+    });
+
+    // Separate learner-initiated speed challenge; ordinary learning is never timed.
+    const overlay = document.getElementById('gt-grammar-express-overlay');
+    const openButton = document.getElementById('gt-grammar-express-open');
+    const closeButton = document.getElementById('gt-grammar-express-close');
+    const returnButton = document.getElementById('gt-grammar-express-return');
+    const restartButton = document.getElementById('gt-grammar-express-restart');
+    const content = document.getElementById('gt-grammar-express-content');
+    const progress = document.getElementById('gt-grammar-express-progress');
+    const timeDisplay = document.getElementById('gt-grammar-express-time');
+    const categoryDisplay = document.getElementById('gt-grammar-express-category');
+    let drillQuestions = [];
+    let drillIndex = 0;
+    let drillScore = 0;
+    let drillStart = 0;
+    let drillTimer = null;
+    let drillElapsed = 0;
+    let drillPreviousFocus = null;
+    let drillCategory = 'nouns';
+    const bestPrefix = 'michaels-foundations:grammar-express:v1:';
+
+    function formatElapsed(milliseconds) {
+        const minutes = Math.floor(milliseconds / 60000);
+        const seconds = Math.floor(milliseconds / 1000) % 60;
+        const tenths = Math.floor(milliseconds / 100) % 10;
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${tenths}`;
+    }
+    function stopTimer() {
+        if (drillTimer !== null) clearInterval(drillTimer);
+        drillTimer = null;
+    }
+    function updateTimer() {
+        drillElapsed = performance.now() - drillStart;
+        timeDisplay.textContent = formatElapsed(drillElapsed);
+    }
+    function shuffle(items) {
+        const output = [...items];
+        for (let index = output.length - 1; index > 0; index--) {
+            const other = Math.floor(Math.random() * (index + 1));
+            [output[index], output[other]] = [output[other], output[index]];
+        }
+        return output;
+    }
+    function renderDrillQuestion() {
+        const item = drillQuestions[drillIndex];
+        progress.textContent = `Question ${drillIndex + 1} of ${drillQuestions.length} · ${drillScore} correct`;
+        const options = shuffle(item.slice(1, 5));
+        content.innerHTML = `<div class="gt-grammar-express-question"><h5>${escapeHTML(item[0])}</h5>
+          <div class="gt-grammar-express-options">${options.map((option, index) =>
+            `<button type="button" data-grammar-express-answer="${index}">${escapeHTML(option)}</button>`
+          ).join('')}</div><p class="gt-grammar-express-feedback" role="status"></p></div>`;
+        content.dataset.correctAnswer = item[1];
+    }
+    function finishDrill() {
+        updateTimer();
+        stopTimer();
+        progress.textContent = 'Journey complete';
+        const key = bestPrefix + drillCategory;
+        let best = null;
+        try { best = JSON.parse(localStorage.getItem(key) || 'null'); } catch (error) { best = null; }
+        const isNewBest = !best || drillScore > best.score || (drillScore === best.score && drillElapsed < best.elapsed);
+        if (isNewBest) {
+            best = {score: drillScore, elapsed: drillElapsed};
+            try { localStorage.setItem(key, JSON.stringify(best)); } catch (error) { /* Storage is optional. */ }
+        }
+        content.innerHTML = `<div class="gt-grammar-express-result"><h5>🚂 You have arrived!</h5>
+          <strong>${drillScore} / ${drillQuestions.length} correct</strong>
+          <p>Your time: ${formatElapsed(drillElapsed)}</p>
+          <p>${isNewBest ? 'New personal best!' : `Personal best: ${best.score} correct in ${formatElapsed(best.elapsed)}`}</p>
+          <p>Accuracy matters more than speed. You can return to untimed practice at any time.</p></div>`;
+        restartButton.hidden = false;
+    }
+    function beginDrill() {
+        stopTimer();
+        drillCategory = state.category;
+        drillQuestions = shuffle(collections[drillCategory].questions).slice(0, 8);
+        drillIndex = 0;
+        drillScore = 0;
+        drillElapsed = 0;
+        drillStart = performance.now();
+        restartButton.hidden = true;
+        categoryDisplay.textContent = collections[drillCategory].title;
+        renderDrillQuestion();
+        updateTimer();
+        drillTimer = setInterval(updateTimer, 100);
+    }
+    function closeDrill() {
+        stopTimer();
+        overlay.hidden = true;
+        if (drillPreviousFocus && typeof drillPreviousFocus.focus === 'function') drillPreviousFocus.focus();
+    }
+    openButton.addEventListener('click', () => {
+        drillPreviousFocus = document.activeElement;
+        overlay.hidden = false;
+        beginDrill();
+        closeButton.focus();
+    });
+    closeButton.addEventListener('click', closeDrill);
+    returnButton.addEventListener('click', closeDrill);
+    restartButton.addEventListener('click', beginDrill);
+    content.addEventListener('click', event => {
+        const button = event.target.closest('[data-grammar-express-answer]');
+        if (!button || drillTimer === null) return;
+        const correct = button.textContent === content.dataset.correctAnswer;
+        if (correct) drillScore++;
+        content.querySelectorAll('[data-grammar-express-answer]').forEach(option => { option.disabled = true; });
+        const feedback = content.querySelector('.gt-grammar-express-feedback');
+        feedback.textContent = correct ? 'Correct!' : `Correct answer: ${content.dataset.correctAnswer}`;
+        const next = document.createElement('button');
+        next.type = 'button';
+        next.className = 'gt-grammar-express-next';
+        next.textContent = drillIndex === drillQuestions.length - 1 ? 'See Results' : 'Next Question →';
+        next.addEventListener('click', () => {
+            drillIndex++;
+            if (drillIndex === drillQuestions.length) finishDrill();
+            else renderDrillQuestion();
+        });
+        content.appendChild(next);
+        next.focus();
+    });
+    overlay.addEventListener('click', event => { if (event.target === overlay) closeDrill(); });
+    overlay.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { event.preventDefault(); closeDrill(); }
+        if (event.key === 'Tab') {
+            const focusable = Array.from(overlay.querySelectorAll('button:not([hidden]):not([disabled])'));
+            if (!focusable.length) return;
+            if (event.shiftKey && document.activeElement === focusable[0]) {
+                event.preventDefault(); focusable[focusable.length - 1].focus();
+            } else if (!event.shiftKey && document.activeElement === focusable[focusable.length - 1]) {
+                event.preventDefault(); focusable[0].focus();
+            }
+        }
+    });
+
+    render();
+})();
+// END PLATFORM 02 — GRAMMAR NOTES

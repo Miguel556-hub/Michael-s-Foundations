@@ -6488,7 +6488,7 @@ LESSON 2 — EXTENDED FAMILY
                     <div class="gt-platforms" aria-label="Station platforms">
                       <button type="button" class="gt-platform" data-gt-platform="vocabulary">
                         <span>PLATFORM 01</span>
-                        <strong>VOCABULARY COLLECTION</strong>
+                        <strong>VOCABULARY RAILWAY</strong>
                         <em lang="ru">СЛОВАРЬ</em>
                         <small>Review, practice and master vocabulary you have used in the entire Family Relationships
                           Foundation</small>
@@ -6497,7 +6497,7 @@ LESSON 2 — EXTENDED FAMILY
                         <span>PLATFORM 02</span>
                         <strong>GRAMMAR NOTES</strong>
                         <em lang="ru">ГРАММАТИКА</em>
-                        <small>Practical grammar you have used and explanations to help you understand</small>
+                        <small>Revisit, practice and master the grammar you have discovered</small>
                       </button>
                       <button type="button" class="gt-platform" data-gt-platform="spoken-russian">
                         <span>PLATFORM 03</span>
@@ -6548,7 +6548,7 @@ LESSON 2 — EXTENDED FAMILY
                       </div>
                       <section class="gt-station-learning" aria-label="Platform 01 learning experience">
                         <span class="gt-station-section-label">YOUR LEARNING DESTINATION</span>
-                        <h4>Vocabulary Collection <span lang="ru">· Словарь</span></h4>
+                        <h4>Vocabularyv Railway <span lang="ru">· Словарь</span></h4>
                         <p>Explore and review the words you have encountered throughout Family Relationships.</p>
                         <!-- BEGIN PLATFORM 01 — INTERACTIVE VOCABULARY COLLECTION -->
                         <div id="gt-vocab" class="gt-vocab">
@@ -6626,9 +6626,53 @@ LESSON 2 — EXTENDED FAMILY
                       <section class="gt-station-learning" aria-label="Platform 02 learning experience">
                         <span class="gt-station-section-label">YOUR LEARNING DESTINATION</span>
                         <h4>Grammar Notes <span lang="ru">· Грамматика</span></h4>
-                        <p>Investigate the grammar patterns you have already used in Family Relationships.</p>
-                        <div class="gt-station-coming">Learning activities will be designed here after we approve the
-                          station page.</div>
+                        <p>Return to the patterns you have discovered in Family Relationships. Remember them,
+                          experiment with them, and use them independently.</p>
+                        <!-- BEGIN PLATFORM 02 — GRAMMAR MASTERY COLLECTION -->
+                        <div id="gt-grammar" class="gt-grammar">
+                          <div class="gt-grammar-tabs" role="tablist" aria-label="Grammar categories">
+                            <button type="button" role="tab" aria-selected="true" data-gt-grammar-tab="nouns">Nouns &amp; Gender</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="pronouns">Pronouns &amp; Possessives</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="cases">Cases &amp; Declensions</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="verbs">Verbs &amp; Conjugations</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="adjectives">Adjectives &amp; Comparisons</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="sentences">Sentence Patterns &amp; Expressions</button>
+                          </div>
+                          <aside class="gt-grammar-express-invitation" aria-label="Optional grammar speed challenge">
+                            <div class="gt-grammar-express-seal" aria-hidden="true">⏱</div>
+                            <div class="gt-grammar-express-copy">
+                              <strong>THE GRAMMAR EXPRESS <span lang="ru">· Экспресс</span></strong>
+                              <span>Ready to put your grammar instincts to the test?</span>
+                              <small>Completely optional. Your ordinary practice is never timed.</small>
+                            </div>
+                            <button type="button" id="gt-grammar-express-open">🚂 Take the Challenge!</button>
+                          </aside>
+                          <div class="gt-grammar-workspace" id="gt-grammar-panel" role="tabpanel" aria-live="polite"></div>
+                          <p class="gt-grammar-footnote">Remember · Experiment · Demonstrate. Choose any activity,
+                            listen when helpful, and reset whenever you wish.</p>
+                        </div>
+                        <div id="gt-grammar-express-overlay" class="gt-grammar-express-overlay" hidden>
+                          <section class="gt-grammar-express-dialog" role="dialog" aria-modal="true"
+                            aria-labelledby="gt-grammar-express-title">
+                            <div class="gt-grammar-express-top">
+                              <div><span>PLATFORM 02 · OPTIONAL EXPRESS SERVICE</span>
+                                <h4 id="gt-grammar-express-title">🚂 Grammar Express Challenge</h4>
+                              </div>
+                              <button type="button" id="gt-grammar-express-close" aria-label="Close challenge">✕</button>
+                            </div>
+                            <p id="gt-grammar-express-category"></p>
+                            <div class="gt-grammar-express-status">
+                              <span id="gt-grammar-express-progress">Ready to depart</span>
+                              <strong id="gt-grammar-express-time" aria-label="Elapsed time">00:00.0</strong>
+                            </div>
+                            <div id="gt-grammar-express-content" aria-live="polite"></div>
+                            <div class="gt-grammar-express-footer">
+                              <button type="button" id="gt-grammar-express-restart" hidden>↻ Try Again</button>
+                              <button type="button" id="gt-grammar-express-return">Return to Grammar</button>
+                            </div>
+                          </section>
+                        </div>
+                        <!-- END PLATFORM 02 — GRAMMAR MASTERY COLLECTION -->
                       </section>
                     </article>
                     <article class="gt-station-page" data-gt-station="spoken-russian" hidden>
@@ -6991,7 +7035,8 @@ LESSON 2 — EXTENDED FAMILY
                       <div class="cn-gc-tabs cn-kc-tabs" role="group" aria-label="Explore Russian kitchen traditions">
                         <button type="button" data-cn-kc="0">The Kitchen</button><button type="button"
                           data-cn-kc="1">Feeding Is Caring</button><button type="button" data-cn-kc="2">Food &amp;
-                          Memory</button><button type="button" data-cn-kc="3">Table Rituals</button></div>
+                          Memory</button><button type="button" data-cn-kc="3">Table Rituals</button>
+                      </div>
                       <div class="cn-gc-content">
                         <div class="cn-gc-number" id="cn-kc-number">01 / 04</div>
                         <div class="cn-gc-main">

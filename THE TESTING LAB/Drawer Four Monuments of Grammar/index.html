@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monuments of Russian Grammar — The Bronze &amp; Granite Promenade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-slate: #0d131a;
+            --bg-navy: #141e2b;
+            --granite-dark: #1d252e;
+            --granite-mid: #2c353d;
+            --granite-light: #4a5560;
+            --patina-teal: #2a9d8f;
+            --patina-bright: #48cae4;
+            --spotlight-gold: #e9c46a;
+            --brass-amber: #d4a373;
+            --parchment: #f1ede4;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-slate);
+            color: var(--parchment);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(20, 30, 43, 0.95) 0%, rgba(13, 19, 26, 1) 75%),
+                linear-gradient(to bottom, #0d131a 0%, #090d12 100%);
+        }
+
+        .font-editorial {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        .font-tech {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Engraved Typography Effect */
+        .engraved-title {
+            background: linear-gradient(180deg, #f7e6b5 0%, #e9c46a 45%, #b58938 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 24px rgba(233, 196, 106, 0.18);
+            letter-spacing: 0.08em;
+        }
+
+        /* Architectural Stone Grain Overlay */
+        .stone-texture {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+            background-size: 18px 18px;
+        }
+
+        /* Cursor Spotlight Overlay */
+        #cursor-spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 35;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            background: radial-gradient(circle 340px at var(--mouse-x, 50vw) var(--mouse-y, 50vh),
+                    rgba(233, 196, 106, 0.11) 0%,
+                    rgba(42, 157, 143, 0.05) 38%,
+                    rgba(13, 19, 26, 0.42) 80%);
+        }
+
+        body.spotlight-active #cursor-spotlight {
+            opacity: 1;
+        }
+
+        /* Museum Overhead Cone Spotlight on Pedestal Cards */
+        .museum-cone {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140%;
+            height: 360px;
+            background: conic-gradient(from 156deg at 50% 0%,
+                    transparent 0deg,
+                    rgba(233, 196, 106, 0.03) 12deg,
+                    rgba(233, 196, 106, 0.16) 24deg,
+                    rgba(233, 196, 106, 0.03) 36deg,
+                    transparent 48deg);
+            pointer-events: none;
+            opacity: 0.25;
+            transition: opacity 0.45s ease, transform 0.45s ease;
+            z-index: 1;
+        }
+
+        .monument-card:hover .museum-cone,
+        .monument-card.is-focused .museum-cone {
+            opacity: 1;
+            transform: translateX(-50%) scaleY(1.04);
+        }
+
+        /* Monument Card Styling */
+        .monument-card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(20, 30, 43, 0.72) 0%, rgba(16, 22, 30, 0.94) 100%);
+            border: 1px solid rgba(74, 85, 96, 0.35);
+            transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            overflow: hidden;
+        }
+
+        .monument-card:hover,
+        .monument-card.is-focused {
+            border-color: rgba(233, 196, 106, 0.65);
+            transform: translateY(-6px);
+            box-shadow:
+                0 24px 48px -12px rgba(0, 0, 0, 0.75),
+                0 0 32px -4px rgba(233, 196, 106, 0.16),
+                inset 0 1px 0 rgba(233, 196, 106, 0.3);
+        }
+
+        .monument-card.dimmed-city {
+            opacity: 0.32;
+            filter: grayscale(0.65);
+            transform: scale(0.98);
+        }
+
+        /* Statue SVG Bronze & Patina Glow Transitions */
+        .statue-svg {
+            transition: filter 0.45s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.75));
+        }
+
+        .monument-card:hover .statue-svg,
+        .monument-card.is-focused .statue-svg {
+            transform: scale(1.035) translateY(-3px);
+            filter: drop-shadow(0 16px 26px rgba(233, 196, 106, 0.22)) drop-shadow(0 4px 12px rgba(42, 157, 143, 0.25));
+        }
+
+        /* Floating Field Note Hotspot Pins */
+        .hotspot-pin {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 9999px;
+            background: rgba(13, 19, 26, 0.85);
+            border: 1.5px solid var(--spotlight-gold);
+            color: var(--spotlight-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 15;
+            opacity: 0;
+            transform: scale(0.75);
+            transition: all 0.35s ease;
+            box-shadow: 0 0 12px rgba(233, 196, 106, 0.45);
+        }
+
+        .monument-card:hover .hotspot-pin,
+        .monument-card.is-focused .hotspot-pin {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hotspot-pin::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 9999px;
+            border: 1px solid rgba(233, 196, 106, 0.45);
+            animation: pulseRing 2.2s infinite;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+
+            70% {
+                transform: scale(1.45);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.45);
+                opacity: 0;
+            }
+        }
+
+        .hotspot-tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            width: 210px;
+            background: rgba(13, 19, 26, 0.96);
+            border: 1px solid rgba(233, 196, 106, 0.55);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--parchment);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.25s ease;
+            z-index: 25;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8);
+        }
+
+        .hotspot-pin:hover .hotspot-tooltip,
+        .hotspot-pin:focus .hotspot-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Granite Pedestal Base & Chisel Inscription */
+        .granite-pedestal {
+            background: linear-gradient(180deg, #2c353d 0%, #1f262d 55%, #161b20 100%);
+            border-top: 2px solid #596673;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.08), 0 -6px 16px rgba(0, 0, 0, 0.55);
+        }
+
+        .chisel-rune {
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            color: rgba(148, 163, 184, 0.24);
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .chisel-rune.engraved {
+            color: #e9c46a;
+            text-shadow: 0 0 10px rgba(233, 196, 106, 0.65), 0 1px 2px rgba(0, 0, 0, 0.9);
+            transform: scale(1.08);
+        }
+
+        /* Brass & Marble Segmented Toggle */
+        .brass-toggle-group {
+            background: rgba(20, 30, 43, 0.85);
+            border: 1px solid rgba(233, 196, 106, 0.32);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .brass-btn.active {
+            background: linear-gradient(180deg, #e9c46a 0%, #c89b3c 100%);
+            color: #0d131a;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(233, 196, 106, 0.35);
+        }
+
+        /* Left Compass Rail */
+        .compass-rail {
+            background: rgba(13, 19, 26, 0.84);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(74, 85, 96, 0.38);
+        }
+
+        .compass-node.active .compass-diamond {
+            background-color: var(--spotlight-gold);
+            border-color: var(--spotlight-gold);
+            box-shadow: 0 0 12px rgba(233, 196, 106, 0.75);
+            transform: rotate(45deg) scale(1.25);
+        }
+
+        /* Drawer / Modal Backdrop & Blueprint Grid */
+        .blueprint-bg {
+            background-color: #101822;
+            background-image:
+                linear-gradient(rgba(42, 157, 143, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(42, 157, 143, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d131a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2c353d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5560;
+        }
+    </style>
+</head>
+
+<body class="stone-texture selection:bg-[#e9c46a] selection:text-[#0d131a]">
+
+    <!-- Cursor Museum Spotlight Layer -->
+    <div id="cursor-spotlight"></div>
+
+    <!-- Left Vertical 'Grammar Compass' Quick-Jump Rail (Desktop) -->
+    <aside aria-label="Grammar Compass Navigation"
+        class="compass-rail fixed left-4 top-1/2 -translate-y-1/2 z-30 hidden xl:flex flex-col items-start gap-4 p-3.5 rounded-2xl shadow-2xl">
+        <div class="flex items-center gap-2 border-b border-slate-700/60 pb-2.5 w-full">
+            <svg class="w-4 h-4 text-[#e9c46a]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <circle cx="12" cy="12" r="9" />
+                <polygon points="12 6 14.5 12 12 18 9.5 12" fill="currentColor" fill-opacity="0.3" />
+            </svg>
+            <span class="font-tech text-[10px] tracking-widest uppercase text-[#e9c46a]">Compass Rail</span>
+        </div>
+
+        <nav id="compass-nav" class="flex flex-col gap-3.5 w-full">
+            <!-- Populated dynamically by JS -->
+        </nav>
+    </aside>
+
+    <!-- Main Architectural Wrapper -->
+    <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 xl:pl-56 xl:pr-10 pb-20">
+
+        <!-- 1. HERO ENTRANCE / TWILIGHT SKYLINE HEADER -->
+        <header class="relative pt-8 pb-10 border-b border-slate-800/80">
+
+            <!-- Stylized Dusk Skyline Silhouette (St. Petersburg Left <-> Moscow Right) -->
+            <div
+                class="relative w-full h-28 sm:h-36 mb-4 overflow-hidden rounded-2xl border border-slate-800/70 bg-gradient-to-b from-[#090e14] via-[#131f2e] to-[#1a2736]">
+                <!-- Subtle Stars & Moon -->
+                <div class="absolute top-4 left-1/4 w-1 h-1 rounded-full bg-[#e9c46a]/60"></div>
+                <div class="absolute top-7 left-1/3 w-1.5 h-1.5 rounded-full bg-white/40"></div>
+                <div class="absolute top-5 right-1/4 w-1 h-1 rounded-full bg-[#48cae4]/50"></div>
+                <div
+                    class="absolute top-4 right-[18%] w-7 h-7 rounded-full bg-[#e9c46a]/15 border border-[#e9c46a]/30 shadow-[0_0_24px_rgba(233,196,106,0.3)]">
+                </div>
+
+                <!-- Panoramic SVG Skyline: St. Petersburg Admiralty Spire & Neva Bridge + Moscow Kremlin & St. Basil's -->
+                <svg viewBox="0 0 1200 160" preserveAspectRatio="none" class="absolute bottom-0 left-0 w-full h-full">
+                    <defs>
+                        <linearGradient id="skylineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#223040" />
+                            <stop offset="100%" stop-color="#0d131a" />
+                        </linearGradient>
+                        <linearGradient id="waterGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#2a9d8f" stop-opacity="0.25" />
+                            <stop offset="50%" stop-color="#e9c46a" stop-opacity="0.2" />
+                            <stop offset="100%" stop-color="#2a9d8f" stop-opacity="0.25" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Distant Horizon Mist -->
+                    <rect x="0" y="128" width="1200" height="32" fill="url(#waterGlow)" />
+
+                    <!-- ST. PETERSBURG (LEFT SIDE): Admiralty Spire, Palace Bridge, Peter & Paul Silhouette -->
+                    <g fill="url(#skylineGrad)">
+                        <!-- Admiralty Building & Needle Spire -->
+                        <rect x="60" y="102" width="140" height="42" />
+                        <rect x="115" y="82" width="30" height="20" />
+                        <polygon points="122,82 130,52 138,82" />
+                        <line x1="130" y1="52" x2="130" y2="12" stroke="#e9c46a" stroke-width="2" />
+                        <circle cx="130" cy="12" r="2.5" fill="#e9c46a" />
+                        <!-- St. Isaac's Dome Silhouette -->
+                        <path d="M235 108 C235 82, 285 82, 285 108 Z" />
+                        <rect x="256" y="76" width="8" height="12" />
+                        <rect x="225" y="108" width="70" height="36" />
+                        <!-- Neva Drawbridge Arch -->
+                        <path d="M315 144 Q365 118 415 144 L415 148 L315 148 Z" />
+                        <path d="M415 144 Q465 118 515 144 L515 148 L415 148 Z" />
+                    </g>
+
+                    <!-- CENTER HORIZON CONNECTOR -->
+                    <rect x="0" y="142" width="1200" height="18" fill="#0d131a" />
+
+                    <!-- MOSCOW (RIGHT SIDE): Kremlin Wall, Spasskaya Tower, St. Basil's Onion Domes -->
+                    <g fill="url(#skylineGrad)">
+                        <!-- Kremlin Wall & Battlements -->
+                        <rect x="680" y="114" width="460" height="30" />
+                        <!-- Spasskaya Clock Tower -->
+                        <rect x="740" y="76" width="34" height="68" />
+                        <polygon points="738,76 757,34 776,76" />
+                        <circle cx="757" cy="64" r="5" fill="#e9c46a" fill-opacity="0.75" />
+                        <line x1="757" y1="34" x2="757" y2="22" stroke="#e9c46a" stroke-width="1.8" />
+                        <!-- St. Basil's Cathedral Silhouette -->
+                        <rect x="830" y="96" width="110" height="48" />
+                        <!-- Central Tent Spire -->
+                        <polygon points="872,96 885,44 898,96" />
+                        <!-- Onion Domes -->
+                        <path d="M842 96 C834 84, 844 74, 850 68 C856 74, 866 84, 858 96 Z" />
+                        <path d="M912 96 C904 84, 914 74, 920 68 C926 74, 936 84, 928 96 Z" />
+                        <path d="M862 86 C856 76, 864 68, 869 63 C874 68, 882 76, 876 86 Z" />
+                        <path d="M894 86 C888 76, 896 68, 901 63 C906 68, 914 76, 908 86 Z" />
+                        <!-- Shukhov / Modern Moscow Spire Hint -->
+                        <polygon points="1035,144 1052,48 1069,144" fill="none" stroke="#2c353d" stroke-width="2" />
+                    </g>
+                </svg>
+
+                <!-- Skyline City Watermark Labels -->
+                <div
+                    class="absolute bottom-2.5 left-4 flex items-center gap-2 text-[10px] font-tech tracking-widest uppercase text-[#48cae4]/80">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#2a9d8f]"></span>
+                    <span>St. Petersburg • Neva Granite</span>
+                </div>
+                <div
+                    class="absolute bottom-2.5 right-4 flex items-center gap-2 text-[10px] font-tech tracking-widest uppercase text-[#e9c46a]/80">
+                    <span>Moscow • Red Square &amp; Steel</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#e9c46a]"></span>
+                </div>
+            </div>
+
+            <!-- Title & Controls Bar -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141e2b] border border-[#2a9d8f]/40 text-[#48cae4] font-tech text-[11px] tracking-wider uppercase mb-3">
+                        <span>Platform 02 Architectural Concept</span>
+                        <span class="text-slate-600">|</span>
+                        <span>Interactive Promenade</span>
+                    </div>
+                    <h1
+                        class="font-editorial text-3xl sm:text-5xl lg:text-[52px] font-bold leading-tight engraved-title uppercase">
+                        Monuments of Russian Grammar
+                    </h1>
+                    <p class="font-editorial italic text-lg sm:text-xl text-slate-300/90 mt-1">
+                        An Architectural Promenade of Language &amp; Form — The Bronze &amp; Granite Sculpture Garden
+                    </p>
+                </div>
+
+                <!-- Interactive Control Strip: City Filter + Cursor Spotlight Toggle -->
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <!-- Brass & Marble City Filter -->
+                    <div role="group" aria-label="Filter monuments by city"
+                        class="brass-toggle-group inline-flex p-1 rounded-xl">
+                        <button type="button" data-city="ALL"
+                            class="brass-btn active px-3.5 py-2 rounded-lg font-tech text-xs tracking-wider uppercase transition-all">
+                            All Russia (5)
+                        </button>
+                        <button type="button" data-city="SPB"
+                            class="brass-btn px-3.5 py-2 rounded-lg font-tech text-xs tracking-wider uppercase text-slate-300 hover:text-white transition-all">
+                            St. Petersburg
+                        </button>
+                        <button type="button" data-city="MSK"
+                            class="brass-btn px-3.5 py-2 rounded-lg font-tech text-xs tracking-wider uppercase text-slate-300 hover:text-white transition-all">
+                            Moscow
+                        </button>
+                    </div>
+
+                    <!-- Spotlight Beam Toggle -->
+                    <button id="spotlight-toggle" type="button" aria-pressed="false"
+                        class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#141e2b] border border-slate-700 hover:border-[#e9c46a]/60 text-slate-200 font-tech text-xs tracking-wider uppercase transition-all shadow-lg">
+                        <span id="spotlight-indicator"
+                            class="w-2.5 h-2.5 rounded-full bg-slate-600 transition-colors"></span>
+                        <span>Spotlight Beam</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile / Tablet Horizontal Compass Strip -->
+        <div class="xl:hidden flex items-center gap-2 overflow-x-auto py-4 border-b border-slate-800/60 no-scrollbar"
+            id="mobile-compass-nav">
+            <!-- Populated dynamically by JS -->
+        </div>
+
+        <!-- Promenade Status / Instruction Banner -->
+        <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-4 text-xs text-slate-400 font-tech">
+            <div class="flex items-center gap-2">
+                <span class="text-[#e9c46a]">◆</span>
+                <span>HOVER a monument to illuminate bronze patina &amp; inspect Field Note pins. CLICK a pedestal to
+                    enter its Grammar Vault.</span>
+            </div>
+            <div id="overall-chisel-counter" class="text-[#48cae4]">
+                ENGRAVED RUNES: 0 / 25
+            </div>
+        </div>
+
+        <!-- 3. INTERACTIVE 5-MONUMENT PROMENADE (MAIN STAGE) -->
+        <main id="promenade-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 mt-2">
+            <!-- Monument Cards are rendered dynamically via JS with bespoke detailed SVGs -->
+        </main>
+
+    </div>
+
+    <!-- 4. INTERACTIVE MONUMENT VAULT DRAWER / MODAL -->
+    <div id="vault-backdrop"
+        class="fixed inset-0 z-40 bg-black/75 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300"
+        aria-hidden="true"></div>
+
+    <aside id="vault-drawer" role="dialog" aria-modal="true" aria-labelledby="vault-title"
+        class="fixed top-0 right-0 z-50 h-full w-full max-w-2xl blueprint-bg border-l border-[#e9c46a]/40 shadow-[-24px_0_64px_rgba(0,0,0,0.9)] transform translate-x-full transition-transform duration-400 ease-out flex flex-col">
+
+        <!-- Vault Top Bronze Header -->
+        <div class="p-6 border-b border-slate-700/80 bg-[#0d131a]/90 flex items-start justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2 font-tech text-xs tracking-widest uppercase text-[#2a9d8f] mb-1">
+                    <span id="vault-dest-badge">DESTINATION 01</span>
+                    <span>•</span>
+                    <span id="vault-city-badge">ST. PETERSBURG</span>
+                </div>
+                <h2 id="vault-title" class="font-editorial text-3xl sm:text-4xl font-bold text-[#e9c46a]">
+                    The Bronze Horseman
+                </h2>
+                <p id="vault-cyrillic" class="font-editorial italic text-lg text-slate-300">
+                    Медный всадник (1782)
+                </p>
+            </div>
+
+            <button id="close-vault-btn" type="button" aria-label="Close Grammar Vault"
+                class="p-2.5 rounded-xl bg-[#141e2b] border border-slate-700 hover:border-[#e9c46a] text-slate-300 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Vault Scrollable Content Slots -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+
+            <!-- Placeholder Pillar Banner -->
+            <div
+                class="p-4 rounded-xl bg-[#141e2b]/90 border border-[#e9c46a]/35 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                    <span class="block font-tech text-[10px] uppercase tracking-widest text-slate-400">Assigned
+                        Architectural Grammar Pillar</span>
+                    <span id="vault-placeholder-tag" class="font-tech text-sm font-semibold text-[#e9c46a]">
+                        [GRAMMAR DESTINATION 01: FOUNDATIONAL STRUCTURE]
+                    </span>
+                </div>
+                <span
+                    class="px-2.5 py-1 rounded bg-[#2a9d8f]/20 border border-[#2a9d8f]/40 font-tech text-[11px] text-[#48cae4] self-start sm:self-center">
+                    SCHEMA READY
+                </span>
+            </div>
+
+            <!-- SLOT A: CORE RULE BLUEPRINT -->
+            <section class="rounded-xl bg-[#0d131a]/85 border border-slate-700/80 p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-tech text-xs uppercase tracking-widest text-[#48cae4] flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#48cae4] rotate-45 inline-block"></span>
+                        Slot A: [CORE RULE BLUEPRINT — PLACEHOLDER]
+                    </h3>
+                    <span class="font-tech text-[10px] text-slate-500">REF // FAMILY FOUNDATIONS</span>
+                </div>
+                <div class="p-4 rounded-lg border border-dashed border-slate-600/80 bg-[#141e2b]/50 space-y-2.5">
+                    <p id="vault-slot-a-desc" class="text-sm text-slate-300 leading-relaxed">
+                        Placeholder for primary grammatical rule, structural axiom, or case usage explanation mapped
+                        from your Family Relationships Foundations notes.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 font-tech text-xs">
+                        <div class="p-2.5 rounded bg-[#0d131a] border border-slate-800 text-slate-400">
+                            <span class="text-[#e9c46a] block text-[10px]">AXIOM FORMULA:</span>
+                            [STEM] + [ENDING SLOT α]
+                        </div>
+                        <div class="p-2.5 rounded bg-[#0d131a] border border-slate-800 text-slate-400">
+                            <span class="text-[#2a9d8f] block text-[10px]">HISTORICAL METAPHOR:</span>
+                            <span id="vault-metaphor-note">Granite Thunder Stone Foundation</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLOT B: DECLENSION / ENDING TABLE (6 PLACEHOLDER CELLS) -->
+            <section class="rounded-xl bg-[#0d131a]/85 border border-slate-700/80 p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-tech text-xs uppercase tracking-widest text-[#e9c46a] flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#e9c46a] rotate-45 inline-block"></span>
+                        Slot B: [DECLENSION / ENDING TABLE — 6 PLACEHOLDER CELLS]
+                    </h3>
+                    <span class="font-tech text-[10px] text-slate-500">MATRIX 2×3</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 font-tech text-xs">
+                    <div class="p-3 rounded-lg border border-dashed border-slate-600/70 bg-[#141e2b]/40">
+                        <span class="text-[10px] text-slate-400 block mb-1">CELL 01 // NOM</span>
+                        <span class="text-slate-200">[ENDING — 01]</span>
+                    </div>
+                    <div class="p-3 rounded-lg border border-dashed border-slate-600/70 bg-[#141e2b]/40">
+                        <span class="text-[10px] text-slate-400 block mb-1">CELL 02 // GEN</span>
+                        <span class="text-slate-200">[ENDING — 02]</span>
+                    </div>
+                    <div class="p-3 rounded-lg border border-dashed border-slate-600/70 bg-[#141e2b]/40">
+                        <span class="text-[10px] text-slate-400 block mb-1">CELL 03 // DAT</span>
+                        <span class="text-slate-200">[ENDING — 03]</span>
+                    </div>
+                    <div class="p-3 rounded-lg border border-dashed border-slate-600/70 bg-[#141e2b]/40">
+                        <span class="text-[10px] text-slate-400 block mb-1">CELL 04 // ACC</span>
+                        <span class="text-slate-200">[ENDING — 04]</span>
+                    </div>
+                    <div class="p-3 rounded-lg border border-dashed border-slate-600/70 bg-[#141e2b]/40">
+                        <span class="text-[10px] text-slate-400 block mb-1">CELL 05 // INS</span>
+                        <span class="text-slate-200">[ENDING — 05]</span>
+                    </div>
+                    <div class="p-3 rounded-lg border border-dashed border-slate-600/70 bg-[#141e2b]/40">
+                        <span class="text-[10px] text-slate-400 block mb-1">CELL 06 // PRP</span>
+                        <span class="text-slate-200">[ENDING — 06]</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLOT C: GRAMMAR CANDY / MNEMONIC CARD -->
+            <section class="rounded-xl bg-[#0d131a]/85 border border-slate-700/80 p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-tech text-xs uppercase tracking-widest text-[#2a9d8f] flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#2a9d8f] rotate-45 inline-block"></span>
+                        Slot C: [GRAMMAR CANDY / MNEMONIC CARD — PLACEHOLDER]
+                    </h3>
+                    <span class="font-tech text-[10px] text-slate-500">TACTILE MEMORY ANCHOR</span>
+                </div>
+                <div
+                    class="p-4 rounded-xl bg-gradient-to-br from-[#1b2836] to-[#121a24] border border-[#2a9d8f]/40 shadow-inner">
+                    <div class="flex items-center gap-2 text-xs font-tech text-[#e9c46a] mb-2">
+                        <span>✦ FIELD MNEMONIC</span>
+                    </div>
+                    <p id="vault-candy-text" class="font-editorial italic text-lg text-slate-200">
+                        "[Visual &amp; Kinesthetic Memory Hook Placeholder — e.g., Imagine carving this ending directly
+                        into the bronze pedestal before crossing the Neva.]"
+                    </p>
+                    <div
+                        class="mt-3 pt-3 border-t border-slate-700/60 flex items-center justify-between font-tech text-[11px] text-slate-400">
+                        <span>EXAMPLE PHRASE SLOT:</span>
+                        <span class="text-slate-200">[РУССКИЙ ПРИМЕР — PLACEHOLDER]</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Vault Interactive Footer: Simulate Engraving Progress -->
+        <div
+            class="p-5 border-t border-slate-700/80 bg-[#0d131a]/95 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-xs font-tech text-slate-400">
+                PEDESTAL INSCRIPTION: <span id="vault-rune-status" class="text-[#e9c46a] font-semibold">0 / 5 RUNES
+                    ENGRAVED</span>
+            </div>
+
+            <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                <button id="reset-engrave-btn" type="button"
+                    class="px-3.5 py-2.5 rounded-xl bg-[#141e2b] border border-slate-700 hover:border-slate-500 text-slate-300 font-tech text-xs uppercase tracking-wider transition-all">
+                    Reset Stone
+                </button>
+                <button id="simulate-engrave-btn" type="button"
+                    class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#e9c46a] to-[#d4a373] hover:brightness-110 text-[#0d131a] font-tech text-xs font-semibold uppercase tracking-wider shadow-[0_0_20px_rgba(233,196,106,0.35)] transition-all">
+                    ⚒ Simulate Engraving Progress
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <script>
+        /**
+         * MONUMENTS OF RUSSIAN GRAMMAR — Data & Interactive Promenade Engine
+         */
+        const MONUMENTS = [
+            {
+                id: 'bronze-horseman',
+                number: '01',
+                title: 'The Bronze Horseman',
+                cyrillic: 'Медный всадник',
+                year: '1782',
+                city: 'SPB',
+                cityLabel: 'St. Petersburg',
+                pillarShort: '[GRAMMAR PILLAR I]',
+                destinationTag: '[GRAMMAR DESTINATION 01: FOUNDATIONAL STRUCTURE]',
+                metaphor: 'Thunder Stone Monolith & Raised Hooves',
+                runes: ['А', 'О', 'У', 'Ы', 'Э'],
+                engravedCount: 2,
+                hotspots: [
+                    { x: '48%', y: '24%', code: '01', text: '[FIELD NOTE A]: Raised hooves placeholder — dynamic root shifts.' },
+                    { x: '36%', y: '66%', code: '02', text: '[FIELD NOTE B]: Thunder Stone wave base — core stem stability.' }
+                ],
+                svg: `
+          <svg viewBox="0 0 220 230" class="statue-svg w-44 h-48 mx-auto" aria-label="The Bronze Horseman Silhouette">
+            <defs>
+              <linearGradient id="bronze1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#52b788" />
+                <stop offset="40%" stop-color="#2a9d8f" />
+                <stop offset="85%" stop-color="#1b4332" />
+                <stop offset="100%" stop-color="#e9c46a" stop-opacity="0.7" />
+              </linearGradient>
+              <linearGradient id="thunderStone" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5c6773" />
+                <stop offset="55%" stop-color="#333c45" />
+                <stop offset="100%" stop-color="#1a2026" />
+              </linearGradient>
+            </defs>
+            <!-- Wave-shaped Thunder Stone Granite Rock -->
+            <path d="M22 215 L36 168 Q75 152 122 158 Q168 164 196 184 L204 215 Z" fill="url(#thunderStone)" stroke="#6c7a89" stroke-width="1.2"/>
+            <path d="M44 192 Q95 174 165 196" fill="none" stroke="#14191f" stroke-width="2" opacity="0.6"/>
+            <!-- Rearing Horse & Rider (Peter the Great) -->
+            <g fill="url(#bronze1)" stroke="#e9c46a" stroke-width="0.6" stroke-opacity="0.45">
+              <!-- Horse Hind Legs & Tail -->
+              <path d="M72 162 L64 134 L76 126 L84 158 Z" />
+              <path d="M52 164 Q44 142 62 126 Q56 146 62 163 Z" />
+              <!-- Horse Body & Rearing Chest -->
+              <path d="M68 132 Q95 104 132 84 Q146 88 144 104 Q118 126 84 138 Z" />
+              <!-- Horse Neck & Head -->
+              <path d="M126 88 L142 58 L158 64 L152 76 L138 94 Z" />
+              <!-- Horse Raised Front Legs -->
+              <path d="M140 94 L166 76 L176 84 L164 90 L144 102 Z" />
+              <path d="M136 100 L160 92 L168 102 L156 105 L138 108 Z" />
+              <!-- Rider Torso, Cloak & Outstretched Arm -->
+              <path d="M94 114 L98 76 L114 76 L116 110 Z" />
+              <path d="M96 82 Q76 92 68 112 Q84 106 98 98 Z" />
+              <!-- Rider Head & Laurel -->
+              <circle cx="107" cy="67" r="7" />
+              <!-- Outstretched Imperial Arm -->
+              <path d="M112 80 L148 68 L150 73 L114 88 Z" />
+            </g>
+          </svg>
+        `
+            },
+            {
+                id: 'minin-pozharsky',
+                number: '02',
+                title: 'Minin and Pozharsky',
+                cyrillic: 'Минину и Пожарскому',
+                year: '1818',
+                city: 'MSK',
+                cityLabel: 'Moscow',
+                pillarShort: '[GRAMMAR PILLAR II]',
+                destinationTag: '[GRAMMAR DESTINATION 02: CASE COORDINATION]',
+                metaphor: 'Dual Figures & Shield Alignment',
+                runes: ['И', 'Е', 'Я', 'Ю', 'Ё'],
+                engravedCount: 1,
+                hotspots: [
+                    { x: '42%', y: '34%', code: '01', text: '[FIELD NOTE A]: Standing Minin gesture — nominative subject anchor.' },
+                    { x: '62%', y: '52%', code: '02', text: '[FIELD NOTE B]: Seated Pozharsky & shield — dependent case agreement.' }
+                ],
+                svg: `
+          <svg viewBox="0 0 220 230" class="statue-svg w-44 h-48 mx-auto" aria-label="Minin and Pozharsky Monument Silhouette">
+            <defs>
+              <linearGradient id="bronze2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e9c46a" stop-opacity="0.85" />
+                <stop offset="45%" stop-color="#2a9d8f" />
+                <stop offset="100%" stop-color="#183a37" />
+              </linearGradient>
+            </defs>
+            <!-- Classical Rectangular Pedestal Plinth -->
+            <rect x="44" y="172" width="132" height="42" rx="3" fill="#2c353d" stroke="#5c6773" stroke-width="1.2" />
+            <rect x="58" y="182" width="104" height="22" fill="#1d252e" stroke="#e9c46a" stroke-width="0.6" stroke-opacity="0.4" />
+            <!-- Two Heroic Figures -->
+            <g fill="url(#bronze2)" stroke="#e9c46a" stroke-width="0.6" stroke-opacity="0.45">
+              <!-- Standing Figure (Kuzma Minin) -->
+              <path d="M74 172 L78 102 L98 102 L102 172 Z" />
+              <circle cx="88" cy="91" r="7.5" />
+              <!-- Raised Pointing Arm -->
+              <path d="M96 106 L124 76 L129 81 L100 114 Z" />
+              <!-- Seated Figure (Prince Pozharsky) -->
+              <path d="M114 172 L116 126 L142 126 L148 172 Z" />
+              <circle cx="128" cy="115" r="7" />
+              <!-- Oval Shield & Sword Between Them -->
+              <ellipse cx="112" cy="146" rx="13" ry="20" fill="#1b4332" stroke="#e9c46a" stroke-width="1.1" />
+              <line x1="103" y1="122" x2="122" y2="164" stroke="#e9c46a" stroke-width="2" />
+            </g>
+          </svg>
+        `
+            },
+            {
+                id: 'worker-kolkhoz',
+                number: '03',
+                title: 'Worker & Kolkhoz Woman',
+                cyrillic: 'Рабочий и колхозница',
+                year: '1937',
+                city: 'MSK',
+                cityLabel: 'Moscow',
+                pillarShort: '[GRAMMAR PILLAR III]',
+                destinationTag: '[GRAMMAR DESTINATION 03: DYNAMIC PAIRS & ASPECTS]',
+                metaphor: 'Twin Stride & Conjoined Sickle-Hammer',
+                runes: ['НСВ', 'СВ', 'ИДТИ', 'ХОД', 'ПАРА'],
+                engravedCount: 1,
+                hotspots: [
+                    { x: '50%', y: '18%', code: '01', text: '[FIELD NOTE A]: Apex intersection — Imperfective vs. Perfective pair.' },
+                    { x: '45%', y: '56%', code: '02', text: '[FIELD NOTE B]: Forward windswept stride — unidirectional motion verbs.' }
+                ],
+                svg: `
+          <svg viewBox="0 0 220 230" class="statue-svg w-44 h-48 mx-auto" aria-label="Worker and Kolkhoz Woman Silhouette">
+            <defs>
+              <linearGradient id="steelPatina" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e0fbfc" />
+                <stop offset="40%" stop-color="#48cae4" />
+                <stop offset="75%" stop-color="#2a9d8f" />
+                <stop offset="100%" stop-color="#1d3557" />
+              </linearGradient>
+            </defs>
+            <!-- Stepped Art-Deco Pavilion Pylon -->
+            <polygon points="56,215 68,162 152,162 164,215" fill="#2c353d" stroke="#6c7a89" stroke-width="1.2" />
+            <rect x="76" y="148" width="68" height="14" fill="#3a4550" />
+            <!-- Striding Steel Figures -->
+            <g fill="url(#steelPatina)" stroke="#ffffff" stroke-width="0.6" stroke-opacity="0.5">
+              <!-- Flowing Scarf Behind -->
+              <path d="M98 92 Q62 96 42 114 Q70 112 96 104 Z" opacity="0.85" />
+              <!-- Left Figure (Worker) -->
+              <path d="M78 148 L92 92 L106 94 L98 148 Z" />
+              <circle cx="98" cy="83" r="6.5" />
+              <!-- Raised Arm with Hammer -->
+              <path d="M100 92 L114 44 L120 46 L106 96 Z" />
+              <rect x="107" y="38" width="16" height="6" rx="1" transform="rotate(-18 115 41)" fill="#e9c46a" />
+              <!-- Right Figure (Kolkhoz Woman) -->
+              <path d="M110 148 L116 94 L132 96 L138 148 Z" />
+              <circle cx="122" cy="85" r="6.5" />
+              <!-- Raised Arm with Crescent Sickle -->
+              <path d="M122 92 L126 48 L132 50 L128 96 Z" />
+              <path d="M116 46 A16 16 0 1 1 140 34 A12 12 0 1 0 116 46 Z" fill="#e9c46a" />
+            </g>
+          </svg>
+        `
+            },
+            {
+                id: 'pushkin-monument',
+                number: '04',
+                title: 'Monument to Pushkin',
+                cyrillic: 'Памятник А. С. Пушкину',
+                year: '1880',
+                city: 'MSK',
+                cityLabel: 'Moscow',
+                pillarShort: '[GRAMMAR PILLAR IV]',
+                destinationTag: '[GRAMMAR DESTINATION 04: SYNTAX & NUANCE VAULT]',
+                metaphor: 'Contemplative Stance & Literary Syntax',
+                runes: ['ЛИ', 'ЖЕ', 'БЫ', 'ВЕДЬ', 'УЖ'],
+                engravedCount: 0,
+                hotspots: [
+                    { x: '50%', y: '28%', code: '01', text: '[FIELD NOTE A]: Bowed contemplative head — particles & tonal nuance.' },
+                    { x: '46%', y: '58%', code: '02', text: '[FIELD NOTE B]: Draped overcoat folds — flexible word order.' }
+                ],
+                svg: `
+          <svg viewBox="0 0 220 230" class="statue-svg w-44 h-48 mx-auto" aria-label="Monument to Alexander Pushkin Silhouette">
+            <defs>
+              <linearGradient id="bronze4" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e9c46a" stop-opacity="0.75" />
+                <stop offset="50%" stop-color="#2a9d8f" />
+                <stop offset="100%" stop-color="#14282b" />
+              </linearGradient>
+            </defs>
+            <!-- Tall Cylindrical / Stepped Granite Column -->
+            <rect x="64" y="196" width="92" height="18" rx="2" fill="#232b32" />
+            <rect x="78" y="140" width="64" height="56" fill="#2c353d" stroke="#5c6773" stroke-width="1.2" />
+            <!-- Poet Standing in Long Frock Coat -->
+            <g fill="url(#bronze4)" stroke="#e9c46a" stroke-width="0.6" stroke-opacity="0.45">
+              <!-- Coat & Draped Cloak -->
+              <path d="M92 140 L94 74 L124 74 L128 140 Z" />
+              <path d="M94 78 Q82 96 86 122 L96 118 Z" />
+              <!-- Slightly Bowed Thoughtful Head -->
+              <circle cx="110" cy="63" r="8" />
+              <!-- Right Hand Tucked into Coat -->
+              <path d="M122 80 Q130 92 116 96" fill="none" stroke="#e9c46a" stroke-width="2.2" />
+            </g>
+          </svg>
+        `
+            },
+            {
+                id: 'nicholas-i',
+                number: '05',
+                title: 'Monument to Nicholas I',
+                cyrillic: 'Памятник Николаю I',
+                year: '1859',
+                city: 'SPB',
+                cityLabel: 'St. Petersburg',
+                pillarShort: '[GRAMMAR PILLAR V]',
+                destinationTag: '[GRAMMAR DESTINATION 05: EXCEPTIONS & EQUILIBRIUM]',
+                metaphor: 'Two-Point Rear Balance & Irregular Forms',
+                runes: ['ИСКЛ', 'ЧУДО', 'ПУТЬ', 'ВРЕМЯ', 'ИМЯ'],
+                engravedCount: 0,
+                hotspots: [
+                    { x: '44%', y: '56%', code: '01', text: '[FIELD NOTE A]: Dual rear-leg fulcrum — irregular stem exceptions.' },
+                    { x: '56%', y: '28%', code: '02', text: '[FIELD NOTE B]: Helmed rider poise — high-register grammatical balance.' }
+                ],
+                svg: `
+          <svg viewBox="0 0 220 230" class="statue-svg w-44 h-48 mx-auto" aria-label="Monument to Nicholas I Silhouette">
+            <defs>
+              <linearGradient id="bronze5" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#48cae4" />
+                <stop offset="45%" stop-color="#2a9d8f" />
+                <stop offset="90%" stop-color="#1b3a4b" />
+                <stop offset="100%" stop-color="#e9c46a" stop-opacity="0.8" />
+              </linearGradient>
+            </defs>
+            <!-- Ornate Elliptical Tiered Pedestal -->
+            <rect x="48" y="194" width="124" height="20" rx="3" fill="#232b32" />
+            <rect x="64" y="158" width="92" height="36" rx="4" fill="#2c353d" stroke="#e9c46a" stroke-width="0.8" stroke-opacity="0.45" />
+            <!-- Equestrian Statue Balanced Strictly on Two Hind Legs -->
+            <g fill="url(#bronze5)" stroke="#e9c46a" stroke-width="0.6" stroke-opacity="0.5">
+              <!-- Two Rear Legs Bearing All Weight -->
+              <path d="M84 158 L80 124 L90 120 L94 158 Z" />
+              <path d="M96 158 L95 126 L104 124 L105 158 Z" />
+              <!-- Horse Body & Prancing Front Legs -->
+              <path d="M82 124 Q108 102 138 92 Q148 98 142 112 Q116 124 88 128 Z" />
+              <path d="M132 94 L146 66 L160 72 L154 84 L140 100 Z" />
+              <path d="M140 102 L162 96 L166 106 L142 110 Z" />
+              <path d="M136 108 L154 118 L148 126 L132 114 Z" />
+              <!-- Imperial Rider with Plumed Helmet -->
+              <path d="M102 110 L105 76 L120 76 L122 108 Z" />
+              <circle cx="113" cy="67" r="6.5" />
+              <polygon points="109,61 113,51 117,61" fill="#e9c46a" />
+            </g>
+          </svg>
+        `
+            }
+        ];
+
+        // Application State
+        let currentCityFilter = 'ALL';
+        let activeVaultId = null;
+        let isSpotlightMode = false;
+
+        // DOM Elements
+        const promenadeGrid = document.getElementById('promenade-grid');
+        const compassNav = document.getElementById('compass-nav');
+        const mobileCompassNav = document.getElementById('mobile-compass-nav');
+        const overallChiselCounter = document.getElementById('overall-chisel-counter');
+        const spotlightToggle = document.getElementById('spotlight-toggle');
+        const spotlightIndicator = document.getElementById('spotlight-indicator');
+        const cursorSpotlight = document.getElementById('cursor-spotlight');
+
+        // Vault Drawer Elements
+        const vaultBackdrop = document.getElementById('vault-backdrop');
+        const vaultDrawer = document.getElementById('vault-drawer');
+        const closeVaultBtn = document.getElementById('close-vault-btn');
+        const simulateEngraveBtn = document.getElementById('simulate-engrave-btn');
+        const resetEngraveBtn = document.getElementById('reset-engrave-btn');
+
+        /**
+         * Renders the 5 Monument Pedestal Cards & Compass Navigation
+         */
+        function renderPromenade() {
+            promenadeGrid.innerHTML = '';
+            compassNav.innerHTML = '';
+            mobileCompassNav.innerHTML = '';
+
+            let totalEngraved = 0;
+            let totalPossible = 0;
+
+            MONUMENTS.forEach((monument) => {
+                totalEngraved += monument.engravedCount;
+                totalPossible += monument.runes.length;
+
+                const isDimmed = currentCityFilter !== 'ALL' && monument.city !== currentCityFilter;
+
+                // 1. Desktop Compass Waypoint
+                const compassBtn = document.createElement('button');
+                compassBtn.type = 'button';
+                compassBtn.dataset.targetId = monument.id;
+                compassBtn.className = 'compass-node group flex items-center gap-3 text-left w-full py-1 transition-all';
+                compassBtn.innerHTML = `
+          <span class="compass-diamond w-2.5 h-2.5 rotate-45 border border-slate-500 bg-[#141e2b] group-hover:border-[#e9c46a] transition-all shrink-0"></span>
+          <div class="overflow-hidden">
+            <div class="font-tech text-[10px] tracking-widest uppercase text-slate-400 group-hover:text-[#e9c46a] transition-colors">
+              Destination ${monument.number}
+            </div>
+            <div class="font-tech text-[11px] text-slate-200 truncate">
+              ${monument.pillarShort}
+            </div>
+          </div>
+        `;
+                compassBtn.addEventListener('click', () => focusMonument(monument.id));
+                compassNav.appendChild(compassBtn);
+
+                // 2. Mobile Compass Pill
+                const mobilePill = document.createElement('button');
+                mobilePill.type = 'button';
+                mobilePill.className = 'shrink-0 px-3 py-1.5 rounded-lg bg-[#141e2b] border border-slate-700 hover:border-[#e9c46a] font-tech text-[11px] text-slate-200 transition-colors';
+                mobilePill.textContent = `DEST ${monument.number}: ${monument.pillarShort}`;
+                mobilePill.addEventListener('click', () => focusMonument(monument.id));
+                mobileCompassNav.appendChild(mobilePill);
+
+                // 3. Monument Card + Pedestal
+                const card = document.createElement('article');
+                card.id = `card-${monument.id}`;
+                card.className = `monument-card rounded-2xl flex flex-col justify-between cursor-pointer ${isDimmed ? 'dimmed-city' : ''}`;
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', `Inspect ${monument.title} Grammar Vault`);
+
+                // Build Hotspots HTML
+                const hotspotsHtml = monument.hotspots.map((spot) => `
+          <div class="hotspot-pin" style="left: ${spot.x}; top: ${spot.y};" tabindex="0" onclick="event.stopPropagation()">
+            <span>${spot.code}</span>
+            <div class="hotspot-tooltip font-tech">
+              ${spot.text}
+            </div>
+          </div>
+        `).join('');
+
+                // Build Chisel Runes HTML
+                const runesHtml = monument.runes.map((rune, idx) => {
+                    const isChiseled = idx < monument.engravedCount;
+                    return `<span class="chisel-rune px-1.5 py-0.5 rounded bg-black/30 border border-slate-700/60 font-tech text-xs font-semibold ${isChiseled ? 'engraved' : ''}">${rune}</span>`;
+                }).join('');
+
+                card.innerHTML = `
+          <!-- Overhead Museum Spotlight Cone -->
+          <div class="museum-cone"></div>
+
+          <!-- Top Metadata Header -->
+          <div class="relative z-10 p-4 pb-0 flex items-center justify-between">
+            <span class="font-tech text-[10px] tracking-widest uppercase px-2 py-0.5 rounded bg-[#0d131a]/80 border border-slate-700/70 text-[#48cae4]">
+              ${monument.cityLabel}
+            </span>
+            <span class="font-tech text-[10px] tracking-widest text-slate-400">
+              EST. ${monument.year}
+            </span>
+          </div>
+
+          <!-- Statue Stage & Floating Field Note Hotspots -->
+          <div class="relative z-10 pt-3 pb-2 px-4 flex items-center justify-center min-h-[215px]">
+            ${monument.svg}
+            ${hotspotsHtml}
+          </div>
+
+          <!-- Granite Pedestal Base & Inscription Chisel -->
+          <div class="granite-pedestal relative z-10 p-4 pt-3.5 rounded-b-2xl">
+            <div class="mb-2">
+              <div class="font-tech text-[10px] tracking-wider text-[#e9c46a] uppercase mb-0.5">
+                ${monument.destinationTag}
+              </div>
+              <h2 class="font-editorial text-2xl font-bold text-white leading-snug">
+                ${monument.title}
+              </h2>
+              <p class="font-editorial italic text-sm text-slate-300/80">
+                ${monument.cyrillic}
+              </p>
+            </div>
+
+            <!-- Inscription Chisel Progress Bar -->
+            <div class="mt-3 pt-2.5 border-t border-slate-600/40">
+              <div class="flex items-center justify-between font-tech text-[10px] text-slate-400 mb-1.5">
+                <span>INSCRIPTION CHISEL</span>
+                <span class="text-[#e9c46a]">${monument.engravedCount}/${monument.runes.length}</span>
+              </div>
+              <div class="flex items-center justify-between gap-1">
+                ${runesHtml}
+              </div>
+            </div>
+
+            <!-- Enter Vault Action Strip -->
+            <div class="mt-3.5 flex items-center justify-between text-xs font-tech font-medium text-[#48cae4] group-hover:text-[#e9c46a] pt-2 border-t border-slate-700/50">
+              <span>ENTER VAULT</span>
+              <span>→</span>
+            </div>
+          </div>
+        `;
+
+                card.addEventListener('click', () => openVault(monument.id));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openVault(monument.id);
+                    }
+                });
+
+                promenadeGrid.appendChild(card);
+            });
+
+            overallChiselCounter.textContent = `ENGRAVED RUNES: ${totalEngraved} / ${totalPossible}`;
+        }
+
+        /**
+         * Smoothly scrolls to a monument card and triggers a spotlight pulse
+         */
+        function focusMonument(id) {
+            // Reset city filter if the target monument is dimmed
+            const targetObj = MONUMENTS.find(m => m.id === id);
+            if (targetObj && currentCityFilter !== 'ALL' && targetObj.city !== currentCityFilter) {
+                setCityFilter('ALL');
+            }
+
+            document.querySelectorAll('.monument-card').forEach(c => c.classList.remove('is-focused'));
+            document.querySelectorAll('.compass-node').forEach(n => n.classList.remove('active'));
+
+            const cardEl = document.getElementById(`card-${id}`);
+            const nodeEl = document.querySelector(`.compass-node[data-target-id="${id}"]`);
+
+            if (nodeEl) nodeEl.classList.add('active');
+            if (cardEl) {
+                cardEl.classList.add('is-focused');
+                cardEl.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                setTimeout(() => {
+                    cardEl.classList.remove('is-focused');
+                }, 2600);
+            }
+        }
+
+        /**
+         * Opens the Interactive Grammar Vault Drawer for a specific monument
+         */
+        function openVault(id) {
+            const monument = MONUMENTS.find(m => m.id === id);
+            if (!monument) return;
+
+            activeVaultId = id;
+
+            document.getElementById('vault-dest-badge').textContent = `DESTINATION ${monument.number}`;
+            document.getElementById('vault-city-badge').textContent = monument.cityLabel.toUpperCase();
+            document.getElementById('vault-title').textContent = monument.title;
+            document.getElementById('vault-cyrillic').textContent = `${monument.cyrillic} (${monument.year})`;
+            document.getElementById('vault-placeholder-tag').textContent = monument.destinationTag;
+            document.getElementById('vault-metaphor-note').textContent = monument.metaphor;
+            updateVaultRuneStatus(monument);
+
+            vaultBackdrop.classList.remove('hidden');
+            // Trigger reflow for smooth opacity transition
+            void vaultBackdrop.offsetWidth;
+            vaultBackdrop.classList.remove('opacity-0');
+            vaultDrawer.classList.remove('translate-x-full');
+        }
+
+        /**
+         * Closes the Grammar Vault Drawer
+         */
+        function closeVault() {
+            vaultBackdrop.classList.add('opacity-0');
+            vaultDrawer.classList.add('translate-x-full');
+            setTimeout(() => {
+                vaultBackdrop.classList.add('hidden');
+                activeVaultId = null;
+            }, 320);
+        }
+
+        function updateVaultRuneStatus(monument) {
+            const statusEl = document.getElementById('vault-rune-status');
+            statusEl.textContent = `${monument.engravedCount} / ${monument.runes.length} RUNES ENGRAVED (${monument.runes.slice(0, monument.engravedCount).join(' ') || 'NONE'})`;
+        }
+
+        /**
+         * Simulates chiseling a new gold-leaf rune onto the active monument's pedestal
+         */
+        simulateEngraveBtn.addEventListener('click', () => {
+            if (!activeVaultId) return;
+            const monument = MONUMENTS.find(m => m.id === activeVaultId);
+            if (!monument) return;
+
+            if (monument.engravedCount < monument.runes.length) {
+                monument.engravedCount += 1;
+            } else {
+                // Loop back to 1 if full so user can keep testing
+                monument.engravedCount = 1;
+            }
+
+            updateVaultRuneStatus(monument);
+            renderPromenade();
+        });
+
+        resetEngraveBtn.addEventListener('click', () => {
+            if (!activeVaultId) return;
+            const monument = MONUMENTS.find(m => m.id === activeVaultId);
+            if (!monument) return;
+
+            monument.engravedCount = 0;
+            updateVaultRuneStatus(monument);
+            renderPromenade();
+        });
+
+        /**
+         * City Filter Segmented Controls
+         */
+        function setCityFilter(city) {
+            currentCityFilter = city;
+            document.querySelectorAll('.brass-btn').forEach(btn => {
+                if (btn.dataset.city === city) {
+                    btn.classList.add('active');
+                    btn.classList.remove('text-slate-300');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+            renderPromenade();
+        }
+
+        document.querySelectorAll('.brass-btn').forEach(btn => {
+            btn.addEventListener('click', () => setCityFilter(btn.dataset.city));
+        });
+
+        /**
+         * Cursor Spotlight Beam Toggle & Mouse Tracking
+         */
+        spotlightToggle.addEventListener('click', () => {
+            isSpotlightMode = !isSpotlightMode;
+            document.body.classList.toggle('spotlight-active', isSpotlightMode);
+            spotlightToggle.setAttribute('aria-pressed', String(isSpotlightMode));
+            spotlightIndicator.classList.toggle('bg-[#e9c46a]', isSpotlightMode);
+            spotlightIndicator.classList.toggle('shadow-[0_0_10px_#e9c46a]', isSpotlightMode);
+            spotlightIndicator.classList.toggle('bg-slate-600', !isSpotlightMode);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isSpotlightMode) return;
+            cursorSpotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
+            cursorSpotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        // Vault Close Listeners
+        closeVaultBtn.addEventListener('click', closeVault);
+        vaultBackdrop.addEventListener('click', closeVault);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && activeVaultId) closeVault();
+        });
+
+        // Initialize Promenade on Load
+        window.addEventListener('DOMContentLoaded', renderPromenade);
+    </script>
+</body>
+
+</html>
