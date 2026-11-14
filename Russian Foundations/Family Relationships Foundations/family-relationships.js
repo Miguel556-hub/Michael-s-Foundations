@@ -14305,3 +14305,751 @@ const conversations = {
     render();
 })();
 // END PLATFORM 02 — GRAMMAR NOTES
+
+
+// BEGIN PLATFORM 03 — RUSSIAN AS THEY SPEAK IT (SCOPED COMPONENT)
+(() => {
+    'use strict';
+    const root = document.getElementById('p03-experience');
+    if (!root) return;
+    const workspace = root.querySelector('#p03-workspace');
+    const entries = [
+        {group:'Parents & Elders',base:'родители',native:'предки',meaning:'my folks / parents',example:'На выходных к предкам заеду.',translation:"I'll drop by my folks’ place this weekend.",tone:'Youthful or playful slang',note:'Not a universal substitute for родители. With unfamiliar people, родители is safer.'},
+        {group:'Parents & Elders',base:'отец',native:'папа',meaning:'Dad',example:'Папа сегодня дома.',translation:'Dad is home today.',tone:'Everyday and familiar',note:'Отец is also natural, particularly in neutral descriptions and more formal contexts.'},
+        {group:'Parents & Elders',base:'отец',native:'батя',meaning:'Dad / Pop',example:'Батя опять на рыбалку собрался.',translation:'Dad is off fishing again.',tone:'Colloquial; speaker-dependent',note:'Can sound warm or rough-edged. Not every family uses it.'},
+        {group:'Parents & Elders',base:'мама',native:'мамочка',meaning:'dear Mom / Mommy',example:'Мамочка, спасибо тебе!',translation:'Mom, thank you so much!',tone:'Tender and affectionate',note:'The suffix adds affection; мама is already completely natural.'},
+        {group:'Parents & Elders',base:'мама',native:'мам',meaning:'Mom! (calling to her)',example:'Мам, ты дома?',translation:'Mom, are you home?',tone:'Very common direct address',note:'A shortened vocative-like address used in speech; do not use it in every grammatical position.'},
+        {group:'Parents & Elders',base:'папа',native:'пап',meaning:'Dad! (calling to him)',example:'Пап, посмотри!',translation:'Dad, look!',tone:'Natural direct address',note:'Shortened form for addressing your father, not a general noun replacement.'},
+        {group:'Parents & Elders',base:'бабушка',native:'бабуля',meaning:'Granny / dear Grandma',example:'Бабуля, как дела?',translation:'Granny, how are you?',tone:'Affectionate',note:'The exact choice depends on the family.'},
+        {group:'Parents & Elders',base:'дедушка',native:'дедуля',meaning:'dear Grandpa',example:'Дедуля, расскажи ещё!',translation:'Grandpa, tell us another one!',tone:'Affectionate',note:'Дедушка and дед are also everyday forms.'},
+        {group:'Siblings',base:'сестра',native:'сестрёнка',meaning:'Sis / dear sister',example:'Это моя сестрёнка.',translation:'This is my sis.',tone:'Affectionate',note:'Does not necessarily mean younger sister. Сестра is perfectly natural.'},
+        {group:'Siblings',base:'брат',native:'братишка',meaning:'bro / little brother',example:'Братишка, как ты?',translation:'Bro, how are you?',tone:'Affectionate and familiar',note:'Can refer to a brother or be a friendly address to a man.'},
+        {group:'Siblings',base:'брат',native:'братуха',meaning:'bro / mate',example:'Братуха, спасибо!',translation:'Bro, thanks!',tone:'Marked colloquial slang',note:'Often used for a close male friend; not universally suitable.'},
+        {group:'Partners',base:'муж',native:'благоверный',meaning:'the hubby / my other half',example:'Мой благоверный сегодня готовит.',translation:'My hubby is cooking today.',tone:'Playful, ironic or old-fashioned',note:'Not the default everyday term for husband.'},
+        {group:'Partners',base:'муж / жена',native:'вторая половинка',meaning:'other half / significant other',example:'Это моя вторая половинка.',translation:'This is my other half.',tone:'Affectionate or playful',note:'Can sound sentimental or humorous depending on delivery.'},
+        {group:'Partners',base:'жена',native:'жёнка',meaning:'wifey',example:'Жёнка дома ждёт.',translation:'The wifey is waiting at home.',tone:'Informal; can sound dismissive',note:'Use only when the relationship and tone support it.'},
+        {group:'Children',base:'дочь',native:'дочка',meaning:'daughter / my girl',example:'Дочка уже в школе.',translation:'My daughter is already at school.',tone:'Common, warm everyday form',note:'Very widespread; дочь is also correct and natural.'},
+        {group:'Children',base:'дочь',native:'дочурка',meaning:'my dear little daughter',example:'Дочурка, иди сюда!',translation:'Sweetheart, come here!',tone:'Strongly affectionate',note:'Most natural in intimate family settings.'},
+        {group:'Children',base:'сын',native:'сынок',meaning:'son / sonny',example:'Сынок, помоги мне.',translation:'Son, give me a hand.',tone:'Affectionate',note:'Can be used as an address, including by an older person to a younger man.'},
+        {group:'Children',base:'сын',native:'сыночек',meaning:'dear son / my little boy',example:'Сыночек, как прошёл день?',translation:'Sweetheart, how was your day?',tone:'Very tender',note:'May sound too intimate for casual reference to someone else’s son.'},
+        {group:'Children',base:'младший ребёнок',native:'мелкий',meaning:'the little one / the kid',example:'А мелкий уже спит.',translation:'And the little one is already asleep.',tone:'Casual; may be teasing',note:'Can refer to a younger sibling or child; avoid if it might sound belittling.'},
+        {group:'Children',base:'дети',native:'потомство',meaning:'offspring / the brood',example:'Ну что, потомство уже проснулось?',translation:'So, is the brood awake yet?',tone:'Humorous, mock-formal',note:'Not a neutral replacement for дети.'},
+        {group:'Extended Family',base:'тётя',native:'тётушка',meaning:'dear aunt / auntie',example:'Тётушка приехала в гости.',translation:'Auntie came to visit.',tone:'Traditional or affectionate',note:'Can sound old-fashioned in some contexts.'},
+        {group:'Extended Family',base:'дядя',native:'дядька',meaning:'uncle / older guy',example:'У меня дядька в деревне живёт.',translation:'I’ve got an uncle who lives in the village.',tone:'Colloquial',note:'Can also mean an adult man, not necessarily a relative.'},
+        {group:'Extended Family',base:'зять',native:'зятёк',meaning:'dear son-in-law',example:'Зятёк к нам приехал.',translation:'Our son-in-law has come over.',tone:'Affectionate or teasing',note:'Intonation can change whether it sounds warmly teasing or sarcastic.'},
+        {group:'Everyday Conversation',base:'Я скоро приду.',native:'Щас приду!',meaning:'Be right there!',example:'Щас приду, подожди!',translation:'Be right there, wait a sec!',tone:'Casual spoken pronunciation',note:'Щас represents informal speech; write сейчас in formal writing.'},
+        {group:'Everyday Conversation',base:'Я очень устал.',native:'Я с ног валюсь.',meaning:'I’m dead on my feet.',example:'Я сегодня с ног валюсь.',translation:'I’m dead on my feet today.',tone:'Everyday idiom',note:'More expressive than simply saying устал.'},
+        {group:'Everyday Conversation',base:'Мы хорошо провели время.',native:'Классно посидели!',meaning:'We had such a great time hanging out!',example:'Классно посидели вчера!',translation:'We had a great time together yesterday!',tone:'Warm, conversational',note:'Especially natural after a visit or gathering.'},
+        {group:'Everyday Conversation',base:'Я хочу немного поесть.',native:'Я бы перекусил.',meaning:'I could go for a bite.',example:'Я бы сейчас перекусил.',translation:'I could go for a bite right now.',tone:'Casual suggestion',note:'Перекусить means have a snack or quick bite, not necessarily a full meal.'},
+        {group:'Hospitality & Culture',base:'Хотите чаю?',native:'Чай будете?',meaning:'Would you like some tea?',example:'Ну что, чай будете?',translation:'So, would you like some tea?',tone:'Natural conversational offer',note:'Short questions are common when context makes the meaning clear.'},
+        {group:'Hospitality & Culture',base:'Возьмите угощение.',native:'Угощайтесь!',meaning:'Help yourselves!',example:'Проходите, угощайтесь!',translation:'Come in, help yourselves!',tone:'Warm hospitality',note:'Use угощайся with one person you address informally.'},
+        {group:'Hospitality & Culture',base:'Мы сейчас уйдём.',native:'Нам уже пора.',meaning:'We’d better get going.',example:'Спасибо за вечер, нам уже пора.',translation:'Thanks for the evening; we’d better get going.',tone:'Polite and idiomatic',note:'This sounds more natural than announcing a departure mechanically.'},
+        {group:'Hospitality & Culture',base:'Давайте посидим перед дорогой.',native:'Присядем на дорожку.',meaning:'Let’s sit for a moment before setting off.',example:'Ну что, присядем на дорожку?',translation:'Well, shall we sit a moment before we go?',tone:'Cultural custom',note:'Familiar to many Russians, though not every family observes it.'},
+        {group:'Hospitality & Culture',base:'Спасибо за приглашение.',native:'Как душевно посидели!',meaning:'What a lovely, heartfelt time together!',example:'Спасибо, как душевно посидели!',translation:'Thank you, what a wonderful warm evening!',tone:'Warm, emotionally expressive',note:'Душевно suggests genuine warmth and closeness.'}
+    ];
+    const questions = [
+        {q:'Talking casually to a friend about visiting your parents. Which is a slangy option?',a:['предки','супруг','потомство'],correct:0,why:'Предки is playful slang for parents; родители remains a safe everyday choice.'},
+        {q:'You call out to your mother from another room. What sounds natural?',a:['Мам, ты дома?','Предки, ты дома?','Матушка моя официальная!'],correct:0,why:'Мам is a common shortened form when addressing Mom.'},
+        {q:'A friend introduces his sister affectionately. What might he say?',a:['Это моя сестрёнка.','Это моя свекровь.','Это моя тётка.'],correct:0,why:'Сестрёнка adds affection; it does not automatically mean younger sister.'},
+        {q:'You meet a stranger’s mother for the first time. Which is safest?',a:['Привет, мамка!','Здравствуйте! Очень приятно.','Здорово, предки!'],correct:1,why:'Respectful neutral speech is more natural with an unfamiliar elder.'},
+        {q:'At a family table, someone offers food. Which is the natural invitation?',a:['Угощайтесь!','Потомство!','Я с ног валюсь!'],correct:0,why:'Угощайтесь is a warm, common invitation to help yourselves.'},
+        {q:'You want to say you are exhausted, expressively.',a:['Я с ног валюсь.','Я вторая половинка.','Я на дорожку.'],correct:0,why:'Я с ног валюсь is a vivid everyday idiom.'},
+        {q:'Your friend asks whether you want tea. Which sounds conversational?',a:['Чай будете?','Вы являетесь субъектом чая?','Ваше потомство?'],correct:0,why:'Чай будете? is a natural, concise offer.'},
+        {q:'A family is leaving for a trip and sits briefly before going. What might they say?',a:['Присядем на дорожку.','К предкам заеду.','Это моя сестрёнка.'],correct:0,why:'Присядем на дорожку refers to a familiar pre-departure custom.'},
+        {q:'You want to refer affectionately to your daughter.',a:['дочурка','предки','батя'],correct:0,why:'Дочурка is a tender diminutive of дочь.'},
+        {q:'Which phrase means “We had a wonderful, warm time together”?',a:['Как душевно посидели!','Щас приду!','Нам уже пора.'],correct:0,why:'Душевно conveys heartfelt warmth.'},
+        {q:'Which is an informal way to call your dad, depending on your family?',a:['батя','тёща','зятёк'],correct:0,why:'Батя is familiar, sometimes rough-edged, and not universal.'},
+        {q:'A Russian says «Щас приду». What does it mean?',a:['Be right there.','I will visit my ancestors.','I want tea.'],correct:0,why:'Щас is a casual spoken version of сейчас.'},
+        {q:'A partner says «моя вторая половинка». What does it mean?',a:['my other half','my younger sister','my aunt'],correct:0,why:'Вторая половинка is an affectionate way to refer to a partner.'},
+        {q:'Which word may refer to a younger child or sibling, often teasingly?',a:['мелкий','благоверный','тётушка'],correct:0,why:'Мелкий is colloquial and can sound playful or belittling depending on tone.'},
+        {q:'Which choice sounds natural when politely ending a visit?',a:['Нам уже пора.','Морда моя.','Я потомство.'],correct:0,why:'Нам уже пора is a common, tactful way to say it is time to go.'},
+        {q:'Your colleague asks about your parents in an ordinary conversation. Safest neutral word?',a:['родители','предки','потомство'],correct:0,why:'Родители is not stiff; it is normal, neutral Russian.'}
+    ];
+    let tab = 'discover', language = 'both', index = 0, group = 'All', chosen = null;
+    let drill = null, tick = null;
+    let studioScene = 0, studioStep = 0, studioChoice = null, studioResponse = '', studioRevealed = false;
+    let studioChecks = [false, false, false, false];
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const gloss = value => language === 'both' ? `<div class="p03-meaning">${escapeHtml(value)}</div>` : '';
+    const button = (label, action, secondary = false, disabled = false) => `<button type="button" class="p03-action${secondary ? ' secondary' : ''}" data-p03-action="${action}" ${disabled?'disabled':''}>${label}</button>`;
+    function speak(value) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(value);
+        utterance.lang = 'ru-RU'; utterance.rate = root.querySelector('#p03-audio-slow').checked ? .72 : .93;
+        const voice = window.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith('ru'));
+        if (voice) utterance.voice = voice;
+        window.speechSynthesis.speak(utterance);
+    }
+    function discovery() {
+        const e = entries[index % entries.length];
+        return `<h5>🇷🇺 In Russia, You Might Hear It This Way…</h5><p>Compare a neutral expression with an authentic alternative. Notice the relationship, register and intention.</p>
+            <div class="p03-score"><span>Discovery ${index+1} / ${entries.length}</span><span>${escapeHtml(e.group)}</span></div>
+            <div class="p03-grid"><div class="p03-card"><span class="p03-badge">NEUTRAL RUSSIAN</span><div class="p03-ru" lang="ru">${escapeHtml(e.base)}</div>${gloss('A standard, appropriate choice')}</div>
+            <div class="p03-card"><span class="p03-badge">YOU MIGHT HEAR…</span><div class="p03-ru" lang="ru">${escapeHtml(e.native)}</div>${gloss(e.meaning)}<small>${escapeHtml(e.tone)}</small></div></div>
+            <div class="p03-card" style="margin-top:12px"><span class="p03-badge">HEAR IT IN CONTEXT</span><div class="p03-ru" lang="ru">${escapeHtml(e.example)}</div>${gloss(e.translation)}<div class="p03-actions">${button('▶ Hear Russian','speak-example')}${button('Why this works','explain',true)}</div><div id="p03-explanation" hidden class="p03-answer">${escapeHtml(e.note)}</div></div>
+            <div class="p03-actions">${button('← Previous','previous',true)}${button('Next Discovery →','next')}</div>`;
+    }
+    function family() {
+        const groups = ['All',...new Set(entries.map(e => e.group))];
+        const filtered = entries.filter(e=>group==='All'||e.group===group);
+        return `<h5>Family Language & Everyday Speech</h5><p>Explore expressions by relationship. A warm or slangy expression is not automatically better than the neutral one.</p>
+            <label for="p03-group-select">Explore a collection: </label><select id="p03-group-select">${groups.map(g=>`<option ${g===group?'selected':''}>${escapeHtml(g)}</option>`).join('')}</select>
+            <p><strong>${filtered.length} expressions</strong> · Hear the example, then notice the tone and when it is appropriate.</p><div class="p03-grid">${filtered.map(e=>`<div class="p03-card"><h6 lang="ru">${escapeHtml(e.native)}</h6>${gloss(e.meaning)}<small><strong>Neutral:</strong> ${escapeHtml(e.base)}</small><span class="p03-badge">${escapeHtml(e.tone)}</span><div lang="ru">${escapeHtml(e.example)}</div>${gloss(e.translation)}<small>${escapeHtml(e.note)}</small><div class="p03-actions"><button type="button" class="p03-action secondary" data-p03-say="${entries.indexOf(e)}">▶ Hear it</button></div></div>`).join('')}</div>`;
+    }
+    function practice() {
+        const q = questions[index % questions.length];
+        return `<h5>The Native Choice</h5><p>Choose the expression that best fits the speaker and situation. More slang is not always more natural.</p><div class="p03-score">Situation ${index+1} / ${questions.length}</div><div class="p03-card"><h6>${escapeHtml(q.q)}</h6><div class="p03-options">${q.a.map((a,i)=>`<button type="button" data-p03-choice="${i}" class="${chosen===i?'p03-picked':''}" ${chosen!==null?'disabled':''}>${escapeHtml(a)}</button>`).join('')}</div>${chosen===null?'':`<div class="p03-answer"><strong>${chosen===q.correct?'✓ Natural choice!':'Consider the situation.'}</strong><p>${escapeHtml(q.why)}</p></div>`}</div><div class="p03-actions">${button('← Previous','previous',true)}${button('Next Situation →','next',false,chosen===null)}</div>`;
+    }
+    const colloquialEntries = [
+        {
+                "category": "Casual Greetings",
+                "ru": "Здорово!",
+                "en": "Hey! / Hey, man!",
+                "register": "Informal",
+                "usage": "Greeting a close friend; stress on the first syllable: Здо́рово!",
+                "caution": "Not for a formal introduction. Different from здоро́во (“great”).",
+                "neutral": "Привет!",
+                "situation": "A friend walks into the room."
+        },
+        {
+                "category": "Casual Greetings",
+                "ru": "Здрасьте!",
+                "en": "Hello!",
+                "register": "Playful / informal",
+                "usage": "A shortened colloquial greeting, sometimes with ironic surprise.",
+                "caution": "Can sound flippant; not a universally safe greeting to elders.",
+                "neutral": "Здравствуйте!",
+                "situation": "You unexpectedly meet an acquaintance."
+        },
+        {
+                "category": "Casual Greetings",
+                "ru": "Приветствую!",
+                "en": "Greetings!",
+                "register": "Playful / mock-formal",
+                "usage": "A friendly, somewhat theatrical greeting.",
+                "caution": "Also used seriously in some settings; tone matters.",
+                "neutral": "Привет!",
+                "situation": "You greet a familiar group with a flourish."
+        },
+        {
+                "category": "Casual Greetings",
+                "ru": "Слушай!",
+                "en": "Hey, listen!",
+                "register": "Everyday",
+                "usage": "Getting a friend’s attention before a story or request.",
+                "caution": "Not a substitute for hello; can sound abrupt with strangers.",
+                "neutral": "Послушай, пожалуйста.",
+                "situation": "You want to tell a friend something."
+        },
+        {
+                "category": "Casual Greetings",
+                "ru": "Алло!",
+                "en": "Hello? (on the phone)",
+                "register": "Everyday",
+                "usage": "Answering or checking a phone connection.",
+                "caution": "Not normally used as an in-person greeting.",
+                "neutral": "Здравствуйте, я вас слушаю.",
+                "situation": "You answer a phone call."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Ёлки-палки!",
+                "en": "Good grief! / Oh, jeez!",
+                "register": "Playful / old-fashioned",
+                "usage": "Mild exclamation at a surprise or minor mishap.",
+                "caution": "Can sound old-fashioned or humorous.",
+                "neutral": "Ой!",
+                "situation": "You drop something unexpectedly."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Ёпрст!",
+                "en": "Oh, for crying out loud!",
+                "register": "Slang / use caution",
+                "usage": "A euphemistic exclamation of irritation or surprise.",
+                "caution": "Marked and sometimes coarse in feel; better recognized before used.",
+                "neutral": "Вот это да!",
+                "situation": "Your plans suddenly fall apart."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Нифига себе!",
+                "en": "No way! / Holy cow!",
+                "register": "Slang / use caution",
+                "usage": "Strong surprise among friends.",
+                "caution": "Informal and mildly coarse; avoid formal settings.",
+                "neutral": "Ничего себе!",
+                "situation": "A friend announces a huge surprise."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Ой-ой-ой!",
+                "en": "Oh dear! / Uh-oh!",
+                "register": "Everyday",
+                "usage": "Concern, disapproval, or exaggerated alarm.",
+                "caution": "Meaning changes with intonation.",
+                "neutral": "Ой!",
+                "situation": "You hear about a mishap."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Да ладно!",
+                "en": "No way! / Come on!",
+                "register": "Everyday / informal",
+                "usage": "Surprise, disbelief, or dismissal.",
+                "caution": "Intonation can turn it from delight to irritation.",
+                "neutral": "Правда?",
+                "situation": "A friend tells you unbelievable news."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Ничего себе!",
+                "en": "Wow! / No kidding!",
+                "register": "Everyday",
+                "usage": "Broadly useful expression of surprise.",
+                "caution": "Safer than нифига себе in mixed company.",
+                "neutral": "Ого!",
+                "situation": "You hear an impressive achievement."
+        },
+        {
+                "category": "Surprise & Reactions",
+                "ru": "Вот это да!",
+                "en": "Well, would you look at that!",
+                "register": "Everyday",
+                "usage": "Expressing genuine surprise or admiration.",
+                "caution": "Often spoken with emphatic intonation.",
+                "neutral": "Удивительно!",
+                "situation": "A friend shows you something impressive."
+        },
+        {
+                "category": "Gratitude & Favors",
+                "ru": "Спасибки!",
+                "en": "Thanksies! / Thanks!",
+                "register": "Playful / cutesy",
+                "usage": "Light, affectionate thanks with people you know.",
+                "caution": "Can sound childish or overly familiar in professional settings.",
+                "neutral": "Спасибо!",
+                "situation": "A close friend does a small favor."
+        },
+        {
+                "category": "Gratitude & Favors",
+                "ru": "Пасиб!",
+                "en": "Thanks!",
+                "register": "Text / casual speech",
+                "usage": "Clipped, informal thanks, especially in messages.",
+                "caution": "Not appropriate for formal written thanks.",
+                "neutral": "Спасибо!",
+                "situation": "You send a quick message to a friend."
+        },
+        {
+                "category": "Gratitude & Favors",
+                "ru": "Буду знать!",
+                "en": "Good to know!",
+                "register": "Everyday",
+                "usage": "Acknowledging useful new information.",
+                "caution": "Not a general substitute for спасибо; may sound dry depending on tone.",
+                "neutral": "Спасибо за информацию.",
+                "situation": "Someone gives you a useful tip."
+        },
+        {
+                "category": "Gratitude & Favors",
+                "ru": "С меня причитается!",
+                "en": "I owe you one!",
+                "register": "Informal",
+                "usage": "Promising to return a favor.",
+                "caution": "Implies reciprocity rather than simply expressing thanks.",
+                "neutral": "Спасибо за помощь.",
+                "situation": "A friend helps you move furniture."
+        },
+        {
+                "category": "Agreement & Acceptance",
+                "ru": "Добро!",
+                "en": "All right! / Agreed!",
+                "register": "Colloquial / regional",
+                "usage": "A brief affirmative in some speech styles.",
+                "caution": "Not a universal replacement for хорошо; can sound stylized.",
+                "neutral": "Хорошо!",
+                "situation": "A friend proposes a simple arrangement."
+        },
+        {
+                "category": "Agreement & Acceptance",
+                "ru": "По рукам!",
+                "en": "Deal! / Shake on it!",
+                "register": "Everyday / informal",
+                "usage": "Accepting a proposal or bargain.",
+                "caution": "For making an agreement, not simply saying yes.",
+                "neutral": "Договорились!",
+                "situation": "You and a friend settle on a deal."
+        },
+        {
+                "category": "Agreement & Acceptance",
+                "ru": "Заметано!",
+                "en": "It’s settled!",
+                "register": "Slang / dated",
+                "usage": "An emphatic informal agreement.",
+                "caution": "Can sound dated or stylized; useful to recognize.",
+                "neutral": "Договорились!",
+                "situation": "A friend suggests a plan and you enthusiastically agree."
+        },
+        {
+                "category": "Agreement & Acceptance",
+                "ru": "Лады!",
+                "en": "All righty!",
+                "register": "Playful / folksy",
+                "usage": "A lighthearted agreement.",
+                "caution": "Can sound folksy or old-fashioned.",
+                "neutral": "Ладно!",
+                "situation": "A friend asks you to meet later."
+        },
+        {
+                "category": "Quick Responses",
+                "ru": "Ага!",
+                "en": "Yep!",
+                "register": "Everyday / informal",
+                "usage": "Quick affirmative response.",
+                "caution": "Often more natural than a formal да among friends.",
+                "neutral": "Да.",
+                "situation": "A friend asks if you are coming."
+        },
+        {
+                "category": "Quick Responses",
+                "ru": "Угу.",
+                "en": "Mm-hmm.",
+                "register": "Everyday / informal",
+                "usage": "A murmured acknowledgment.",
+                "caution": "Can seem inattentive if used with the wrong tone.",
+                "neutral": "Да.",
+                "situation": "You acknowledge someone while listening."
+        },
+        {
+                "category": "Quick Responses",
+                "ru": "Неа.",
+                "en": "Nope.",
+                "register": "Everyday / informal",
+                "usage": "Casual, sometimes playful negative answer.",
+                "caution": "Not for formal refusal.",
+                "neutral": "Нет.",
+                "situation": "A friend asks whether you have seen a movie."
+        },
+        {
+                "category": "Quick Responses",
+                "ru": "Щас!",
+                "en": "In a sec!",
+                "register": "Very informal",
+                "usage": "Spoken shortening of сейчас.",
+                "caution": "Can also sound sarcastic (“Yeah, right!”) with different intonation.",
+                "neutral": "Сейчас.",
+                "situation": "Someone calls you from the next room."
+        },
+        {
+                "category": "Quick Responses",
+                "ru": "Сейчасик!",
+                "en": "Just a sec!",
+                "register": "Playful / affectionate",
+                "usage": "A light, diminutive way to ask for a moment.",
+                "caution": "Can sound cutesy; not suitable everywhere.",
+                "neutral": "Секунду, пожалуйста.",
+                "situation": "You need a brief moment to finish something."
+        },
+        {
+                "category": "Fillers & Storytelling",
+                "ru": "Типа…",
+                "en": "Like… / kind of…",
+                "register": "Informal filler",
+                "usage": "Hedging or paraphrasing in spontaneous speech.",
+                "caution": "Overuse can sound vague; not always interchangeable with как будто.",
+                "neutral": "Как бы…",
+                "situation": "You paraphrase what someone said."
+        },
+        {
+                "category": "Fillers & Storytelling",
+                "ru": "Короче…",
+                "en": "Anyway… / long story short…",
+                "register": "Everyday / informal",
+                "usage": "Moving toward the point of a story.",
+                "caution": "Frequent overuse can be distracting.",
+                "neutral": "Если коротко…",
+                "situation": "You have been telling a long story."
+        },
+        {
+                "category": "Fillers & Storytelling",
+                "ru": "В общем…",
+                "en": "Basically… / anyway…",
+                "register": "Everyday",
+                "usage": "Summarizing or transitioning to a conclusion.",
+                "caution": "Often appears in fluent, spontaneous storytelling.",
+                "neutral": "В целом…",
+                "situation": "You summarize what happened."
+        },
+        {
+                "category": "Fillers & Storytelling",
+                "ru": "Ну…",
+                "en": "Well…",
+                "register": "Everyday",
+                "usage": "Hesitation, prompting, softening, or transition.",
+                "caution": "Meaning depends strongly on context and intonation.",
+                "neutral": "Итак…",
+                "situation": "You need a moment to think."
+        },
+        {
+                "category": "Fillers & Storytelling",
+                "ru": "Вот…",
+                "en": "So… / there you go…",
+                "register": "Everyday",
+                "usage": "Marking a point, conclusion, or pause.",
+                "caution": "Not always translated into English.",
+                "neutral": "Таким образом…",
+                "situation": "You finish explaining a situation."
+        },
+        {
+                "category": "Conversation Connectors",
+                "ru": "Кстати…",
+                "en": "By the way…",
+                "register": "Everyday",
+                "usage": "Introducing a related thought.",
+                "caution": "Useful in both casual and neutral conversations.",
+                "neutral": "Между прочим…",
+                "situation": "You remember something relevant."
+        },
+        {
+                "category": "Conversation Connectors",
+                "ru": "Да ну!",
+                "en": "Oh, come on! / No way!",
+                "register": "Informal",
+                "usage": "Disbelief, dismissal, or playful surprise.",
+                "caution": "Intonation decides whether it sounds curious or dismissive.",
+                "neutral": "Не может быть!",
+                "situation": "A friend tells you something unbelievable."
+        },
+        {
+                "category": "Conversation Connectors",
+                "ru": "Ну вот!",
+                "en": "There we go! / Oh, great…",
+                "register": "Everyday",
+                "usage": "Satisfaction or disappointment depending on tone.",
+                "caution": "The same words can express opposite emotions.",
+                "neutral": "Вот и всё.",
+                "situation": "Something finally works—or goes wrong."
+        },
+        {
+                "category": "Conversation Connectors",
+                "ru": "А то!",
+                "en": "You bet! / Of course!",
+                "register": "Informal",
+                "usage": "Emphatic agreement or pride.",
+                "caution": "Can sound boastful or teasing.",
+                "neutral": "Конечно!",
+                "situation": "A friend asks whether you can handle a task."
+        },
+        {
+                "category": "Conversation Connectors",
+                "ru": "Ну что?",
+                "en": "So? / Well then?",
+                "register": "Everyday",
+                "usage": "Starting a plan, checking readiness, or prompting.",
+                "caution": "Meaning depends on what follows.",
+                "neutral": "Итак, начнём?",
+                "situation": "You are about to leave with a friend."
+        }
+];
+    let colloquialCategory = 'All';
+    let colloquialPicked = null;
+    let colloquialReveal = false;
+    const colloquialCategories = ['All', ...new Set(colloquialEntries.map(item => item.category))];
+
+    function surprise() {
+        const filtered = colloquialCategory === 'All'
+            ? colloquialEntries
+            : colloquialEntries.filter(item => item.category === colloquialCategory);
+        const entry = filtered[index % filtered.length];
+        const distractors = colloquialEntries.filter(item => item.category !== entry.category && item.ru !== entry.ru);
+        const wrong = distractors[(index * 3 + 2) % distractors.length];
+        const options = index % 2 === 0 ? [entry.ru, wrong.ru] : [wrong.ru, entry.ru];
+        return `<h5>Colloquial Russian — Shortcuts, Slang & Fillers</h5>
+            <p><strong lang="ru">«Ого! Ты откуда это знаешь?»</strong> — Wow! How do you know that?</p>
+            <p>Discover what you might hear from real speakers. Notice the relationship, tone, and setting before trying it yourself.</p>
+            <div class="p03-colloquial-tools">
+                <label for="p03-colloquial-category">Explore: </label>
+                <select id="p03-colloquial-category">${colloquialCategories.map(cat => `<option value="${escapeHtml(cat)}" ${cat === colloquialCategory ? 'selected' : ''}>${escapeHtml(cat)}</option>`).join('')}</select>
+                <span class="p03-badge">${filtered.length} expressions</span>
+            </div>
+            <div class="p03-score"><span>Discovery ${index % filtered.length + 1} / ${filtered.length}</span><span>${escapeHtml(entry.category)}</span></div>
+            <div class="p03-grid">
+                <div class="p03-card"><span class="p03-badge">NEUTRAL EXPRESSION</span><div class="p03-ru" lang="ru">${escapeHtml(entry.neutral)}</div><small>Correct Russian, often the safer choice</small></div>
+                <div class="p03-card"><span class="p03-badge">IN RUSSIA, YOU MIGHT HEAR…</span><div class="p03-ru" lang="ru">${escapeHtml(entry.ru)}</div>${gloss(entry.en)}<small><strong>Style:</strong> ${escapeHtml(entry.register)}</small></div>
+            </div>
+            <div class="p03-card p03-colloquial-context">
+                <strong>Picture the moment</strong><p>${escapeHtml(entry.situation)}</p>
+                <p><strong>Why it sounds natural:</strong> ${escapeHtml(entry.usage)}</p>
+                <p><strong>Native instinct:</strong> ${escapeHtml(entry.caution)}</p>
+                <div class="p03-actions">${button('▶ Hear Russian', 'speak-colloquial')}${button('▶ Hear slowly', 'speak-colloquial-slow', true)}</div>
+            </div>
+            <div class="p03-card p03-colloquial-context">
+                <span class="p03-badge">YOUR TURN · THE NATIVE CHOICE</span>
+                <p>Which expression belongs to the situation above?</p>
+                <div class="p03-options">${options.map((option, i) => `<button type="button" data-p03-colloquial-choice="${i}" class="${colloquialPicked === i ? 'p03-picked' : ''}" ${colloquialPicked !== null ? 'disabled' : ''} lang="ru">${escapeHtml(option)}</button>`).join('')}</div>
+                ${colloquialPicked === null ? '' : `<div class="p03-answer"><strong>${options[colloquialPicked] === entry.ru ? '✓ Natural choice!' : 'Not quite — consider the setting.'}</strong><p>The intended expression is <strong lang="ru">${escapeHtml(entry.ru)}</strong>. ${escapeHtml(entry.caution)}</p></div>`}
+                <div class="p03-actions">${button('Reveal a speaking prompt', 'colloquial-prompt', true)}</div>
+                ${colloquialReveal ? `<div class="p03-answer"><strong>Speak & personalize:</strong> Say <span lang="ru">${escapeHtml(entry.ru)}</span> aloud, then imagine an appropriate two-line conversation. How would your tone change with a stranger?</div>` : ''}
+            </div>
+            <div class="p03-actions">${button('← Previous', 'previous', true)}${button('Next Expression →', 'next')}</div>`;
+    }
+    const studioScenes = [
+        {
+            title: 'Weekend with the family', context: 'You are talking casually with a close Russian friend about weekend plans.',
+            neutral: 'На выходных я поеду к родителям.', native: 'На выходных к предкам заеду.',
+            meaning: 'I’ll swing by my folks’ place this weekend.',
+            note: 'Предки is slang for parents, while заеду means stopping by. Родители remains completely natural and is safer in neutral situations.',
+            question: 'Your close friend asks: «А ты на выходных что делаешь?»',
+            choices: ['К своим в воскресенье заеду.', 'Я имею родителей.', 'По рукам!'], correct: 0,
+            reply: 'Ага, к своим в воскресенье заеду!', replyMeaning: 'Yep, I’ll drop by my folks’ place on Sunday!',
+            prompt: 'Your friend asks: «Ну что, к родителям на выходных поедешь?» Reply naturally. You may say yes, no, or offer another plan.',
+            tip: 'You can use «Ага», «к своим», or «заеду» if they suit what you want to say.'
+        },
+        {
+            title: 'Tea at Grandma’s', context: 'You are visiting a family member who warmly offers you tea and something to eat.',
+            neutral: 'Вы хотите чаю?', native: 'Ну что, чай будете?',
+            meaning: 'So, would you like some tea?',
+            note: 'Чай будете? is a common conversational offer. Угощайтесь! means help yourselves and is an invitation, not a command.',
+            question: 'Grandma asks: «Чай будете?» What is a warm, natural acceptance?',
+            choices: ['Да, с удовольствием!', 'Я есть чай.', 'Предки!'], correct: 0,
+            reply: 'Да, с удовольствием! Спасибо!', replyMeaning: 'Yes, I’d love some! Thank you!',
+            prompt: 'Grandma says: «Угощайся, пирог ещё тёплый!» Respond warmly in Russian. You can accept or politely decline.',
+            tip: 'Consider «Спасибо, с удовольствием!» or «Спасибо, я уже сыт/сыта».'
+        },
+        {
+            title: 'Leaving a family gathering', context: 'You have enjoyed a relaxed evening with friends and are about to head home.',
+            neutral: 'Мы хорошо провели время.', native: 'Как душевно посидели!',
+            meaning: 'What a lovely, heartfelt time we had together!',
+            note: 'Посидели can refer to spending time together socially, not just sitting down. Душевно expresses warmth and closeness.',
+            question: 'You want to say the evening felt warm and lovely. Which fits?',
+            choices: ['Как душевно посидели!', 'Неа.', 'Это мой родитель.'], correct: 0,
+            reply: 'Как душевно посидели! Спасибо за вечер!', replyMeaning: 'What a lovely time! Thanks for the evening!',
+            prompt: 'Your host says: «Приходите ещё!» Reply warmly and naturally, perhaps inviting them to visit you.',
+            tip: 'Try «Обязательно!» or «Спасибо! Теперь вы к нам приходите!».'
+        },
+        {
+            title: 'A surprising family story', context: 'A close friend tells you some unexpected family news.',
+            neutral: 'Это удивительно!', native: 'Нифига себе!',
+            meaning: 'No way! / Holy cow!',
+            note: 'Нифига себе is emphatic, slangy and mildly coarse. It may fit close friends but not formal company. «Ничего себе!» is a less coarse alternative.',
+            question: 'You are surprised but speaking with someone you do not know well. What is the safer reaction?',
+            choices: ['Ничего себе!', 'Нифига себе, блин!', 'Заметано!'], correct: 0,
+            reply: 'Ничего себе! Вот это новость!', replyMeaning: 'Wow! That’s quite some news!',
+            prompt: 'A friend says: «Представляешь, мой брат завтра женится!» React naturally and ask one follow-up question.',
+            tip: 'You might begin «Ого!» or «Ничего себе!» and ask «Правда?» or «Когда свадьба?».'
+        }
+    ];
+    function studio() {
+        const scene = studioScenes[studioScene];
+        const steps = ['SEE', 'HEAR', 'PRACTICE', 'DEMONSTRATE'];
+        const progress = `<div class="p03-studio-steps">${steps.map((name, i) => `<button type="button" data-p03-studio-step="${i}" aria-current="${studioStep === i ? 'step' : 'false'}">${i + 1}. ${name}</button>`).join('')}</div>`;
+        const scenes = `<label class="p03-studio-scene-label" for="p03-studio-scene">Conversation scenario</label><select id="p03-studio-scene">${studioScenes.map((item, i) => `<option value="${i}" ${i === studioScene ? 'selected' : ''}>${i + 1}. ${escapeHtml(item.title)}</option>`).join('')}</select>`;
+        let content = '';
+        if (studioStep === 0) {
+            content = `<div class="p03-card"><span class="p03-badge">THE SITUATION</span><p>${escapeHtml(scene.context)}</p></div>
+                <div class="p03-grid"><div class="p03-card"><span class="p03-badge">NEUTRAL RUSSIAN</span><div class="p03-ru" lang="ru">${escapeHtml(scene.neutral)}</div></div><div class="p03-card"><span class="p03-badge">IN RUSSIA, YOU MIGHT HEAR…</span><div class="p03-ru" lang="ru">${escapeHtml(scene.native)}</div>${gloss(scene.meaning)}</div></div>
+                <div class="p03-answer"><strong>Native instinct:</strong> ${escapeHtml(scene.note)}</div>`;
+        } else if (studioStep === 1) {
+            content = `<div class="p03-card"><span class="p03-badge">LISTEN · COMPARE · REPEAT</span><p>Hear the neutral version, then the conversational version. Listen for rhythm and emphasis; repeat each aloud.</p><div class="p03-ru" lang="ru">${escapeHtml(scene.neutral)}</div><div class="p03-actions">${button('▶ Hear neutral Russian', 'studio-neutral', true)}</div><hr><div class="p03-ru" lang="ru">${escapeHtml(scene.native)}</div>${gloss(scene.meaning)}<div class="p03-actions">${button('▶ Hear conversational Russian', 'studio-native')}${button('▶ Hear slowly', 'studio-slow', true)}</div><small>Audio uses your browser’s Russian speech voice, not a verified human native-speaker recording.</small></div>`;
+        } else if (studioStep === 2) {
+            content = `<div class="p03-card"><span class="p03-badge">RESPOND IN CONTEXT</span><p>${escapeHtml(scene.question)}</p><div class="p03-options">${scene.choices.map((value, i) => `<button type="button" data-p03-studio-choice="${i}" class="${studioChoice === i ? 'p03-picked' : ''}">${escapeHtml(value)}</button>`).join('')}</div>${studioChoice === null ? '' : `<div class="p03-answer"><strong>${studioChoice === scene.correct ? '✓ Appropriate choice!' : 'Consider the relationship and meaning.'}</strong><p>${escapeHtml(scene.note)}</p></div>`}</div>
+                <div class="p03-card"><span class="p03-badge">SPEAK IT YOURSELF</span><div class="p03-ru" lang="ru">${escapeHtml(scene.reply)}</div>${gloss(scene.replyMeaning)}<div class="p03-actions">${button('▶ Hear model response', 'studio-reply')}</div><p>Say the response aloud. Then change one detail to make it your own.</p></div>`;
+        } else {
+            content = `<div class="p03-card"><span class="p03-badge">INDEPENDENT SPEAKING CHALLENGE</span><p>${escapeHtml(scene.prompt)}</p><p><strong>1.</strong> Speak your own Russian response aloud before revealing any model. <strong>2.</strong> Write what you said below. <strong>3.</strong> Compare and evaluate your response.</p><label for="p03-studio-response">Your Russian response</label><textarea id="p03-studio-response" rows="3" placeholder="Напишите свой ответ по-русски…">${escapeHtml(studioResponse)}</textarea><div class="p03-actions">${button(studioRevealed ? 'Hide model & guidance' : 'Reveal model after attempting', 'studio-reveal', true)}</div>${studioRevealed ? `<div class="p03-answer"><strong>One possible response (not the only correct answer):</strong><div class="p03-ru" lang="ru">${escapeHtml(scene.reply)}</div>${gloss(scene.replyMeaning)}<p>${escapeHtml(scene.tip)}</p>${button('▶ Hear model response', 'studio-reply', true)}</div>` : ''}</div>
+                <div class="p03-card"><span class="p03-badge">SELF-ASSESS YOUR DEMONSTRATION</span><p>Check only what you actually demonstrated. This is a self-check, not automatic speech scoring.</p><div class="p03-studio-checks">${['I understood the situation and responded meaningfully.', 'My expression suits the relationship and tone.', 'I produced my own response without copying the model.', 'I spoke aloud and considered my rhythm and intonation.'].map((label, i) => `<label><input type="checkbox" data-p03-studio-check="${i}" ${studioChecks[i] ? 'checked' : ''}> ${label}</label>`).join('')}</div><p class="p03-studio-status">${studioChecks.filter(Boolean).length} of 4 reflection criteria checked</p>${button('Reset this demonstration', 'studio-reset', true)}</div>`;
+        }
+        return `<h5>🎙 Native Speaker Studio</h5><p>See → Hear → Practice → Demonstrate. No timer. Learn to respond naturally and appropriately in real situations.</p><div class="p03-studio-selector">${scenes}</div>${progress}<div class="p03-studio-content">${content}</div><div class="p03-actions">${button('← Previous step', 'studio-prev', true, studioStep === 0)}${button(studioStep === 3 ? 'Try another scenario →' : 'Next step →', 'studio-next')}</div>`;
+    }
+    // Six stable collections, each containing three independently replayable 12-item challenges.
+    // Item content is fixed. Only question and answer presentation order is shuffled.
+    const speedCollections = [
+        {id:'reactions', title:'Quick Reactions', subtitle:'Surprise, excitement, agreement and everyday replies', source:'colloquial', indices:[4,5,6,7,8,9,10,11,12,13,14,15]},
+        {id:'family', title:'Family Talk', subtitle:'Affection, relationships and appropriate family language', source:'family', indices:[0,1,2,3,4,5,6,7,8,9,10,11]},
+        {id:'slang', title:'Slang & Fillers', subtitle:'Colloquial shortcuts and conversation flow', source:'colloquial', indices:[23,24,25,26,27,28,29,30,31,32,33,34]},
+        {id:'hear', title:'Hear & React', subtitle:'Understand natural expressions quickly', source:'colloquial', indices:[0,1,2,3,16,17,18,19,20,21,22,23]},
+        {id:'natural', title:'Say It Naturally', subtitle:'Move from neutral Russian to context-sensitive alternatives', source:'family', indices:[12,13,14,15,16,17,18,19,20,21,22,23]},
+        {id:'instinct', title:'Native Instinct', subtitle:'Mixed real-world decisions and social judgment', source:'mixed', indices:[24,25,26,27,28,29,30,31,0,6,15,32]}
+    ];
+    const speedTypes = [
+        {label:'Challenge 01', description:'Recognize the meaning', mode:'meaning'},
+        {label:'Challenge 02', description:'Choose the expression', mode:'expression'},
+        {label:'Challenge 03', description:'Understand the social nuance', mode:'nuance'}
+    ];
+    const shuffleCopy = values => {
+        const result = values.slice();
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+    };
+    function speedSource(collection) {
+        if (collection.source === 'family') return collection.indices.map(i => ({...entries[i], ru:entries[i].native, en:entries[i].meaning, situation:entries[i].example, usage:entries[i].tone, caution:entries[i].note, neutral:entries[i].base}));
+        if (collection.source === 'mixed') return collection.indices.map((i, n) => n < 8 ? ({...entries[i],ru:entries[i].native,en:entries[i].meaning,situation:entries[i].example,usage:entries[i].tone,caution:entries[i].note,neutral:entries[i].base}) : colloquialEntries[i]);
+        return collection.indices.map(i => colloquialEntries[i]);
+    }
+    function speedQuestions(collectionIndex, challengeIndex) {
+        const source = speedSource(speedCollections[collectionIndex]);
+        const mode = speedTypes[challengeIndex].mode;
+        return source.map((item, i) => {
+            const other = [source[(i + 3) % 12], source[(i + 7) % 12]];
+            let question, options, correct, explanation;
+            if (mode === 'meaning') {
+                question = `You hear «${item.ru}». What does it mean in this context?`;
+                options = [item.en, ...other.map(o => o.en)];
+                correct = 0;
+                explanation = `${item.ru} — ${item.en}. ${item.usage || ''} ${item.caution || ''}`;
+            } else if (mode === 'expression') {
+                question = `Which Russian expression can mean “${item.en}” in an appropriate casual context?`;
+                options = [item.ru, ...other.map(o => o.ru)];
+                correct = 0;
+                explanation = `${item.ru} — ${item.en}. ${item.caution || item.usage || ''}`;
+            } else {
+                question = `When using «${item.ru}», what should you remember about its tone or use?`;
+                const good = item.caution || item.usage || 'Consider who you are speaking to and the situation.';
+                options = [good, 'It is always the best choice in formal professional writing.', 'It can replace every neutral Russian expression in any situation.'];
+                correct = 0;
+                explanation = `${item.ru} — ${item.en}. ${item.usage || ''} ${item.caution || ''}`;
+            }
+            return {id:`${speedCollections[collectionIndex].id}-${challengeIndex+1}-${i+1}`,q:question,a:options,correct,why:explanation};
+        });
+    }
+    const speedStorageKey = 'michaels-foundations-p03-speed-progress-v1';
+    let speedProgress = {};
+    try { speedProgress = JSON.parse(localStorage.getItem(speedStorageKey) || '{}') || {}; } catch (_) { speedProgress = {}; }
+    let speedCollection = null;
+    let speedChallenge = null;
+    const speedKey = (c, n) => `${speedCollections[c].id}-${n+1}`;
+    function saveSpeedResult() {
+        const key = speedKey(speedCollection, speedChallenge);
+        const elapsed = drill.end - drill.start;
+        const prior = speedProgress[key];
+        speedProgress[key] = {
+            attempts:(prior?.attempts || 0) + 1,
+            bestScore:Math.max(prior?.bestScore || 0, drill.score),
+            bestTime:drill.score >= (prior?.bestScore || 0) ? Math.min(prior?.bestTime || Infinity, elapsed) : prior.bestTime,
+            lastScore:drill.score
+        };
+        try { localStorage.setItem(speedStorageKey, JSON.stringify(speedProgress)); } catch (_) { /* Storage optional. */ }
+    }
+    function mastery() {
+        const completed = Object.keys(speedProgress).filter(key => speedProgress[key]?.attempts > 0).length;
+        if (!drill && speedCollection === null) {
+            return `<h5>🚂 Speed Drill Challenge Collections</h5><p>Six collections. Three permanent challenges in each. Twelve fixed questions per challenge, shuffled each time you replay. Accuracy matters more than speed.</p><div class="p03-score"><span>${completed} / 18 challenges attempted</span><span>216 fixed question slots</span></div><div class="p03-grid p03-collection-grid">${speedCollections.map((c,i) => `<div class="p03-card p03-collection-card"><h6>${i+1}. ${escapeHtml(c.title)}</h6><p>${escapeHtml(c.subtitle)}</p><small>${[0,1,2].filter(n => speedProgress[speedKey(i,n)]?.attempts).length} of 3 challenges attempted</small>${button('Explore Collection →',`collection-${i}`)}</div>`).join('')}</div>`;
+        }
+        const collection = speedCollections[speedCollection];
+        if (!drill) {
+            return `<h5>${escapeHtml(collection.title)}</h5><p>${escapeHtml(collection.subtitle)}. Each challenge contains its own fixed 12 questions. The order changes when you replay.</p><div class="p03-grid">${speedTypes.map((t,i) => {const record=speedProgress[speedKey(speedCollection,i)];return `<div class="p03-card"><h6>${escapeHtml(t.label)}</h6><p>${escapeHtml(t.description)}</p><small>12 questions · ${record ? `Attempted ${record.attempts} time(s) · Best ${record.bestScore}/12` : 'Not yet attempted'}</small>${button('Start Challenge',`challenge-${i}`)}</div>`;}).join('')}</div><div class="p03-actions">${button('← All Collections','all-collections',true)}</div>`;
+        }
+        const questionSet = speedQuestions(speedCollection, speedChallenge);
+        if (drill.done) {
+            return `<h5>${escapeHtml(collection.title)} · Challenge ${speedChallenge+1} Results</h5><div class="p03-score"><span>Score: ${drill.score} / 12</span><span>Time: ${((drill.end-drill.start)/1000).toFixed(1)} seconds</span></div><p>${drill.score>=10?'Strong contextual choices!':'Review the explanations and try again; accuracy comes first.'}</p><div class="p03-grid">${drill.answers.map((a,i)=>{const q=questionSet[a.question];return `<div class="p03-card"><strong>${i+1}. ${a.choice===q.correct?'✓':'✗'} ${escapeHtml(q.q)}</strong><small>Your choice: ${escapeHtml(q.a[a.choice])}</small><small>Best choice: ${escapeHtml(q.a[q.correct])}</small><p>${escapeHtml(q.why)}</p></div>`;}).join('')}</div><div class="p03-actions">${button('Try Again','start-drill')}${button('Next Challenge →','next-challenge',true)}${button('Collection Challenges','reset-drill',true)}${button('All Collections','all-collections',true)}</div>`;
+        }
+        const q=questionSet[drill.order[drill.position]];
+        const choices=drill.optionOrders[drill.position];
+        return `<h5>${escapeHtml(collection.title)} · Challenge ${speedChallenge+1}</h5><div class="p03-score"><span>Question ${drill.position+1} / 12</span><span>Correct: ${drill.score}</span><span id="p03-drill-clock">00:00.0</span></div><div class="p03-card"><h6>${escapeHtml(q.q)}</h6><div class="p03-options">${choices.map(i=>`<button type="button" data-p03-drill-choice="${i}">${escapeHtml(q.a[i])}</button>`).join('')}</div></div><div class="p03-actions">${button('End Drill','reset-drill',true)}</div>`;
+    }
+    function render() {
+        root.querySelectorAll('[data-p03-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.p03Tab===tab)));
+        root.querySelectorAll('[data-p03-language]').forEach(b=>{const active=b.dataset.p03Language===language;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active));});
+        workspace.innerHTML = ({discover:discovery,families:family,practice:practice,surprise:surprise,studio:studio,mastery:mastery})[tab]();
+        updateClock();
+    }
+    function updateClock() {
+        const clock=root.querySelector('#p03-drill-clock');
+        if (!clock || !drill || drill.done) return;
+        const elapsed=(Date.now()-drill.start)/1000;
+        const min=String(Math.floor(elapsed/60)).padStart(2,'0');
+        clock.textContent=`${min}:${String(Math.floor(elapsed%60)).padStart(2,'0')}.${Math.floor((elapsed%1)*10)}`;
+    }
+    function stopClock(){if(tick){clearInterval(tick);tick=null;}}
+    function startDrill(){
+        if (speedCollection === null || speedChallenge === null) return;
+        stopClock();
+        const bank = speedQuestions(speedCollection, speedChallenge);
+        const order = shuffleCopy(bank.map((_, i) => i));
+        drill = {order, optionOrders:order.map(() => shuffleCopy([0,1,2])), position:0, score:0, answers:[], start:Date.now(), done:false};
+        tick=setInterval(updateClock,100);
+        render();
+    }
+    root.addEventListener('click',event=>{
+        const languageButton=event.target.closest('[data-p03-language]');
+        if(languageButton){language=languageButton.dataset.p03Language;render();return;}
+        const tabButton=event.target.closest('[data-p03-tab]');
+        if(tabButton){stopClock();drill=null;tab=tabButton.dataset.p03Tab;index=0;chosen=null;colloquialPicked=null;colloquialReveal=false;render();return;}
+        const studioStepButton = event.target.closest('[data-p03-studio-step]');
+        if (studioStepButton) { studioStep = Number(studioStepButton.dataset.p03StudioStep); render(); return; }
+        const studioOption = event.target.closest('[data-p03-studio-choice]');
+        if (studioOption) { studioChoice = Number(studioOption.dataset.p03StudioChoice); render(); return; }
+        const say=event.target.closest('[data-p03-say]');
+        if(say){speak(entries[Number(say.dataset.p03Say)].example);return;}
+        const choice=event.target.closest('[data-p03-choice]');
+        if(choice&&chosen===null){chosen=Number(choice.dataset.p03Choice);render();return;}
+        const colloquialChoice=event.target.closest('[data-p03-colloquial-choice]');
+        if(colloquialChoice&&colloquialPicked===null){colloquialPicked=Number(colloquialChoice.dataset.p03ColloquialChoice);render();return;}
+        const drillChoice=event.target.closest('[data-p03-drill-choice]');
+        if(drillChoice&&drill&&!drill.done){
+            const question=drill.order[drill.position], selected=Number(drillChoice.dataset.p03DrillChoice);
+            drill.answers.push({question,choice:selected});
+            if(selected===speedQuestions(speedCollection,speedChallenge)[question].correct)drill.score++;
+            drill.position++;
+            if(drill.position===12){drill.done=true;drill.end=Date.now();stopClock();saveSpeedResult();}
+            render();return;
+        }
+        const action=event.target.closest('[data-p03-action]')?.dataset.p03Action;
+        if(!action)return;
+        if(action==='next'||action==='previous'){
+            const count=tab==='practice'?questions.length:tab==='surprise'?(colloquialCategory === 'All' ? colloquialEntries.length : colloquialEntries.filter(item => item.category === colloquialCategory).length):entries.length;
+            index=(index+(action==='next'?1:-1)+count)%count;chosen=null;colloquialPicked=null;colloquialReveal=false;render();
+        }else if(action==='explain'){
+            const explanation=root.querySelector('#p03-explanation');if(explanation)explanation.hidden=!explanation.hidden;
+        }else if(action==='speak-example')speak(entries[index].example);
+        else if(action==='speak-colloquial'){const items=colloquialCategory==='All'?colloquialEntries:colloquialEntries.filter(item=>item.category===colloquialCategory);speak(items[index%items.length].ru);}
+        else if(action==='speak-colloquial-slow'){const items=colloquialCategory==='All'?colloquialEntries:colloquialEntries.filter(item=>item.category===colloquialCategory);if('speechSynthesis' in window){window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(items[index%items.length].ru);utterance.lang='ru-RU';utterance.rate=.68;window.speechSynthesis.speak(utterance);}}
+        else if(action==='colloquial-prompt'){colloquialReveal=!colloquialReveal;render();}
+        else if (action === 'studio-prev') { studioStep = Math.max(0, studioStep - 1); render(); }
+        else if (action === 'studio-next') {
+            if (studioStep < 3) studioStep++;
+            else { studioScene = (studioScene + 1) % studioScenes.length; studioStep = 0; studioChoice = null; studioResponse = ''; studioRevealed = false; studioChecks = [false,false,false,false]; }
+            render();
+        }
+        else if (action === 'studio-neutral') speak(studioScenes[studioScene].neutral);
+        else if (action === 'studio-native') speak(studioScenes[studioScene].native);
+        else if (action === 'studio-reply') speak(studioScenes[studioScene].reply);
+        else if (action === 'studio-slow') {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(studioScenes[studioScene].native);
+                utterance.lang = 'ru-RU'; utterance.rate = .68;
+                const voice = window.speechSynthesis.getVoices().find(v => v.lang.toLowerCase().startsWith('ru'));
+                if (voice) utterance.voice = voice;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+        else if (action === 'studio-reveal') { studioRevealed = !studioRevealed; render(); }
+        else if (action === 'studio-reset') { studioResponse = ''; studioRevealed = false; studioChecks = [false,false,false,false]; render(); }
+        else if(action==='speak-model')speak('Ну что, чай будете? Да, с удовольствием!');
+        else if(action.startsWith('collection-')) { speedCollection=Number(action.slice(11));speedChallenge=null;drill=null;render(); }
+        else if(action.startsWith('challenge-')) { speedChallenge=Number(action.slice(10));startDrill(); }
+        else if(action==='all-collections') { stopClock();drill=null;speedCollection=null;speedChallenge=null;render(); }
+        else if(action==='next-challenge') { speedChallenge=(speedChallenge+1)%3;startDrill(); }
+        else if(action==='start-drill')startDrill();
+        else if(action==='reset-drill'){stopClock();drill=null;render();}
+    });
+    root.addEventListener('input', event => {
+        if (event.target.id === 'p03-studio-response') studioResponse = event.target.value;
+    });
+    root.addEventListener('change',event=>{
+        if (event.target.id === 'p03-studio-scene') {
+            studioScene = Number(event.target.value); studioStep = 0; studioChoice = null;
+            studioResponse = ''; studioRevealed = false; studioChecks = [false,false,false,false]; render();
+        } else if (event.target.matches('[data-p03-studio-check]')) {
+            studioChecks[Number(event.target.dataset.p03StudioCheck)] = event.target.checked;
+            const status = root.querySelector('.p03-studio-status');
+            if (status) status.textContent = `${studioChecks.filter(Boolean).length} of 4 reflection criteria checked`;
+        } else if(event.target.id==='p03-group-select'){group=event.target.value;render();}else if(event.target.id==='p03-colloquial-category'){colloquialCategory=event.target.value;index=0;colloquialPicked=null;colloquialReveal=false;render();}});
+    render();
+})();
+// END PLATFORM 03 — RUSSIAN AS THEY SPEAK IT
