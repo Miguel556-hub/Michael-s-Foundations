@@ -6416,13 +6416,59 @@ LESSON 2 — EXTENDED FAMILY
                 <button class="gears-wheel gears-wheel--b" type="button" data-gear-train="b" aria-label="Open Gear Train B — Subject–Verb Engine"><img src="../../Images/door-four/gear-b.png" alt="" draggable="false"></button>
                 <button class="gears-wheel gears-wheel--c" type="button" data-gear-train="c" aria-label="Open Gear Train C — Ownership and Existence"><img src="../../Images/door-four/gear-c.png" alt="" draggable="false"></button>
                 <div class="gears-instruction">Click any<br>gear to<br>begin</div>
+                <!-- Landing-only Victorian image navigation: left = Four Doors, right = Laboratory. -->
+                <button class="gears-stage-nav gears-stage-nav--four-doors" type="button" data-gears-back="four-doors" aria-label="Back to the Four Doors">
+                  <img src="../../Images/door-four/button-back-to-four-doors.png" alt="" draggable="false">
+                </button>
+                <button class="gears-stage-nav gears-stage-nav--laboratory" type="button" data-gears-back="laboratory" aria-label="Back to Laboratory">
+                  <img src="../../Images/door-four/button-back-to-laboratory.png" alt="" draggable="false">
+                </button>
               </div>
-              <div class="gears-navigation"><button type="button" data-gears-back="laboratory">Back to Laboratory</button></div>
             </div>
             <div class="gears-workshop" data-gears-screen="workshop" hidden>
-              <header class="gears-workshop__header"><img class="gears-workshop__ornament" src="../../Images/door-four/gear-a.png" alt="" aria-hidden="true" draggable="false"><div><p>THE GEARS — HOW IT WORKS?</p><h2 id="gears-workshop-title">Gear Train</h2><span id="gears-workshop-subtitle">A Living Russian Grammar Machine</span></div></header>
-              <div class="gears-workshop__modes"><div><strong>INSPECT</strong><small>Discover how the mechanism fits together</small></div><div><strong>TURN &amp; TEST</strong><small>Change a component and observe</small></div><div><strong>REPAIR</strong><small>Restore agreement yourself</small></div></div>
-              <div class="gears-workshop__main"><section class="gears-workshop__mechanism"><h3>Working Gear Mechanism</h3><div class="gears-workshop__empty">Reserved for 2–5 independently controlled grammar gears</div></section><aside class="gears-workshop__sidebar"><section><h3>Sentence Workshop</h3><p>Sentence-building controls will be developed here.</p></section><section><h3>Machine Diagnostics</h3><p>Agreement feedback and repair guidance will appear here.</p></section></aside></div>
+              <header class="gears-workshop__header">
+                <img class="gears-workshop__ornament" src="../../Images/door-four/gear-a.png" alt="" aria-hidden="true" draggable="false">
+                <div class="gears-workshop__heading-content">
+                  <h2 id="gears-workshop-title">Gear Train</h2>
+                  <div class="gears-learning__top">
+                    <label for="gears-investigation">Choose an Investigation</label>
+                    <select id="gears-investigation" aria-label="Choose a sentence investigation"></select>
+                    <span id="gears-investigation-count"></span>
+                  </div>
+                </div>
+              </header>
+              
+              <!-- BEGIN THREE GEAR TRAINS — INTERACTIVE SENTENCE INVESTIGATIONS -->
+              <div class="gears-learning" id="gears-learning" aria-label="Interactive Russian grammar investigations">
+                <section class="gears-learning__sentence-panel" aria-label="Explore the Russian sentence">
+                  <div class="gears-learning__sentence-left">
+                    <div class="gears-learning__question"><h3 id="gears-why"></h3></div>
+                    <p class="gears-learning__hint">Click any Russian word to see its meaning; click again to close.</p>
+                    <div id="gears-word-line" class="gears-learning__words" lang="ru" aria-label="Clickable Russian sentence"></div>
+                    <div id="gears-word-popup" class="gears-learning__word-popup" hidden aria-live="polite"></div>
+                  </div>
+                  <div class="gears-learning__sentence-right">
+                    <div class="gears-learning__views" role="group" aria-label="Sentence translation views"><button type="button" data-gears-view="russian" class="is-current">Russian</button><button type="button" data-gears-view="literal">Literal English</button><button type="button" data-gears-view="natural">Natural English</button></div>
+                    <div id="gears-translation" class="gears-learning__translation" aria-live="polite"></div>
+                  </div>
+                </section>
+                <div class="gears-learning__workspace">
+                  <section class="gears-learning__primary" aria-label="Grammar gears and word components">
+                    <p class="gears-learning__machine-prompt">Choose the Russian words, then test whether the gears work!</p>
+                    <div id="gears-machine-wheels" class="gears-learning__machine-wheels" aria-label="Grammar gear components"></div>
+                  </section>
+                  <aside class="gears-learning__side" aria-label="Test and explanations">
+                    <div class="gears-learning__test-row">
+                      <button type="button" class="gears-learning__reset" id="gears-reset-button" aria-label="Reset this investigation">Reset</button>
+                      <button type="button" class="gears-learning__action" id="gears-test-button">Test the Gears!</button>
+                      <div id="gears-diagnostics" class="gears-learning__test-status" aria-live="polite">Choose words, then test.</div>
+                    </div>
+                    <div id="gears-activity" class="gears-learning__activity" aria-live="polite"></div>
+                    <div id="gears-mechanism" class="gears-learning__explanation" hidden></div>
+                  </aside>
+                </div>
+              </div>
+              <!-- END THREE GEAR TRAINS — INTERACTIVE SENTENCE INVESTIGATIONS -->
               <div class="gears-navigation"><button type="button" data-gears-back="landing">Back to The Gears</button><button type="button" data-gears-back="laboratory">Back to Laboratory</button></div>
             </div>
           </section>

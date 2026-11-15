@@ -24200,11 +24200,11 @@ body.cn-immersive-active > #rw-cultural-notes .cn-scene[hidden] {
 }
 /* All three gears rotate clockwise; only the clicked image animates. */
 .gears-wheel.is-spinning img {
-    animation: gears-one-turn 2.75s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
+    animation: gears-half-turn 1.375s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
 }
-@keyframes gears-one-turn {
+@keyframes gears-half-turn {
     from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+    to   { transform: rotate(180deg); }
 }
 /* Place the invitation in the green open area to the right, behind the wheels. */
 .gears-instruction {
@@ -24220,6 +24220,43 @@ body.cn-immersive-active > #rw-cultural-notes .cn-scene[hidden] {
     text-shadow: 0 2px 8px #000;
     pointer-events: none;
     z-index: 1;
+}
+/* Victorian image buttons on the gears landing scene, not in a footer bar. */
+.gears-stage-nav {
+    position: absolute;
+    bottom: 1.5%;
+    z-index: 8;
+    display: block;
+    width: 22%;
+    max-width: 298px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    line-height: 0;
+    cursor: pointer;
+    transition: filter .2s ease, transform .2s ease;
+}
+.gears-stage-nav--four-doors { left: 1.5%; }
+.gears-stage-nav--laboratory { right: 1.5%; max-width: 327px; }
+.gears-stage-nav img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+.gears-stage-nav:hover {
+    filter: brightness(1.13) drop-shadow(0 0 8px rgba(255, 191, 74, .7));
+    transform: translateY(-2px);
+}
+.gears-stage-nav:focus-visible {
+    outline: 3px solid #ffe2a2;
+    outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .gears-stage-nav { transition: none; }
 }
 .gears-navigation { display:flex; justify-content:space-between; gap:12px; padding:12px 18px; background:#17252b; }
 .gears-navigation button { border:1px solid #b98b43; color:#ffe0a3; background:linear-gradient(#68451f,#382717); border-radius:8px; padding:9px 18px; }
@@ -24258,4 +24295,358 @@ body.cn-immersive-active > #rw-cultural-notes .cn-scene[hidden] {
         width: 54px;
         height: 54px;
     }
+}
+
+/* The Gears: keep the transparent Victorian navigation artwork clear on hover.
+   Override foundation-wide button hover/focus/active backgrounds. */
+button.gears-stage-nav,
+button.gears-stage-nav:hover,
+button.gears-stage-nav:focus,
+button.gears-stage-nav:focus-visible,
+button.gears-stage-nav:active {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+button.gears-stage-nav:hover {
+    filter: brightness(1.13) drop-shadow(0 0 8px rgba(255, 191, 74, 0.7));
+    transform: translateY(-2px);
+}
+
+button.gears-stage-nav:focus-visible {
+    outline: 3px solid #ffe2a2;
+    outline-offset: 3px;
+}
+
+/* Gears experience: hide the old brown return button below the scene.
+   The two Victorian image navigation buttons inside the scene remain active. */
+#door-four-laboratory .gears-experience:not([hidden]) ~ .door-four__return {
+    display: none !important;
+}
+
+/* ============================================================
+   THE GEARS — SECONDARY WORKSHOP VISUAL FINISH
+   Shared background for Gear Train A, B and C.
+   Panels use 75% opacity (25% transparency) so the artwork shows.
+   ============================================================ */
+.gears-experience .gears-workshop {
+    background-image: url("../../Images/door-four/gears-secondary-landing.png");
+    background-color: #202421;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 3px ridge #b78945;
+}
+
+.gears-experience .gears-workshop__header {
+    background: rgba(18, 31, 35, 0.75);
+}
+
+.gears-experience .gears-workshop__modes {
+    background: rgba(30, 46, 49, 0.75);
+}
+
+.gears-experience .gears-workshop__modes > div {
+    background: rgba(20, 36, 40, 0.75);
+    border: 1px solid rgba(192, 147, 75, 0.65);
+    border-radius: 8px;
+    padding: 10px 8px;
+}
+
+.gears-experience .gears-workshop__main section {
+    background: rgba(20, 37, 43, 0.75);
+    border: 1px solid #9b7946;
+}
+
+.gears-experience .gears-workshop__empty {
+    background: rgba(18, 32, 37, 0.75);
+}
+
+.gears-experience .gears-navigation {
+    background: rgba(18, 31, 35, 0.75);
+    border-top: 1px solid rgba(189, 139, 65, 0.65);
+}
+
+/* Only the secondary-page navigation buttons are restyled.
+   Landing-page PNG navigation remains untouched. */
+.gears-experience .gears-navigation button {
+    appearance: none;
+    color: #fff1c8;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px #271509;
+    background: linear-gradient(180deg,
+        #f3ce79 0%,
+        #b97d30 13%,
+        #88501c 44%,
+        #543013 73%,
+        #2b1a10 100%);
+    border: 2px solid #d9a753;
+    border-radius: 10px;
+    padding: 12px 23px;
+    box-shadow:
+        inset 0 2px 1px rgba(255, 242, 194, 0.65),
+        inset 0 -3px 3px rgba(29, 15, 5, 0.7),
+        0 4px 0 #26180d,
+        0 7px 12px rgba(0, 0, 0, 0.55);
+    transition: transform 150ms ease, box-shadow 150ms ease,
+                filter 150ms ease;
+}
+
+.gears-experience .gears-navigation button:hover {
+    background: linear-gradient(180deg,
+        #ffe3a0 0%,
+        #d79a40 16%,
+        #a86624 48%,
+        #693b16 77%,
+        #382010 100%);
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 2px 1px rgba(255, 245, 205, 0.75),
+        inset 0 -3px 3px rgba(29, 15, 5, 0.7),
+        0 6px 0 #26180d,
+        0 10px 15px rgba(0, 0, 0, 0.6);
+}
+
+.gears-experience .gears-navigation button:active {
+    transform: translateY(3px);
+    box-shadow:
+        inset 0 3px 6px rgba(26, 14, 5, 0.6),
+        0 1px 0 #26180d;
+}
+
+.gears-experience .gears-navigation button:focus-visible {
+    outline: 3px solid #ffe3a0;
+    outline-offset: 4px;
+}
+/* END THE GEARS — SECONDARY WORKSHOP VISUAL FINISH */
+
+
+/* ============================================================
+   THE GEARS — INTERACTIVE WORKSHOPS (A, B AND C)
+   All translucent surfaces preserve the secondary gear artwork.
+   ============================================================ */
+.gears-experience .gears-learning { padding: 16px; color: #f7e9ce; }
+.gears-learning__top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 12px 14px; background: rgba(19,33,36,.75); border: 1px solid #b68a4e; border-radius: 10px; }
+.gears-learning__top label { font-weight: 700; color: #ffe0a1; }
+.gears-learning__top select { flex: 1; min-width: 230px; max-width: 100%; color: #fff1cf; background: #23343a; border: 1px solid #c69a58; border-radius: 8px; padding: 10px; font-size: 14px; }
+.gears-learning__top span { font-size: 12px; color: #f0d7aa; }
+.gears-learning__workspace { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(215px, 1fr); gap: 14px; margin-top: 14px; }
+.gears-experience .gears-learning__primary, .gears-experience .gears-learning__side section { background: rgba(18,34,39,.75); border: 1px solid #a78149; border-radius: 11px; padding: 16px; min-width: 0; }
+.gears-learning__side { display: grid; align-content: start; gap: 14px; }
+.gears-learning__side h3, .gears-learning__activity h3 { color: #f7d39b; font-size: 17px; margin: 0 0 10px; }
+.gears-learning__side div { line-height: 1.5; font-size: 14px; }
+.gears-learning__question span { color: #e4b96e; font-size: 11px; font-weight: 700; letter-spacing: .12em; }
+.gears-learning__question h3 { color: #fff0cc; font-size: clamp(17px, 2vw, 23px); margin: 7px 0 12px; }
+.gears-learning__hint { font-size: 12px; color: #d6d4c6; margin: 6px 0 12px; }
+.gears-learning__words { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; padding: 12px 5px; }
+.gears-experience button.gears-learning__word { color: #ffdda0; background: rgba(52,72,75,.92); border: 1px solid #74807a; border-radius: 7px; padding: 9px 10px; font-size: 17px; font-weight: 700; cursor: pointer; }
+.gears-experience button.gears-learning__word:hover, .gears-experience button.gears-learning__word:focus-visible { background: #75532c; border-color: #f4c77b; }
+.gears-learning__word-popup { display: flex; gap: 10px; align-items: center; background: rgba(91,67,36,.95); border: 1px solid #e1b66b; border-radius: 8px; padding: 11px; font-size: 14px; }
+.gears-learning__word-popup[hidden] { display: none; }
+.gears-learning__word-popup strong { color: #ffe3a8; font-size: 17px; }
+.gears-learning__views, .gears-learning__stages { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+.gears-experience .gears-learning__views button, .gears-experience .gears-learning__stages button { flex: 1; min-width: 115px; color: #ffe5b8; background: linear-gradient(#4a4537,#282f30); border: 1px solid #ad8750; border-radius: 8px; padding: 10px 8px; font-weight: 700; cursor: pointer; }
+.gears-experience .gears-learning__views button.is-current, .gears-experience .gears-learning__stages button.is-current { background: linear-gradient(#a77b3b,#6a421f); border-color: #ffe0a0; color: #fff; }
+.gears-learning__translation { background: rgba(20,36,40,.75); border: 1px solid #8c7553; border-radius: 8px; min-height: 63px; padding: 17px 12px; margin-top: 10px; text-align: center; font-size: 17px; line-height: 1.4; }
+.gears-learning__activity { min-height: 180px; padding: 15px; margin-top: 11px; background: rgba(20,36,40,.75); border: 1px solid #8c7553; border-radius: 9px; line-height: 1.5; }
+.gears-learning__activity p { margin: 7px 0 12px; }
+.gears-learning__micro { color: #e8c891; font-size: 13px; }
+.gears-learning__broken { font-weight: 700; color: #ffd2a1; font-size: 17px; }
+.gears-learning__choices { display: flex; flex-wrap: wrap; gap: 7px; }
+.gears-experience .gears-learning__choices button { color: #ffe6bd; background: #33454a; border: 1px solid #aa8b57; border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+.gears-experience .gears-learning__choices button.is-selected { background: #86602f; border-color: #ffdf9e; }
+.gears-experience .gears-learning__action { display: inline-block; margin-top: 12px; color: #fff3d4; background: linear-gradient(#bc8942,#70421f); border: 1px solid #f0c476; border-radius: 8px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
+.gears-experience .gears-learning__action:disabled { opacity: .5; cursor: not-allowed; }
+.gears-learning__result { margin-top: 12px; border-left: 3px solid #e4bb74; padding: 8px 12px; background: rgba(31,55,55,.75); }
+.gears-learning__result p { font-size: 17px; }
+@media (max-width: 780px) { .gears-learning__workspace { grid-template-columns: 1fr; } .gears-learning__side { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 480px) { .gears-learning__side { grid-template-columns: 1fr; } .gears-learning__top select { min-width: 0; width: 100%; } }
+
+/* Compact header for all three Gear Train workshop pages. */
+.gears-experience .gears-workshop__header { gap: 18px; padding: 12px 22px; min-height: 0; }
+.gears-experience .gears-workshop__header h2 { margin: 0; line-height: 1.12; font-size: clamp(24px, 2.6vw, 37px); }
+.gears-experience .gears-workshop__header .gears-workshop__ornament { width: 62px; height: 62px; flex: 0 0 62px; }
+@media (max-width: 700px) {
+    .gears-experience .gears-workshop__header { padding: 10px 14px; gap: 10px; }
+    .gears-experience .gears-workshop__header .gears-workshop__ornament { width: 44px; height: 44px; flex-basis: 44px; }
+}
+
+/* THE GEARS — unified title and investigation selector, all three workshops. */
+.gears-experience .gears-workshop__header {
+    align-items: flex-start;
+    padding: 16px 24px 18px;
+    gap: 16px;
+}
+.gears-experience .gears-workshop__heading-content {
+    flex: 1;
+    min-width: 0;
+}
+.gears-experience .gears-workshop__heading-content h2 {
+    margin: 0 0 14px;
+    font-size: clamp(26px, 3.1vw, 43px);
+    line-height: 1.14;
+}
+.gears-experience .gears-workshop__header .gears-learning__top {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border: 1px solid #d2a347;
+    border-radius: 12px;
+    background: rgba(18, 30, 33, 0.75);
+}
+.gears-experience .gears-workshop__header .gears-learning__top label {
+    white-space: nowrap;
+    font-size: 17px;
+}
+.gears-experience .gears-workshop__header .gears-learning__top select {
+    flex: 1;
+    min-width: 0;
+    max-width: 700px;
+}
+@media (max-width: 700px) {
+    .gears-experience .gears-workshop__header { padding: 12px; gap: 10px; }
+    .gears-experience .gears-workshop__heading-content h2 { margin-bottom: 10px; }
+    .gears-experience .gears-workshop__header .gears-learning__top { flex-wrap: wrap; padding: 10px; gap: 8px; }
+    .gears-experience .gears-workshop__header .gears-learning__top label { font-size: 14px; }
+    .gears-experience .gears-workshop__header .gears-learning__top select { flex-basis: 100%; }
+}
+
+/* ============================================================
+   THE GEARS — TWO-TIER WORKSHOP LAYOUT (A / B / C)
+   Top: vocabulary + translation. Bottom: flexible gear area + discovery.
+   ============================================================ */
+.gears-experience .gears-learning { padding: 12px 16px 16px; }
+.gears-experience .gears-learning__sentence-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+    border: 1px solid #bd8e34;
+    border-radius: 12px;
+    padding: 16px 22px;
+    background: rgba(17, 30, 34, .75);
+}
+.gears-experience .gears-learning__question h3 { margin: 0 0 5px; font-size: clamp(16px, 1.7vw, 21px); }
+.gears-experience .gears-learning__hint { margin: 3px 0 7px; }
+.gears-experience .gears-learning__words { justify-content: flex-start; padding: 6px 0; }
+.gears-experience .gears-learning__views { margin-top: 4px; }
+.gears-experience .gears-learning__translation { min-height: 42px; padding: 9px 12px; margin-top: 9px; }
+.gears-experience .gears-learning__workspace {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+    gap: 20px;
+    margin-top: 14px;
+    align-items: stretch;
+}
+.gears-experience .gears-learning__primary,
+.gears-experience .gears-learning__side {
+    min-height: 305px;
+    border: 1px solid #bd8e34;
+    border-radius: 12px;
+    padding: 16px;
+    background: rgba(17, 30, 34, .75);
+}
+.gears-experience .gears-learning__machine-prompt { margin: 0 0 14px; text-align: center; color: #f6e6c7; }
+.gears-experience .gears-learning__machine-wheels {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px 8px;
+    align-content: start;
+}
+.gears-experience .gears-learning__machine-component { display: flex; flex-direction: column; align-items: center; min-width: 0; gap: 5px; }
+.gears-experience .gears-learning__machine-component img { width: min(100%, 96px); aspect-ratio: 1; object-fit: contain; }
+.gears-experience .gears-learning__machine-component span { color: #f8dfa9; text-align: center; font-size: 14px; overflow-wrap: anywhere; }
+.gears-experience .gears-learning__machine-component button {
+    color: #f7e4bd; background: rgba(36, 56, 61, .92);
+    border: 1px solid #9d8257; border-radius: 8px;
+    padding: 5px 8px; cursor: pointer; font-size: 12px;
+}
+.gears-experience .gears-learning__machine-component button:hover { background: #77512b; }
+.gears-experience .gears-learning__side { display: flex; flex-direction: column; gap: 10px; }
+.gears-experience .gears-learning__stages { margin-top: 0; }
+.gears-experience .gears-learning__stages button { min-width: 0; }
+.gears-experience .gears-learning__activity { margin-top: 0; min-height: 110px; padding: 12px; }
+.gears-experience .gears-learning__explanation,
+.gears-experience .gears-learning__diagnostics { border-top: 1px solid rgba(192, 151, 80, .5); padding-top: 10px; line-height: 1.4; }
+.gears-experience .gears-learning__side h3 { color: #f5d49a; font-size: 15px; margin: 0 0 6px; }
+@media (max-width: 800px) {
+    .gears-experience .gears-learning__sentence-panel,
+    .gears-experience .gears-learning__workspace { grid-template-columns: minmax(0, 1fr); }
+    .gears-experience .gears-learning__side { display: flex; }
+}
+@media (max-width: 430px) {
+    .gears-experience .gears-learning__machine-wheels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .gears-experience .gears-learning__sentence-panel { padding: 12px; }
+}
+
+/* THE GEARS — functional dropdown grammar mechanism */
+.gears-experience .gears-learning__machine-wheels {grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 7px;}
+.gears-experience .gears-learning__machine-component {gap:6px;}
+.gears-experience .gears-learning__machine-component img {width:min(100%,92px);}
+.gears-experience .gears-learning__machine-component span {font-size:12px;color:#f6dfb2;min-height:18px;}
+.gears-experience .gears-learning__gear-select {width:100%;min-width:0;border:1px solid #95794b;border-radius:18px;padding:5px 4px;background:#24383b;color:#ffe3a6;font:inherit;font-size:13px;cursor:pointer;}
+.gears-experience .gears-learning__working-gear.is-engaged {animation:gears-grammar-turn 1.4s ease-in-out 1;}
+@keyframes gears-grammar-turn {from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.gears-experience .gears-learning__test-row {display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.gears-experience .gears-learning__test-row .gears-learning__action {margin:0;flex-shrink:0;}
+.gears-experience .gears-learning__test-status {background:rgba(128,154,160,.78);color:#17282b;border-radius:24px;padding:9px 13px;flex:1;font-size:13px;}
+.gears-experience .gears-learning__activity {margin-top:0;min-height:110px;background:transparent;border:0;padding:24px 8px 4px;text-align:center;color:#f4e5c7;}
+@media(max-width:480px){.gears-experience .gears-learning__machine-wheels{grid-template-columns:repeat(3,minmax(0,1fr));}}
+
+/* Dynamic word-for-word gear layout */
+.gears-experience .gears-learning__machine-wheels {grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 9px;}
+.gears-experience .gears-learning__fixed-word {box-sizing:border-box;width:100%;min-height:32px;padding:6px 4px;text-align:center;border:1px solid rgba(191,158,98,.6);border-radius:16px;background:rgba(34,52,56,.55);color:#f8dfb2;font-size:13px;}
+@media(max-width:480px){.gears-experience .gears-learning__machine-wheels{grid-template-columns:repeat(3,minmax(0,1fr));}}
+
+/* Gear investigations: compact reset action and high-contrast results. */
+.gears-experience .gears-learning__reset {
+    border: 1px solid #c69a55;
+    border-radius: 7px;
+    padding: 9px 12px;
+    background: linear-gradient(#405257, #25363b);
+    color: #fff;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.gears-experience .gears-learning__reset:hover,
+.gears-experience .gears-learning__reset:focus-visible {
+    background: linear-gradient(#52676b, #334a50);
+}
+.gears-experience .gears-learning__test-status,
+.gears-experience .gears-learning__activity {
+    color: #fff;
+}
+
+/* Gear Train guided discovery: compact, high-contrast progressive clues. */
+.gears-experience .gears-learning__activity {
+    color: #ffffff;
+    text-align: left;
+    padding: 16px 10px 4px;
+    line-height: 1.45;
+}
+.gears-experience .gears-learning__activity p {
+    color: #ffffff;
+    margin: 8px 0 12px;
+}
+.gears-experience .gears-learning__next-clue {
+    padding: 6px 12px;
+    border: 1px solid #cba35e;
+    border-radius: 7px;
+    background: rgba(32, 50, 54, 0.9);
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+}
+.gears-experience .gears-learning__next-clue:hover,
+.gears-experience .gears-learning__next-clue:focus-visible {
+    background: rgba(112, 77, 33, 0.9);
 }

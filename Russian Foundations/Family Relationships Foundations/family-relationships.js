@@ -15067,7 +15067,6 @@ const conversations = {
     const landing = experience.querySelector('[data-gears-screen="landing"]');
     const workshop = experience.querySelector('[data-gears-screen="workshop"]');
     const title = document.getElementById('gears-workshop-title');
-    const subtitle = document.getElementById('gears-workshop-subtitle');
     const wheels = [...experience.querySelectorAll('[data-gear-train]')];
     const trains = {
         a: ['Gear Train A — The Agreement Workshop', 'Gender & Possessives'],
@@ -15100,7 +15099,6 @@ const conversations = {
         if (transitioning || !trains[train]) return;
         transitioning = true;
         title.textContent = trains[train][0];
-        subtitle.textContent = trains[train][1];
         resetWheels();
         // Only the gear selected by the learner rotates. Other gears stay still.
         const selectedWheel = wheels.find(wheel => wheel.dataset.gearTrain === train);
@@ -15110,7 +15108,7 @@ const conversations = {
             workshop.hidden = false;
             requestAnimationFrame(() => workshop.classList.add('is-visible'));
             transitioning = false;
-        }, 2750);
+        }, 1375);
     }
 
     // Capture the existing Laboratory hotspot before its generic status handler.
@@ -15140,7 +15138,1432 @@ const conversations = {
             workshop.hidden = true;
             stage.hidden = false;
             stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            if (button.dataset.gearsBack === 'four-doors') {
+                // Reuse the Laboratory's existing return route to the Four Doors.
+                lab.querySelector('.door-four__return')?.click();
+            }
         });
     });
 })();
 // END THE GEARS
+
+
+// ============================================================
+// BEGIN THE GEARS — THREE INTERACTIVE GRAMMAR WORKSHOPS
+// Twenty investigations: 7 Agreement, 6 Subject–Verb, 7 Ownership.
+// The original gear navigation and half-turn animation are unchanged.
+// ============================================================
+(() => {
+    const root = document.getElementById('gears-learning');
+    if (!root) return;
+    const investigations = [
+    {
+        "train": "a",
+        "ru": "Это моя младшая сестра.",
+        "literal": "This my younger sister.",
+        "natural": "This is my younger sister.",
+        "why": "Why is there no “is,” and why do two words agree?",
+        "explain": "In a present-tense identification, Russian usually omits “is.” Моя and младшая both describe the feminine noun сестра.",
+        "variant": "Это мой младший брат.",
+        "prompt": "Change sister to brother. Which words must change?",
+        "wrong": "Это мой младшая брат.",
+        "choices": [
+            "мой младшая",
+            "мой младший",
+            "моя младший"
+        ],
+        "correct": 1,
+        "feedback": "Both мой and младший must agree with the masculine noun брат.",
+        "words": [
+            {
+                "ru": "Это",
+                "meaning": "this"
+            },
+            {
+                "ru": "моя",
+                "meaning": "my (feminine)"
+            },
+            {
+                "ru": "младшая",
+                "meaning": "younger (feminine)"
+            },
+            {
+                "ru": "сестра",
+                "meaning": "sister"
+            }
+        ]
+    },
+    {
+        "train": "a",
+        "ru": "Мой дядя женат, а моя тётя замужем.",
+        "literal": "My uncle married, and my aunt married.",
+        "natural": "My uncle is married, and my aunt is married.",
+        "why": "Why does Russian express “married” differently?",
+        "explain": "Женат is used of a married man; замужем of a married woman. Дядя is grammatically masculine despite ending in -я.",
+        "variant": "Моя тётя замужем, а мой дядя женат.",
+        "prompt": "Reverse the two relatives: watch the expressions remain tied to each person.",
+        "wrong": "Моя тётя женат.",
+        "choices": [
+            "Моя тётя женат.",
+            "Моя тётя замужем.",
+            "Мой тётя замужем."
+        ],
+        "correct": 1,
+        "feedback": "Замужем is the appropriate expression for a married woman.",
+        "words": [
+            {
+                "ru": "Мой",
+                "meaning": "my (masculine)"
+            },
+            {
+                "ru": "дядя",
+                "meaning": "uncle"
+            },
+            {
+                "ru": "женат",
+                "meaning": "married (man)"
+            },
+            {
+                "ru": "а",
+                "meaning": "and / but"
+            },
+            {
+                "ru": "моя",
+                "meaning": "my (feminine)"
+            },
+            {
+                "ru": "тётя",
+                "meaning": "aunt"
+            },
+            {
+                "ru": "замужем",
+                "meaning": "married (woman)"
+            }
+        ]
+    },
+    {
+        "train": "a",
+        "ru": "Моя бабушка очень любит своего внука.",
+        "literal": "My grandmother very loves her-own grandson.",
+        "natural": "My grandmother loves her grandson very much.",
+        "why": "Why is it своего внука rather than свой внук?",
+        "explain": "The grandson is the object of любит. Animate masculine accusative has the form внука, and своего agrees with it. Свой points back to the grandmother.",
+        "variant": "Мой дедушка очень любит своего внука.",
+        "prompt": "Change grandmother to grandfather: the subject words change; своего внука stays.",
+        "wrong": "Бабушка любит свой внука.",
+        "choices": [
+            "свой внука",
+            "своего внука",
+            "свою внука"
+        ],
+        "correct": 1,
+        "feedback": "The possessive and noun must both take the animate masculine accusative form.",
+        "words": [
+            {
+                "ru": "Моя",
+                "meaning": "my (feminine)"
+            },
+            {
+                "ru": "бабушка",
+                "meaning": "grandmother"
+            },
+            {
+                "ru": "очень",
+                "meaning": "very"
+            },
+            {
+                "ru": "любит",
+                "meaning": "loves (he/she)"
+            },
+            {
+                "ru": "своего",
+                "meaning": "his/her own (object form)"
+            },
+            {
+                "ru": "внука",
+                "meaning": "grandson (object form)"
+            }
+        ]
+    },
+    {
+        "train": "a",
+        "ru": "Наши старшие братья живут в Москве.",
+        "literal": "Our older brothers live in Moscow.",
+        "natural": "Our older brothers live in Moscow.",
+        "why": "Why do наши and старшие have matching endings?",
+        "explain": "Both words modify plural братья, so they take plural forms. Живут also agrees with the plural subject.",
+        "variant": "Наш старший брат живёт в Москве.",
+        "prompt": "Change brothers to one brother: three connected forms change.",
+        "wrong": "Наши старший братья живут в Москве.",
+        "choices": [
+            "Наши старший братья",
+            "Наши старшие братья",
+            "Наш старшие братья"
+        ],
+        "correct": 1,
+        "feedback": "Plural братья requires plural наши and старшие.",
+        "words": [
+            {
+                "ru": "Наши",
+                "meaning": "our (plural)"
+            },
+            {
+                "ru": "старшие",
+                "meaning": "older (plural)"
+            },
+            {
+                "ru": "братья",
+                "meaning": "brothers"
+            },
+            {
+                "ru": "живут",
+                "meaning": "live (plural)"
+            },
+            {
+                "ru": "в",
+                "meaning": "in / at"
+            },
+            {
+                "ru": "Москве",
+                "meaning": "Moscow (location form)"
+            }
+        ]
+    },
+    {
+        "train": "a",
+        "ru": "Моя старшая сестра познакомила меня со своим мужем.",
+        "literal": "My older sister acquainted me with her-own husband.",
+        "natural": "My older sister introduced me to her husband.",
+        "why": "Why do старшая, познакомила, and своим take different forms?",
+        "explain": "Старшая agrees with сестра. Познакомила is past feminine singular because сестра is the subject. Со своим мужем is instrumental after познакомить с; своим points back to the subject.",
+        "variant": "Мой старший брат познакомил меня со своей женой.",
+        "prompt": "Change sister/husband to brother/wife: follow every grammatical connection.",
+        "wrong": "Мой старший брат познакомила меня со своей женой.",
+        "choices": [
+            "познакомила",
+            "познакомил",
+            "познакомили"
+        ],
+        "correct": 1,
+        "feedback": "The past-tense verb must agree with the masculine singular subject брат.",
+        "words": [
+            {
+                "ru": "Моя",
+                "meaning": "my (feminine)"
+            },
+            {
+                "ru": "старшая",
+                "meaning": "older (feminine)"
+            },
+            {
+                "ru": "сестра",
+                "meaning": "sister"
+            },
+            {
+                "ru": "познакомила",
+                "meaning": "introduced (past feminine)"
+            },
+            {
+                "ru": "меня",
+                "meaning": "me"
+            },
+            {
+                "ru": "со",
+                "meaning": "with (form of с)"
+            },
+            {
+                "ru": "своим",
+                "meaning": "his/her own (instrumental)"
+            },
+            {
+                "ru": "мужем",
+                "meaning": "husband (instrumental)"
+            }
+        ]
+    },
+    {
+        "train": "a",
+        "ru": "Мои младшие сёстры познакомились с нашими новыми соседями.",
+        "literal": "My younger sisters became-acquainted with our new neighbors.",
+        "natural": "My younger sisters met our new neighbors.",
+        "why": "Why do some words end in -ие and others in -ими?",
+        "explain": "Мои младшие agrees with plural nominative сёстры. After познакомились с, соседями is instrumental plural; нашими новыми agrees with that instrumental plural noun.",
+        "variant": "Моя младшая сестра познакомилась с нашим новым соседом.",
+        "prompt": "Make the subject and the neighbor singular: watch two agreement groups change independently.",
+        "wrong": "с нашими новые соседями",
+        "choices": [
+            "с нашими новые соседями",
+            "с нашими новыми соседями",
+            "с нашими новым соседями"
+        ],
+        "correct": 1,
+        "feedback": "The instrumental plural adjective ending is -ыми/-ими here: новыми.",
+        "words": [
+            {
+                "ru": "Мои",
+                "meaning": "my (plural)"
+            },
+            {
+                "ru": "младшие",
+                "meaning": "younger (plural)"
+            },
+            {
+                "ru": "сёстры",
+                "meaning": "sisters"
+            },
+            {
+                "ru": "познакомились",
+                "meaning": "met / became acquainted"
+            },
+            {
+                "ru": "с",
+                "meaning": "with"
+            },
+            {
+                "ru": "нашими",
+                "meaning": "our (instrumental plural)"
+            },
+            {
+                "ru": "новыми",
+                "meaning": "new (instrumental plural)"
+            },
+            {
+                "ru": "соседями",
+                "meaning": "neighbors (instrumental plural)"
+            }
+        ]
+    },
+    {
+        "train": "a",
+        "ru": "Когда моя двоюродная сестра приехала, её младшие братья уже спали.",
+        "literal": "When my cousin-sister arrived, her younger brothers already slept.",
+        "natural": "When my cousin arrived, her younger brothers were already asleep.",
+        "why": "Why do приехала and спали have different endings?",
+        "explain": "Each clause has its own subject. Приехала agrees with singular feminine сестра; спали agrees with plural братья. Её does not change for the noun it modifies.",
+        "variant": "Когда мой двоюродный брат приехал, его младшие сёстры уже спали.",
+        "prompt": "Swap the cousin’s gender and the siblings: notice which verb changes and which does not.",
+        "wrong": "Её младшие братья уже спала.",
+        "choices": [
+            "спала",
+            "спали",
+            "спал"
+        ],
+        "correct": 1,
+        "feedback": "The plural subject братья requires спали.",
+        "words": [
+            {
+                "ru": "Когда",
+                "meaning": "when"
+            },
+            {
+                "ru": "моя",
+                "meaning": "my (feminine)"
+            },
+            {
+                "ru": "двоюродная",
+                "meaning": "cousin / second-degree (feminine)"
+            },
+            {
+                "ru": "сестра",
+                "meaning": "sister"
+            },
+            {
+                "ru": "приехала",
+                "meaning": "arrived (past feminine)"
+            },
+            {
+                "ru": "её",
+                "meaning": "her"
+            },
+            {
+                "ru": "младшие",
+                "meaning": "younger (plural)"
+            },
+            {
+                "ru": "братья",
+                "meaning": "brothers"
+            },
+            {
+                "ru": "уже",
+                "meaning": "already"
+            },
+            {
+                "ru": "спали",
+                "meaning": "were sleeping / slept"
+            }
+        ]
+    },
+    {
+        "train": "b",
+        "ru": "Я люблю свою семью, а брат любит свою.",
+        "literal": "I love my-own family, and brother loves his-own [family].",
+        "natural": "I love my family, and my brother loves his.",
+        "why": "Why are люблю and любит different, while свою appears twice?",
+        "explain": "Люблю agrees with я; любит agrees with брат. Свою points back to the subject in each clause; the second use leaves the repeated noun семью unspoken.",
+        "variant": "Мы любим свою семью, а брат любит свою.",
+        "prompt": "Change я to мы and observe the verb ending.",
+        "wrong": "Мы люблю свою семью.",
+        "choices": [
+            "люблю",
+            "любим",
+            "любит"
+        ],
+        "correct": 1,
+        "feedback": "Мы takes the first-person plural verb form любим.",
+        "words": [
+            {
+                "ru": "Я",
+                "meaning": "I"
+            },
+            {
+                "ru": "люблю",
+                "meaning": "love (I)"
+            },
+            {
+                "ru": "свою",
+                "meaning": "his/her own (feminine object)"
+            },
+            {
+                "ru": "семью",
+                "meaning": "family (object form)"
+            },
+            {
+                "ru": "а",
+                "meaning": "and / but"
+            },
+            {
+                "ru": "брат",
+                "meaning": "brother"
+            },
+            {
+                "ru": "любит",
+                "meaning": "loves (he/she)"
+            },
+            {
+                "ru": "свою",
+                "meaning": "his/her own (feminine object)"
+            }
+        ]
+    },
+    {
+        "train": "b",
+        "ru": "Мама и папа работают, а бабушка отдыхает.",
+        "literal": "Mom and dad work, and grandmother rests.",
+        "natural": "Mom and Dad are working, while Grandma is resting.",
+        "why": "Why does the first verb end in -ют?",
+        "explain": "Мама и папа form a plural subject, so работают is plural. Бабушка is singular, so отдыхает is singular.",
+        "variant": "Мама работает, а бабушка отдыхает.",
+        "prompt": "Remove папа and see how the first verb changes.",
+        "wrong": "Мама и папа работает.",
+        "choices": [
+            "работает",
+            "работают",
+            "работаю"
+        ],
+        "correct": 1,
+        "feedback": "Two people joined as the subject normally require plural работают.",
+        "words": [
+            {
+                "ru": "Мама",
+                "meaning": "mom"
+            },
+            {
+                "ru": "и",
+                "meaning": "and"
+            },
+            {
+                "ru": "папа",
+                "meaning": "dad"
+            },
+            {
+                "ru": "работают",
+                "meaning": "work (plural)"
+            },
+            {
+                "ru": "а",
+                "meaning": "and / but"
+            },
+            {
+                "ru": "бабушка",
+                "meaning": "grandmother"
+            },
+            {
+                "ru": "отдыхает",
+                "meaning": "rests (singular)"
+            }
+        ]
+    },
+    {
+        "train": "b",
+        "ru": "Моя сестра жила в Москве, а теперь живёт в Казани.",
+        "literal": "My sister lived in Moscow, but now lives in Kazan.",
+        "natural": "My sister used to live in Moscow, but now lives in Kazan.",
+        "why": "Why does past жила show gender, but present живёт does not?",
+        "explain": "Past singular verbs mark gender: жила. Present-tense verbs instead mark person and number: живёт is third-person singular.",
+        "variant": "Мой брат жил в Москве, а теперь живёт в Казани.",
+        "prompt": "Change sister to brother: the past form changes, but the present form does not.",
+        "wrong": "Мой брат жила в Москве.",
+        "choices": [
+            "жила",
+            "жил",
+            "жили"
+        ],
+        "correct": 1,
+        "feedback": "A masculine singular past-tense subject requires жил.",
+        "words": [
+            {
+                "ru": "Моя",
+                "meaning": "my (feminine)"
+            },
+            {
+                "ru": "сестра",
+                "meaning": "sister"
+            },
+            {
+                "ru": "жила",
+                "meaning": "lived (past feminine)"
+            },
+            {
+                "ru": "в",
+                "meaning": "in / at"
+            },
+            {
+                "ru": "Москве",
+                "meaning": "Moscow (location form)"
+            },
+            {
+                "ru": "а",
+                "meaning": "and / but"
+            },
+            {
+                "ru": "теперь",
+                "meaning": "now"
+            },
+            {
+                "ru": "живёт",
+                "meaning": "lives (singular)"
+            },
+            {
+                "ru": "в",
+                "meaning": "in / at"
+            },
+            {
+                "ru": "Казани",
+                "meaning": "Kazan (location form)"
+            }
+        ]
+    },
+    {
+        "train": "b",
+        "ru": "Анна любит Ивана, но Иван обожает Анну.",
+        "literal": "Anna loves Ivan, but Ivan adores Anna.",
+        "natural": "Anna loves Ivan, but Ivan adores Anna.",
+        "why": "Why do Иван and Анна change shape when they receive the action?",
+        "explain": "The subject is nominative (Анна, Иван). The direct object is accusative (Ивана, Анну). The verbs agree with their own singular subjects.",
+        "variant": "Иван любит Анну, но Анна обожает Ивана.",
+        "prompt": "Reverse the roles: watch the name endings follow their sentence jobs.",
+        "wrong": "Анна любит Иван.",
+        "choices": [
+            "Иван",
+            "Ивана",
+            "Ивану"
+        ],
+        "correct": 1,
+        "feedback": "An animate masculine direct object takes accusative Ивана.",
+        "words": [
+            {
+                "ru": "Анна",
+                "meaning": "Anna (subject)"
+            },
+            {
+                "ru": "любит",
+                "meaning": "loves (he/she)"
+            },
+            {
+                "ru": "Ивана",
+                "meaning": "Ivan (object)"
+            },
+            {
+                "ru": "но",
+                "meaning": "but"
+            },
+            {
+                "ru": "Иван",
+                "meaning": "Ivan (subject)"
+            },
+            {
+                "ru": "обожает",
+                "meaning": "adores"
+            },
+            {
+                "ru": "Анну",
+                "meaning": "Anna (object)"
+            }
+        ]
+    },
+    {
+        "train": "b",
+        "ru": "Когда родители приехали, дети уже спали.",
+        "literal": "When parents arrived, children already slept.",
+        "natural": "When the parents arrived, the children were already asleep.",
+        "why": "Why are both verbs plural, even though they describe different events?",
+        "explain": "Родители and дети are separate plural subjects in separate clauses. Приехали describes arrival; спали describes the ongoing state at that time.",
+        "variant": "Когда мама приехала, дети уже спали.",
+        "prompt": "Change the first subject to мама; only the first verb changes.",
+        "wrong": "Когда мама приехали, дети уже спали.",
+        "choices": [
+            "приехали",
+            "приехала",
+            "приехал"
+        ],
+        "correct": 1,
+        "feedback": "Мама is feminine singular, so the past-tense verb is приехала.",
+        "words": [
+            {
+                "ru": "Когда",
+                "meaning": "when"
+            },
+            {
+                "ru": "родители",
+                "meaning": "parents"
+            },
+            {
+                "ru": "приехали",
+                "meaning": "arrived (plural)"
+            },
+            {
+                "ru": "дети",
+                "meaning": "children"
+            },
+            {
+                "ru": "уже",
+                "meaning": "already"
+            },
+            {
+                "ru": "спали",
+                "meaning": "were sleeping / slept"
+            }
+        ]
+    },
+    {
+        "train": "b",
+        "ru": "Если мой брат приедет завтра, мы вместе приготовим ужин.",
+        "literal": "If my brother arrives tomorrow, we together will-prepare dinner.",
+        "natural": "If my brother comes tomorrow, we will cook dinner together.",
+        "why": "Why do приедет and приготовим look like present forms but refer to the future?",
+        "explain": "These are perfective verbs. Their non-past forms express completed future events. Приедет agrees with брат; приготовим agrees with мы.",
+        "variant": "Если мои братья приедут завтра, мы вместе приготовим ужин.",
+        "prompt": "Change one brother to several: the arrival verb must change.",
+        "wrong": "Если мои братья приедет завтра…",
+        "choices": [
+            "приедет",
+            "приедут",
+            "приедем"
+        ],
+        "correct": 1,
+        "feedback": "Plural братья requires third-person plural приедут.",
+        "words": [
+            {
+                "ru": "Если",
+                "meaning": "if"
+            },
+            {
+                "ru": "мой",
+                "meaning": "my (masculine)"
+            },
+            {
+                "ru": "брат",
+                "meaning": "brother"
+            },
+            {
+                "ru": "приедет",
+                "meaning": "will arrive (he/she)"
+            },
+            {
+                "ru": "завтра",
+                "meaning": "tomorrow"
+            },
+            {
+                "ru": "мы",
+                "meaning": "we"
+            },
+            {
+                "ru": "вместе",
+                "meaning": "together"
+            },
+            {
+                "ru": "приготовим",
+                "meaning": "will prepare (we)"
+            },
+            {
+                "ru": "ужин",
+                "meaning": "dinner"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "У моего брата есть дочь.",
+        "literal": "At my brother there-is daughter.",
+        "natural": "My brother has a daughter.",
+        "why": "Why does Russian say “at my brother” rather than “my brother has”?",
+        "explain": "Russian commonly expresses possession with у + genitive (у моего брата) and есть for existence. The thing possessed, дочь, is nominative.",
+        "variant": "У моей сестры есть сын.",
+        "prompt": "Change the possessor and the child: observe how the у-phrase changes.",
+        "wrong": "У мой брат есть дочь.",
+        "choices": [
+            "У мой брат",
+            "У моего брата",
+            "У моему брату"
+        ],
+        "correct": 1,
+        "feedback": "The possessor after у must be genitive: моего брата.",
+        "words": [
+            {
+                "ru": "У",
+                "meaning": "at / with (possession)"
+            },
+            {
+                "ru": "моего",
+                "meaning": "my (genitive masculine)"
+            },
+            {
+                "ru": "брата",
+                "meaning": "brother (genitive)"
+            },
+            {
+                "ru": "есть",
+                "meaning": "there is / has"
+            },
+            {
+                "ru": "дочь",
+                "meaning": "daughter"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "У моей сестры нет детей.",
+        "literal": "At my sister there-are-no children.",
+        "natural": "My sister has no children.",
+        "why": "Why does нет change the form of дети?",
+        "explain": "Negated existence uses нет + genitive. Дети has the irregular genitive plural form детей. The possessor is also genitive after у.",
+        "variant": "У моей сестры есть дети.",
+        "prompt": "Switch from absence to presence: детей becomes дети.",
+        "wrong": "У моей сестры нет дети.",
+        "choices": [
+            "нет дети",
+            "нет детей",
+            "нет детям"
+        ],
+        "correct": 1,
+        "feedback": "After нет, the noun expressing what is absent takes genitive: детей.",
+        "words": [
+            {
+                "ru": "У",
+                "meaning": "at / with (possession)"
+            },
+            {
+                "ru": "моей",
+                "meaning": "my (genitive feminine)"
+            },
+            {
+                "ru": "сестры",
+                "meaning": "sister (genitive)"
+            },
+            {
+                "ru": "нет",
+                "meaning": "there is no / has no"
+            },
+            {
+                "ru": "детей",
+                "meaning": "children (genitive plural)"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "В нашей семье пять человек.",
+        "literal": "In our family five persons.",
+        "natural": "There are five people in our family.",
+        "why": "Why пять человек instead of пять человеки?",
+        "explain": "After numbers five and above, Russian typically uses genitive plural; человек has the special counting form человек. Семье is prepositional after в for location.",
+        "variant": "В нашей семье два человека.",
+        "prompt": "Change five to two: notice человека instead of человек.",
+        "wrong": "В нашей семье пять человека.",
+        "choices": [
+            "пять человека",
+            "пять человек",
+            "пять человеки"
+        ],
+        "correct": 1,
+        "feedback": "Five takes the special counting form человек.",
+        "words": [
+            {
+                "ru": "В",
+                "meaning": "in"
+            },
+            {
+                "ru": "нашей",
+                "meaning": "our (prepositional feminine)"
+            },
+            {
+                "ru": "семье",
+                "meaning": "family (prepositional)"
+            },
+            {
+                "ru": "пять",
+                "meaning": "five"
+            },
+            {
+                "ru": "человек",
+                "meaning": "people (counting form)"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "У меня две сестры, а у брата пять братьев.",
+        "literal": "At me two sisters, but at brother five brothers.",
+        "natural": "I have two sisters, and my brother has five brothers.",
+        "why": "Why does two take сестры but five take братьев?",
+        "explain": "With два/две/три/четыре, the noun commonly has the genitive singular form; with пять and above, genitive plural. У меня and у брата identify possessors.",
+        "variant": "У меня пять сестёр, а у брата два брата.",
+        "prompt": "Swap the numbers and observe the noun forms change.",
+        "wrong": "У брата пять брата.",
+        "choices": [
+            "пять брата",
+            "пять братьев",
+            "пять брат"
+        ],
+        "correct": 1,
+        "feedback": "Five requires genitive plural братьев.",
+        "words": [
+            {
+                "ru": "У",
+                "meaning": "at / with (possession)"
+            },
+            {
+                "ru": "меня",
+                "meaning": "me"
+            },
+            {
+                "ru": "две",
+                "meaning": "two (feminine)"
+            },
+            {
+                "ru": "сестры",
+                "meaning": "sister (genitive)"
+            },
+            {
+                "ru": "а",
+                "meaning": "and / but"
+            },
+            {
+                "ru": "у",
+                "meaning": "at / with"
+            },
+            {
+                "ru": "брата",
+                "meaning": "brother (genitive)"
+            },
+            {
+                "ru": "пять",
+                "meaning": "five"
+            },
+            {
+                "ru": "братьев",
+                "meaning": "Click to examine this word in context"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "Чья это книга и почему она у моего брата?",
+        "literal": "Whose this book and why it at my brother?",
+        "natural": "Whose book is this, and why does my brother have it?",
+        "why": "Why чья, and why у моего брата?",
+        "explain": "Чья agrees with feminine книга, not the owner. У моего брата expresses where the book is / who has it; у requires genitive.",
+        "variant": "Чей это телефон и почему он у моей сестры?",
+        "prompt": "Replace the book with a phone: чья becomes чей, она becomes он.",
+        "wrong": "Чей это книга?",
+        "choices": [
+            "Чей это книга?",
+            "Чья это книга?",
+            "Чьё это книга?"
+        ],
+        "correct": 1,
+        "feedback": "Книга is feminine, so the question word is чья.",
+        "words": [
+            {
+                "ru": "Чья",
+                "meaning": "whose (feminine)"
+            },
+            {
+                "ru": "это",
+                "meaning": "this / is"
+            },
+            {
+                "ru": "книга",
+                "meaning": "book"
+            },
+            {
+                "ru": "и",
+                "meaning": "and"
+            },
+            {
+                "ru": "почему",
+                "meaning": "why"
+            },
+            {
+                "ru": "она",
+                "meaning": "it / she"
+            },
+            {
+                "ru": "у",
+                "meaning": "at / with"
+            },
+            {
+                "ru": "моего",
+                "meaning": "my (genitive masculine)"
+            },
+            {
+                "ru": "брата",
+                "meaning": "brother (genitive)"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "У моей сестры не было времени поговорить с родителями.",
+        "literal": "At my sister not was time to-talk with parents.",
+        "natural": "My sister did not have time to talk with our parents.",
+        "why": "Why времени and why было?",
+        "explain": "In past-tense negated existence, не было is impersonal and typically uses neuter было. Времени is genitive of время. С родителями uses instrumental plural after с.",
+        "variant": "У моей сестры было время поговорить с родителями.",
+        "prompt": "Remove negation: времени changes to время.",
+        "wrong": "У моей сестры не была времени.",
+        "choices": [
+            "не была",
+            "не было",
+            "не были"
+        ],
+        "correct": 1,
+        "feedback": "Impersonal past negated existence uses не было.",
+        "words": [
+            {
+                "ru": "У",
+                "meaning": "at / with (possession)"
+            },
+            {
+                "ru": "моей",
+                "meaning": "my (genitive feminine)"
+            },
+            {
+                "ru": "сестры",
+                "meaning": "sister (genitive)"
+            },
+            {
+                "ru": "не",
+                "meaning": "not"
+            },
+            {
+                "ru": "было",
+                "meaning": "was (impersonal neuter)"
+            },
+            {
+                "ru": "времени",
+                "meaning": "time (genitive)"
+            },
+            {
+                "ru": "поговорить",
+                "meaning": "to talk"
+            },
+            {
+                "ru": "с",
+                "meaning": "with"
+            },
+            {
+                "ru": "родителями",
+                "meaning": "parents (instrumental plural)"
+            }
+        ]
+    },
+    {
+        "train": "c",
+        "ru": "В моей семье четыре человека, а в их семье шесть.",
+        "literal": "In my family four persons, and in their family six.",
+        "natural": "There are four people in my family and six in theirs.",
+        "why": "Why can the second clause omit человека?",
+        "explain": "Russian often omits a repeated noun when context makes it clear. Четыре человека uses the counting form after четыре; их stays unchanged before семье.",
+        "variant": "В моей семье пять человек, а в их семье шесть.",
+        "prompt": "Change four to five and notice the counted noun form.",
+        "wrong": "В моей семье четыре человек.",
+        "choices": [
+            "четыре человек",
+            "четыре человека",
+            "четыре человеки"
+        ],
+        "correct": 1,
+        "feedback": "After четыре, the counted form is человека.",
+        "words": [
+            {
+                "ru": "В",
+                "meaning": "in"
+            },
+            {
+                "ru": "моей",
+                "meaning": "my (genitive feminine)"
+            },
+            {
+                "ru": "семье",
+                "meaning": "family (prepositional)"
+            },
+            {
+                "ru": "четыре",
+                "meaning": "four"
+            },
+            {
+                "ru": "человека",
+                "meaning": "Click to examine this word in context"
+            },
+            {
+                "ru": "а",
+                "meaning": "and / but"
+            },
+            {
+                "ru": "в",
+                "meaning": "in / at"
+            },
+            {
+                "ru": "их",
+                "meaning": "their"
+            },
+            {
+                "ru": "семье",
+                "meaning": "family (prepositional)"
+            },
+            {
+                "ru": "шесть",
+                "meaning": "six"
+            }
+        ]
+    }
+];
+    // Each category contains legitimate forms of the same Russian word or construction.
+    // Fixed words stay visible in the sentence above; only teachable components get gears.
+    const forms = {
+      'мой':['мой','моя','моё','мои','моего','моей','моему','моим'],
+      'моя':['мой','моя','моё','мои','моего','моей','моему','моим'],
+      'моего':['мой','моя','моё','мои','моего','моей','моему','моим'],
+      'моей':['мой','моя','моё','мои','моего','моей','моему','моим'],
+      'мои':['мой','моя','моё','мои','моего','моей','моему','моим'],
+      'нашими':['наш','наша','наше','наши','нашего','нашей','нашими'],
+      'наши':['наш','наша','наше','наши','нашего','нашей','нашими'],
+      'нашей':['наш','наша','наше','наши','нашего','нашей','нашими'],
+      'старшая':['старший','старшая','старшее','старшие','старшего','старшей','старшим'],
+      'старшие':['старший','старшая','старшее','старшие','старшего','старшей','старшим'],
+      'старших':['старший','старшая','старшее','старшие','старшего','старшей','старших'],
+      'младшая':['младший','младшая','младшее','младшие','младшего','младшей'],
+      'младшие':['младший','младшая','младшее','младшие','младшего','младшей'],
+      'новыми':['новый','новая','новое','новые','нового','новой','новыми'],
+      'двоюродная':['двоюродный','двоюродная','двоюродное','двоюродные','двоюродного','двоюродной'],
+      'своего':['свой','своя','своё','свои','своего','своей','своим'],
+      'своим':['свой','своя','своё','свои','своего','своей','своим'],
+      'свою':['свой','своя','своё','свои','своего','своей','свою'],
+      'женат':['женат','жената','женаты','замужем'],
+      'замужем':['замужем','женат','жената','женаты'],
+      'любит':['люблю','любишь','любит','любим','любите','любят'],
+      'люблю':['люблю','любишь','любит','любим','любите','любят'],
+      'обожает':['обожаю','обожаешь','обожает','обожаем','обожаете','обожают'],
+      'живут':['живу','живёшь','живёт','живём','живёте','живут'],
+      'живёт':['живу','живёшь','живёт','живём','живёте','живут'],
+      'работают':['работаю','работаешь','работает','работаем','работаете','работают'],
+      'отдыхает':['отдыхаю','отдыхаешь','отдыхает','отдыхаем','отдыхаете','отдыхают'],
+      'жила':['жил','жила','жило','жили'],
+      'познакомила':['познакомил','познакомила','познакомило','познакомили'],
+      'познакомились':['познакомился','познакомилась','познакомилось','познакомились'],
+      'приехали':['приехал','приехала','приехало','приехали'],
+      'приехала':['приехал','приехала','приехало','приехали'],
+      'спали':['спал','спала','спало','спали'],
+      'приедет':['приеду','приедешь','приедет','приедем','приедете','приедут'],
+      'приготовим':['приготовлю','приготовишь','приготовит','приготовим','приготовите','приготовят'],
+      'было':['был','была','было','были'],
+      'брата':['брат','брата','брату','братом','брате','братья'],
+      'брат':['брат','брата','брату','братом','брате','братья'],
+      'братья':['брат','брата','братья','братьев','братьям'],
+      'братьев':['брат','брата','братья','братьев','братьям'],
+      'сестра':['сестра','сестры','сестре','сестру','сестрой','сёстры'],
+      'сестры':['сестра','сестры','сестре','сестру','сестрой','сёстры'],
+      'сёстры':['сестра','сестры','сестре','сестру','сёстры','сестёр'],
+      'сестры':['сестра','сестры','сестре','сестру','сёстры','сестёр'],
+      'семье':['семья','семьи','семье','семью','семьёй','семей'],
+      'дочь':['дочь','дочери','дочерью','дочерей'],
+      'детей':['дети','детей','детям','детьми'],
+      'внука':['внук','внука','внуку','внуком','внуке'],
+      'мужем':['муж','мужа','мужу','мужем','муже'],
+      'родителями':['родители','родителей','родителям','родителями'],
+      'соседями':['соседи','соседей','соседям','соседями'],
+      'времени':['время','времени','временем','времена'],
+      'человека':['человек','человека','человеку','человеком','люди'],
+      'человек':['человек','человека','человеку','человеком','люди'],
+      'две':['один','одна','два','две','три','четыре'],
+      'четыре':['один','два','две','три','четыре','пять'],
+      'пять':['один','два','три','четыре','пять','шесть'],
+      'шесть':['два','три','четыре','пять','шесть','семь'],
+      'чья':['чей','чья','чьё','чьи'],
+      'Чья':['Чей','Чья','Чьё','Чьи'],
+      'книга':['книга','книги','книге','книгу','книгой'],
+      'Анну':['Анна','Анны','Анне','Анну','Анной'],
+      'Ивана':['Иван','Ивана','Ивану','Иваном'],
+      'Москве':['Москва','Москвы','Москве','Москву','Москвой'],
+      'Казани':['Казань','Казани','Казанью','Казаней']
+    };
+    const labels = {
+      'мой':'My','моя':'My','моего':'My','моей':'My','мои':'My',
+      'нашими':'Our','наши':'Our','нашей':'Our',
+      'старшая':'Older','старшие':'Older','старших':'Older',
+      'младшая':'Younger','младшие':'Younger',
+      'своего':'Own','своим':'Own','свою':'Own',
+      'две':'Number','четыре':'Number','пять':'Number','шесть':'Number',
+      'Чья':'Whose','чья':'Whose'
+    };
+    // English meanings follow the learner's CURRENT Russian selection, not the
+    // original investigation. Preserve the original sentence and word popups.
+    const selectedMeanings = {
+      'брат':'brother','сестра':'sister','мама':'mother','папа':'father',
+      'дядя':'uncle','тётя':'aunt','бабушка':'grandmother','дедушка':'grandfather',
+      'братья':'brothers','сёстры':'sisters','родители':'parents','дети':'children',
+      'внуки':'grandchildren','внука':'grandson','сына':'son','брата':'brother',
+      'дядю':'uncle','папу':'father','дочь':'daughter','сестру':'sister',
+      'маму':'mother','тётю':'aunt','сестры':'sister','мамы':'mother',
+      'папы':'father','дяди':'uncle','тёти':'aunt','братьев':'brothers',
+      'сестёр':'sisters','дядей':'uncles','тётей':'aunts',
+      'внуков':'grandchildren','родителей':'parents',
+      'мой':'my (masc.)','моя':'my (fem.)','моё':'my (neut.)',
+      'мои':'my (plural)','моего':'my (gen./acc.)',
+      'моей':'my (fem., oblique)','моем':'my (prep.)',
+      'моему':'my (dat.)','моим':'my (dat./instr.)',
+      'моими':'my (instr. plural)','моих':'my (gen./prep. plural)',
+      'старший':'older (masc.)','старшая':'older (fem.)',
+      'старшее':'older (neut.)','старшие':'older (plural)',
+      'старшего':'older (gen./acc.)','старшей':'older (fem., oblique)',
+      'старшем':'older (prep.)','старших':'older (gen./prep. plural)',
+      'младший':'younger (masc.)','младшая':'younger (fem.)',
+      'младшее':'younger (neut.)','младшие':'younger (plural)',
+      'младшего':'younger (gen./acc.)','младшей':'younger (fem., oblique)',
+      'младших':'younger (gen./prep. plural)',
+      'это':'this is','Этот':'this (masc.)','эта':'this (fem.)',
+      'эти':'these','Этот':'this (masc.)',
+      'своего':'his/her own','свою':'own (fem.)',
+      'своим':'own (dat./instr.)','своими':'own (instr. plural)',
+      'наш':'our (masc.)','наша':'our (fem.)','наши':'our (plural)',
+      'нашей':'our (fem., oblique)','нашими':'our (instr. plural)',
+      'один':'one (masc.)','одна':'one (fem.)','два':'two (masc.)',
+      'две':'two (fem.)','три':'three','четыре':'four','пять':'five',
+      'шесть':'six','семь':'seven',
+      'чей':'whose (masc.)','чья':'whose (fem.)',
+      'чьё':'whose (neut.)','чьи':'whose (plural)',
+      'Чей':'Whose (masc.)','Чья':'Whose (fem.)',
+      'Чьё':'Whose (neut.)','Чьи':'Whose (plural)',
+      'живу':'I live','живёшь':'you live','живёт':'he/she lives',
+      'живём':'we live','живёте':'you (plural) live','живут':'they live',
+      'люблю':'I love','любишь':'you love','любит':'he/she loves',
+      'любим':'we love','любите':'you (plural) love','любят':'they love',
+      'работаю':'I work','работаешь':'you work','работает':'he/she works',
+      'работаем':'we work','работаете':'you (plural) work','работают':'they work',
+      'отдыхаю':'I rest','отдыхаешь':'you rest','отдыхает':'he/she rests',
+      'отдыхаем':'we rest','отдыхаете':'you (plural) rest',
+      'отдыхают':'they rest',
+      'познакомил':'introduced (masc.)',
+      'познакомила':'introduced (fem.)',
+      'познакомило':'introduced (neut.)',
+      'познакомили':'introduced (plural)',
+      'меня':'me','со':'with','очень':'very',
+      'муж':'husband','мужа':'husband','мужем':'husband',
+      'жена':'wife','жену':'wife','жены':'wife',
+      'есть':'there is/are','нет':'there is/are no',
+      'у':'at / belonging to','в':'in','а':'and/but',
+      'и':'and','но':'but','когда':'when','если':'if',
+      'сегодня':'today','завтра':'tomorrow','вчера':'yesterday'
+    };
+    function selectedLabel(word, selected){
+      if(Object.prototype.hasOwnProperty.call(selectedMeanings,selected)){
+        return selectedMeanings[selected];
+      }
+      if(selected===word.ru){
+        return labels[word.ru] || word.meaning.split(/[,(]/)[0].trim();
+      }
+      // Unknown forms should never be misleadingly labeled with the ORIGINAL
+      // word's English meaning. Surface the chosen Russian form instead.
+      return selected;
+    }
+    const trainNames = { a:'Agreement Workshop', b:'Subject–Verb Engine', c:'Ownership & Existence' };
+    const selector = document.getElementById('gears-investigation');
+    const count = document.getElementById('gears-investigation-count');
+    const words = root.querySelector('#gears-word-line');
+    const machineWheels = root.querySelector('#gears-machine-wheels');
+    const popup = root.querySelector('#gears-word-popup');
+    const translation = root.querySelector('#gears-translation');
+    const activity = root.querySelector('#gears-activity');
+    const diagnostics = root.querySelector('#gears-diagnostics');
+    const mechanism = root.querySelector('#gears-mechanism');
+    const question = root.querySelector('#gears-why');
+    const testButton = root.querySelector('#gears-test-button');
+    let activeTrain='a', index=0, view='russian', selections=[], results=null, attempt=0, clueLevel=0;
+    const current=()=>investigations[index];
+    const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    // One gear per word. Fixed words stay visible without artificial choices.
+    const familyOptions = {
+      'брат':['брат','сестра','мама','папа','дядя','тётя'],
+      'сестра':['сестра','брат','мама','папа','дядя','тётя'],
+      'бабушка':['бабушка','дедушка','мама','папа','тётя','дядя'],
+      'брата':['брата','сестры','мамы','папы','дяди','тёти'],
+      'сестры':['сестры','брата','мамы','папы','дяди','тёти'],
+      'братья':['братья','сёстры','мамы','папы','дяди','тёти'],
+      'сёстры':['сёстры','братья','мамы','папы','дяди','тёти'],
+      'братьев':['братьев','сестёр','дядей','тётей','родителей'],
+      'внука':['внука','сына','брата','дядю','папу'],
+      'дочь':['дочь','сестра','мама','тётя','бабушка'],
+      'детей':['детей','братьев','сестёр','внуков','родителей'],
+      'родители':['родители','братья','сёстры','дети','внуки']
+    };
+    const genders = {'брат':'m','папа':'m','дядя':'m','дедушка':'m','сестра':'f','мама':'f','тётя':'f','бабушка':'f','братья':'p','сёстры':'p','родители':'p','дети':'p','внуки':'p'};
+    const agree = {
+      'мой':['мой','моя','мои'],'моя':['мой','моя','мои'],'мои':['мой','моя','мои'],
+      'старший':['старший','старшая','старшие'],'старшая':['старший','старшая','старшие'],'старшие':['старший','старшая','старшие'],
+      'младший':['младший','младшая','младшие'],'младшая':['младший','младшая','младшие'],'младшие':['младший','младшая','младшие']
+    };
+    const entriesFor=item=>item.words.map((word,i)=>({word,i,options:familyOptions[word.ru]||forms[word.ru]||null}));
+    function resetActivity(){
+      const entries=entriesFor(current());
+      selections=entries.map(entry=>entry.word.ru);
+      const mismatch=entries.find(entry=>entry.options && agree[entry.word.ru]);
+      if(mismatch) selections[mismatch.i]=mismatch.options.find(value=>value!==mismatch.word.ru)||mismatch.word.ru;
+      results=null;attempt=0;clueLevel=0;popup.hidden=true;
+    }
+    function evaluate(){
+      const entries=entriesFor(current());
+      const nounIndex=entries.findIndex(entry=>genders[selections[entry.i]]);
+      const gender=nounIndex>=0?genders[selections[nounIndex]]:null;
+      const column={m:0,f:1,p:2};
+      return entries.map(entry=>{
+        if(!entry.options)return true;
+        const selected=selections[entry.i];
+        if(gender && agree[entry.word.ru] && entry.i<nounIndex){
+          return selected===agree[entry.word.ru][column[gender]];
+        }
+        if(familyOptions[entry.word.ru])return familyOptions[entry.word.ru].includes(selected);
+        return selected===entry.word.ru;
+      });
+    }
+    // Diagnostic clues are derived from the actual selected word, never from
+    // the original sentence alone. Some forms have more than one possible case.
+    const formFeatures = {
+      'мой':{gender:'masculine',cases:'nominative'},
+      'моя':{gender:'feminine',cases:'nominative'},
+      'моё':{gender:'neuter',cases:'nominative'},
+      'мои':{gender:'plural',cases:'nominative'},
+      'моего':{gender:'masculine/neuter',cases:'genitive or animate accusative'},
+      'моей':{gender:'feminine',cases:'genitive, dative, instrumental or prepositional'},
+      'моем':{gender:'masculine/neuter',cases:'prepositional'},
+      'моему':{gender:'masculine/neuter',cases:'dative'},
+      'моим':{gender:'masculine/neuter or plural',cases:'instrumental or dative'},
+      'моими':{gender:'plural',cases:'instrumental'},
+      'моих':{gender:'plural',cases:'genitive, prepositional or animate accusative'},
+      'старший':{gender:'masculine',cases:'nominative'},
+      'старшая':{gender:'feminine',cases:'nominative'},
+      'старшее':{gender:'neuter',cases:'nominative'},
+      'старшие':{gender:'plural',cases:'nominative'},
+      'старшего':{gender:'masculine/neuter',cases:'genitive or animate accusative'},
+      'старшей':{gender:'feminine',cases:'genitive, dative, instrumental or prepositional'},
+      'старшем':{gender:'masculine/neuter',cases:'prepositional'},
+      'младший':{gender:'masculine',cases:'nominative'},
+      'младшая':{gender:'feminine',cases:'nominative'},
+      'младшее':{gender:'neuter',cases:'nominative'},
+      'младшие':{gender:'plural',cases:'nominative'},
+      'младшего':{gender:'masculine/neuter',cases:'genitive or animate accusative'},
+      'младшей':{gender:'feminine',cases:'genitive, dative, instrumental or prepositional'},
+      'младшем':{gender:'masculine/neuter',cases:'prepositional'},
+      'сестра':{cases:'nominative',gender:'feminine'},
+      'сестру':{cases:'accusative',gender:'feminine'},
+      'сестрой':{cases:'instrumental',gender:'feminine'},
+      'сестре':{cases:'dative or prepositional',gender:'feminine'},
+      'сестры':{cases:'genitive singular or nominative plural',gender:'feminine/plural'},
+      'брат':{cases:'nominative',gender:'masculine'},
+      'брата':{cases:'genitive or animate accusative',gender:'masculine'},
+      'брату':{cases:'dative',gender:'masculine'},
+      'братом':{cases:'instrumental',gender:'masculine'},
+      'брате':{cases:'prepositional',gender:'masculine'},
+      'семья':{cases:'nominative'},'семье':{cases:'dative or prepositional'},
+      'семьёй':{cases:'instrumental'},'семью':{cases:'accusative'},
+      'мужем':{cases:'instrumental'},'муже':{cases:'prepositional'},
+      'Москве':{cases:'prepositional or dative'},'Москвой':{cases:'instrumental'},
+      'Москву':{cases:'accusative'},'Москвы':{cases:'genitive'},
+      'родителями':{cases:'instrumental'},'родителям':{cases:'dative'},
+      'родителей':{cases:'genitive or animate accusative'},
+      'временем':{cases:'instrumental'},'времени':{cases:'genitive, dative or prepositional'}
+    };
+    const verbPerson = {
+      'люблю':'first-person singular','любишь':'second-person singular',
+      'любит':'third-person singular','любим':'first-person plural',
+      'любите':'second-person plural','любят':'third-person plural',
+      'живу':'first-person singular','живёшь':'second-person singular',
+      'живёт':'third-person singular','живём':'first-person plural',
+      'живёте':'second-person plural','живут':'third-person plural',
+      'работаю':'first-person singular','работаешь':'second-person singular',
+      'работает':'third-person singular','работаем':'first-person plural',
+      'работаете':'second-person plural','работают':'third-person plural',
+      'отдыхаю':'first-person singular','отдыхаешь':'second-person singular',
+      'отдыхает':'third-person singular','отдыхаем':'first-person plural',
+      'отдыхаете':'second-person plural','отдыхают':'third-person plural'
+    };
+    function diagnosticFor(entry){
+      const chosen=selections[entry.i];
+      const expected=entry.word.ru;
+      const chosenFeature=formFeatures[chosen];
+      const expectedFeature=formFeatures[expected];
+      const nounEntry=entriesFor(current()).slice(entry.i+1).find(candidate=>genders[selections[candidate.i]]);
+      const noun=nounEntry?selections[nounEntry.i]:null;
+      if(agree[expected] && noun){
+        const genderName={m:'masculine',f:'feminine',p:'plural'}[genders[noun]];
+        return [
+          `Look at “${noun}”. The words describing this family member need to agree with it.`,
+          chosenFeature ? `“${chosen}” is ${chosenFeature.gender || 'a different'} form${chosenFeature.cases ? ` (${chosenFeature.cases})` : ''}. Here the family member is ${genderName}.` : `“${chosen}” does not match the ${genderName} family member. Check gender and number.`,
+          `This identification uses a ${genderName} nominative form. Compare the endings in the dropdown; choose the form that matches “${noun}”.`
+        ];
+      }
+      if(chosenFeature && expectedFeature && chosenFeature.cases!==expectedFeature.cases){
+        return [
+          `Check the job of “${chosen}” in this phrase. Its ending signals a grammatical relationship.`,
+          `“${chosen}” can be ${chosenFeature.cases}; this position calls for ${expectedFeature.cases}.`,
+          `Look at the preposition, verb or quantity before this word. Find a form that fits the ${expectedFeature.cases} relationship.`
+        ];
+      }
+      if(verbPerson[chosen] && verbPerson[expected]){
+        return [
+          `Look at who is doing the action. The verb ending must match its subject.`,
+          `“${chosen}” is ${verbPerson[chosen]}; this clause needs ${verbPerson[expected]}.`,
+          `Compare the verb endings for ${verbPerson[expected]} and test again.`
+        ];
+      }
+      if(chosenFeature && expectedFeature){
+        return [
+          `Inspect the ending of “${chosen}”. Does it fit this part of the sentence?`,
+          `“${chosen}” is ${chosenFeature.gender || 'a different'} form (${chosenFeature.cases || 'check its case'}).`,
+          `This slot calls for ${expectedFeature.gender || 'the appropriate'} form (${expectedFeature.cases || 'check its case'}). Find the matching ending.`
+        ];
+      }
+      return [
+        `Look closely at “${chosen}” and the words around it. What relationship must they express?`,
+        `Compare the meaning and grammatical role of “${chosen}” with the sentence above.`,
+        `Pay attention to the subject, preposition, number and word endings. Try a different form that fits this context.`
+      ];
+    }
+    function showClue(entries){
+      const wrong=entries.find(entry=>results && !results[entry.i]);
+      activity.replaceChildren();
+      if(!wrong)return;
+      const heading=document.createElement('strong');
+      heading.textContent=`Clue ${clueLevel+1} · ${selections[wrong.i]}`;
+      const message=document.createElement('p');
+      message.textContent=diagnosticFor(wrong)[clueLevel];
+      activity.append(heading,message);
+      if(clueLevel<2){
+        const next=document.createElement('button');
+        next.type='button';next.className='gears-learning__next-clue';
+        next.id='gears-next-clue';next.textContent='Another Clue';
+        activity.append(next);
+      }
+    }
+    function render(){
+      const item=current();
+      const entries=entriesFor(item);
+      question.textContent=item.why;
+      if(count)count.textContent=`${investigations.filter(entry=>entry.train===activeTrain).length} investigations · ${trainNames[activeTrain]}`;
+      // Always show the entire original clickable sentence in the upper panel.
+      words.replaceChildren();
+      item.words.forEach((word,i)=>{
+        const button=document.createElement('button');button.type='button';
+        button.className='gears-learning__word';button.lang='ru';
+        button.textContent=word.ru;button.dataset.wordIndex=String(i);
+        button.setAttribute('aria-label',`Explain ${word.ru}`);words.append(button);
+      });
+      machineWheels.replaceChildren();
+      entries.forEach(entry=>{
+        const component=document.createElement('div');component.className='gears-learning__machine-component';
+        const image=document.createElement('img');image.src='../../Images/door-four/gear-a.png';
+        image.alt='';image.setAttribute('aria-hidden','true');image.className='gears-learning__working-gear';
+        if(results?.[entry.i])image.classList.add('is-engaged');
+        const label=document.createElement('span');label.textContent=selectedLabel(entry.word,selections[entry.i]);
+        component.append(image,label);
+        if(entry.options){
+          const select=document.createElement('select');select.className='gears-learning__gear-select';
+          select.dataset.gearsPart=String(entry.i);select.lang='ru';
+          select.setAttribute('aria-label',`Choose ${label.textContent}`);
+          entry.options.forEach(option=>{const node=document.createElement('option');node.value=option;node.textContent=option;select.append(node);});
+          select.value=selections[entry.i];component.append(select);
+        }else{
+          const fixed=document.createElement('div');fixed.className='gears-learning__fixed-word';
+          fixed.textContent=entry.word.ru;component.append(fixed);
+        }
+        machineWheels.append(component);
+      });
+      root.querySelectorAll('[data-gears-view]').forEach(button=>button.classList.toggle('is-current',button.dataset.gearsView===view));
+      translation.textContent=view==='literal'?item.literal:view==='natural'?item.natural:item.ru;
+      translation.lang=view==='russian'?'ru':'en';
+      const good=results?.filter(Boolean).length||0;
+      if(!results){diagnostics.textContent='Choose words, then test.';activity.textContent='Make the gears work together.';}
+      else if(good===entries.length){diagnostics.textContent=`All ${good} gears turn!`;activity.innerHTML='<strong>Why?</strong> '+escapeHtml(item.explain);}
+      else{diagnostics.textContent=`${good} of ${entries.length} gears turn.`;showClue(entries);}
+      mechanism.hidden=true;
+    }
+    function chooseTrain(train){
+      if(!trainNames[train])return;
+      activeTrain=train;
+      const options=investigations.map((entry,i)=>({entry,i})).filter(row=>row.entry.train===train);
+      selector.replaceChildren();
+      options.forEach((row,position)=>{const option=document.createElement('option');option.value=String(row.i);option.textContent=`${String(position+1).padStart(2,'0')} · ${row.entry.ru}`;selector.append(option);});
+      index=options[0].i;selector.value=String(index);view='russian';resetActivity();render();
+    }
+    selector.addEventListener('change',()=>{index=Number(selector.value);view='russian';resetActivity();render();});
+    root.addEventListener('change',event=>{
+      const select=event.target.closest('[data-gears-part]');
+      if(!select)return;
+      selections[Number(select.dataset.gearsPart)]=select.value;
+      results=null;clueLevel=0;render();
+    });
+    root.addEventListener('click',event=>{
+      const wordButton=event.target.closest('[data-word-index]');
+      if(wordButton){
+        const word=current().words[Number(wordButton.dataset.wordIndex)];
+        const same=!popup.hidden&&popup.dataset.wordIndex===wordButton.dataset.wordIndex;
+        if(same){popup.hidden=true;return;}
+        popup.replaceChildren();const heading=document.createElement('strong');heading.textContent=word.ru;
+        const meaning=document.createElement('span');meaning.textContent=word.meaning;
+        popup.append(heading,meaning);popup.dataset.wordIndex=wordButton.dataset.wordIndex;popup.hidden=false;return;
+      }
+      const viewButton=event.target.closest('[data-gears-view]');
+      if(viewButton){view=viewButton.dataset.gearsView;render();return;}
+      if(event.target.closest('#gears-next-clue')){
+        if(results && clueLevel<2){clueLevel++;render();}
+        return;
+      }
+      if(event.target.closest('#gears-reset-button')){
+        resetActivity();
+        render();
+        return;
+      }
+      if(event.target.closest('#gears-test-button')){
+        // Check each component independently, including noun–modifier agreement.
+        results=evaluate();
+        clueLevel=0;attempt++;render();return;
+      }
+    });
+    // Gear Train page opens after the original landing animation.
+    document.querySelectorAll('#gears-experience [data-gear-train]').forEach(button => {
+        button.addEventListener('click', () => chooseTrain(button.dataset.gearTrain));
+    });
+    chooseTrain('a');
+})();
+// END THE GEARS — THREE INTERACTIVE GRAMMAR WORKSHOPS
