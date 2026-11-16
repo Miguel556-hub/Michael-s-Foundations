@@ -6878,6 +6878,7 @@ document
         const drawerActions = { 'drawer-examples': 'examples', 'drawer-special': 'special', 'drawer-real': 'real', 'drawer-notes': 'notes' };
         if (drawerActions[action]) { showDrawerInterior(drawerActions[action]); return; }
         if (action === 'drawers-back') { closeDrawers(); return; }
+        if (action === 'gold' || action === 'purple') return;
         status.textContent = messages[action] || 'This discovery is being prepared.';
         status.hidden = false;
     });
@@ -16812,6 +16813,10 @@ const conversations = {
     }
 
     function showExperience() {
+        const purple = document.getElementById('purple-timekeeper');
+        if (purple) purple.hidden = true;
+        const status = laboratory.querySelector('.door-four__status');
+        if (status) status.hidden = true;
         stage.hidden = true;
         experience.hidden = false;
         startScenario(0);
@@ -16872,3 +16877,319 @@ const conversations = {
     startScenario(0);
 })();
 // END GOLD BUTTON — FAMILY TELEGRAPH
+
+
+// ============================================================
+// BEGIN PURPLE BUTTON — TIMEKEEPER’S WORKSHOP
+// Isolated from the existing Laboratory, Gears, and Drawers.
+// ============================================================
+(() => {
+    const laboratory = document.getElementById('door-four-laboratory');
+    const experience = document.getElementById('purple-timekeeper');
+    // Keep the original brown Laboratory return button available on other
+    // screens, but never show it beneath either Purple Workshop scenario.
+    const duplicateLaboratoryReturn = laboratory?.querySelector('.door-four__return');
+    const syncPurpleReturnVisibility = () => {
+        if (duplicateLaboratoryReturn) {
+            duplicateLaboratoryReturn.hidden = !experience.hidden;
+        }
+    };
+    if (!laboratory || !experience) return;
+    const purpleReturnObserver = new MutationObserver(syncPurpleReturnVisibility);
+    purpleReturnObserver.observe(experience, {
+        attributes: true,
+        attributeFilter: ['hidden']
+    });
+    syncPurpleReturnVisibility();
+
+    if (!laboratory || !experience) return;
+
+    const stage = laboratory.querySelector('.door-four__stage');
+    const original = document.getElementById('purple-original');
+    const vocabulary = document.getElementById('purple-vocabulary');
+    const wordline = document.getElementById('purple-wordline');
+    const feedback = document.getElementById('purple-feedback');
+    const clueButton = document.getElementById('purple-clue');
+    const whyButton = document.getElementById('purple-why');
+    const overlay = document.getElementById('purple-overlay');
+    const dialog = overlay.querySelector('.purple-timekeeper__dialog');
+    const scenarios = [
+        {
+            original: ['Мой', 'отец', 'старше', 'моей', 'матери.'],
+            pieces: [
+                { id: 'firstPossessive', options: ['мой', 'моя', 'моё'], initial: 'мой' },
+                { id: 'father', options: ['отец', 'отца', 'отцу'], initial: 'отец' },
+                { id: 'comparison', options: ['старше', 'младше', 'ниже'], initial: 'старше' },
+                { id: 'secondPossessive', options: ['моей', 'моего', 'мою'], initial: 'моей' },
+                { id: 'mother', options: ['матери', 'мать', 'матерью'], initial: 'матери' }
+            ],
+            correctOrder: ['firstPossessive', 'mother', 'comparison', 'secondPossessive', 'father'],
+            correctForms: {
+                firstPossessive: 'моя', mother: 'мать', comparison: 'старше',
+                secondPossessive: 'моего', father: 'отца'
+            },
+            image: 'button-purple-mom-is-older.png',
+            alt: 'Mother and father standing together; the mother appears older',
+            caption: 'Look at the parents. The mother appears older than the father.',
+            glossary: [
+                ['my', 'my — masculine form'],
+                ['father', 'father'],
+                ['older', 'older than; used for comparing ages'],
+                ['my', 'my — feminine genitive form'],
+                ['mother', 'mother; genitive form']
+            ],
+            clues: [
+                'Look at the photograph. Which parent appears older?',
+                'Move the mother into the first position. The father belongs after старше.',
+                'The sentence begins Моя мать. After старше, choose моего отца.'
+            ],
+            why: '<p class="purple-timekeeper__why-phrase" lang="ru">Моя мать старше моего отца.</p><div class="purple-timekeeper__why-grid"><div><strong>Моя мать</strong><span>WHO is older?<br>Feminine subject</span></div><div><strong>старше</strong><span>OLDER THAN<br>Comparative</span></div><div><strong>моего отца</strong><span>THAN WHOM?<br>Genitive case</span></div></div><p class="purple-timekeeper__why-note">The same family words change places. Мой becomes моя with мать; after старше, the comparison uses моего отца.</p>'
+        },
+        {
+            original: ['Днём', 'моя', 'сестра', 'спит,', 'а', 'ночью', 'работает.'],
+            pieces: [
+                { id: 'day', options: ['днём', 'ночью', 'утром'], initial: 'днём' },
+                { id: 'possessive', options: ['моя', 'мой', 'моё'], initial: 'моя' },
+                { id: 'sister', options: ['сестра', 'сестру', 'сестры'], initial: 'сестра' },
+                { id: 'sleep', options: ['спит', 'спят', 'спала'], initial: 'спит' },
+                { id: 'and', options: ['а', 'и', 'но'], initial: 'а' },
+                { id: 'night', options: ['ночью', 'днём', 'вечером'], initial: 'ночью' },
+                { id: 'work', options: ['работает', 'работают', 'работала'], initial: 'работает' }
+            ],
+            correctOrder: ['day', 'possessive', 'sister', 'work', 'and', 'night', 'sleep'],
+            correctForms: {
+                day: 'днём', possessive: 'моя', sister: 'сестра', work: 'работает',
+                and: 'а', night: 'ночью', sleep: 'спит'
+            },
+            image: 'button-purple-sister-sleeps.png',
+            alt: 'Split photograph showing the same woman working in daylight and sleeping at night',
+            caption: 'Day: she works. Night: she sleeps.',
+            glossary: [
+                ['daytime', 'during the day'],
+                ['my', 'my — feminine form'],
+                ['sister', 'sister'],
+                ['sleeps', 'sleeps; present tense'],
+                ['but / whereas', 'and / whereas; contrasts two situations'],
+                ['nighttime', 'at night'],
+                ['works', 'works; present tense']
+            ],
+            clues: [
+                'Compare the two halves of the photograph. What is she doing in daylight?',
+                'The time words днём and ночью are already in the right places. Check the activities.',
+                'Place работает after сестра and move спит to the end, after ночью.'
+            ],
+            why: '<p class="purple-timekeeper__why-phrase" lang="ru">Днём моя сестра работает, а ночью спит.</p><div class="purple-timekeeper__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>Днём</strong><span>IN THE DAYTIME<br>She works</span></div><div><strong>ночью</strong><span>AT NIGHT<br>She sleeps</span></div></div><p class="purple-timekeeper__why-note">Russian uses днём and ночью to say when an action happens. The same verbs swap places to match the photographic evidence. The subject моя сестра is understood in the second half.</p>'
+        }
+    ];
+
+    let scenarioIndex = 0;
+    let pieces = [];
+    let clueLevel = 0;
+    let solved = false;
+    let draggingId = null;
+    let previousFocus = null;
+
+    function startScenario(index) {
+        scenarioIndex = index;
+        const scenario = scenarios[index];
+        pieces = scenario.pieces.map(piece => ({ ...piece, value: piece.initial }));
+        clueLevel = 0;
+        solved = false;
+        feedback.textContent = 'Study the evidence, then repair the telegram.';
+        feedback.classList.remove('is-success', 'is-try-again');
+        clueButton.hidden = true;
+        whyButton.disabled = true;
+        document.getElementById('purple-telegram-number').textContent = String(index + 1).padStart(2, '0');
+        const image = document.getElementById('purple-evidence-image');
+        image.src = '../../Images/door-four/' + scenario.image;
+        image.alt = scenario.alt;
+        document.getElementById('purple-evidence-caption').textContent = scenario.caption;
+        experience.querySelectorAll('[data-purple-scenario]').forEach(button => {
+            const current = Number(button.dataset.purpleScenario) === index;
+            button.classList.toggle('is-current', current);
+            button.setAttribute('aria-current', current ? 'true' : 'false');
+        });
+        original.replaceChildren();
+        scenario.original.forEach((word, index) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = word;
+            button.lang = 'ru';
+            button.setAttribute('aria-label', 'Explain ' + word);
+            button.addEventListener('click', () => {
+                const entry = scenario.glossary[index];
+                vocabulary.textContent = word.replace(/[.!?]$/, '') + ' — ' + entry[1];
+            });
+            original.append(button);
+        });
+        vocabulary.textContent = 'Click any word in the telegram to see its meaning.';
+        renderPieces();
+    }
+
+    function movePiece(from, to) {
+        if (from < 0 || to < 0 || from >= pieces.length || to >= pieces.length || from === to) return;
+        const [piece] = pieces.splice(from, 1);
+        pieces.splice(to, 0, piece);
+        invalidateResult();
+        renderPieces();
+    }
+
+    function invalidateResult() {
+        solved = false;
+        whyButton.disabled = true;
+        clueButton.hidden = true;
+        clueLevel = 0;
+        feedback.textContent = 'Ready to test your revised transmission.';
+    }
+
+    function renderPieces() {
+        wordline.replaceChildren();
+        pieces.forEach((piece, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'purple-timekeeper__piece';
+            wrapper.draggable = true;
+            wrapper.dataset.pieceId = piece.id;
+            wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+            const select = document.createElement('select');
+            select.lang = 'ru';
+            select.setAttribute('aria-label', 'Choose form for word ' + (index + 1));
+            piece.options.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.append(option);
+            });
+            select.value = piece.value;
+            select.addEventListener('change', () => {
+                piece.value = select.value;
+                wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+                invalidateResult();
+            });
+            const move = document.createElement('div');
+            move.className = 'purple-timekeeper__move';
+            [['←', -1], ['→', 1]].forEach(([label, offset]) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = label;
+                button.disabled = index + offset < 0 || index + offset >= pieces.length;
+                button.setAttribute('aria-label', 'Move ' + piece.value + (offset < 0 ? ' left' : ' right'));
+                button.addEventListener('click', () => movePiece(index, index + offset));
+                move.append(button);
+            });
+            wrapper.addEventListener('dragstart', event => {
+                draggingId = piece.id;
+                wrapper.classList.add('is-dragging');
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', piece.id);
+            });
+            wrapper.addEventListener('dragend', () => wrapper.classList.remove('is-dragging'));
+            wrapper.addEventListener('dragover', event => event.preventDefault());
+            wrapper.addEventListener('drop', event => {
+                event.preventDefault();
+                const id = draggingId || event.dataTransfer.getData('text/plain');
+                draggingId = null;
+                movePiece(pieces.findIndex(candidate => candidate.id === id), pieces.findIndex(candidate => candidate.id === piece.id));
+            });
+            wrapper.append(select, move);
+            wordline.append(wrapper);
+        });
+    }
+
+    function testAnswer() {
+        const scenario = scenarios[scenarioIndex];
+        const correctOrder = pieces.every((piece, index) => piece.id === scenario.correctOrder[index]);
+        const correctForms = pieces.every(piece => piece.value === scenario.correctForms[piece.id]);
+        solved = correctOrder && correctForms;
+        whyButton.disabled = !solved;
+        if (solved) {
+            clueButton.hidden = true;
+            feedback.textContent = 'Transmission Successfully Repaired — The message now matches the photographic evidence.';
+            feedback.classList.add('is-success');
+            feedback.classList.remove('is-try-again');
+        } else {
+            clueLevel = 0;
+            clueButton.hidden = false;
+            feedback.textContent = scenario.clues[0];
+            feedback.classList.remove('is-success');
+            feedback.classList.add('is-try-again');
+        }
+    }
+
+    function openExplanation() {
+        if (!solved) return;
+        previousFocus = document.activeElement;
+        document.getElementById('purple-explanation').innerHTML = scenarios[scenarioIndex].why;
+        overlay.hidden = false;
+        dialog.focus();
+    }
+
+    function closeExplanation() {
+        overlay.hidden = true;
+        previousFocus?.focus();
+    }
+
+    function showExperience() {
+        const gold = document.getElementById('gold-telegraph');
+        if (gold) gold.hidden = true;
+        const status = laboratory.querySelector('.door-four__status');
+        if (status) status.hidden = true;
+        stage.hidden = true;
+        experience.hidden = false;
+        startScenario(0);
+        experience.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+
+    // Capture the Purple hotspot before the generic Laboratory status handler.
+    laboratory.addEventListener('click', event => {
+        const entry = event.target.closest('[data-lab-action="purple"]');
+        if (!entry || !laboratory.contains(entry)) return;
+        event.stopImmediatePropagation();
+        showExperience();
+    }, true);
+
+    experience.querySelectorAll('[data-purple-scenario]').forEach(button => {
+        button.addEventListener('click', () => startScenario(Number(button.dataset.purpleScenario)));
+    });
+    document.getElementById('purple-reset').addEventListener('click', () => startScenario(scenarioIndex));
+    document.getElementById('purple-test').addEventListener('click', testAnswer);
+    clueButton.addEventListener('click', () => {
+        clueLevel = Math.min(clueLevel + 1, 2);
+        feedback.textContent = scenarios[scenarioIndex].clues[clueLevel];
+        clueButton.hidden = clueLevel === 2;
+    });
+    whyButton.addEventListener('click', openExplanation);
+    document.getElementById('purple-close').addEventListener('click', closeExplanation);
+    document.getElementById('purple-close-bottom').addEventListener('click', closeExplanation);
+    overlay.addEventListener('click', event => {
+        if (event.target === overlay) closeExplanation();
+    });
+    document.addEventListener('keydown', event => {
+        if (overlay.hidden) return;
+        if (event.key === 'Escape') closeExplanation();
+        if (event.key === 'Tab') {
+            const focusable = [...overlay.querySelectorAll('button:not(:disabled)')];
+            const index = focusable.indexOf(document.activeElement);
+            if (event.shiftKey && index <= 0) {
+                event.preventDefault();
+                focusable[focusable.length - 1].focus();
+            } else if (!event.shiftKey && index === focusable.length - 1) {
+                event.preventDefault();
+                focusable[0].focus();
+            }
+        }
+    });
+    document.getElementById('purple-back').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    document.getElementById('purple-four-doors').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        laboratory.querySelector('.door-four__return')?.click();
+    });
+    startScenario(0);
+})();
+// END PURPLE BUTTON — TIMEKEEPER’S WORKSHOP

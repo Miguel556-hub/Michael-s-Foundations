@@ -6372,7 +6372,7 @@ LESSON 2 — EXTENDED FAMILY
               style="--x:43.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
             <button type="button" class="door-four__hotspot" data-lab-action="green" aria-label="Change and Observe"
               style="--x:50.2%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
-            <button type="button" class="door-four__hotspot" data-lab-action="purple" aria-label="Test a Theory"
+            <button type="button" class="door-four__hotspot" data-lab-action="purple" aria-label="Open Purple Timekeeper’s Workshop"
               style="--x:56.9%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
             <button type="button" class="door-four__hotspot" data-lab-action="gold" aria-label="Open Gold Family Telegraph"
               style="--x:63.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
@@ -6458,6 +6458,58 @@ LESSON 2 — EXTENDED FAMILY
             </div>
           </section>
           <!-- END GOLD BUTTON — FAMILY TELEGRAPH -->
+
+          <!-- BEGIN PURPLE BUTTON — TIMEKEEPER’S WORKSHOP (TWO SCENARIOS) -->
+          <section class="purple-timekeeper" id="purple-timekeeper" hidden aria-label="Purple Timekeeper’s Workshop">
+            <header class="purple-timekeeper__header">
+              <img src="../../Images/door-four/button-purple-watch.png" alt="" class="purple-timekeeper__machine">
+              <div><p class="purple-timekeeper__eyebrow">RUSSIAN LANGUAGE LABORATORY · PURPLE BUTTON</p>
+                <h2>The Timekeeper’s Workshop</h2><p>The evidence tells a different story. Examine it and repair the message.</p></div>
+            </header>
+            <nav class="purple-timekeeper__tabs" aria-label="Choose timekeeper mystery">
+              <button type="button" data-purple-scenario="0" class="is-current">01 · The Age Mix-Up</button>
+              <button type="button" data-purple-scenario="1">02 · Day and Night</button>
+            </nav>
+            <div class="purple-timekeeper__layout">
+              <section class="purple-timekeeper__telegram" aria-label="Incoming telegram">
+                <h3>Incoming Message <span id="purple-telegram-number">01</span></h3>
+                <div class="purple-timekeeper__parchment">
+                  <img src="../../Images/door-four/button-gold-parchment.png" alt="" aria-hidden="true">
+                  <div class="purple-timekeeper__original" id="purple-original" lang="ru" aria-label="Click a word to learn its meaning"></div>
+                </div>
+                <div class="purple-timekeeper__vocabulary" id="purple-vocabulary" aria-live="polite">Click any word in the telegram to see its meaning.</div>
+              </section>
+              <section class="purple-timekeeper__evidence" aria-label="Photographic evidence">
+                <h3>Photographic Evidence</h3>
+                <img id="purple-evidence-image" src="../../Images/door-four/button-purple-mom-is-older.png" alt="Mother visibly older than father">
+                <p id="purple-evidence-caption">The mother appears older than the father.</p>
+              </section>
+            </div>
+            <section class="purple-timekeeper__repair" aria-label="Repair the telegram">
+              <div class="purple-timekeeper__repair-heading"><h3>Repair the Message</h3><p>Drag word pieces to reorder them, or use the arrow buttons. Choose the correct form from each three-choice menu.</p></div>
+              <div class="purple-timekeeper__wordline" id="purple-wordline" aria-label="Rearrange and edit the message"></div>
+              <div class="purple-timekeeper__controls">
+                <button type="button" id="purple-reset" class="purple-timekeeper__button purple-timekeeper__button--subtle">↻ Reset</button>
+                <button type="button" id="purple-test" class="purple-timekeeper__button">Test My Answer!</button>
+                <button type="button" id="purple-clue" class="purple-timekeeper__button purple-timekeeper__button--subtle" hidden>Another Clue</button>
+                <button type="button" id="purple-why" class="purple-timekeeper__button purple-timekeeper__button--why" disabled>WHY IT WORKS!</button>
+              </div>
+              <p class="purple-timekeeper__feedback" id="purple-feedback" role="status" aria-live="polite">Study the evidence, then repair the message.</p>
+            </section>
+            <nav class="purple-timekeeper__navigation" aria-label="Workshop navigation">
+              <button type="button" class="purple-timekeeper__back" id="purple-four-doors">← Back to Four Doors</button>
+              <button type="button" class="purple-timekeeper__back" id="purple-back">← Back to Russian Laboratory</button>
+            </nav>
+            <div class="purple-timekeeper__overlay" id="purple-overlay" hidden>
+              <div class="purple-timekeeper__dialog" role="dialog" aria-modal="true" aria-labelledby="purple-dialog-title" tabindex="-1">
+                <button type="button" id="purple-close" class="purple-timekeeper__close" aria-label="Close explanation">×</button>
+                <h3 id="purple-dialog-title">WHY IT WORKS!</h3>
+                <div id="purple-explanation"></div>
+                <button type="button" id="purple-close-bottom" class="purple-timekeeper__button">Return to the Workshop</button>
+              </div>
+            </div>
+          </section>
+          <!-- END PURPLE BUTTON — TIMEKEEPER’S WORKSHOP -->
 
           <!-- BEGIN THE GEARS — LANDING AND THREE DEVELOPMENT SHELLS -->
           <section class="gears-experience" id="gears-experience" hidden aria-label="The Gears — How It Works?">

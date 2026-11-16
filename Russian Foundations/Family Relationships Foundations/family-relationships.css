@@ -24822,3 +24822,181 @@ button.gears-stage-nav:focus-visible {
 #door-four-laboratory:has(#gold-telegraph:not([hidden])) .door-four__return {
     display: none !important;
 }
+
+
+/* ============================================================
+   PURPLE BUTTON — TIMEKEEPER’S WORKSHOP (isolated styles)
+   ============================================================ */
+.purple-timekeeper[hidden], .purple-timekeeper__overlay[hidden] { display:none !important; }
+.purple-timekeeper { position:relative; min-height:720px; padding:20px clamp(18px,3vw,42px) 28px; color:#fff3d7; background:radial-gradient(ellipse at 50% 5%,#3c3931,#172328 76%); border:3px solid #b8914a; font-family:Georgia,'Times New Roman',serif; }
+.purple-timekeeper__header { display:flex; gap:18px; align-items:center; max-height:140px; }
+.purple-timekeeper__machine { width:132px; max-height:115px; object-fit:contain; }
+.purple-timekeeper__eyebrow { color:#d9b977; font:700 11px Arial,sans-serif; letter-spacing:.15em; margin:0; }
+.purple-timekeeper h2 { font-size:clamp(26px,3vw,40px); color:#f9d48a; margin:3px 0; }
+.purple-timekeeper__header p:last-child { margin:3px 0; font-size:14px; }
+.purple-timekeeper__tabs { display:flex; gap:12px; margin:12px 0 16px; }
+.purple-timekeeper__tabs button { background:#2a3437; color:#e9d7af; border:1px solid #aa874e; border-radius:8px; }
+.purple-timekeeper__tabs button.is-current { background:#705121; color:white; box-shadow:inset 0 1px 1px #ffe7a3,0 3px 8px #0008; }
+.purple-timekeeper__layout { display:grid; grid-template-columns:1.12fr 1fr; gap:18px; }
+.purple-timekeeper__telegram,.purple-timekeeper__evidence,.purple-timekeeper__repair { min-width:0; padding:12px 16px; border:2px solid #9e7b43; border-radius:12px; background:#152429c9; box-shadow:inset 0 1px 0 #e2bf7645,0 5px 15px #0006; }
+.purple-timekeeper h3 { color:#f4cf88; margin:0 0 10px; font-size:19px; }
+.purple-timekeeper__parchment { position:relative; height:174px; display:grid; place-items:center; }
+.purple-timekeeper__parchment img { width:100%; height:100%; object-fit:fill; }
+.purple-timekeeper__original { position:absolute; inset:18% 10%; display:flex; flex-wrap:wrap; gap:0 7px; align-content:center; justify-content:center; color:#382414; font-size:clamp(17px,2.1vw,25px); font-weight:700; text-align:center; }
+.purple-timekeeper__original button { padding:0; margin:0; border:0; border-radius:0; color:inherit; background:transparent !important; font:inherit; cursor:pointer; }
+.purple-timekeeper__original button:focus-visible { outline:2px solid #6b451d; outline-offset:3px; }
+.purple-timekeeper__vocabulary { min-height:45px; padding:7px 10px; color:#fff1cf; font:13px/1.45 Arial,sans-serif; }
+.purple-timekeeper__evidence img { width:100%; height:174px; object-fit:contain; border-radius:7px; }
+.purple-timekeeper__evidence p { text-align:center; margin:7px 0 0; font-size:14px; }
+.purple-timekeeper__repair { margin-top:16px; }
+.purple-timekeeper__repair-heading { display:flex; justify-content:space-between; gap:14px; align-items:baseline; }
+.purple-timekeeper__repair-heading p { margin:0 0 8px; font:12px Arial,sans-serif; color:#e8d9bc; }
+.purple-timekeeper__wordline { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; min-height:100px; align-items:center; padding:8px; border:1px dashed #a7864b; border-radius:8px; }
+.purple-timekeeper__piece { min-width:105px; border:1px solid #bd9756; border-radius:9px; padding:8px; background:linear-gradient(#4c4b3c,#293538); text-align:center; cursor:grab; }
+.purple-timekeeper__piece:focus-within { outline:1px solid #f3d28c; }
+.purple-timekeeper__piece.is-dragging { opacity:.45; }
+.purple-timekeeper__piece select { display:block; width:100%; background:#f5e5c0; color:#332514; border:1px solid #9a7135; border-radius:5px; padding:6px 2px; font-size:16px; font-family:Georgia,serif; }
+.purple-timekeeper__move { display:flex; justify-content:center; gap:5px; margin-top:5px; }
+.purple-timekeeper__move button { padding:1px 9px; font-size:13px; background:#364447; color:#f4d28c; border-color:#9e7b43; }
+.purple-timekeeper__controls { display:flex; gap:9px; flex-wrap:wrap; justify-content:center; margin-top:13px; }
+.purple-timekeeper .purple-timekeeper__button,.purple-timekeeper__back { color:#33240e; background:linear-gradient(#ffe5a2,#c7973e 60%,#92611d); border:1px solid #f7d68e; border-radius:8px; box-shadow:0 4px 0 #654417,0 7px 10px #0009; padding:8px 16px; font:700 14px Georgia,serif; }
+.purple-timekeeper .purple-timekeeper__button--subtle { background:linear-gradient(#e8d5ac,#a99168); }
+.purple-timekeeper .purple-timekeeper__button--why:not(:disabled) { box-shadow:0 0 12px #ffd16b,0 4px 0 #654417; }
+.purple-timekeeper .purple-timekeeper__button:disabled { opacity:.43; cursor:not-allowed; }
+.purple-timekeeper__feedback { text-align:center; min-height:22px; color:#fff; font:14px/1.4 Arial,sans-serif; margin:12px 0 0; }
+.purple-timekeeper__back { margin-top:20px; }
+.purple-timekeeper__overlay { position:fixed; inset:0; z-index:10000; background:#060c0cbd; display:grid; place-items:center; padding:20px; }
+.purple-timekeeper__dialog { position:relative; width:min(640px,100%); max-height:85vh; overflow:auto; background:linear-gradient(140deg,#263637,#101f24); border:3px ridge #d2a75e; border-radius:15px; padding:25px; box-shadow:0 18px 60px #000; color:#fff4d7; }
+.purple-timekeeper__dialog h3 { text-align:center; font-size:25px; }
+.purple-timekeeper__close { position:absolute; top:7px; right:9px; color:#f6d58c; background:#263333; border:1px solid #b38a4b; font-size:24px; padding:0 9px; }
+.purple-timekeeper__why-phrase { font-size:24px; text-align:center; margin:12px 0 20px; }
+.purple-timekeeper__why-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin:12px 0; }
+.purple-timekeeper__why-grid > div { border:1px solid #ac8d56; border-radius:8px; background:#344448; padding:12px 7px; text-align:center; }
+.purple-timekeeper__why-grid strong,.purple-timekeeper__why-grid span { display:block; }
+.purple-timekeeper__why-grid strong { color:#ffe2a1; font-size:18px; }
+.purple-timekeeper__why-grid span { font:12px/1.5 Arial,sans-serif; }
+.purple-timekeeper__why-note { text-align:center; font-size:15px; }
+@media(max-width:760px){ .purple-timekeeper__layout{grid-template-columns:1fr;} .purple-timekeeper__header{max-height:none;} .purple-timekeeper__machine{width:85px;} .purple-timekeeper__repair-heading{display:block;} .purple-timekeeper__why-grid{grid-template-columns:1fr;} }
+
+
+/* ============================================================
+   PURPLE TIMEKEEPER’S WORKSHOP — VISUAL REFINEMENTS (BOTH SCENARIOS)
+   ============================================================ */
+.purple-timekeeper__header { max-height: none; min-height: 146px; }
+.purple-timekeeper__machine { width: 190px; max-height: 158px; flex: 0 0 auto; }
+.purple-timekeeper__parchment { height: 224px; }
+.purple-timekeeper__original { inset: 19% 12%; line-height: 1.5; }
+.purple-timekeeper__vocabulary { min-height: 58px; font-size: 17px; line-height: 1.5; }
+.purple-timekeeper__feedback { transition: background-color .18s, border-color .18s; }
+/* Quiet, period-appropriate confirmation shared by both scenarios. */
+.purple-timekeeper__feedback.is-success {
+    background: #1b292c;
+    color: #d5c9b0;
+    border: 1px solid #a77b37;
+    border-radius: 7px;
+    box-shadow: inset 0 1px 0 #ffffff0c, 0 3px 9px #0004;
+    padding: 12px 16px;
+    font: 15px/1.5 Georgia, "Times New Roman", serif;
+    text-align: center;
+}
+.purple-timekeeper__feedback.is-success::before {
+    content: '✓';
+    display: inline-grid;
+    place-items: center;
+    margin-right: 10px;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #d7b16b;
+    border-radius: 50%;
+    color: #f2d396;
+    font: 700 15px/1 Georgia, serif;
+    vertical-align: middle;
+}
+.purple-timekeeper__button--why:not(:disabled) {
+    background: linear-gradient(180deg, #fff0b5 0%, #d9ac51 48%, #96621e 100%);
+    color: #30200c;
+    border-color: #e9c878;
+    box-shadow: inset 0 1px 0 #fff8d5, 0 3px 0 #674318, 0 5px 9px #0006;
+}
+.purple-timekeeper__feedback.is-try-again { color: #ffe3a1; }
+.purple-timekeeper__navigation { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; margin-top: 20px; }
+.purple-timekeeper .purple-timekeeper__navigation .purple-timekeeper__back {
+    margin-top: 0;
+    background: linear-gradient(180deg, #fff0ba 0%, #e6bd68 35%, #b67d2c 73%, #815015 100%);
+    color: #33210a;
+    border: 2px solid #ffe2a0;
+    border-radius: 11px;
+    box-shadow: inset 0 2px 1px #fff9df, inset 0 -2px 2px #6a3f1c, 0 5px 0 #5d3b14, 0 9px 15px #0009;
+    padding: 12px 22px;
+    font: 800 16px Georgia, serif;
+    text-shadow: 0 1px 0 #ffe9b6;
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.purple-timekeeper .purple-timekeeper__navigation .purple-timekeeper__back:hover { filter: brightness(1.12); transform: translateY(-2px); }
+.purple-timekeeper .purple-timekeeper__navigation .purple-timekeeper__back:active { transform: translateY(3px); box-shadow: inset 0 2px 3px #714419, 0 2px 0 #5d3b14; }
+@media (max-width: 760px) {
+    .purple-timekeeper__machine { width: 120px; max-height: 125px; }
+    .purple-timekeeper__parchment { height: 210px; }
+    .purple-timekeeper__navigation { justify-content: center; }
+}
+
+
+/* ============================================================
+   PURPLE TIMEKEEPER’S WORKSHOP — PHOTO / PARCHMENT / NAVIGATION
+   Applies to both scenarios; leaves other Laboratory screens intact.
+   ============================================================ */
+
+/* The landing-page brown image button is unnecessary while the
+   Purple experience is open; preserve it on the Laboratory landing. */
+#door-four-laboratory:has(#purple-timekeeper:not([hidden]))
+.door-four__landing-back {
+    display: none !important;
+}
+
+/* Give the photographic evidence the available vertical space. */
+.purple-timekeeper__evidence img {
+    display: block;
+    width: 100%;
+    height: 238px;
+    object-fit: contain;
+    margin-inline: auto;
+}
+
+/* Raise the parchment artwork and the Russian text together,
+   keeping the inline vocabulary hotspots correctly aligned. */
+.purple-timekeeper__parchment img,
+.purple-timekeeper__parchment .purple-timekeeper__original {
+    transform: translateY(-9px);
+}
+
+@media (max-width: 760px) {
+    .purple-timekeeper__evidence img {
+        height: 220px;
+    }
+    .purple-timekeeper__parchment img,
+    .purple-timekeeper__parchment .purple-timekeeper__original {
+        transform: translateY(-6px);
+    }
+}
+
+/* Hide obsolete landing-page navigation during either Purple Workshop scenario. */
+#door-four-laboratory:has(#purple-timekeeper:not([hidden])) .door-four__landing-back {
+    display: none !important;
+}
+
+/* ============================================================
+   PURPLE TIMEKEEPER’S WORKSHOP — HIDE THE ACTUAL DUPLICATE RETURN
+   The brown button below the playing field is .door-four__return,
+   NOT .door-four__landing-back. Hide it only while Purple is open.
+   Both Purple scenarios share the same #purple-timekeeper container.
+   ============================================================ */
+#door-four-laboratory:has(#purple-timekeeper:not([hidden])) > .door-four__return,
+#door-four-laboratory:has(#purple-timekeeper:not([hidden])) .door-four__return {
+    display: none !important;
+}
+
+/* Purple/Gold: suppress obsolete Laboratory placeholder status only while an experience is open. */
+#door-four-laboratory:has(#gold-telegraph:not([hidden])) .door-four__status,
+#door-four-laboratory:has(#purple-timekeeper:not([hidden])) .door-four__status {
+    display: none !important;
+}
