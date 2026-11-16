@@ -6372,10 +6372,10 @@ LESSON 2 — EXTENDED FAMILY
               style="--x:43.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
             <button type="button" class="door-four__hotspot" data-lab-action="green" aria-label="Change and Observe"
               style="--x:50.2%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
-            <button type="button" class="door-four__hotspot" data-lab-action="purple" aria-label="Open Purple Timekeeper’s Workshop"
-              style="--x:56.9%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
-            <button type="button" class="door-four__hotspot" data-lab-action="gold" aria-label="Open Gold Family Telegraph"
-              style="--x:63.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
+            <button type="button" class="door-four__hotspot" data-lab-action="purple"
+              aria-label="Open Purple Timekeeper’s Workshop" style="--x:56.9%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
+            <button type="button" class="door-four__hotspot" data-lab-action="gold"
+              aria-label="Open Gold Family Telegraph" style="--x:63.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
 
 
             <button type="button" class="door-four__hotspot" data-lab-action="gears" aria-label="How It Works?"
@@ -6411,8 +6411,11 @@ LESSON 2 — EXTENDED FAMILY
           <section class="gold-telegraph" id="gold-telegraph" hidden aria-label="Gold Family Telegraph">
             <header class="gold-telegraph__header">
               <img src="../../Images/door-four/button-gold-telegrpah.png" alt="" class="gold-telegraph__machine">
-              <div><p class="gold-telegraph__eyebrow">RUSSIAN LANGUAGE LABORATORY · GOLD BUTTON</p>
-                <h2>The Family Telegraph</h2><p>Something got scrambled in transmission. Follow the evidence. Repair the message.</p></div>
+              <div>
+                <p class="gold-telegraph__eyebrow">RUSSIAN LANGUAGE LABORATORY · GOLD BUTTON</p>
+                <h2>The Family Telegraph</h2>
+                <p>Something got scrambled in transmission. Follow the evidence. Repair the message.</p>
+              </div>
             </header>
             <nav class="gold-telegraph__tabs" aria-label="Choose telegraph mystery">
               <button type="button" data-gold-scenario="0" class="is-current">01 · The Reversed Gift</button>
@@ -6423,37 +6426,52 @@ LESSON 2 — EXTENDED FAMILY
                 <h3>Incoming Telegram <span id="gold-telegram-number">01</span></h3>
                 <div class="gold-telegraph__parchment">
                   <img src="../../Images/door-four/button-gold-parchment.png" alt="" aria-hidden="true">
-                  <div class="gold-telegraph__original" id="gold-original" lang="ru" aria-label="Click a word to learn its meaning"></div>
+                  <div class="gold-telegraph__original" id="gold-original" lang="ru"
+                    aria-label="Click a word to learn its meaning"></div>
                 </div>
-                <div class="gold-telegraph__vocabulary" id="gold-vocabulary" aria-live="polite">Click any word in the telegram to see its meaning.</div>
+                <div class="gold-telegraph__vocabulary" id="gold-vocabulary" aria-live="polite">Click any word in the
+                  telegram to see its meaning.</div>
               </section>
               <section class="gold-telegraph__evidence" aria-label="Photographic evidence">
                 <h3>Photographic Evidence</h3>
-                <img id="gold-evidence-image" src="../../Images/door-four/button-gold-nephew-uncle.png" alt="Nephew giving a gift to his uncle">
+                <img id="gold-evidence-image" src="../../Images/door-four/button-gold-nephew-uncle.png"
+                  alt="Nephew giving a gift to his uncle">
                 <p id="gold-evidence-caption">The nephew is giving the book to his uncle.</p>
               </section>
             </div>
             <section class="gold-telegraph__repair" aria-label="Repair the telegram">
-              <div class="gold-telegraph__repair-heading"><h3>Repair the Transmission</h3><p>Drag word pieces to reorder them, or use the arrow buttons. Choose the correct form from each three-choice menu.</p></div>
-              <div class="gold-telegraph__wordline" id="gold-wordline" aria-label="Rearrange and edit the message"></div>
-              <div class="gold-telegraph__controls">
-                <button type="button" id="gold-reset" class="gold-telegraph__button gold-telegraph__button--subtle">↻ Reset</button>
-                <button type="button" id="gold-test" class="gold-telegraph__button">Test My Answer!</button>
-                <button type="button" id="gold-clue" class="gold-telegraph__button gold-telegraph__button--subtle" hidden>Another Clue</button>
-                <button type="button" id="gold-why" class="gold-telegraph__button gold-telegraph__button--why" disabled>WHY IT WORKS!</button>
+              <div class="gold-telegraph__repair-heading">
+                <h3>Repair the Transmission</h3>
+                <p>Drag word pieces to reorder them, or use the arrow buttons. Choose the correct form from each
+                  three-choice menu.</p>
               </div>
-              <p class="gold-telegraph__feedback" id="gold-feedback" role="status" aria-live="polite">Study the evidence, then repair the telegram.</p>
+              <div class="gold-telegraph__wordline" id="gold-wordline" aria-label="Rearrange and edit the message">
+              </div>
+              <div class="gold-telegraph__controls">
+                <button type="button" id="gold-reset" class="gold-telegraph__button gold-telegraph__button--subtle">↻
+                  Reset</button>
+                <button type="button" id="gold-test" class="gold-telegraph__button">Test My Answer!</button>
+                <button type="button" id="gold-clue" class="gold-telegraph__button gold-telegraph__button--subtle"
+                  hidden>Another Clue</button>
+                <button type="button" id="gold-why" class="gold-telegraph__button gold-telegraph__button--why"
+                  disabled>WHY IT WORKS!</button>
+              </div>
+              <p class="gold-telegraph__feedback" id="gold-feedback" role="status" aria-live="polite">Study the
+                evidence, then repair the telegram.</p>
             </section>
             <nav class="gold-telegraph__navigation" aria-label="Telegraph navigation">
               <button type="button" class="gold-telegraph__back" id="gold-four-doors">← Back to Four Doors</button>
               <button type="button" class="gold-telegraph__back" id="gold-back">← Back to Russian Laboratory</button>
             </nav>
             <div class="gold-telegraph__overlay" id="gold-overlay" hidden>
-              <div class="gold-telegraph__dialog" role="dialog" aria-modal="true" aria-labelledby="gold-dialog-title" tabindex="-1">
-                <button type="button" id="gold-close" class="gold-telegraph__close" aria-label="Close explanation">×</button>
+              <div class="gold-telegraph__dialog" role="dialog" aria-modal="true" aria-labelledby="gold-dialog-title"
+                tabindex="-1">
+                <button type="button" id="gold-close" class="gold-telegraph__close"
+                  aria-label="Close explanation">×</button>
                 <h3 id="gold-dialog-title">WHY IT WORKS!</h3>
                 <div id="gold-explanation"></div>
-                <button type="button" id="gold-close-bottom" class="gold-telegraph__button">Return to the Telegraph</button>
+                <button type="button" id="gold-close-bottom" class="gold-telegraph__button">Return to the
+                  Telegraph</button>
               </div>
             </div>
           </section>
@@ -6463,8 +6481,11 @@ LESSON 2 — EXTENDED FAMILY
           <section class="purple-timekeeper" id="purple-timekeeper" hidden aria-label="Purple Timekeeper’s Workshop">
             <header class="purple-timekeeper__header">
               <img src="../../Images/door-four/button-purple-watch.png" alt="" class="purple-timekeeper__machine">
-              <div><p class="purple-timekeeper__eyebrow">RUSSIAN LANGUAGE LABORATORY · PURPLE BUTTON</p>
-                <h2>The Timekeeper’s Workshop</h2><p>The evidence tells a different story. Examine it and repair the message.</p></div>
+              <div>
+                <p class="purple-timekeeper__eyebrow">RUSSIAN LANGUAGE LABORATORY · PURPLE BUTTON</p>
+                <h2>The Timekeeper’s Workshop</h2>
+                <p>The evidence tells a different story. Examine it and repair the message.</p>
+              </div>
             </header>
             <nav class="purple-timekeeper__tabs" aria-label="Choose timekeeper mystery">
               <button type="button" data-purple-scenario="0" class="is-current">01 · The Age Mix-Up</button>
@@ -6475,63 +6496,158 @@ LESSON 2 — EXTENDED FAMILY
                 <h3>Incoming Message <span id="purple-telegram-number">01</span></h3>
                 <div class="purple-timekeeper__parchment">
                   <img src="../../Images/door-four/button-gold-parchment.png" alt="" aria-hidden="true">
-                  <div class="purple-timekeeper__original" id="purple-original" lang="ru" aria-label="Click a word to learn its meaning"></div>
+                  <div class="purple-timekeeper__original" id="purple-original" lang="ru"
+                    aria-label="Click a word to learn its meaning"></div>
                 </div>
-                <div class="purple-timekeeper__vocabulary" id="purple-vocabulary" aria-live="polite">Click any word in the telegram to see its meaning.</div>
+                <div class="purple-timekeeper__vocabulary" id="purple-vocabulary" aria-live="polite">Click any word in
+                  the telegram to see its meaning.</div>
               </section>
               <section class="purple-timekeeper__evidence" aria-label="Photographic evidence">
                 <h3>Photographic Evidence</h3>
-                <img id="purple-evidence-image" src="../../Images/door-four/button-purple-mom-is-older.png" alt="Mother visibly older than father">
+                <img id="purple-evidence-image" src="../../Images/door-four/button-purple-mom-is-older.png"
+                  alt="Mother visibly older than father">
                 <p id="purple-evidence-caption">The mother appears older than the father.</p>
               </section>
             </div>
             <section class="purple-timekeeper__repair" aria-label="Repair the telegram">
-              <div class="purple-timekeeper__repair-heading"><h3>Repair the Message</h3><p>Drag word pieces to reorder them, or use the arrow buttons. Choose the correct form from each three-choice menu.</p></div>
-              <div class="purple-timekeeper__wordline" id="purple-wordline" aria-label="Rearrange and edit the message"></div>
-              <div class="purple-timekeeper__controls">
-                <button type="button" id="purple-reset" class="purple-timekeeper__button purple-timekeeper__button--subtle">↻ Reset</button>
-                <button type="button" id="purple-test" class="purple-timekeeper__button">Test My Answer!</button>
-                <button type="button" id="purple-clue" class="purple-timekeeper__button purple-timekeeper__button--subtle" hidden>Another Clue</button>
-                <button type="button" id="purple-why" class="purple-timekeeper__button purple-timekeeper__button--why" disabled>WHY IT WORKS!</button>
+              <div class="purple-timekeeper__repair-heading">
+                <h3>Repair the Message</h3>
+                <p>Drag word pieces to reorder them, or use the arrow buttons. Choose the correct form from each
+                  three-choice menu.</p>
               </div>
-              <p class="purple-timekeeper__feedback" id="purple-feedback" role="status" aria-live="polite">Study the evidence, then repair the message.</p>
+              <div class="purple-timekeeper__wordline" id="purple-wordline" aria-label="Rearrange and edit the message">
+              </div>
+              <div class="purple-timekeeper__controls">
+                <button type="button" id="purple-reset"
+                  class="purple-timekeeper__button purple-timekeeper__button--subtle">↻ Reset</button>
+                <button type="button" id="purple-test" class="purple-timekeeper__button">Test My Answer!</button>
+                <button type="button" id="purple-clue"
+                  class="purple-timekeeper__button purple-timekeeper__button--subtle" hidden>Another Clue</button>
+                <button type="button" id="purple-why" class="purple-timekeeper__button purple-timekeeper__button--why"
+                  disabled>WHY IT WORKS!</button>
+              </div>
+              <p class="purple-timekeeper__feedback" id="purple-feedback" role="status" aria-live="polite">Study the
+                evidence, then repair the message.</p>
             </section>
             <nav class="purple-timekeeper__navigation" aria-label="Workshop navigation">
               <button type="button" class="purple-timekeeper__back" id="purple-four-doors">← Back to Four Doors</button>
-              <button type="button" class="purple-timekeeper__back" id="purple-back">← Back to Russian Laboratory</button>
+              <button type="button" class="purple-timekeeper__back" id="purple-back">← Back to Russian
+                Laboratory</button>
             </nav>
             <div class="purple-timekeeper__overlay" id="purple-overlay" hidden>
-              <div class="purple-timekeeper__dialog" role="dialog" aria-modal="true" aria-labelledby="purple-dialog-title" tabindex="-1">
-                <button type="button" id="purple-close" class="purple-timekeeper__close" aria-label="Close explanation">×</button>
+              <div class="purple-timekeeper__dialog" role="dialog" aria-modal="true"
+                aria-labelledby="purple-dialog-title" tabindex="-1">
+                <button type="button" id="purple-close" class="purple-timekeeper__close"
+                  aria-label="Close explanation">×</button>
                 <h3 id="purple-dialog-title">WHY IT WORKS!</h3>
                 <div id="purple-explanation"></div>
-                <button type="button" id="purple-close-bottom" class="purple-timekeeper__button">Return to the Workshop</button>
+                <button type="button" id="purple-close-bottom" class="purple-timekeeper__button">Return to the
+                  Workshop</button>
               </div>
             </div>
           </section>
           <!-- END PURPLE BUTTON — TIMEKEEPER’S WORKSHOP -->
 
+          <!-- BEGIN GREEN BUTTON — HARMONY REGULATOR (TWO SCENARIOS) -->
+          <section class="green-harmony" id="green-harmony" hidden aria-label="Green Harmony Regulator">
+            <header class="green-harmony__header">
+              <img src="../../Images/door-four/button-green-harmony.png" alt="" class="green-harmony__machine">
+              <div>
+                <p class="green-harmony__eyebrow">RUSSIAN LANGUAGE LABORATORY · GREEN BUTTON</p>
+                <h2>The Harmony Regulator</h2>
+                <p>The location connection is broken. Restore the preposition and noun ending.</p>
+              </div>
+            </header>
+            <nav class="green-harmony__tabs" aria-label="Choose harmony repair">
+              <button type="button" data-green-scenario="0" class="is-current">01 · The Moscow Connection</button>
+              <button type="button" data-green-scenario="1">02 · Grandma and the Couch</button>
+            </nav>
+            <div class="green-harmony__layout">
+              <section class="green-harmony__telegram" aria-label="Incoming telegram">
+                <h3>Incoming Message <span id="green-telegram-number">01</span></h3>
+                <div class="green-harmony__parchment">
+                  <img src="../../Images/door-four/button-gold-parchment.png" alt="" aria-hidden="true">
+                  <div class="green-harmony__original" id="green-original" lang="ru"
+                    aria-label="Click a word to learn its meaning"></div>
+                </div>
+                <div class="green-harmony__vocabulary" id="green-vocabulary" aria-live="polite">Click any word in
+                  the telegram to see its meaning.</div>
+              </section>
+              <section class="green-harmony__evidence" aria-label="Linguistic evidence">
+                <h3>Linguistic Evidence</h3>
+                <img id="green-evidence-image" src="../../Images/door-four/button-green-prepositions.png"
+                  alt="В versus НА linguistic competition">
+                <p id="green-evidence-caption">Choose the missing preposition and repair the noun ending.</p>
+              </section>
+            </div>
+            <section class="green-harmony__repair" aria-label="Repair the telegram">
+              <div class="green-harmony__repair-heading">
+                <h3>Repair the Message</h3>
+                <p>Choose the missing preposition (в or на), then select the correct noun form. The word pieces and arrows work just as they do in Gold and Purple.</p>
+              </div>
+              <div class="green-harmony__wordline" id="green-wordline" aria-label="Rearrange and edit the message">
+              </div>
+              <div class="green-harmony__controls">
+                <button type="button" id="green-reset"
+                  class="green-harmony__button green-harmony__button--subtle">↻ Reset</button>
+                <button type="button" id="green-test" class="green-harmony__button">Test My Answer!</button>
+                <button type="button" id="green-clue"
+                  class="green-harmony__button green-harmony__button--subtle" hidden>Another Clue</button>
+                <button type="button" id="green-why" class="green-harmony__button green-harmony__button--why"
+                  disabled>WHY IT WORKS!</button>
+              </div>
+              <p class="green-harmony__feedback" id="green-feedback" role="status" aria-live="polite">Find the missing preposition and correct the noun ending.</p>
+            </section>
+            <nav class="green-harmony__navigation" aria-label="Workshop navigation">
+              <button type="button" class="green-harmony__back" id="green-four-doors">← Back to Four Doors</button>
+              <button type="button" class="green-harmony__back" id="green-back">← Back to Russian
+                Laboratory</button>
+            </nav>
+            <div class="green-harmony__overlay" id="green-overlay" hidden>
+              <div class="green-harmony__dialog" role="dialog" aria-modal="true"
+                aria-labelledby="green-dialog-title" tabindex="-1">
+                <button type="button" id="green-close" class="green-harmony__close"
+                  aria-label="Close explanation">×</button>
+                <h3 id="green-dialog-title">WHY IT WORKS!</h3>
+                <div id="green-explanation"></div>
+                <button type="button" id="green-close-bottom" class="green-harmony__button">Return to the
+                  Workshop</button>
+              </div>
+            </div>
+          </section>
+          <!-- END GREEN BUTTON — HARMONY REGULATOR -->
+
           <!-- BEGIN THE GEARS — LANDING AND THREE DEVELOPMENT SHELLS -->
           <section class="gears-experience" id="gears-experience" hidden aria-label="The Gears — How It Works?">
             <div class="gears-landing" data-gears-screen="landing">
               <div class="gears-stage">
-                <img class="gears-background" src="../../Images/door-four/gear-landing-page.png" alt="Victorian mechanical workshop with gear pedestals and lever" draggable="false">
-                <button class="gears-wheel gears-wheel--a" type="button" data-gear-train="a" aria-label="Open Gear Train A — Gender and Possessives"><img src="../../Images/door-four/gear-a.png" alt="" draggable="false"></button>
-                <button class="gears-wheel gears-wheel--b" type="button" data-gear-train="b" aria-label="Open Gear Train B — Subject–Verb Engine"><img src="../../Images/door-four/gear-b.png" alt="" draggable="false"></button>
-                <button class="gears-wheel gears-wheel--c" type="button" data-gear-train="c" aria-label="Open Gear Train C — Ownership and Existence"><img src="../../Images/door-four/gear-c.png" alt="" draggable="false"></button>
+                <img class="gears-background" src="../../Images/door-four/gear-landing-page.png"
+                  alt="Victorian mechanical workshop with gear pedestals and lever" draggable="false">
+                <button class="gears-wheel gears-wheel--a" type="button" data-gear-train="a"
+                  aria-label="Open Gear Train A — Gender and Possessives"><img src="../../Images/door-four/gear-a.png"
+                    alt="" draggable="false"></button>
+                <button class="gears-wheel gears-wheel--b" type="button" data-gear-train="b"
+                  aria-label="Open Gear Train B — Subject–Verb Engine"><img src="../../Images/door-four/gear-b.png"
+                    alt="" draggable="false"></button>
+                <button class="gears-wheel gears-wheel--c" type="button" data-gear-train="c"
+                  aria-label="Open Gear Train C — Ownership and Existence"><img src="../../Images/door-four/gear-c.png"
+                    alt="" draggable="false"></button>
                 <div class="gears-instruction">Click any<br>gear to<br>begin</div>
                 <!-- Landing-only Victorian image navigation: left = Four Doors, right = Laboratory. -->
-                <button class="gears-stage-nav gears-stage-nav--four-doors" type="button" data-gears-back="four-doors" aria-label="Back to the Four Doors">
+                <button class="gears-stage-nav gears-stage-nav--four-doors" type="button" data-gears-back="four-doors"
+                  aria-label="Back to the Four Doors">
                   <img src="../../Images/door-four/button-back-to-four-doors.png" alt="" draggable="false">
                 </button>
-                <button class="gears-stage-nav gears-stage-nav--laboratory" type="button" data-gears-back="laboratory" aria-label="Back to Laboratory">
+                <button class="gears-stage-nav gears-stage-nav--laboratory" type="button" data-gears-back="laboratory"
+                  aria-label="Back to Laboratory">
                   <img src="../../Images/door-four/button-back-to-laboratory.png" alt="" draggable="false">
                 </button>
               </div>
             </div>
             <div class="gears-workshop" data-gears-screen="workshop" hidden>
               <header class="gears-workshop__header">
-                <img class="gears-workshop__ornament" src="../../Images/door-four/gear-a.png" alt="" aria-hidden="true" draggable="false">
+                <img class="gears-workshop__ornament" src="../../Images/door-four/gear-a.png" alt="" aria-hidden="true"
+                  draggable="false">
                 <div class="gears-workshop__heading-content">
                   <h2 id="gears-workshop-title">Gear Train</h2>
                   <div class="gears-learning__top">
@@ -6541,31 +6657,42 @@ LESSON 2 — EXTENDED FAMILY
                   </div>
                 </div>
               </header>
-              
+
               <!-- BEGIN THREE GEAR TRAINS — INTERACTIVE SENTENCE INVESTIGATIONS -->
               <div class="gears-learning" id="gears-learning" aria-label="Interactive Russian grammar investigations">
                 <section class="gears-learning__sentence-panel" aria-label="Explore the Russian sentence">
                   <div class="gears-learning__sentence-left">
-                    <div class="gears-learning__question"><h3 id="gears-why"></h3></div>
+                    <div class="gears-learning__question">
+                      <h3 id="gears-why"></h3>
+                    </div>
                     <p class="gears-learning__hint">Click any Russian word to see its meaning; click again to close.</p>
-                    <div id="gears-word-line" class="gears-learning__words" lang="ru" aria-label="Clickable Russian sentence"></div>
+                    <div id="gears-word-line" class="gears-learning__words" lang="ru"
+                      aria-label="Clickable Russian sentence"></div>
                     <div id="gears-word-popup" class="gears-learning__word-popup" hidden aria-live="polite"></div>
                   </div>
                   <div class="gears-learning__sentence-right">
-                    <div class="gears-learning__views" role="group" aria-label="Sentence translation views"><button type="button" data-gears-view="russian" class="is-current">Russian</button><button type="button" data-gears-view="literal">Literal English</button><button type="button" data-gears-view="natural">Natural English</button></div>
+                    <div class="gears-learning__views" role="group" aria-label="Sentence translation views"><button
+                        type="button" data-gears-view="russian" class="is-current">Russian</button><button type="button"
+                        data-gears-view="literal">Literal English</button><button type="button"
+                        data-gears-view="natural">Natural English</button></div>
                     <div id="gears-translation" class="gears-learning__translation" aria-live="polite"></div>
                   </div>
                 </section>
                 <div class="gears-learning__workspace">
                   <section class="gears-learning__primary" aria-label="Grammar gears and word components">
-                    <p class="gears-learning__machine-prompt">Choose the Russian words, then test whether the gears work!</p>
-                    <div id="gears-machine-wheels" class="gears-learning__machine-wheels" aria-label="Grammar gear components"></div>
+                    <p class="gears-learning__machine-prompt">Choose the Russian words, then test whether the gears
+                      work!</p>
+                    <div id="gears-machine-wheels" class="gears-learning__machine-wheels"
+                      aria-label="Grammar gear components"></div>
                   </section>
                   <aside class="gears-learning__side" aria-label="Test and explanations">
                     <div class="gears-learning__test-row">
-                      <button type="button" class="gears-learning__reset" id="gears-reset-button" aria-label="Reset this investigation">Reset</button>
-                      <button type="button" class="gears-learning__action" id="gears-test-button">Test the Gears!</button>
-                      <div id="gears-diagnostics" class="gears-learning__test-status" aria-live="polite">Choose words, then test.</div>
+                      <button type="button" class="gears-learning__reset" id="gears-reset-button"
+                        aria-label="Reset this investigation">Reset</button>
+                      <button type="button" class="gears-learning__action" id="gears-test-button">Test the
+                        Gears!</button>
+                      <div id="gears-diagnostics" class="gears-learning__test-status" aria-live="polite">Choose words,
+                        then test.</div>
                     </div>
                     <div id="gears-activity" class="gears-learning__activity" aria-live="polite"></div>
                     <div id="gears-mechanism" class="gears-learning__explanation" hidden></div>
@@ -6573,7 +6700,8 @@ LESSON 2 — EXTENDED FAMILY
                 </div>
               </div>
               <!-- END THREE GEAR TRAINS — INTERACTIVE SENTENCE INVESTIGATIONS -->
-              <div class="gears-navigation"><button type="button" data-gears-back="landing">Back to The Gears</button><button type="button" data-gears-back="laboratory">Back to Laboratory</button></div>
+              <div class="gears-navigation"><button type="button" data-gears-back="landing">Back to The
+                  Gears</button><button type="button" data-gears-back="laboratory">Back to Laboratory</button></div>
             </div>
           </section>
           <!-- END THE GEARS — LANDING AND THREE DEVELOPMENT SHELLS -->
@@ -6666,9 +6794,11 @@ LESSON 2 — EXTENDED FAMILY
                           <span>PLATFORM 01</span>
                           <strong>VOCABULARY COLLECTION</strong>
                           <em lang="ru">СЛОВАРЬ</em>
-                          <small>Review, practice and master vocabulary you have used in the entire Family Relationships Foundation</small>
+                          <small>Review, practice and master vocabulary you have used in the entire Family Relationships
+                            Foundation</small>
                         </button>
-                        <img class="gt-platform-image" src="../../Images/door-four/platform-01-station.png" alt="Leningradsky railway station interior" loading="lazy">
+                        <img class="gt-platform-image" src="../../Images/door-four/platform-01-station.png"
+                          alt="Leningradsky railway station interior" loading="lazy">
                       </div>
                       <div class="gt-platform-column">
                         <button type="button" class="gt-platform" data-gt-platform="grammar">
@@ -6677,16 +6807,18 @@ LESSON 2 — EXTENDED FAMILY
                           <em lang="ru">ГРАММАТИКА</em>
                           <small>Practical grammar you have used and explanations to help you understand</small>
                         </button>
-                        <img class="gt-platform-image" src="../../Images/door-four/platform-02-station.png" alt="Vitebsky railway station interior" loading="lazy">
+                        <img class="gt-platform-image" src="../../Images/door-four/platform-02-station.png"
+                          alt="Vitebsky railway station interior" loading="lazy">
                       </div>
                       <div class="gt-platform-column">
                         <button type="button" class="gt-platform" data-gt-platform="spoken-russian">
                           <span>PLATFORM 03</span>
-                          <strong>RUSSIAN AS THEY SPEAK IT</strong>
+                          <strong>RUSSIAN AS THEY SPPAK IT</strong>
                           <em lang="ru">РУССКИЙ ТАК, КАК ГОВОРЯТ</em>
                           <small>Sound more like a Russian native with these words and phrases</small>
                         </button>
-                        <img class="gt-platform-image" src="../../Images/door-four/platform-03-station.png" alt="Kazansky railway station interior" loading="lazy">
+                        <img class="gt-platform-image" src="../../Images/door-four/platform-03-station.png"
+                          alt="Kazansky railway station interior" loading="lazy">
                       </div>
                     </div>
                   </div>
@@ -6796,12 +6928,18 @@ LESSON 2 — EXTENDED FAMILY
                         <!-- BEGIN PLATFORM 02 — GRAMMAR MASTERY COLLECTION -->
                         <div id="gt-grammar" class="gt-grammar">
                           <div class="gt-grammar-tabs" role="tablist" aria-label="Grammar categories">
-                            <button type="button" role="tab" aria-selected="true" data-gt-grammar-tab="nouns">Nouns &amp; Gender</button>
-                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="pronouns">Pronouns &amp; Possessives</button>
-                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="cases">Cases &amp; Declensions</button>
-                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="verbs">Verbs &amp; Conjugations</button>
-                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="adjectives">Adjectives &amp; Comparisons</button>
-                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="sentences">Sentence Patterns &amp; Expressions</button>
+                            <button type="button" role="tab" aria-selected="true" data-gt-grammar-tab="nouns">Nouns
+                              &amp; Gender</button>
+                            <button type="button" role="tab" aria-selected="false"
+                              data-gt-grammar-tab="pronouns">Pronouns &amp; Possessives</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="cases">Cases
+                              &amp; Declensions</button>
+                            <button type="button" role="tab" aria-selected="false" data-gt-grammar-tab="verbs">Verbs
+                              &amp; Conjugations</button>
+                            <button type="button" role="tab" aria-selected="false"
+                              data-gt-grammar-tab="adjectives">Adjectives &amp; Comparisons</button>
+                            <button type="button" role="tab" aria-selected="false"
+                              data-gt-grammar-tab="sentences">Sentence Patterns &amp; Expressions</button>
                           </div>
                           <aside class="gt-grammar-express-invitation" aria-label="Optional grammar speed challenge">
                             <div class="gt-grammar-express-seal" aria-hidden="true">⏱</div>
@@ -6812,7 +6950,8 @@ LESSON 2 — EXTENDED FAMILY
                             </div>
                             <button type="button" id="gt-grammar-express-open">🚂 Take the Challenge!</button>
                           </aside>
-                          <div class="gt-grammar-workspace" id="gt-grammar-panel" role="tabpanel" aria-live="polite"></div>
+                          <div class="gt-grammar-workspace" id="gt-grammar-panel" role="tabpanel" aria-live="polite">
+                          </div>
                           <p class="gt-grammar-footnote">Remember · Experiment · Demonstrate. Choose any activity,
                             listen when helpful, and reset whenever you wish.</p>
                         </div>
@@ -6823,7 +6962,8 @@ LESSON 2 — EXTENDED FAMILY
                               <div><span>PLATFORM 02 · OPTIONAL EXPRESS SERVICE</span>
                                 <h4 id="gt-grammar-express-title">🚂 Grammar Express Challenge</h4>
                               </div>
-                              <button type="button" id="gt-grammar-express-close" aria-label="Close challenge">✕</button>
+                              <button type="button" id="gt-grammar-express-close"
+                                aria-label="Close challenge">✕</button>
                             </div>
                             <p id="gt-grammar-express-category"></p>
                             <div class="gt-grammar-express-status">
@@ -6863,23 +7003,34 @@ LESSON 2 — EXTENDED FAMILY
                         <p>Discover how everyday Russian sounds in natural, authentic conversation.</p>
                         <!-- BEGIN PLATFORM 03 — RUSSIAN AS THEY SPEAK IT -->
                         <div class="p03-experience" id="p03-experience">
-                          <div class="p03-topline"><strong>Native Russian · Family Relationships</strong><span>Notice · Understand · Choose · Speak · Demonstrate</span></div>
+                          <div class="p03-topline"><strong>Native Russian · Family Relationships</strong><span>Notice ·
+                              Understand · Choose · Speak · Demonstrate</span></div>
                           <div class="p03-settings" aria-label="Learning preferences">
                             <span>Language support</span>
-                            <button type="button" class="p03-language is-active" data-p03-language="both" aria-pressed="true">English + Russian</button>
-                            <button type="button" class="p03-language" data-p03-language="russian" aria-pressed="false">Russian Only</button>
+                            <button type="button" class="p03-language is-active" data-p03-language="both"
+                              aria-pressed="true">English + Russian</button>
+                            <button type="button" class="p03-language" data-p03-language="russian"
+                              aria-pressed="false">Russian Only</button>
                             <label><input id="p03-audio-slow" type="checkbox"> Slow playback</label>
                           </div>
                           <div class="p03-tabs" role="tablist" aria-label="Platform 03 learning experiences">
-                            <button type="button" role="tab" data-p03-tab="discover" aria-selected="true">In Russia, You Might Hear…</button>
-                            <button type="button" role="tab" data-p03-tab="families" aria-selected="false">Family Language</button>
-                            <button type="button" role="tab" data-p03-tab="practice" aria-selected="false">Native Choice</button>
-                            <button type="button" role="tab" data-p03-tab="surprise" aria-selected="false">Colloquial Russian · Slang & Fillers</button>
-                            <button type="button" role="tab" data-p03-tab="studio" aria-selected="false">Native Speaker Studio</button>
-                            <button type="button" role="tab" data-p03-tab="mastery" aria-selected="false">Speed Drills</button>
+                            <button type="button" role="tab" data-p03-tab="discover" aria-selected="true">In Russia, You
+                              Might Hear…</button>
+                            <button type="button" role="tab" data-p03-tab="families" aria-selected="false">Family
+                              Language</button>
+                            <button type="button" role="tab" data-p03-tab="practice" aria-selected="false">Native
+                              Choice</button>
+                            <button type="button" role="tab" data-p03-tab="surprise" aria-selected="false">Colloquial
+                              Russian · Slang & Fillers</button>
+                            <button type="button" role="tab" data-p03-tab="studio" aria-selected="false">Native Speaker
+                              Studio</button>
+                            <button type="button" role="tab" data-p03-tab="mastery" aria-selected="false">Speed
+                              Drills</button>
                           </div>
                           <div id="p03-workspace" class="p03-workspace" role="tabpanel" aria-live="polite"></div>
-                          <p class="p03-footer-note">Native-like Russian means choosing the right expression for the person and situation—not using slang everywhere. Audio uses your browser's available Russian voice when supported.</p>
+                          <p class="p03-footer-note">Native-like Russian means choosing the right expression for the
+                            person and situation—not using slang everywhere. Audio uses your browser's available Russian
+                            voice when supported.</p>
                         </div>
                         <!-- END PLATFORM 03 — RUSSIAN AS THEY SPEAK IT -->
                       </section>

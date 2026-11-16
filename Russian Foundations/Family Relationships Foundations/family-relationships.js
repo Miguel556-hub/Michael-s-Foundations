@@ -17193,3 +17193,309 @@ const conversations = {
     startScenario(0);
 })();
 // END PURPLE BUTTON — TIMEKEEPER’S WORKSHOP
+
+
+// ============================================================
+// BEGIN GREEN BUTTON — HARMONY REGULATOR
+// Isolated from the existing Laboratory, Gears, and Drawers.
+// ============================================================
+(() => {
+    const laboratory = document.getElementById('door-four-laboratory');
+    const experience = document.getElementById('green-harmony');
+    // Keep the original brown Laboratory return button available on other
+    // screens, but never show it beneath either Green Workshop scenario.
+    const duplicateLaboratoryReturn = laboratory?.querySelector('.door-four__return');
+    const syncGreenReturnVisibility = () => {
+        if (duplicateLaboratoryReturn) {
+            duplicateLaboratoryReturn.hidden = !experience.hidden;
+        }
+    };
+    if (!laboratory || !experience) return;
+    const greenReturnObserver = new MutationObserver(syncGreenReturnVisibility);
+    greenReturnObserver.observe(experience, {
+        attributes: true,
+        attributeFilter: ['hidden']
+    });
+    syncGreenReturnVisibility();
+
+    if (!laboratory || !experience) return;
+
+    const stage = laboratory.querySelector('.door-four__stage');
+    const original = document.getElementById('green-original');
+    const vocabulary = document.getElementById('green-vocabulary');
+    const wordline = document.getElementById('green-wordline');
+    const feedback = document.getElementById('green-feedback');
+    const clueButton = document.getElementById('green-clue');
+    const whyButton = document.getElementById('green-why');
+    const overlay = document.getElementById('green-overlay');
+    const dialog = overlay.querySelector('.green-harmony__dialog');
+    const scenarios = [
+        {
+            original: ['Твой', 'младший', 'брат', 'живёт', 'Москва.'],
+            pieces: [
+                { id: 'your', options: ['твой', 'твоя', 'твоё'], initial: 'твой' },
+                { id: 'younger', options: ['младший', 'младшая', 'младшего'], initial: 'младший' },
+                { id: 'brother', options: ['брат', 'брата', 'брату'], initial: 'брат' },
+                { id: 'lives', options: ['живёт', 'живут', 'живу'], initial: 'живёт' },
+                { id: 'preposition', options: ['—', 'в', 'на'], initial: '—' },
+                { id: 'city', options: ['Москва', 'Москве', 'Москву'], initial: 'Москва' }
+            ],
+            correctOrder: ['your', 'younger', 'brother', 'lives', 'preposition', 'city'],
+            correctForms: { your: 'твой', younger: 'младший', brother: 'брат', lives: 'живёт', preposition: 'в', city: 'Москве' },
+            image: 'button-green-prepositions.png',
+            alt: 'Ornate В versus НА linguistic competition sign',
+            caption: 'Which preposition expresses living in Moscow: в or на?',
+            glossary: [
+                ['your', 'your; masculine singular'],
+                ['younger', 'younger; masculine adjective'],
+                ['brother', 'brother'],
+                ['lives', 'lives; present tense'],
+                ['Moscow', 'Moscow; city name']
+            ],
+            clues: [
+                'One small word is missing before Москва. Which preposition usually introduces a city where someone lives?',
+                'For location in Moscow, Russian uses в. The name of the city also changes its ending.',
+                'Choose в, then change Москва to Москве: живёт в Москве.'
+            ],
+            why: '<p class="green-harmony__why-phrase" lang="ru">Твой младший брат живёт в Москве.</p><div class="green-harmony__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>в</strong><span>WHERE?<br>In a city</span></div><div><strong>Москве</strong><span>LOCATION<br>Prepositional case</span></div></div><p class="green-harmony__why-note">When we say where someone lives, в + prepositional case is used with Москва: в Москве. Compare: Москва → в Москве.</p>'
+        },
+        {
+            original: ['Бабушка', 'сидит', 'диван.'],
+            pieces: [
+                { id: 'grandma', options: ['бабушка', 'бабушку', 'бабушки'], initial: 'бабушка' },
+                { id: 'sits', options: ['сидит', 'сидят', 'сижу'], initial: 'сидит' },
+                { id: 'preposition', options: ['—', 'в', 'на'], initial: '—' },
+                { id: 'sofa', options: ['диван', 'диване', 'дивана'], initial: 'диван' }
+            ],
+            correctOrder: ['grandma', 'sits', 'preposition', 'sofa'],
+            correctForms: { grandma: 'бабушка', sits: 'сидит', preposition: 'на', sofa: 'диване' },
+            image: 'button-green-prepositions.png',
+            alt: 'Ornate В versus НА linguistic competition sign',
+            caption: 'For someone sitting on a couch, which preposition belongs in the message?',
+            glossary: [
+                ['grandmother', 'grandmother; subject of the sentence'],
+                ['is sitting', 'is sitting; present tense'],
+                ['sofa', 'sofa or couch; base form']
+            ],
+            clues: [
+                'The sentence needs a small word to connect Grandma with the couch.',
+                'For sitting on a couch, Russian normally uses на. What happens to the noun after it?',
+                'Choose на and change диван to диване: сидит на диване.'
+            ],
+            why: '<p class="green-harmony__why-phrase" lang="ru">Бабушка сидит на диване.</p><div class="green-harmony__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>на</strong><span>WHERE?<br>On the couch</span></div><div><strong>диване</strong><span>LOCATION<br>Prepositional case</span></div></div><p class="green-harmony__why-note">The question is where Grandma is sitting, not where she is going. На + prepositional case gives на диване. Compare: диван → на диване.</p>'
+        }
+    ];
+
+    let scenarioIndex = 0;
+    let pieces = [];
+    let clueLevel = 0;
+    let solved = false;
+    let draggingId = null;
+    let previousFocus = null;
+
+    function startScenario(index) {
+        scenarioIndex = index;
+        const scenario = scenarios[index];
+        pieces = scenario.pieces.map(piece => ({ ...piece, value: piece.initial }));
+        clueLevel = 0;
+        solved = false;
+        feedback.textContent = 'Choose the missing preposition and repair the noun ending.';
+        feedback.classList.remove('is-success', 'is-try-again');
+        clueButton.hidden = true;
+        whyButton.disabled = true;
+        document.getElementById('green-telegram-number').textContent = String(index + 1).padStart(2, '0');
+        const image = document.getElementById('green-evidence-image');
+        image.src = '../../Images/door-four/' + scenario.image;
+        image.alt = scenario.alt;
+        document.getElementById('green-evidence-caption').textContent = scenario.caption;
+        experience.querySelectorAll('[data-green-scenario]').forEach(button => {
+            const current = Number(button.dataset.greenScenario) === index;
+            button.classList.toggle('is-current', current);
+            button.setAttribute('aria-current', current ? 'true' : 'false');
+        });
+        original.replaceChildren();
+        scenario.original.forEach((word, index) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = word;
+            button.lang = 'ru';
+            button.setAttribute('aria-label', 'Explain ' + word);
+            button.addEventListener('click', () => {
+                const entry = scenario.glossary[index];
+                vocabulary.textContent = word.replace(/[.!?]$/, '') + ' — ' + entry[1];
+            });
+            original.append(button);
+        });
+        vocabulary.textContent = 'Click any word in the telegram to see its meaning.';
+        renderPieces();
+    }
+
+    function movePiece(from, to) {
+        if (from < 0 || to < 0 || from >= pieces.length || to >= pieces.length || from === to) return;
+        const [piece] = pieces.splice(from, 1);
+        pieces.splice(to, 0, piece);
+        invalidateResult();
+        renderPieces();
+    }
+
+    function invalidateResult() {
+        solved = false;
+        whyButton.disabled = true;
+        clueButton.hidden = true;
+        clueLevel = 0;
+        feedback.textContent = 'Ready to test your revised transmission.';
+    }
+
+    function renderPieces() {
+        wordline.replaceChildren();
+        pieces.forEach((piece, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'green-harmony__piece';
+            wrapper.draggable = true;
+            wrapper.dataset.pieceId = piece.id;
+            wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+            const select = document.createElement('select');
+            select.lang = 'ru';
+            select.setAttribute('aria-label', 'Choose form for word ' + (index + 1));
+            piece.options.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.append(option);
+            });
+            select.value = piece.value;
+            select.addEventListener('change', () => {
+                piece.value = select.value;
+                wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+                invalidateResult();
+            });
+            const move = document.createElement('div');
+            move.className = 'green-harmony__move';
+            [['←', -1], ['→', 1]].forEach(([label, offset]) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = label;
+                button.disabled = index + offset < 0 || index + offset >= pieces.length;
+                button.setAttribute('aria-label', 'Move ' + piece.value + (offset < 0 ? ' left' : ' right'));
+                button.addEventListener('click', () => movePiece(index, index + offset));
+                move.append(button);
+            });
+            wrapper.addEventListener('dragstart', event => {
+                draggingId = piece.id;
+                wrapper.classList.add('is-dragging');
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', piece.id);
+            });
+            wrapper.addEventListener('dragend', () => wrapper.classList.remove('is-dragging'));
+            wrapper.addEventListener('dragover', event => event.preventDefault());
+            wrapper.addEventListener('drop', event => {
+                event.preventDefault();
+                const id = draggingId || event.dataTransfer.getData('text/plain');
+                draggingId = null;
+                movePiece(pieces.findIndex(candidate => candidate.id === id), pieces.findIndex(candidate => candidate.id === piece.id));
+            });
+            wrapper.append(select, move);
+            wordline.append(wrapper);
+        });
+    }
+
+    function testAnswer() {
+        const scenario = scenarios[scenarioIndex];
+        const correctOrder = pieces.every((piece, index) => piece.id === scenario.correctOrder[index]);
+        const correctForms = pieces.every(piece => piece.value === scenario.correctForms[piece.id]);
+        solved = correctOrder && correctForms;
+        whyButton.disabled = !solved;
+        if (solved) {
+            clueButton.hidden = true;
+            feedback.textContent = 'Transmission Successfully Repaired — The preposition and noun ending are in harmony.';
+            feedback.classList.add('is-success');
+            feedback.classList.remove('is-try-again');
+        } else {
+            clueLevel = 0;
+            clueButton.hidden = false;
+            feedback.textContent = scenario.clues[0];
+            feedback.classList.remove('is-success');
+            feedback.classList.add('is-try-again');
+        }
+    }
+
+    function openExplanation() {
+        if (!solved) return;
+        previousFocus = document.activeElement;
+        document.getElementById('green-explanation').innerHTML = scenarios[scenarioIndex].why;
+        overlay.hidden = false;
+        dialog.focus();
+    }
+
+    function closeExplanation() {
+        overlay.hidden = true;
+        previousFocus?.focus();
+    }
+
+    function showExperience() {
+        const gold = document.getElementById('gold-telegraph');
+        const purple = document.getElementById('purple-timekeeper');
+        if (gold) gold.hidden = true;
+        if (purple) purple.hidden = true;
+        const status = laboratory.querySelector('.door-four__status');
+        if (status) status.hidden = true;
+        stage.hidden = true;
+        experience.hidden = false;
+        startScenario(0);
+        experience.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+
+    // Capture the Green hotspot before the generic Laboratory status handler.
+    laboratory.addEventListener('click', event => {
+        const entry = event.target.closest('[data-lab-action="green"]');
+        if (!entry || !laboratory.contains(entry)) return;
+        event.stopImmediatePropagation();
+        showExperience();
+    }, true);
+
+    experience.querySelectorAll('[data-green-scenario]').forEach(button => {
+        button.addEventListener('click', () => startScenario(Number(button.dataset.greenScenario)));
+    });
+    document.getElementById('green-reset').addEventListener('click', () => startScenario(scenarioIndex));
+    document.getElementById('green-test').addEventListener('click', testAnswer);
+    clueButton.addEventListener('click', () => {
+        clueLevel = Math.min(clueLevel + 1, 2);
+        feedback.textContent = scenarios[scenarioIndex].clues[clueLevel];
+        clueButton.hidden = clueLevel === 2;
+    });
+    whyButton.addEventListener('click', openExplanation);
+    document.getElementById('green-close').addEventListener('click', closeExplanation);
+    document.getElementById('green-close-bottom').addEventListener('click', closeExplanation);
+    overlay.addEventListener('click', event => {
+        if (event.target === overlay) closeExplanation();
+    });
+    document.addEventListener('keydown', event => {
+        if (overlay.hidden) return;
+        if (event.key === 'Escape') closeExplanation();
+        if (event.key === 'Tab') {
+            const focusable = [...overlay.querySelectorAll('button:not(:disabled)')];
+            const index = focusable.indexOf(document.activeElement);
+            if (event.shiftKey && index <= 0) {
+                event.preventDefault();
+                focusable[focusable.length - 1].focus();
+            } else if (!event.shiftKey && index === focusable.length - 1) {
+                event.preventDefault();
+                focusable[0].focus();
+            }
+        }
+    });
+    document.getElementById('green-back').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    document.getElementById('green-four-doors').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        laboratory.querySelector('.door-four__return')?.click();
+    });
+    startScenario(0);
+})();
+// END GREEN BUTTON — TIMEKEEPER’S WORKSHOP
