@@ -17499,3 +17499,313 @@ const conversations = {
     startScenario(0);
 })();
 // END GREEN BUTTON — TIMEKEEPER’S WORKSHOP
+
+
+// ============================================================
+// BEGIN BLUE BUTTON — INSTRUMENTAL APPARATUS
+// Isolated from the existing Laboratory, Gears, and Drawers.
+// ============================================================
+(() => {
+    const laboratory = document.getElementById('door-four-laboratory');
+    const experience = document.getElementById('blue-instrumental');
+    // Keep the original brown Laboratory return button available on other
+    // screens, but never show it beneath either Blue Apparatus scenario.
+    const duplicateLaboratoryReturn = laboratory?.querySelector('.door-four__return');
+    const syncBlueReturnVisibility = () => {
+        if (duplicateLaboratoryReturn) {
+            duplicateLaboratoryReturn.hidden = !experience.hidden;
+        }
+    };
+    if (!laboratory || !experience) return;
+    const blueReturnObserver = new MutationObserver(syncBlueReturnVisibility);
+    blueReturnObserver.observe(experience, {
+        attributes: true,
+        attributeFilter: ['hidden']
+    });
+    syncBlueReturnVisibility();
+
+    if (!laboratory || !experience) return;
+
+    const stage = laboratory.querySelector('.door-four__stage');
+    const original = document.getElementById('blue-original');
+    const vocabulary = document.getElementById('blue-vocabulary');
+    const wordline = document.getElementById('blue-wordline');
+    const feedback = document.getElementById('blue-feedback');
+    const clueButton = document.getElementById('blue-clue');
+    const whyButton = document.getElementById('blue-why');
+    const overlay = document.getElementById('blue-overlay');
+    const dialog = overlay.querySelector('.blue-instrumental__dialog');
+    const scenarios = [
+        {
+            original: ['Отец', 'познакомился', 'с', 'моя', 'жена.'],
+            pieces: [
+                { id: 'father', options: ['отец', 'отца', 'отцу'], initial: 'отец' },
+                { id: 'met', options: ['познакомился', 'познакомилась', 'познакомились'], initial: 'познакомился' },
+                { id: 'with', options: ['с', 'в', 'на'], initial: 'с' },
+                { id: 'my', options: ['моя', 'моей', 'мою'], initial: 'моя' },
+                { id: 'wife', options: ['жена', 'женой', 'жену'], initial: 'жена' }
+            ],
+            correctOrder: ['father', 'met', 'with', 'my', 'wife'],
+            correctForms: { father: 'отец', met: 'познакомился', with: 'с', my: 'моей', wife: 'женой' },
+            image: 'button-blue-linguistic-evidence.png',
+            alt: 'Victorian hanging shop sign for the Instrumental Apparatus',
+            caption: 'After познакомился с, which forms connect correctly?',
+            glossary: [
+                ['отец', 'father; the subject'],
+                ['познакомился', 'met or became acquainted; masculine past tense'],
+                ['с', 'with; here it introduces the instrumental case'],
+                ['моя', 'my; feminine nominative form'],
+                ['жена', 'wife; nominative form']
+            ],
+            clues: [
+                'Look closely at the two words after с. They must work together.',
+                'Познакомился с answers с кем? (with whom?). Both the possessive and the noun need instrumental forms.',
+                'Change моя to моей and жена to женой: познакомился с моей женой.'
+            ],
+            why: '<p class="blue-instrumental__why-phrase" lang="ru">Отец познакомился с моей женой.</p><div class="blue-instrumental__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>моей</strong><span>MY<br>Feminine instrumental</span></div><div><strong>женой</strong><span>WIFE<br>Feminine instrumental</span></div></div><p class="blue-instrumental__why-note">Познакомился с кем? — с моей женой. The verb познакомиться с requires the instrumental case for the person met. Both моя and жена change: моя жена → с моей женой.</p>'
+        },
+        {
+            original: ['Я', 'гуляю', 'с', 'моя', 'бабушка.'],
+            pieces: [
+                { id: 'i', options: ['я', 'мне', 'меня'], initial: 'я' },
+                { id: 'walk', options: ['гуляю', 'гуляет', 'гуляем'], initial: 'гуляю' },
+                { id: 'with', options: ['с', 'в', 'на'], initial: 'с' },
+                { id: 'my', options: ['моя', 'моей', 'мою'], initial: 'моя' },
+                { id: 'grandma', options: ['бабушка', 'бабушкой', 'бабушку'], initial: 'бабушка' }
+            ],
+            correctOrder: ['i', 'walk', 'with', 'my', 'grandma'],
+            correctForms: { i: 'я', walk: 'гуляю', with: 'с', my: 'моей', grandma: 'бабушкой' },
+            image: 'button-blue-linguistic-evidence.png',
+            alt: 'Victorian hanging shop sign for the Instrumental Apparatus',
+            caption: 'When walking with Grandma, what must change after с?',
+            glossary: [
+                ['я', 'I; subject pronoun'],
+                ['гуляю', 'I walk or am taking a walk'],
+                ['с', 'with; here it introduces the instrumental case'],
+                ['моя', 'my; feminine nominative form'],
+                ['бабушка', 'grandmother or grandma; nominative form']
+            ],
+            clues: [
+                'The person accompanying the speaker comes after с. Look at both following words.',
+                'С кем я гуляю? — with whom am I walking? The possessive and noun both take instrumental endings.',
+                'Change моя to моей and бабушка to бабушкой: гуляю с моей бабушкой.'
+            ],
+            why: '<p class="blue-instrumental__why-phrase" lang="ru">Я гуляю с моей бабушкой.</p><div class="blue-instrumental__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>моей</strong><span>MY<br>Feminine instrumental</span></div><div><strong>бабушкой</strong><span>GRANDMA<br>Feminine instrumental</span></div></div><p class="blue-instrumental__why-note">Гуляю с кем? — с моей бабушкой. When с means “with” someone, the instrumental case is used. Compare жена → женой and бабушка → бабушкой: both are feminine, but their word shapes differ.</p>'
+        }
+    ];
+
+    let scenarioIndex = 0;
+    let pieces = [];
+    let clueLevel = 0;
+    let solved = false;
+    let draggingId = null;
+    let previousFocus = null;
+
+    function startScenario(index) {
+        scenarioIndex = index;
+        const scenario = scenarios[index];
+        pieces = scenario.pieces.map(piece => ({ ...piece, value: piece.initial }));
+        clueLevel = 0;
+        solved = false;
+        feedback.textContent = 'Repair both instrumental-case endings.';
+        feedback.classList.remove('is-success', 'is-try-again');
+        clueButton.hidden = true;
+        whyButton.disabled = true;
+        document.getElementById('blue-telegram-number').textContent = String(index + 1).padStart(2, '0');
+        const image = document.getElementById('blue-evidence-image');
+        image.src = '../../Images/door-four/' + scenario.image;
+        image.alt = scenario.alt;
+        document.getElementById('blue-evidence-caption').textContent = scenario.caption;
+        experience.querySelectorAll('[data-blue-scenario]').forEach(button => {
+            const current = Number(button.dataset.blueScenario) === index;
+            button.classList.toggle('is-current', current);
+            button.setAttribute('aria-current', current ? 'true' : 'false');
+        });
+        original.replaceChildren();
+        scenario.original.forEach((word, index) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = word;
+            button.lang = 'ru';
+            button.setAttribute('aria-label', 'Explain ' + word);
+            button.addEventListener('click', () => {
+                const entry = scenario.glossary[index];
+                vocabulary.textContent = word.replace(/[.!?]$/, '') + ' — ' + entry[1];
+            });
+            original.append(button);
+        });
+        vocabulary.textContent = 'Click any word in the telegram to see its meaning.';
+        renderPieces();
+    }
+
+    function movePiece(from, to) {
+        if (from < 0 || to < 0 || from >= pieces.length || to >= pieces.length || from === to) return;
+        const [piece] = pieces.splice(from, 1);
+        pieces.splice(to, 0, piece);
+        invalidateResult();
+        renderPieces();
+    }
+
+    function invalidateResult() {
+        solved = false;
+        whyButton.disabled = true;
+        clueButton.hidden = true;
+        clueLevel = 0;
+        feedback.textContent = 'Ready to test your revised transmission.';
+    }
+
+    function renderPieces() {
+        wordline.replaceChildren();
+        pieces.forEach((piece, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'blue-instrumental__piece';
+            wrapper.draggable = true;
+            wrapper.dataset.pieceId = piece.id;
+            wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+            const select = document.createElement('select');
+            select.lang = 'ru';
+            select.setAttribute('aria-label', 'Choose form for word ' + (index + 1));
+            piece.options.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.append(option);
+            });
+            select.value = piece.value;
+            select.addEventListener('change', () => {
+                piece.value = select.value;
+                wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+                invalidateResult();
+            });
+            const move = document.createElement('div');
+            move.className = 'blue-instrumental__move';
+            [['←', -1], ['→', 1]].forEach(([label, offset]) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = label;
+                button.disabled = index + offset < 0 || index + offset >= pieces.length;
+                button.setAttribute('aria-label', 'Move ' + piece.value + (offset < 0 ? ' left' : ' right'));
+                button.addEventListener('click', () => movePiece(index, index + offset));
+                move.append(button);
+            });
+            wrapper.addEventListener('dragstart', event => {
+                draggingId = piece.id;
+                wrapper.classList.add('is-dragging');
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', piece.id);
+            });
+            wrapper.addEventListener('dragend', () => wrapper.classList.remove('is-dragging'));
+            wrapper.addEventListener('dragover', event => event.preventDefault());
+            wrapper.addEventListener('drop', event => {
+                event.preventDefault();
+                const id = draggingId || event.dataTransfer.getData('text/plain');
+                draggingId = null;
+                movePiece(pieces.findIndex(candidate => candidate.id === id), pieces.findIndex(candidate => candidate.id === piece.id));
+            });
+            wrapper.append(select, move);
+            wordline.append(wrapper);
+        });
+    }
+
+    function testAnswer() {
+        const scenario = scenarios[scenarioIndex];
+        const correctOrder = pieces.every((piece, index) => piece.id === scenario.correctOrder[index]);
+        const correctForms = pieces.every(piece => piece.value === scenario.correctForms[piece.id]);
+        solved = correctOrder && correctForms;
+        whyButton.disabled = !solved;
+        if (solved) {
+            clueButton.hidden = true;
+            feedback.textContent = 'Transmission Successfully Repaired — Both instrumental endings now connect correctly.';
+            feedback.classList.add('is-success');
+            feedback.classList.remove('is-try-again');
+        } else {
+            clueLevel = 0;
+            clueButton.hidden = false;
+            feedback.textContent = scenario.clues[0];
+            feedback.classList.remove('is-success');
+            feedback.classList.add('is-try-again');
+        }
+    }
+
+    function openExplanation() {
+        if (!solved) return;
+        previousFocus = document.activeElement;
+        document.getElementById('blue-explanation').innerHTML = scenarios[scenarioIndex].why;
+        overlay.hidden = false;
+        dialog.focus();
+    }
+
+    function closeExplanation() {
+        overlay.hidden = true;
+        previousFocus?.focus();
+    }
+
+    function showExperience() {
+        const gold = document.getElementById('gold-telegraph');
+        const purple = document.getElementById('purple-timekeeper');
+        const green = document.getElementById('green-harmony');
+        if (gold) gold.hidden = true;
+        if (purple) purple.hidden = true;
+        if (green) green.hidden = true;
+        const status = laboratory.querySelector('.door-four__status');
+        if (status) status.hidden = true;
+        stage.hidden = true;
+        experience.hidden = false;
+        startScenario(0);
+        experience.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+
+    // Capture the Blue hotspot before the generic Laboratory status handler.
+    laboratory.addEventListener('click', event => {
+        const entry = event.target.closest('[data-lab-action="blue"]');
+        if (!entry || !laboratory.contains(entry)) return;
+        event.stopImmediatePropagation();
+        showExperience();
+    }, true);
+
+    experience.querySelectorAll('[data-blue-scenario]').forEach(button => {
+        button.addEventListener('click', () => startScenario(Number(button.dataset.blueScenario)));
+    });
+    document.getElementById('blue-reset').addEventListener('click', () => startScenario(scenarioIndex));
+    document.getElementById('blue-test').addEventListener('click', testAnswer);
+    clueButton.addEventListener('click', () => {
+        clueLevel = Math.min(clueLevel + 1, 2);
+        feedback.textContent = scenarios[scenarioIndex].clues[clueLevel];
+        clueButton.hidden = clueLevel === 2;
+    });
+    whyButton.addEventListener('click', openExplanation);
+    document.getElementById('blue-close').addEventListener('click', closeExplanation);
+    document.getElementById('blue-close-bottom').addEventListener('click', closeExplanation);
+    overlay.addEventListener('click', event => {
+        if (event.target === overlay) closeExplanation();
+    });
+    document.addEventListener('keydown', event => {
+        if (overlay.hidden) return;
+        if (event.key === 'Escape') closeExplanation();
+        if (event.key === 'Tab') {
+            const focusable = [...overlay.querySelectorAll('button:not(:disabled)')];
+            const index = focusable.indexOf(document.activeElement);
+            if (event.shiftKey && index <= 0) {
+                event.preventDefault();
+                focusable[focusable.length - 1].focus();
+            } else if (!event.shiftKey && index === focusable.length - 1) {
+                event.preventDefault();
+                focusable[0].focus();
+            }
+        }
+    });
+    document.getElementById('blue-back').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    document.getElementById('blue-four-doors').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        laboratory.querySelector('.door-four__return')?.click();
+    });
+    startScenario(0);
+})();
+// END BLUE BUTTON — INSTRUMENTAL APPARATUS
