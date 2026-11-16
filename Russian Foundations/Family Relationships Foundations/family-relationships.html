@@ -6374,7 +6374,7 @@ LESSON 2 — EXTENDED FAMILY
               style="--x:50.2%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
             <button type="button" class="door-four__hotspot" data-lab-action="purple" aria-label="Test a Theory"
               style="--x:56.9%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
-            <button type="button" class="door-four__hotspot" data-lab-action="gold" aria-label="Try It Yourself"
+            <button type="button" class="door-four__hotspot" data-lab-action="gold" aria-label="Open Gold Family Telegraph"
               style="--x:63.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
 
 
@@ -6406,6 +6406,58 @@ LESSON 2 — EXTENDED FAMILY
             </button>
             <!-- END LABORATORY LANDING — BACK TO FOUR DOORS IMAGE BUTTON -->
           </div>
+
+          <!-- BEGIN GOLD BUTTON — FAMILY TELEGRAPH (TWO SCENARIOS) -->
+          <section class="gold-telegraph" id="gold-telegraph" hidden aria-label="Gold Family Telegraph">
+            <header class="gold-telegraph__header">
+              <img src="../../Images/door-four/button-gold-telegrpah.png" alt="" class="gold-telegraph__machine">
+              <div><p class="gold-telegraph__eyebrow">RUSSIAN LANGUAGE LABORATORY · GOLD BUTTON</p>
+                <h2>The Family Telegraph</h2><p>Something got scrambled in transmission. Follow the evidence. Repair the message.</p></div>
+            </header>
+            <nav class="gold-telegraph__tabs" aria-label="Choose telegraph mystery">
+              <button type="button" data-gold-scenario="0" class="is-current">01 · The Reversed Gift</button>
+              <button type="button" data-gold-scenario="1">02 · The Family Roster</button>
+            </nav>
+            <div class="gold-telegraph__layout">
+              <section class="gold-telegraph__telegram" aria-label="Incoming telegram">
+                <h3>Incoming Telegram <span id="gold-telegram-number">01</span></h3>
+                <div class="gold-telegraph__parchment">
+                  <img src="../../Images/door-four/button-gold-parchment.png" alt="" aria-hidden="true">
+                  <div class="gold-telegraph__original" id="gold-original" lang="ru" aria-label="Click a word to learn its meaning"></div>
+                </div>
+                <div class="gold-telegraph__vocabulary" id="gold-vocabulary" aria-live="polite">Click any word in the telegram to see its meaning.</div>
+              </section>
+              <section class="gold-telegraph__evidence" aria-label="Photographic evidence">
+                <h3>Photographic Evidence</h3>
+                <img id="gold-evidence-image" src="../../Images/door-four/button-gold-nephew-uncle.png" alt="Nephew giving a gift to his uncle">
+                <p id="gold-evidence-caption">The nephew is giving the book to his uncle.</p>
+              </section>
+            </div>
+            <section class="gold-telegraph__repair" aria-label="Repair the telegram">
+              <div class="gold-telegraph__repair-heading"><h3>Repair the Transmission</h3><p>Drag word pieces to reorder them, or use the arrow buttons. Choose the correct form from each three-choice menu.</p></div>
+              <div class="gold-telegraph__wordline" id="gold-wordline" aria-label="Rearrange and edit the message"></div>
+              <div class="gold-telegraph__controls">
+                <button type="button" id="gold-reset" class="gold-telegraph__button gold-telegraph__button--subtle">↻ Reset</button>
+                <button type="button" id="gold-test" class="gold-telegraph__button">Test My Answer!</button>
+                <button type="button" id="gold-clue" class="gold-telegraph__button gold-telegraph__button--subtle" hidden>Another Clue</button>
+                <button type="button" id="gold-why" class="gold-telegraph__button gold-telegraph__button--why" disabled>WHY IT WORKS!</button>
+              </div>
+              <p class="gold-telegraph__feedback" id="gold-feedback" role="status" aria-live="polite">Study the evidence, then repair the telegram.</p>
+            </section>
+            <nav class="gold-telegraph__navigation" aria-label="Telegraph navigation">
+              <button type="button" class="gold-telegraph__back" id="gold-four-doors">← Back to Four Doors</button>
+              <button type="button" class="gold-telegraph__back" id="gold-back">← Back to Russian Laboratory</button>
+            </nav>
+            <div class="gold-telegraph__overlay" id="gold-overlay" hidden>
+              <div class="gold-telegraph__dialog" role="dialog" aria-modal="true" aria-labelledby="gold-dialog-title" tabindex="-1">
+                <button type="button" id="gold-close" class="gold-telegraph__close" aria-label="Close explanation">×</button>
+                <h3 id="gold-dialog-title">WHY IT WORKS!</h3>
+                <div id="gold-explanation"></div>
+                <button type="button" id="gold-close-bottom" class="gold-telegraph__button">Return to the Telegraph</button>
+              </div>
+            </div>
+          </section>
+          <!-- END GOLD BUTTON — FAMILY TELEGRAPH -->
 
           <!-- BEGIN THE GEARS — LANDING AND THREE DEVELOPMENT SHELLS -->
           <section class="gears-experience" id="gears-experience" hidden aria-label="The Gears — How It Works?">

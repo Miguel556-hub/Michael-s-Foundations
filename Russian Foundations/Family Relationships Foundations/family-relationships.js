@@ -16567,3 +16567,308 @@ const conversations = {
     chooseTrain('a');
 })();
 // END THE GEARS — THREE INTERACTIVE GRAMMAR WORKSHOPS
+
+
+// ============================================================
+// BEGIN GOLD BUTTON — FAMILY TELEGRAPH
+// Isolated from the existing Laboratory, Gears, and Drawers.
+// ============================================================
+(() => {
+    const laboratory = document.getElementById('door-four-laboratory');
+    const experience = document.getElementById('gold-telegraph');
+    // Keep the original brown Laboratory return button available on other
+    // screens, but never show it beneath either Gold Telegraph scenario.
+    const duplicateLaboratoryReturn = laboratory.querySelector('.door-four__return');
+    const syncGoldReturnVisibility = () => {
+        if (duplicateLaboratoryReturn) {
+            duplicateLaboratoryReturn.hidden = !experience.hidden;
+        }
+    };
+    const goldReturnObserver = new MutationObserver(syncGoldReturnVisibility);
+    goldReturnObserver.observe(experience, {
+        attributes: true,
+        attributeFilter: ['hidden']
+    });
+    syncGoldReturnVisibility();
+
+    if (!laboratory || !experience) return;
+
+    const stage = laboratory.querySelector('.door-four__stage');
+    const original = document.getElementById('gold-original');
+    const vocabulary = document.getElementById('gold-vocabulary');
+    const wordline = document.getElementById('gold-wordline');
+    const feedback = document.getElementById('gold-feedback');
+    const clueButton = document.getElementById('gold-clue');
+    const whyButton = document.getElementById('gold-why');
+    const overlay = document.getElementById('gold-overlay');
+    const dialog = overlay.querySelector('.gold-telegraph__dialog');
+    const scenarios = [
+        {
+            original: ['Дядя', 'подарил', 'племяннику', 'книгу.'],
+            pieces: [
+                { id: 'uncle', options: ['дядя', 'дяде', 'дядю'], initial: 'дядя' },
+                { id: 'verb', options: ['подарил', 'подарила', 'подарили'], initial: 'подарил' },
+                { id: 'nephew', options: ['племянник', 'племяннику', 'племянника'], initial: 'племяннику' },
+                { id: 'book', options: ['книга', 'книгу', 'книге'], initial: 'книгу' }
+            ],
+            correctOrder: ['nephew', 'verb', 'uncle', 'book'],
+            correctForms: { nephew: 'племянник', verb: 'подарил', uncle: 'дяде', book: 'книгу' },
+            image: 'button-gold-nephew-uncle.png',
+            alt: 'Nephew giving a gift to his uncle',
+            caption: 'The nephew is giving the book to his uncle.',
+            glossary: [
+                ['uncle', 'uncle; a male relative'],
+                ['gave', 'gave as a gift'],
+                ['nephew', 'nephew; a sister’s or brother’s son'],
+                ['book', 'book']
+            ],
+            clues: [
+                'Look at the photograph: who is giving the book, and who receives it?',
+                'The giver needs the nominative case. The recipient needs the dative case.',
+                'Look for племянник as the giver and a form of дядя ending in -е for the recipient.'
+            ],
+            why: '<p class="gold-telegraph__why-phrase" lang="ru">Племянник подарил дяде книгу.</p><div class="gold-telegraph__why-grid"><div><strong>Племянник</strong><span>WHO gives?<br>Nominative</span></div><div><strong>дяде</strong><span>TO WHOM?<br>Dative</span></div><div><strong>книгу</strong><span>WHAT is given?<br>Accusative</span></div></div><p class="gold-telegraph__why-note">The noun endings tell us who gives, who receives, and what is given.</p>'
+        },
+        {
+            original: ['У', 'меня', 'есть', 'один', 'сестры', 'и', 'три', 'брата.'],
+            pieces: [
+                { id: 'u', options: ['у', 'в', 'с'], initial: 'у' },
+                { id: 'me', options: ['меня', 'мне', 'мной'], initial: 'меня' },
+                { id: 'have', options: ['есть', 'был', 'будет'], initial: 'есть' },
+                { id: 'sistersCount', options: ['один', 'одна', 'три'], initial: 'один' },
+                { id: 'sisters', options: ['сестра', 'сестры', 'сестёр'], initial: 'сестры' },
+                { id: 'and', options: ['и', 'а', 'но'], initial: 'и' },
+                { id: 'brothersCount', options: ['один', 'одна', 'три'], initial: 'три' },
+                { id: 'brother', options: ['брат', 'брата', 'братьев'], initial: 'брата' }
+            ],
+            correctOrder: ['u', 'me', 'have', 'sistersCount', 'sisters', 'and', 'brothersCount', 'brother'],
+            correctForms: { u: 'у', me: 'меня', have: 'есть', sistersCount: 'три', sisters: 'сестры', and: 'и', brothersCount: 'один', brother: 'брат' },
+            image: 'button-gold-family.png',
+            alt: 'Family photograph of three sisters and one brother',
+            caption: 'The photograph shows three sisters and one brother.',
+            glossary: [
+                ['with / at', 'Part of the Russian expression for having something'],
+                ['me', 'me; part of у меня'],
+                ['there is / are', 'Used in the Russian expression for having something'],
+                ['one', 'one'],
+                ['sisters', 'sister(s)'],
+                ['and', 'and'],
+                ['three', 'three'],
+                ['brothers', 'brother(s)']
+            ],
+            clues: [
+                'Compare the photograph with the numbers. How many sisters and how many brothers?',
+                'Russian changes the noun form after a number. One brother uses a different form from three brothers.',
+                'After три, choose сестры. After один, choose брат. Now check the numbers against the photograph.'
+            ],
+            why: '<p class="gold-telegraph__why-phrase" lang="ru">У меня есть три сестры и один брат.</p><div class="gold-telegraph__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>три сестры</strong><span>THREE sisters<br>Genitive singular counting form</span></div><div><strong>один брат</strong><span>ONE brother<br>Nominative singular</span></div></div><p class="gold-telegraph__why-note">After три, Russian uses a special counting form. After один, брат stays singular.</p>'
+        }
+    ];
+
+    let scenarioIndex = 0;
+    let pieces = [];
+    let clueLevel = 0;
+    let solved = false;
+    let draggingId = null;
+    let previousFocus = null;
+
+    function startScenario(index) {
+        scenarioIndex = index;
+        const scenario = scenarios[index];
+        pieces = scenario.pieces.map(piece => ({ ...piece, value: piece.initial }));
+        clueLevel = 0;
+        solved = false;
+        feedback.textContent = 'Study the evidence, then repair the telegram.';
+        feedback.classList.remove('is-success', 'is-try-again');
+        clueButton.hidden = true;
+        whyButton.disabled = true;
+        document.getElementById('gold-telegram-number').textContent = String(index + 1).padStart(2, '0');
+        const image = document.getElementById('gold-evidence-image');
+        image.src = '../../Images/door-four/' + scenario.image;
+        image.alt = scenario.alt;
+        document.getElementById('gold-evidence-caption').textContent = scenario.caption;
+        experience.querySelectorAll('[data-gold-scenario]').forEach(button => {
+            const current = Number(button.dataset.goldScenario) === index;
+            button.classList.toggle('is-current', current);
+            button.setAttribute('aria-current', current ? 'true' : 'false');
+        });
+        original.replaceChildren();
+        scenario.original.forEach((word, index) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = word;
+            button.lang = 'ru';
+            button.setAttribute('aria-label', 'Explain ' + word);
+            button.addEventListener('click', () => {
+                const entry = scenario.glossary[index];
+                vocabulary.textContent = word.replace(/[.!?]$/, '') + ' — ' + entry[1];
+            });
+            original.append(button);
+        });
+        vocabulary.textContent = 'Click any word in the telegram to see its meaning.';
+        renderPieces();
+    }
+
+    function movePiece(from, to) {
+        if (from < 0 || to < 0 || from >= pieces.length || to >= pieces.length || from === to) return;
+        const [piece] = pieces.splice(from, 1);
+        pieces.splice(to, 0, piece);
+        invalidateResult();
+        renderPieces();
+    }
+
+    function invalidateResult() {
+        solved = false;
+        whyButton.disabled = true;
+        clueButton.hidden = true;
+        clueLevel = 0;
+        feedback.textContent = 'Ready to test your revised transmission.';
+    }
+
+    function renderPieces() {
+        wordline.replaceChildren();
+        pieces.forEach((piece, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'gold-telegraph__piece';
+            wrapper.draggable = true;
+            wrapper.dataset.pieceId = piece.id;
+            wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+            const select = document.createElement('select');
+            select.lang = 'ru';
+            select.setAttribute('aria-label', 'Choose form for word ' + (index + 1));
+            piece.options.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.append(option);
+            });
+            select.value = piece.value;
+            select.addEventListener('change', () => {
+                piece.value = select.value;
+                wrapper.setAttribute('aria-label', 'Moveable word ' + piece.value);
+                invalidateResult();
+            });
+            const move = document.createElement('div');
+            move.className = 'gold-telegraph__move';
+            [['←', -1], ['→', 1]].forEach(([label, offset]) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = label;
+                button.disabled = index + offset < 0 || index + offset >= pieces.length;
+                button.setAttribute('aria-label', 'Move ' + piece.value + (offset < 0 ? ' left' : ' right'));
+                button.addEventListener('click', () => movePiece(index, index + offset));
+                move.append(button);
+            });
+            wrapper.addEventListener('dragstart', event => {
+                draggingId = piece.id;
+                wrapper.classList.add('is-dragging');
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', piece.id);
+            });
+            wrapper.addEventListener('dragend', () => wrapper.classList.remove('is-dragging'));
+            wrapper.addEventListener('dragover', event => event.preventDefault());
+            wrapper.addEventListener('drop', event => {
+                event.preventDefault();
+                const id = draggingId || event.dataTransfer.getData('text/plain');
+                draggingId = null;
+                movePiece(pieces.findIndex(candidate => candidate.id === id), pieces.findIndex(candidate => candidate.id === piece.id));
+            });
+            wrapper.append(select, move);
+            wordline.append(wrapper);
+        });
+    }
+
+    function testAnswer() {
+        const scenario = scenarios[scenarioIndex];
+        const correctOrder = pieces.every((piece, index) => piece.id === scenario.correctOrder[index]);
+        const correctForms = pieces.every(piece => piece.value === scenario.correctForms[piece.id]);
+        solved = correctOrder && correctForms;
+        whyButton.disabled = !solved;
+        if (solved) {
+            clueButton.hidden = true;
+            feedback.textContent = 'Transmission Successfully Repaired — The message now matches the photographic evidence.';
+            feedback.classList.add('is-success');
+            feedback.classList.remove('is-try-again');
+        } else {
+            clueLevel = 0;
+            clueButton.hidden = false;
+            feedback.textContent = scenario.clues[0];
+            feedback.classList.remove('is-success');
+            feedback.classList.add('is-try-again');
+        }
+    }
+
+    function openExplanation() {
+        if (!solved) return;
+        previousFocus = document.activeElement;
+        document.getElementById('gold-explanation').innerHTML = scenarios[scenarioIndex].why;
+        overlay.hidden = false;
+        dialog.focus();
+    }
+
+    function closeExplanation() {
+        overlay.hidden = true;
+        previousFocus?.focus();
+    }
+
+    function showExperience() {
+        stage.hidden = true;
+        experience.hidden = false;
+        startScenario(0);
+        experience.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+
+    // Capture the Gold hotspot before the generic Laboratory status handler.
+    laboratory.addEventListener('click', event => {
+        const entry = event.target.closest('[data-lab-action="gold"]');
+        if (!entry || !laboratory.contains(entry)) return;
+        event.stopImmediatePropagation();
+        showExperience();
+    }, true);
+
+    experience.querySelectorAll('[data-gold-scenario]').forEach(button => {
+        button.addEventListener('click', () => startScenario(Number(button.dataset.goldScenario)));
+    });
+    document.getElementById('gold-reset').addEventListener('click', () => startScenario(scenarioIndex));
+    document.getElementById('gold-test').addEventListener('click', testAnswer);
+    clueButton.addEventListener('click', () => {
+        clueLevel = Math.min(clueLevel + 1, 2);
+        feedback.textContent = scenarios[scenarioIndex].clues[clueLevel];
+        clueButton.hidden = clueLevel === 2;
+    });
+    whyButton.addEventListener('click', openExplanation);
+    document.getElementById('gold-close').addEventListener('click', closeExplanation);
+    document.getElementById('gold-close-bottom').addEventListener('click', closeExplanation);
+    overlay.addEventListener('click', event => {
+        if (event.target === overlay) closeExplanation();
+    });
+    document.addEventListener('keydown', event => {
+        if (overlay.hidden) return;
+        if (event.key === 'Escape') closeExplanation();
+        if (event.key === 'Tab') {
+            const focusable = [...overlay.querySelectorAll('button:not(:disabled)')];
+            const index = focusable.indexOf(document.activeElement);
+            if (event.shiftKey && index <= 0) {
+                event.preventDefault();
+                focusable[focusable.length - 1].focus();
+            } else if (!event.shiftKey && index === focusable.length - 1) {
+                event.preventDefault();
+                focusable[0].focus();
+            }
+        }
+    });
+    document.getElementById('gold-back').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    document.getElementById('gold-four-doors').addEventListener('click', () => {
+        closeExplanation();
+        experience.hidden = true;
+        stage.hidden = false;
+        laboratory.querySelector('.door-four__return')?.click();
+    });
+    startScenario(0);
+})();
+// END GOLD BUTTON — FAMILY TELEGRAPH
