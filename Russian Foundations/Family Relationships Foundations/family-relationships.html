@@ -6366,7 +6366,7 @@ LESSON 2 — EXTENDED FAMILY
               aria-label="Purple cylinder — future discovery" style="--x:58.5%;--y:19.0%;--w:5.0%;--h:19.0%"></button>
 
 
-            <button type="button" class="door-four__hotspot" data-lab-action="red" aria-label="Play and Listen"
+            <button type="button" class="door-four__hotspot" data-lab-action="red" aria-label="Open Red Heartfelt Engine"
               style="--x:37.1%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
             <button type="button" class="door-four__hotspot" data-lab-action="blue" aria-label="Open Blue Instrumental Apparatus"
               style="--x:43.6%;--y:65.5%;--w:3.0%;--h:6.0%"></button>
@@ -6407,7 +6407,299 @@ LESSON 2 — EXTENDED FAMILY
             <!-- END LABORATORY LANDING — BACK TO FOUR DOORS IMAGE BUTTON -->
           </div>
 
-          <!-- BEGIN GOLD BUTTON — FAMILY TELEGRAPH (TWO SCENARIOS) -->
+          <!-- BEGIN RED BUTTON — HEARTFELT ENGINE | TWO IMAGE ASSETS -->
+          <section class="red-heartfelt" id="red-heartfelt" hidden aria-label="Red Heartfelt Engine">
+            <div class="red-heartfelt__stage" id="red-heartfelt-stage">
+              <!-- Authoritative landing artwork; titles and plaques are already in this image. -->
+              <img class="red-heartfelt__art" src="../../Images/door-four/button-red-landing.png"
+                alt="Heartfelt Engine Victorian laboratory with five named rope stations, mechanical heart, and two navigation buttons"
+                draggable="false">
+              <!-- Glow illuminates the existing heart; it does not draw another heart shape. -->
+              <div class="red-heartfelt__heart" aria-hidden="true"></div>
+              <div class="red-heartfelt__transition" aria-hidden="true"></div>
+              <!-- Five individually positioned and animated rope controls, authored in HTML. -->
+              <button type="button" class="red-heartfelt__rope-button" data-heartfelt-choice="0"
+                aria-label="Pull Name Forge rope" style="--rope-x: 9.8%;">
+                <img src="../../Images/door-four/button-red-rope.png" alt="" draggable="false">
+              </button>
+              <button type="button" class="red-heartfelt__rope-button" data-heartfelt-choice="1"
+                aria-label="Pull Warmth Dial rope" style="--rope-x: 22.25%;">
+                <img src="../../Images/door-four/button-red-rope.png" alt="" draggable="false">
+              </button>
+              <button type="button" class="red-heartfelt__rope-button" data-heartfelt-choice="2"
+                aria-label="Pull Family Voices rope" style="--rope-x: 35.55%;">
+                <img src="../../Images/door-four/button-red-rope.png" alt="" draggable="false">
+              </button>
+              <button type="button" class="red-heartfelt__rope-button" data-heartfelt-choice="3"
+                aria-label="Pull Emotion Gauge rope" style="--rope-x: 47.9%;">
+                <img src="../../Images/door-four/button-red-rope.png" alt="" draggable="false">
+              </button>
+              <button type="button" class="red-heartfelt__rope-button" data-heartfelt-choice="4"
+                aria-label="Pull Message Conduit rope" style="--rope-x: 60.05%;">
+                <img src="../../Images/door-four/button-red-rope.png" alt="" draggable="false">
+              </button>
+              <!-- Transparent hotspots on the two buttons baked into the landing artwork. -->
+              <button type="button" class="red-heartfelt__hotspot red-heartfelt__nav"
+                data-heartfelt-back="laboratory" aria-label="Back to Laboratory"
+                style="--x: 71.2%; --y: 85.8%; --w: 12.8%; --h: 10.4%;"></button>
+              <button type="button" class="red-heartfelt__hotspot red-heartfelt__nav"
+                data-heartfelt-back="doors" aria-label="Back to Four Doors"
+                style="--x: 84.4%; --y: 85.8%; --w: 12.8%; --h: 10.4%;"></button>
+            </div>
+            <section class="red-heartfelt__destination" id="red-heartfelt-destination" hidden aria-live="polite">
+              <p class="red-heartfelt__eyebrow">RED · HEARTFELT ENGINE</p>
+              <h2 id="red-heartfelt-destination-title"></h2>
+              <!-- Red destinations: Name Forge and Warmth Dial. -->
+              <div class="red-name-forge" id="red-name-forge" hidden>
+                <p class="red-name-forge__intro">One name. Many ways to show you care.</p>
+                <div class="red-name-forge__examples" aria-label="Three guided name discoveries">
+                  <article class="red-name-forge__example"><span>DISCOVERY 01 · A FRIEND</span><strong>Александр → Саша → Сашенька</strong><p>Friend → loved one</p></article>
+                  <article class="red-name-forge__example"><span>DISCOVERY 02 · SOMEONE DEAR</span><strong>Михаил → Миша → Мишенька</strong><p>Familiar → affectionate</p></article>
+                  <article class="red-name-forge__example"><span>DISCOVERY 03 · FAMILY</span><strong>Мария → Маша → Машенька</strong><p>Family → tenderness</p></article>
+                </div>
+                <div class="red-name-forge__registry">
+                  <h3>The Name Registry · Реестр имён</h3>
+                  <p>Choose a name. See it transform.</p>
+                  <div class="red-name-forge__selectors">
+                    <label>Men's names <select id="red-name-forge-men" aria-label="Select a man's name"><option value="">Choose a man's name</option><option value="Alexander">Alexander</option><option value="Michael">Michael</option><option value="Maxim">Maxim</option><option value="Daniel">Daniel</option><option value="Victor">Victor</option><option value="Ivan">Ivan</option><option value="Roman">Roman</option><option value="Arthur">Arthur</option><option value="Denis">Denis</option><option value="Mark">Mark</option></select></label>
+                    <label>Women's names <select id="red-name-forge-women" aria-label="Select a woman's name"><option value="">Choose a woman's name</option><option value="Anna">Anna</option><option value="Maria">Maria</option><option value="Victoria">Victoria</option><option value="Elena">Elena</option><option value="Julia">Julia</option><option value="Nina">Nina</option><option value="Sofia">Sofia</option><option value="Diana">Diana</option><option value="Natalia">Natalia</option><option value="Christina">Christina</option></select></label>
+                  </div>
+                  <p class="red-name-forge__selected" id="red-name-forge-selected" aria-live="polite">Choose a name to open its record.</p>
+                  <div class="red-name-forge__forms" id="red-name-forge-forms" hidden>
+                    <article><span>FORMAL · ОФИЦИАЛЬНО</span><div id="red-name-forge-formal"></div></article>
+                    <article><span>FAMILIAR · ЗНАКОМЫЕ И БЛИЗКИЕ</span><div id="red-name-forge-familiar"></div></article>
+                    <article><span>AFFECTIONATE · ЛАСКОВО</span><div id="red-name-forge-affectionate"></div></article>
+                  </div>
+                  <details class="red-name-forge__more"><summary>Why do names change?</summary><p class="red-name-forge__note">Names follow traditions, not one fixed formula. Some forms are playful or intimate. Formal address may include a patronymic.</p></details>
+                </div>
+                <details class="red-name-forge__discovery"><summary>✨ Did you notice?</summary><p><b>Александр → Саша</b> and <b>Александра → Саша</b>: masculine and feminine names can share the same familiar form. A name ending in <b>-а</b> does not always belong to a woman.</p></details>
+                <div class="red-name-forge__future" aria-label="Reserved learning activities"><button type="button">Applying the Pattern</button><button type="button">Mastering the Pattern</button></div>
+              </div>
+              <!-- BEGIN RED HEARTFELT ENGINE — WARMTH DIAL INTERIOR -->
+              <div class="red-warmth" id="red-warmth" hidden>
+                <p class="red-warmth__intro">Same words. Different feelings. Try all three.</p>
+                <div class="red-warmth__examples" aria-label="Three guided warmth discoveries">
+                  <article class="red-warmth__example" data-warmth-example="0">
+                    <span>DISCOVERY 01 · THE GREETING</span>
+                    <h3 lang="ru">Ну, привет!</h3>
+                    <p>Well, hello!</p>
+                    <p class="red-warmth__context">An unexpected meeting</p>
+                    <button type="button" class="red-warmth__choose" data-warmth-select="0">Explore →</button>
+                  </article>
+                  <article class="red-warmth__example" data-warmth-example="1">
+                    <span>DISCOVERY 02 · THE QUESTION</span>
+                    <h3 lang="ru">Как дела?</h3>
+                    <p>How are things?</p>
+                    <p class="red-warmth__context">Routine or genuine?</p>
+                    <button type="button" class="red-warmth__choose" data-warmth-select="1">Explore →</button>
+                  </article>
+                  <article class="red-warmth__example" data-warmth-example="2">
+                    <span>DISCOVERY 03 · THE PRAISE</span>
+                    <h3 lang="ru">Молодец!</h3>
+                    <p>Well done!</p>
+                    <p class="red-warmth__context">Praise or sarcasm?</p>
+                    <button type="button" class="red-warmth__choose" data-warmth-select="2">Explore →</button>
+                  </article>
+                </div>
+                <section class="red-warmth__workbench" aria-label="Interactive Russian delivery workbench">
+                  <label class="red-warmth__phrase-picker" for="red-warmth-select">Choose a Russian phrase
+                    <select id="red-warmth-select" aria-label="Choose one of ten Russian expressions">
+                      <option value="0">Ну, привет! — Well, hello!</option>
+                      <option value="1">Как дела? — How are things?</option>
+                      <option value="2">Молодец! — Well done!</option>
+                      <option value="3">Спасибо! — Thank you!</option>
+                      <option value="4">Правда? — Really?</option>
+                      <option value="5">Ну что? — Well?</option>
+                      <option value="6">Ты пришёл! — You came!</option>
+                      <option value="7">Очень интересно. — Very interesting.</option>
+                      <option value="8">Ясно. — I see.</option>
+                      <option value="9">Вот это да! — Wow!</option>
+                    </select>
+                  </label>
+                  <div class="red-warmth__stage" aria-live="polite">
+                    <div class="red-warmth__stage-heading">
+                      <div><span class="red-warmth__kicker">SAY IT WITH FEELING</span>
+                        <h3 id="red-warmth-phrase" lang="ru">Ну, привет!</h3>
+                        <p id="red-warmth-translation">Well, hello!</p></div>
+                      <button type="button" id="red-warmth-speak" class="red-warmth__speak" title="Listen to browser-generated Russian pronunciation">▶ Hear the words</button>
+                    </div>
+                    <div class="red-warmth__delivery-list" role="group" aria-label="Choose how the phrase is delivered">
+                      <button type="button" data-warmth-tone="0" aria-pressed="true"><span class="red-warmth__delivery-icon">♥</span><strong>Warm &amp; genuine</strong><small>Tap to explore</small></button>
+                      <button type="button" data-warmth-tone="1" aria-pressed="false"><span class="red-warmth__delivery-icon">!</span><strong>Surprised &amp; animated</strong><small>Tap to explore</small></button>
+                      <button type="button" data-warmth-tone="2" aria-pressed="false"><span class="red-warmth__delivery-icon">…</span><strong>Cool &amp; ironic</strong><small>Tap to explore</small></button>
+                    </div>
+                    <div class="red-warmth__scene">
+                      <div class="red-warmth__scene-left">
+                        <span class="red-warmth__kicker">THE MOMENT</span>
+                        <strong id="red-warmth-meaning">A happy, friendly greeting.</strong>
+                        <p id="red-warmth-situation">You see a friend and are pleased to meet them.</p>
+                        <details class="red-warmth__more"><summary>🎭 How should I say it?</summary><p id="red-warmth-clue">Listen for a light, welcoming voice and a relaxed expression.</p></details>
+                      </div>
+                      <div class="red-warmth__scene-right">
+                        <span class="red-warmth__kicker">SAY IT THIS WAY</span>
+                        <div class="red-warmth__spoken" id="red-warmth-spoken" lang="ru">Ну, привет!</div>
+                        <p id="red-warmth-spoken-english">Well, hello!</p>
+                        <details class="red-warmth__more"><summary>🔎 What’s that little word?</summary><p id="red-warmth-particle">Ну can set the emotional tone; it does not always translate as “well.”</p></details>
+                      </div>
+                    </div>
+                    <p class="red-warmth__listen-note">Try saying it three ways.</p>
+                  </div>
+                </section>
+                <details class="red-warmth__discovery">
+                  <summary>✨ Did you notice?</summary>
+                  <p><b>Intonation carries meaning.</b> Russian speakers can change the emotional message without changing a single word. Facial expression, timing, stress, and relationships provide important clues.</p>
+                </details>
+                <div class="red-warmth__future" aria-label="Reserved learning activities">
+                  <button type="button">Applying the Pattern</button>
+                  <button type="button">Mastering the Pattern</button>
+                </div>
+              </div>
+              <!-- END RED HEARTFELT ENGINE — WARMTH DIAL INTERIOR -->
+              <!-- BEGIN RED HEARTFELT ENGINE — FAMILY VOICES -->
+              <div class="red-family" id="red-family" hidden>
+                <p class="red-family__intro">Hear the heart of a Russian family. Choose a moment. Speak back.</p>
+                <div class="red-family__examples" aria-label="Three family voice discoveries">
+                  <button type="button" data-family-pick="0"><small>01 · AFFECTION</small><strong lang="ru">Мамочка, я тебя люблю!</strong><span>Love</span></button>
+                  <button type="button" data-family-pick="1"><small>02 · CONCERN</small><strong lang="ru">Ты не замёрз?</strong><span>Caring</span></button>
+                  <button type="button" data-family-pick="2"><small>03 · ENCOURAGEMENT</small><strong lang="ru">У тебя получится!</strong><span>Support</span></button>
+                </div>
+                <section class="red-family__workshop" aria-label="Family voices interactive workshop">
+                  <label class="red-family__picker">Choose a family moment
+                    <select id="red-family-select">
+                      <option value="0">A child says “I love you”</option>
+                      <option value="1">A parent checks on you</option>
+                      <option value="2">A sibling encourages you</option>
+                      <option value="3">Grandma welcomes you</option>
+                      <option value="4">A parent asks about your day</option>
+                      <option value="5">A sibling offers help</option>
+                      <option value="6">A family member says thank you</option>
+                      <option value="7">Someone says they miss you</option>
+                    </select>
+                  </label>
+                  <div class="red-family__scene">
+                    <div class="red-family__speaker"><span class="red-family__portrait" id="red-family-portrait" aria-hidden="true">♥</span><div><small id="red-family-role">CHILD → MOM</small><strong id="red-family-situation">A loving moment</strong></div></div>
+                    <div class="red-family__speech"><span class="red-family__tag">THEIR VOICE</span><div class="red-family__russian" id="red-family-russian" lang="ru">Мамочка, я тебя люблю!</div><p id="red-family-english">Mommy, I love you!</p><button type="button" id="red-family-hear">▶ Hear Russian</button></div>
+                    <div class="red-family__response"><span class="red-family__tag">YOUR RESPONSE</span><div class="red-family__russian" id="red-family-answer-russian" lang="ru">Я тоже тебя люблю!</div><p id="red-family-answer-english">I love you too!</p><button type="button" id="red-family-hear-answer">▶ Hear It</button></div>
+                  </div>
+                  <details class="red-family__why"><summary>🔎 A little language discovery</summary><p id="red-family-note"></p></details>
+                </section>
+                <div class="red-family__future" aria-label="Reserved learning activities"><button type="button">Applying the Pattern</button><button type="button">Mastering the Pattern</button></div>
+              </div>
+              <!-- END RED HEARTFELT ENGINE — FAMILY VOICES -->
+              <!-- BEGIN RED HEARTFELT ENGINE — EMOTION GAUGE -->
+              <div class="red-emotion" id="red-emotion" hidden>
+                <p class="red-emotion__intro">Notice the feeling. Hear a caring response.</p>
+                <div class="red-emotion__examples" aria-label="Three emotion discoveries">
+                  <button type="button" data-emotion-pick="0"><small>01 · WORRIED</small><strong lang="ru">Я волнуюсь.</strong><span>Reassure</span></button>
+                  <button type="button" data-emotion-pick="1"><small>02 · DISCOURAGED</small><strong lang="ru">У меня не получается.</strong><span>Encourage</span></button>
+                  <button type="button" data-emotion-pick="2"><small>03 · SAD</small><strong lang="ru">Мне грустно.</strong><span>Comfort</span></button>
+                </div>
+                <section class="red-emotion__workshop" aria-label="Emotion Gauge Russian expressions">
+                  <label class="red-emotion__picker">Choose a moment
+                    <select id="red-emotion-select">
+                      <option value="0">Someone is worried</option>
+                      <option value="1">Someone feels discouraged</option>
+                      <option value="2">Someone is sad</option>
+                      <option value="3">Someone feels afraid</option>
+                      <option value="4">Someone is exhausted</option>
+                      <option value="5">Someone is nervous before a test</option>
+                      <option value="6">Someone misses family</option>
+                      <option value="7">Someone shares good news</option>
+                    </select>
+                  </label>
+                  <div class="red-emotion__scene" aria-live="polite">
+                    <div class="red-emotion__moment">
+                      <span class="red-emotion__tag">THE FEELING</span>
+                      <span class="red-emotion__face" id="red-emotion-face" aria-hidden="true">😟</span>
+                      <strong id="red-emotion-label">Worried</strong>
+                      <p id="red-emotion-context">A friend is concerned about tomorrow.</p>
+                    </div>
+                    <div class="red-emotion__speech">
+                      <span class="red-emotion__tag">WHAT YOU HEAR</span>
+                      <div class="red-emotion__russian" id="red-emotion-russian" lang="ru">Я волнуюсь.</div>
+                      <p id="red-emotion-english">I'm worried.</p>
+                      <button type="button" id="red-emotion-hear">▶ Hear It</button>
+                    </div>
+                    <div class="red-emotion__reply">
+                      <span class="red-emotion__tag">A CARING RESPONSE</span>
+                      <div class="red-emotion__russian" id="red-emotion-answer-russian" lang="ru">Я рядом.</div>
+                      <p id="red-emotion-answer-english">I'm here for you.</p>
+                      <button type="button" id="red-emotion-hear-answer">▶ Hear It</button>
+                    </div>
+                  </div>
+                  <details class="red-emotion__why"><summary>🔎 A little language discovery</summary><p id="red-emotion-note"></p></details>
+                </section>
+                <div class="red-emotion__future" aria-label="Reserved learning activities">
+                  <button type="button">Applying the Pattern</button>
+                  <button type="button">Mastering the Pattern</button>
+                </div>
+              </div>
+              <!-- END RED HEARTFELT ENGINE — EMOTION GAUGE -->
+              <!-- BEGIN RED HEARTFELT ENGINE — MESSAGE CONDUIT -->
+              <div class="red-message" id="red-message" hidden>
+                <p class="red-message__intro">A few Russian words. A meaningful connection.</p>
+                <div class="red-message__examples" aria-label="Three message discoveries">
+                  <button type="button" data-message-pick="0"><small>01 · AFFECTION</small><strong lang="ru">Я скучаю по тебе.</strong><span>I miss you.</span></button>
+                  <button type="button" data-message-pick="1"><small>02 · GRATITUDE</small><strong lang="ru">Спасибо тебе!</strong><span>Thank you!</span></button>
+                  <button type="button" data-message-pick="2"><small>03 · ENCOURAGEMENT</small><strong lang="ru">Я в тебя верю!</strong><span>I believe in you!</span></button>
+                </div>
+                <section class="red-message__workshop" aria-label="Create a Russian message">
+                  <div class="red-message__controls">
+                    <label>Choose a message
+                      <select id="red-message-select">
+                        <option value="0">I miss you</option>
+                        <option value="1">Thank you</option>
+                        <option value="2">I believe in you</option>
+                        <option value="3">Happy birthday</option>
+                        <option value="4">Congratulations</option>
+                        <option value="5">Get well soon</option>
+                        <option value="6">Good night</option>
+                        <option value="7">I'm thinking of you</option>
+                      </select>
+                    </label>
+                    <label>To whom?
+                      <select id="red-message-recipient">
+                        <option value="mama">Мама — Mother</option>
+                        <option value="papa">Папа — Father</option>
+                        <option value="brother">Брат — Brother</option>
+                        <option value="sister">Сестра — Sister</option>
+                        <option value="grandmother">Бабушка — Grandmother</option>
+                        <option value="grandfather">Дедушка — Grandfather</option>
+                        <option value="aunt">Тётя — Aunt</option>
+                        <option value="uncle">Дядя — Uncle</option>
+                        <option value="male-cousin">Двоюродный брат — Male cousin</option>
+                        <option value="female-cousin">Двоюродная сестра — Female cousin</option>
+                        <option value="son">Сын — Son</option>
+                        <option value="daughter">Дочь — Daughter</option>
+                        <option value="grandson">Внук — Grandson</option>
+                        <option value="granddaughter">Внучка — Granddaughter</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="red-message__letter" aria-live="polite">
+                    <span class="red-message__seal" aria-hidden="true">✉</span>
+                    <span class="red-message__tag">YOUR RUSSIAN MESSAGE</span>
+                    <div id="red-message-text" class="red-message__russian" lang="ru">Я скучаю по тебе.</div>
+                    <p id="red-message-english">I miss you.</p>
+                    <div class="red-message__actions">
+                      <button type="button" id="red-message-hear">▶ Hear It</button>
+                    </div>
+                  </div>
+                  <details class="red-message__why"><summary>🔎 A little language discovery</summary><p id="red-message-note"></p></details>
+                </section>
+                <div class="red-message__future" aria-label="Reserved learning activities">
+                  <button type="button">Applying the Pattern</button>
+                  <button type="button">Mastering the Pattern</button>
+                </div>
+              </div>
+              <!-- END RED HEARTFELT ENGINE — MESSAGE CONDUIT -->
+              <p id="red-heartfelt-placeholder">This dedicated learning experience is being prepared.</p>
+              <button type="button" id="red-heartfelt-return">← Back to the Five Strings</button>
+            </section>
+          </section>
+          <!-- END RED BUTTON — HEARTFELT ENGINE -->
+
+          <!-- BEGIN GOLD BUTTON — FAMILY TELEGRAPH (THREE SCENARIOS) -->
           <section class="gold-telegraph" id="gold-telegraph" hidden aria-label="Gold Family Telegraph">
             <header class="gold-telegraph__header">
               <img src="../../Images/door-four/button-gold-telegrpah.png" alt="" class="gold-telegraph__machine">
@@ -6420,6 +6712,7 @@ LESSON 2 — EXTENDED FAMILY
             <nav class="gold-telegraph__tabs" aria-label="Choose telegraph mystery">
               <button type="button" data-gold-scenario="0" class="is-current">01 · The Reversed Gift</button>
               <button type="button" data-gold-scenario="1">02 · The Family Roster</button>
+              <button type="button" data-gold-scenario="2">03 · The Family Portrait</button>
             </nav>
             <div class="gold-telegraph__layout">
               <section class="gold-telegraph__telegram" aria-label="Incoming telegram">
@@ -6461,10 +6754,8 @@ LESSON 2 — EXTENDED FAMILY
             </section>
             <!-- FUTURE LEARNING STAGES — PLACEHOLDERS ONLY -->
             <div class="laboratory-pattern-stages laboratory-pattern-stages--gold" aria-label="Future pattern practice">
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Apply the Pattern</button>
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Master the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Apply the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Master the Pattern</button>
             </div>
 
             <nav class="gold-telegraph__navigation" aria-label="Telegraph navigation">
@@ -6485,7 +6776,7 @@ LESSON 2 — EXTENDED FAMILY
           </section>
           <!-- END GOLD BUTTON — FAMILY TELEGRAPH -->
 
-          <!-- BEGIN PURPLE BUTTON — TIMEKEEPER’S WORKSHOP (TWO SCENARIOS) -->
+          <!-- BEGIN PURPLE BUTTON — TIMEKEEPER’S WORKSHOP (THREE SCENARIOS) -->
           <section class="purple-timekeeper" id="purple-timekeeper" hidden aria-label="Purple Timekeeper’s Workshop">
             <header class="purple-timekeeper__header">
               <img src="../../Images/door-four/button-purple-watch.png" alt="" class="purple-timekeeper__machine">
@@ -6498,6 +6789,7 @@ LESSON 2 — EXTENDED FAMILY
             <nav class="purple-timekeeper__tabs" aria-label="Choose timekeeper mystery">
               <button type="button" data-purple-scenario="0" class="is-current">01 · The Age Mix-Up</button>
               <button type="button" data-purple-scenario="1">02 · Day and Night</button>
+              <button type="button" data-purple-scenario="2">03 · Who Is Younger?</button>
             </nav>
             <div class="purple-timekeeper__layout">
               <section class="purple-timekeeper__telegram" aria-label="Incoming telegram">
@@ -6539,10 +6831,8 @@ LESSON 2 — EXTENDED FAMILY
             </section>
             <!-- FUTURE LEARNING STAGES — PLACEHOLDERS ONLY -->
             <div class="laboratory-pattern-stages laboratory-pattern-stages--purple" aria-label="Future pattern practice">
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Apply the Pattern</button>
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Master the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Apply the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Master the Pattern</button>
             </div>
 
             <nav class="purple-timekeeper__navigation" aria-label="Workshop navigation">
@@ -6564,7 +6854,7 @@ LESSON 2 — EXTENDED FAMILY
           </section>
           <!-- END PURPLE BUTTON — TIMEKEEPER’S WORKSHOP -->
 
-          <!-- BEGIN GREEN BUTTON — HARMONY REGULATOR (TWO SCENARIOS) -->
+          <!-- BEGIN GREEN BUTTON — HARMONY REGULATOR (THREE SCENARIOS) -->
           <section class="green-harmony" id="green-harmony" hidden aria-label="Green Harmony Regulator">
             <header class="green-harmony__header">
               <img src="../../Images/door-four/button-green-harmony.png" alt="" class="green-harmony__machine">
@@ -6577,6 +6867,7 @@ LESSON 2 — EXTENDED FAMILY
             <nav class="green-harmony__tabs" aria-label="Choose instrumental repair">
               <button type="button" data-green-scenario="0" class="is-current">01 · The Moscow Connection</button>
               <button type="button" data-green-scenario="1">02 · Grandma and the Couch</button>
+              <button type="button" data-green-scenario="2">03 · At School</button>
             </nav>
             <div class="green-harmony__layout">
               <section class="green-harmony__telegram" aria-label="Incoming telegram">
@@ -6616,10 +6907,8 @@ LESSON 2 — EXTENDED FAMILY
             </section>
             <!-- FUTURE LEARNING STAGES — PLACEHOLDERS ONLY -->
             <div class="laboratory-pattern-stages laboratory-pattern-stages--green" aria-label="Future pattern practice">
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Apply the Pattern</button>
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Master the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Apply the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Master the Pattern</button>
             </div>
 
             <nav class="green-harmony__navigation" aria-label="Workshop navigation">
@@ -6641,7 +6930,7 @@ LESSON 2 — EXTENDED FAMILY
           </section>
           <!-- END GREEN BUTTON — HARMONY REGULATOR -->
 
-          <!-- BEGIN BLUE BUTTON — INSTRUMENTAL APPARATUS (TWO SCENARIOS) -->
+          <!-- BEGIN BLUE BUTTON — INSTRUMENTAL APPARATUS (THREE SCENARIOS) -->
           <section class="blue-instrumental" id="blue-instrumental" hidden aria-label="Blue Instrumental Apparatus">
             <header class="blue-instrumental__header">
               <img src="../../Images/door-four/button-blue-identifier.png" alt="" class="blue-instrumental__machine">
@@ -6654,6 +6943,7 @@ LESSON 2 — EXTENDED FAMILY
             <nav class="blue-instrumental__tabs" aria-label="Choose instrumental repair">
               <button type="button" data-blue-scenario="0" class="is-current">01 · The Family Introduction</button>
               <button type="button" data-blue-scenario="1">02 · Walking with Grandma</button>
+              <button type="button" data-blue-scenario="2">03 · Talking with Sister</button>
             </nav>
             <div class="blue-instrumental__layout">
               <section class="blue-instrumental__telegram" aria-label="Incoming telegram">
@@ -6693,10 +6983,8 @@ LESSON 2 — EXTENDED FAMILY
             </section>
             <!-- FUTURE LEARNING STAGES — PLACEHOLDERS ONLY -->
             <div class="laboratory-pattern-stages laboratory-pattern-stages--blue" aria-label="Future pattern practice">
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Apply the Pattern</button>
-              <button type="button" class="laboratory-pattern-stages__button" disabled
-                title="Future learning experience">Master the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Apply the Pattern</button>
+              <button type="button" class="laboratory-pattern-stages__button">Master the Pattern</button>
             </div>
 
             <nav class="blue-instrumental__navigation" aria-label="Apparatus navigation">
@@ -8849,9 +9137,45 @@ LESSON 2 — EXTENDED FAMILY
        REMAKE JAVASCRIPT
   ================================================== -->
 
-  <script src="family-relationships.js">
+  <script src="family-relationships.js" defer>
 
   </script>
+
+
+<!-- BEGIN LABORATORY PATTERN PRACTICE — ALL FIVE COLORS -->
+<section id="laboratory-pattern-overlay" class="laboratory-pattern-overlay" hidden aria-label="Pattern practice" role="dialog" aria-modal="true" aria-labelledby="laboratory-pattern-title">
+  <div class="laboratory-pattern-room">
+    <header class="laboratory-pattern-header">
+      <span id="laboratory-pattern-color">RUSSIAN LANGUAGE LABORATORY</span>
+      <h2 id="laboratory-pattern-title">Applying the Pattern</h2>
+      <p id="laboratory-pattern-subtitle">Learn by doing.</p>
+    </header>
+    <div class="laboratory-pattern-progress" id="laboratory-pattern-progress" aria-label="Challenge progress"><span></span><span></span><span></span></div>
+    <main class="laboratory-pattern-content">
+      <p id="laboratory-pattern-context"></p>
+      <h3 id="laboratory-pattern-prompt" lang="ru"></h3>
+      <p id="laboratory-pattern-english"></p>
+      <div id="laboratory-pattern-choices" class="laboratory-pattern-choices"></div>
+      <div id="laboratory-pattern-write" class="laboratory-pattern-write" hidden>
+        <div class="laboratory-pattern-build-title">YOUR RUSSIAN SENTENCE</div>
+        <div id="laboratory-pattern-sentence" class="laboratory-pattern-sentence" aria-label="Constructed Russian sentence" role="group"></div>
+        <div class="laboratory-pattern-build-title">WORD BANK · DRAG OR TAP TO ADD</div>
+        <div id="laboratory-pattern-bank" class="laboratory-pattern-bank" aria-label="Russian word bank" role="group"></div>
+        <button type="button" id="laboratory-pattern-clear" class="laboratory-pattern-clear">↻ Reset words</button>
+        <button type="button" id="laboratory-pattern-check">Check My Answer</button>
+      </div>
+      <p id="laboratory-pattern-feedback" role="status" aria-live="polite"></p>
+      <button type="button" id="laboratory-pattern-hint" class="laboratory-pattern-hint">Need a clue?</button>
+      <p id="laboratory-pattern-clue" hidden></p>
+    </main>
+    <footer class="laboratory-pattern-actions">
+      <button type="button" id="laboratory-pattern-back" class="laboratory-pattern-3d">← Back to This Experience</button>
+      <button type="button" id="laboratory-pattern-retry" class="laboratory-pattern-3d" hidden>↻ Try Again</button>
+      <button type="button" id="laboratory-pattern-next" class="laboratory-pattern-3d" hidden>Next Challenge →</button>
+    </footer>
+  </div>
+</section>
+<!-- END LABORATORY PATTERN PRACTICE -->
 
 </body>
 

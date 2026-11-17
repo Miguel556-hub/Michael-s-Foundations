@@ -30826,3 +30826,714 @@ button.gears-stage-nav:focus-visible {
 .laboratory-pattern-stages__button:disabled {
     cursor: not-allowed;
 }
+
+/* ============================================================
+   RED BUTTON — HEARTFELT ENGINE | FIVE ANIMATED ROPES
+   Two image assets: button-red-landing.png and button-red-rope.png
+   ============================================================ */
+#door-four-laboratory .red-heartfelt[hidden],
+#door-four-laboratory .red-heartfelt__stage[hidden],
+#door-four-laboratory .red-heartfelt__destination[hidden] {
+    display: none !important;
+}
+
+#door-four-laboratory .red-heartfelt {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+#door-four-laboratory .red-heartfelt__stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1624 / 938;
+    overflow: hidden;
+    background: #10241c;
+}
+
+#door-four-laboratory .red-heartfelt__art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    user-select: none;
+}
+
+/* The five ringlets are at approximately 9.8%, 22.25%, 35.55%,
+   47.9% and 60.05% of the supplied landing artwork's width. */
+#door-four-laboratory .red-heartfelt__rope-button {
+    position: absolute;
+    z-index: 3;
+    left: var(--rope-x);
+    top: 33.5%;
+    width: 9.2%;
+    height: 46.5%;
+    transform: translateX(-50%);
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    cursor: grab;
+    touch-action: manipulation;
+}
+
+#door-four-laboratory .red-heartfelt__rope-button img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+    transform-origin: 50% 0%;
+    transition: transform 180ms ease, filter 180ms ease;
+}
+
+#door-four-laboratory .red-heartfelt__rope-button:hover img,
+#door-four-laboratory .red-heartfelt__rope-button:focus-visible img {
+    filter: drop-shadow(0 0 9px rgba(255, 193, 66, .75));
+}
+
+#door-four-laboratory .red-heartfelt__rope-button.is-activated img {
+    animation: heartfelt-rope-pull 520ms ease-in-out both;
+}
+
+@keyframes heartfelt-rope-pull {
+    0% { transform: translateY(0); filter: none; }
+    35% { transform: translateY(5.5%); filter: drop-shadow(0 0 13px #ffcf6c); }
+    75% { transform: translateY(3%); filter: drop-shadow(0 0 18px #ffc04b); }
+    100% { transform: translateY(0); filter: drop-shadow(0 0 8px #e8a73e); }
+}
+
+#door-four-laboratory .red-heartfelt__hotspot {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    height: var(--h);
+    z-index: 3;
+    padding: 0;
+    border: 0;
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+}
+
+#door-four-laboratory .red-heartfelt__hotspot:hover {
+    background: rgba(255, 208, 104, .055);
+}
+
+#door-four-laboratory .red-heartfelt__hotspot:focus-visible,
+#door-four-laboratory .red-heartfelt__rope-button:focus-visible {
+    outline: 3px solid #ffe2a0;
+    outline-offset: 2px;
+}
+
+/* Diffused illumination on the EXISTING heart artwork, not a second heart. */
+#door-four-laboratory .red-heartfelt__heart {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    left: 70.5%;
+    top: 2.5%;
+    width: 27.5%;
+    height: 38%;
+    opacity: 0;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center,
+        rgba(255, 122, 65, .12) 0%,
+        rgba(255, 92, 36, .17) 38%,
+        rgba(255, 179, 68, .12) 58%,
+        transparent 77%);
+    mix-blend-mode: screen;
+}
+
+#door-four-laboratory .red-heartfelt__heart.is-pulsing {
+    animation: heartfelt-heart-pulse 700ms ease-in-out both;
+}
+
+@keyframes heartfelt-heart-pulse {
+    0%, 100% { opacity: 0; transform: scale(.98); }
+    40%, 65% { opacity: 1; transform: scale(1.025); }
+}
+
+#door-four-laboratory .red-heartfelt__transition {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 215, 128, .26), transparent 65%);
+}
+
+#door-four-laboratory .red-heartfelt__transition.is-opening {
+    animation: heartfelt-open 380ms ease-out both;
+}
+
+@keyframes heartfelt-open {
+    from { opacity: 0; }
+    60% { opacity: .8; }
+    to { opacity: 0; }
+}
+
+#door-four-laboratory .red-heartfelt__destination {
+    min-height: 520px;
+    padding: 80px 28px;
+    text-align: center;
+    border: 5px ridge #bb8d3d;
+    background: radial-gradient(circle at top, #602020, #1b1716 70%);
+    color: #ffe7bb;
+    font-family: Georgia, serif;
+}
+
+#door-four-laboratory .red-heartfelt__destination h2 {
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    color: #ffe1a3;
+}
+
+#door-four-laboratory .red-heartfelt__eyebrow {
+    letter-spacing: .2em;
+    color: #e8a66b;
+}
+
+#door-four-laboratory #red-heartfelt-return {
+    margin-top: 32px;
+    padding: 12px 22px;
+    border: 2px solid #d4a45d;
+    border-radius: 25px;
+    color: #fff0d3;
+    background: linear-gradient(#b51e22, #600608);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #door-four-laboratory .red-heartfelt__rope-button.is-activated img,
+    #door-four-laboratory .red-heartfelt__heart.is-pulsing,
+    #door-four-laboratory .red-heartfelt__transition.is-opening {
+        animation: none;
+    }
+}
+
+/* Keep the legacy brown fallback for existing routing, but do not show
+   it while the Red experience or Laboratory landing is visible. */
+#door-four-laboratory:has(.red-heartfelt:not([hidden])) .door-four__return.explore-return-hallway,
+#door-four-laboratory:has(.door-four__stage:not([hidden])) > .door-four__return {
+    display: none !important;
+}
+
+/* BEGIN RED HEARTFELT ENGINE — NAME FORGE INTERIOR */
+#door-four-laboratory .red-heartfelt__destination:has(.red-name-forge:not([hidden])) {
+    padding: 25px clamp(14px, 3vw, 36px) 32px;
+    text-align: center;
+}
+#door-four-laboratory .red-name-forge { max-width: 1220px; margin: 0 auto; text-align: left; }
+#door-four-laboratory .red-name-forge__intro { max-width: 900px; margin: 12px auto 22px; color: #f4dfbd; text-align: center; line-height: 1.5; }
+#door-four-laboratory .red-name-forge__examples { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+#door-four-laboratory .red-name-forge__example { padding: 15px; background: linear-gradient(140deg,#412c28,#241c1a); border: 1px solid #b38b50; border-radius: 12px; }
+#door-four-laboratory .red-name-forge__example span, #door-four-laboratory .red-name-forge__forms article > span { display: block; font-size: .73rem; letter-spacing: .09em; color: #e7bb76; margin-bottom: 8px; }
+#door-four-laboratory .red-name-forge__example strong { display: block; color: #fff0cb; font-size: clamp(.9rem,1.4vw,1.18rem); }
+#door-four-laboratory .red-name-forge__example p { margin: 10px 0 0; line-height: 1.45; font-size: .92rem; }
+#door-four-laboratory .red-name-forge__registry { margin-top: 18px; padding: 18px; border: 2px solid #b68b51; border-radius: 14px; background: rgba(21,17,15,.75); }
+#door-four-laboratory .red-name-forge h3 { color: #f8d99e; font-size: 1.4rem; margin: 0 0 6px; }
+#door-four-laboratory .red-name-forge__registry > p { margin: 5px 0 14px; }
+#door-four-laboratory .red-name-forge__selectors { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+#door-four-laboratory .red-name-forge__selectors label { display: grid; gap: 6px; font-weight: bold; color: #f7dcac; }
+#door-four-laboratory .red-name-forge__selectors select { width: 100%; min-width: 0; padding: 11px; border-radius: 8px; border: 2px solid #c8a266; color: #251b16; background: #fff2d7; font: inherit; }
+#door-four-laboratory .red-name-forge__selected { text-align: center; color: #ffdf98; font-weight: bold; }
+#door-four-laboratory .red-name-forge__forms { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+#door-four-laboratory .red-name-forge__forms[hidden] { display: none; }
+#door-four-laboratory .red-name-forge__forms article { min-width: 0; padding: 13px; border: 1px solid #b38b50; border-radius: 10px; text-align: center; background: #362520; }
+#door-four-laboratory .red-name-forge__name { margin: 8px 0; display: flex; flex-direction: column; gap: 2px; }
+#door-four-laboratory .red-name-forge__name strong { color: #ffe4ad; font-size: 1.25rem; }
+#door-four-laboratory .red-name-forge__name small { color: #e9c9aa; }
+#door-four-laboratory .red-name-forge__note { font-size: .86rem; line-height: 1.4; color: #e8cfb1; }
+#door-four-laboratory .red-name-forge__discovery { padding: 14px 18px; margin-top: 16px; border-left: 4px solid #d7ac60; background: #352720; border-radius: 8px; }
+#door-four-laboratory .red-name-forge__discovery p { margin: 8px 0 0; }
+#door-four-laboratory .red-name-forge__future { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 18px; }
+#door-four-laboratory .red-name-forge__future button { padding: 12px 18px; border: 2px solid #b38b50; border-radius: 12px; background: #493a30; color: #edd5ad; font: bold .95rem Georgia,serif; cursor: not-allowed; opacity: .76; }
+@media (max-width: 760px) {
+    #door-four-laboratory .red-name-forge__examples, #door-four-laboratory .red-name-forge__forms { grid-template-columns: 1fr; }
+    #door-four-laboratory .red-name-forge__selectors { grid-template-columns: 1fr; }
+}
+/* END RED HEARTFELT ENGINE — NAME FORGE INTERIOR */
+
+/* BEGIN RED HEARTFELT ENGINE — WARMTH DIAL INTERIOR */
+#door-four-laboratory .red-heartfelt__destination:has(.red-warmth:not([hidden])) {
+    padding: 25px clamp(14px, 3vw, 36px) 32px;
+}
+#door-four-laboratory .red-warmth { max-width: 1220px; margin: 0 auto; text-align: left; }
+#door-four-laboratory .red-warmth__intro { max-width: 900px; margin: 12px auto 20px; color: #f4dfbd; text-align: center; line-height: 1.5; }
+#door-four-laboratory .red-warmth__examples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+#door-four-laboratory .red-warmth__example { display: flex; flex-direction: column; min-width: 0; padding: 15px; background: linear-gradient(140deg, #412c28, #241c1a); border: 1px solid #b38b50; border-radius: 12px; }
+#door-four-laboratory .red-warmth__example > span, #door-four-laboratory .red-warmth__kicker, #door-four-laboratory .red-warmth__result-label { display: block; font-size: .73rem; letter-spacing: .09em; color: #e7bb76; }
+#door-four-laboratory .red-warmth h3 { color: #ffe0a4; margin: 8px 0; font-size: 1.45rem; }
+#door-four-laboratory .red-warmth__example p { margin: 7px 0; }
+#door-four-laboratory .red-warmth__context { font-size: .88rem; line-height: 1.4; color: #e8cfb1; }
+#door-four-laboratory .red-warmth__choose, #door-four-laboratory .red-warmth__tones button { border: 1px solid #d6aa67; border-radius: 9px; padding: 9px 12px; background: #49312a; color: #ffebc8; font: bold .9rem Georgia, serif; cursor: pointer; }
+#door-four-laboratory .red-warmth__choose { margin-top: auto; width: 100%; }
+#door-four-laboratory .red-warmth__context { margin-bottom: 12px; }
+#door-four-laboratory .red-warmth button[aria-pressed="true"] { background: #a44c32; border-color: #ffe0a4; box-shadow: 0 0 0 2px rgba(255,220,151,.18); }
+#door-four-laboratory .red-warmth__workbench { margin-top: 16px; padding: 18px; border: 2px solid #b68b51; border-radius: 14px; background: rgba(21,17,15,.8); }
+#door-four-laboratory .red-warmth__workbench-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+#door-four-laboratory .red-warmth__workbench-head p { margin: 4px 0; }
+#door-four-laboratory .red-warmth__gauge { position: relative; width: 108px; height: 64px; flex: 0 0 108px; border: 5px ridge #bb8d3d; border-radius: 108px 108px 8px 8px; background: radial-gradient(circle at bottom, #b46a45, #422720); overflow: hidden; }
+#door-four-laboratory .red-warmth__gauge span { position: absolute; width: 4px; height: 48px; bottom: -5px; left: 50%; background: #ffe0a4; border-radius: 4px; transform-origin: center bottom; transition: transform .3s ease; }
+#door-four-laboratory .red-warmth__prompt { margin: 16px 0 9px; color: #f6dcae; font-weight: bold; }
+#door-four-laboratory .red-warmth__tones { display: flex; flex-wrap: wrap; gap: 10px; }
+#door-four-laboratory .red-warmth__result { margin-top: 16px; padding: 14px 16px; border-left: 4px solid #d7ac60; border-radius: 8px; background: #352720; }
+#door-four-laboratory .red-warmth__result strong { display: block; color: #fff0cb; font-size: 1.15rem; margin: 8px 0; }
+#door-four-laboratory .red-warmth__result p { margin: 7px 0; line-height: 1.45; }
+#door-four-laboratory .red-warmth__listen-note { color: #e8cfb1; font-size: .9rem; line-height: 1.45; }
+#door-four-laboratory .red-warmth__discovery { margin-top: 16px; padding: 14px 18px; border-left: 4px solid #d7ac60; background: #352720; border-radius: 8px; }
+#door-four-laboratory .red-warmth__discovery p { margin: 8px 0 0; }
+#door-four-laboratory .red-warmth__future { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 18px; }
+#door-four-laboratory .red-warmth__future button { padding: 12px 18px; border: 2px solid #b38b50; border-radius: 12px; background: #493a30; color: #edd5ad; font: bold .95rem Georgia, serif; cursor: not-allowed; opacity: .76; }
+@media (max-width: 760px) {
+    #door-four-laboratory .red-warmth__examples { grid-template-columns: 1fr; }
+    #door-four-laboratory .red-warmth__workbench-head { align-items: flex-start; }
+}
+/* END RED HEARTFELT ENGINE — WARMTH DIAL INTERIOR */
+
+/* Heartfelt Engine · Warmth Dial: ten-phrase registry and Victorian brass instrument */
+#door-four-laboratory .red-warmth__phrase-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    max-width: 600px;
+    margin: 0 0 15px;
+    color: #f4d49b;
+    font: bold 0.94rem Georgia, serif;
+}
+#door-four-laboratory .red-warmth__phrase-picker select {
+    width: 100%;
+    min-height: 43px;
+    padding: 8px 13px;
+    border: 2px solid #b78a43;
+    border-radius: 8px;
+    color: #fff0ce;
+    background: #39251e;
+    font: 1rem Georgia, serif;
+    cursor: pointer;
+}
+#door-four-laboratory .red-warmth__phrase-picker select option {
+    background: #39251e;
+    color: #fff0ce;
+}
+#door-four-laboratory .red-warmth__gauge {
+    width: 196px;
+    height: 196px;
+    flex: 0 0 196px;
+    border: 9px ridge #d7a44e;
+    border-radius: 50%;
+    background: radial-gradient(circle at 37% 27%, #f3d28c 0%, #b88a49 30%, #664023 72%, #271913 100%);
+    box-shadow: inset 0 0 0 3px #49301b, inset 0 0 0 7px #d8b16b, 0 5px 14px rgba(0,0,0,.55);
+    overflow: visible;
+}
+#door-four-laboratory .red-warmth__gauge-face {
+    position: absolute;
+    inset: 9px;
+    border: 2px solid #5d3a20;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #eed6a0, #b88d53 64%, #684224 100%);
+}
+#door-four-laboratory .red-warmth__gauge-label {
+    position: absolute;
+    z-index: 2;
+    color: #3b2416;
+    font: bold 9px Georgia, serif;
+    letter-spacing: .04em;
+}
+#door-four-laboratory .red-warmth__gauge-label--left { left: 8px; top: 67px; }
+#door-four-laboratory .red-warmth__gauge-label--top { top: 14px; left: 50%; transform: translateX(-50%); }
+#door-four-laboratory .red-warmth__gauge-label--right { right: 10px; top: 67px; }
+#door-four-laboratory .red-warmth__gauge-ticks {
+    position: absolute;
+    inset: 27px;
+    border-radius: 50%;
+    border: 2px dotted rgba(70,42,23,.65);
+}
+#door-four-laboratory .red-warmth__gauge .red-warmth__gauge-needle {
+    position: absolute;
+    z-index: 3;
+    left: calc(50% - 3px);
+    top: 31px;
+    bottom: auto;
+    width: 6px;
+    height: 57px;
+    border-radius: 80% 80% 3px 3px;
+    background: linear-gradient(90deg, #4a1713, #b92d22 55%, #5b1513);
+    box-shadow: 1px 1px 3px #452515;
+    transform-origin: 50% 100%;
+    transition: transform 420ms cubic-bezier(.2,.8,.2,1);
+}
+#door-four-laboratory .red-warmth__gauge-hub {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    width: 17px;
+    height: 17px;
+    transform: translate(-50%,-50%);
+    border: 3px ridge #6d411d;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe1a0, #9a682b);
+}
+#door-four-laboratory .red-warmth__gauge-maker {
+    position: absolute;
+    bottom: 17px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #5c3b22;
+    font: bold 8px Georgia, serif;
+    letter-spacing: .06em;
+}
+@media (max-width: 650px) {
+    #door-four-laboratory .red-warmth__gauge { width: 144px; height: 144px; flex-basis: 144px; }
+    #door-four-laboratory .red-warmth__gauge-label { font-size: 7px; }
+    #door-four-laboratory .red-warmth__gauge-label--left { left: 3px; top: 48px; }
+    #door-four-laboratory .red-warmth__gauge-label--right { right: 4px; top: 48px; }
+    #door-four-laboratory .red-warmth__gauge .red-warmth__gauge-needle { top: 18px; height: 44px; }
+}
+
+/* HEARTFELT ENGINE — WARMTH WORKBENCH (dial replaced by contextual speech) */
+#door-four-laboratory .red-warmth__stage { margin-top: 16px; }
+#door-four-laboratory .red-warmth__stage-heading { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:12px 4px; }
+#door-four-laboratory .red-warmth__stage-heading h3 { margin:6px 0 2px; font-size:1.65rem; color:#ffdf9e; }
+#door-four-laboratory .red-warmth__stage-heading p { margin:0; color:#f0d9bc; }
+#door-four-laboratory .red-warmth__speak { border:1px solid #dbb66d; border-radius:10px; background:#53372a; color:#ffe6b6; padding:10px 15px; cursor:pointer; font:bold .9rem Georgia,serif; }
+#door-four-laboratory .red-warmth__delivery-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:12px 0; }
+#door-four-laboratory .red-warmth__delivery-list button { min-width:0; display:flex; flex-direction:column; align-items:center; gap:4px; border:1px solid #987448; border-radius:12px; background:linear-gradient(#382721,#241b19); color:#f6dfbd; padding:11px 8px; cursor:pointer; font-family:Georgia,serif; }
+#door-four-laboratory .red-warmth__delivery-list button[aria-pressed="true"] { background:linear-gradient(#735039,#483027); border-color:#f5cc7b; box-shadow:inset 0 0 0 1px #f1bb67,0 0 14px #a77a3a55; }
+#door-four-laboratory .red-warmth__delivery-icon { font-size:1.5rem; color:#ffd17f; line-height:1; }
+#door-four-laboratory .red-warmth__delivery-list small { color:#ddc4a2; font-size:.75rem; }
+#door-four-laboratory .red-warmth__scene { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#door-four-laboratory .red-warmth__scene-left,#door-four-laboratory .red-warmth__scene-right { min-width:0; border:1px solid #8c6b43; border-radius:10px; background:#34251f; padding:14px; }
+#door-four-laboratory .red-warmth__scene strong { display:block; margin:8px 0; color:#fff0c8; font-size:1.1rem; }
+#door-four-laboratory .red-warmth__scene p { margin:7px 0 12px; line-height:1.4; color:#f4e2cb; }
+#door-four-laboratory .red-warmth__spoken { margin:8px 0 3px; font-size:1.65rem; font-weight:bold; color:#ffe0a3; overflow-wrap:anywhere; }
+#door-four-laboratory .red-warmth__listen-note { margin:12px 0 0; }
+@media(max-width:680px) { #door-four-laboratory .red-warmth__scene { grid-template-columns:1fr; } #door-four-laboratory .red-warmth__delivery-list { gap:5px; } #door-four-laboratory .red-warmth__delivery-list button { padding:8px 4px; font-size:.78rem; } #door-four-laboratory .red-warmth__stage-heading { align-items:flex-start; } }
+
+/* HEARTFELT ENGINE — LESS TEXT, MORE DISCOVERY (AREAS 1 & 2) */
+#door-four-laboratory .red-name-forge__intro,
+#door-four-laboratory .red-warmth__intro { margin: 5px auto 12px; font-size: 1rem; }
+#door-four-laboratory .red-name-forge__example,
+#door-four-laboratory .red-warmth__example { padding: 12px; }
+#door-four-laboratory .red-name-forge__example strong { font-size: clamp(1rem,1.6vw,1.35rem); line-height: 1.35; }
+#door-four-laboratory .red-name-forge__example p,
+#door-four-laboratory .red-warmth__context { font-size: .83rem; color: #f0d5ae; margin: 6px 0 0; }
+#door-four-laboratory .red-name-forge__registry,
+#door-four-laboratory .red-warmth__workbench { margin-top: 12px; padding: 14px; }
+#door-four-laboratory .red-name-forge__registry > p { margin: 3px 0 9px; }
+#door-four-laboratory .red-name-forge__more,
+#door-four-laboratory .red-warmth__more { margin-top: 9px; padding: 8px 10px; border: 1px solid #886c47; border-radius: 8px; background: #2e231e; color: #f7dfb7; }
+#door-four-laboratory .red-name-forge__more summary,
+#door-four-laboratory .red-warmth__more summary,
+#door-four-laboratory .red-name-forge__discovery summary,
+#door-four-laboratory .red-warmth__discovery summary { cursor: pointer; font-weight: bold; color: #ffdc9c; }
+#door-four-laboratory .red-name-forge__more p,
+#door-four-laboratory .red-warmth__more p { margin: 8px 0 2px; font-size: .86rem; line-height: 1.4; }
+#door-four-laboratory .red-name-forge__discovery,
+#door-four-laboratory .red-warmth__discovery { padding: 10px 14px; margin-top: 11px; }
+#door-four-laboratory .red-warmth__delivery-list small { display: none; }
+#door-four-laboratory .red-warmth__delivery-list button { padding: 9px 6px; }
+#door-four-laboratory .red-warmth__scene-left,
+#door-four-laboratory .red-warmth__scene-right { padding: 12px; }
+#door-four-laboratory .red-warmth__listen-note { font-size: .82rem; margin-top: 7px; }
+#door-four-laboratory .red-name-forge__future,
+#door-four-laboratory .red-warmth__future { margin-top: 12px; }
+
+/* BEGIN RED HEARTFELT ENGINE — FAMILY VOICES */
+#door-four-laboratory .red-heartfelt__destination:has(.red-family:not([hidden])) { padding: 24px clamp(14px, 3vw, 36px) 32px; }
+#door-four-laboratory .red-family { max-width: 1200px; margin: auto; color: #f7e6ca; }
+#door-four-laboratory .red-family__intro { text-align: center; margin: 5px 0 13px; color: #f5d7a9; }
+#door-four-laboratory .red-family__examples { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+#door-four-laboratory .red-family__examples button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; min-height:108px; padding:12px; border:1px solid #b88c57; border-radius:12px; background:linear-gradient(135deg,#4a302a,#281e1b); color:#ffe3b1; cursor:pointer; }
+#door-four-laboratory .red-family__examples button[aria-pressed="true"] { border-color:#ffe0a0; background:#6c3b30; box-shadow:0 0 0 2px rgba(255,214,150,.18); }
+#door-four-laboratory .red-family__examples small, #door-four-laboratory .red-family__tag { font-size:.7rem; letter-spacing:.08em; color:#e5b978; }
+#door-four-laboratory .red-family__examples strong { font-size:clamp(1rem,1.7vw,1.4rem); text-align:center; }
+#door-four-laboratory .red-family__examples span { font-size:.82rem; }
+#door-four-laboratory .red-family__workshop { margin-top:13px; border:2px solid #b88c57; border-radius:14px; padding:16px; background:rgba(22,17,16,.82); }
+#door-four-laboratory .red-family__picker { display:flex; align-items:center; gap:14px; flex-wrap:wrap; color:#f9dfb5; font-weight:bold; }
+#door-four-laboratory .red-family__picker select { flex:1; min-width:230px; padding:10px; border-radius:8px; background:#fff0d4; color:#29201c; font-size:1rem; }
+#door-four-laboratory .red-family__scene { display:grid; grid-template-columns: minmax(180px,.7fr) minmax(240px,1.3fr) minmax(260px,1.2fr); gap:12px; margin-top:14px; }
+#door-four-laboratory .red-family__speaker, #door-four-laboratory .red-family__speech, #door-four-laboratory .red-family__response { border:1px solid #806344; border-radius:11px; padding:15px; background:#34251f; min-width:0; }
+#door-four-laboratory .red-family__speaker { display:flex; align-items:center; justify-content:center; gap:13px; }
+#door-four-laboratory .red-family__portrait { display:grid; place-items:center; width:60px; height:60px; flex-shrink:0; border-radius:50%; border:3px double #e4b76b; background:#603b31; font-size:1.9rem; color:#ffe2a2; }
+#door-four-laboratory .red-family__speaker small { display:block; color:#e5b978; margin-bottom:8px; }
+#door-four-laboratory .red-family__speaker strong { font-size:1.12rem; }
+#door-four-laboratory .red-family__russian { font-size:clamp(1.3rem,2.2vw,1.9rem); font-weight:bold; color:#ffe0a4; margin:10px 0 4px; }
+#door-four-laboratory .red-family__speech p { margin:5px 0 12px; }
+#door-four-laboratory .red-family__speech button, #door-four-laboratory .red-family__response button { border:1px solid #d8ac6d; background:#51342c; color:#fff0d2; border-radius:9px; padding:9px 12px; cursor:pointer; }
+#door-four-laboratory .red-family__why { margin-top:12px; padding:9px 13px; border:1px solid #876b48; border-radius:9px; background:#30231e; }
+#door-four-laboratory .red-family__why summary { cursor:pointer; color:#ffdc9c; font-weight:bold; }
+#door-four-laboratory .red-family__why p { margin:8px 0 0; line-height:1.4; }
+#door-four-laboratory .red-family__future { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:14px; }
+#door-four-laboratory .red-family__future button { padding:12px 18px; border:2px solid #b38b50; border-radius:12px; background:#493a30; color:#edd5ad; font:bold .95rem Georgia,serif; cursor:not-allowed; opacity:.76; }
+@media(max-width:900px) { #door-four-laboratory .red-family__scene { grid-template-columns:1fr 1fr; } #door-four-laboratory .red-family__speaker { grid-column:1 / -1; justify-content:flex-start; } }
+@media(max-width:650px) { #door-four-laboratory .red-family__examples { grid-template-columns:1fr; } #door-four-laboratory .red-family__examples button { min-height:75px; } #door-four-laboratory .red-family__scene { grid-template-columns:1fr; } #door-four-laboratory .red-family__speaker { grid-column:auto; } }
+/* END RED HEARTFELT ENGINE — FAMILY VOICES */
+
+/* BEGIN RED HEARTFELT ENGINE — EMOTION GAUGE */
+#door-four-laboratory .red-heartfelt__destination:has(.red-emotion:not([hidden])) { padding:24px clamp(14px,3vw,36px) 32px; }
+#door-four-laboratory .red-emotion { max-width:1200px; margin:auto; color:#f7e6ca; }
+#door-four-laboratory .red-emotion__intro { text-align:center; margin:5px 0 13px; color:#f5d7a9; }
+#door-four-laboratory .red-emotion__examples { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+#door-four-laboratory .red-emotion__examples button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; min-height:108px; padding:12px; border:1px solid #b88c57; border-radius:12px; background:linear-gradient(135deg,#4a302a,#281e1b); color:#ffe3b1; cursor:pointer; }
+#door-four-laboratory .red-emotion__examples button[aria-pressed="true"] { border-color:#ffe0a0; background:#6c3b30; box-shadow:0 0 0 2px rgba(255,214,150,.18); }
+#door-four-laboratory .red-emotion__examples small,#door-four-laboratory .red-emotion__tag { font-size:.7rem; letter-spacing:.08em; color:#e5b978; }
+#door-four-laboratory .red-emotion__examples strong { font-size:clamp(1rem,1.7vw,1.4rem); text-align:center; }
+#door-four-laboratory .red-emotion__examples span { font-size:.82rem; }
+#door-four-laboratory .red-emotion__workshop { margin-top:13px; border:2px solid #b88c57; border-radius:14px; padding:16px; background:rgba(22,17,16,.82); }
+#door-four-laboratory .red-emotion__picker { display:flex; align-items:center; gap:14px; flex-wrap:wrap; color:#f9dfb5; font-weight:bold; }
+#door-four-laboratory .red-emotion__picker select { flex:1; min-width:230px; padding:10px; border-radius:8px; background:#fff0d4; color:#29201c; font-size:1rem; }
+#door-four-laboratory .red-emotion__scene { display:grid; grid-template-columns:minmax(160px,.75fr) minmax(230px,1.2fr) minmax(230px,1.2fr); gap:12px; margin-top:14px; }
+#door-four-laboratory .red-emotion__moment,#door-four-laboratory .red-emotion__speech,#door-four-laboratory .red-emotion__reply { display:flex; flex-direction:column; align-items:flex-start; border:1px solid #806344; border-radius:11px; padding:15px; background:#34251f; min-width:0; }
+#door-four-laboratory .red-emotion__moment { align-items:center; text-align:center; }
+#door-four-laboratory .red-emotion__face { font-size:3.3rem; margin:4px 0; }
+#door-four-laboratory .red-emotion__moment strong { font-size:1.15rem; color:#ffe0a4; }
+#door-four-laboratory .red-emotion__moment p { font-size:.88rem; margin:7px 0 0; }
+#door-four-laboratory .red-emotion__russian { font-size:clamp(1.3rem,2.2vw,1.9rem); font-weight:bold; color:#ffe0a4; margin:10px 0 4px; }
+#door-four-laboratory .red-emotion__speech p,#door-four-laboratory .red-emotion__reply p { margin:5px 0 12px; }
+#door-four-laboratory .red-emotion__speech button,#door-four-laboratory .red-emotion__reply button { margin-top:auto; border:1px solid #d8ac6d; background:#51342c; color:#fff0d2; border-radius:9px; padding:9px 12px; cursor:pointer; }
+#door-four-laboratory .red-emotion__why { margin-top:12px; padding:9px 13px; border:1px solid #876b48; border-radius:9px; background:#30231e; }
+#door-four-laboratory .red-emotion__why summary { cursor:pointer; color:#ffdc9c; font-weight:bold; }
+#door-four-laboratory .red-emotion__why p { margin:8px 0 0; line-height:1.4; }
+#door-four-laboratory .red-emotion__future { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:14px; }
+#door-four-laboratory .red-emotion__future button { padding:12px 18px; border:2px solid #b38b50; border-radius:12px; background:#493a30; color:#edd5ad; font:bold .95rem Georgia,serif; cursor:not-allowed; opacity:.76; }
+@media(max-width:900px) { #door-four-laboratory .red-emotion__scene { grid-template-columns:1fr 1fr; } #door-four-laboratory .red-emotion__moment { grid-column:1 / -1; } }
+@media(max-width:650px) { #door-four-laboratory .red-emotion__examples,#door-four-laboratory .red-emotion__scene { grid-template-columns:1fr; } #door-four-laboratory .red-emotion__examples button { min-height:75px; } #door-four-laboratory .red-emotion__moment { grid-column:auto; } }
+/* END RED HEARTFELT ENGINE — EMOTION GAUGE */
+
+/* ============================================================
+   RED HEARTFELT ENGINE — MESSAGE CONDUIT
+   ============================================================ */
+#door-four-laboratory .red-message { color:#f9e5c5; font-family:Georgia,serif; }
+#door-four-laboratory .red-message__intro { text-align:center; margin:5px 0 13px; color:#f5d7a9; }
+#door-four-laboratory .red-message__examples { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+#door-four-laboratory .red-message__examples button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; min-height:105px; padding:12px; border:1px solid #b88c57; border-radius:12px; background:linear-gradient(135deg,#4a302a,#281e1b); color:#ffe3b1; cursor:pointer; }
+#door-four-laboratory .red-message__examples button[aria-pressed="true"] { border-color:#ffe0a0; background:#6c3b30; box-shadow:0 0 0 2px rgba(255,214,150,.18); }
+#door-four-laboratory .red-message__examples small,#door-four-laboratory .red-message__tag { font-size:.7rem; letter-spacing:.08em; color:#e5b978; }
+#door-four-laboratory .red-message__examples strong { font-size:clamp(1rem,1.6vw,1.35rem); text-align:center; }
+#door-four-laboratory .red-message__examples span { font-size:.84rem; }
+#door-four-laboratory .red-message__workshop { margin-top:13px; border:2px solid #b88c57; border-radius:14px; padding:16px; background:rgba(22,17,16,.82); }
+#door-four-laboratory .red-message__controls { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#door-four-laboratory .red-message__controls label { display:flex; flex-direction:column; gap:7px; font-weight:bold; color:#f9dfb5; }
+#door-four-laboratory .red-message__controls select { width:100%; min-width:0; padding:10px; border:1px solid #b88c57; border-radius:8px; background:#fff0d4; color:#29201c; font:1rem Georgia,serif; box-sizing:border-box; }
+#door-four-laboratory .red-message__letter { position:relative; margin-top:14px; padding:22px 22px 15px; border:1px solid #b88c57; border-radius:12px; background:linear-gradient(140deg,#422c25,#2a201c); text-align:center; }
+#door-four-laboratory .red-message__seal { position:absolute; right:16px; top:10px; font-size:2rem; color:#d4a761; opacity:.7; }
+#door-four-laboratory .red-message__russian { margin:15px 0 8px; color:#ffe1a7; font-size:clamp(1.45rem,2.7vw,2.3rem); font-weight:bold; overflow-wrap:anywhere; }
+#door-four-laboratory .red-message__letter p { margin:7px 0 12px; }
+#door-four-laboratory .red-message__actions { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+#door-four-laboratory .red-message__actions button { padding:10px 17px; border:1px solid #d8ac6d; border-radius:9px; background:#654032; color:#fff0d2; cursor:pointer; font:bold .95rem Georgia,serif; }
+#door-four-laboratory .red-message__actions button:hover { background:#86523c; }
+#door-four-laboratory .red-message__status { min-height:1em; font-size:.8rem; color:#ffdda2; }
+#door-four-laboratory .red-message__why { margin-top:12px; padding:9px 13px; border:1px solid #876b48; border-radius:9px; background:#30231e; }
+#door-four-laboratory .red-message__why summary { cursor:pointer; color:#ffdc9c; font-weight:bold; }
+#door-four-laboratory .red-message__why p { margin:8px 0 0; line-height:1.4; }
+#door-four-laboratory .red-message__future { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:14px; }
+#door-four-laboratory .red-message__future button { padding:12px 18px; border:2px solid #b38b50; border-radius:12px; background:#493a30; color:#edd5ad; font:bold .95rem Georgia,serif; cursor:not-allowed; opacity:.76; }
+@media(max-width:650px) { #door-four-laboratory .red-message__examples,#door-four-laboratory .red-message__controls { grid-template-columns:1fr; } #door-four-laboratory .red-message__examples button { min-height:75px; } }
+
+/* ============================================================
+   LABORATORY PATTERN PLACEHOLDERS — VICTORIAN RAISED BUTTONS
+   Decorative only: disabled buttons remain intentionally inactive.
+   ============================================================ */
+.laboratory-pattern-stages__button {
+    position: relative;
+    min-width: 205px;
+    padding: 12px 22px;
+    border-width: 3px !important;
+    border-style: double !important;
+    border-radius: 11px;
+    font: 700 15px Georgia, serif;
+    letter-spacing: .15px;
+    opacity: 1;
+    text-shadow: 0 1px 1px rgba(0,0,0,.25);
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,.36),
+        inset 0 -3px 4px rgba(0,0,0,.24),
+        0 5px 0 rgba(20,13,9,.72),
+        0 8px 13px rgba(0,0,0,.42);
+    filter: saturate(1.16);
+    cursor: not-allowed;
+}
+.laboratory-pattern-stages__button:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+}
+.laboratory-pattern-stages--gold .laboratory-pattern-stages__button { border-color: #f8dc92 !important; }
+.laboratory-pattern-stages--purple .laboratory-pattern-stages__button { border-color: #d7b4f3 !important; }
+.laboratory-pattern-stages--green .laboratory-pattern-stages__button { border-color: #b9dba5 !important; }
+.laboratory-pattern-stages--blue .laboratory-pattern-stages__button { border-color: #b2dff2 !important; }
+
+/* ============================================================
+   HEARTFELT ENGINE — RAISED VICTORIAN PATTERN PLACEHOLDERS
+   Applies to all five Red Button secondary pages only.
+   Decorative only: the buttons stay disabled until later.
+   ============================================================ */
+#door-four-laboratory .red-name-forge__future button,
+#door-four-laboratory .red-warmth__future button,
+#door-four-laboratory .red-family__future button,
+#door-four-laboratory .red-emotion__future button,
+#door-four-laboratory .red-message__future button {
+    position: relative;
+    min-width: 225px;
+    min-height: 47px;
+    padding: 11px 19px;
+    border: 4px ridge #e5ae6b;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #a75446 0%, #84372f 43%, #62251f 76%, #481b18 100%);
+    color: #fff0d5;
+    font: bold .95rem Georgia, serif;
+    letter-spacing: .1px;
+    text-shadow: 0 1px 2px #29110d;
+    opacity: 1;
+    box-shadow:
+        inset 0 2px 0 rgba(255, 245, 213, .44),
+        inset 0 -3px 5px rgba(29, 9, 6, .46),
+        0 5px 0 #311710,
+        0 8px 14px rgba(0, 0, 0, .48);
+    filter: saturate(1.12);
+    cursor: not-allowed;
+}
+
+/* A contrasting, equally dimensional finish for Mastering. */
+#door-four-laboratory .red-name-forge__future button:nth-child(2),
+#door-four-laboratory .red-warmth__future button:nth-child(2),
+#door-four-laboratory .red-family__future button:nth-child(2),
+#door-four-laboratory .red-emotion__future button:nth-child(2),
+#door-four-laboratory .red-message__future button:nth-child(2) {
+    border-color: #f2c78b;
+    background: linear-gradient(180deg, #985b4a 0%, #713e35 45%, #542b28 78%, #3b201e 100%);
+}
+
+#door-four-laboratory .red-name-forge__future button:disabled,
+#door-four-laboratory .red-warmth__future button:disabled,
+#door-four-laboratory .red-family__future button:disabled,
+#door-four-laboratory .red-emotion__future button:disabled,
+#door-four-laboratory .red-message__future button:disabled {
+    opacity: 1;
+}
+
+
+/* BEGIN SHARED LABORATORY PATTERN PRACTICE */
+.laboratory-pattern-overlay[hidden], .laboratory-pattern-write[hidden], .laboratory-pattern-choices[hidden] { display: none !important; }
+body.laboratory-pattern-open { overflow: hidden; }
+.laboratory-pattern-overlay { position: fixed; inset: 0; z-index: 2147480000; background: rgba(14,9,7,.91); display: grid; place-items: center; padding: 14px; box-sizing: border-box; }
+.laboratory-pattern-room { --accent: #e5a66f; --accent-light: #ffe2b5; width: min(790px,96vw); max-height: 94vh; overflow: auto; box-sizing: border-box; padding: clamp(16px,3vw,28px); border: 4px ridge var(--accent); border-radius: 22px; background: radial-gradient(ellipse at top,#493029 0%,#281a18 57%,#160f10 100%); color: #fff0d6; box-shadow: 0 20px 60px #000, inset 0 3px 8px #fff2, inset 0 -7px 12px #0008; font-family: Georgia,serif; text-align: center; }
+.laboratory-pattern-overlay[data-color="gold"] .laboratory-pattern-room { --accent: #e8bd58; --accent-light: #fff2bb; }
+.laboratory-pattern-overlay[data-color="purple"] .laboratory-pattern-room { --accent: #bb8bdc; --accent-light: #eed6ff; }
+.laboratory-pattern-overlay[data-color="green"] .laboratory-pattern-room { --accent: #95c889; --accent-light: #d7f5c5; }
+.laboratory-pattern-overlay[data-color="blue"] .laboratory-pattern-room { --accent: #77c3e5; --accent-light: #c7efff; }
+.laboratory-pattern-header span { font-size: 12px; letter-spacing: .15em; color: var(--accent-light); }
+.laboratory-pattern-header h2 { font-size: clamp(24px,3vw,34px); color: #ffe0a3; margin: 7px 0; }
+.laboratory-pattern-header p { margin: 3px 0 12px; color: #dfc8b6; font-size: 14px; }
+.laboratory-pattern-progress { display: flex; justify-content: center; gap: 12px; margin: 12px 0; }
+.laboratory-pattern-progress span { width: 15px; height: 15px; border: 2px solid var(--accent); border-radius: 50%; background: #201515; box-shadow: inset 0 2px 4px #000; }
+.laboratory-pattern-progress .is-current { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+.laboratory-pattern-progress .is-done { background: #e9c476; }
+.laboratory-pattern-content { background: #201514cc; border: 1px solid #b88b59; border-radius: 14px; padding: 16px; }
+#laboratory-pattern-context { color: #f3d5aa; font-size: 16px; margin: 0 0 8px; }
+#laboratory-pattern-prompt { font-size: clamp(24px,4vw,36px); color: #ffe2a5; margin: 5px 0 10px; line-height: 1.25; }
+#laboratory-pattern-english { font-size: 15px; margin: 0 0 12px; color: #e9d4c3; }
+.laboratory-pattern-choices { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.laboratory-pattern-choice, .laboratory-pattern-3d, #laboratory-pattern-check { cursor: pointer; min-height: 45px; padding: 10px; color: #fff6de; font: 700 15px Georgia,serif; background: linear-gradient(#87583c,#5b3027 50%,#3e201d); border: 3px ridge var(--accent); border-radius: 10px; box-shadow: inset 0 2px 1px #fff5, 0 5px 0 #25140e, 0 9px 12px #0007; text-shadow: 0 1px 2px #000; transition: transform .12s, box-shadow .12s; }
+.laboratory-pattern-choice:hover:not(:disabled), .laboratory-pattern-3d:hover, #laboratory-pattern-check:hover:not(:disabled) { filter: brightness(1.15); transform: translateY(-2px); }
+.laboratory-pattern-choice:active:not(:disabled), .laboratory-pattern-3d:active { transform: translateY(3px); box-shadow: inset 0 2px 6px #0009, 0 2px 0 #25140e; }
+.laboratory-pattern-choice.is-correct { border-color: #9be0a3; background: #315b3b; }
+.laboratory-pattern-choice.is-incorrect { border-color: #e5a3a3; }
+.laboratory-pattern-write { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.laboratory-pattern-write label { font-size: 13px; }
+#laboratory-pattern-answer { min-width: 200px; flex: 1; padding: 12px; background: #fff4df; border: 2px solid var(--accent); border-radius: 8px; font-size: 20px; color: #281818; }
+#laboratory-pattern-feedback { min-height: 21px; font-size: 15px; color: #f9d88f; margin: 12px 0 0; }
+.laboratory-pattern-hint { border: none; background: transparent; color: #f7cf88; text-decoration: underline; cursor: pointer; font-size: 14px; margin: 5px; }
+#laboratory-pattern-clue { font-size: 14px; margin: 6px; color: #e4d1b9; }
+.laboratory-pattern-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 17px; }
+.laboratory-pattern-actions button { min-width: 170px; }
+@media(max-width:600px) { .laboratory-pattern-choices { grid-template-columns: 1fr; } .laboratory-pattern-room { max-height: 96vh; } }
+/* END SHARED LABORATORY PATTERN PRACTICE */
+
+/* BEGIN PATTERN PRACTICE — ACTIVE BUTTON CURSORS AND CYRILLIC KEYBOARD */
+/* These are functional activity launches, no longer disabled placeholders. */
+#door-four-laboratory .laboratory-pattern-stages__button:not(:disabled),
+#door-four-laboratory .red-name-forge__future button:not(:disabled),
+#door-four-laboratory .red-warmth__future button:not(:disabled),
+#door-four-laboratory .red-family__future button:not(:disabled),
+#door-four-laboratory .red-emotion__future button:not(:disabled),
+#door-four-laboratory .red-message__future button:not(:disabled) {
+    cursor: pointer;
+}
+#door-four-laboratory .laboratory-pattern-stages__button:not(:disabled):hover,
+#door-four-laboratory .red-name-forge__future button:not(:disabled):hover,
+#door-four-laboratory .red-warmth__future button:not(:disabled):hover,
+#door-four-laboratory .red-family__future button:not(:disabled):hover,
+#door-four-laboratory .red-emotion__future button:not(:disabled):hover,
+#door-four-laboratory .red-message__future button:not(:disabled):hover {
+    filter: brightness(1.13);
+}
+.laboratory-pattern-keyboard {
+    width: 100%;
+    max-width: 610px;
+    margin: 5px auto 7px;
+    padding: 9px 7px;
+    border: 2px ridge var(--accent);
+    border-radius: 12px;
+    background: linear-gradient(160deg, #3c2824, #211716);
+    box-shadow: inset 0 2px 5px #0008, 0 3px 7px #0005;
+}
+.laboratory-pattern-keyboard__label {
+    display: block;
+    margin-bottom: 6px;
+    font: 700 12px Georgia, serif;
+    color: var(--accent-light);
+}
+.laboratory-pattern-keyboard__keys { display: grid; gap: 5px; }
+.laboratory-pattern-keyboard__row { display: flex; justify-content: center; gap: 4px; }
+.laboratory-pattern-keyboard__key {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 35px;
+    padding: 5px 0;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: linear-gradient(#785444, #442c27);
+    box-shadow: inset 0 1px #ffffff45, 0 3px 0 #1a1110;
+    color: #fff2d8;
+    font: 700 clamp(12px, 1.6vw, 17px) Georgia, serif;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.laboratory-pattern-keyboard__key:hover { filter: brightness(1.22); }
+.laboratory-pattern-keyboard__key:active { transform: translateY(2px); box-shadow: inset 0 1px 4px #0009; }
+.laboratory-pattern-keyboard__key.is-special { flex-grow: 1.35; background: linear-gradient(#94754e, #61472e); }
+.laboratory-pattern-keyboard__key.is-active { background: #b58244; color: #20140d; }
+.laboratory-pattern-keyboard__key.is-space { flex-grow: 5; }
+@media (max-width: 600px) {
+    .laboratory-pattern-keyboard { padding: 6px 4px; }
+    .laboratory-pattern-keyboard__row { gap: 2px; }
+    .laboratory-pattern-keyboard__key { min-height: 31px; font-size: 12px; }
+}
+/* END PATTERN PRACTICE — ACTIVE BUTTON CURSORS AND CYRILLIC KEYBOARD */
+
+/* BEGIN MASTERING PATTERN — INTERACTIVE WORD BANK */
+.laboratory-pattern-write { display:flex; flex-direction:column; align-items:stretch; gap:10px; }
+.laboratory-pattern-build-title { color:var(--accent-light); font-size:11px; letter-spacing:.11em; font-weight:bold; }
+.laboratory-pattern-sentence { min-height:68px; padding:12px; border:2px dashed var(--accent); border-radius:12px; background:#100c0b; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:7px; }
+.laboratory-pattern-sentence:empty::before { content:'Place your Russian words here'; color:#c4aa93; font-size:14px; }
+.laboratory-pattern-sentence.is-over { background:#4c372b; border-style:solid; }
+.laboratory-pattern-bank { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding:10px; border:1px solid #96724e; border-radius:11px; background:#30201b; }
+.laboratory-pattern-token { cursor:grab; touch-action:manipulation; border:2px ridge var(--accent); border-radius:8px; background:linear-gradient(#865f43,#533126); box-shadow:inset 0 1px 2px #fff5,0 3px 0 #23130e; color:#fff3d5; padding:8px 12px; min-height:39px; font:700 19px Georgia,serif; }
+.laboratory-pattern-token:hover:not(:disabled) { filter:brightness(1.17); transform:translateY(-1px); }
+.laboratory-pattern-token:active:not(:disabled) { cursor:grabbing; transform:translateY(2px); }
+.laboratory-pattern-token:disabled { opacity:.38; cursor:default; }
+.laboratory-pattern-token.is-selected { background:linear-gradient(#94764d,#614027); }
+.laboratory-pattern-clear { align-self:center; cursor:pointer; background:transparent; border:1px solid var(--accent); border-radius:7px; color:#f5d6a5; padding:6px 15px; font:14px Georgia,serif; }
+.laboratory-pattern-clear:hover { background:#5d3b2c; }
+@media(max-width:600px){ .laboratory-pattern-token { font-size:16px; padding:7px 9px; } }
+/* END MASTERING PATTERN — INTERACTIVE WORD BANK */
+
+/* BEGIN MASTERING 15-CHALLENGE PROGRESS */
+#laboratory-pattern-progress { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 6px; max-width: 410px; margin-left: auto; margin-right: auto; }
+#laboratory-pattern-progress span { flex: 0 0 10px; width: 10px; height: 10px; }
+/* END MASTERING 15-CHALLENGE PROGRESS */

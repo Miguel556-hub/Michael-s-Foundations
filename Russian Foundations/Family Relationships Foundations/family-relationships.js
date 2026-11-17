@@ -16663,6 +16663,33 @@ const conversations = {
                 'After три, choose сестры. After один, choose брат. Now check the numbers against the photograph.'
             ],
             why: '<p class="gold-telegraph__why-phrase" lang="ru">У меня есть три сестры и один брат.</p><div class="gold-telegraph__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>три сестры</strong><span>THREE sisters<br>Genitive singular counting form</span></div><div><strong>один брат</strong><span>ONE brother<br>Nominative singular</span></div></div><p class="gold-telegraph__why-note">After три, Russian uses a special counting form. After один, брат stays singular.</p>'
+        },
+        {
+            original: ['Это', 'мой', 'три', 'сестры', 'и', 'одна', 'брат.'],
+            pieces: [
+                { id: 'this', options: ['это', 'эта', 'этот'], initial: 'это' },
+                { id: 'my', options: ['мой', 'мои', 'моя'], initial: 'мой' },
+                { id: 'three', options: ['три', 'один', 'две'], initial: 'три' },
+                { id: 'sisters', options: ['сестра', 'сестры', 'сестёр'], initial: 'сестры' },
+                { id: 'and', options: ['и', 'а', 'но'], initial: 'и' },
+                { id: 'one', options: ['одна', 'один', 'одно'], initial: 'одна' },
+                { id: 'brother', options: ['брат', 'брата', 'братья'], initial: 'брат' }
+            ],
+            correctOrder: ['this', 'my', 'three', 'sisters', 'and', 'one', 'brother'],
+            correctForms: { this: 'это', my: 'мои', three: 'три', sisters: 'сестры', and: 'и', one: 'один', brother: 'брат' },
+            image: 'button-gold-family.png',
+            alt: 'Family portrait with three sisters and one brother',
+            caption: 'Meet the family: three sisters and one brother.',
+            glossary: [
+                ['this', 'this is / these are'], ['my', 'my; check whether it describes one or several'],
+                ['three', 'three'], ['sisters', 'sisters'], ['and', 'and'], ['one', 'one'], ['brother', 'brother']
+            ],
+            clues: [
+                'The picture shows several sisters and one brother. Which words need to agree?',
+                'Use мои for several sisters, but один for a masculine брат.',
+                'Build: Это мои три сестры и один брат.'
+            ],
+            why: '<p class="gold-telegraph__why-phrase" lang="ru">Это мои три сестры и один брат.</p><div class="gold-telegraph__why-grid"><div><strong>мои три сестры</strong><span>MY THREE SISTERS<br>Plural possessive</span></div><div><strong>один брат</strong><span>ONE BROTHER<br>Masculine singular</span></div></div><p class="gold-telegraph__why-note">Мои agrees with the plural sisters; один agrees with masculine брат.</p>'
         }
     ];
 
@@ -16979,6 +17006,31 @@ const conversations = {
                 'Place работает after сестра and move спит to the end, after ночью.'
             ],
             why: '<p class="purple-timekeeper__why-phrase" lang="ru">Днём моя сестра работает, а ночью спит.</p><div class="purple-timekeeper__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>Днём</strong><span>IN THE DAYTIME<br>She works</span></div><div><strong>ночью</strong><span>AT NIGHT<br>She sleeps</span></div></div><p class="purple-timekeeper__why-note">Russian uses днём and ночью to say when an action happens. The same verbs swap places to match the photographic evidence. The subject моя сестра is understood in the second half.</p>'
+        },
+        {
+            original: ['Моя', 'мать', 'младше', 'моего', 'отца.'],
+            pieces: [
+                { id: 'myMother', options: ['моя', 'мой', 'моё'], initial: 'моя' },
+                { id: 'mother', options: ['мать', 'матери', 'матерью'], initial: 'мать' },
+                { id: 'comparison', options: ['младше', 'старше', 'ровесница'], initial: 'младше' },
+                { id: 'myFather', options: ['моего', 'моей', 'мой'], initial: 'моего' },
+                { id: 'father', options: ['отец', 'отца', 'отцу'], initial: 'отца' }
+            ],
+            correctOrder: ['myMother', 'mother', 'comparison', 'myFather', 'father'],
+            correctForms: { myMother: 'моя', mother: 'мать', comparison: 'старше', myFather: 'моего', father: 'отца' },
+            image: 'button-purple-mom-is-older.png',
+            alt: 'Mother and father together; the mother appears older',
+            caption: 'The mother is older. Is the message comparing their ages correctly?',
+            glossary: [
+                ['my', 'my; feminine form'], ['mother', 'mother'], ['younger', 'younger than'],
+                ['my', 'my; masculine genitive'], ['father', 'father; genitive form']
+            ],
+            clues: [
+                'The mother is older than the father, not younger.',
+                'The comparison word needs to change; the family members are already in the right order.',
+                'Change младше to старше: Моя мать старше моего отца.'
+            ],
+            why: '<p class="purple-timekeeper__why-phrase" lang="ru">Моя мать старше моего отца.</p><div class="purple-timekeeper__why-grid"><div><strong>старше</strong><span>OLDER THAN<br>Age comparison</span></div><div><strong>моего отца</strong><span>THAN MY FATHER<br>Genitive case</span></div></div><p class="purple-timekeeper__why-note">Старше means older than; младше means younger than. The person after the comparison appears in the genitive.</p>'
         }
     ];
 
@@ -17283,6 +17335,30 @@ const conversations = {
                 'Choose на and change диван to диване: сидит на диване.'
             ],
             why: '<p class="green-harmony__why-phrase" lang="ru">Бабушка сидит на диване.</p><div class="green-harmony__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>на</strong><span>WHERE?<br>On the couch</span></div><div><strong>диване</strong><span>LOCATION<br>Prepositional case</span></div></div><p class="green-harmony__why-note">The question is where Grandma is sitting, not where she is going. На + prepositional case gives на диване. Compare: диван → на диване.</p>'
+        },
+        {
+            original: ['Моя', 'сестра', 'учится', 'школа.'],
+            pieces: [
+                { id: 'my', options: ['моя', 'мой', 'моё'], initial: 'моя' },
+                { id: 'sister', options: ['сестра', 'сестру', 'сестры'], initial: 'сестра' },
+                { id: 'studies', options: ['учится', 'учусь', 'учатся'], initial: 'учится' },
+                { id: 'preposition', options: ['—', 'в', 'на'], initial: '—' },
+                { id: 'school', options: ['школа', 'школе', 'школу'], initial: 'школа' }
+            ],
+            correctOrder: ['my', 'sister', 'studies', 'preposition', 'school'],
+            correctForms: { my: 'моя', sister: 'сестра', studies: 'учится', preposition: 'в', school: 'школе' },
+            image: 'button-green-prepositions.png',
+            alt: 'Victorian sign contrasting the Russian prepositions в and на',
+            caption: 'She studies at school. Which preposition and noun form express this location?',
+            glossary: [
+                ['my', 'my; feminine singular'], ['sister', 'sister'], ['studies', 'studies / attends school'], ['school', 'school; base form']
+            ],
+            clues: [
+                'The message needs a preposition before школа.',
+                'To say “at school,” use в plus the prepositional case.',
+                'Choose в and change школа to школе: учится в школе.'
+            ],
+            why: '<p class="green-harmony__why-phrase" lang="ru">Моя сестра учится в школе.</p><div class="green-harmony__why-grid"><div><strong>в</strong><span>AT / IN<br>Location</span></div><div><strong>школе</strong><span>SCHOOL<br>Prepositional case</span></div></div><p class="green-harmony__why-note">When talking about where she studies, в школе means at school. Compare школа → в школе.</p>'
         }
     ];
 
@@ -17591,6 +17667,32 @@ const conversations = {
                 'Change моя to моей and бабушка to бабушкой: гуляю с моей бабушкой.'
             ],
             why: '<p class="blue-instrumental__why-phrase" lang="ru">Я гуляю с моей бабушкой.</p><div class="blue-instrumental__why-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><strong>моей</strong><span>MY<br>Feminine instrumental</span></div><div><strong>бабушкой</strong><span>GRANDMA<br>Feminine instrumental</span></div></div><p class="blue-instrumental__why-note">Гуляю с кем? — с моей бабушкой. When с means “with” someone, the instrumental case is used. Compare жена → женой and бабушка → бабушкой: both are feminine, but their word shapes differ.</p>'
+        },
+        {
+            original: ['Мой', 'брат', 'разговаривает', 'с', 'моя', 'сестра.'],
+            pieces: [
+                { id: 'myBrother', options: ['мой', 'моя', 'моё'], initial: 'мой' },
+                { id: 'brother', options: ['брат', 'брата', 'братом'], initial: 'брат' },
+                { id: 'talks', options: ['разговаривает', 'разговаривают', 'разговариваю'], initial: 'разговаривает' },
+                { id: 'with', options: ['с', 'в', 'на'], initial: 'с' },
+                { id: 'mySister', options: ['моя', 'моей', 'мою'], initial: 'моя' },
+                { id: 'sister', options: ['сестра', 'сестрой', 'сестру'], initial: 'сестра' }
+            ],
+            correctOrder: ['myBrother', 'brother', 'talks', 'with', 'mySister', 'sister'],
+            correctForms: { myBrother: 'мой', brother: 'брат', talks: 'разговаривает', with: 'с', mySister: 'моей', sister: 'сестрой' },
+            image: 'button-blue-linguistic-evidence.png',
+            alt: 'Victorian Instrumental Apparatus evidence sign',
+            caption: 'The brother is speaking with his sister. Repair both endings after с.',
+            glossary: [
+                ['мой', 'my; masculine nominative'], ['брат', 'brother'], ['разговаривает', 'is talking'],
+                ['с', 'with; instrumental case'], ['моя', 'my; feminine nominative'], ['сестра', 'sister; nominative']
+            ],
+            clues: [
+                'Look at both words after с. Do their endings match the meaning “with my sister”?',
+                'С кем? — с моей сестрой. Both the possessive and noun change.',
+                'Change моя to моей and сестра to сестрой.'
+            ],
+            why: '<p class="blue-instrumental__why-phrase" lang="ru">Мой брат разговаривает с моей сестрой.</p><div class="blue-instrumental__why-grid"><div><strong>моей</strong><span>MY<br>Feminine instrumental</span></div><div><strong>сестрой</strong><span>SISTER<br>Feminine instrumental</span></div></div><p class="blue-instrumental__why-note">After разговаривать с (to talk with), the person takes instrumental: моя сестра → с моей сестрой.</p>'
         }
     ];
 
@@ -17809,3 +17911,774 @@ const conversations = {
     startScenario(0);
 })();
 // END BLUE BUTTON — INSTRUMENTAL APPARATUS
+
+// ============================================================
+// RED BUTTON — HEARTFELT ENGINE | LANDING ANIMATION PROTOTYPE
+// ============================================================
+(() => {
+    const laboratory = document.getElementById('door-four-laboratory');
+    const experience = document.getElementById('red-heartfelt');
+    if (!laboratory || !experience) return;
+    const stage = laboratory.querySelector('.door-four__stage');
+    const redStage = document.getElementById('red-heartfelt-stage');
+    const destination = document.getElementById('red-heartfelt-destination');
+    const destinationTitle = document.getElementById('red-heartfelt-destination-title');
+    const heart = experience.querySelector('.red-heartfelt__heart');
+    const transition = experience.querySelector('.red-heartfelt__transition');
+    const nameForge = document.getElementById('red-name-forge');
+    const warmthDial = document.getElementById('red-warmth');
+    const familyVoices = document.getElementById('red-family');
+    const emotionGauge = document.getElementById('red-emotion');
+    const messageConduit = document.getElementById('red-message');
+    const placeholder = document.getElementById('red-heartfelt-placeholder');
+    const names = ['The Name Forge', 'The Warmth Dial', 'Family Voices', 'The Emotion Gauge', 'The Message Conduit'];
+    let busy = false;
+    let activationTimer = null;
+    let transitionTimer = null;
+
+    function resetAnimation() {
+        clearTimeout(activationTimer);
+        clearTimeout(transitionTimer);
+        busy = false;
+        heart.classList.remove('is-pulsing');
+        transition.classList.remove('is-opening');
+        experience.querySelectorAll('.red-heartfelt__rope-button').forEach(button => button.classList.remove('is-activated'));
+    }
+    function showLanding() {
+        resetAnimation();
+        destination.hidden = true;
+        redStage.hidden = false;
+    }
+    function showExperience() {
+        // Match the existing colored-button navigation pattern.
+        ['gold-telegraph','purple-timekeeper','green-harmony','blue-instrumental'].forEach(id => {
+            const other = document.getElementById(id);
+            if (other) other.hidden = true;
+        });
+        const status = laboratory.querySelector('.door-four__status');
+        if (status) status.hidden = true;
+        stage.hidden = true;
+        experience.hidden = false;
+        showLanding();
+        experience.scrollIntoView({ block:'start', behavior:'smooth' });
+    }
+    laboratory.addEventListener('click', event => {
+        const entry = event.target.closest('[data-lab-action="red"]');
+        if (!entry || !laboratory.contains(entry)) return;
+        event.stopImmediatePropagation();
+        showExperience();
+    }, true);
+    experience.querySelectorAll('[data-heartfelt-choice]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (busy) return;
+            busy = true;
+            resetAnimation();
+            busy = true;
+            button.classList.add('is-activated');
+            heart.classList.add('is-pulsing');
+            const choice = Number(button.dataset.heartfeltChoice);
+            activationTimer = setTimeout(() => {
+                transition.classList.add('is-opening');
+                transitionTimer = setTimeout(() => {
+                    resetAnimation();
+                    destinationTitle.textContent = names[choice];
+                    nameForge.hidden = choice !== 0;
+                    warmthDial.hidden = choice !== 1;
+                    familyVoices.hidden = choice !== 2;
+                    emotionGauge.hidden = choice !== 3;
+                    messageConduit.hidden = choice !== 4;
+                    placeholder.hidden = choice >= 0 && choice <= 4;
+                    redStage.hidden = true;
+                    destination.hidden = false;
+                    destination.scrollIntoView({ block:'start', behavior:'smooth' });
+                }, 350);
+            }, 520);
+        });
+    });
+    // Name Forge: data-driven names; all controls and hotspots are authored in HTML.
+    const nameRecords = {
+        Alexander: [['Александр','Aleksandr'], [['Саша','Sasha'],['Шура','Shura']], [['Сашенька','Sashenka'],['Сашуля','Sashulya']]],
+        Michael: [['Михаил','Mikhail'], [['Миша','Misha']], [['Мишенька','Mishenka'],['Мишутка','Mishutka']]],
+        Maxim: [['Максим','Maksim'], [['Макс','Maks']], [['Максимка','Maksimka'],['Максюша','Maksyusha']]],
+        Daniel: [['Даниил','Daniil'], [['Даня','Danya']], [['Данечка','Danechka'],['Данюша','Danyusha']]],
+        Victor: [['Виктор','Viktor'], [['Витя','Vitya']], [['Витенька','Vitenka'],['Витюша','Vityusha']]],
+        Ivan: [['Иван','Ivan'], [['Ваня','Vanya']], [['Ванечка','Vanechka'],['Ванюша','Vanyusha']]],
+        Roman: [['Роман','Roman'], [['Рома','Roma']], [['Ромочка','Romochka'],['Ромашка','Romashka']]],
+        Arthur: [['Артур','Artur'], [['Арчи','Archi'],['Артя','Artya']], [['Артурчик','Arturchik'],['Артурик','Arturik']]],
+        Denis: [['Денис','Denis'], [['Ден','Den'],['Деня','Denya']], [['Дениска','Deniska'],['Денисочка','Denisochka']]],
+        Mark: [['Марк','Mark'], [['Марик','Marik']], [['Маркуша','Markusha'],['Марочка','Marochka']]],
+        Anna: [['Анна','Anna'], [['Аня','Anya']], [['Анечка','Anechka'],['Анюта','Anyuta']]],
+        Maria: [['Мария','Mariya'], [['Маша','Masha']], [['Машенька','Mashenka'],['Машуля','Mashulya']]],
+        Victoria: [['Виктория','Viktoriya'], [['Вика','Vika']], [['Викуля','Vikulya'],['Викуся','Vikusya']]],
+        Elena: [['Елена','Yelena'], [['Лена','Lena']], [['Леночка','Lenochka'],['Ленуся','Lenusya']]],
+        Julia: [['Юлия','Yuliya'], [['Юля','Yulya']], [['Юленька','Yulenka'],['Юлечка','Yulechka']]],
+        Nina: [['Нина','Nina'], [['Нина','Nina']], [['Ниночка','Ninochka'],['Нинуля','Ninulya'],['Нинуся','Ninusya']]],
+        Sofia: [['София','Sofiya'], [['Соня','Sonya'],['Софа','Sofa']], [['Сонечка','Sonechka'],['Софийка','Sofiyka']]],
+        Diana: [['Диана','Diana'], [['Дина','Dina'],['Ди','Di']], [['Дианочка','Dianochka'],['Дианка','Dianka']]],
+        Natalia: [['Наталья','Natalya'], [['Наташа','Natasha']], [['Наташенька','Natashenka'],['Натуся','Natusya']]],
+        Christina: [['Кристина','Kristina'], [['Крис','Kris'],['Тина','Tina']], [['Кристиночка','Kristinochka'],['Кристюша','Kristyusha']]]
+    };
+    const menSelect = document.getElementById('red-name-forge-men');
+    const womenSelect = document.getElementById('red-name-forge-women');
+    function renderName(name) {
+        const record = nameRecords[name];
+        const forms = document.getElementById('red-name-forge-forms');
+        forms.hidden = !record;
+        if (!record) return;
+        document.getElementById('red-name-forge-selected').textContent = name + ' · ' + record[0][0];
+        const sections = [
+            [document.getElementById('red-name-forge-formal'), [record[0]]],
+            [document.getElementById('red-name-forge-familiar'), record[1]],
+            [document.getElementById('red-name-forge-affectionate'), record[2]]
+        ];
+        sections.forEach(([container, entries]) => {
+            container.replaceChildren();
+            entries.forEach(([russian, latin]) => {
+                const line = document.createElement('div');
+                line.className = 'red-name-forge__name';
+                const word = document.createElement('strong');
+                word.lang = 'ru';
+                word.textContent = russian;
+                const transliteration = document.createElement('small');
+                transliteration.textContent = latin;
+                line.append(word, transliteration);
+                container.append(line);
+            });
+        });
+    }
+    menSelect.addEventListener('change', () => {
+        if (menSelect.value) womenSelect.value = '';
+        renderName(menSelect.value || womenSelect.value);
+    });
+    womenSelect.addEventListener('change', () => {
+        if (womenSelect.value) menSelect.value = '';
+        renderName(womenSelect.value || menSelect.value);
+    });
+    // Warmth Dial: three guided expressions with contextual tone variations.
+    // The controls themselves are authored in HTML, not generated by JavaScript.
+    const warmthExamples = [
+        {
+            russian: 'Ну, привет!', english: 'Well, hello!',
+            tones: [
+                ['A happy, friendly greeting.', 'You see a friend and are pleased to meet them.', 'Listen for a light, welcoming voice and a relaxed expression.'],
+                ['An unexpected reunion.', 'Someone you did not expect suddenly walks into the room.', 'A rising, animated voice can signal genuine surprise.'],
+                ['An irritated or ironic greeting.', 'Someone arrives very late after keeping you waiting.', 'A flat or pointed delivery can suggest annoyance rather than welcome.']
+            ]
+        },
+        {
+            russian: 'Как дела?', english: 'How are things?',
+            tones: [
+                ['A friendly check-in.', 'You greet a relative and want to know how life is going.', 'A warm tone and attentive expression invite a real answer.'],
+                ['Concern or sudden curiosity.', 'You notice that your friend seems upset or unusually quiet.', 'Extra emphasis and an attentive pause can show that you genuinely want to know.'],
+                ['A routine or distant greeting.', 'Someone asks while already turning away to leave.', 'A rushed or flat delivery may signal little expectation of a detailed answer.']
+            ]
+        },
+        {
+            russian: 'Молодец!', english: 'Well done!',
+            tones: [
+                ['Sincere praise.', 'A child has worked hard and successfully completed a task.', 'An enthusiastic voice makes the encouragement feel genuine.'],
+                ['Playful admiration.', 'A friend finds a clever solution that surprises everyone.', 'A smile and lively emphasis can make the praise playful.'],
+                ['Sarcasm, not praise.', 'Someone makes a careless mistake after ignoring a warning.', 'A dry voice or exaggerated emphasis may reverse the intended message.']
+            ]
+        }
+        ,{
+            russian: 'Спасибо!', english: 'Thank you!',
+            tones: [
+                ['Heartfelt gratitude.', 'A friend has helped you through a difficult day.', 'A warm voice and unhurried delivery make the gratitude feel personal.'],
+                ['Delighted surprise.', 'Someone gives you an unexpected gift.', 'A brighter pitch and animated delivery express happy surprise.'],
+                ['A pointed thank-you.', 'Someone finally does what they promised after repeated reminders.', 'A clipped or exaggerated thank-you may sound ironic.']
+            ]
+        },
+        {
+            russian: 'Правда?', english: 'Really?',
+            tones: [
+                ['Interested curiosity.', 'A friend shares good news and you want to hear more.', 'A gentle rising tone invites the story to continue.'],
+                ['Genuine astonishment.', 'You hear something you never expected.', 'A quick, high rise conveys disbelief or amazement.'],
+                ['Skeptical doubt.', 'Someone offers an excuse that seems unlikely.', 'A drawn-out or dry delivery can challenge their claim.']
+            ]
+        },
+        {
+            russian: 'Ну что?', english: 'Well? / So?',
+            tones: [
+                ['Friendly encouragement.', 'You are ready to begin an activity together.', 'An inviting tone makes the question feel collaborative.'],
+                ['Eager anticipation.', 'You are waiting to hear the result of an important decision.', 'A quick rise and expectant pause communicate excitement.'],
+                ['Impatience.', 'Someone has kept you waiting for an answer.', 'A sharp or flat tone can make the same words sound demanding.']
+            ]
+        },
+        {
+            russian: 'Ты пришёл!', english: 'You came! (to a man)',
+            tones: [
+                ['A warm welcome.', 'A close friend arrives at your celebration.', 'A smile and open, warm delivery express happiness.'],
+                ['A delighted surprise.', 'You did not expect him to come at all.', 'A lively rise in pitch signals genuine surprise.'],
+                ['An accusatory remark.', 'He appears after missing an important earlier event.', 'A cold, clipped delivery can imply resentment.']
+            ]
+        },
+        {
+            russian: 'Очень интересно.', english: 'Very interesting.',
+            tones: [
+                ['Sincere interest.', 'Someone describes a fascinating discovery.', 'A curious, engaged voice invites more explanation.'],
+                ['Unexpected fascination.', 'You hear a surprising new detail.', 'Emphasis on очень can communicate fresh interest.'],
+                ['Dry sarcasm.', 'Someone repeats a story you have heard many times.', 'Flat delivery can suggest the opposite of the literal words.']
+            ]
+        },
+        {
+            russian: 'Ясно.', english: 'I see. / Clear.',
+            tones: [
+                ['Understanding.', 'A family member explains a confusing situation.', 'A gentle tone communicates that you understand.'],
+                ['Sudden realization.', 'A missing piece of information finally makes sense.', 'A brighter, emphatic voice can signal an aha moment.'],
+                ['Emotional distance.', 'Someone gives an explanation you find disappointing.', 'A short, flat response can close the conversation.']
+            ]
+        },
+        {
+            russian: 'Вот это да!', english: 'Wow! / Would you look at that!',
+            tones: [
+                ['Happy admiration.', 'A friend shows you something impressive.', 'A warm, animated delivery expresses delight.'],
+                ['Astonishment.', 'Something extraordinary happens unexpectedly.', 'Strong stress and rising energy convey amazement.'],
+                ['Disapproving disbelief.', 'Someone tells you about an outrageous action.', 'A heavy, disapproving tone can signal criticism instead of delight.']
+            ]
+        }
+    ];
+    let warmthExampleIndex = 0;
+    let warmthToneIndex = 0;
+    const warmthSelect = document.getElementById('red-warmth-select');
+    const warmthPhrase = document.getElementById('red-warmth-phrase');
+    const warmthTranslation = document.getElementById('red-warmth-translation');
+    const warmthMeaning = document.getElementById('red-warmth-meaning');
+    const warmthSituation = document.getElementById('red-warmth-situation');
+    const warmthClue = document.getElementById('red-warmth-clue');
+    const warmthSpoken = document.getElementById('red-warmth-spoken');
+    const warmthSpokenEnglish = document.getElementById('red-warmth-spoken-english');
+    const warmthParticle = document.getElementById('red-warmth-particle');
+    // These are contextual examples, not automatic grammatical transformations.
+    const warmthDelivery = [
+        [
+            [['Ну, привет!','Well, hello!','Ну is a conversational particle; here it makes the greeting casual and friendly.'],['О, ну привет!','Oh, hello!','О adds an immediate surprised reaction. Ну gives the greeting a conversational feel.'],['Ну, привет...','Well, hello...','Ну plus a drawn-out, flat delivery can convey annoyance. The words alone do not guarantee sarcasm.']],
+            [['Как дела?','How are things?','No particle is needed. A warm voice makes this a genuine invitation to talk.'],['Ой, как дела?','Oh! How are you?','Ой is an emotional interjection, often signaling surprise or concern.'],['Ну, как дела?','So, how are things?','Ну can signal impatience in context, but can also be friendly.']],
+            [['Молодец!','Well done!','Direct praise; the warm delivery makes the approval clear.'],['Вот молодец!','Now that’s impressive!','Вот draws attention to what someone has done and can strengthen praise.'],['Ну ты и молодец...','Well, aren’t you clever...','Ну and the emphatic construction ты и can intensify a reaction; sarcasm comes from context and tone.']]
+        ],
+        [
+            [['Спасибо тебе!','Thank you! (to someone close)','Тебе makes the gratitude personal and informal.'],['Ой, спасибо!','Oh, thank you!','Ой signals an immediate emotional reaction.'],['Ну спасибо...','Well, thanks...','Ну can frame an ironic response when spoken dryly.']],
+            [['Правда?','Really?','An attentive, rising question invites more information.'],['Да ладно! Правда?','No way! Really?','Да ладно is a common conversational reaction of surprise or disbelief.'],['Ну правда?','Really, though?','Ну may add insistence or skepticism, depending on tone.']],
+            [['Ну что, начнём?','So, shall we start?','Ну что introduces the next step in conversation.'],['Ну что?!','Well?!','A sharp rise can communicate eager anticipation.'],['Ну что?','Well?','A clipped tone and a long wait can make the question impatient.']],
+            [['Ты пришёл!','You came!','Пришёл is masculine; say пришла when addressing a woman.'],['О, ты всё-таки пришёл!','Oh, you came after all!','Всё-таки highlights that the arrival was unexpected or uncertain.'],['Ну наконец-то ты пришёл.','Well, you finally came.','Наконец-то means finally; a cold delivery can sound reproachful.']],
+            [['Очень интересно!','Very interesting!','Strong, sincere stress can communicate engagement.'],['Ого, очень интересно!','Wow, very interesting!','Ого is a colloquial exclamation of surprise or admiration.'],['Ну очень интересно...','Well, very interesting...','An exaggerated ну очень can be sincere or sarcastic; context decides.']],
+            [['А, ясно.','Ah, I see.','А can mark recognition or understanding.'],['А-а, теперь ясно!','Ah, now I see!','Теперь means now; a longer а-а can convey sudden realization.'],['Ясно.','I see.','A clipped, flat response may close the discussion.']],
+            [['Вот это да!','Wow!','Вот это да is a fixed expressive reaction; it need not be translated word by word.'],['Ого! Вот это да!','Whoa! Wow!','Ого heightens astonishment.'],['Ну вот это да...','Well, would you look at that...','Ну can frame disbelief or disapproval when the tone is heavy.']]
+        ]
+    ];
+    const warmthSpeech = document.getElementById('red-warmth-speak');
+    function renderWarmth() {
+        const example = warmthExamples[warmthExampleIndex];
+        warmthSelect.value = String(warmthExampleIndex);
+        const tone = example.tones[warmthToneIndex];
+        const delivery = warmthDelivery[warmthExampleIndex < 3 ? 0 : 1][warmthExampleIndex < 3 ? warmthExampleIndex : warmthExampleIndex - 3][warmthToneIndex];
+        warmthPhrase.textContent = example.russian;
+        warmthTranslation.textContent = example.english;
+        warmthMeaning.textContent = tone[0];
+        warmthSituation.textContent = tone[1];
+        warmthClue.textContent = tone[2];
+        warmthSpoken.textContent = delivery[0];
+        warmthSpokenEnglish.textContent = delivery[1];
+        warmthParticle.textContent = delivery[2];
+        warmthDial.querySelectorAll('[data-warmth-select]').forEach(button => {
+            const active = Number(button.dataset.warmthSelect) === warmthExampleIndex;
+            button.setAttribute('aria-pressed', String(active));
+            button.textContent = active ? 'Currently exploring' : 'Explore this expression';
+        });
+        warmthDial.querySelectorAll('[data-warmth-tone]').forEach(button => {
+            button.setAttribute('aria-pressed', String(Number(button.dataset.warmthTone) === warmthToneIndex));
+        });
+    }
+    warmthSpeech.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) {
+            warmthSpeech.textContent = 'Speech unavailable';
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(warmthSpoken.textContent);
+        utterance.lang = 'ru-RU';
+        utterance.rate = 0.84;
+        window.speechSynthesis.speak(utterance);
+    });
+    warmthSelect.addEventListener('change', () => {
+        warmthExampleIndex = Number(warmthSelect.value);
+        warmthToneIndex = 0;
+        renderWarmth();
+    });
+    warmthDial.querySelectorAll('[data-warmth-select]').forEach(button => {
+        button.addEventListener('click', () => {
+            warmthExampleIndex = Number(button.dataset.warmthSelect);
+            warmthToneIndex = 0;
+            renderWarmth();
+        });
+    });
+    warmthDial.querySelectorAll('[data-warmth-tone]').forEach(button => {
+        button.addEventListener('click', () => {
+            warmthToneIndex = Number(button.dataset.warmthTone);
+            renderWarmth();
+        });
+    });
+    renderWarmth();
+    // Family Voices — authentic short exchanges with learner-selected responses.
+    const familyScenes = [
+        {role:'CHILD → MOM', icon:'♥', situation:'A loving moment', ru:'Мамочка, я тебя люблю!', en:'Mommy, I love you!', answers:['Я тоже тебя люблю!','До завтра!'], correct:0, feedback:'I love you too!', note:'Мамочка is a tender way to say “Mommy.” Я тебя люблю means “I love you.”'},
+        {role:'MOM → SON', icon:'❄', situation:'It is cold outside', ru:'Ты не замёрз?', en:'Aren’t you cold?', answers:['Нет, мне тепло.','С днём рождения!'], correct:0, feedback:'No, I’m warm.', note:'Замёрз is masculine. To a daughter, a parent would say: Ты не замёрзла?'},
+        {role:'SISTER → BROTHER', icon:'★', situation:'Before a big challenge', ru:'У тебя получится!', en:'You can do it!', answers:['Спасибо за поддержку!','Я уже поел.'], correct:0, feedback:'Thanks for the support!', note:'У тебя получится! literally suggests “It will work out for you.” It is natural encouragement.'},
+        {role:'GRANDMA → GRANDCHILD', icon:'⌂', situation:'A welcome at the door', ru:'Заходи, дорогой!', en:'Come in, dear!', answers:['Спасибо, бабушка!','Я не знаю.'], correct:0, feedback:'Thank you, Grandma!', note:'Дорогой is used here when addressing a boy or man. To a girl or woman: дорогая.'},
+        {role:'DAD → DAUGHTER', icon:'☀', situation:'After school', ru:'Как прошёл твой день?', en:'How was your day?', answers:['Хорошо, папа!','Спокойной ночи!'], correct:0, feedback:'Good, Dad!', note:'Прошёл is the past masculine form agreeing with день (day).'},
+        {role:'BROTHER → SISTER', icon:'✦', situation:'Someone needs a hand', ru:'Тебе помочь?', en:'Want me to help?', answers:['Да, пожалуйста!','Я тебя люблю.'], correct:0, feedback:'Yes, please!', note:'Тебе помочь? is a natural, compact way to offer help to someone close.'},
+        {role:'MOM → CHILD', icon:'♥', situation:'After a kind gesture', ru:'Спасибо тебе, солнышко!', en:'Thank you, sunshine!', answers:['Пожалуйста, мама!','Где мой ключ?'], correct:0, feedback:'You’re welcome, Mom!', note:'Солнышко (“little sun”) is an affectionate term for a loved one.'},
+        {role:'GRANDPA → GRANDCHILD', icon:'✉', situation:'Speaking from afar', ru:'Я по тебе скучаю.', en:'I miss you.', answers:['Я тоже скучаю!','Я не голоден.'], correct:0, feedback:'I miss you too!', note:'Скучать по кому-то means to miss someone. По тебе is “for you” in this expression.'}
+    ];
+    const familyPicker = document.getElementById('red-family-select');
+    const familyAnswerRussian = document.getElementById('red-family-answer-russian');
+    const familyAnswerEnglish = document.getElementById('red-family-answer-english');
+    const familyAnswerAudio = document.getElementById('red-family-hear-answer');
+    let familyIndex = 0;
+    function sayFamily(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ru-RU';
+        utterance.rate = 0.84;
+        window.speechSynthesis.speak(utterance);
+    }
+    function renderFamily() {
+        const scene = familyScenes[familyIndex];
+        familyPicker.value = String(familyIndex);
+        document.getElementById('red-family-role').textContent = scene.role;
+        document.getElementById('red-family-portrait').textContent = scene.icon;
+        document.getElementById('red-family-situation').textContent = scene.situation;
+        document.getElementById('red-family-russian').textContent = scene.ru;
+        document.getElementById('red-family-english').textContent = scene.en;
+        document.getElementById('red-family-note').textContent = scene.note;
+        // Display the natural reply immediately; no distractor choices or quiz feedback.
+        familyAnswerRussian.textContent = scene.answers[scene.correct];
+        familyAnswerEnglish.textContent = scene.feedback;
+        familyVoices.querySelectorAll('[data-family-pick]').forEach(button => {
+            button.setAttribute('aria-pressed', String(Number(button.dataset.familyPick) === familyIndex));
+        });
+        familyVoices.querySelector('.red-family__why').open = false;
+    }
+    familyPicker.addEventListener('change', () => {
+        familyIndex = Number(familyPicker.value);
+        renderFamily();
+    });
+    familyVoices.querySelectorAll('[data-family-pick]').forEach(button => {
+        button.addEventListener('click', () => {
+            familyIndex = Number(button.dataset.familyPick);
+            renderFamily();
+        });
+    });
+    document.getElementById('red-family-hear').addEventListener('click', () => sayFamily(familyScenes[familyIndex].ru));
+    familyAnswerAudio.addEventListener('click', () => {
+        const scene = familyScenes[familyIndex];
+        sayFamily(scene.answers[scene.correct]);
+    });
+    renderFamily();
+    // Emotion Gauge — hear a feeling and a natural response. No distractors.
+    const emotionScenes = [
+        {face:'😟',label:'Worried',context:'A friend is concerned about tomorrow.',ru:'Я волнуюсь.',en:"I'm worried.",reply:'Я рядом.',replyEn:"I'm here for you.",note:'Я рядом literally means “I am nearby.” It is also a reassuring way to say you are there for someone.'},
+        {face:'😔',label:'Discouraged',context:'Something has not worked out.',ru:'У меня не получается.',en:"I can't get it to work.",reply:'Не сдавайся! У тебя получится!',replyEn:"Don't give up! You can do it!",note:'У меня не получается expresses that something is not working out for me. У тебя получится! encourages someone that they can succeed.'},
+        {face:'😢',label:'Sad',context:'A friend is having a hard day.',ru:'Мне грустно.',en:"I feel sad.",reply:'Хочешь поговорить?',replyEn:'Do you want to talk?',note:'Мне грустно literally uses “to me” to describe a feeling. Хочешь поговорить? is a gentle invitation, not a demand.'},
+        {face:'😨',label:'Afraid',context:'Someone is frightened.',ru:'Мне страшно.',en:"I'm scared.",reply:'Я с тобой.',replyEn:"I'm with you.",note:'Мне страшно expresses fear. Я с тобой is a short, reassuring promise of company.'},
+        {face:'😴',label:'Exhausted',context:'A family member has had a long day.',ru:'Я очень устал.',en:"I'm very tired.",reply:'Отдохни немного.',replyEn:'Rest a little.',note:'Устал is masculine; a woman would say устала. Отдохни is an informal suggestion to rest.'},
+        {face:'😬',label:'Nervous',context:'A friend has an important test.',ru:'Я боюсь экзамена.',en:"I'm afraid of the exam.",reply:'Ты хорошо подготовился!',replyEn:"You've prepared well!",note:'Подготовился is masculine. To a woman: Ты хорошо подготовилась! A reassuring response can remind someone of their preparation.'},
+        {face:'🥺',label:'Missing someone',context:'Someone is far from home.',ru:'Я скучаю по семье.',en:'I miss my family.',reply:'Скоро увидитесь.',replyEn:"You'll see each other soon.",note:'Скучать по + dative expresses missing someone: по семье. Скоро увидитесь is reassuring when a reunion is expected.'},
+        {face:'🥳',label:'Happy',context:'Someone shares wonderful news.',ru:'Я сдал экзамен!',en:'I passed the exam!',reply:'Поздравляю! Молодец!',replyEn:'Congratulations! Well done!',note:'Сдал is masculine; a woman says сдала. Поздравляю! is a natural response to good news.'}
+    ];
+    const emotionPicker = document.getElementById('red-emotion-select');
+    let emotionIndex = 0;
+    function speakEmotion(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ru-RU';
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+    }
+    function renderEmotion() {
+        const scene = emotionScenes[emotionIndex];
+        emotionPicker.value = String(emotionIndex);
+        document.getElementById('red-emotion-face').textContent = scene.face;
+        document.getElementById('red-emotion-label').textContent = scene.label;
+        document.getElementById('red-emotion-context').textContent = scene.context;
+        document.getElementById('red-emotion-russian').textContent = scene.ru;
+        document.getElementById('red-emotion-english').textContent = scene.en;
+        document.getElementById('red-emotion-answer-russian').textContent = scene.reply;
+        document.getElementById('red-emotion-answer-english').textContent = scene.replyEn;
+        document.getElementById('red-emotion-note').textContent = scene.note;
+        emotionGauge.querySelectorAll('[data-emotion-pick]').forEach(button => {
+            button.setAttribute('aria-pressed', String(Number(button.dataset.emotionPick) === emotionIndex));
+        });
+        emotionGauge.querySelector('.red-emotion__why').open = false;
+    }
+    emotionPicker.addEventListener('change', () => { emotionIndex = Number(emotionPicker.value); renderEmotion(); });
+    emotionGauge.querySelectorAll('[data-emotion-pick]').forEach(button => {
+        button.addEventListener('click', () => { emotionIndex = Number(button.dataset.emotionPick); renderEmotion(); });
+    });
+    document.getElementById('red-emotion-hear').addEventListener('click', () => speakEmotion(emotionScenes[emotionIndex].ru));
+    document.getElementById('red-emotion-hear-answer').addEventListener('click', () => speakEmotion(emotionScenes[emotionIndex].reply));
+    renderEmotion();
+    // Message Conduit — meaningful Russian messages, with optional personalization.
+    const messageScenes = [
+        {ru:'Я скучаю по тебе.',en:'I miss you.',note:'Скучать по кому-то means to miss someone. По тебе is the natural form here.'},
+        {ru:'Спасибо тебе!',en:'Thank you!',note:'Тебе is informal and personal. For a respectful or plural “you,” say Спасибо вам!'},
+        {ru:'Я в тебя верю!',en:'I believe in you!',note:'Верить в кого-то means to believe in someone’s abilities or potential.'},
+        {ru:'С днём рождения!',en:'Happy birthday!',note:'This greeting literally means “with the day of birth.” It is used for any birthday.'},
+        {ru:'Поздравляю тебя!',en:'Congratulations!',note:'Поздравляю means “I congratulate.” Тебя makes it personal and informal.'},
+        {ru:'Выздоравливай скорее!',en:'Get well soon!',note:'Выздоравливай is the familiar singular form. Use Выздоравливайте in formal or plural address.'},
+        {ru:'Спокойной ночи!',en:'Good night!',note:'This is the usual Russian good-night wish, especially when someone is going to sleep.'},
+        {ru:'Думаю о тебе.',en:'I’m thinking of you.',note:'Думать о ком-то means to think about someone. О тебе means “about you.”'}
+    ];
+    // Russian relationship labels are distinct from natural direct-address forms.
+    const messageRelatives = {
+        mama: {ru: 'Мама', en: 'Mom'},
+        papa: {ru: 'Папа', en: 'Dad'},
+        brother: {ru: 'Братик', en: 'Brother'},
+        sister: {ru: 'Сестрёнка', en: 'Sister'},
+        grandmother: {ru: 'Бабушка', en: 'Grandma'},
+        grandfather: {ru: 'Дедушка', en: 'Grandpa'},
+        aunt: {ru: 'Тётя', en: 'Aunt'},
+        uncle: {ru: 'Дядя', en: 'Uncle'},
+        'male-cousin': {ru: 'Дорогой двоюродный брат', en: 'Dear cousin'},
+        'female-cousin': {ru: 'Дорогая двоюродная сестра', en: 'Dear cousin'},
+        son: {ru: 'Сынок', en: 'Son'},
+        daughter: {ru: 'Дочка', en: 'Daughter'},
+        grandson: {ru: 'Внучек', en: 'Grandson'},
+        granddaughter: {ru: 'Внученька', en: 'Granddaughter'}
+    };
+    const messagePicker = document.getElementById('red-message-select');
+    const messageRecipient = document.getElementById('red-message-recipient');
+    const messageText = document.getElementById('red-message-text');
+    const messageEnglish = document.getElementById('red-message-english');
+    let messageIndex = 0;
+    function currentMessage() {
+        const relative = messageRelatives[messageRecipient.value] || messageRelatives.mama;
+        return relative.ru + ', ' + messageScenes[messageIndex].ru;
+    }
+    function renderMessage() {
+        const relative = messageRelatives[messageRecipient.value] || messageRelatives.mama;
+        messagePicker.value = String(messageIndex);
+        messageText.textContent = currentMessage();
+        messageEnglish.textContent = relative.en + ', ' + messageScenes[messageIndex].en;
+        document.getElementById('red-message-note').textContent = messageScenes[messageIndex].note;
+        messageConduit.querySelectorAll('[data-message-pick]').forEach(button => {
+            button.setAttribute('aria-pressed', String(Number(button.dataset.messagePick) === messageIndex));
+        });
+        messageConduit.querySelector('.red-message__why').open = false;
+    }
+    messagePicker.addEventListener('change', () => {
+        messageIndex = Number(messagePicker.value);
+        renderMessage();
+    });
+    messageConduit.querySelectorAll('[data-message-pick]').forEach(button => {
+        button.addEventListener('click', () => {
+            messageIndex = Number(button.dataset.messagePick);
+            renderMessage();
+        });
+    });
+    messageRecipient.addEventListener('change', renderMessage);
+    document.getElementById('red-message-hear').addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(currentMessage());
+        utterance.lang = 'ru-RU';
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+    });
+    renderMessage();
+    document.getElementById('red-heartfelt-return').addEventListener('click', showLanding);
+    experience.querySelectorAll('[data-heartfelt-back]').forEach(button => {
+        button.addEventListener('click', () => {
+            resetAnimation();
+            experience.hidden = true;
+            destination.hidden = true;
+            redStage.hidden = false;
+
+            // Restore the Laboratory landing before either exit route.
+            // Otherwise, returning from Four Doors leaves its stage hidden
+            // and exposes only the old brown fallback navigation button.
+            stage.hidden = false;
+
+            const target = button.dataset.heartfeltBack;
+            if (target === 'laboratory') {
+                stage.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            } else {
+                const doorsButton = laboratory.querySelector('.door-four__landing-back');
+                if (doorsButton) doorsButton.click();
+            }
+        });
+    });
+})();
+// END RED BUTTON — HEARTFELT ENGINE
+
+
+/* BEGIN SHARED LABORATORY PATTERN PRACTICE — 9 DESTINATIONS, 2 STAGES EACH */
+(function () {
+  'use strict';
+  const practice = {"gold":{"title":"Family Telegraph","apply":[["Who is this?","Это ___ брат.","This is my brother.",["мой","моя","моё"],0,"Брат is masculine."],["Choose the family word","Это моя ___.","This is my sister.",["сестра","брат","дядя"],0,"Сестра = sister."],["Whose grandmother?","Это ___ бабушка.","This is our grandmother.",["наш","наша","наши"],1,"Бабушка is feminine."]],"master":[["My mother","Это моя мама.","Write: This is my mother.","моя + мама"],["Our brother","Это наш брат.","Write: This is our brother.","наш + брат"],["Her sister","Это её сестра.","Write: This is her sister.","её does not change."],["This is my father.","Это мой папа.","This is my father.","Папа is masculine: мой."],["This is my sister.","Это моя сестра.","This is my sister.","Сестра is feminine: моя."],["This is our mother.","Это наша мама.","This is our mother.","Мама is feminine: наша."],["This is his brother.","Это его брат.","This is his brother.","Его stays the same."],["This is her mother.","Это её мама.","This is her mother.","Её stays the same."],["This is my grandfather.","Это мой дедушка.","This is my grandfather.","Дедушка is masculine despite -а."],["This is my grandmother.","Это моя бабушка.","This is my grandmother.","Бабушка is feminine."],["This is our sister.","Это наша сестра.","This is our sister.","Наша agrees with сестра."],["This is your brother.","Это твой брат.","This is your brother.","Твой agrees with masculine брат."],["This is your mother.","Это твоя мама.","This is your mother.","Твоя agrees with feminine мама."],["This is their daughter.","Это их дочь.","This is their daughter.","Их is unchanged."],["This is our family.","Это наша семья.","This is our family.","Семья is feminine: наша."]]},"purple":{"title":"Timekeeper's Workshop","apply":[["Who is older?","Мама старше дочери.","Mother is older than her daughter.",["старше","младше","моложе"],0,"Старше = older."],["Who is younger?","Сын ___ отца.","The son is younger than his father.",["старше","младше","старый"],1,"Младше = younger."],["Choose the age","Мне ___ года.","I am 24 years old.",["двадцать четыре","двадцать пять","четырнадцать"],0,"24 = двадцать четыре."]],"master":[["Older sister","Моя сестра старше меня.","Write: My sister is older than me.","старше меня"],["Younger brother","Мой брат младше меня.","Write: My brother is younger than me.","младше меня"],["I am twenty","Мне двадцать лет.","Write: I am twenty years old.","Мне ... лет"],["I am twenty-one years old.","Мне двадцать один год.","I am twenty-one years old.","After 21: год."],["I am twenty-two years old.","Мне двадцать два года.","I am twenty-two years old.","After 22: года."],["I am twenty-five years old.","Мне двадцать пять лет.","I am twenty-five years old.","After 25: лет."],["My mother is older than me.","Моя мама старше меня.","My mother is older than me.","Старше меня = older than me."],["My father is older than my brother.","Мой папа старше брата.","My father is older than my brother.","After старше use the genitive."],["My sister is younger than my mother.","Моя сестра младше мамы.","My sister is younger than my mother.","Младше + genitive."],["My grandmother is older than my grandfather.","Моя бабушка старше дедушки.","My grandmother is older than my grandfather.","Старше + genitive."],["My brother is twenty years old.","Моему брату двадцать лет.","My brother is twenty years old.","Age uses the dative: брату."],["My sister is eighteen years old.","Моей сестре восемнадцать лет.","My sister is eighteen years old.","Age uses the dative: сестре."],["My father is forty years old.","Моему папе сорок лет.","My father is forty years old.","Age uses the dative: папе."],["I am thirty-one years old.","Мне тридцать один год.","I am thirty-one years old.","31 takes год."],["My son is younger than me.","Мой сын младше меня.","My son is younger than me.","Младше = younger."]]},"green":{"title":"Harmony Regulator","apply":[["Where is mother?","Мама ___ школе.","Mom is at school.",["в","на","с"],0,"В школе = at school."],["Where is grandfather?","Дедушка ___ доме.","Grandpa is in the house.",["в","из","к"],0,"В доме = in the house."],["Where are we?","Мы ___ кухне.","We are in the kitchen.",["на","в","под"],0,"На кухне is the usual expression."]],"master":[["At school","Мама в школе.","Write: Mom is at school.","в школе"],["In the house","Брат в доме.","Write: Brother is in the house.","в доме"],["In the kitchen","Бабушка на кухне.","Write: Grandma is in the kitchen.","на кухне"],["Dad is at work.","Папа на работе.","Dad is at work.","На работе = at work."],["My sister is at school.","Моя сестра в школе.","My sister is at school.","В школе = at school."],["Grandpa is in the garden.","Дедушка в саду.","Grandpa is in the garden.","В саду is a common locative form."],["Mom is in the kitchen.","Мама на кухне.","Mom is in the kitchen.","На кухне is the usual expression."],["My brother is in the room.","Мой брат в комнате.","My brother is in the room.","В комнате = in the room."],["Grandma is at home.","Бабушка дома.","Grandma is at home.","Дома needs no preposition."],["My father is in the park.","Мой папа в парке.","My father is in the park.","В парке = in the park."],["My sister is at the university.","Моя сестра в университете.","My sister is at the university.","В университете = at university."],["My son is at school.","Мой сын в школе.","My son is at school.","В школе = at school."],["My daughter is in the house.","Моя дочь в доме.","My daughter is in the house.","В доме = in the house."],["Grandma is at the market.","Бабушка на рынке.","Grandma is at the market.","На рынке = at the market."],["We are in the living room.","Мы в гостиной.","We are in the living room.","В гостиной = in the living room."]]},"blue":{"title":"Instrumental Apparatus","apply":[["With whom?","Я с ___.","I am with my brother.",["братом","брат","брата"],0,"С + instrumental: братом."],["With sister","Я с ___.","I am with my sister.",["сестра","сестрой","сестру"],1,"С + instrumental: сестрой."],["With mother","Я с ___.","I am with my mother.",["мамой","мама","маму"],0,"С + instrumental: мамой."]],"master":[["With Dad","Я с папой.","Write: I am with Dad.","с папой"],["With grandma","Я с бабушкой.","Write: I am with Grandma.","с бабушкой"],["With my sister","Я с моей сестрой.","Write: I am with my sister.","с моей сестрой"],["I am with my mother.","Я с моей мамой.","I am with my mother.","С + instrumental: моей мамой."],["I am with my brother.","Я с моим братом.","I am with my brother.","С + instrumental: моим братом."],["I am with my father.","Я с моим папой.","I am with my father.","С + instrumental: моим папой."],["I am with my grandmother.","Я с моей бабушкой.","I am with my grandmother.","С + instrumental: моей бабушкой."],["I am with my grandfather.","Я с моим дедушкой.","I am with my grandfather.","Дедушка is masculine: моим."],["I am with my sister.","Я с сестрой.","I am with my sister.","Сестра → сестрой."],["I am with my son.","Я с сыном.","I am with my son.","Сын → сыном."],["I am with my daughter.","Я с дочерью.","I am with my daughter.","Дочь → дочерью."],["Mom is with Dad.","Мама с папой.","Mom is with Dad.","Папа → папой."],["My brother is with my sister.","Мой брат с моей сестрой.","My brother is with my sister.","С + моей сестрой."],["I am with our grandmother.","Я с нашей бабушкой.","I am with our grandmother.","Нашей agrees with бабушкой."],["Dad is with our grandfather.","Папа с нашим дедушкой.","Dad is with our grandfather.","Нашим agrees with дедушкой."]]},"name":{"title":"Name Forge","apply":[["A close friend","Михаил → ___","Choose the familiar form.",["Миша","Мишенька","Мария"],0,"Friends often say Миша."],["Someone dear","Мария → ___","Choose an affectionate form.",["Маша","Машенька","Михаил"],1,"Машенька is affectionate."],["A close friend","Иван → ___","Choose the familiar form.",["Ваня","Ванечка","Иванов"],0,"Ваня is the familiar form."]],"master":[["Affectionate Ivan","Ванечка","Write an affectionate form of Иван.","Ваня → Ванечка"],["Familiar Maria","Маша","Write the familiar form of Мария.","Мария → Маша"],["Familiar Alexander","Саша","Write the familiar form of Александр.","Александр → Саша"],["Write the familiar form of Михаил.","Миша","Write the familiar form of Михаил.","Михаил → Миша."],["Write the affectionate form of Михаил.","Мишенька","Write the affectionate form of Михаил.","Миша → Мишенька."],["Write the familiar form of Иван.","Ваня","Write the familiar form of Иван.","Иван → Ваня."],["Write the familiar form of Анна.","Аня","Write the familiar form of Анна.","Анна → Аня."],["Write the affectionate form of Анна.","Анечка","Write the affectionate form of Анна.","Аня → Анечка."],["Write the familiar form of Елена.","Лена","Write the familiar form of Елена.","Елена → Лена."],["Write the affectionate form of Елена.","Леночка","Write the affectionate form of Елена.","Лена → Леночка."],["Write the familiar form of Виктор.","Витя","Write the familiar form of Виктор.","Виктор → Витя."],["Write the affectionate form of Виктор.","Витенька","Write the affectionate form of Виктор.","Витя → Витенька."],["Write the familiar form of Даниил.","Даня","Write the familiar form of Даниил.","Даниил → Даня."],["Write the affectionate form of Мария.","Машенька","Write the affectionate form of Мария.","Маша → Машенька."],["Write the familiar form of Наталья.","Наташа","Write the familiar form of Наталья.","Наталья → Наташа."]]},"warmth":{"title":"Living Russian Speech","apply":[["Someone did a great job","Молодец!","Which feeling fits?",["Warm praise","Impatience","Sadness"],0,"A bright voice signals praise."],["A friend unexpectedly arrives","Ну, привет!","Which feeling fits?",["Boredom","Surprise","Anger"],1,"A lively rising voice can show surprise."],["A friend gives a gift","Спасибо!","Which feeling fits?",["Gratitude","Dismissal","Worry"],0,"Listen for warmth and appreciation."]],"master":[["Show genuine thanks","Спасибо!","Write a short Russian thank-you.","Спасибо!"],["Ask how things are","Как дела?","Write: How are things?","Как дела?"],["Praise someone","Молодец!","Write: Well done!","Молодец!"],["Say hello informally.","Привет!","Say hello informally.","Привет is informal."],["Say hello politely.","Здравствуйте!","Say hello politely.","Здравствуйте is polite."],["Say thank you very much.","Большое спасибо!","Say thank you very much.","Большое adds emphasis."],["Ask: Really?","Правда?","Ask: Really?","Правда? expresses surprise."],["Say: Wow!","Вот это да!","Say: Wow!","Вот это да! expresses surprise."],["Say: Well, hello!","Ну привет!","Say: Well, hello!","Ну adds conversational color."],["Ask: How are you?","Как ты?","Ask: How are you?","Как ты? is informal."],["Say: Very interesting.","Очень интересно.","Say: Very interesting.","Очень = very."],["Say: Thank you!","Спасибо!","Say: Thank you!","Спасибо expresses thanks."],["Say: Well done!","Молодец!","Say: Well done!","Молодец is praise."],["Say: Oh, hello!","Ой привет!","Say: Oh, hello!","Ой can express surprise."],["Ask: How are things?","Как дела?","Ask: How are things?","Как дела? is common."]]},"family":{"title":"Family Voices","apply":[["A parent says: Я тебя люблю!","___","Choose a loving reply.",["Я тоже тебя люблю!","Мне двадцать лет.","Где школа?"],0,"Я тоже = I too."],["Someone says: У тебя получится!","___","Choose a grateful reply.",["Я устал.","Спасибо за поддержку!","До завтра."],1,"Thank them for their support."],["A relative says: Я скучаю по тебе.","___","Choose a caring reply.",["Я тоже скучаю.","Мне холодно.","Это стол."],0,"Я тоже скучаю = I miss you too."]],"master":[["Reply with love","Я тоже тебя люблю!","Write: I love you too!","Я тоже ..."],["Thank someone for support","Спасибо за поддержку!","Write: Thank you for the support!","Спасибо за ..."],["Miss them too","Я тоже скучаю.","Write: I miss you too.","Я тоже ..."],["Say: I love you.","Я тебя люблю.","Say: I love you.","Я + люблю + тебя."],["Say: I love you too.","Я тоже тебя люблю.","Say: I love you too.","Тоже = too."],["Say: Thank you, Mom.","Спасибо мама!","Say: Thank you, Mom.","Мама is direct address."],["Say: Thank you, Dad.","Спасибо папа!","Say: Thank you, Dad.","Папа is direct address."],["Say: I miss you.","Я по тебе скучаю.","Say: I miss you.","Скучаю по тебе = I miss you."],["Say: I miss you too.","Я тоже скучаю.","Say: I miss you too.","Тоже = too."],["Say: I am here.","Я рядом.","Say: I am here.","Рядом = nearby."],["Say: You can do it!","У тебя получится!","Say: You can do it!","У тебя получится expresses encouragement."],["Say: Come in, dear!","Заходи дорогой!","Say: Come in, dear!","Дорогой addresses a boy or man."],["Say: Yes, please!","Да пожалуйста!","Say: Yes, please!","Да + пожалуйста."],["Say: Thank you, Grandma!","Спасибо бабушка!","Say: Thank you, Grandma!","Бабушка is direct address."],["Say: I understand you.","Я тебя понимаю.","Say: I understand you.","Понимаю = I understand."]]},"emotion":{"title":"Emotion Gauge","apply":[["Someone says: Я волнуюсь.","___","Choose a caring reply.",["Я рядом.","Пока.","Мне двадцать."],0,"Я рядом = I am here."],["Someone says: Мне грустно.","___","Choose a caring reply.",["Я тебя понимаю.","Какой стол?","Понедельник."],0,"Show understanding."],["Someone says: Я боюсь.","___","Choose a caring reply.",["Ты не один.","Это моя книга.","До свидания."],0,"Ты не один = You are not alone."]],"master":[["Offer reassurance","Всё будет хорошо.","Write: Everything will be okay.","Всё будет ..."],["Say you are here","Я рядом.","Write: I am here.","Я ..."],["Show understanding","Я тебя понимаю.","Write: I understand you.","Я тебя ..."],["Say: Don't worry!","Не волнуйся!","Say: Don't worry!","Не + волнуйся."],["Say: I am with you.","Я с тобой.","Say: I am with you.","С тобой = with you."],["Say: I understand.","Я понимаю.","Say: I understand.","Понимаю = I understand."],["Say: I understand you.","Я тебя понимаю.","Say: I understand you.","Тебя is the object."],["Say: Don't give up!","Не сдавайся!","Say: Don't give up!","Не + сдавайся."],["Say: You can do it!","У тебя получится!","Say: You can do it!","A natural encouragement."],["Say: Do you want to talk?","Хочешь поговорить?","Say: Do you want to talk?","Хочешь + infinitive."],["Say: Rest a little.","Отдохни немного.","Say: Rest a little.","Отдохни is an informal imperative."],["Say: I am worried.","Я волнуюсь.","Say: I am worried.","Я + волнуюсь."],["Say: I am sad.","Мне грустно.","Say: I am sad.","Feelings often use мне."],["Say: I am scared.","Мне страшно.","Say: I am scared.","Мне + страшно."],["Say: Congratulations!","Поздравляю!","Say: Congratulations!","Поздравляю expresses congratulations."]]},"message":{"title":"Message Conduit","apply":[["To Grandma","Бабушка, я ___ по тебе.","I miss you.",["скучаю","любишь","говорю"],0,"Я скучаю по тебе."],["To Dad","Папа, я тебя ___.","I love you.",["люблю","любишь","любят"],0,"Я тебя люблю."],["To Sister","Сестрёнка, ___ тебе!","Thank you!",["спасибо","привет","пока"],0,"Спасибо тебе!"]],"master":[["Message to Mom","Мама, я тебя люблю.","Write: Mom, I love you.","Мама, я ..."],["Message to Grandma","Бабушка, я скучаю по тебе.","Write: Grandma, I miss you.","Бабушка, я ..."],["Message to Dad","Папа, спасибо тебе!","Write: Dad, thank you!","Папа, спасибо ..."],["Mom, I miss you.","Мама я скучаю по тебе.","Mom, I miss you.","Я скучаю по тебе."],["Dad, I love you.","Папа я тебя люблю.","Dad, I love you.","Я + тебя + люблю."],["Grandma, I love you.","Бабушка я тебя люблю.","Grandma, I love you.","Я тебя люблю."],["Grandpa, I miss you.","Дедушка я скучаю по тебе.","Grandpa, I miss you.","Скучаю по тебе."],["Sister, thank you!","Сестрёнка спасибо тебе!","Sister, thank you!","Спасибо тебе."],["Brother, I miss you.","Братик я скучаю по тебе.","Brother, I miss you.","Скучаю по тебе."],["Mom, thank you for everything!","Мама спасибо тебе за всё!","Mom, thank you for everything!","За всё = for everything."],["Dad, congratulations!","Папа поздравляю!","Dad, congratulations!","Поздравляю = congratulations."],["Grandma, happy birthday!","Бабушка с днём рождения!","Grandma, happy birthday!","С днём рождения = happy birthday."],["Grandpa, thank you!","Дедушка спасибо тебе!","Grandpa, thank you!","Спасибо тебе = thank you."],["Sister, I love you.","Сестрёнка я тебя люблю.","Sister, I love you.","Я тебя люблю."],["Brother, good luck!","Братик удачи!","Brother, good luck!","Удачи! = good luck."]]}};
+  const overlay = document.getElementById('laboratory-pattern-overlay');
+  if (!overlay) return;
+  const $ = id => document.getElementById(id);
+  const sourceSelectors = [
+    ['gold', '.laboratory-pattern-stages--gold'],
+    ['purple', '.laboratory-pattern-stages--purple'],
+    ['green', '.laboratory-pattern-stages--green'],
+    ['blue', '.laboratory-pattern-stages--blue'],
+    ['name', '.red-name-forge__future'],
+    ['warmth', '.red-warmth__future'],
+    ['family', '.red-family__future'],
+    ['emotion', '.red-emotion__future'],
+    ['message', '.red-message__future']
+  ];
+  let active = null;
+  let previousFocus = null;
+  let finished = false;
+  // A shared drag-and-drop and tap-to-place word bank for every Mastering room.
+  const distractors = {
+    gold: ['мой','моя','моё','мои','наш','наша','наши','её','его','мама','маму','брат','брата','сестра','сестру','это'],
+    purple: ['мне','меня','мой','моя','старше','младше','лет','года','год','двадцать','двадцати','сестра','сестру','брат','брата'],
+    green: ['в','на','из','с','к','школе','школу','школа','доме','дом','дома','кухне','кухню','кухня','мама','маму'],
+    blue: ['я','меня','мне','с','со','папа','папой','папу','бабушка','бабушкой','бабушку','сестра','сестрой','сестру','мой','моей','моя'],
+    name: ['Михаил','Миша','Мишенька','Мария','Маша','Машенька','Иван','Ваня','Ванечка','это','меня','зовут'],
+    warmth: ['ну','вот','ой','привет','молодец','спасибо','да','нет','ты','я','очень','как','дела'],
+    family: ['я','меня','мне','ты','тебя','тебе','люблю','любит','любим','мама','маму','мамочка','спасибо','помощь','помощи'],
+    emotion: ['я','меня','мне','ты','тебя','тебе','рядом','здесь','понимаю','понимает','понимаем','не','всё','хорошо'],
+    message: ['я','меня','мне','ты','тебя','тебе','люблю','любишь','любит','скучаю','скучает','скучаем','по','мама','маму','папа','папу','бабушка','бабушку','спасибо']
+  };
+  let selectedWords = [];
+  let bankWords = [];
+  const sentenceBox = $('laboratory-pattern-sentence');
+  const bankBox = $('laboratory-pattern-bank');
+  function tokenize(text) {
+    return text.replace(/[.,!?…:;«»"'—–-]/g, ' ').split(/\s+/).filter(Boolean);
+  }
+  function prepareBank(item) {
+    const required = tokenize(item[1]);
+    const normalizedRequired = new Set(required.map(normalize));
+    const extra = distractors[active.key].filter(word => !normalizedRequired.has(normalize(word)));
+    // Every challenge offers grammatical alternatives, not arbitrary unrelated words.
+    const shuffledExtras = extra.map((word, index) => ({word, order:(index * 13 + active.step * 7) % (extra.length + 1)}))
+      .sort((a,b) => a.order - b.order).slice(0, Math.min(7, Math.max(5, required.length + 2)));
+    bankWords = required.concat(shuffledExtras.map(entry => entry.word)).map((word,index) => ({id:index,word}));
+    // Shuffle on every new challenge and replay, preventing positional memorization.
+    for (let i = bankWords.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bankWords[i], bankWords[j]] = [bankWords[j], bankWords[i]];
+    }
+    selectedWords = [];
+    drawWordBank();
+  }
+  function addWord(id, at = selectedWords.length) {
+    if (finished || selectedWords.includes(id)) return;
+    selectedWords.splice(at, 0, id);
+    $('laboratory-pattern-feedback').textContent = '';
+    drawWordBank();
+  }
+  function removeWord(id) {
+    if (finished) return;
+    selectedWords = selectedWords.filter(value => value !== id);
+    $('laboratory-pattern-feedback').textContent = '';
+    drawWordBank();
+  }
+  function dropWord(id, index) {
+    if (finished || !bankWords.some(entry => entry.id === id)) return;
+    selectedWords = selectedWords.filter(value => value !== id);
+    selectedWords.splice(index, 0, id);
+    $('laboratory-pattern-feedback').textContent = '';
+    drawWordBank();
+  }
+  function makeToken(entry, selected, index) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'laboratory-pattern-token' + (selected ? ' is-selected' : '');
+    button.textContent = entry.word;
+    button.disabled = finished || (!selected && selectedWords.includes(entry.id));
+    button.draggable = !button.disabled;
+    button.setAttribute('aria-label', selected ? 'Remove ' + entry.word : 'Add ' + entry.word);
+    button.addEventListener('click', () => selected ? removeWord(entry.id) : addWord(entry.id));
+    button.addEventListener('dragstart', event => {
+      event.dataTransfer.setData('text/plain', String(entry.id));
+      event.dataTransfer.effectAllowed = 'move';
+    });
+    if (selected) {
+      button.addEventListener('dragover', event => event.preventDefault());
+      button.addEventListener('drop', event => {
+        event.preventDefault();
+        const id = Number(event.dataTransfer.getData('text/plain'));
+        if (Number.isInteger(id)) dropWord(id, index);
+      });
+    }
+    return button;
+  }
+  function drawWordBank() {
+    sentenceBox.replaceChildren();
+    bankBox.replaceChildren();
+    selectedWords.forEach((id,index) => {
+      const entry = bankWords.find(word => word.id === id);
+      if (entry) sentenceBox.appendChild(makeToken(entry, true, index));
+    });
+    bankWords.forEach(entry => bankBox.appendChild(makeToken(entry, false)));
+    $('laboratory-pattern-check').disabled = finished || selectedWords.length === 0;
+  }
+  sentenceBox.addEventListener('dragover', event => {
+    if (!active || active.mode !== 'master' || finished) return;
+    event.preventDefault();
+    sentenceBox.classList.add('is-over');
+  });
+  sentenceBox.addEventListener('dragleave', () => sentenceBox.classList.remove('is-over'));
+  sentenceBox.addEventListener('drop', event => {
+    event.preventDefault();
+    sentenceBox.classList.remove('is-over');
+    const id = Number(event.dataTransfer.getData('text/plain'));
+    if (Number.isInteger(id)) dropWord(id, selectedWords.length);
+  });
+  bankBox.addEventListener('dragover', event => event.preventDefault());
+  bankBox.addEventListener('drop', event => {
+    event.preventDefault();
+    const id = Number(event.dataTransfer.getData('text/plain'));
+    if (Number.isInteger(id)) removeWord(id);
+  });
+  $('laboratory-pattern-clear').addEventListener('click', () => {
+    if (finished) return;
+    selectedWords = [];
+    $('laboratory-pattern-feedback').textContent = '';
+    drawWordBank();
+  });
+  function normalize(value) {
+    return value.toLocaleLowerCase('ru-RU').replace(/ё/g, 'е').replace(/[.,!?…:;«»"'—–-]/g, '').replace(/\s+/g, ' ').trim();
+  }
+  function begin(key, mode) {
+    active = { key, mode, step: 0, correct: 0 };
+    previousFocus = document.activeElement;
+    overlay.dataset.color = key;
+    overlay.hidden = false;
+    $('laboratory-pattern-color').textContent = practice[key].title;
+    $('laboratory-pattern-title').textContent = mode === 'apply' ? 'Applying the Pattern' : 'Mastering the Pattern';
+    $('laboratory-pattern-subtitle').textContent = mode === 'apply' ? 'Choose · Discover · Try again' : 'Build · Check · Discover · 15 challenges';
+    document.body.classList.add('laboratory-pattern-open');
+    render();
+    $('laboratory-pattern-back').focus();
+  }
+  function render() {
+    const item = practice[active.key][active.mode][active.step];
+    finished = false;
+    $('laboratory-pattern-context').textContent = item[0];
+    $('laboratory-pattern-prompt').textContent = active.mode === 'master' ? item[2].replace(/^Write:\s*/i, '') : item[1];
+    $('laboratory-pattern-english').textContent = active.mode === 'master' ? 'Construct this in Russian using the word bank.' : item[2];
+    $('laboratory-pattern-feedback').textContent = '';
+    $('laboratory-pattern-clue').hidden = true;
+    $('laboratory-pattern-clue').textContent = item[active.mode === 'apply' ? 5 : 3];
+    $('laboratory-pattern-hint').hidden = false;
+    $('laboratory-pattern-next').hidden = true;
+    $('laboratory-pattern-retry').hidden = true;
+    const choiceBox = $('laboratory-pattern-choices');
+    choiceBox.replaceChildren();
+    const write = $('laboratory-pattern-write');
+    write.hidden = active.mode !== 'master';
+    choiceBox.hidden = active.mode !== 'apply';
+    if (active.mode === 'apply') {
+      item[3].forEach((choice, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = choice;
+        button.className = 'laboratory-pattern-choice';
+        button.addEventListener('click', () => {
+          if (finished) return;
+          if (index === item[4]) {
+            button.classList.add('is-correct');
+            completeRound('✓ Именно так! · That fits.');
+          } else {
+            button.classList.add('is-incorrect');
+            $('laboratory-pattern-feedback').textContent = 'Not quite. Try another.';
+          }
+        });
+        choiceBox.appendChild(button);
+      });
+    } else {
+      prepareBank(item);
+    }
+    const progress = $('laboratory-pattern-progress');
+    const total = practice[active.key][active.mode].length;
+    progress.setAttribute('aria-label', 'Challenge ' + (active.step + 1) + ' of ' + total);
+    if (progress.children.length !== total) {
+      progress.replaceChildren(...Array.from({length: total}, () => document.createElement('span')));
+    }
+    Array.from(progress.children).forEach((dot, index) => {
+      dot.classList.toggle('is-done', index < active.step);
+      dot.classList.toggle('is-current', index === active.step);
+    });
+  }
+  function completeRound(message) {
+    finished = true;
+    active.correct += 1;
+    $('laboratory-pattern-feedback').textContent = message;
+    $('laboratory-pattern-hint').hidden = true;
+    $('laboratory-pattern-next').hidden = false;
+    $('laboratory-pattern-next').textContent = active.step === practice[active.key][active.mode].length - 1 ? 'Finish ✦' : 'Next Challenge →';
+    $('laboratory-pattern-choices').querySelectorAll('button').forEach(button => button.disabled = true);
+    $('laboratory-pattern-check').disabled = true;
+    if (active.mode === 'master') drawWordBank();
+  }
+  function close() {
+    overlay.hidden = true;
+    document.body.classList.remove('laboratory-pattern-open');
+    active = null;
+    if (previousFocus && previousFocus.isConnected) previousFocus.focus();
+  }
+  sourceSelectors.forEach(([key, selector]) => {
+    const container = document.querySelector(selector);
+    if (!container) return;
+    const buttons = container.querySelectorAll('button');
+    ['apply', 'master'].forEach((mode, index) => {
+      if (!buttons[index]) return;
+      buttons[index].disabled = false;
+      buttons[index].removeAttribute('title');
+      buttons[index].addEventListener('click', () => begin(key, mode));
+    });
+  });
+  $('laboratory-pattern-check').addEventListener('click', () => {
+    if (!active || finished || active.mode !== 'master') return;
+    const item = practice[active.key].master[active.step];
+    const constructed = selectedWords.map(id => bankWords.find(entry => entry.id === id)?.word || '').join(' ');
+    if (normalize(constructed) === normalize(item[1])) {
+      completeRound('✓ Отлично! · Nicely done.');
+    } else {
+      $('laboratory-pattern-feedback').textContent = 'Try again, or open a clue.';
+    }
+  });
+  $('laboratory-pattern-hint').addEventListener('click', () => {
+    $('laboratory-pattern-clue').hidden = !$('laboratory-pattern-clue').hidden;
+  });
+  $('laboratory-pattern-next').addEventListener('click', () => {
+    if (!active || !finished) return;
+    if (active.step < practice[active.key][active.mode].length - 1) {
+      active.step++;
+      render();
+    } else {
+      $('laboratory-pattern-context').textContent = '✦ ' + practice[active.key][active.mode].length + ' discoveries complete!';
+      $('laboratory-pattern-prompt').textContent = 'Молодец!';
+      $('laboratory-pattern-english').textContent = 'Well done!';
+      $('laboratory-pattern-choices').hidden = true;
+      $('laboratory-pattern-write').hidden = true;
+      $('laboratory-pattern-feedback').textContent = 'Ready to explore again?';
+      $('laboratory-pattern-hint').hidden = true;
+      $('laboratory-pattern-clue').hidden = true;
+      $('laboratory-pattern-next').hidden = true;
+      $('laboratory-pattern-retry').hidden = false;
+      Array.from($('laboratory-pattern-progress').children).forEach(dot => { dot.classList.add('is-done'); dot.classList.remove('is-current'); });
+    }
+  });
+  $('laboratory-pattern-retry').addEventListener('click', () => {
+    if (!active) return;
+    active.step = 0;
+    active.correct = 0;
+    render();
+  });
+  $('laboratory-pattern-back').addEventListener('click', close);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !overlay.hidden) close();
+  });
+})();
+/* END SHARED LABORATORY PATTERN PRACTICE */
