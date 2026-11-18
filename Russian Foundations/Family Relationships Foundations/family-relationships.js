@@ -1814,8 +1814,13 @@ tabs.forEach((t) => {
 
         if (current >= order.length) {
 
+            // The family tree itself completes Stage 2.
+            // The former secondary “Кто это?” questions are no longer required.
             activeBox = null;
-            startChallenge();
+            stage.classList.add("tree-stage--done");
+            document.dispatchEvent(
+                new CustomEvent("tree-stage-complete", { detail: { stage: 2 } })
+            );
             return;
 
         }
@@ -2310,8 +2315,17 @@ tabs.forEach((t) => {
 
         if (current >= order.length) {
 
+            // The family tree itself completes Stage 3.
+            // Preserve the original overall completion checkbox behavior.
             activeBox = null;
-            startChallenge();
+            stage.classList.add("tree-stage--done");
+            if (completeCheckbox) {
+                completeCheckbox.checked = true;
+                completeCheckbox.dispatchEvent(new Event("change"));
+            }
+            document.dispatchEvent(
+                new CustomEvent("tree-stage-complete", { detail: { stage: 3 } })
+            );
             return;
 
         }
@@ -18766,3 +18780,266 @@ document.querySelectorAll("#practice-1 .practice1-row").forEach((row) => {
         });
     });
 });
+
+
+// =============================================================
+// DOOR ONE — THREE INDEPENDENT DISCOVERY PAGES
+// Existing Family Identity Card code remains untouched.
+// =============================================================
+(() => {
+    const room = document.getElementById("explore-personal");
+    const hallway = document.getElementById("explore-hallway");
+    const entry = document.getElementById("d1-explore-entry");
+    if (!room || !entry) return;
+
+    const pages = [1, 2, 3].map(number => document.getElementById(`d1-page-${number}`));
+    const card = room.querySelector("#app");
+
+    function openPage(number) {
+        entry.hidden = true;
+        if (card) card.hidden = true;
+        pages.forEach((page, index) => {
+            if (page) page.hidden = index !== number - 1;
+        });
+        pages[number - 1]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function showDoorOne() {
+        pages.forEach(page => { if (page) page.hidden = true; });
+        entry.hidden = false;
+        if (card) card.hidden = false;
+        room.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    room.querySelectorAll("[data-d1-open]").forEach(button => {
+        button.addEventListener("click", () => openPage(Number(button.dataset.d1Open)));
+    });
+
+    room.querySelectorAll("[data-d1-home]").forEach(button => {
+        button.addEventListener("click", showDoorOne);
+    });
+
+    room.querySelectorAll("[data-d1-hallway]").forEach(button => {
+        button.addEventListener("click", () => {
+            showDoorOne();
+            room.hidden = true;
+            if (hallway) {
+                hallway.hidden = false;
+                hallway.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+    });
+
+    // Re-enter Door One at its landing page rather than an old discovery.
+    document.querySelector('.explore-door[data-door="personal"]')?.addEventListener("click", showDoorOne);
+
+    const familyWords = [
+        { english: "brothers", genitive: "братьев" },
+        { english: "sisters", genitive: "сестёр" },
+        { english: "uncles", genitive: "дядей" },
+        { english: "aunts", genitive: "тётей" },
+        { english: "male cousins", genitive: "двоюродных братьев" },
+        { english: "female cousins", genitive: "двоюродных сестёр" },
+        { english: "children", genitive: "детей" },
+        { english: "people", genitive: "человек" }
+    ];
+
+    const familySelect = document.getElementById("d1-family-word");
+    function updateQuestions() {
+        const item = familyWords[Number(familySelect?.value || 0)];
+        const a = `Сколько ${item.genitive} в твоей семье?`;
+        const b = `Сколько у тебя ${item.genitive}?`;
+        document.getElementById("d1-question-a").textContent = a;
+        document.getElementById("d1-question-b").textContent = b;
+        document.getElementById("d1-english-a").textContent = `How many ${item.english} are in your family?`;
+        document.getElementById("d1-english-b").textContent = `How many ${item.english} do you have?`;
+    }
+    familySelect?.addEventListener("change", updateQuestions);
+    updateQuestions();
+
+    document.getElementById("d1-check-1-btn")?.addEventListener("click", () => {
+        const answer = document.getElementById("d1-check-1")?.value;
+        document.getElementById("d1-check-1-feedback").textContent = !answer
+            ? "Choose a word first."
+            : answer === "сестёр"
+                ? "Exactly! Сколько сестёр у тебя? uses the genitive plural."
+                : "Try again: after сколько, we need the genitive plural of сестра.";
+    });
+
+    const numberWords = ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать", "двадцать", "двадцать один", "двадцать два", "двадцать три", "двадцать четыре", "двадцать пять"];
+    const possessives = { моей: "my", твоей: "your", вашей: "your", нашей: "our", их: "their" };
+    const count = document.getElementById("d1-count");
+    const poss = document.getElementById("d1-possessive");
+
+    function updateCount() {
+        const n = Number(count.value);
+        const teens = n % 100 >= 11 && n % 100 <= 14;
+        const last = n % 10;
+        const form = !teens && last >= 2 && last <= 4 ? "человека" : "человек";
+        const possessive = poss.value;
+        const english = possessives[possessive];
+        document.getElementById("d1-count-russian").textContent = `В ${possessive} семье ${numberWords[n]} ${form}.`;
+        document.getElementById("d1-count-english").textContent = `There ${n === 1 ? "is" : "are"} ${n} ${n === 1 ? "person" : "people"} in ${english} family.`;
+        document.getElementById("d1-count-why").textContent = teens
+            ? "Numbers 11–14 use человек, even though some end in 1, 2, 3, or 4."
+            : last >= 2 && last <= 4
+                ? "Numbers ending in 2, 3, or 4 (except 12–14) use человека."
+                : last === 1
+                    ? "Numbers ending in 1 (except 11) use человек."
+                    : "This number uses человек. Compare it with 2, 3, and 4.";
+    }
+    count?.addEventListener("change", updateCount);
+    poss?.addEventListener("change", updateCount);
+    // Discovery 2, Section 3: a separate learner-controlled sentence builder.
+    // Section 2's counting demonstration remains unchanged.
+    const buildPossessive = document.getElementById("d1-build-possessive");
+    const buildCount = document.getElementById("d1-build-count");
+    const buildRussian = document.getElementById("d1-build-russian");
+    const buildEnglish = document.getElementById("d1-build-english");
+    const buildEnding = document.getElementById("d1-build-ending");
+    const buildCheck = document.getElementById("d1-build-check");
+    const buildListen = document.getElementById("d1-build-listen");
+    const buildFeedback = document.getElementById("d1-build-feedback");
+    const buildWhy = document.getElementById("d1-build-why");
+
+    function buildCorrectEnding(n) {
+        const teen = n % 100 >= 11 && n % 100 <= 14;
+        const last = n % 10;
+        return !teen && last >= 2 && last <= 4 ? "человека" : "человек";
+    }
+
+    function updateBuildSentence() {
+        const n = Number(buildCount.value);
+        const hasNumber = buildCount.value !== "";
+        buildFeedback.textContent = "";
+        buildWhy.hidden = true;
+        buildEnding.value = "";
+        buildEnding.disabled = !hasNumber;
+        buildCheck.disabled = !hasNumber;
+        buildListen.disabled = !hasNumber;
+
+        if (!hasNumber) {
+            buildRussian.textContent = "Choose a number to begin.";
+            buildEnglish.textContent = "Your sentence will appear here.";
+            return;
+        }
+
+        const whose = buildPossessive.value;
+        const form = buildCorrectEnding(n);
+        buildRussian.textContent = `В ${whose} семье ${numberWords[n]} ${form}.`;
+        buildEnglish.textContent = `There ${n === 1 ? "is" : "are"} ${n} ${n === 1 ? "person" : "people"} in ${possessives[whose]} family.`;
+    }
+
+    buildPossessive?.addEventListener("change", updateBuildSentence);
+    buildCount?.addEventListener("change", updateBuildSentence);
+    buildCheck?.addEventListener("click", () => {
+        if (!buildCount.value) return;
+        if (!buildEnding.value) {
+            buildFeedback.textContent = "Choose человек or человека first.";
+            return;
+        }
+        const n = Number(buildCount.value);
+        const expected = buildCorrectEnding(n);
+        const correct = buildEnding.value === expected;
+        buildFeedback.textContent = correct
+            ? `Exactly! ${numberWords[n]} ${expected} is the correct combination.`
+            : "Not quite. Look at the last digit, but remember that 11–14 are exceptions. Try again!";
+        if (correct) {
+            const teen = n % 100 >= 11 && n % 100 <= 14;
+            buildWhy.textContent = teen
+                ? "Numbers 11–14 always use человек."
+                : expected === "человека"
+                    ? "Numbers ending in 2, 3, or 4 use человека, except 12–14."
+                    : "This number uses человек. Numbers ending in 1 also use человек, except that 11 follows the 11–14 rule.";
+            buildWhy.hidden = false;
+        } else {
+            buildWhy.hidden = true;
+        }
+    });
+    document.getElementById("d1-count-reset")?.addEventListener("click", () => {
+        buildPossessive.value = "моей";
+        buildCount.value = "";
+        updateBuildSentence();
+    });
+    updateBuildSentence();
+    updateCount();
+
+    room.querySelectorAll("[data-d1-speak]").forEach(button => {
+        button.addEventListener("click", () => {
+            const text = document.getElementById(button.dataset.d1Speak)?.textContent?.trim();
+            if (text && typeof speakRussian === "function") speakRussian(text);
+        });
+    });
+
+    const omit = document.getElementById("d1-omit-example");
+    const translation = document.getElementById("d1-omit-translation");
+    const explanation = document.getElementById("d1-omit-explain");
+    room.querySelectorAll("[data-d1-stage]").forEach(button => {
+        button.addEventListener("click", () => {
+            const stage = button.dataset.d1Stage;
+            if (stage === "full") {
+                omit.textContent = "У меня два брата, а у неё три брата.";
+                translation.textContent = "I have two brothers, and she has three brothers.";
+                explanation.textContent = "Both halves say everything in full. Listen for the repeated word брата.";
+            } else if (stage === "notice") {
+                omit.textContent = "У меня два брата, а у неё три [брата].";
+                translation.textContent = "The second брата repeats what we already know.";
+                explanation.textContent = "The listener already knows that both numbers refer to brothers.";
+            } else {
+                omit.textContent = "У меня два брата, а у неё — три.";
+                translation.textContent = "I have two brothers, and she has three.";
+                explanation.textContent = "The word брата is understood, so the second half can be shorter.";
+            }
+        });
+    });
+
+    const exercises = [
+        { full: "У меня два брата, а у неё три брата.", choices: ["три", "брата", "у неё"], answer: "брата", short: "У меня два брата, а у неё — три.", why: "Both numbers count brothers." },
+        { full: "У меня одна сестра, а у него две сестры.", choices: ["сестры", "две", "него"], answer: "сестры", short: "У меня одна сестра, а у него — две.", why: "The word sisters is already understood; the omitted form would be сестры." },
+        { full: "В моей семье четыре человека, а в их семье шесть человек.", choices: ["в их", "семье ... человек", "шесть"], answer: "семье ... человек", short: "В моей семье четыре человека, а в их — шесть.", why: "The family and people-counting context is already clear." },
+        { full: "У нас две тёти, а у них три тёти.", choices: ["тёти", "три", "у них"], answer: "тёти", short: "У нас две тёти, а у них — три.", why: "We already know that the numbers refer to aunts." },
+        { full: "У меня три двоюродных брата, а у неё два двоюродных брата.", choices: ["два", "двоюродных брата", "у неё"], answer: "двоюродных брата", short: "У меня три двоюродных брата, а у неё — два.", why: "The repeated family relationship is understood." },
+        { full: "В нашей семье пять человек, а в вашей семье семь человек.", choices: ["семье ... человек", "в вашей", "семь"], answer: "семье ... человек", short: "В нашей семье пять человек, а в вашей — семь.", why: "The context makes the omitted words clear." }
+    ];
+    let editorIndex = 0;
+    function renderEditor() {
+        const item = exercises[editorIndex];
+        const editor = document.getElementById("d1-editor");
+        editor.replaceChildren();
+        const number = document.createElement("p");
+        number.textContent = `Example ${editorIndex + 1} of ${exercises.length}`;
+        const sentence = document.createElement("p");
+        sentence.className = "d1-editor-prompt";
+        sentence.lang = "ru";
+        sentence.textContent = item.full;
+        editor.append(number, sentence);
+        item.choices.forEach(choice => {
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "d1-editor-choice";
+            input.value = choice;
+            label.append(input, document.createTextNode(choice));
+            editor.appendChild(label);
+        });
+        document.getElementById("d1-editor-feedback").textContent = "";
+    }
+    document.getElementById("d1-editor-check")?.addEventListener("click", () => {
+        const choice = document.querySelector('input[name="d1-editor-choice"]:checked')?.value;
+        const item = exercises[editorIndex];
+        document.getElementById("d1-editor-feedback").textContent = !choice
+            ? "Choose which words can be omitted."
+            : choice === item.answer
+                ? `Correct! ${item.short} ${item.why}`
+                : "Not quite. Find the words the listener can already infer from the first half.";
+    });
+    document.getElementById("d1-editor-next")?.addEventListener("click", () => {
+        editorIndex = (editorIndex + 1) % exercises.length;
+        renderEditor();
+    });
+    document.getElementById("d1-editor-reset")?.addEventListener("click", () => {
+        editorIndex = 0;
+        renderEditor();
+    });
+    renderEditor();
+})();

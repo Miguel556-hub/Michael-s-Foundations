@@ -31889,3 +31889,67 @@ body.laboratory-pattern-open { overflow: hidden; }
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+
+/* ==================================================
+   USE QA — Family Tree: retire secondary question panels
+   Stages 2 and 3 finish when their tree boxes are solved.
+   Hidden legacy nodes remain for existing reset references.
+   ================================================== */
+
+#tree-2-challenge,
+#tree-3-challenge {
+    display: none !important;
+}
+
+
+/* =============================================================
+   DOOR ONE — BLUE CANVAS DISCOVERY PAGES
+   Scoped to Door One; Family Identity Card is not restyled.
+   ============================================================= */
+#explore-personal .d1-explore-entry { padding: 22px 24px 28px; margin: 16px 0 24px; border: 1px solid #bacbe0; border-radius: 15px; background: #f3f7fd; }
+#explore-personal .d1-explore-entry h3 { margin: 0 0 6px; color: #133b70; font-size: 1.45rem; }
+#explore-personal .d1-discovery-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }
+#explore-personal .d1-discovery-links button { display: grid; gap: 7px; align-content: center; min-height: 92px; border-radius: 12px; border: 1px solid #c7a36b; color: #f8e6bf; background: linear-gradient(145deg, #173c71, #081b3b); box-shadow: 0 5px 14px #0a24443b; }
+#explore-personal .d1-discovery-links button span { font-size: .94rem; color: #e5eefa; }
+#explore-personal .d1-discovery-links button:hover { background: #26558c; }
+#explore-personal .d1-canvas-page { position: relative; isolation: isolate; padding: clamp(20px, 3vw, 42px); margin: 20px 0 28px; border-radius: 16px; border: 2px solid #c0a06b; color: #f4f7fd; box-shadow: inset 0 0 40px #020c1e55, 0 10px 25px #0a204744; background-color: #102e56; background-image: repeating-linear-gradient(83deg, #ffffff08 0px, #ffffff02 1px, transparent 2px, transparent 5px), repeating-linear-gradient(7deg, #00172d16 0px, #ffffff06 2px, transparent 5px, transparent 11px), radial-gradient(ellipse at 22% 18%, #5175a180 0%, transparent 49%), radial-gradient(ellipse at 80% 78%, #315d8d88 0%, transparent 58%), linear-gradient(135deg, #071832, #234b7b 45%, #0b2448); }
+#explore-personal .d1-canvas-page[hidden] { display: none !important; }
+#explore-personal .d1-page-header { padding: 10px 4px 20px; border-bottom: 1px solid #d4b77b9c; margin-bottom: 20px; }
+#explore-personal .d1-page-header span { color: #efd29b; font-weight: 800; letter-spacing: .12em; font-size: .78rem; }
+#explore-personal .d1-page-header h3 { color: #fff0cb; font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 7px 0; }
+#explore-personal .d1-page-header p { color: #e3edf9; margin: 0; }
+#explore-personal .d1-panel { background: #071d3be8; border: 1px solid #8ea7c7; border-radius: 12px; padding: clamp(16px, 2vw, 24px); margin: 18px 0; }
+#explore-personal .d1-panel h4 { margin: 0 0 14px; color: #f3d49a; font-size: 1.25rem; }
+#explore-personal .d1-panel h5 { color: #cce3ff; font-size: 1rem; margin: 0 0 10px; }
+#explore-personal .d1-panel p { color: #edf3fd; line-height: 1.6; }
+#explore-personal .d1-panel label { display: block; color: #e7d5b2; font-weight: 700; margin: 10px 0 6px; }
+#explore-personal .d1-panel select { width: 100%; max-width: 450px; padding: 10px; border-radius: 7px; border: 1px solid #a5bddd; background: #f7faff; color: #12294c; font-size: 1rem; }
+#explore-personal .d1-word-table { margin: 18px 0; }
+#explore-personal .d1-word-row { display: grid; grid-template-columns: 1.2fr 1.3fr 20px 1.5fr 48px; gap: 9px; align-items: center; border-bottom: 1px solid #92a9c455; padding: 8px 0; }
+#explore-personal .d1-word-row strong { color: #f5dfad; font-size: 1.08rem; }
+#explore-personal .d1-word-head { color: #c8dcf3; font-size: .82rem; font-weight: 800; }
+#explore-personal .d1-word-row .listen { padding: 6px; }
+#explore-personal .d1-note { border-left: 3px solid #e1ba72; background: #31558055; padding: 12px 14px; border-radius: 5px; }
+#explore-personal .d1-compare-grid, #explore-personal .d1-input-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 15px 0; }
+#explore-personal .d1-example, #explore-personal .d1-result { padding: 18px; background: #20416c; border: 1px solid #6388b5; border-radius: 10px; }
+#explore-personal .d1-russian { font-size: clamp(1.2rem, 2vw, 1.65rem); color: #fff2cf !important; font-weight: 700; }
+#explore-personal .d1-panel button, #explore-personal .d1-page-nav button { border: 1px solid #d1ac70; border-radius: 8px; background: linear-gradient(#f9e8c6, #d6b37b); color: #172f4f; padding: 9px 14px; margin: 5px 5px 5px 0; }
+#explore-personal .d1-panel button:hover, #explore-personal .d1-page-nav button:hover { background: #fff1d6; }
+#explore-personal .d1-page-nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; margin-top: 24px; }
+#explore-personal .d1-button-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+#explore-personal .d1-editor label { display: block; margin: 8px 0; }
+#explore-personal .d1-editor input { margin-right: 8px; }
+#explore-personal .d1-editor .d1-editor-prompt { font-size: 1.2rem; color: #fce5b5; }
+#explore-personal .d1-return-doors { border: 1px solid #a2b9d7; background: #183e72; color: white; }
+@media (max-width: 760px) { #explore-personal .d1-discovery-links, #explore-personal .d1-compare-grid, #explore-personal .d1-input-grid { grid-template-columns: 1fr; } #explore-personal .d1-word-row { grid-template-columns: 1fr 1fr 16px 1.2fr 40px; font-size: .8rem; gap: 4px; } #explore-personal .d1-word-row strong { font-size: .9rem; } }
+
+#explore-personal #d1-legacy-compatibility { display: none !important; }
+
+/* Door One / Discovery 2 / Section 3 — sentence-building activity */
+#explore-personal .d1-build-panel .d1-build-result { margin: 16px 0; text-align: center; }
+#explore-personal .d1-build-panel .d1-build-eyebrow { color: #f3d49a; font-size: .8rem; font-weight: 800; letter-spacing: .12em; }
+#explore-personal .d1-build-panel .d1-build-check { padding: 14px 0; }
+#explore-personal .d1-build-panel #d1-build-feedback { min-height: 1.5em; font-weight: 700; }
+#explore-personal .d1-build-panel button:disabled,
+#explore-personal .d1-build-panel select:disabled { opacity: .55; cursor: not-allowed; }

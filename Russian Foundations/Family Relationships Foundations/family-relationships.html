@@ -2281,7 +2281,8 @@ LESSON 2 — EXTENDED FAMILY
             <div class="use-word-bank__buttons" id="tree-2-word-bank"></div>
           </div> <!-- END tree-2 word bank -->
 
-          <div class="tree-challenge" id="tree-2-challenge" hidden>
+          <!-- Retired secondary question panel; retained hidden for reset compatibility. -->
+          <div class="tree-challenge" id="tree-2-challenge" hidden inert aria-hidden="true">
             <h4>Кто это?</h4>
             <div class="tree-challenge__round" id="tree-2-round"></div>
             <div class="tree-challenge__arrow" id="tree-2-target"></div>
@@ -2380,7 +2381,8 @@ LESSON 2 — EXTENDED FAMILY
             <div class="use-word-bank__buttons" id="tree-3-word-bank"></div>
           </div> <!-- END tree-3 word bank -->
 
-          <div class="tree-challenge" id="tree-3-challenge" hidden>
+          <!-- Retired secondary question panel; retained hidden for reset compatibility. -->
+          <div class="tree-challenge" id="tree-3-challenge" hidden inert aria-hidden="true">
             <h4>Кто это?</h4>
             <div class="tree-challenge__round" id="tree-3-round"></div>
             <div class="tree-challenge__arrow" id="tree-3-target"></div>
@@ -2727,6 +2729,105 @@ LESSON 2 — EXTENDED FAMILY
 
         <div class="explore-room__content">
 
+          <!-- ==================================================
+               DOOR ONE — THREE BLUE CANVAS DISCOVERY PAGES
+               The Family Identity Card begins immediately after
+               this block and is deliberately unchanged.
+          ================================================== -->
+          <section class="d1-explore-entry" id="d1-explore-entry" aria-label="Door One discoveries">
+            <h3>Explore Three Discoveries</h3>
+            <p>Choose a discovery to investigate. Each experience has its own page, examples, listening, and practice.</p>
+            <div class="d1-discovery-links">
+              <button type="button" data-d1-open="1"><strong>Discovery 1</strong><span>How Many?</span></button>
+              <button type="button" data-d1-open="2"><strong>Discovery 2</strong><span>My Family, Your Family</span></button>
+              <button type="button" data-d1-open="3"><strong>Discovery 3</strong><span>The Art of Saying Less</span></button>
+            </div>
+            <button type="button" class="d1-return-doors" data-d1-hallway>← Back to Four Doors</button>
+          </section>
+
+          <section class="d1-canvas-page" id="d1-page-1" hidden aria-labelledby="d1-title-1">
+            <div class="d1-page-header"><span>DOOR ONE · DISCOVERY 01</span><h3 id="d1-title-1">How Many?</h3><p>Learn why Russian family words change after <strong lang="ru">сколько</strong> and compare two natural ways to ask.</p></div>
+            <div class="d1-panel"><h4>1 · Discover the rule</h4><p><strong lang="ru">Сколько</strong> means <em>how many?</em> When we ask about an unknown number of countable people or things, Russian normally uses the <strong>genitive plural</strong> form of the noun. That is why <strong lang="ru">брат</strong> becomes <strong lang="ru">братьев</strong> in <strong lang="ru">Сколько братьев?</strong></p><p>The question word does not simply add one ending: each noun has its own genitive-plural form. Watch the changes and listen.</p><div class="d1-word-table"><div class="d1-word-row d1-word-head"><span>English</span><span>Basic form</span><span></span><span>After сколько</span><span>Hear</span></div>                <div class="d1-word-row"><span>Brother</span><strong lang="ru">брат</strong><span aria-hidden="true">→</span><strong lang="ru">братьев</strong><button type="button" class="listen" data-speak="братьев" aria-label="Listen to братьев">🔊</button></div>
+                <div class="d1-word-row"><span>Sister</span><strong lang="ru">сестра</strong><span aria-hidden="true">→</span><strong lang="ru">сестёр</strong><button type="button" class="listen" data-speak="сестёр" aria-label="Listen to сестёр">🔊</button></div>
+                <div class="d1-word-row"><span>Uncle</span><strong lang="ru">дядя</strong><span aria-hidden="true">→</span><strong lang="ru">дядей</strong><button type="button" class="listen" data-speak="дядей" aria-label="Listen to дядей">🔊</button></div>
+                <div class="d1-word-row"><span>Aunt</span><strong lang="ru">тётя</strong><span aria-hidden="true">→</span><strong lang="ru">тётей</strong><button type="button" class="listen" data-speak="тётей" aria-label="Listen to тётей">🔊</button></div>
+                <div class="d1-word-row"><span>Male cousin</span><strong lang="ru">двоюродный брат</strong><span aria-hidden="true">→</span><strong lang="ru">двоюродных братьев</strong><button type="button" class="listen" data-speak="двоюродных братьев" aria-label="Listen to двоюродных братьев">🔊</button></div>
+                <div class="d1-word-row"><span>Female cousin</span><strong lang="ru">двоюродная сестра</strong><span aria-hidden="true">→</span><strong lang="ru">двоюродных сестёр</strong><button type="button" class="listen" data-speak="двоюродных сестёр" aria-label="Listen to двоюродных сестёр">🔊</button></div>
+                <div class="d1-word-row"><span>Children</span><strong lang="ru">дети</strong><span aria-hidden="true">→</span><strong lang="ru">детей</strong><button type="button" class="listen" data-speak="детей" aria-label="Listen to детей">🔊</button></div>
+                <div class="d1-word-row"><span>People</span><strong lang="ru">люди</strong><span aria-hidden="true">→</span><strong lang="ru">человек</strong><button type="button" class="listen" data-speak="человек" aria-label="Listen to человек">🔊</button></div></div><p class="d1-note"><strong>A special counting expression:</strong> Russian usually asks <strong lang="ru">Сколько человек?</strong> (How many people?), although <strong lang="ru">людей</strong> is the ordinary genitive plural of <strong lang="ru">люди</strong>. <strong lang="ru">Дети → детей</strong> is another important form to remember.</p></div>
+            <div class="d1-panel"><h4>2 · Two ways to ask</h4><p>Select a family word. Both questions update, so you can compare the meaning and word order without changing the family noun form.</p><label for="d1-family-word">Choose a family word</label><select id="d1-family-word">                  <option value="0">Brother — брат</option>
+                  <option value="1">Sister — сестра</option>
+                  <option value="2">Uncle — дядя</option>
+                  <option value="3">Aunt — тётя</option>
+                  <option value="4">Male cousin — двоюродный брат</option>
+                  <option value="5">Female cousin — двоюродная сестра</option>
+                  <option value="6">Children — дети</option>
+                  <option value="7">People — люди</option></select><div class="d1-compare-grid"><div class="d1-example"><h5>Pattern A · In your family</h5><p class="d1-russian" id="d1-question-a" lang="ru"></p><p id="d1-english-a"></p><button type="button" data-d1-speak="d1-question-a">🔊 Listen</button></div><div class="d1-example"><h5>Pattern B · Do you have?</h5><p class="d1-russian" id="d1-question-b" lang="ru"></p><p id="d1-english-b"></p><button type="button" data-d1-speak="d1-question-b">🔊 Listen</button></div></div><p class="d1-note">Pattern A asks about who is <em>in a family</em>. Pattern B asks what relatives <em>you have</em>. With children, these questions can have different answers: children in the household are not necessarily your own children.</p></div>
+            <div class="d1-panel"><h4>3 · Check your understanding</h4><p>Which form completes this question: <strong lang="ru">Сколько ___ у тебя?</strong> — How many sisters do you have?</p><label for="d1-check-1">Choose the Russian word</label><select id="d1-check-1"><option value="">Choose an answer…</option><option value="сестра">сестра</option><option value="сестры">сёстры</option><option value="сестёр">сестёр</option><option value="сестре">сестре</option></select><button type="button" id="d1-check-1-btn">Check my answer</button><p id="d1-check-1-feedback" role="status" aria-live="polite"></p></div>
+            <div class="d1-page-nav"><button type="button" data-d1-home>← Back to Door 1</button><button type="button" data-d1-hallway>← Back to Four Doors</button><button type="button" data-d1-open="2">Next Discovery →</button></div>
+          </section>
+
+          <section class="d1-canvas-page" id="d1-page-2" hidden aria-labelledby="d1-title-2">
+            <div class="d1-page-header"><span>DOOR ONE · DISCOVERY 02</span><h3 id="d1-title-2">My Family, Your Family</h3><p>Learn to describe a family and watch the Russian change when the number changes.</p></div>
+            <div class="d1-panel"><h4>1 · Familiar words, new forms</h4><div class="d1-compare-grid"><div class="d1-example"><h5>My family</h5><p class="d1-russian" lang="ru">В моей семье.</p><p>In my family.</p><button class="listen" type="button" data-speak="В моей семье">🔊 Listen</button></div><div class="d1-example"><h5>Your family · polite or plural</h5><p class="d1-russian" lang="ru">В вашей семье.</p><p>In your family.</p><button class="listen" type="button" data-speak="В вашей семье">🔊 Listen</button></div></div><p><strong lang="ru">Семья</strong> becomes <strong lang="ru">семье</strong> after <strong lang="ru">в</strong> when we mean <em>in the family</em>. This is the prepositional case. The words for <em>my</em> and <em>your</em> change to match it: <strong lang="ru">моя → моей</strong>, <strong lang="ru">ваша → вашей</strong>. For one person you know well, say <strong lang="ru">в твоей семье</strong>.</p></div>
+            <div class="d1-panel"><h4>2 · The family counting experiment</h4><p>Change the family and number. Read the complete Russian sentence, listen, and discover why the word for <em>person</em> changes.</p><div class="d1-input-grid"><div><label for="d1-possessive">Whose family?</label><select id="d1-possessive"><option value="моей">My family</option><option value="твоей">Your family · familiar</option><option value="вашей">Your family · polite / plural</option><option value="нашей">Our family</option><option value="их">Their family</option></select></div><div><label for="d1-count">How many people?</label><select id="d1-count"><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" selected>4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option><option value="9" >9</option><option value="10" >10</option><option value="11" >11</option><option value="12" >12</option><option value="13" >13</option><option value="14" >14</option><option value="15" >15</option><option value="16" >16</option><option value="17" >17</option><option value="18" >18</option><option value="19" >19</option><option value="20" >20</option><option value="21" >21</option><option value="22" >22</option><option value="23" >23</option><option value="24" >24</option><option value="25" >25</option></select></div></div><div class="d1-result"><p class="d1-russian" id="d1-count-russian" lang="ru"></p><p id="d1-count-english"></p><button type="button" data-d1-speak="d1-count-russian">🔊 Listen to the sentence</button></div><p class="d1-note" id="d1-count-why" aria-live="polite"></p><p class="d1-note">Try <strong>1, 2, 4, 5, 11, 14, 21, and 22</strong>. Notice the repeating pattern—and the special 11–14 exception. <strong lang="ru">Их</strong> (their) does not change its form.</p></div>
+            <div class="d1-panel d1-build-panel" id="d1-build-panel">
+              <h4>3 · Build your own family description</h4>
+              <p>Now it's your turn! Choose whose family you want to describe and how many people are in it. Watch the Russian sentence change, then check whether you can recognize the correct ending.</p>
+              <div class="d1-input-grid">
+                <div>
+                  <label for="d1-build-possessive">Whose family?</label>
+                  <select id="d1-build-possessive">
+                    <option value="моей">My family</option>
+                    <option value="твоей">Your family · familiar</option>
+                    <option value="вашей">Your family · polite / plural</option>
+                    <option value="нашей">Our family</option>
+                    <option value="их">Their family</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="d1-build-count">How many people?</label>
+                  <select id="d1-build-count">
+                    <option value="">Choose a number…</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                    <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                    <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                    <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                    <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                  </select>
+                </div>
+              </div>
+              <div class="d1-result d1-build-result" aria-live="polite">
+                <p class="d1-build-eyebrow">YOUR RUSSIAN SENTENCE</p>
+                <p class="d1-russian" id="d1-build-russian" lang="ru">Choose a number to begin.</p>
+                <p id="d1-build-english">Your sentence will appear here.</p>
+                <button type="button" id="d1-build-listen" data-d1-speak="d1-build-russian" disabled>🔊 Listen to your sentence</button>
+              </div>
+              <div class="d1-build-check">
+                <label for="d1-build-ending">Look closely: which word completes your sentence?</label>
+                <select id="d1-build-ending" disabled>
+                  <option value="">Choose the correct form…</option>
+                  <option value="человек">человек</option>
+                  <option value="человека">человека</option>
+                </select>
+                <button type="button" id="d1-build-check" disabled>Check my answer</button>
+                <p id="d1-build-feedback" role="status" aria-live="polite"></p>
+              </div>
+              <p class="d1-note" id="d1-build-why" hidden></p>
+              <button type="button" id="d1-count-reset">↻ Reset experiment</button>
+            </div>
+            <div class="d1-page-nav"><button type="button" data-d1-home>← Back to Door 1</button><button type="button" data-d1-hallway>← Back to Four Doors</button><button type="button" data-d1-open="3">Next Discovery →</button></div>
+          </section>
+
+          <section class="d1-canvas-page" id="d1-page-3" hidden aria-labelledby="d1-title-3">
+            <div class="d1-page-header"><span>DOOR ONE · DISCOVERY 03</span><h3 id="d1-title-3">The Art of Saying Less</h3><p>Learn how Russian can leave out words that the listener already understands.</p></div>
+            <div class="d1-panel"><h4>1 · Watch words disappear</h4><p>Begin with two complete statements. When the second statement repeats an idea we already know, Russian can often leave that idea unspoken.</p><div class="d1-example"><p class="d1-russian" id="d1-omit-example" lang="ru">У меня два брата, а у неё три брата.</p><p id="d1-omit-translation">I have two brothers, and she has three brothers.</p><button type="button" data-d1-speak="d1-omit-example">🔊 Listen</button></div><div class="d1-button-row"><button type="button" data-d1-stage="full">1 · Say everything</button><button type="button" data-d1-stage="notice">2 · Notice repetition</button><button type="button" data-d1-stage="short">3 · Say less</button></div><p class="d1-note" id="d1-omit-explain">Start with the complete sentence. What is repeated?</p><p>In the shortened version, a dash can help show the pause. We are <strong>not</strong> deleting words mechanically: the listener must still understand what is missing.</p></div>
+            <div class="d1-panel"><h4>2 · Become the sentence editor</h4><p>Read each complete sentence. Choose the repeated words that can be left out in the second part.</p><div id="d1-editor" class="d1-editor"></div><p id="d1-editor-feedback" role="status" aria-live="polite"></p><div class="d1-button-row"><button type="button" id="d1-editor-check">Check my choice</button><button type="button" id="d1-editor-next">Next example →</button><button type="button" id="d1-editor-reset">↻ Start again</button></div></div>
+            <div class="d1-panel"><h4>3 · Speak naturally</h4><p>Listen to a full sentence, then listen to the shortened version. Repeat the shorter version aloud. The goal is clear communication, not simply fewer words.</p><div class="d1-example"><p class="d1-russian" lang="ru">В моей семье четыре человека, а в их — шесть.</p><p>There are four people in my family, and six in theirs.</p><button type="button" class="listen" data-speak="В моей семье четыре человека, а в их — шесть.">🔊 Listen</button></div></div>
+            <div class="d1-page-nav"><button type="button" data-d1-home>← Back to Door 1</button><button type="button" data-d1-hallway>← Back to Four Doors</button><button type="button" data-d1-open="1">Review Discovery 1 →</button></div>
+          </section>
+
+          <div id="d1-legacy-compatibility" hidden aria-hidden="true">
           <!-- BEGIN DISCOVERY 1 ACTUAL -->
 
           <!-- ==================================================
@@ -3510,6 +3611,7 @@ LESSON 2 — EXTENDED FAMILY
 
           <!-- END DISCOVERY 2 ACTUAL -->
 
+          </div>
           <!-- ==================================================
                BEGIN — DOOR 1 FAMILY IDENTITY CARD
                Built piece by piece, directly into Door 1, and
