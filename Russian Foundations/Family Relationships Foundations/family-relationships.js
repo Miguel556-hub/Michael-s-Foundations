@@ -18737,3 +18737,32 @@ initAnnaScenario();
     });
 })();
 /* END SHARED LABORATORY PATTERN PRACTICE */
+
+// ==================================================
+// PRACTICE QA — ACTIVITY 1 OPTIONAL CLUES
+// Reveal each clue independently; preserve typing,
+// answer checking, audio, and the Cyrillic keyboard.
+// ==================================================
+
+document.querySelectorAll("#practice-1 .practice1-row").forEach((row) => {
+    row.querySelectorAll(".practice1-clue-button").forEach((button) => {
+        button.addEventListener("click", () => {
+            const clue = button.dataset.clue;
+            const reveal = row.querySelector(".practice1-clue-reveal");
+            const content = reveal?.querySelector(`[data-clue-content="${clue}"]`);
+
+            if (!reveal || !content) {
+                return;
+            }
+
+            const willShow = content.hidden;
+            content.hidden = !willShow;
+            button.setAttribute("aria-expanded", String(willShow));
+            button.classList.toggle("is-active", willShow);
+
+            reveal.hidden = !Array.from(
+                reveal.querySelectorAll("[data-clue-content]")
+            ).some((item) => !item.hidden);
+        });
+    });
+});

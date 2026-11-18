@@ -1543,7 +1543,13 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: it's <strong>her</strong> brother, not mine.
               Ask yourself: Will the word for "brother" change?</p>
 
-            <p lang="ru">Это не мой брат — это <select class="pass3-input blank" data-answer="её" aria-label="Choose the possessive for item 1">\n                <option value="">Choose...</option>\n                <option value="мой">мой</option>\n                <option value="твой">твой</option>\n                <option value="его">его</option>\n                <option value="её">её</option>\n              </select> брат.</p>
+            <p lang="ru">Это не мой брат — это <select class="pass3-input blank" data-answer="её" aria-label="Choose the possessive for item 1">
+                <option value="">Choose...</option>
+                <option value="мой">мой</option>
+                <option value="твой">твой</option>
+                <option value="его">его</option>
+                <option value="её">её</option>
+              </select> брат.</p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
             <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
@@ -1572,7 +1578,13 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: it's <strong>his</strong> sister, not mine. Ask yourself: sister is a
               feminine word — will его change to match it?</p>
 
-            <p lang="ru">Это не моя сестра — это <select class="pass3-input blank" data-answer="его" aria-label="Choose the possessive for item 2">\n                <option value="">Choose...</option>\n                <option value="моя">моя</option>\n                <option value="твоя">твоя</option>\n                <option value="его">его</option>\n                <option value="её">её</option>\n              </select> сестра.
+            <p lang="ru">Это не моя сестра — это <select class="pass3-input blank" data-answer="его" aria-label="Choose the possessive for item 2">
+                <option value="">Choose...</option>
+                <option value="моя">моя</option>
+                <option value="твоя">твоя</option>
+                <option value="его">его</option>
+                <option value="её">её</option>
+              </select> сестра.
             </p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
@@ -1602,7 +1614,13 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: we're asking about <strong>her</strong> name, not yours. Ask yourself:
               имя is a neuter word — твоё matched that. Will её also change to match?</p>
 
-            <p lang="ru">Это не твоё имя — это <select class="pass3-input blank" data-answer="её" aria-label="Choose the possessive for item 3">\n                <option value="">Choose...</option>\n                <option value="твоё">твоё</option>\n                <option value="его">его</option>\n                <option value="её">её</option>\n                <option value="моё">моё</option>\n              </select> имя.</p>
+            <p lang="ru">Это не твоё имя — это <select class="pass3-input blank" data-answer="её" aria-label="Choose the possessive for item 3">
+                <option value="">Choose...</option>
+                <option value="твоё">твоё</option>
+                <option value="его">его</option>
+                <option value="её">её</option>
+                <option value="моё">моё</option>
+              </select> имя.</p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
             <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
@@ -1631,7 +1649,13 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: they're <strong>their</strong> parents, not mine. Ask yourself:
               родители is a plural word — мои matched that. Will их also change to match the plural?</p>
 
-            <p lang="ru">Это не мои родители — это <select class="pass3-input blank" data-answer="их" aria-label="Choose the possessive for item 4">\n                <option value="">Choose...</option>\n                <option value="мои">мои</option>\n                <option value="наши">наши</option>\n                <option value="его">его</option>\n                <option value="их">их</option>\n              </select>
+            <p lang="ru">Это не мои родители — это <select class="pass3-input blank" data-answer="их" aria-label="Choose the possessive for item 4">
+                <option value="">Choose...</option>
+                <option value="мои">мои</option>
+                <option value="наши">наши</option>
+                <option value="его">его</option>
+                <option value="их">их</option>
+              </select>
               родители.</p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
@@ -1677,8 +1701,7 @@ LESSON 2 — EXTENDED FAMILY
       <section class="practice-card" id="practice-1">
         <div class="exercise__label">Activity 1 — Задание первое</div>
         <h2>Type What You Know</h2>
-        <p>Read the English, type the Russian. No word bank this time — if you get stuck, press Listen and hear it
-          before you try again.</p>
+        <p>Read the English, type the Russian. Try each phrase on your own. If you get stuck, reveal Clue 1 (the possessive) or Clue 2 (the family word). You can also press Listen to hear the complete phrase.</p>
 
         <!-- =========================
              PRACTICE 1 — EIGHT ROWS
@@ -1692,6 +1715,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-brother">my brother</label>
             <input type="text" id="practice1-brother" class="practice1-input" data-answer="мой брат">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for мой брат">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">мой</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">брат</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="мой брат">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1699,6 +1730,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-mom">my mom</label>
             <input type="text" id="practice1-mom" class="practice1-input" data-answer="моя мама">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for моя мама">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">моя</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">мама</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="моя мама">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1706,6 +1745,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-sister">my sister</label>
             <input type="text" id="practice1-sister" class="practice1-input" data-answer="моя сестра">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for моя сестра">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">моя</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">сестра</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="моя сестра">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1713,6 +1760,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-dad">my dad</label>
             <input type="text" id="practice1-dad" class="practice1-input" data-answer="мой папа">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for мой папа">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">мой</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">папа</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="мой папа">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1720,6 +1775,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-mother">my mother</label>
             <input type="text" id="practice1-mother" class="practice1-input" data-answer="моя мать">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for моя мать">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">моя</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">мать</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="моя мать">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1727,6 +1790,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-father">my father</label>
             <input type="text" id="practice1-father" class="practice1-input" data-answer="мой отец">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for мой отец">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">мой</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">отец</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="мой отец">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1734,6 +1805,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-name">my name</label>
             <input type="text" id="practice1-name" class="practice1-input" data-answer="моё имя">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for моё имя">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">моё</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">имя</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="моё имя">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1741,6 +1820,14 @@ LESSON 2 — EXTENDED FAMILY
           <div class="practice1-row">
             <label for="practice1-parents">my parents</label>
             <input type="text" id="practice1-parents" class="practice1-input" data-answer="мои родители">
+            <div class="practice1-clues" role="group" aria-label="Optional clues for мои родители">
+              <button type="button" class="practice1-clue-button" data-clue="possessive" aria-expanded="false">Clue 1</button>
+              <button type="button" class="practice1-clue-button" data-clue="noun" aria-expanded="false">Clue 2</button>
+            </div>
+            <div class="practice1-clue-reveal" hidden aria-live="polite">
+              <span data-clue-content="possessive" hidden>Possessive: <strong lang="ru">мои</strong></span>
+              <span data-clue-content="noun" hidden>Family word: <strong lang="ru">родители</strong></span>
+            </div>
             <button type="button" class="listen" data-speak="мои родители">🔊 Listen</button>
             <div class="memory-response__feedback" aria-live="polite"></div>
           </div>
@@ -1775,7 +1862,7 @@ LESSON 2 — EXTENDED FAMILY
       <section class="practice-card" id="practice-3">
         <div class="exercise__label">Activity 3 — Задание третье</div>
         <h2>Say What You Know</h2>
-        <p>Read the English, say the Russian out loud. Not sure how it sounds? Press Listen first.</p>
+        <p>Read each Russian family phrase, listen to its pronunciation, then say it aloud. Next, connect the phrases into longer expressions.</p>
 
         <!-- =========================
              SEGMENT 1 — INDIVIDUAL ITEMS
@@ -1783,56 +1870,84 @@ LESSON 2 — EXTENDED FAMILY
              spoken instead of typed.
         ========================= -->
 
-        <div class="recall-list">
-
-          <div><strong>my brother</strong><button class="say" data-target="мой брат">🎙️ Say It</button>
-            <button class="listen" data-speak="мой брат">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+        <div class="recall-list practice3-speaking-grid">
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">Мой брат</strong>
+              <span>My brother</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="Мой брат">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="Мой брат">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>my mom</strong><button class="say" data-target="моя мама">🎙️ Say It</button>
-            <button class="listen" data-speak="моя мама">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">Моя мать</strong>
+              <span>My mother</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="Моя мать">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="Моя мать">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>my sister</strong><button class="say" data-target="моя сестра">🎙️ Say It</button>
-            <button class="listen" data-speak="моя сестра">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">Моя мама</strong>
+              <span>My mom</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="Моя мама">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="Моя мама">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>my dad</strong><button class="say" data-target="мой папа">🎙️ Say It</button>
-            <button class="listen" data-speak="мой папа">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">Мой отец</strong>
+              <span>My father</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="Мой отец">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="Мой отец">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>my mother</strong><button class="say" data-target="моя мать">🎙️ Say It</button>
-            <button class="listen" data-speak="моя мать">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">Мой папа</strong>
+              <span>My dad</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="Мой папа">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="Мой папа">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>my father</strong><button class="say" data-target="мой отец">🎙️ Say It</button>
-            <button class="listen" data-speak="мой отец">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">Мои родители</strong>
+              <span>My parents</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="Мои родители">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="Мои родители">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
-
-          <div><strong>my name</strong><button class="say" data-target="моё имя">🎙️ Say It</button>
-            <button class="listen" data-speak="моё имя">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
-          </div>
-
-          <div><strong>my parents</strong><button class="say" data-target="мои родители">🎙️ Say It</button>
-            <button class="listen" data-speak="мои родители">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
-          </div>
-
         </div> <!-- END Activity 3 Segment 1 -->
 
         <!-- =========================
@@ -1855,31 +1970,86 @@ LESSON 2 — EXTENDED FAMILY
              as Segment 1.
         ========================= -->
 
-        <p class="practice3-curveball-intro">Now connect two things you know. Say the whole sentence out loud.</p>
+        <p class="practice3-curveball-intro">Connect Your Russian — practice how и (and), но (but), and или (or) join ideas. Listen, then say each expression aloud.</p>
 
-        <div class="recall-list">
-
-          <div><strong>my brother <em lang="ru">и</em> my sister</strong><button class="say"
-              data-target="мой брат и моя сестра">🎙️ Say It</button>
-            <button class="listen" data-speak="мой брат и моя сестра">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+        <div class="recall-list practice3-speaking-grid practice3-connector-grid">
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">мой брат и моя сестра</strong>
+              <span>my brother and my sister</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="мой брат и моя сестра">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="мой брат и моя сестра">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>not my dad, <em lang="ru">но</em> my brother</strong><button class="say"
-              data-target="не мой папа, но мой брат">🎙️ Say It</button>
-            <button class="listen" data-speak="не мой папа, но мой брат">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">не мой папа, но мой брат</strong>
+              <span>not my dad, but my brother</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="не мой папа, но мой брат">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="не мой папа, но мой брат">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
-          <div><strong>my brother <em lang="ru">или</em> my sister?</strong><button class="say"
-              data-target="мой брат или моя сестра">🎙️ Say It</button>
-            <button class="listen" data-speak="мой брат или моя сестра">🔊 Listen</button>
-            <span class="speech-heard"></span>
-            <span class="speech-feedback"></span>
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">мой брат или моя сестра?</strong>
+              <span>my brother or my sister?</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="мой брат или моя сестра?">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="мой брат или моя сестра?">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
           </div>
 
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">моя мама и мой папа</strong>
+              <span>my mom and my dad</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="моя мама и мой папа">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="моя мама и мой папа">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
+          </div>
+
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">это моя мать, но это не моя сестра</strong>
+              <span>this is my mother, but this is not my sister</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="это моя мать, но это не моя сестра">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="это моя мать, но это не моя сестра">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
+          </div>
+
+          <div class="practice3-speaking-card">
+            <div class="practice3-speaking-card__phrase">
+              <strong lang="ru">это твой брат или твой друг?</strong>
+              <span>is this your brother or your friend?</span>
+            </div>
+            <div class="practice3-speaking-card__actions">
+              <button type="button" class="say" data-target="это твой брат или твой друг?">🎙️ Say It</button>
+              <button type="button" class="listen" data-speak="это твой брат или твой друг?">🔊 Listen</button>
+            </div>
+            <span class="speech-heard" aria-live="polite"></span>
+            <span class="speech-feedback" aria-live="polite"></span>
+          </div>
         </div> <!-- END Activity 3 Segment 2 -->
 
         <label class="completion"><input type="checkbox" class="practice-complete" data-practice="3"> Mark Activity 3
