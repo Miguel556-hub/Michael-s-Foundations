@@ -31537,3 +31537,124 @@ body.laboratory-pattern-open { overflow: hidden; }
 #laboratory-pattern-progress { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 6px; max-width: 410px; margin-left: auto; margin-right: auto; }
 #laboratory-pattern-progress span { flex: 0 0 10px; width: 10px; height: 10px; }
 /* END MASTERING 15-CHALLENGE PROGRESS */
+
+/* ==================================================
+   LEARN QA — Cousin Grammar Candy audio hotspots
+   Four accessible HTML buttons overlay the SVG icons.
+   ================================================== */
+
+#lesson-2-cousin-grammar-candy .cousin-candy-audio-image {
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
+}
+
+#lesson-2-cousin-grammar-candy .cousin-candy-audio-image img {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+#lesson-2-cousin-grammar-candy .cousin-candy-audio-hotspot {
+    position: absolute;
+    width: 7%;
+    height: 8%;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+#lesson-2-cousin-grammar-candy .cousin-candy-audio-hotspot:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+#lesson-2-cousin-grammar-candy .cousin-candy-audio-hotspot:focus-visible {
+    outline: 3px solid #f7c847;
+    outline-offset: 2px;
+}
+
+.cousin-candy-audio-hotspot--brother {
+    left: 38.5%;
+    top: 38.4%;
+}
+
+.cousin-candy-audio-hotspot--sister {
+    left: 90%;
+    top: 38.4%;
+}
+
+.cousin-candy-audio-hotspot--male-cousin {
+    left: 92%;
+    top: 57.8%;
+}
+
+.cousin-candy-audio-hotspot--female-cousin {
+    left: 92%;
+    top: 67.5%;
+}
+
+/* ==================================================
+   LEARN QA — Compact ЖИТЬ reference alongside example
+   ================================================== */
+
+#family-owner-discovery .owner-discovery-example-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 218px;
+    align-items: start;
+    gap: 12px;
+}
+
+#family-owner-discovery .owner-discovery-example-layout .owner-live-sentence {
+    min-width: 0;
+}
+
+#family-owner-discovery .owner-live-verb-reference {
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid #c9def1;
+    border-radius: 9px;
+    background: #f8fbff;
+    font-size: 0.82rem;
+}
+
+#family-owner-discovery .owner-live-verb-reference h4 {
+    margin: 0 0 4px;
+    color: #174e7f;
+    font-size: 0.94rem;
+}
+
+#family-owner-discovery .owner-live-verb-reference p {
+    margin: 0 0 8px;
+}
+
+#family-owner-discovery .owner-live-verb-reference table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#family-owner-discovery .owner-live-verb-reference th,
+#family-owner-discovery .owner-live-verb-reference td {
+    padding: 3px 5px;
+    text-align: left;
+    border-bottom: 1px solid #dce8f3;
+}
+
+#family-owner-discovery .owner-live-verb-reference__highlight {
+    background: #e0f4e5;
+    color: #146b32;
+    font-weight: 800;
+}
+
+#family-owner-discovery .owner-live-verb-reference__note {
+    margin: 10px 0 0;
+    line-height: 1.35;
+}
+
+@media (max-width: 700px) {
+    #family-owner-discovery .owner-discovery-example-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

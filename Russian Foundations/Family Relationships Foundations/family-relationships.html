@@ -766,8 +766,20 @@ LESSON 2 — EXTENDED FAMILY
           <div class="grammar-candy-display" id="lesson-2-cousin-grammar-candy-display" hidden>
 
             <figure class="grammar-candy-card" data-cousin-candy-panel="build" hidden>
-              <img src="../../Images/grammar-candy-build-cousin.svg"
-                alt="Grammar Candy showing how Russian builds the idea of cousin from familiar words for brother and sister.">
+              <div class="cousin-candy-audio-image">
+                <img src="../../Images/grammar-candy-build-cousin.svg"
+                  alt="Grammar Candy showing how Russian builds the idea of cousin from familiar words for brother and sister.">
+                <button type="button" class="listen cousin-candy-audio-hotspot cousin-candy-audio-hotspot--brother"
+                  data-speak="брат" aria-label="Listen: брат, brother" title="Listen: брат"></button>
+                <button type="button" class="listen cousin-candy-audio-hotspot cousin-candy-audio-hotspot--sister"
+                  data-speak="сестра" aria-label="Listen: сестра, sister" title="Listen: сестра"></button>
+                <button type="button" class="listen cousin-candy-audio-hotspot cousin-candy-audio-hotspot--male-cousin"
+                  data-speak="двоюродный брат" aria-label="Listen: двоюродный брат, male cousin"
+                  title="Listen: двоюродный брат"></button>
+                <button type="button" class="listen cousin-candy-audio-hotspot cousin-candy-audio-hotspot--female-cousin"
+                  data-speak="двоюродная сестра" aria-label="Listen: двоюродная сестра, female cousin"
+                  title="Listen: двоюродная сестра"></button>
+              </div>
             </figure>
 
             <figure class="grammar-candy-card" data-cousin-candy-panel="count" hidden>
@@ -903,14 +915,33 @@ LESSON 2 — EXTENDED FAMILY
 
           </div>
 
-          <div class="owner-live-sentence" aria-live="polite">
-            <div class="owner-live-sentence__prompt">Choose whose family.</div>
-            <strong id="owner-live-russian" lang="ru">___ брат живёт в Москве.</strong>
-            <span id="owner-live-english">___ brother lives in Moscow.</span>
+          <div class="owner-discovery-example-layout">
+            <div class="owner-live-sentence" aria-live="polite">
+              <div class="owner-live-sentence__prompt">Choose whose family.</div>
+              <strong id="owner-live-russian" lang="ru">___ брат живёт в Москве.</strong>
+              <span id="owner-live-english">___ brother lives in Moscow.</span>
 
-            <button type="button" class="listen" id="owner-live-listen" data-speak="Твой брат живёт в Москве." disabled>
-              🔊 Listen
-            </button>
+              <button type="button" class="listen" id="owner-live-listen" data-speak="Твой брат живёт в Москве." disabled>
+                🔊 Listen
+              </button>
+            </div>
+
+            <aside class="owner-live-verb-reference" aria-label="Present-tense forms of жить">
+              <h4><span lang="ru">ЖИТЬ</span> — To Live</h4>
+              <p>Present tense</p>
+              <table>
+                <tbody>
+                  <tr><th scope="row" lang="ru">я</th><td lang="ru">живу</td></tr>
+                  <tr><th scope="row" lang="ru">ты</th><td lang="ru">живёшь</td></tr>
+                  <tr class="owner-live-verb-reference__highlight"><th scope="row" lang="ru">он / она</th><td lang="ru">живёт</td></tr>
+                  <tr><th scope="row" lang="ru">мы</th><td lang="ru">живём</td></tr>
+                  <tr><th scope="row" lang="ru">вы</th><td lang="ru">живёте</td></tr>
+                  <tr><th scope="row" lang="ru">они</th><td lang="ru">живут</td></tr>
+                </tbody>
+              </table>
+              <p class="owner-live-verb-reference__note"><strong lang="ru">Брат</strong> is the subject, so the verb is
+                <strong lang="ru">живёт</strong>, regardless of whose brother it is.</p>
+            </aside>
           </div>
 
           <div class="micro-challenge">
