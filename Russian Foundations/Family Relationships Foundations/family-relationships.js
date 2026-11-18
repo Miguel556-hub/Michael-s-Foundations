@@ -8041,15 +8041,7 @@ document
         }
 
 
-        input.addEventListener("keydown", (e) => {
-
-            if (e.key === "Enter") {
-                checkAnswer();
-            }
-
-        });
-
-        input.addEventListener("blur", checkAnswer);
+        input.addEventListener("change", checkAnswer);
 
     });
 

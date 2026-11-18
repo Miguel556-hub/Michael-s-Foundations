@@ -31658,3 +31658,101 @@ body.laboratory-pattern-open { overflow: hidden; }
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+
+/* ==================================================
+   BUILD QA — PASS 1: Build a Family Phrase
+   ================================================== */
+
+#pass-1-combinator .pass1-choice-group {
+    margin-top: 18px;
+}
+
+#pass-1-combinator .pass1-choice-group--family {
+    border-top: 1px solid #cbdceb;
+    padding-top: 17px;
+    margin-top: 18px;
+}
+
+#pass-1-combinator .pass1-choice-group__heading {
+    margin: 0 0 9px;
+    color: #145d9b;
+    font-size: 0.95rem;
+}
+
+#pass-1-combinator .pass1-choice-group .owner-choice-row {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* ==================================================
+   BUILD QA — PASS 2: Keyboard beside the three phrases
+   ================================================== */
+
+#pass-2-typing .pass2-workspace {
+    display: grid;
+    grid-template-columns: minmax(170px, 1fr) minmax(0, 2.5fr);
+    align-items: center;
+    gap: 18px;
+}
+
+#pass-2-typing .pass2-keyboard-column {
+    min-width: 0;
+    align-self: center;
+}
+
+#pass-2-typing .russian-keyboard {
+    margin: 0;
+    padding: 12px 8px;
+    gap: 7px;
+}
+
+#pass-2-typing .cyrillic-keyboard__row {
+    gap: 4px;
+}
+
+#pass-2-typing .cyrillic-keyboard__key {
+    min-width: 0;
+    width: 30px;
+    height: 30px;
+    min-height: 30px;
+    padding: 0;
+    flex: 0 1 30px;
+    font-size: 0.95rem;
+}
+
+#pass-2-typing .cyrillic-keyboard__controls {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#pass-2-typing .cyrillic-keyboard__control {
+    padding: 5px 8px;
+}
+
+@media (max-width: 780px) {
+    #pass-2-typing .pass2-workspace {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #pass-2-typing .pass2-keyboard-column {
+        width: 100%;
+    }
+}
+
+/* ==================================================
+   BUILD QA — PASS 3: Four-choice menus
+   ================================================== */
+
+#pass-3 .pass3-input {
+    width: 130px;
+    max-width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #9eb4c8;
+    border-radius: 5px;
+    background: #fff;
+    color: #145d9b;
+    font: inherit;
+    font-size: 1rem;
+    vertical-align: middle;
+}

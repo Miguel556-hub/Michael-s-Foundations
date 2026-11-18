@@ -57,7 +57,7 @@
       <div class="journey-rail__progress-label">Put the Pieces Together</div>
 
       <nav>
-        <a href="#pass-1"><span class="journey-check"></span>Pass 1 — Turn the Dial</a>
+        <a href="#pass-1"><span class="journey-check"></span>Pass 1 — Build a Family Phrase</a>
         <a href="#pass-2"><span class="journey-check"></span>Pass 2 — Type It Yourself</a>
         <a href="#pass-3"><span class="journey-check"></span>Pass 3 — Inside a Real Sentence</a>
 
@@ -1364,28 +1364,32 @@ LESSON 2 — EXTENDED FAMILY
 
         <div class="lesson__header"><span>Pass 1 — Проход первый</span>
 
-          <h2>Turn the Dials</h2>
+          <h2>Build a Family Phrase</h2>
         </div>
 
-        <p class="lesson__intro">Turn the dials and watch the phrase change.
-          Try every combination you can think of — right or wrong, correct or
-          mismatched. There's no wrong way to explore here.</p>
+        <p class="lesson__intro">Choose a possessive and a family word to build a Russian phrase.
+          Watch how the words fit together, and try different combinations to discover which ones agree.</p>
 
         <div class="exercise" id="pass-1-combinator">
 
           <div class="exercise__label">Try It — Попробуй</div>
-          <h3>How You Turn the Dials</h3>
-          <p>Choose a word from a pronoun in row one; then from the specific family relationship in rows two and three.
-          </p>
+          <h3>How to Build a Family Phrase</h3>
+          <p>First choose a Russian word for “my.” Then choose a family word.
+            Your phrase will appear below, with feedback to help you notice which forms belong together.</p>
 
-          <div class="owner-choice-row" role="group" aria-label="Choose the possessive">
+          <div class="pass1-choice-group">
+            <h4 class="pass1-choice-group__heading">Step 1 — Choose a Possessive</h4>
+            <div class="owner-choice-row" role="group" aria-label="Choose the possessive">
             <button type="button" class="owner-choice" data-dial="possessive" data-value="мой">мой</button>
             <button type="button" class="owner-choice" data-dial="possessive" data-value="моя">моя</button>
             <button type="button" class="owner-choice" data-dial="possessive" data-value="моё">моё</button>
             <button type="button" class="owner-choice" data-dial="possessive" data-value="мои">мои</button>
+            </div>
           </div>
 
-          <div class="owner-choice-row" role="group" aria-label="Choose the family member">
+          <div class="pass1-choice-group pass1-choice-group--family">
+            <h4 class="pass1-choice-group__heading">Step 2 — Choose a Family Word</h4>
+            <div class="owner-choice-row" role="group" aria-label="Choose the family member">
             <button type="button" class="owner-choice" data-dial="noun" data-value="брат"
               data-gender="мой">брат</button>
             <button type="button" class="owner-choice" data-dial="noun" data-value="папа"
@@ -1400,6 +1404,7 @@ LESSON 2 — EXTENDED FAMILY
             <button type="button" class="owner-choice" data-dial="noun" data-value="родители"
               data-gender="мои">родители</button>
             <button type="button" class="owner-choice" data-dial="noun" data-value="имя" data-gender="моё">имя</button>
+            </div>
           </div>
 
           <div class="owner-live-sentence" aria-live="polite">
@@ -1442,7 +1447,7 @@ LESSON 2 — EXTENDED FAMILY
           <h2>Type It Yourself</h2>
         </div>
 
-        <p class="lesson__intro">No dial to click this time. Read each family member below, then type the possessive
+        <p class="lesson__intro">Now type the possessive yourself. Read each family member below and enter the form
           that fits before it.</p>
 
         <div class="exercise" id="pass-2-typing">
@@ -1451,7 +1456,8 @@ LESSON 2 — EXTENDED FAMILY
           <h3>Fill in the Possessive</h3>
           <p>Type the word for "my" that belongs with each family member shown below.</p>
 
-          <div class="typing-prompts" id="pass2-rows">
+          <div class="pass2-workspace">
+            <div class="typing-prompts" id="pass2-rows">
 
             <div class="pass2-row" data-noun="мать" data-gender="моя">
               <label>
@@ -1486,9 +1492,12 @@ LESSON 2 — EXTENDED FAMILY
               <div class="feedback"></div>
             </div>
 
-          </div> <!-- END pass2-rows -->
+            </div> <!-- END pass2-rows -->
 
-          <div class="russian-keyboard"></div>
+            <div class="pass2-keyboard-column">
+              <div class="russian-keyboard" aria-label="Cyrillic keyboard for Pass 2"></div>
+            </div>
+          </div> <!-- END pass2-workspace -->
 
         </div> <!-- END pass-2-typing -->
 
@@ -1534,7 +1543,7 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: it's <strong>her</strong> brother, not mine.
               Ask yourself: Will the word for "brother" change?</p>
 
-            <p lang="ru">Это не мой брат — это <input type="text" class="pass3-input blank" data-answer="её"> брат.</p>
+            <p lang="ru">Это не мой брат — это <select class="pass3-input blank" data-answer="её" aria-label="Choose the possessive for item 1">\n                <option value="">Choose...</option>\n                <option value="мой">мой</option>\n                <option value="твой">твой</option>\n                <option value="его">его</option>\n                <option value="её">её</option>\n              </select> брат.</p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
             <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
@@ -1563,7 +1572,7 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: it's <strong>his</strong> sister, not mine. Ask yourself: sister is a
               feminine word — will его change to match it?</p>
 
-            <p lang="ru">Это не моя сестра — это <input type="text" class="pass3-input blank" data-answer="его"> сестра.
+            <p lang="ru">Это не моя сестра — это <select class="pass3-input blank" data-answer="его" aria-label="Choose the possessive for item 2">\n                <option value="">Choose...</option>\n                <option value="моя">моя</option>\n                <option value="твоя">твоя</option>\n                <option value="его">его</option>\n                <option value="её">её</option>\n              </select> сестра.
             </p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
@@ -1593,7 +1602,7 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: we're asking about <strong>her</strong> name, not yours. Ask yourself:
               имя is a neuter word — твоё matched that. Will её also change to match?</p>
 
-            <p lang="ru">Это не твоё имя — это <input type="text" class="pass3-input blank" data-answer="её"> имя.</p>
+            <p lang="ru">Это не твоё имя — это <select class="pass3-input blank" data-answer="её" aria-label="Choose the possessive for item 3">\n                <option value="">Choose...</option>\n                <option value="твоё">твоё</option>\n                <option value="его">его</option>\n                <option value="её">её</option>\n                <option value="моё">моё</option>\n              </select> имя.</p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
             <button type="button" class="say" data-target="" disabled>🎙️ Say It</button>
@@ -1622,7 +1631,7 @@ LESSON 2 — EXTENDED FAMILY
             <p>Now let's change it up by saying: they're <strong>their</strong> parents, not mine. Ask yourself:
               родители is a plural word — мои matched that. Will их also change to match the plural?</p>
 
-            <p lang="ru">Это не мои родители — это <input type="text" class="pass3-input blank" data-answer="их">
+            <p lang="ru">Это не мои родители — это <select class="pass3-input blank" data-answer="их" aria-label="Choose the possessive for item 4">\n                <option value="">Choose...</option>\n                <option value="мои">мои</option>\n                <option value="наши">наши</option>\n                <option value="его">его</option>\n                <option value="их">их</option>\n              </select>
               родители.</p>
 
             <button type="button" class="listen" data-speak="" disabled>🔊 Listen</button>
@@ -1634,7 +1643,7 @@ LESSON 2 — EXTENDED FAMILY
 
         </div> <!-- END pass3-item-4 -->
 
-        <div class="russian-keyboard"></div>
+        <!-- The four-choice menus above replace the Pass 3 keyboard. -->
 
         <!-- =========================
              PASS 3 COMPLETION
