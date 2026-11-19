@@ -1,159 +1,1232 @@
+/* ==========================================
+   GLOBAL DESIGN TOKENS
+========================================== */
+
+:root {
+    --ink: #172235;
+    --blue: #1768b2;
+    --line: #d8e1eb;
+    --paper: #fff;
+    --bg: #f4f7fa;
+    --rail: 270px
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
 }
 
-/* GRID: LEFT RAIL | CENTER CONTENT | RIGHT TABS */
-.layout-grid {
-    display: grid;
-    grid-template-columns: 200px 1.8fr 100px;
-    /* wider center */
-    min-height: 100vh;
+button,
+input {
+    font: inherit;
 }
 
+/* ==========================================
+   JOURNEY RAIL
+========================================== */
 
-/* LEFT JOURNEY RAIL */
 .journey-rail {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    background-color: #EEF2EF;
-    padding: 16px 24px;
-    box-sizing: border-box;
+    font-family: "Trebuchet", Arial, sans-serif;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--rail);
+    overflow: auto;
+    background: #f8fbff;
+    border-right: 1px solid #ccd9e8;
+    padding: 20px 16px;
+    z-index: 20;
+    box-shadow: 2px 0 12px #00000010;
 }
 
-.rail-header {
-    margin-bottom: 16px;
+.journey-rail__identity {
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px
 }
 
-.rail-language {
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.rail-language-ru {
-    font-size: 0.9rem;
-}
-
-.rail-block {
-    margin-bottom: 16px;
-}
-
-.rail-block-title {
-    font-weight: bold;
-    font-size: 0.95rem;
-}
-
-.rail-block-subtitle {
-    font-size: 0.85rem;
-    margin-bottom: 4px;
-}
-
-.rail-block-section-title {
-    font-size: 0.8rem;
-    margin-top: 4px;
-}
-
-.rail-list {
-    list-style: none;
-    padding-left: 0;
-    margin: 4px 0 0 0;
-}
-
-.rail-list li {
-    font-size: 0.8rem;
-}
-
-/* CENTER CONTENT */
-.lesson-content {
-    background-color: #FFFFFF;
-    padding: 10px 10px;
-    box-sizing: border-box;
-}
-
-.lesson-header {
-    margin-bottom: 4px;
-    padding-bottom: 0;
-}
-
-.lesson-title {
+.journey-rail__flag img {
     display: block;
-    margin: 0;
-    /* no default margins */
-    padding: 0;
-    font-size: 1.4rem;
+    width: 105px;
+    height: auto;
+    margin: 0 auto 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+}
+
+.journey-rail__identity p {
+    font-weight: 600;
+    letter-spacing: .15em;
+    margin: 4px
+}
+
+.journey-rail__section {
+    margin: 14px 0;
+    padding: 10px;
+    border-left: 4px solid transparent;
+    border-radius: 8px
+}
+
+.journey-rail__section-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.15rem
+}
+
+.journey-rail__section-description {
+    font-size: .9rem;
+    font-weight: 200;
+    line-height: 1.45;
+    color: #52677d;
+}
+
+/* =========================================
+   JOURNEY RAIL — PHASE COLORS
+   Light = not current
+   Dark = current
+   ========================================= */
+
+/* LEARN */
+.journey-rail__section[data-stage="learn"] {
+    background: #eaf4ff;
+    border-left-color: #9cccf5;
+}
+
+/* BUILD */
+.journey-rail__section[data-stage="build"] {
+    background: #edf5ef;
+    border-left-color: #a8c7ae;
+}
+
+/* PRACTICE */
+.journey-rail__section[data-stage="practice"] {
+    background: #f3ebfa;
+    border-left-color: #c9a7e8;
+}
+
+/* USE */
+.journey-rail__section[data-stage="use"] {
+    background: #fbefe7;
+    border-left-color: #e6b38f;
+}
+
+/* =========================================
+   JOURNEY RAIL — CURRENT PHASE
+   Dark = learner is here
+   ========================================= */
+
+/* LEARN — CURRENT */
+.journey-rail__section[data-stage="learn"].journey-rail__section--current {
+    background: #1f5f91;
+    border-left-color: #1f5f91;
+}
+
+/* BUILD — CURRENT */
+.journey-rail__section[data-stage="build"].journey-rail__section--current {
+    background: #4f7357;
+    border-left-color: #4f7357;
+}
+
+/* PRACTICE — CURRENT */
+.journey-rail__section[data-stage="practice"].journey-rail__section--current {
+    background: #6c32a3;
+    border-left-color: #6c32a3;
+}
+
+/* USE — CURRENT */
+.journey-rail__section[data-stage="use"].journey-rail__section--current {
+    background: #9a4308;
+    border-left-color: #9a4308;
+}
+
+/* END of DARK Colors*/
+
+/* =========================================
+   JOURNEY RAIL — CURRENT PHASE TEXT
+   ========================================= */
+
+.journey-rail .journey-rail__section--current,
+.journey-rail .journey-rail__section--current .journey-rail__section-title,
+.journey-rail .journey-rail__section--current .journey-rail__section-description,
+.journey-rail .journey-rail__section--current .journey-rail__progress-label,
+.journey-rail .journey-rail__section--current nav,
+.journey-rail .journey-rail__section--current a {
+    color: #fff;
+}
+
+.journey-rail__progress-label {
+    margin-top: 4px;
+    font-size: .82rem;
     font-weight: 700;
-    line-height: 1.1;
-    /* tighter title line spacing */
+    color: #27384a;
 }
 
-.section-title {
-    margin: 0;
-    /* removes default h2 margin */
-    padding: 0;
+.journey-rail nav {
+    display: grid;
+    gap: 1px;
+    margin-top: 4px
+}
+
+.journey-rail a {
+    font-size: .78rem;
+    color: #334a64;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: 4px
+}
+
+.journey-rail a:hover {
+    background: transparent;
+}
+
+.journey-check {
+    display: inline-block;
+    width: 14px;
+    color: #1d7b3a;
+    font-weight: 900;
+}
+
+.journey-rail__section--current .journey-check {
+    color: #fff;
+}
+
+.journey-rail__overall-progress {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    font-size: .85rem
+}
+
+/* ==========================================
+   RIGHT-SIDE LEARN / BUILD / PRACTICE / USE TABS
+========================================== */
+
+.stage-tabs {
+    position: fixed;
+    right: 0;
+    top: 32%;
+    z-index: 30;
+    display: grid;
+    gap: 8px
+}
+
+.stage-tab {
+    border-right: 0;
+    background: white;
+    padding: 12px 9px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 800;
+    letter-spacing: .08em;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+/* LEARN */
+.stage-tab--learn {
+    color: #1f5f91;
+    border: 1px solid #1f5f91;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--learn.stage-tab--active {
+    background: #1f5f91;
+    color: white;
+}
+
+/* BUILD */
+.stage-tab--build {
+    color: #4f7357;
+    border: 1px solid #4f7357;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--build.stage-tab--active {
+    background: #4f7357;
+    color: white;
+}
+
+/* PRACTICE */
+.stage-tab--practice {
+    color: #6c32a3;
+    border: 1px solid #6c32a3;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--practice.stage-tab--active {
+    background: #6c32a3;
+    color: white;
+}
+
+/* USE */
+.stage-tab--use {
+    color: #9a4308;
+    border: 1px solid #9a4308;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--use.stage-tab--active {
+    background: #9a4308;
+    color: white;
+}
+
+/* ==========================================
+   MAIN LESSON CONTENT
+========================================== */
+
+main {
+    margin-left: var(--rail);
+    padding-bottom: 50px
+}
+
+/* ==========================================
+   GREETINGS & INTRODUCTIONS HERO
+========================================== */
+
+.journey-hero {
+    padding: 54px clamp(24px, 5vw, 80px);
+    background: linear-gradient(135deg, #0f5fa8, #2683cf);
+    color: white
+}
+
+.journey-hero__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-weight: 800
+}
+
+.journey-hero h1 {
+    font-size: clamp(2.3rem, 5vw, 4.6rem);
+    margin: .1em 0 0
+}
+
+.journey-hero__russian-title {
+    margin: 0 0 1.05em 1.1em;
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+    font-weight: 700;
     line-height: 1.2;
-    /* optional: tighter vertical rhythm */
 }
 
-.section-description {
-    margin: 2px 0 0 0;
-    /* tiny gap above subtitle only */
-    padding: 0;
-    line-height: 1.2;
-    /* tighter subtitle line spacing */
+.journey-hero__tagline {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 6px
 }
 
-/* RIGHT‑SIDE LESSON TABS */
-.lesson-tabs {
-    position: sticky;
-    top: 88px;
-    /* was 0 — pushes tabs down slightly */
-    height: 100vh;
-    background-color: #EEF2EF;
-    padding: 16px, 8px;
+/* ==========================================
+   LEARNING STAGES
+========================================== */
+
+.learning-stage {
+    scroll-margin-top: 10px;
+}
+
+/* ==========================================
+   LEARN / BUILD / PRACTICE / USE BANNERS
+========================================== */
+
+.phase-banner {
+    min-height: 108px;
+    padding: 18px clamp(24px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 22px;
+    border-top: 1px solid;
+    border-bottom: 5px solid;
+    box-shadow: 0 4px 8px #0002;
+    position: relative;
+    overflow: hidden
+}
+
+.phase-banner__icon {
+    font-size: 2.2rem;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    background: #ffffff80
+}
+
+.phase-banner__name {
+    font-size: 2rem;
+    font-weight: 900;
+    border-right: 1px solid currentColor;
+    padding-right: 22px
+}
+
+.phase-banner__text {
+    font-size: 1rem;
+}
+
+.phase-banner__art {
+    font-size: 2.3rem;
+    opacity: .35;
+    letter-spacing: .15em
+}
+
+.phase-banner--learn {
+    color: #155aa4;
+    background: linear-gradient(90deg, #eef7ff, #dbeeff);
+    border-color: #4b95df
+}
+
+.phase-banner--build {
+    color: #2f6d2c;
+    background: linear-gradient(90deg, #f1faee, #dff0d9);
+    border-color: #70a85f
+}
+
+.phase-banner--practice {
+    color: #68449a;
+    background: linear-gradient(90deg, #faf5ff, #eadcf7);
+    border-color: #9b75c7
+}
+
+.phase-banner--use {
+    color: #956100;
+    background: linear-gradient(90deg, #fffaf0, #f6e7bd);
+    border-color: #d49b22
+}
+
+/* ==========================================
+   LESSON / PRACTICE CARDS
+========================================== */
+
+.lesson,
+.practice-card,
+.use-placeholder {
+    max-width: 980px;
+    margin: 32px auto;
+    padding: 32px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #00000010
+}
+
+.lesson__header span,
+.exercise__label,
+.eyebrow {
+    text-transform: uppercase;
+    color: #1666ad;
+    font-weight: 800;
+    letter-spacing: .1em;
+    font-size: .8rem
+}
+
+.lesson__header h2,
+.practice-card h2,
+.use-placeholder h2 {
+    margin: .2em 0;
+    font-size: 2rem;
+    color: #125d9d
+}
+
+.lesson__intro {
+    font-size: 1.04rem;
+}
+
+.section-heading {
+    margin-top: 30px;
+    border-bottom: 2px solid #e5edf5;
+    padding-bottom: 8px;
+    color: #174e7f
+}
+
+/* ==========================================
+   PHRASE CARDS & SUPPORT CARDS
+========================================== */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px
+}
+
+.card-grid.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.phrase-card,
+.support-card,
+/* ==========================================
+   BUILD ACTIVITIES
+========================================== */
+
+.exercise {
+    border: 1px solid #d3dfeb;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 18px 0;
+    background: #fff
+}
+
+.phrase-card h3 {
+    font-size: 1.55rem;
+    color: #0962ac;
+    margin: .35em 0
+}
+
+.phrase-card em {
+    display: block;
+    color: #267bd0;
+    margin-bottom: 8px
+}
+
+.phrase-card small {
+    display: block;
+    color: #5b6877;
+    margin-bottom: 10px
+}
+
+.label {
+    font-size: .78rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #52677d
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px
+}
+
+/* ==========================================
+   BUTTONS & INTERACTION CONTROLS
+========================================== */
+
+button {
+    border: 1px solid #0d6fc2;
+    background: #fff;
+    color: #0b65ad;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 700
+}
+
+button:hover {
+    background: #eef7ff;
+}
+
+.listen {
+    background: #f5f8fc;
+}
+
+.say {
+    background: #0d6fc2;
+    color: #fff
+}
+
+.support-card {
+    background: #f9fbfd;
+    border-left: 5px solid #1872bd
+}
+
+.support-card h3 {
+    margin: .25em 0;
+    color: #145d9b
+}
+
+.pronunciation-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px
+}
+
+.pronunciation-steps span {
+    padding: 10px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-weight: 700
+}
+
+.pronunciation-steps em {
+    display: block;
+    font-size: .8rem;
+    color: #2776c1
+}
+
+.name-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+.name-grid>div {
+    display: grid;
+    gap: 5px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff
+}
+
+.name-grid strong {
+    font-size: 2rem;
+    color: #0c65ad
+}
+
+.name-grid em {
+    color: #267bd0;
+}
+
+.word-breakdown {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap
+}
+
+.word-breakdown span {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 5px
+}
+
+/* ==========================================
+   COMPLETION CONTROLS
+========================================== */
+
+.completion {
+    display: block;
+    margin-top: 22px;
+    background: #f1f6fa;
+    border: 1px solid #d5e0e9;
+    padding: 12px;
+    border-radius: 7px;
+    font-weight: 700
+}
+
+.completion input {
+    margin-right: 8px;
+}
+
+.exercise {
+    background: #fbfdff;
+}
+
+.exercise h3 {
+    color: #125d9d;
+}
+
+.choice-set,
+.word-bank,
+.phrase-bank {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap
+}
+
+.choice-set button.selected,
+.word-bank button.selected,
+.phrase-bank button.selected {
+    background: #0d6fc2;
+    color: #fff
+}
+
+.feedback {
+    min-height: 26px;
+    margin-top: 10px;
+    font-weight: 700
+}
+
+.feedback.good,
+.speech-feedback.good {
+    color: #1d7b3a;
+}
+
+.feedback.bad,
+.speech-feedback.bad {
+    color: #b05c00;
+}
+
+
+.conversation {
+    border-left: 4px solid #77a8d2;
+    padding-left: 15px
+}
+
+.builder__answer {
+    min-height: 50px;
+    border: 2px solid #4b9be2;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px 0;
+    font-weight: 800;
+    color: #0d5d9f
+}
+
+.check-builder,
+.check-conversation,
+.check-typing {
+    margin-top: 12px;
+    background: #086bb8;
+    color: #fff
+}
+
+.name-input {
+    display: block;
+    margin-top: 12px;
+    padding: 10px;
+    border: 1px solid #9cb8d0;
+    border-radius: 6px;
+    min-width: 280px
+}
+
+.blank {
+    min-width: 160px;
+    background: #f8fbff
+}
+
+.conversation-builder .phrase-bank {
+    margin: 15px 0;
+}
+
+/* ==========================================
+   PRACTICE ACTIVITY 1 — TYPE WHAT YOU KNOW
+========================================== */
+
+.typing-prompts {
+    display: grid;
+    gap: 12px
+}
+
+.typing-prompts label {
+    display: grid;
+    gap: 4px;
+    font-weight: 700
+}
+
+.typing-prompts input {
+    padding: 10px;
+    border: 1px solid #9eb4c8;
+    border-radius: 5px
+}
+
+.russian-keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 16px 0
+}
+
+.russian-keyboard button {
+    min-width: 38px;
+    padding: 7px
+}
+
+.match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px
+}
+
+/* Give the Match Activity reset button breathing room. */
+.reset-match {
+    margin-top: 16px;
+}
+
+.match-col {
+    display: grid;
+    gap: 8px
+}
+
+.match-col button.matched {
+    background: #e6f6ea;
+    color: #256c36;
+    border-color: #65aa73
+}
+
+.match-col button.active {
+    outline: 3px solid #8dbcec;
+}
+
+.recall-list {
+    display: grid;
+    gap: 12px
+}
+
+.recall-list>div {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px
+}
+
+.recall-list .speech-heard {
+    grid-column: 2;
+}
+
+.recall-list .speech-feedback {
+    grid-column: 3;
+    min-height: 20px;
+}
+
+.coming-soon {
+    text-align: center;
+    padding: 35px;
+    border: 2px dashed #d4a43b;
+    background: #fffaf0;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #986400
+}
+
+.page-navigation {
+    max-width: 980px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between
+}
+
+.page-navigation a {
+    text-decoration: none;
+    border: 1px solid #cbd7e2;
+    padding: 10px 16px;
+    border-radius: 6px;
+    color: #145d9b;
+    background: #fff
+}
+
+/* NUMBERS FOUNDATION — SHELL-SPECIFIC LAYOUT */
+.numbers-placeholder {
+    max-width:980px;
+    margin:32px auto;
+    padding:32px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    box-shadow:0 3px 10px #00000010;
+}
+.numbers-placeholder h2 {
+    margin:.2em 0;
+    color:#125d9d;
+    font-size:2rem;
+}
+.numbers-placeholder p {
+    margin:10px 0 18px;
+}
+.numbers-placeholder__status {
+    display:inline-block;
+    color:#53677d;
+    background:#edf3f8;
+    border-radius:5px;
+    padding:5px 10px;
+    font-size:.85rem;
+    font-weight:700;
+}
+.numbers-placeholder__completion {
+    display:block;
+    margin-top:24px;
+    padding:12px;
+    background:#f1f6fa;
+    border:1px solid #d5e0e9;
+    border-radius:7px;
+    font-weight:700;
+}
+.numbers-placeholder__completion input {
+    margin-right:8px;
+}
+.journey-rail__section nav a {
+    display:block;
+}
+.journey-rail__section nav a[aria-current="location"] {
+    font-weight:900;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+.journey-rail__section[data-stage="learn"] .journey-check,
+.journey-rail__section[data-stage="build"] .journey-check,
+.journey-rail__section[data-stage="practice"] .journey-check,
+.journey-rail__section[data-stage="use"] .journey-check {
+    width:17px;
+}
+/* EXPLORE — same deep teal-green identity as Family Relationships. */
+.journey-rail__section[data-stage="explore"] {
+    background: #eef8f6;
+    border-left-color: #7eb9ad;
+}
+
+.journey-rail__section[data-stage="explore"].journey-rail__section--current {
+    background: #176c63;
+    border-left-color: #176c63;
+}
+
+.stage-tab--explore {
+    color: #176c63;
+    border: 1px solid #176c63;
+}
+
+.stage-tab--explore.stage-tab--active {
+    background: #176c63;
+    color: #fff;
+}
+
+.phase-banner--explore {
+    color: #176c63;
+    background: linear-gradient(90deg, #f1fbf8, #d9eee9);
+    border-color: #68a99d;
+}
+.numbers-intro {
+    max-width:980px;
+    margin:0 auto;
+}
+@media (max-width:850px) {
+  :root {
+    --rail:200px;
+}
+  .journey-rail {
+    padding:12px 8px;
+}
+  .phase-banner {
+    grid-template-columns:auto 1fr;
+    gap:12px;
+}
+  .phase-banner__name {
+    border-right:0;
+}
+  .phase-banner__text {
+    grid-column:1 / -1;
+}
+  .phase-banner__art {
+    display:none;
+}
+  .numbers-placeholder {
+    margin:16px;
+    padding:20px;
+}
+}
+@media (max-width:570px) {
+  :root {
+    --rail:0px;
+}
+  .journey-rail {
+    position:static;
+    width:auto;
+    height:auto;
+    max-height:260px;
+    overflow:auto;
+}
+  main {
+    margin-left:0;
+}
+  .stage-tabs {
+    top:auto;
+    bottom:0;
+    right:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    gap:4px;
+    background:#f8fbff;
+    padding:6px;
+}
+  .stage-tab {
+    writing-mode:horizontal-tb;
+    transform:none;
+    border-radius:6px;
+    padding:6px;
+    font-size:.7rem;
+}
+  main {
+    padding-bottom:80px;
+}
+  .journey-hero {
+    padding:26px 18px;
+}
+}
+
+
+/* ============================================================
+   NUMBERS FOUNDATION — LEARN / LESSON 1
+   All lesson components are explicit HTML elements.
+   ============================================================ */
+
+.numbers-lesson-one {
     box-sizing: border-box;
+    width: calc(100% - 48px);
+    max-width: 1240px;
+    margin: 24px auto;
+    padding: 24px;
+    font-size: 1rem;
+    line-height: 1.5;
+    background: #ffffff;
+    border: 1px solid #cbdbe8;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(28, 55, 86, 0.07);
+}
+
+.numbers-lesson-one__header h2 {
+    margin: 6px 0;
+    font-size: 1.75rem;
+}
+
+.numbers-lesson-one__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: 22px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+/* Keep the microscope image and helpful hints stacked in the right column. */
+.numbers-lesson-one__right-column {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    /* push buttons to the right side */
+    gap: 14px;
+    min-width: 0;
+}
+
+.numbers-lesson-one__intro h3,
+.numbers-helpful-hints h3,
+.numbers-micro-practice h3 {
+    margin: 0 0 10px;
+    color: #163c66;
+}
+
+.numbers-vocabulary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 1rem;
+}
+
+.numbers-vocabulary-table th,
+.numbers-vocabulary-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #dfe8f1;
+    text-align: left;
+}
+
+.numbers-vocabulary-table th {
+    background: #eaf4ff;
+    color: #153b65;
+}
+
+.numbers-vocabulary-table td[lang="ru"] {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.number-listen,
+#numbers-play-all,
+#numbers-stop-audio,
+#numbers-match-reset {
+    cursor: pointer;
+    padding: 7px 11px;
+    border: 1px solid #7ea9d0;
+    border-radius: 8px;
+    background: #e9f4ff;
+    color: #154c7a;
+    font-weight: 700;
+}
+
+.number-listen:hover,
+#numbers-play-all:hover,
+#numbers-stop-audio:hover,
+#numbers-match-reset:hover {
+    background: #cce7ff;
+}
+
+.numbers-audio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+#numbers-audio-status {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 1rem;
+    color: #4c5f70;
+}
+
+.numbers-lesson-one__microscope figure {
+    margin: 0;
+}
+
+.numbers-lesson-one__microscope img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #cbdbe8;
+}
+
+.numbers-lesson-one__microscope figcaption,
+.numbers-image-note {
+    font-size: 1rem;
+    color: #52647a;
+    margin: 9px 0;
+}
+
+.numbers-image-note code {
+    overflow-wrap: anywhere;
+}
+
+.numbers-helpful-hints {
+    margin-top: 0;
+    padding: 18px 22px;
+    border: 1px solid #a7c7b0;
+    border-radius: 12px;
+    background: #f0f9f1;
+}
+
+.numbers-helpful-hints ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.numbers-helpful-hints li + li {
+    margin-top: 9px;
+}
+
+.numbers-micro-practice {
+    margin-top: 24px;
+    padding: 18px 22px;
+    border: 1px solid #cdb9e3;
+    border-radius: 12px;
+    background: #faf6ff;
+}
+
+.numbers-micro-practice__heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
+
+.numbers-micro-practice__heading p {
+    margin: 0 0 12px;
+}
+
+.numbers-match-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 620px;
+}
+
+.numbers-match-column {
+    display: flex;
+    flex-direction: column;
     gap: 6px;
 }
 
-/* INDIVIDUAL TAB BUTTONS */
-.tab-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.numbers-match-column h4 {
+    margin: 0 0 4px;
+    text-align: center;
+}
 
-    width: 42px;
-    min-height: 86px;
-    padding: 8px 6px;
-
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-
-    color: #4A6F63;
-    /* primary accent */
-    background-color: #FFFFFF;
-    border: 1px solid #4A6F63;
-    border-radius: 8px 0 0 8px;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.10);
+.match-choice {
+    min-height: 44px;
+    font-size: 1.05rem;
+    padding: 10px 12px;
+    border: 1px solid #aa8dcb;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #372151;
     cursor: pointer;
-    transition: all 0.25s ease-in-out;
+    font-weight: 600;
 }
 
-/* ACTIVE TAB STATE */
-.tab-button.active {
-    color: #FFFFFF;
-    background-color: #4A6F63;
+.match-choice:hover:not(:disabled) {
+    background: #e9dcf8;
 }
 
-/* HOVER EFFECT */
-.tab-button:hover {
-    background-color: #7FA69A;
-    color: #FFFFFF;
+.match-choice.is-selected {
+    outline: 3px solid #6e36a7;
+    background: #e8d7f7;
+}
+
+.match-choice.is-matched {
+    background: #d7f1df;
+    border-color: #4d9b66;
+    color: #245b38;
+    opacity: 0.8;
+}
+
+.numbers-match-feedback {
+    margin: 12px 0 0;
+    font-weight: 700;
+    color: #563284;
+}
+
+.numbers-lesson-one__completion {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px;
+    border: 1px solid #a7c7b0;
+    border-radius: 8px;
+    background: #f0f9f1;
+    cursor: pointer;
+}
+
+@media (max-width: 1050px) {
+    .numbers-lesson-one__intro {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .numbers-lesson-one {
+        width: calc(100% - 24px);
+        padding: 14px;
+    }
+
+    .numbers-vocabulary-table {
+        font-size: 1rem;
+    }
+
+    .numbers-vocabulary-table th,
+    .numbers-vocabulary-table td {
+        padding: 6px 4px;
+    }
+
+    .numbers-micro-practice__heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* Lesson 1 readability: no instructional text smaller than 16px. */
+.numbers-lesson-one p,
+.numbers-lesson-one li,
+.numbers-lesson-one figcaption,
+.numbers-lesson-one button,
+.numbers-lesson-one label,
+.numbers-lesson-one th,
+.numbers-lesson-one td,
+.numbers-lesson-one h4 {
+    font-size: max(1rem, 16px);
+}
+
+.numbers-lesson-one .match-choice {
+    font-size: 1.05rem;
 }
