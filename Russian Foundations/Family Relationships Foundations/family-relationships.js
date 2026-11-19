@@ -1482,17 +1482,21 @@ tabs.forEach((t) => {
             shuffle([pickOne(masculine), pickOne(feminine)]);
 
         let round = 0;
+        let stageCompletionAnnounced = false;
 
+        const previousButton =
+            challenge.querySelector("#tree-1-previous");
+
+        const nextButton =
+            challenge.querySelector("#tree-1-next");
 
         function runRound() {
 
             const target =
                 targets[round];
 
-            round++;
-
             challenge.querySelector("#tree-1-round").textContent =
-                `Question ${round} of ${targets.length}`;
+                `Question ${round + 1} of ${targets.length}`;
 
             const targetClue =
                 target.querySelector(".tree-box__clue").textContent;
@@ -1546,6 +1550,23 @@ tabs.forEach((t) => {
             feedback.className = "feedback";
             help.hidden = true;
 
+            previousButton.hidden = round === 0;
+            nextButton.hidden = true;
+
+            previousButton.onclick = () => {
+                if (round > 0) {
+                    round--;
+                    runRound();
+                }
+            };
+
+            nextButton.onclick = () => {
+                if (round < targets.length - 1) {
+                    round++;
+                    runRound();
+                }
+            };
+
             let attempts = 0;
 
 
@@ -1557,36 +1578,24 @@ tabs.forEach((t) => {
 
                 help.hidden = true;
 
-                if (round < targets.length) {
-
-                    feedback.textContent =
-                        "Right! Now the other one.";
-
-                    feedback.className =
-                        "feedback good";
-
-                    runRound();
-                    return;
-
-                }
-
                 feedback.textContent =
-                    "That's right! On to the next part of your family.";
+                    "✓ Отлично! You built the sentence correctly!";
 
                 feedback.className =
                     "feedback good";
 
-                challengeHandler = null;
+                // Keep the completed sentence on screen until the learner
+                // explicitly chooses to move to another question.
+                nextButton.hidden = round >= targets.length - 1;
 
-                // This Stage is done — shrink it out of the way (the tree
-                // stays visible, just smaller). Stage 2 is already visible
-                // (Stages 1 and 2 don't depend on each other), so we just
-                // announce completion for the Stage 3 lock to hear.
-                stage.classList.add("tree-stage--done");
+                if (round === targets.length - 1 && !stageCompletionAnnounced) {
+                    stageCompletionAnnounced = true;
+                    stage.classList.add("tree-stage--done");
 
-                document.dispatchEvent(
-                    new CustomEvent("tree-stage-complete", { detail: { stage: 1 } })
-                );
+                    document.dispatchEvent(
+                        new CustomEvent("tree-stage-complete", { detail: { stage: 1 } })
+                    );
+                }
 
             }
 
@@ -19042,4 +19051,291 @@ document.querySelectorAll("#practice-1 .practice1-row").forEach((row) => {
         renderEditor();
     });
     renderEditor();
+})();
+
+// ============================================================
+// DOOR 2 SKYSCRAPER — INTERACTIVE DISCOVERIES
+// Separate data and event handlers; does not modify Vault logic.
+// ============================================================
+(() => {
+    const root = document.querySelector('.d2-overhaul');
+    if (!root) return;
+
+    const people = {
+        family: [
+            { id: 'father', label: 'Father', forms: [['отец', 'Formal / literary', 'The more formal word for father.'], ['папа', 'Everyday', 'The usual warm everyday word.'], ['папочка', 'Affectionate', 'The -очк- pattern creates a tender form.'], ['папуля', 'Affectionate', 'A playful, loving alternative.'], ['батя', 'Colloquial', 'Familiar, sometimes rough-and-ready; not the same tone as папочка.']], q: ['Папочка', 'Папа', 'Отец'], answer: 'Папочка', sentence: 'Маленькая девочка нежно зовёт отца: «_____, обними меня!»', meaning: 'A little girl affectionately calls her father: “Daddy, hug me!”' },
+            { id: 'mother', label: 'Mother', forms: [['мать', 'Formal / literary', 'A formal or neutral descriptive term, not the usual warm address.'], ['мама', 'Everyday', 'The normal family word.'], ['мамочка', 'Affectionate', 'The -очк- pattern conveys tenderness.'], ['мамуля', 'Affectionate', 'A warm, familiar alternative.'], ['мамусенька', 'Very tender', 'Especially affectionate and expressive.']], q: ['Мать', 'Мамочка', 'Мама'], answer: 'Мамочка', sentence: 'Ребёнок ласково говорит: «_____, я тебя люблю!»', meaning: 'A child tenderly says: “Mommy, I love you!”' },
+            { id: 'aunt', label: 'Aunt', forms: [['тётя', 'Everyday', 'Standard word for aunt.'], ['тётушка', 'Affectionate / traditional', 'A warm or somewhat old-fashioned alternative.'], ['тётенька', 'Familiar / contextual', 'Can be affectionate or used for an older woman.'], ['тётечка', 'Affectionate', 'A tender diminutive form.']], q: ['Тётечка', 'Тётя', 'Тётенька'], answer: 'Тётечка', sentence: 'Племянница особенно нежно обращается к любимой тёте: «_____, спасибо!»', meaning: 'A niece uses a particularly tender form to thank her beloved aunt.' },
+            { id: 'uncle', label: 'Uncle', forms: [['дядя', 'Everyday', 'Standard word for uncle.'], ['дядюшка', 'Affectionate / traditional', 'Warm, sometimes old-fashioned.'], ['дяденька', 'Contextual', 'Can refer to an adult man, not only an uncle.'], ['дядечка', 'Affectionate', 'A tender, informal form.']], q: ['Дядя', 'Дядечка', 'Дяденька'], answer: 'Дядечка', sentence: 'Маленький племянник ласково говорит любимому дяде: «_____, привет!»', meaning: 'A little nephew uses a tender form to greet his beloved uncle.' },
+            { id: 'grandfather', label: 'Grandfather', forms: [['дед', 'Short / colloquial', 'A familiar short word; tone depends on context.'], ['дедушка', 'Everyday', 'The standard word for grandfather.'], ['дедуля', 'Affectionate', 'A warm family form with the -ул- pattern.'], ['дедулечка', 'Very tender', 'An especially affectionate form.'], ['дедуся', 'Affectionate / regional', 'A less universal, familiar alternative.']], q: ['Дедушка', 'Дедуля', 'Дед'], answer: 'Дедуля', sentence: 'Внучка нежно зовёт дедушку: «_____, иди сюда!»', meaning: 'A granddaughter affectionately calls her grandpa over.' },
+            { id: 'grandmother', label: 'Grandmother', forms: [['бабушка', 'Everyday', 'The standard word for grandmother.'], ['бабуля', 'Affectionate', 'A warm family alternative with the -ул- pattern.'], ['бабулечка', 'Very tender', 'Especially affectionate.'], ['бабуся', 'Affectionate / regional', 'A familiar form, with regional variation.'], ['бабка', 'Colloquial / potentially rude', 'Can sound dismissive when referring to a woman; use carefully.']], q: ['Бабка', 'Бабуля', 'Бабушка'], answer: 'Бабуля', sentence: 'Внук с нежностью говорит: «_____, я соскучился!»', meaning: 'A grandson tenderly says: “Granny, I missed you!”' },
+            { id: 'brother', label: 'Brother', forms: [['брат', 'Everyday', 'The standard word for brother.'], ['братик', 'Affectionate', 'The -ик suffix creates a tender form.'], ['братишка', 'Affectionate / familiar', 'Often warm, informal, buddy-like.'], ['братуха', 'Slang', 'A slangy “bro”; not appropriate in every setting.']], q: ['Брат', 'Братик', 'Братуха'], answer: 'Братик', sentence: 'Сестра нежно говорит маленькому брату: «Мой любимый _____!»', meaning: 'A sister tenderly calls her little brother “my beloved little brother.”' },
+            { id: 'sister', label: 'Sister', forms: [['сестра', 'Everyday', 'The standard word for sister.'], ['сестрёнка', 'Affectionate', 'The сестр- base combines with the -ёнк- pattern.'], ['сестричка', 'Affectionate', 'Another tender form with the -ичк- pattern.'], ['сеструха', 'Slang', 'A slangy, familiar “sis.”']], q: ['Сестра', 'Сестрёнка', 'Сеструха'], answer: 'Сестрёнка', sentence: 'Брат ласково говорит младшей сестре: «Моя маленькая _____!»', meaning: 'A brother tenderly says “my little sister.”' }
+        ],
+        romantic: [
+            { id: 'boyfriend', label: 'Boyfriend', forms: [['парень', 'Everyday', 'Boyfriend or guy; context identifies the relationship.'], ['мой парень', 'Relationship phrase', '“My boyfriend”; not a diminutive.'], ['любимый', 'Affectionate address', '“My beloved”; used for a male partner.'], ['милый', 'Affectionate address', '“Darling / dear”; used when addressing a male partner.']], q: ['Парень', 'Любимый', 'Мой парень'], answer: 'Любимый', sentence: 'Она нежно обращается к своему парню: «_____, я скучала!»', meaning: 'She tenderly addresses her boyfriend: “Darling, I missed you!”' },
+            { id: 'girlfriend', label: 'Girlfriend', forms: [['девушка', 'Everyday', 'Girlfriend or young woman; context matters.'], ['моя девушка', 'Relationship phrase', '“My girlfriend”; not a diminutive.'], ['любимая', 'Affectionate address', '“My beloved”; used for a female partner.'], ['милая', 'Affectionate address', '“Darling / dear”; used when addressing a female partner.']], q: ['Девушка', 'Любимая', 'Моя девушка'], answer: 'Любимая', sentence: 'Он нежно обращается к своей девушке: «_____, я скучал!»', meaning: 'He tenderly addresses his girlfriend: “Darling, I missed you!”' },
+            { id: 'fiance', label: 'Fiancé', forms: [['жених', 'Everyday', 'Fiancé / groom.'], ['мой жених', 'Relationship phrase', '“My fiancé”; not a diminutive.'], ['любимый', 'Affectionate address', '“Beloved”; an affectionate way to address him.'], ['женишок', 'Teasing / potentially dismissive', 'Not a reliable tender equivalent of жених.']], q: ['Женишок', 'Любимый', 'Жених'], answer: 'Любимый', sentence: 'Невеста нежно обращается к жениху: «_____, я тебя люблю!»', meaning: 'A bride-to-be tenderly addresses her fiancé.' },
+            { id: 'fiancee', label: 'Fiancée', forms: [['невеста', 'Everyday', 'Fiancée / bride.'], ['моя невеста', 'Relationship phrase', '“My fiancée”; not a diminutive.'], ['любимая', 'Affectionate address', '“Beloved”; an affectionate way to address her.'], ['невестушка', 'Traditional / playful', 'An old-fashioned or playful form, not a universal everyday term.']], q: ['Невеста', 'Любимая', 'Невестушка'], answer: 'Любимая', sentence: 'Жених нежно обращается к невесте: «_____, я тебя люблю!»', meaning: 'A groom-to-be tenderly addresses his fiancée.' }
+        ]
+    };
+
+    const endearments = {
+        father: [['родной', 'My dear; affectionate masculine address.'], ['родненький', 'Especially tender; intimate family tone.'], ['дорогой', 'Dear; warm and respectful.'], ['солнышко', 'Little sunshine; playful and affectionate.'], ['кормилец', 'Breadwinner; dated or joking, not a universal endearment.']],
+        mother: [['родная', 'My dear; affectionate feminine address.'], ['родненькая', 'Especially tender feminine form.'], ['дорогая', 'Dear; warm feminine address.'], ['солнышко', 'Little sunshine; warm and playful.'], ['золотко', 'Little treasure; affectionate.']],
+        aunt: [['родная', 'Dear / close to me.'], ['дорогая', 'Dear; warm and respectful.'], ['милая', 'Sweet / dear.'], ['золотая', 'Golden; figuratively wonderful.']],
+        uncle: [['родной', 'Dear / close to me.'], ['дорогой', 'Dear; warm and respectful.'], ['милый', 'Dear / sweet, context-sensitive.'], ['золотой', 'Golden; figuratively wonderful.']],
+        grandfather: [['родной', 'My dear.'], ['родненький', 'Especially tender.'], ['дорогой', 'Dear.'], ['старичок', 'Little old man; tender only in a trusting context, otherwise potentially offensive.']],
+        grandmother: [['родная', 'My dear.'], ['родненькая', 'Especially tender.'], ['дорогая', 'Dear.'], ['золотко', 'Little treasure.'], ['старушка', 'Old woman; may be affectionate or offensive depending on context.']],
+        brother: [['братан', 'Bro; slang and familiar.'], ['братишка', 'Little brother / bro; overlaps with diminutives.'], ['родной', 'Dear / close to me.'], ['дружище', 'Buddy / old friend; informal and warm.']],
+        sister: [['сестрёнка', 'Little sister; overlaps with diminutives.'], ['родная', 'My dear.'], ['дорогая', 'Dear.'], ['зайка', 'Bunny; tender and playful.'], ['малышка', 'Little one; affectionate in suitable contexts.']],
+        boyfriend: [['любимый', 'My beloved; masculine.'], ['милый', 'Darling / dear; masculine.'], ['дорогой', 'Dear; masculine.'], ['солнышко', 'Little sunshine; gender-neutral word.']],
+        girlfriend: [['любимая', 'My beloved; feminine.'], ['милая', 'Darling / dear; feminine.'], ['дорогая', 'Dear; feminine.'], ['зайка', 'Bunny; tender and playful.']],
+        fiance: [['любимый', 'Beloved; masculine.'], ['дорогой', 'Dear; masculine.'], ['солнышко', 'Little sunshine.']],
+        fiancee: [['любимая', 'Beloved; feminine.'], ['дорогая', 'Dear; feminine.'], ['солнышко', 'Little sunshine.']]
+    };
+
+    const $ = (selector) => root.querySelector(selector);
+    const $$ = (selector) => [...root.querySelectorAll(selector)];
+    const listen = (word) => `<button type="button" class="listen" data-speak="${word}">🔊 Listen</button>`;
+    let category = 'family';
+    let activePage = null;
+
+    function fillSelect(selector, selected) {
+        const element = $(selector);
+        element.replaceChildren();
+        people[category].forEach((person) => {
+            const option = document.createElement('option');
+            option.value = person.id;
+            option.textContent = person.label;
+            element.appendChild(option);
+        });
+        if (selected && people[category].some((person) => person.id === selected)) element.value = selected;
+    }
+
+    function currentPerson(selector) {
+        return people[category].find((person) => person.id === $(selector).value) || people[category][0];
+    }
+
+    function showPage(page) {
+        activePage = page;
+        category = 'family';
+        $('#d2-landing').hidden = page !== null;
+        $('#door2-vault').hidden = page !== null;
+        $$('.d2-page').forEach((element) => { element.hidden = Number(element.dataset.d2Page) !== page; });
+        $$('.d2-page .d2-category-button').forEach((button) => {
+            button.classList.toggle('active', button.dataset.d2Category === category);
+        });
+        if (page === 1) renderDiminutives();
+        if (page === 2) renderEndearments();
+        if (page === 3) renderAffection();
+        root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    $$('[data-d2-open]').forEach((button) => button.addEventListener('click', () => showPage(Number(button.dataset.d2Open))));
+    $$('.d2-back').forEach((button) => button.addEventListener('click', () => showPage(null)));
+    $$('.d2-category-button').forEach((button) => button.addEventListener('click', () => {
+        category = button.dataset.d2Category;
+        $$('.d2-page:not([hidden]) .d2-category-button').forEach((item) => item.classList.toggle('active', item.dataset.d2Category === category));
+        if (activePage === 1) renderDiminutives();
+        if (activePage === 2) renderEndearments();
+        if (activePage === 3) renderAffection();
+    }));
+
+    function formCard(word, tag, explanation) {
+        const card = document.createElement('div');
+        card.className = 'd2-form';
+        const heading = document.createElement('strong');
+        heading.lang = 'ru';
+        heading.textContent = word;
+        const tone = document.createElement('small');
+        tone.textContent = tag;
+        const description = document.createElement('p');
+        description.textContent = explanation;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'listen';
+        button.dataset.speak = word;
+        button.textContent = '🔊 Listen';
+        card.append(heading, tone, description, button);
+        return card;
+    }
+
+    function renderDiminutives() {
+        fillSelect('#d2-person');
+        fillSelect('#d2-practice-person');
+        drawWordForms();
+        drawDimPractice();
+    }
+    function drawWordForms() {
+        const person = currentPerson('#d2-person');
+        const container = $('#d2-word-forms');
+        container.replaceChildren(...person.forms.map((form) => formCard(...form)));
+    }
+    function drawDimPractice() {
+        const person = currentPerson('#d2-practice-person');
+        renderQuestion($('#d2-dim-practice'), person.sentence, person.meaning, person.q, person.answer,
+            `The intended affectionate expression here is ${person.answer}. Other choices may be correct in other situations, but they convey a different tone.`);
+    }
+    $('#d2-person').addEventListener('change', drawWordForms);
+    $('#d2-practice-person').addEventListener('change', drawDimPractice);
+
+    function renderQuestion(container, prompt, meaning, options, answer, explanation) {
+        container.replaceChildren();
+        const box = document.createElement('div');
+        box.className = 'd2-question';
+        const sentence = document.createElement('div');
+        sentence.className = 'd2-prompt';
+        sentence.lang = 'ru';
+        sentence.textContent = prompt;
+        const translation = document.createElement('p');
+        translation.className = 'd2-english';
+        translation.textContent = meaning;
+        const choices = document.createElement('div');
+        choices.className = 'd2-options';
+        const feedback = document.createElement('div');
+        feedback.className = 'd2-feedback';
+        feedback.setAttribute('aria-live', 'polite');
+        options.forEach((choice) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = choice;
+            button.addEventListener('click', () => {
+                choices.querySelectorAll('button').forEach((item) => item.classList.remove('d2-correct', 'd2-wrong'));
+                const correct = choice === answer;
+                button.classList.add(correct ? 'd2-correct' : 'd2-wrong');
+                feedback.textContent = correct ? `Correct! ${explanation}` : 'Not quite. Look at the tone or grammatical ending and try another choice.';
+                // Show both Hear and Reset together after any selected answer.
+                actions.hidden = false;
+            });
+            choices.appendChild(button);
+        });
+        // Discovery practice controls stay together and appear only after an answer.
+        const actions = document.createElement('div');
+        actions.className = 'd2-practice-actions';
+        actions.hidden = true;
+
+        const audio = document.createElement('button');
+        audio.type = 'button';
+        audio.className = 'listen';
+        audio.textContent = '🔊 Hear the sentence';
+        audio.dataset.speak = prompt.replace('_____', answer);
+
+        const reset = document.createElement('button');
+        reset.type = 'button';
+        reset.className = 'd2-next';
+        reset.textContent = '↻ Reset';
+        reset.addEventListener('click', () => {
+            choices.querySelectorAll('button').forEach((item) => item.classList.remove('d2-correct', 'd2-wrong'));
+            feedback.replaceChildren();
+            actions.hidden = true;
+        });
+        actions.append(audio, reset);
+        box.append(sentence, translation, choices, feedback, actions);
+        container.appendChild(box);
+    }
+
+    function renderEndearments() {
+        fillSelect('#d2-endear-person');
+        drawEndearments();
+    }
+    function drawEndearments() {
+        const person = currentPerson('#d2-endear-person');
+        $('#d2-endear-forms').replaceChildren(...endearments[person.id].map(([word, meaning]) => formCard(word, 'Meaning and usage', meaning)));
+        const feminine = ['mother', 'aunt', 'grandmother', 'sister', 'girlfriend', 'fiancee'].includes(person.id);
+        const answer = feminine ? 'дорогая' : 'дорогой';
+        const choices = feminine ? ['дорогой', 'дорогая', 'дорогое'] : ['дорогая', 'дорогие', 'дорогой'];
+        renderQuestion($('#d2-endear-practice'), `«_____, как хорошо тебя видеть!»`,
+            `A speaker warmly addresses ${person.label.toLowerCase()} as “dear.” Choose the form that agrees with the person being addressed.`, choices, answer,
+            `The adjective ${answer} matches the gender of the person addressed. The word describes affection; it is not a diminutive of the family title.`);
+    }
+    $('#d2-endear-person').addEventListener('change', drawEndearments);
+
+    const verbs = {
+        love: { infinitive: 'любить', english: 'love', forms: ['люблю', 'любишь', 'любит', 'любит', 'любим', 'любите', 'любят'] },
+        adore: { infinitive: 'обожать', english: 'adore', forms: ['обожаю', 'обожаешь', 'обожает', 'обожает', 'обожаем', 'обожаете', 'обожают'] }
+    };
+    const pronouns = ['Я', 'Ты', 'Он', 'Она', 'Мы', 'Вы', 'Они'];
+    const englishSubjects = ['I', 'You (familiar)', 'He', 'She', 'We', 'You (polite/plural)', 'They'];
+    function renderAffection() {
+        fillSelect('#d2-affection-person');
+        drawConjugation();
+        drawAffectionExample();
+        drawVerbPractice();
+    }
+    function drawConjugation() {
+        const verb = verbs[$('#d2-verb').value];
+        const i = Number($('#d2-speaker').value);
+        const sentence = `${pronouns[i]} ${verb.forms[i]} нашу семью.`;
+        const result = $('#d2-conjugation-result');
+        result.replaceChildren();
+        const box = document.createElement('div');
+        box.className = 'd2-conjugated';
+        const word = document.createElement('strong');
+        word.textContent = `${pronouns[i]} ${verb.forms[i]}`;
+        const full = document.createElement('p');
+        full.textContent = sentence;
+        const english = document.createElement('p');
+        english.textContent = `${englishSubjects[i]} ${verb.english} our family.`;
+        const audio = document.createElement('button');
+        audio.className = 'listen';
+        audio.type = 'button';
+        audio.dataset.speak = sentence;
+        audio.textContent = '🔊 Listen and repeat';
+        box.append(word, full, english, audio);
+        result.append(box);
+        const table = $('#d2-conjugation-table');
+        const markup = pronouns.map((pronoun, index) => `<tr><td>${pronoun}</td><td>${verb.forms[index]}</td><td>${englishSubjects[index]} ${verb.english}</td></tr>`).join('');
+        table.innerHTML = `<table class="d2-table"><thead><tr><th>Speaker</th><th>Russian</th><th>English</th></tr></thead><tbody>${markup}</tbody></table>`;
+    }
+    $('#d2-verb').addEventListener('change', () => { drawConjugation(); drawVerbPractice(); });
+    $('#d2-speaker').addEventListener('change', drawConjugation);
+    $('#d2-conjugation-toggle').addEventListener('click', () => {
+        const panel = $('#d2-conjugation-table');
+        panel.hidden = !panel.hidden;
+        $('#d2-conjugation-toggle').textContent = panel.hidden ? 'Show Full Conjugation' : 'Hide Full Conjugation';
+        $('#d2-conjugation-toggle').setAttribute('aria-expanded', String(!panel.hidden));
+    });
+    function drawAffectionExample() {
+        const person = currentPerson('#d2-affection-person');
+        const address = { father: 'Папа', mother: 'Мама', aunt: 'Тётя', uncle: 'Дядя', grandfather: 'Дедушка', grandmother: 'Бабушка', brother: 'Братик', sister: 'Сестрёнка', boyfriend: 'Любимый', girlfriend: 'Любимая', fiance: 'Любимый', fiancee: 'Любимая' }[person.id];
+        const phrase = `${address}, я тебя люблю!`;
+        const container = $('#d2-affection-example');
+        container.replaceChildren();
+        const card = formCard(phrase, 'I love you', `A warm direct address to ${person.label.toLowerCase()}. Try replacing люблю with обожаю to make the expression more enthusiastic.`);
+        container.appendChild(card);
+    }
+    $('#d2-affection-person').addEventListener('change', drawAffectionExample);
+    function drawVerbPractice() {
+        const verb = verbs[$('#d2-verb').value];
+        const correct = verb.forms[4];
+        const distractors = verb.english === 'love' ? ['люблю', 'любят'] : ['обожаю', 'обожают'];
+        renderQuestion($('#d2-verb-practice'), `Мы _____ нашу семью.`, `We ${verb.english} our family.`, [distractors[0], correct, distractors[1]], correct,
+            `Мы (“we”) takes ${correct} in the present tense of ${verb.infinitive}.`);
+    }
+
+    // Discovery 1 Grammar Candy: accessible full-screen enlargement.
+    const candyLightbox = $('#d2-candy-lightbox');
+    $('#d2-candy-enlarge').addEventListener('click', () => {
+        if (typeof candyLightbox.showModal === 'function') {
+            candyLightbox.showModal();
+        } else {
+            candyLightbox.setAttribute('open', '');
+        }
+    });
+    $('#d2-candy-lightbox-close').addEventListener('click', () => {
+        candyLightbox.close ? candyLightbox.close() : candyLightbox.removeAttribute('open');
+    });
+    candyLightbox.addEventListener('click', (event) => {
+        if (event.target === candyLightbox) {
+            candyLightbox.close ? candyLightbox.close() : candyLightbox.removeAttribute('open');
+        }
+    });
+
+    $('#d2-candy-toggle').addEventListener('click', () => {
+        const content = $('#d2-candy-content');
+        content.hidden = !content.hidden;
+        $('#d2-candy-toggle').textContent = content.hidden ? 'Show Grammar Candy' : 'Hide Grammar Candy';
+        $('#d2-candy-toggle').setAttribute('aria-expanded', String(!content.hidden));
+    });
 })();
