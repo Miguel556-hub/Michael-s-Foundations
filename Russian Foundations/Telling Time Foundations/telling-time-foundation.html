@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Telling Time Foundation | Russian Foundations
+  </title>
+  <link href="telling-time.css" rel="stylesheet"/>
+ </head>
+ <body class="journey-page">
+  <!-- LEFT JOURNEY RAIL — TELLING TIME -->
+  <aside aria-label="Journey Rail" class="journey-rail">
+   <div class="journey-rail__identity">
+    <div class="journey-rail__flag">
+     <img alt="Russian flag" src="../../Images/russian-flag.svg"/>
+    </div>
+    <p>
+     РУССКИЙ
+    </p>
+   </div>
+   <div class="journey-rail__section journey-rail__section--current" data-stage="learn">
+    <div class="journey-rail__section-title">
+     LEARN
+    </div>
+    <div class="journey-rail__progress-label">
+     Discover &amp; Understand
+    </div>
+    <nav aria-label="LEARN navigation">
+     <a href="#lesson-1">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Lesson 1 — Asking the Time — Который час?
+     </a>
+     <a href="#lesson-2">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Lesson 2 — Hours and O'Clock — Сейчас два часа
+     </a>
+     <a href="#lesson-3">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Lesson 3 — Minutes and Half Hours — Минуты и половина
+     </a>
+     <a href="#lesson-4">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Lesson 4 — Quarter Past and Quarter To
+     </a>
+     <a href="#lesson-5">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Lesson 5 — Schedules and Appointments
+     </a>
+     <a href="#lesson-6">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Lesson 6 — Telling Time in Everyday Russian
+     </a>
+    </nav>
+   </div>
+   <div class="journey-rail__section" data-stage="build">
+    <div class="journey-rail__section-title">
+     BUILD
+    </div>
+    <div class="journey-rail__progress-label">
+     Put the Pieces Together
+    </div>
+    <nav aria-label="BUILD navigation">
+     <a href="#exercise-1">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Exercise 1
+     </a>
+     <a href="#exercise-2">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Exercise 2
+     </a>
+    </nav>
+   </div>
+   <div class="journey-rail__section" data-stage="practice">
+    <div class="journey-rail__section-title">
+     PRACTICE
+    </div>
+    <div class="journey-rail__progress-label">
+     Train Patterns &amp; Forms
+    </div>
+    <nav aria-label="PRACTICE navigation">
+     <a href="#practice-1">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Activity 1
+     </a>
+     <a href="#practice-2">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Activity 2
+     </a>
+     <a href="#practice-3">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Activity 3
+     </a>
+     <a href="#practice-4">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Activity 4
+     </a>
+     <a href="#practice-5">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Activity 5
+     </a>
+     <a href="#practice-6">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Activity 6
+     </a>
+    </nav>
+   </div>
+   <div class="journey-rail__section" data-stage="use">
+    <div class="journey-rail__section-title">
+     USE
+    </div>
+    <div class="journey-rail__progress-label">
+     Real-World Communication
+    </div>
+    <nav aria-label="USE navigation">
+     <a href="#reading-1">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Reading 1
+     </a>
+     <a href="#speaking-1">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Speaking 1
+     </a>
+     <a href="#writing-1">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Writing 1
+     </a>
+     <a href="#writing-2">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Writing 2
+     </a>
+     <a href="#listening-room">
+      <span aria-hidden="true" class="journey-check">
+      </span>
+      Listening Room
+     </a>
+    </nav>
+   </div>
+   <div class="journey-rail__section" data-stage="explore">
+    <div class="journey-rail__section-title">
+     EXPLORE
+    </div>
+    <div class="journey-rail__progress-label">
+     What Else Can I Discover?
+    </div>
+    <nav aria-label="EXPLORE navigation">
+     <a href="#telling-time-four-doors">
+      Four Doors
+     </a>
+    </nav>
+   </div>
+   <div class="journey-rail__overall-progress">
+    <strong>
+     Overall Progress
+    </strong>
+    <div>
+     Lessons:
+     <span id="lesson-progress-count">
+      0/6
+     </span>
+    </div>
+    <div>
+     Exercises:
+     <span id="exercise-progress-count">
+      0/2
+     </span>
+    </div>
+    <div>
+     Practice:
+     <span id="practice-progress-count">
+      0/6
+     </span>
+    </div>
+    <div>
+     Use:
+     <span id="use-progress-count">
+      0/4
+     </span>
+    </div>
+   </div>
+  </aside>
+  <!-- RIGHT-SIDE PHASE TABS -->
+  <aside aria-label="Learning stages" class="stage-tabs">
+   <button aria-pressed="true" class="stage-tab stage-tab--learn stage-tab--active" data-stage="learn" type="button">
+    LEARN
+   </button>
+   <button aria-pressed="false" class="stage-tab stage-tab--build" data-stage="build" type="button">
+    BUILD
+   </button>
+   <button aria-pressed="false" class="stage-tab stage-tab--practice" data-stage="practice" type="button">
+    PRACTICE
+   </button>
+   <button aria-pressed="false" class="stage-tab stage-tab--use" data-stage="use" type="button">
+    USE
+   </button>
+   <button aria-pressed="false" class="stage-tab stage-tab--explore" data-stage="explore" type="button">
+    EXPLORE
+   </button>
+  </aside>
+  <main>
+   <header class="journey-hero">
+    <p class="journey-hero__eyebrow">
+     Russian Foundations
+    </p>
+    <h1>
+     Telling Time Foundation — Как сказать время
+    </h1>
+    <p class="journey-hero__russian-title" lang="ru">
+     Месяцы года
+    </p>
+    <p class="journey-hero__tagline">
+     Learn to express what you like, dislike, love, and prefer in natural Russian.
+    </p>
+    <p>
+     A new learning journey is taking shape.
+    </p>
+   </header>
+   <section class="learning-stage learning-stage--learn" data-stage="learn" id="learn-phase">
+    <div class="phase-banner phase-banner--learn" id="learn-banner">
+     <div class="phase-banner__icon">
+      📖
+     </div>
+     <div class="phase-banner__name">
+      LEARN
+     </div>
+     <div class="phase-banner__text">
+      Discover how Russian speakers express preferences in everyday life.
+     </div>
+     <div class="phase-banner__art">
+      ▱▱▰▰▱ ☀
+     </div>
+    </div>
+    <section class="foundation-shell-card" data-progress-item="learn" id="lesson-1">
+     <header>
+      <p class="eyebrow">
+       LEARN
+      </p>
+      <h2>
+       Lesson 1 — Asking the Time — Который час?
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="lesson-1" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="learn" id="lesson-2">
+     <header>
+      <p class="eyebrow">
+       LEARN
+      </p>
+      <h2>
+       Lesson 2 — Hours and O'Clock — Сейчас два часа
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="lesson-2" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="learn" id="lesson-3">
+     <header>
+      <p class="eyebrow">
+       LEARN
+      </p>
+      <h2>
+       Lesson 3 — Minutes and Half Hours — Минуты и половина
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="lesson-3" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="learn" id="lesson-4">
+     <header>
+      <p class="eyebrow">
+       LEARN
+      </p>
+      <h2>
+       Lesson 4 — Quarter Past and Quarter To
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="lesson-4" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="learn" id="lesson-5">
+     <header>
+      <p class="eyebrow">
+       LEARN
+      </p>
+      <h2>
+       Lesson 5 — Schedules and Appointments
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="lesson-5" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="learn" id="lesson-6">
+     <header>
+      <p class="eyebrow">
+       LEARN
+      </p>
+      <h2>
+       Lesson 6 — Telling Time in Everyday Russian
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="lesson-6" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+   </section>
+   <section class="learning-stage learning-stage--build" data-stage="build" id="build-phase">
+    <div class="phase-banner phase-banner--build" id="build-banner">
+     <div class="phase-banner__icon">
+      🧩
+     </div>
+     <div class="phase-banner__name">
+      BUILD
+     </div>
+     <div class="phase-banner__text">
+      Put the pieces together through guided construction.
+     </div>
+     <div class="phase-banner__art">
+      ▰▱▰
+     </div>
+    </div>
+    <section class="foundation-shell-card" data-progress-item="build" id="exercise-1">
+     <header>
+      <p class="eyebrow">
+       BUILD
+      </p>
+      <h2>
+       Exercise 1
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="exercise-1" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="build" id="exercise-2">
+     <header>
+      <p class="eyebrow">
+       BUILD
+      </p>
+      <h2>
+       Exercise 2
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="exercise-2" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+   </section>
+   <section class="learning-stage learning-stage--practice" data-stage="practice" id="practice-phase">
+    <div class="phase-banner phase-banner--practice" id="practice-banner">
+     <div class="phase-banner__icon">
+      🎯
+     </div>
+     <div class="phase-banner__name">
+      PRACTICE
+     </div>
+     <div class="phase-banner__text">
+      Strengthen recognition, listening, and response.
+     </div>
+     <div class="phase-banner__art">
+      ◈ ◈ ◈
+     </div>
+    </div>
+    <section class="foundation-shell-card" data-progress-item="practice" id="practice-1">
+     <header>
+      <p class="eyebrow">
+       PRACTICE
+      </p>
+      <h2>
+       Activity 1
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="practice-1" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="practice" id="practice-2">
+     <header>
+      <p class="eyebrow">
+       PRACTICE
+      </p>
+      <h2>
+       Activity 2
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="practice-2" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="practice" id="practice-3">
+     <header>
+      <p class="eyebrow">
+       PRACTICE
+      </p>
+      <h2>
+       Activity 3
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="practice-3" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="practice" id="practice-4">
+     <header>
+      <p class="eyebrow">
+       PRACTICE
+      </p>
+      <h2>
+       Activity 4
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="practice-4" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="practice" id="practice-5">
+     <header>
+      <p class="eyebrow">
+       PRACTICE
+      </p>
+      <h2>
+       Activity 5
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="practice-5" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="practice" id="practice-6">
+     <header>
+      <p class="eyebrow">
+       PRACTICE
+      </p>
+      <h2>
+       Activity 6
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="practice-6" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+   </section>
+   <section class="learning-stage learning-stage--use" data-stage="use" id="use-phase">
+    <div class="phase-banner phase-banner--use" id="use-banner">
+     <div class="phase-banner__icon">
+      💬
+     </div>
+     <div class="phase-banner__name">
+      USE
+     </div>
+     <div class="phase-banner__text">
+      Use time and schedules in meaningful Russian conversations.
+     </div>
+     <div class="phase-banner__art">
+      ▰▰▱
+     </div>
+    </div>
+    <section class="foundation-shell-card" data-progress-item="use" id="reading-1">
+     <header>
+      <p class="eyebrow">
+       USE
+      </p>
+      <h2>
+       Reading 1
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="reading-1" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="use" id="speaking-1">
+     <header>
+      <p class="eyebrow">
+       USE
+      </p>
+      <h2>
+       Speaking 1
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="speaking-1" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="use" id="writing-1">
+     <header>
+      <p class="eyebrow">
+       USE
+      </p>
+      <h2>
+       Writing 1
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="writing-1" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <section class="foundation-shell-card" data-progress-item="use" id="writing-2">
+     <header>
+      <p class="eyebrow">
+       USE
+      </p>
+      <h2>
+       Writing 2
+      </h2>
+     </header>
+     <p>
+      Content reserved for future development.
+     </p>
+     <span class="foundation-shell-status">
+      Shell ready · Content pending
+     </span>
+     <label class="completion">
+      <input class="mark-complete" data-completion="writing-2" type="checkbox"/>
+      Mark Complete
+     </label>
+    </section>
+    <!-- LISTENING ROOM — end of USE -->
+    <article class="use-variation listening-room" id="listening-room">
+     <!-- ==================================================
+               THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
+               Replaces the old Part A/B/C Listening Room (removed during
+               integration). See integration notes for what changed.
+          ================================================== -->
+     <!-- Listening Room Landing -->
+     <section aria-labelledby="landingTitle" class="room-screen room-screen--landing" id="landingScreen">
+      <div class="room-shell">
+       <div class="room-overlay">
+       </div>
+       <div class="room-content room-content--landing">
+        <p class="room-eyebrow">
+         🎧 Listening Room • Telling Time
+        </p>
+        <h1 id="landingTitle">
+         The Listening Room
+        </h1>
+        <p class="room-tagline">
+         Listen for meaning, and not so much to word-for-word perfection.
+        </p>
+        <div class="room-welcome">
+         <div aria-hidden="true" class="room-welcome__icon">
+          👂
+         </div>
+         <div>
+          <h2>
+           Welcome to the Listening Room.
+          </h2>
+          <p>
+           You do not need to understand every word.
+                      Listen for what you
+           <strong>
+            do
+           </strong>
+           understand.
+          </p>
+         </div>
+        </div>
+        <button class="room-button room-button--primary" id="enterButton" type="button">
+         Enter the Listening Room
+        </button>
+       </div>
+      </div>
+     </section>
+     <!-- End Listening Room Landing -->
+     <!-- Listening Room Experience -->
+     <section aria-labelledby="encounterTitle" class="room-screen" hidden="" id="experienceScreen">
+      <div class="room-shell">
+       <div class="room-overlay room-overlay--experience">
+       </div>
+       <div class="room-content room-content--experience">
+        <header class="encounter-header">
+         <div>
+          <h2 id="encounterTitle">
+           Listening For Meaning
+          </h2>
+         </div>
+        </header>
+        <!-- ==================================================
+                     LISTENING ROOM — ENCOUNTER NAVIGATOR
+                     Recommended path remains 1 → 2 → 3 → 4 → 5 → 6,
+                     but learners may jump to any encounter at any time.
+                     Jumping does not earn completion.
+                ================================================== -->
+        <nav aria-label="Choose a Listening Room encounter" class="encounter-navigator" id="encounterNavigator">
+         <div class="encounter-navigator__intro">
+          <strong>
+           Choose your path
+          </strong>
+          <span>
+           Recommended: 1 → 2 → 3 → 4 → 5 → 6. You may jump around or return anytime.
+          </span>
+         </div>
+         <div class="encounter-navigator__buttons" role="list">
+          <button class="encounter-nav-button" data-encounter-index="0" role="listitem" type="button">
+           <span class="encounter-nav-button__number">
+            1
+           </span>
+           <span class="encounter-nav-button__state">
+            Start here
+           </span>
+          </button>
+          <button class="encounter-nav-button" data-encounter-index="1" role="listitem" type="button">
+           <span class="encounter-nav-button__number">
+            2
+           </span>
+           <span class="encounter-nav-button__state">
+            Open
+           </span>
+          </button>
+          <button class="encounter-nav-button" data-encounter-index="2" role="listitem" type="button">
+           <span class="encounter-nav-button__number">
+            3
+           </span>
+           <span class="encounter-nav-button__state">
+            Open
+           </span>
+          </button>
+          <button class="encounter-nav-button" data-encounter-index="3" role="listitem" type="button">
+           <span class="encounter-nav-button__number">
+            4
+           </span>
+           <span class="encounter-nav-button__state">
+            Open
+           </span>
+          </button>
+          <button class="encounter-nav-button" data-encounter-index="4" role="listitem" type="button">
+           <span class="encounter-nav-button__number">
+            5
+           </span>
+           <span class="encounter-nav-button__state">
+            Open
+           </span>
+          </button>
+          <button class="encounter-nav-button" data-encounter-index="5" role="listitem" type="button">
+           <span class="encounter-nav-button__number">
+            6
+           </span>
+           <span class="encounter-nav-button__state">
+            Open
+           </span>
+          </button>
+         </div>
+         <p aria-live="polite" class="encounter-navigator__status" id="encounterNavigatorStatus">
+         </p>
+        </nav>
+        <!-- END LISTENING ROOM — ENCOUNTER NAVIGATOR -->
+        <section aria-labelledby="movePrompt" class="encounter-card">
+         <p class="encounter-move" id="moveLabel">
+          HEAR
+         </p>
+         <h3 id="movePrompt">
+          Listen once. Do not try to catch every word.
+         </h3>
+         <p class="encounter-purpose" id="movePurpose">
+          First, listen for the overall shape of the message.
+         </p>
+         <div class="audio-row">
+          <button class="room-button room-button--primary" id="listenButton" type="button">
+           ▶ Listen
+          </button>
+          <button class="room-button room-button--secondary" hidden="" id="slowerButton" type="button">
+           Say It Slower
+          </button>
+          <p aria-live="polite" class="audio-status" id="audioStatus" role="status">
+           Ready when you are.
+          </p>
+         </div>
+         <!-- Catch Panel -->
+         <section aria-labelledby="catchTitle" class="response-panel" hidden="" id="catchPanel">
+          <h4 id="catchTitle">
+           What did you catch?
+          </h4>
+          <p>
+           Select anything you remember hearing. You do not need the whole sentence.
+          </p>
+          <div class="chip-grid" id="catchGrid">
+          </div>
+          <button class="room-button room-button--primary" id="catchContinueButton" type="button">
+           Continue
+          </button>
+         </section>
+         <!-- End Catch Panel -->
+         <!-- Meaning Panel -->
+         <section aria-labelledby="meaningTitle" class="response-panel" hidden="" id="meaningPanel">
+          <h4 id="meaningTitle">
+           Build the meaning
+          </h4>
+          <p id="meaningQuestion">
+          </p>
+          <div class="choice-grid" id="meaningChoices">
+          </div>
+          <p aria-live="polite" class="feedback" id="meaningFeedback" role="status">
+          </p>
+         </section>
+         <!-- End Meaning Panel -->
+         <!-- Infer Panel -->
+         <section aria-labelledby="inferTitle" class="response-panel" hidden="" id="inferPanel">
+          <h4 id="inferTitle">
+           Listen for the change
+          </h4>
+          <p id="inferQuestion">
+          </p>
+          <div class="choice-grid" id="inferChoices">
+          </div>
+          <p aria-live="polite" class="feedback" id="inferFeedback" role="status">
+          </p>
+         </section>
+         <!-- End Infer Panel -->
+         <!-- Respond Panel -->
+         <section aria-labelledby="respondTitle" class="response-panel" hidden="" id="respondPanel">
+          <h4 id="respondTitle">
+           Respond to what you understood
+          </h4>
+          <p id="respondQuestion">
+          </p>
+          <div class="choice-grid" id="respondChoices">
+          </div>
+          <p aria-live="polite" class="feedback" id="respondFeedback" role="status">
+          </p>
+         </section>
+         <!-- End Respond Panel -->
+         <!-- Progressive Support -->
+         <aside aria-labelledby="supportTitle" class="support-panel" hidden="" id="supportPanel">
+          <h4 id="supportTitle">
+           Need a little support?
+          </h4>
+          <p id="supportText">
+          </p>
+          <button class="room-button room-button--secondary" id="revealTranscriptButton" type="button">
+           Reveal Russian transcript
+          </button>
+          <p class="transcript" hidden="" id="transcriptText">
+          </p>
+         </aside>
+         <!-- End Progressive Support -->
+         <footer class="encounter-controls">
+          <button class="room-button room-button--secondary" hidden="" id="supportButton" type="button">
+           Give Me a Clue
+          </button>
+          <button class="room-button room-button--primary" hidden="" id="nextMoveButton" type="button">
+           Next Listening Move
+          </button>
+          <button class="room-button room-button--primary" hidden="" id="nextEncounterButton" type="button">
+           Next Encounter
+          </button>
+          <button class="room-button room-button--secondary" id="resetButton" type="button">
+           Reset Listening Room
+          </button>
+         </footer>
+        </section>
+       </div>
+      </div>
+     </section>
+     <!-- End Listening Room Experience -->
+     <!-- Listening Room Completion -->
+     <section aria-labelledby="completionTitle" class="room-screen" hidden="" id="completionScreen">
+      <div class="room-shell">
+       <div class="room-overlay">
+       </div>
+       <div class="room-content room-content--landing">
+        <p class="room-eyebrow">
+         Listening Room • Complete
+        </p>
+        <h2 id="completionTitle">
+         Look what you understood.
+        </h2>
+        <p class="completion-copy">
+         You explored the six Encounter screens. Telling Time listening content will be added later.
+        </p>
+        <p class="room-tagline">
+         The Listening Room structure is ready for future lessons.
+        </p>
+        <button class="room-button room-button--primary" id="restartButton" type="button">
+         Listen Again
+        </button>
+       </div>
+      </div>
+     </section>
+     <!-- End Listening Room Completion -->
+     <!-- END THE LISTENING ROOM -->
+    </article>
+   </section>
+   <!-- ==================================================
+     EXPLORE PHASE — SHELL ONLY
+     Telling Time content will be developed here.
+================================================== -->
+   <section class="learning-stage learning-stage--explore" data-stage="explore" id="explore-phase">
+    <div class="phase-banner phase-banner--explore" id="explore-banner">
+     <div class="phase-banner__icon">
+      🔎
+     </div>
+     <div class="phase-banner__name">
+      EXPLORE
+     </div>
+     <div class="phase-banner__text">
+      Explore language connections and cultural discoveries.
+     </div>
+     <div class="phase-banner__art">
+      ✦ ◇ ✦
+     </div>
+    </div>
+    <section aria-label="The Four Doors — Telling Time Foundation" class="foundation-four-doors" id="telling-time-four-doors">
+     <div class="foundation-four-doors__scene">
+      <div aria-label="Four decorative numbered doors" class="foundation-four-doors__row">
+       <div aria-label="Door I" class="foundation-four-doors__door">
+        <img alt="Telling Time door I" src="../../Images/new-doors/telling-time-door.png"/>
+        <span aria-hidden="true" class="foundation-four-doors__numeral">
+         I
+        </span>
+       </div>
+       <div aria-label="Door II" class="foundation-four-doors__door">
+        <img alt="Telling Time door II" src="../../Images/new-doors/telling-time-door.png"/>
+        <span aria-hidden="true" class="foundation-four-doors__numeral">
+         II
+        </span>
+       </div>
+       <div aria-label="Door III" class="foundation-four-doors__door">
+        <img alt="Telling Time door III" src="../../Images/new-doors/telling-time-door.png"/>
+        <span aria-hidden="true" class="foundation-four-doors__numeral">
+         III
+        </span>
+       </div>
+       <div aria-label="Door IV" class="foundation-four-doors__door">
+        <img alt="Telling Time door IV" src="../../Images/new-doors/telling-time-door.png"/>
+        <span aria-hidden="true" class="foundation-four-doors__numeral">
+         IV
+        </span>
+       </div>
+      </div>
+     </div>
+    </section>
+   </section>
+  </main>
+  <script src="telling-time.js">
+  </script>
+ </body>
+</html>

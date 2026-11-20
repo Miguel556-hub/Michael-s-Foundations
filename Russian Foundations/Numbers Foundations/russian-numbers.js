@@ -1505,3 +1505,913 @@ if (lessonFourTarget && lessonFourChoiceButtons.length === 3) {
     $("build-one-next").addEventListener("click", () => setSituation(situationIndex + 1));
     setSituation(0);
 })();
+
+// =============================================================
+// BUILD EXERCISE 2 — HUNDREDS + TENS + UNITS (100–999)
+// =============================================================
+(() => {
+    const root = document.getElementById("exercise-2");
+    if (!root) return;
+    const $ = (id) => document.getElementById(id);
+    const hundreds = {100:"сто",200:"двести",300:"триста",400:"четыреста",500:"пятьсот",600:"шестьсот",700:"семьсот",800:"восемьсот",900:"девятьсот"};
+    const tens = {0:"",10:"десять",20:"двадцать",30:"тридцать",40:"сорок",50:"пятьдесят",60:"шестьдесят",70:"семьдесят",80:"восемьдесят",90:"девяносто"};
+    const units = {0:"",1:"один",2:"два",3:"три",4:"четыре",5:"пять",6:"шесть",7:"семь",8:"восемь",9:"девять"};
+    const teens = {11:"одиннадцать",12:"двенадцать",13:"тринадцать",14:"четырнадцать",15:"пятнадцать",16:"шестнадцать",17:"семнадцать",18:"восемнадцать",19:"девятнадцать"};
+    const word = (number) => {
+        const h = Math.floor(number / 100) * 100;
+        const remainder = number % 100;
+        const t = Math.floor(remainder / 10) * 10;
+        const u = remainder % 10;
+        const pieces = [hundreds[h]];
+        if (remainder >= 11 && remainder <= 19) pieces.push(teens[remainder]);
+        else {
+            if (t) pieces.push(tens[t]);
+            if (u) pieces.push(units[u]);
+        }
+        return pieces.filter(Boolean).join(" ");
+    };
+    const parts = (number) => ({h: Math.floor(number / 100) * 100, t: Math.floor(number % 100 / 10) * 10, u: number % 10});
+    const say = (russian, onEnd) => {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(russian);
+        utterance.lang = "ru-RU";
+        utterance.rate = .82;
+        const voice = window.speechSynthesis.getVoices().find((v) => v.lang.toLowerCase().startsWith("ru"));
+        if (voice) utterance.voice = voice;
+        if (onEnd) utterance.onend = onEnd;
+        window.speechSynthesis.speak(utterance);
+    };
+    const fillSelect = (id, values, label) => {
+        const select = $(id);
+        select.innerHTML = "";
+        for (const [value, text] of Object.entries(values)) {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = `${value} — ${text || "(none)"}`;
+            select.appendChild(option);
+        }
+        select.setAttribute("aria-label", label);
+    };
+    const selectValues = {h: hundreds, t: tens, u: units};
+    ["demo", "guided", "listen"].forEach((name) => {
+        fillSelect(`build-two-${name}-hundreds`, hundreds, "Hundreds");
+        fillSelect(`build-two-${name}-tens`, tens, "Tens");
+        fillSelect(`build-two-${name}-units`, units, "Units");
+    });
+    const getSelection = (name) => {
+        const h = Number($(`build-two-${name}-hundreds`).value);
+        const t = Number($(`build-two-${name}-tens`).value);
+        const u = Number($(`build-two-${name}-units`).value);
+        return {h,t,u,number:h+t+u};
+    };
+    const setSelection = (name, number) => {
+        const {h,t,u} = parts(number);
+        $(`build-two-${name}-hundreds`).value = String(h);
+        $(`build-two-${name}-tens`).value = String(t);
+        $(`build-two-${name}-units`).value = String(u);
+    };
+    const showFeedback = (id, message, correct) => {
+        const element = $(id);
+        element.textContent = message;
+        element.style.color = correct ? "#24743b" : "#a04a17";
+    };
+    const explainError = (selection, target) => {
+        const expected = parts(target);
+        const errors = [];
+        if (selection.h !== expected.h) errors.push("hundreds");
+        if (selection.t !== expected.t) errors.push("tens");
+        if (selection.u !== expected.u) errors.push("units");
+        return `Not quite. Check your ${errors.join(" and ")} selection${errors.length > 1 ? "s" : ""}. Remember: 11–19 are spoken as one teen word.`;
+    };
+    const shuffle = (items) => {
+        const result = [...items];
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+        return result;
+    };
+    const allNumbers = Array.from({length:900}, (_, i) => i + 100);
+    const newSet = (count, old = []) => {
+        const oldKey = [...old].sort((a,b) => a-b).join(",");
+        let result;
+        do {
+            result = shuffle(allNumbers).slice(0, count);
+        } while ([...result].sort((a,b) => a-b).join(",") === oldKey);
+        return result;
+    };
+
+    // Explanation cards and the optional historical callout.
+    const explanations = [...root.querySelectorAll("#build-two-explain .build-two-rule")];
+    $("build-two-expand").addEventListener("click", () => explanations.forEach((card) => card.open = true));
+    $("build-two-collapse").addEventListener("click", () => explanations.forEach((card) => card.open = false));
+    const historyHearButton = $("build-two-history-hear");
+    const historyStopButton = $("build-two-history-stop");
+    let historyUtterance = null;
+
+    function stopHistoryAudio() {
+        if (historyUtterance && window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+        }
+
+        historyUtterance = null;
+        historyStopButton.disabled = true;
+    }
+
+    $("build-two-history-toggle").addEventListener("click", () => {
+        const body = $("build-two-history-body");
+        const closing = !body.hidden;
+
+        if (closing) {
+            stopHistoryAudio();
+        }
+
+        body.hidden = closing;
+        $("build-two-history-toggle").setAttribute("aria-expanded", String(!closing));
+    });
+
+    historyHearButton.addEventListener("click", () => {
+        stopHistoryAudio();
+
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            return;
+        }
+
+        // Speak the nine hundreds as one sequence so the learner can interrupt it.
+        const utterance = new SpeechSynthesisUtterance(Object.values(hundreds).join(". "));
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.82;
+
+        const russianVoice = window.speechSynthesis.getVoices().find((voice) => {
+            return voice.lang.toLowerCase().startsWith("ru");
+        });
+
+        if (russianVoice) {
+            utterance.voice = russianVoice;
+        }
+
+        historyUtterance = utterance;
+        historyStopButton.disabled = false;
+
+        const finish = () => {
+            if (historyUtterance === utterance) {
+                historyUtterance = null;
+                historyStopButton.disabled = true;
+            }
+        };
+
+        utterance.onend = finish;
+        utterance.onerror = finish;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+    });
+
+    historyStopButton.addEventListener("click", stopHistoryAudio);
+
+    // Discovery laboratory.
+    setSelection("demo", 343);
+    const updateDemo = () => {
+        const {h,t,u,number} = getSelection("demo");
+        $("build-two-demo-number").textContent = number;
+        $("build-two-demo-russian").textContent = word(number);
+        const values = [h,t,u].filter(Boolean);
+        $("build-two-demo-note").textContent = `${values.join(" + ")} = ${number}. In Russian: ${word(number)}.`;
+    };
+    ["hundreds","tens","units"].forEach((part) => {
+        $(`build-two-demo-${part}`).addEventListener("change", updateDemo);
+    });
+    $("build-two-demo-hear").addEventListener("click", () => say(word(getSelection("demo").number)));
+    updateDemo();
+
+    // Guided construction: the initial sequence intentionally spans all patterns.
+    const examples = [101,121,232,343,454,565,676,787,888,999];
+    let guidedRound = [...examples];
+    let guidedIndex = 0;
+    let guidedCorrect = false;
+    const guidedShow = () => {
+        const target = guidedRound[guidedIndex];
+        setSelection("guided", 100);
+        guidedCorrect = false;
+        $("build-two-guided-target").textContent = target;
+        $("build-two-guided-progress").textContent = `Number ${guidedIndex + 1} of ${guidedRound.length}`;
+        $("build-two-guided-answer").textContent = "Choose the pieces";
+        $("build-two-guided-feedback").textContent = "";
+        $("build-two-guided-next").disabled = true;
+    };
+    ["hundreds","tens","units"].forEach((part) => {
+        $(`build-two-guided-${part}`).addEventListener("change", () => {
+            guidedCorrect = false;
+            $("build-two-guided-next").disabled = true;
+            $("build-two-guided-answer").textContent = word(getSelection("guided").number);
+            $("build-two-guided-feedback").textContent = "";
+        });
+    });
+    $("build-two-guided-check").addEventListener("click", () => {
+        const selection = getSelection("guided");
+        const target = guidedRound[guidedIndex];
+        guidedCorrect = selection.number === target;
+        $("build-two-guided-next").disabled = !guidedCorrect;
+        showFeedback("build-two-guided-feedback", guidedCorrect ? `Exactly! ${target} is ${word(target)}. You put the pieces together!` : explainError(selection,target), guidedCorrect);
+    });
+    $("build-two-guided-hear").addEventListener("click", () => say(word(getSelection("guided").number)));
+    $("build-two-guided-next").addEventListener("click", () => {
+        if (!guidedCorrect) return;
+        if (guidedIndex === guidedRound.length - 1) {
+            guidedRound = newSet(10, guidedRound);
+            guidedIndex = 0;
+        } else guidedIndex++;
+        guidedShow();
+    });
+    $("build-two-guided-reset").addEventListener("click", () => {
+        guidedRound = newSet(10, guidedRound);
+        guidedIndex = 0;
+        guidedShow();
+    });
+    guidedShow();
+
+    // Listening reconstruction: target stays hidden until checked.
+    let listenTarget = 0;
+    let previousListen = 0;
+    let listenCount = 0;
+    const nextListening = () => {
+        do { listenTarget = 100 + Math.floor(Math.random() * 900); } while (listenTarget === previousListen);
+        previousListen = listenTarget;
+        listenCount++;
+        setSelection("listen", 100);
+        $("build-two-listen-progress").textContent = `Listening challenge ${listenCount}`;
+        $("build-two-listen-feedback").textContent = "Press Play Russian Number to begin.";
+    };
+    $("build-two-listen-play").addEventListener("click", () => say(word(listenTarget)));
+    $("build-two-listen-replay").addEventListener("click", () => say(word(listenTarget)));
+    $("build-two-listen-check").addEventListener("click", () => {
+        const selection = getSelection("listen");
+        const correct = selection.number === listenTarget;
+        showFeedback("build-two-listen-feedback", correct ? `Correct! You heard ${listenTarget} — ${word(listenTarget)}.` : `${explainError(selection,listenTarget)} Listen again, then try again.`, correct);
+    });
+    $("build-two-listen-next").addEventListener("click", nextListening);
+    nextListening();
+
+    // Independent challenge: word bank consists of HTML-authored buttons at runtime
+    // for non-hotspot word choices. Learner answers are held per row.
+    const bank = $("build-two-word-bank");
+    const bankItems = [
+        ...Object.entries(hundreds).map(([value,label]) => ({part:"h",value:Number(value),label})),
+        ...Object.entries(tens).filter(([value]) => Number(value) >= 20).map(([value,label]) => ({part:"t",value:Number(value),label})),
+        ...Object.entries(teens).map(([value,label]) => ({part:"teen",value:Number(value),label})),
+        ...Object.entries(units).filter(([value]) => Number(value) > 0).map(([value,label]) => ({part:"u",value:Number(value),label}))
+    ];
+    bankItems.forEach((item) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = item.label;
+        button.lang = "ru";
+        button.dataset.part = item.part;
+        button.dataset.value = String(item.value);
+        button.setAttribute("aria-pressed", "false");
+        bank.appendChild(button);
+    });
+    const rows = [...root.querySelectorAll(".build-two-answer-row")];
+    let activeRow = 0;
+    let independentTargets = [232,343,454,565];
+    let independentAnswers = [];
+    const answerWord = (answer) => {
+        const result = [hundreds[answer.h]];
+        if (answer.teen) result.push(teens[answer.teen]);
+        else {
+            if (answer.t) result.push(tens[answer.t]);
+            if (answer.u) result.push(units[answer.u]);
+        }
+        return result.filter(Boolean).join(" ");
+    };
+    const renderRows = () => {
+        rows.forEach((row,index) => {
+            const answer = independentAnswers[index];
+            row.classList.toggle("is-active", index === activeRow);
+            row.querySelector(".build-two-target").textContent = independentTargets[index];
+            row.querySelector(".build-two-answer").textContent = answerWord(answer) || "Choose words above";
+        });
+        bank.querySelectorAll("button").forEach((button) => {
+            const answer = independentAnswers[activeRow];
+            const part = button.dataset.part;
+            button.setAttribute("aria-pressed", String(answer[part] === Number(button.dataset.value)));
+        });
+    };
+    const clearRowFeedback = () => rows.forEach((row) => row.querySelector(".build-two-row-feedback").textContent = "");
+    const resetIndependent = (newNumbers) => {
+        if (newNumbers) independentTargets = newSet(4, independentTargets);
+        independentAnswers = Array.from({length:4}, () => ({h:0,t:0,u:0,teen:0}));
+        activeRow = 0;
+        clearRowFeedback();
+        $("build-two-independent-feedback").textContent = "Select a row and begin building.";
+        renderRows();
+    };
+    rows.forEach((row,index) => {
+        row.addEventListener("click", (event) => {
+            if (event.target.closest(".build-two-row-clear")) return;
+            activeRow = index;
+            renderRows();
+        });
+        row.querySelector(".build-two-row-clear").addEventListener("click", () => {
+            independentAnswers[index] = {h:0,t:0,u:0,teen:0};
+            row.querySelector(".build-two-row-feedback").textContent = "";
+            activeRow = index;
+            renderRows();
+        });
+    });
+    bank.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-part]");
+        if (!button) return;
+        const answer = independentAnswers[activeRow];
+        const part = button.dataset.part;
+        const value = Number(button.dataset.value);
+        const already = answer[part] === value;
+        answer[part] = already ? 0 : value;
+        if (part === "teen" && !already) {answer.t = 0; answer.u = 0;}
+        if ((part === "t" || part === "u") && !already) answer.teen = 0;
+        rows[activeRow].querySelector(".build-two-row-feedback").textContent = "";
+        renderRows();
+    });
+    $("build-two-independent-check").addEventListener("click", () => {
+        let correct = 0;
+        rows.forEach((row,index) => {
+            const answer = independentAnswers[index];
+            const target = independentTargets[index];
+            const assembled = answer.h + (answer.teen || answer.t + answer.u);
+            const isCorrect = assembled === target && answerWord(answer) === word(target);
+            if (isCorrect) correct++;
+            row.querySelector(".build-two-row-feedback").textContent = isCorrect ? "✓ Correct!" : "Try again: check the hundreds and the final one or two pieces.";
+            row.querySelector(".build-two-row-feedback").style.color = isCorrect ? "#24743b" : "#a04a17";
+        });
+        showFeedback("build-two-independent-feedback", correct === 4 ? "Excellent! All four are correct. Reset for four new numbers." : `${correct} of 4 correct. Review the highlighted rows and try again.`, correct === 4);
+    });
+    $("build-two-independent-reset").addEventListener("click", () => resetIndependent(true));
+    resetIndependent(false);
+
+    // Everyday-life noun agreement is intentionally limited to nominative
+    // quantity statements, so the focus remains on number construction.
+    const situations = [
+        {title:"Books on the shelf",en:"There are {n} books on the shelf.",ruBefore:"На полке ",ruAfter:"",noun:["книга","книги","книг"],gender:"f"},
+        {title:"Pencils in a box",en:"There are {n} pencils in the box.",ruBefore:"В коробке ",ruAfter:"",noun:["карандаш","карандаша","карандашей"],gender:"m"},
+        {title:"Chairs in the hall",en:"There are {n} chairs in the hall.",ruBefore:"В зале ",ruAfter:"",noun:["стул","стула","стульев"],gender:"m"},
+        {title:"Photographs",en:"There are {n} photographs in the album.",ruBefore:"В альбоме ",ruAfter:"",noun:["фотография","фотографии","фотографий"],gender:"f"},
+        {title:"Students at school",en:"There are {n} students at the school.",ruBefore:"В школе ",ruAfter:"",noun:["ученик","ученика","учеников"],gender:"m"},
+        {title:"Trees in the park",en:"There are {n} trees in the park.",ruBefore:"В парке ",ruAfter:"",noun:["дерево","дерева","деревьев"],gender:"n"},
+        {title:"Flowers in the garden",en:"There are {n} flowers in the garden.",ruBefore:"В саду ",ruAfter:"",noun:["цветок","цветка","цветов"],gender:"m"},
+        {title:"Windows in a building",en:"There are {n} windows in the building.",ruBefore:"В здании ",ruAfter:"",noun:["окно","окна","окон"],gender:"n"},
+        {title:"Cars in the parking lot",en:"There are {n} cars in the parking lot.",ruBefore:"На парковке ",ruAfter:"",noun:["машина","машины","машин"],gender:"f"},
+        {title:"Apples in a basket",en:"There are {n} apples in the basket.",ruBefore:"В корзине ",ruAfter:"",noun:["яблоко","яблока","яблок"],gender:"n"}
+    ];
+    const quantities = [101,111,121,132,143,154,165,176,187,198,200,201,202,211,221,232,243,254,265,276,287,298,321,343,454,565,676,787,888,999];
+    const nounForm = (number, forms) => {
+        const lastTwo = number % 100;
+        const last = number % 10;
+        if (lastTwo >= 11 && lastTwo <= 14) return forms[2];
+        if (last === 1) return forms[0];
+        if (last >= 2 && last <= 4) return forms[1];
+        return forms[2];
+    };
+    const contextualNumber = (number, gender) => {
+        let result = word(number);
+        if (number % 100 < 11 || number % 100 > 14) {
+            if (number % 10 === 1) result = result.replace(/один$/, gender === "f" ? "одна" : gender === "n" ? "одно" : "один");
+            if (number % 10 === 2 && gender === "f") result = result.replace(/два$/, "две");
+        }
+        return result;
+    };
+    let situationIndex = 0;
+    let revealed = false;
+    situations.forEach((s,index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = `${index + 1} · ${s.title}`;
+        $("build-two-situation").appendChild(option);
+    });
+    quantities.forEach((number) => {
+        const option = document.createElement("option");
+        option.value = String(number);
+        option.textContent = String(number);
+        $("build-two-quantity").appendChild(option);
+    });
+    const renderLiving = () => {
+        const s = situations[situationIndex];
+        const n = Number($("build-two-quantity").value);
+        $("build-two-situation-title").textContent = s.title;
+        $("build-two-situation-progress").textContent = `Situation ${situationIndex + 1} of ${situations.length}`;
+        $("build-two-english").textContent = s.en.replace("{n}", String(n));
+        const russian = $("build-two-russian");
+        russian.replaceChildren();
+        if (!revealed) {
+            russian.textContent = "Select Reveal Russian to see the sentence.";
+            return;
+        }
+        russian.append(document.createTextNode(s.ruBefore));
+        const boldNumber = document.createElement("strong");
+        boldNumber.textContent = contextualNumber(n,s.gender);
+        russian.append(boldNumber);
+        russian.append(document.createTextNode(` ${nounForm(n,s.noun)}${s.ruAfter}.`));
+    };
+    const setSituation = (index) => {
+        situationIndex = (index + situations.length) % situations.length;
+        $("build-two-situation").value = String(situationIndex);
+        $("build-two-quantity").value = String(quantities[(situationIndex * 3 + 2) % quantities.length]);
+        revealed = false;
+        renderLiving();
+    };
+    $("build-two-situation").addEventListener("change", (event) => setSituation(Number(event.target.value)));
+    $("build-two-quantity").addEventListener("change", () => {revealed = false; renderLiving();});
+    $("build-two-reveal").addEventListener("click", () => {revealed = true; renderLiving();});
+    $("build-two-living-hear").addEventListener("click", () => {revealed = true; renderLiving(); say($("build-two-russian").textContent);});
+    $("build-two-living-reset").addEventListener("click", () => setSituation(situationIndex));
+    $("build-two-previous").addEventListener("click", () => setSituation(situationIndex - 1));
+    $("build-two-next").addEventListener("click", () => setSituation(situationIndex + 1));
+    setSituation(0);
+})();
+
+
+// ==================================================
+// THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
+// Replaces the old "Part A/B/C" Listening Room JS.
+// Wrapped in an IIFE to match this file's existing scoping convention.
+// NOTE 1: .feedback class renamed to .encounter-feedback throughout to
+// avoid colliding with the site-wide .feedback class used elsewhere.
+// NOTE 2 (2026-09-10 fix): scrollTo(top:0) calls changed to scroll the
+// .listening-room wrapper into view instead of the whole page — see
+// integration notes for why.
+// ==================================================
+(() => {
+    // Content-free data placeholders: navigation and interactions remain testable.
+    // Replace these six objects with Days of the Week content later.
+    const encounters = Array.from({ length: 6 }, (_, index) => ({
+        primary: "",
+        variation: "",
+        catch: ["Content pending"],
+        meaningQuestion: `Encounter ${index + 1} — meaning activity pending`,
+        meaningChoices: ["Continue through the shell"],
+        meaningAnswer: 0,
+        inferQuestion: "Inference activity pending",
+        inferChoices: ["Continue through the shell"],
+        inferAnswer: 0,
+        respondQuestion: "Response activity pending",
+        respondChoices: ["Continue through the shell"],
+        respondAnswer: 0,
+        support: "Numbers listening content will be added here.",
+        transcript: "Content pending."
+    }));
+
+    const moves = [
+        {
+            label: "HEAR",
+            prompt: "Listen once. Do not try to catch every word.",
+            purpose: "First, listen for the overall shape of the message."
+        },
+        {
+            label: "CATCH",
+            prompt: "What did your ears catch?",
+            purpose: "Recognize familiar Russian without requiring the whole sentence."
+        },
+        {
+            label: "LISTEN AGAIN",
+            prompt: "Listen again with a purpose.",
+            purpose: "This time, listen for the numbers and the context."
+        },
+        {
+            label: "BUILD MEANING",
+            prompt: "Put the pieces together.",
+            purpose: "Use what you understood to decide what the message means."
+        },
+        {
+            label: "INFER",
+            prompt: "Listen for what changed.",
+            purpose: "The Russian changed naturally. Follow the meaning, not a memorized sentence."
+        },
+        {
+            label: "RESPOND",
+            prompt: "Respond to what you understood.",
+            purpose: "Use the meaning you built to choose the response that fits."
+        }
+    ];
+
+    const el = {
+        room: document.querySelector(".listening-room"),
+        landing: document.getElementById("landingScreen"),
+        experience: document.getElementById("experienceScreen"),
+        completion: document.getElementById("completionScreen"),
+        enter: document.getElementById("enterButton"),
+        listen: document.getElementById("listenButton"),
+        slower: document.getElementById("slowerButton"),
+        audioStatus: document.getElementById("audioStatus"),
+
+        navigator: document.getElementById("encounterNavigator"),
+        navigatorButtons: [...document.querySelectorAll(".encounter-nav-button")],
+        navigatorStatus: document.getElementById("encounterNavigatorStatus"),
+        moveLabel: document.getElementById("moveLabel"),
+        movePrompt: document.getElementById("movePrompt"),
+        movePurpose: document.getElementById("movePurpose"),
+        catchPanel: document.getElementById("catchPanel"),
+        catchGrid: document.getElementById("catchGrid"),
+        catchContinue: document.getElementById("catchContinueButton"),
+        meaningPanel: document.getElementById("meaningPanel"),
+        meaningQuestion: document.getElementById("meaningQuestion"),
+        meaningChoices: document.getElementById("meaningChoices"),
+        meaningFeedback: document.getElementById("meaningFeedback"),
+        inferPanel: document.getElementById("inferPanel"),
+        inferQuestion: document.getElementById("inferQuestion"),
+        inferChoices: document.getElementById("inferChoices"),
+        inferFeedback: document.getElementById("inferFeedback"),
+        respondPanel: document.getElementById("respondPanel"),
+        respondQuestion: document.getElementById("respondQuestion"),
+        respondChoices: document.getElementById("respondChoices"),
+        respondFeedback: document.getElementById("respondFeedback"),
+        supportPanel: document.getElementById("supportPanel"),
+        supportText: document.getElementById("supportText"),
+        supportButton: document.getElementById("supportButton"),
+        revealTranscript: document.getElementById("revealTranscriptButton"),
+        transcript: document.getElementById("transcriptText"),
+        nextMove: document.getElementById("nextMoveButton"),
+        nextEncounter: document.getElementById("nextEncounterButton"),
+        reset: document.getElementById("resetButton"),
+        restart: document.getElementById("restartButton")
+    };
+
+    let encounterIndex = 0;
+    let moveIndex = 0;
+    let lastSpokenText = "";
+    let lastRate = 0.86;
+
+    // Completion belongs to individual encounters, not to their position
+    // in a forced sequence. A learner may jump around freely; an encounter
+    // is earned only after its final RESPOND choice is completed successfully.
+    const completedEncounters = new Set();
+
+    function updateEncounterNavigator() {
+        el.navigatorButtons.forEach((button) => {
+            const index = Number(button.dataset.encounterIndex);
+            const isCurrent = index === encounterIndex;
+            const isComplete = completedEncounters.has(index);
+            const state = button.querySelector(".encounter-nav-button__state");
+
+            button.classList.toggle("encounter-nav-button--current", isCurrent);
+            button.classList.toggle("encounter-nav-button--complete", isComplete);
+
+            if (isCurrent) {
+                button.setAttribute("aria-current", "step");
+            } else {
+                button.removeAttribute("aria-current");
+            }
+
+            if (state) {
+                if (isCurrent && isComplete) {
+                    state.textContent = "✓ Complete • You are here";
+                } else if (isCurrent) {
+                    state.textContent = "You are here";
+                } else if (isComplete) {
+                    state.textContent = "✓ Complete";
+                } else {
+                    state.textContent = "Open";
+                }
+            }
+        });
+
+        if (el.navigatorStatus) {
+            el.navigatorStatus.textContent =
+                `You are in Encounter ${encounterIndex + 1}. Completed: ${completedEncounters.size} of ${encounters.length}.`;
+        }
+    }
+
+    function jumpToEncounter(index) {
+        if (index < 0 || index >= encounters.length) {
+            return;
+        }
+
+        window.speechSynthesis?.cancel();
+        encounterIndex = index;
+
+        // Version 1 rule: if a learner leaves an unfinished encounter midway,
+        // returning to it restarts that encounter at HEAR rather than preserving
+        // every internal Listening Move state.
+        moveIndex = 0;
+        renderMove();
+    }
+
+    function markCurrentEncounterComplete() {
+        completedEncounters.add(encounterIndex);
+        updateEncounterNavigator();
+
+        el.nextMove.hidden = true;
+        el.nextEncounter.hidden = false;
+        el.nextEncounter.textContent =
+            completedEncounters.size === encounters.length
+                ? "Finish Listening Room"
+                : "Next Encounter";
+    }
+
+    function nextRecommendedEncounterIndex() {
+        // Keep the normal recommended forward path when possible. If the learner
+        // is at Encounter 6 but earlier encounters remain unfinished, wrap to the
+        // first unfinished encounter instead of falsely completing the Room.
+        for (let offset = 1; offset <= encounters.length; offset += 1) {
+            const candidate = (encounterIndex + offset) % encounters.length;
+            if (!completedEncounters.has(candidate)) {
+                return candidate;
+            }
+        }
+
+        return null;
+    }
+
+    function speak(text, rate = 0.86) {
+        if (!("speechSynthesis" in window)) {
+            el.audioStatus.textContent = "Speech synthesis is not available in this browser.";
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+
+        const voices = window.speechSynthesis.getVoices();
+        const russianVoice = voices.find((voice) => voice.lang && voice.lang.toLowerCase().startsWith("ru"));
+        if (russianVoice) {
+            utterance.voice = russianVoice;
+        }
+
+        utterance.onstart = () => {
+            el.audioStatus.textContent = "Listening...";
+        };
+
+        utterance.onend = () => {
+            el.audioStatus.textContent = "Ready to listen again.";
+        };
+
+        utterance.onerror = () => {
+            el.audioStatus.textContent = "The browser could not play this Russian audio.";
+        };
+
+        lastSpokenText = text;
+        lastRate = rate;
+        if (text && text.trim()) {
+            window.speechSynthesis.speak(utterance);
+        } else {
+            el.audioStatus.textContent = "Audio content pending.";
+        }
+    }
+
+    function clearPanels() {
+        [
+            el.catchPanel,
+            el.meaningPanel,
+            el.inferPanel,
+            el.respondPanel,
+            el.supportPanel
+        ].forEach((panel) => {
+            panel.hidden = true;
+        });
+
+        el.slower.hidden = true;
+        el.supportButton.hidden = true;
+        el.nextMove.hidden = true;
+        el.nextEncounter.hidden = true;
+
+        el.meaningFeedback.textContent = "";
+        el.meaningFeedback.className = "encounter-feedback";
+        el.inferFeedback.textContent = "";
+        el.inferFeedback.className = "encounter-feedback";
+        el.respondFeedback.textContent = "";
+        el.respondFeedback.className = "encounter-feedback";
+    }
+
+    function makeChoiceButtons(
+        container,
+        choices,
+        answerIndex,
+        feedbackEl,
+        successText,
+        acceptAny = false,
+        onSuccess = null,
+        showNextMove = true
+    ) {
+        container.innerHTML = "";
+
+        choices.forEach((choice, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "choice-button";
+            button.textContent = choice;
+
+            button.addEventListener("click", () => {
+                if (acceptAny || index === answerIndex) {
+                    feedbackEl.textContent = successText;
+                    feedbackEl.className = "encounter-feedback encounter-feedback--success";
+                    [...container.querySelectorAll("button")].forEach((item) => {
+                        item.disabled = true;
+                    });
+                    if (showNextMove) {
+                        el.nextMove.hidden = false;
+                    }
+
+                    if (onSuccess) {
+                        onSuccess();
+                    }
+                } else {
+                    feedbackEl.textContent = "Not quite. Listen again and use what you do understand.";
+                    feedbackEl.className = "encounter-feedback encounter-feedback--try";
+                }
+            });
+
+            container.appendChild(button);
+        });
+    }
+
+    function renderCatch(encounter) {
+        el.catchGrid.innerHTML = "";
+
+        encounter.catch.forEach((word) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "catch-chip";
+            button.textContent = word;
+            button.setAttribute("aria-pressed", "false");
+
+            button.addEventListener("click", () => {
+                const pressed = button.getAttribute("aria-pressed") === "true";
+                button.setAttribute("aria-pressed", String(!pressed));
+            });
+
+            el.catchGrid.appendChild(button);
+        });
+    }
+
+    function renderMove() {
+        const encounter = encounters[encounterIndex];
+        const move = moves[moveIndex];
+
+        clearPanels();
+
+        updateEncounterNavigator();
+        el.moveLabel.textContent = move.label;
+        el.movePrompt.textContent = move.prompt;
+        el.movePurpose.textContent = move.purpose;
+        el.audioStatus.textContent = "Ready when you are.";
+
+        if (moveIndex === 0) {
+            el.listen.onclick = () => speak(encounter.primary, 0.86);
+            el.nextMove.hidden = false;
+        }
+
+        if (moveIndex === 1) {
+            renderCatch(encounter);
+            el.catchPanel.hidden = false;
+            el.listen.onclick = () => speak(encounter.primary, 0.86);
+            el.catchContinue.onclick = () => {
+                moveIndex += 1;
+                renderMove();
+            };
+        }
+
+        if (moveIndex === 2) {
+            el.listen.onclick = () => speak(encounter.primary, 0.86);
+            el.slower.hidden = false;
+            el.slower.onclick = () => speak(encounter.primary, 0.68);
+            el.supportButton.hidden = false;
+            el.nextMove.hidden = false;
+        }
+
+        if (moveIndex === 3) {
+            el.meaningPanel.hidden = false;
+            el.meaningQuestion.textContent = encounter.meaningQuestion;
+            makeChoiceButtons(
+                el.meaningChoices,
+                encounter.meaningChoices,
+                encounter.meaningAnswer,
+                el.meaningFeedback,
+                "Yes. You followed the meaning."
+            );
+            el.listen.onclick = () => speak(encounter.primary, 0.86);
+            el.supportButton.hidden = false;
+        }
+
+        if (moveIndex === 4) {
+            el.inferPanel.hidden = false;
+            el.inferQuestion.textContent = encounter.inferQuestion;
+            makeChoiceButtons(
+                el.inferChoices,
+                encounter.inferChoices,
+                encounter.inferAnswer,
+                el.inferFeedback,
+                "Exactly. You followed the change without needing the original wording."
+            );
+            el.listen.onclick = () => speak(encounter.variation, 0.86);
+            el.slower.hidden = false;
+            el.slower.onclick = () => speak(encounter.variation, 0.68);
+            el.supportButton.hidden = false;
+        }
+
+        if (moveIndex === 5) {
+            el.respondPanel.hidden = false;
+            el.respondQuestion.textContent = encounter.respondQuestion;
+            makeChoiceButtons(
+                el.respondChoices,
+                encounter.respondChoices,
+                encounter.respondAnswer,
+                el.respondFeedback,
+                "Well done. You responded to what you understood.",
+                Boolean(encounter.respondAcceptsAny),
+                markCurrentEncounterComplete,
+                false
+            );
+            el.listen.onclick = () => speak(encounter.variation, 0.86);
+            el.supportButton.hidden = false;
+        }
+
+        el.supportText.textContent = encounter.support;
+        el.transcript.textContent = encounter.transcript;
+        el.transcript.hidden = true;
+
+        if (moveIndex === 5) {
+            el.nextMove.hidden = true;
+        }
+    }
+
+    function advanceMove() {
+        if (moveIndex < moves.length - 1) {
+            moveIndex += 1;
+            renderMove();
+            return;
+        }
+
+        el.nextEncounter.hidden = false;
+    }
+
+
+    function showCompletion() {
+        window.speechSynthesis?.cancel();
+        el.landing.hidden = true;
+        el.experience.hidden = true;
+        el.completion.hidden = false;
+        el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetRoom() {
+        window.speechSynthesis?.cancel();
+        completedEncounters.clear();
+        encounterIndex = 0;
+        moveIndex = 0;
+        updateEncounterNavigator();
+        el.completion.hidden = true;
+        el.landing.hidden = false;
+        el.experience.hidden = true;
+        el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    el.enter.addEventListener("click", () => {
+        el.landing.hidden = true;
+        el.completion.hidden = true;
+        el.experience.hidden = false;
+        completedEncounters.clear();
+        encounterIndex = 0;
+        moveIndex = 0;
+        renderMove();
+        el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    el.nextMove.addEventListener("click", advanceMove);
+
+    el.nextEncounter.addEventListener("click", () => {
+        if (completedEncounters.size === encounters.length) {
+            showCompletion();
+            return;
+        }
+
+        const nextIndex = nextRecommendedEncounterIndex();
+        if (nextIndex !== null) {
+            jumpToEncounter(nextIndex);
+        }
+    });
+
+    el.navigatorButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            jumpToEncounter(Number(button.dataset.encounterIndex));
+        });
+    });
+
+    el.supportButton.addEventListener("click", () => {
+        el.supportPanel.hidden = false;
+    });
+
+    el.revealTranscript.addEventListener("click", () => {
+        el.transcript.hidden = false;
+    });
+
+    el.reset.addEventListener("click", resetRoom);
+    el.restart.addEventListener("click", resetRoom);
+
+    el.slower.addEventListener("click", () => {
+        if (lastSpokenText) {
+            speak(lastSpokenText, 0.68);
+        }
+    });
+})();
+// END THE LISTENING ROOM

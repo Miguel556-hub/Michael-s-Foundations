@@ -1,0 +1,1659 @@
+/* ==========================================
+   GLOBAL DESIGN TOKENS
+========================================== */
+
+:root {
+    --ink: #172235;
+    --blue: #1768b2;
+    --line: #d8e1eb;
+    --paper: #fff;
+    --bg: #f4f7fa;
+    --rail: 270px
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+/* ==========================================
+   JOURNEY RAIL
+========================================== */
+
+.journey-rail {
+    font-family: "Trebuchet", Arial, sans-serif;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--rail);
+    overflow: auto;
+    background: #f8fbff;
+    border-right: 1px solid #ccd9e8;
+    padding: 20px 16px;
+    z-index: 20;
+    box-shadow: 2px 0 12px #00000010;
+}
+
+.journey-rail__identity {
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px
+}
+
+.journey-rail__flag img {
+    display: block;
+    width: 105px;
+    height: auto;
+    margin: 0 auto 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+}
+
+.journey-rail__identity p {
+    font-weight: 600;
+    letter-spacing: .15em;
+    margin: 4px
+}
+
+.journey-rail__section {
+    margin: 14px 0;
+    padding: 10px;
+    border-left: 4px solid transparent;
+    border-radius: 8px
+}
+
+.journey-rail__section-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.15rem
+}
+
+.journey-rail__section-description {
+    font-size: .9rem;
+    font-weight: 200;
+    line-height: 1.45;
+    color: #52677d;
+}
+
+/* =========================================
+   JOURNEY RAIL — PHASE THE BODY
+   Light = not current
+   Dark = current
+   ========================================= */
+
+/* LEARN */
+.journey-rail__section[data-stage="learn"] {
+    background: #eaf4ff;
+    border-left-color: #9cccf5;
+}
+
+/* BUILD */
+.journey-rail__section[data-stage="build"] {
+    background: #edf5ef;
+    border-left-color: #a8c7ae;
+}
+
+/* PRACTICE */
+.journey-rail__section[data-stage="practice"] {
+    background: #f3ebfa;
+    border-left-color: #c9a7e8;
+}
+
+/* USE */
+.journey-rail__section[data-stage="use"] {
+    background: #fbefe7;
+    border-left-color: #e6b38f;
+}
+
+/* =========================================
+   JOURNEY RAIL — CURRENT PHASE
+   Dark = learner is here
+   ========================================= */
+
+/* LEARN — CURRENT */
+.journey-rail__section[data-stage="learn"].journey-rail__section--current {
+    background: #1f5f91;
+    border-left-color: #1f5f91;
+}
+
+/* BUILD — CURRENT */
+.journey-rail__section[data-stage="build"].journey-rail__section--current {
+    background: #4f7357;
+    border-left-color: #4f7357;
+}
+
+/* PRACTICE — CURRENT */
+.journey-rail__section[data-stage="practice"].journey-rail__section--current {
+    background: #6c32a3;
+    border-left-color: #6c32a3;
+}
+
+/* USE — CURRENT */
+.journey-rail__section[data-stage="use"].journey-rail__section--current {
+    background: #9a4308;
+    border-left-color: #9a4308;
+}
+
+/* END of DARK The Body*/
+
+/* =========================================
+   JOURNEY RAIL — CURRENT PHASE TEXT
+   ========================================= */
+
+.journey-rail .journey-rail__section--current,
+.journey-rail .journey-rail__section--current .journey-rail__section-title,
+.journey-rail .journey-rail__section--current .journey-rail__section-description,
+.journey-rail .journey-rail__section--current .journey-rail__progress-label,
+.journey-rail .journey-rail__section--current nav,
+.journey-rail .journey-rail__section--current a {
+    color: #fff;
+}
+
+.journey-rail__progress-label {
+    margin-top: 4px;
+    font-size: .82rem;
+    font-weight: 700;
+    color: #27384a;
+}
+
+.journey-rail nav {
+    display: grid;
+    gap: 1px;
+    margin-top: 4px
+}
+
+.journey-rail a {
+    font-size: .78rem;
+    color: #334a64;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: 4px
+}
+
+.journey-rail a:hover {
+    background: transparent;
+}
+
+.journey-check {
+    display: inline-block;
+    width: 14px;
+    color: #1d7b3a;
+    font-weight: 900;
+}
+
+.journey-rail__section--current .journey-check {
+    color: #fff;
+}
+
+.journey-rail__overall-progress {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    font-size: .85rem
+}
+
+/* ==========================================
+   RIGHT-SIDE LEARN / BUILD / PRACTICE / USE TABS
+========================================== */
+
+.stage-tabs {
+    position: fixed;
+    right: 0;
+    top: 32%;
+    z-index: 30;
+    display: grid;
+    gap: 8px
+}
+
+.stage-tab {
+    border-right: 0;
+    background: white;
+    padding: 12px 9px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 800;
+    letter-spacing: .08em;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+/* LEARN */
+.stage-tab--learn {
+    color: #1f5f91;
+    border: 1px solid #1f5f91;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--learn.stage-tab--active {
+    background: #1f5f91;
+    color: white;
+}
+
+/* BUILD */
+.stage-tab--build {
+    color: #4f7357;
+    border: 1px solid #4f7357;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--build.stage-tab--active {
+    background: #4f7357;
+    color: white;
+}
+
+/* PRACTICE */
+.stage-tab--practice {
+    color: #6c32a3;
+    border: 1px solid #6c32a3;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--practice.stage-tab--active {
+    background: #6c32a3;
+    color: white;
+}
+
+/* USE */
+.stage-tab--use {
+    color: #9a4308;
+    border: 1px solid #9a4308;
+    border-radius: 0 8px 8px 0;
+}
+
+.stage-tab--use.stage-tab--active {
+    background: #9a4308;
+    color: white;
+}
+
+/* ==========================================
+   MAIN LESSON CONTENT
+========================================== */
+
+main {
+    margin-left: var(--rail);
+    padding-bottom: 50px
+}
+
+/* ==========================================
+   FOUNDATION HERO
+========================================== */
+
+.journey-hero {
+    padding: 54px clamp(24px, 5vw, 80px);
+    background: linear-gradient(135deg, #0f5fa8, #2683cf);
+    color: white
+}
+
+.journey-hero__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-weight: 800
+}
+
+.journey-hero h1 {
+    font-size: clamp(2.3rem, 5vw, 4.6rem);
+    margin: .1em 0 0
+}
+
+.journey-hero__russian-title {
+    margin: 0 0 1.05em 1.1em;
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.journey-hero__tagline {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 6px
+}
+
+/* ==========================================
+   LEARNING STAGES
+========================================== */
+
+.learning-stage {
+    scroll-margin-top: 10px;
+}
+
+/* ==========================================
+   LEARN / BUILD / PRACTICE / USE BANNERS
+========================================== */
+
+.phase-banner {
+    min-height: 108px;
+    padding: 18px clamp(24px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 22px;
+    border-top: 1px solid;
+    border-bottom: 5px solid;
+    box-shadow: 0 4px 8px #0002;
+    position: relative;
+    overflow: hidden
+}
+
+.phase-banner__icon {
+    font-size: 2.2rem;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    background: #ffffff80
+}
+
+.phase-banner__name {
+    font-size: 2rem;
+    font-weight: 900;
+    border-right: 1px solid currentColor;
+    padding-right: 22px
+}
+
+.phase-banner__text {
+    font-size: 1rem;
+}
+
+.phase-banner__art {
+    font-size: 2.3rem;
+    opacity: .35;
+    letter-spacing: .15em
+}
+
+.phase-banner--learn {
+    color: #155aa4;
+    background: linear-gradient(90deg, #eef7ff, #dbeeff);
+    border-color: #4b95df
+}
+
+.phase-banner--build {
+    color: #2f6d2c;
+    background: linear-gradient(90deg, #f1faee, #dff0d9);
+    border-color: #70a85f
+}
+
+.phase-banner--practice {
+    color: #68449a;
+    background: linear-gradient(90deg, #faf5ff, #eadcf7);
+    border-color: #9b75c7
+}
+
+.phase-banner--use {
+    color: #956100;
+    background: linear-gradient(90deg, #fffaf0, #f6e7bd);
+    border-color: #d49b22
+}
+
+/* ==========================================
+   LESSON / PRACTICE CARDS
+========================================== */
+
+.lesson,
+.practice-card,
+.use-placeholder {
+    max-width: 980px;
+    margin: 32px auto;
+    padding: 32px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #00000010
+}
+
+.lesson__header span,
+.exercise__label,
+.eyebrow {
+    text-transform: uppercase;
+    color: #1666ad;
+    font-weight: 800;
+    letter-spacing: .1em;
+    font-size: .8rem
+}
+
+.lesson__header h2,
+.practice-card h2,
+.use-placeholder h2 {
+    margin: .2em 0;
+    font-size: 2rem;
+    color: #125d9d
+}
+
+.lesson__intro {
+    font-size: 1.04rem;
+}
+
+.section-heading {
+    margin-top: 30px;
+    border-bottom: 2px solid #e5edf5;
+    padding-bottom: 8px;
+    color: #174e7f
+}
+
+/* ==========================================
+   PHRASE CARDS & SUPPORT CARDS
+========================================== */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px
+}
+
+.card-grid.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ==========================================
+   BUILD ACTIVITIES
+========================================== */
+
+.phrase-card,
+.support-card,
+.exercise {
+    border: 1px solid #d3dfeb;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 18px 0;
+    background: #fff
+}
+
+.phrase-card h3 {
+    font-size: 1.55rem;
+    color: #0962ac;
+    margin: .35em 0
+}
+
+.phrase-card em {
+    display: block;
+    color: #267bd0;
+    margin-bottom: 8px
+}
+
+.phrase-card small {
+    display: block;
+    color: #5b6877;
+    margin-bottom: 10px
+}
+
+.label {
+    font-size: .78rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #52677d
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px
+}
+
+/* ==========================================
+   BUTTONS & INTERACTION CONTROLS
+========================================== */
+
+button {
+    border: 1px solid #0d6fc2;
+    background: #fff;
+    color: #0b65ad;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 700
+}
+
+button:hover {
+    background: #eef7ff;
+}
+
+.listen {
+    background: #f5f8fc;
+}
+
+.say {
+    background: #0d6fc2;
+    color: #fff
+}
+
+.support-card {
+    background: #f9fbfd;
+    border-left: 5px solid #1872bd
+}
+
+.support-card h3 {
+    margin: .25em 0;
+    color: #145d9b
+}
+
+.pronunciation-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px
+}
+
+.pronunciation-steps span {
+    padding: 10px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-weight: 700
+}
+
+.pronunciation-steps em {
+    display: block;
+    font-size: .8rem;
+    color: #2776c1
+}
+
+.name-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+.name-grid>div {
+    display: grid;
+    gap: 5px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff
+}
+
+.name-grid strong {
+    font-size: 2rem;
+    color: #0c65ad
+}
+
+.name-grid em {
+    color: #267bd0;
+}
+
+.word-breakdown {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap
+}
+
+.word-breakdown span {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 5px
+}
+
+/* ==========================================
+   COMPLETION CONTROLS
+========================================== */
+
+.completion {
+    display: block;
+    margin-top: 22px;
+    background: #f1f6fa;
+    border: 1px solid #d5e0e9;
+    padding: 12px;
+    border-radius: 7px;
+    font-weight: 700
+}
+
+.completion input {
+    margin-right: 8px;
+}
+
+.exercise {
+    background: #fbfdff;
+}
+
+.exercise h3 {
+    color: #125d9d;
+}
+
+.choice-set,
+.word-bank,
+.phrase-bank {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap
+}
+
+.choice-set button.selected,
+.word-bank button.selected,
+.phrase-bank button.selected {
+    background: #0d6fc2;
+    color: #fff
+}
+
+.feedback {
+    min-height: 26px;
+    margin-top: 10px;
+    font-weight: 700
+}
+
+.feedback.good,
+.speech-feedback.good {
+    color: #1d7b3a;
+}
+
+.feedback.bad,
+.speech-feedback.bad {
+    color: #b05c00;
+}
+
+
+.conversation {
+    border-left: 4px solid #77a8d2;
+    padding-left: 15px
+}
+
+.builder__answer {
+    min-height: 50px;
+    border: 2px solid #4b9be2;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px 0;
+    font-weight: 800;
+    color: #0d5d9f
+}
+
+.check-builder,
+.check-conversation,
+.check-typing {
+    margin-top: 12px;
+    background: #086bb8;
+    color: #fff
+}
+
+.name-input {
+    display: block;
+    margin-top: 12px;
+    padding: 10px;
+    border: 1px solid #9cb8d0;
+    border-radius: 6px;
+    min-width: 280px
+}
+
+.blank {
+    min-width: 160px;
+    background: #f8fbff
+}
+
+.conversation-builder .phrase-bank {
+    margin: 15px 0;
+}
+
+/* ==========================================
+   PRACTICE ACTIVITY 1 — TYPE WHAT YOU KNOW
+========================================== */
+
+.typing-prompts {
+    display: grid;
+    gap: 12px
+}
+
+.typing-prompts label {
+    display: grid;
+    gap: 4px;
+    font-weight: 700
+}
+
+.typing-prompts input {
+    padding: 10px;
+    border: 1px solid #9eb4c8;
+    border-radius: 5px
+}
+
+.russian-keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 16px 0
+}
+
+.russian-keyboard button {
+    min-width: 38px;
+    padding: 7px
+}
+
+.match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px
+}
+
+/* Give the Match Activity reset button breathing room. */
+.reset-match {
+    margin-top: 16px;
+}
+
+.match-col {
+    display: grid;
+    gap: 8px
+}
+
+.match-col button.matched {
+    background: #e6f6ea;
+    color: #256c36;
+    border-color: #65aa73
+}
+
+.match-col button.active {
+    outline: 3px solid #8dbcec;
+}
+
+.recall-list {
+    display: grid;
+    gap: 12px
+}
+
+.recall-list>div {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px
+}
+
+.recall-list .speech-heard {
+    grid-column: 2;
+}
+
+.recall-list .speech-feedback {
+    grid-column: 3;
+    min-height: 20px;
+}
+
+.coming-soon {
+    text-align: center;
+    padding: 35px;
+    border: 2px dashed #d4a43b;
+    background: #fffaf0;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #986400
+}
+
+.page-navigation {
+    max-width: 980px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between
+}
+
+.page-navigation a {
+    text-decoration: none;
+    border: 1px solid #cbd7e2;
+    padding: 10px 16px;
+    border-radius: 6px;
+    color: #145d9b;
+    background: #fff
+}
+
+.journey-rail__section nav a {
+    display:block;
+}
+.journey-rail__section nav a[aria-current="location"] {
+    font-weight:900;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+.journey-rail__section[data-stage="learn"] .journey-check,
+.journey-rail__section[data-stage="build"] .journey-check,
+.journey-rail__section[data-stage="practice"] .journey-check,
+.journey-rail__section[data-stage="use"] .journey-check {
+    width:17px;
+}
+/* EXPLORE — shared Russian Foundations teal-green identity. */
+.journey-rail__section[data-stage="explore"] {
+    background: #eef8f6;
+    border-left-color: #7eb9ad;
+}
+
+.journey-rail__section[data-stage="explore"].journey-rail__section--current {
+    background: #176c63;
+    border-left-color: #176c63;
+}
+
+.stage-tab--explore {
+    color: #176c63;
+    border: 1px solid #176c63;
+}
+
+.stage-tab--explore.stage-tab--active {
+    background: #176c63;
+    color: #fff;
+}
+
+.phase-banner--explore {
+    color: #176c63;
+    background: linear-gradient(90deg, #f1fbf8, #d9eee9);
+    border-color: #68a99d;
+}
+@media (max-width:850px) {
+  :root {
+    --rail:200px;
+}
+  .journey-rail {
+    padding:12px 8px;
+}
+  .phase-banner {
+    grid-template-columns:auto 1fr;
+    gap:12px;
+}
+  .phase-banner__name {
+    border-right:0;
+}
+  .phase-banner__text {
+    grid-column:1 / -1;
+}
+  .phase-banner__art {
+    display:none;
+}
+}
+@media (max-width:570px) {
+  :root {
+    --rail:0px;
+}
+  .journey-rail {
+    position:static;
+    width:auto;
+    height:auto;
+    max-height:260px;
+    overflow:auto;
+}
+  main {
+    margin-left:0;
+}
+  .stage-tabs {
+    top:auto;
+    bottom:0;
+    right:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    gap:4px;
+    background:#f8fbff;
+    padding:6px;
+}
+  .stage-tab {
+    writing-mode:horizontal-tb;
+    transform:none;
+    border-radius:6px;
+    padding:6px;
+    font-size:.7rem;
+}
+  main {
+    padding-bottom:80px;
+}
+  .journey-hero {
+    padding:26px 18px;
+}
+}
+
+
+
+
+
+/* ==========================================
+   THE BODY — FOUNDATION SHELL
+========================================== */
+.foundation-shell-card {
+    max-width: 980px;
+    margin: 28px auto;
+    padding: 28px 32px;
+    background: #ffffff;
+    border: 1px solid #d8e1eb;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px #00000010;
+    scroll-margin-top: 18px;
+}
+.foundation-shell-card h2 {
+    margin: 8px 0 12px;
+    color: #125d9d;
+    font-size: 1.7rem;
+}
+.foundation-shell-status {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 5px;
+    background: #eef3f8;
+    color: #52677d;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+@media (max-width: 1050px) {
+    .foundation-shell-card { margin: 22px 48px 22px 20px; }
+}
+@media (max-width: 760px) {
+    :root { --rail: 0px; }
+    .journey-rail { position: relative; width: 100%; height: auto; }
+    main { margin-left: 0; }
+    .phase-banner { grid-template-columns: auto 1fr; }
+    .phase-banner__art { display: none; }
+    .foundation-shell-card { margin: 20px 42px 20px 14px; padding: 20px; }
+}
+
+
+/* Family Relationships Listening Room — approved original styling */
+/* ==========================================
+   LISTENING ROOM — HOST CONTAINER BREAKOUT
+   Allows Variation 2 to escape the 980px
+   Conversation Challenge content width,
+   while preserving breathing room at the edges.
+========================================== */
+
+#listening-room.listening-room {
+    width: min(100%, 1380px);
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================
+   THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
+   Replaces the old "Part A/B/C" Listening Room CSS.
+   NOTE 1: .feedback renamed to .encounter-feedback throughout this
+   block to avoid colliding with the site-wide .feedback class used
+   by tree-challenge / phrase-bank activities elsewhere on this page.
+   NOTE 2 (2026-09-10 fix): html/body/button rules scoped to
+   .listening-room, and --shell-width changed from vw to % — see
+   integration notes for why.
+========================================== */
+
+:root {
+    --navy-950: #07111f;
+    --navy-900: #0d192b;
+    --navy-800: #14263f;
+    --text: #f7f4ed;
+    --muted: #c9d3df;
+    --warm: #f2d6a2;
+    --warm-strong: #eabf76;
+    --panel: rgba(9, 20, 35, 0.90);
+    --panel-soft: rgba(21, 39, 63, 0.86);
+    --border: rgba(255, 255, 255, 0.16);
+    --success: #b7e7c2;
+    --amber: #f4d28e;
+    --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+
+    /* Shared page geometry */
+    --page-gap: 20px;
+    --shell-width: min(100%, 2000px);
+    --shell-height: min(88vh, 1000px);
+    --shell-radius: 34px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.listening-room {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: transparent;
+    color: var(--text);
+}
+
+.listening-room button {
+    font: inherit;
+}
+
+button:focus-visible {
+    outline: 3px solid var(--warm);
+    outline-offset: 4px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* Shared Listening Room Environment */
+.room-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: var(--page-gap);
+}
+
+.room-shell {
+    position: relative;
+    width: var(--shell-width);
+    height: var(--shell-height);
+    min-height: 620px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--shell-radius);
+    box-shadow: var(--shadow);
+    background:
+        url("../../Images/listening-room.svg") center center / cover no-repeat,
+        var(--navy-950);
+}
+
+.room-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+            rgba(4, 11, 22, 0.96) 0%,
+            rgba(4, 11, 22, 0.90) 42%,
+            rgba(4, 11, 22, 0.58) 68%,
+            rgba(4, 11, 22, 0.26) 100%);
+    pointer-events: none;
+}
+
+.room-overlay--experience {
+    background:
+        linear-gradient(90deg,
+            rgba(4, 11, 22, 0.97) 0%,
+            rgba(4, 11, 22, 0.94) 56%,
+            rgba(4, 11, 22, 0.66) 78%,
+            rgba(4, 11, 22, 0.32) 100%);
+}
+
+.room-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+}
+
+.room-content--landing {
+    width: min(54%, 760px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2.5rem, 5vw, 5rem);
+}
+
+.room-content--experience {
+    width: min(72%, 1120px);
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.75rem, 3vw, 3rem);
+    overflow-y: auto;
+}
+
+/* End Shared Listening Room Environment */
+
+/* Shared Type */
+.room-eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--warm);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    font-size: clamp(3rem, 6vw, 5.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+}
+
+.room-tagline {
+    max-width: 680px;
+    margin-bottom: 2rem;
+    font-size: clamp(1.25rem, 2vw, 1.7rem);
+    line-height: 1.5;
+    color: var(--warm);
+}
+
+.room-welcome {
+    max-width: 650px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.35rem 1.45rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: rgba(18, 39, 64, 0.78);
+}
+
+.room-welcome__icon {
+    font-size: 2.4rem;
+}
+
+.room-welcome h2 {
+    margin-bottom: 0.35rem;
+    font-size: 1.25rem;
+    color: #a7ddff;
+}
+
+.room-welcome p,
+.completion-copy {
+    margin-bottom: 0;
+    line-height: 1.65;
+    color: var(--muted);
+}
+
+/* End Shared Type */
+
+/* Buttons */
+.room-button {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.9rem 1.25rem;
+    cursor: pointer;
+    transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.room-button--primary {
+    background: var(--warm-strong);
+    color: #182131;
+    font-weight: 800;
+}
+
+.room-button--secondary {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.room-button:hover {
+    transform: translateY(-2px);
+}
+
+.room-content--landing>.room-button {
+    align-self: flex-start;
+}
+
+/* End Buttons */
+
+/* Encounter */
+.encounter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.encounter-header h2 {
+    margin-bottom: 0;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: #8ac8f4;
+}
+
+.encounter-progress {
+    flex: 0 0 auto;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* ==========================================
+   LISTENING ROOM — ENCOUNTER NAVIGATOR
+   The path is guidance, not a cage.
+   Current = where the learner is now.
+   Complete = earned only after finishing RESPOND.
+========================================== */
+.encounter-navigator {
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: rgba(7, 17, 31, 0.78);
+}
+
+.encounter-navigator__intro {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.encounter-navigator__intro strong {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.encounter-navigator__intro span {
+    color: var(--muted);
+    font-size: 0.86rem;
+    text-align: right;
+}
+
+.encounter-navigator__buttons {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.6rem;
+}
+
+.encounter-nav-button {
+    min-width: 0;
+    display: grid;
+    gap: 0.18rem;
+    justify-items: center;
+    padding: 0.65rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+}
+
+.encounter-nav-button:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.10);
+}
+
+.encounter-nav-button__number {
+    font-size: 1.05rem;
+    font-weight: 900;
+}
+
+.encounter-nav-button__state {
+    font-size: 0.72rem;
+    line-height: 1.15;
+}
+
+.encounter-nav-button--current {
+    border-color: var(--warm-strong);
+    background: rgba(234, 191, 118, 0.16);
+    color: #fff;
+    box-shadow: 0 0 0 2px rgba(234, 191, 118, 0.10);
+}
+
+.encounter-nav-button--complete {
+    border-color: rgba(183, 231, 194, 0.72);
+    background: rgba(183, 231, 194, 0.10);
+    color: var(--success);
+}
+
+.encounter-nav-button--current.encounter-nav-button--complete {
+    border-color: var(--warm-strong);
+    color: #fff;
+}
+
+.encounter-navigator__status {
+    margin: 0.8rem 0 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+@media (max-width: 980px) {
+    .encounter-navigator__buttons {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .encounter-navigator__intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .encounter-navigator__intro span {
+        text-align: left;
+    }
+}
+
+@media (max-width: 560px) {
+    .encounter-navigator__buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* END LISTENING ROOM — ENCOUNTER NAVIGATOR */
+
+.encounter-card {
+    flex: 1;
+    min-height: 0;
+    padding: clamp(1.4rem, 2.6vw, 2.4rem);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+}
+
+.encounter-move {
+    margin-bottom: 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    color: var(--warm);
+}
+
+.encounter-card h3 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    color: white;
+}
+
+.encounter-purpose {
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+    color: var(--muted);
+}
+
+.audio-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.audio-status {
+    flex-basis: 100%;
+    margin-bottom: 0;
+    color: var(--muted);
+}
+
+.response-panel,
+.support-panel {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--panel-soft);
+}
+
+.support-panel {
+    border-style: dashed;
+}
+
+.response-panel p,
+.support-panel p {
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.chip-grid,
+.choice-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin: 1rem 0;
+}
+
+.catch-chip,
+.choice-button {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.catch-chip[aria-pressed="true"] {
+    border-color: var(--warm-strong);
+    background: rgba(234, 191, 118, 0.14);
+}
+
+.encounter-feedback {
+    min-height: 1.5rem;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.encounter-feedback--success {
+    color: var(--success) !important;
+}
+
+.encounter-feedback--try {
+    color: var(--amber) !important;
+}
+
+.transcript {
+    margin-top: 1rem !important;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--text) !important;
+    font-size: 1.15rem;
+}
+
+.encounter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+#resetButton {
+    margin-left: auto;
+}
+
+/* End Encounter */
+
+/* Responsive */
+@media (max-width: 980px) {
+    :root {
+        --shell-width: 100%;
+        --shell-height: auto;
+    }
+
+    .room-shell {
+        min-height: 760px;
+        height: auto;
+        background-position: 66% center;
+    }
+
+    .room-content--landing,
+    .room-content--experience {
+        width: 100%;
+        background:
+            linear-gradient(180deg,
+                rgba(4, 11, 22, 0.98) 0%,
+                rgba(4, 11, 22, 0.92) 72%,
+                rgba(4, 11, 22, 0.78) 100%);
+    }
+
+    .room-content--experience {
+        overflow-y: visible;
+    }
+}
+
+@media (max-width: 760px) {
+    :root {
+        --page-gap: 1rem;
+        --shell-radius: 24px;
+    }
+
+    .encounter-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #resetButton {
+        margin-left: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* END THE LISTENING ROOM */
+
+
+/* ==========================================================
+   THE BODY FOUNDATION — FOUR DOORS VISUAL SHELL
+   No clickable hotspots; image assets remain separate.
+   ========================================================== */
+.foundation-four-doors {
+    width: min(1380px, calc(100% - 32px));
+    max-width: 1380px;
+    margin: 30px auto;
+}
+
+.foundation-four-doors__scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #062038;
+    background-image: url("../../Images/new-doors/background-for-doors.png");
+    background-size: 100% 100%;
+    background-position: center;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .3);
+}
+
+.foundation-four-doors__row {
+    position: absolute;
+    top: 5%;
+    left: 9%;
+    width: 82%;
+    height: 65%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5%;
+}
+
+.foundation-four-doors__door {
+    position: relative;
+    flex: 0 1 23%;
+    max-height: 100%;
+    aspect-ratio: 0.58;
+    transform-origin: center bottom;
+    transition: transform .24s ease, filter .24s ease;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, .4));
+}
+
+.foundation-four-doors__door:hover {
+    transform: translateY(-1.5%) scale(1.035);
+    filter: brightness(1.12) drop-shadow(0 0 12px rgba(255, 211, 112, .65));
+}
+
+.foundation-four-doors__door img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.foundation-four-doors__numeral {
+    position: absolute;
+    left: 29%;
+    top: 45.85%;
+    width: 40%;
+    height: 9%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: bold;
+    font-size: clamp(11px, 2.15vw, 31px);
+    color: #f8dc91;
+    text-shadow: 0 1px 2px #321b08, 0 0 4px #1c1106;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .foundation-four-doors__door {
+        transition: none;
+    }
+}
+
+
+/* ============================================================
+   THE BODY FOUNDATION — MATCHED WIDE EXPERIENCE PANELS
+   Both the Listening Room and Four Doors share the same width.
+   This overrides earlier narrow content-shell constraints only
+   for these two experiences.
+   ============================================================ */
+
+#listening-room.listening-room,
+.foundation-four-doors {
+    width: min(1600px, calc(100% - 48px));
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#listening-room .room-screen {
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+}
+
+#listening-room .room-shell {
+    width: 100%;
+    max-width: none;
+}
+
+.foundation-four-doors__row {
+    top: 2%;
+    left: 6%;
+    width: 88%;
+    height: 70%;
+    gap: 0.75%;
+}
+
+.foundation-four-doors__door {
+    flex: 0 1 24%;
+    max-width: 24%;
+}
+
+.foundation-four-doors__numeral {
+    font-size: clamp(12px, 2.4vw, 38px);
+}
+
+@media (max-width: 760px) {
+
+    #listening-room.listening-room,
+    .foundation-four-doors {
+        width: calc(100% - 24px);
+    }
+}
+
+
+/* ============================================================
+   LISTENING ROOM → EXPLORE SPACING CORRECTION
+   The original full-viewport minimum height reserved blank space
+   below the Listening Room before the EXPLORE banner.
+   ============================================================ */
+#listening-room.listening-room {
+    min-height: 0;
+    margin-bottom: 20px;
+}
+
+#listening-room .room-screen {
+    min-height: 0;
+}
+
+#explore-phase .foundation-four-doors {
+    margin-top: 16px;
+}
