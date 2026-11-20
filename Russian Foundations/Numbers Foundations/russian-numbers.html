@@ -695,58 +695,1064 @@
                     Mark Lesson 1 as complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="learn" id="lesson-2">
-                <div class="eyebrow">
-                    Lesson 2 &mdash; &Ucy;&rcy;&ocy;&kcy; &vcy;&tcy;&ocy;&rcy;&ocy;&jcy;
+            <!-- ============================================================
+                 LEARN — LESSON 2: NUMBERS 11–19
+                 Every activity control is authored directly in HTML.
+                 ============================================================ -->
+            <section
+                class="numbers-lesson-two"
+                data-progress-item="learn"
+                id="lesson-2"
+            >
+                <header class="numbers-lesson-two__header">
+                    <p class="eyebrow">
+                        Lesson 2 · <span lang="ru">УРОК ВТОРОЙ</span>
+                    </p>
+                    <h2>Numbers 11–19</h2>
+                    <p>
+                        Discover how Russian builds the teen numbers.
+                        Listen, notice the pattern, and construct numbers yourself.
+                    </p>
+                </header>
+
+                <div class="numbers-lesson-two__intro">
+                    <section
+                        class="numbers-lesson-two__listen"
+                        aria-labelledby="numbers-two-hear-title"
+                    >
+                        <h3 id="numbers-two-hear-title">Hear It – Say It</h3>
+                        <p>
+                            Select Hear beside each number, then repeat it aloud.
+                            Listen for the stressed syllable.
+                        </p>
+                        <table class="numbers-two-vocabulary-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Number</th>
+                                    <th scope="col">Cyrillic</th>
+                                    <th scope="col">Pronunciation guide</th>
+                                    <th scope="col">Listen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>11</td>
+                                    <td lang="ru">одиннадцать</td>
+                                    <td>a-DEEN-na-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="одиннадцать"
+                                            aria-label="Hear одиннадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td lang="ru">двенадцать</td>
+                                    <td>dvye-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="двенадцать"
+                                            aria-label="Hear двенадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td lang="ru">тринадцать</td>
+                                    <td>tree-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="тринадцать"
+                                            aria-label="Hear тринадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td lang="ru">четырнадцать</td>
+                                    <td>che-TYR-na-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="четырнадцать"
+                                            aria-label="Hear четырнадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td lang="ru">пятнадцать</td>
+                                    <td>pyat-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="пятнадцать"
+                                            aria-label="Hear пятнадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>16</td>
+                                    <td lang="ru">шестнадцать</td>
+                                    <td>shest-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="шестнадцать"
+                                            aria-label="Hear шестнадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td lang="ru">семнадцать</td>
+                                    <td>syem-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="семнадцать"
+                                            aria-label="Hear семнадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td lang="ru">восемнадцать</td>
+                                    <td>vo-syem-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="восемнадцать"
+                                            aria-label="Hear восемнадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td lang="ru">девятнадцать</td>
+                                    <td>dye-vyat-NA-tsat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-two-listen"
+                                            type="button"
+                                            data-say="девятнадцать"
+                                            aria-label="Hear девятнадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="numbers-two-audio-actions">
+                            <button id="numbers-two-play-all" type="button">
+                                ▶ Play All 11–19
+                            </button>
+                            <button id="numbers-two-stop" type="button">
+                                ■ Stop
+                            </button>
+                            <p
+                                id="numbers-two-audio-status"
+                                role="status"
+                                aria-live="polite"
+                            >
+                                Uses your browser's Russian speech voice when available.
+                            </p>
+                        </div>
+                    </section>
+
+                    <div class="numbers-lesson-two__right-column">
+                        <section
+                            class="numbers-lesson-two__microscope"
+                            aria-labelledby="numbers-two-microscope-title"
+                        >
+                            <h3 id="numbers-two-microscope-title">
+                                Under the Microscope
+                            </h3>
+                            <figure>
+                                <img
+                                    src="../../Images/numbers/utm-explain-number-eleven.png"
+                                    alt="Under the Microscope: a visual explanation of how Russian builds eleven"
+                                    loading="lazy"
+                                />
+                                <figcaption>
+                                    See the pieces. Find the pattern. Understand the whole.
+                                </figcaption>
+                            </figure>
+                        </section>
+                        <section
+                            class="numbers-helpful-hints"
+                            aria-labelledby="numbers-two-hints-title"
+                        >
+                            <h3 id="numbers-two-hints-title">
+                                Grammar &amp; Helpful Hints
+                            </h3>
+                            <ul>
+                                <li>
+                                    <strong>Look for the shared ending.</strong>
+                                    Every number from 11–19 ends in
+                                    <span lang="ru">-надцать</span>.
+                                </li>
+                                <li>
+                                    <strong>The first piece can change.</strong>
+                                    Compare <span lang="ru">пять</span> with
+                                    <span lang="ru">пятнадцать</span> and
+                                    <span lang="ru">семь</span> with
+                                    <span lang="ru">семнадцать</span>.
+                                </li>
+                                <li>
+                                    <strong>Notice eleven.</strong>
+                                    <span lang="ru">Одиннадцать</span> has a
+                                    doubled <span lang="ru">н</span> at the join.
+                                </li>
+                                <li>
+                                    <strong>Listen for stress.</strong>
+                                    In these numbers, the stressed syllable
+                                    is not always in the same position.
+                                </li>
+                                <li>
+                                    <strong>Build the whole word.</strong>
+                                    Join the first piece and
+                                    <span lang="ru">надцать</span> without a space.
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
                 </div>
-                <h2>
-                    Lesson 2
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell &mdash; content pending
-                </span>
-                <label class="numbers-placeholder__completion">
-                    <input class="mark-complete" data-completion="lesson-2" type="checkbox" />
-                    Mark Complete
+
+                <section
+                    class="numbers-two-builder"
+                    aria-labelledby="numbers-two-builder-title"
+                >
+                    <header class="numbers-two-builder__heading">
+                        <div>
+                            <h3 id="numbers-two-builder-title">
+                                Micro Practice — The Number Builder
+                            </h3>
+                            <p lang="ru">Собери число!</p>
+                        </div>
+                        <button
+                            id="numbers-two-reset"
+                            type="button"
+                        >
+                            ↻ Reset &amp; New Numbers
+                        </button>
+                    </header>
+                    <p>
+                        Build three Russian numbers from 11–19. Select the
+                        correct first piece and ending, then check your answer.
+                        Reset &amp; New Numbers gives you a different set of
+                        three numbers and shuffles the choices.
+                    </p>
+                    <div class="numbers-two-builder__workspace">
+                        <p
+                            class="numbers-two-builder__progress"
+                            id="numbers-two-progress"
+                            aria-live="polite"
+                        >
+                            Number 1 of 3
+                        </p>
+                        <div
+                            class="numbers-two-builder__target"
+                            id="numbers-two-target"
+                            aria-label="Number to construct"
+                        >
+                            13
+                        </div>
+                        <div
+                            class="numbers-two-builder__answer"
+                            aria-label="Constructed Russian number"
+                        >
+                            <span id="numbers-two-selected-stem">?</span>
+                            <span id="numbers-two-selected-ending">?</span>
+                        </div>
+                        <p class="numbers-two-builder__choice-label">
+                            Choose the first piece:
+                        </p>
+                        <div
+                            class="numbers-two-builder__stem-bank"
+                            id="numbers-two-stem-bank"
+                        >
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="один"
+                                aria-pressed="false"
+                            >
+                                один
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="две"
+                                aria-pressed="false"
+                            >
+                                две
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="три"
+                                aria-pressed="false"
+                            >
+                                три
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="четыр"
+                                aria-pressed="false"
+                            >
+                                четыр
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="пят"
+                                aria-pressed="false"
+                            >
+                                пят
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="шест"
+                                aria-pressed="false"
+                            >
+                                шест
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="сем"
+                                aria-pressed="false"
+                            >
+                                сем
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="восем"
+                                aria-pressed="false"
+                            >
+                                восем
+                            </button>
+                            <button
+                                class="numbers-two-stem"
+                                type="button"
+                                data-stem="девят"
+                                aria-pressed="false"
+                            >
+                                девят
+                            </button>
+                        </div>
+                        <p class="numbers-two-builder__choice-label">
+                            Choose the ending:
+                        </p>
+                        <div class="numbers-two-builder__ending-bank">
+                            <button
+                                type="button"
+                                class="numbers-two-ending"
+                                data-ending="надцать"
+                                aria-pressed="false"
+                            >
+                                надцать
+                            </button>
+                            <button
+                                type="button"
+                                class="numbers-two-ending"
+                                data-ending="десят"
+                                aria-pressed="false"
+                            >
+                                десят
+                            </button>
+                            <button
+                                type="button"
+                                class="numbers-two-ending"
+                                data-ending="дцать"
+                                aria-pressed="false"
+                            >
+                                дцать
+                            </button>
+                        </div>
+                        <p
+                            class="numbers-two-builder__feedback"
+                            id="numbers-two-feedback"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            Choose two pieces to begin.
+                        </p>
+                        <div class="numbers-two-builder__actions">
+                            <button
+                                type="button"
+                                id="numbers-two-check"
+                            >
+                                Check Answer
+                            </button>
+                            <button
+                                type="button"
+                                id="numbers-two-next"
+                                disabled
+                            >
+                                Next Number →
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <label class="numbers-lesson-two__completion">
+                    <input
+                        class="mark-complete"
+                        data-completion="lesson-2"
+                        type="checkbox"
+                    />
+                    Mark Lesson 2 as complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="learn" id="lesson-3">
-                <div class="eyebrow">
-                    Lesson 3 &mdash; &Ucy;&rcy;&ocy;&kcy; &tcy;&rcy;&iecy;&tcy;&icy;&jcy;
+            <!-- ============================================================
+                 LEARN — LESSON 3: THE TENS (10–90)
+                 All activity controls are explicitly defined in HTML.
+                 ============================================================ -->
+            <section
+                class="numbers-lesson-three"
+                data-progress-item="learn"
+                id="lesson-3"
+            >
+                <header class="numbers-lesson-three__header">
+                    <p class="eyebrow">
+                        Lesson 3 · <span lang="ru">УРОК ТРЕТИЙ</span>
+                    </p>
+                    <h2>Numbers (10, 20, 30, ... 90)</h2>
+                    <p>Learn the teen pattern's next big cousin: the tens!</p>
+                </header>
+
+                <div class="numbers-lesson-three__columns">
+                    <div class="numbers-lesson-three__left">
+                        <section
+                            class="numbers-lesson-three__listen"
+                            aria-labelledby="numbers-three-hear-title"
+                        >
+                            <h3 id="numbers-three-hear-title">Hear It – Say It</h3>
+                            <p>
+                                Select Hear beside each Russian number.
+                                Repeat what you hear five to ten times.
+                            </p>
+                            <table class="numbers-three-vocabulary-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Number</th>
+                                        <th scope="col">Cyrillic</th>
+                                        <th scope="col">Pronunciation guide</th>
+                                        <th scope="col">Listen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>10</td>
+                                    <td lang="ru">десять</td>
+                                    <td>DYE-syat'</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="десять"
+                                            aria-label="Hear десять"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td lang="ru">двадцать</td>
+                                    <td>DVA-tsat'</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="двадцать"
+                                            aria-label="Hear двадцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>30</td>
+                                    <td lang="ru">тридцать</td>
+                                    <td>TREE-tsat'</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="тридцать"
+                                            aria-label="Hear тридцать"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>40</td>
+                                    <td lang="ru">сорок</td>
+                                    <td>SO-rak</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="сорок"
+                                            aria-label="Hear сорок"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>50</td>
+                                    <td lang="ru">пятьдесят</td>
+                                    <td>pyat'-dee-SYAT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="пятьдесят"
+                                            aria-label="Hear пятьдесят"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>60</td>
+                                    <td lang="ru">шестьдесят</td>
+                                    <td>shest'-dee-SYAT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="шестьдесят"
+                                            aria-label="Hear шестьдесят"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>70</td>
+                                    <td lang="ru">семьдесят</td>
+                                    <td>SYEM'-dee-syat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="семьдесят"
+                                            aria-label="Hear семьдесят"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>80</td>
+                                    <td lang="ru">восемьдесят</td>
+                                    <td>VO-syem'-dee-syat</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="восемьдесят"
+                                            aria-label="Hear восемьдесят"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>90</td>
+                                    <td lang="ru">девяносто</td>
+                                    <td>dye-vee-NO-sta</td>
+                                    <td>
+                                        <button
+                                            class="numbers-three-listen"
+                                            type="button"
+                                            data-say="девяносто"
+                                            aria-label="Hear девяносто"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="numbers-three-audio-actions">
+                                <button
+                                    id="numbers-three-play-all"
+                                    type="button"
+                                >
+                                    ▶ Play All 10–90
+                                </button>
+                                <button
+                                    id="numbers-three-stop"
+                                    type="button"
+                                >
+                                    ■ Stop
+                                </button>
+                                <p
+                                    id="numbers-three-audio-status"
+                                    role="status"
+                                    aria-live="polite"
+                                >
+                                    Uses your browser's Russian speech voice when available.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section
+                            class="numbers-three-hints"
+                            aria-labelledby="numbers-three-hints-title"
+                        >
+                            <h3 id="numbers-three-hints-title">
+                                Grammar &amp; Helpful Hints
+                            </h3>
+                            <ul>
+                                <li>
+                                    <strong>Look for a pattern.</strong>
+                                    Thirty uses <span lang="ru">-дцать</span>.
+                                    Fifty through eighty use forms ending
+                                    in <span lang="ru">-десят</span>.
+                                </li>
+                                <li>
+                                    <strong>Meet the exceptions.</strong>
+                                    Forty is <span lang="ru">сорок</span>;
+                                    ninety is <span lang="ru">девяносто</span>.
+                                </li>
+                                <li>
+                                    <strong>Listen for stress.</strong>
+                                    Fifty and sixty stress
+                                    <span lang="ru">-ся́т</span>;
+                                    seventy and eighty stress the first part.
+                                </li>
+                                <li>
+                                    <strong>Remember twenty.</strong>
+                                    <span lang="ru">Двадцать</span> has its own
+                                    form; it does not simply add
+                                    <span lang="ru">-десят</span>.
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+
+                    <div class="numbers-lesson-three__right">
+                        <section
+                            class="numbers-lesson-three__microscope"
+                            aria-labelledby="numbers-three-microscope-title"
+                        >
+                            <h3 id="numbers-three-microscope-title">
+                                Under the Microscope
+                            </h3>
+                            <figure>
+                                <img
+                                    src="../../Images/numbers/utm-tens-in-russian.png"
+                                    alt="Under the Microscope: Russian tens, including the repeating endings and special forms for forty and ninety"
+                                    loading="lazy"
+                                />
+                                <figcaption>
+                                    See the pieces. Find the pattern. Understand the whole.
+                                </figcaption>
+                            </figure>
+                        </section>
+
+                        <section
+                            class="numbers-three-detective"
+                            aria-labelledby="numbers-three-detective-title"
+                        >
+                            <div class="numbers-three-detective__header">
+                                <div>
+                                    <h3 id="numbers-three-detective-title">
+                                        Micro Practice — The Tens Detective
+                                    </h3>
+                                    <p lang="ru">Найди закономерность!</p>
+                                </div>
+                                <button
+                                    id="numbers-three-reset"
+                                    type="button"
+                                >
+                                    ↻ Reset &amp; New Numbers
+                                </button>
+                            </div>
+                            <p class="numbers-three-detective__instructions">
+                                Find the correct Russian spelling for three numbers.
+                                Check each answer and listen to the pronunciation.
+                                Reset for a different set of three numbers.
+                            </p>
+                            <div class="numbers-three-detective__workspace">
+                                <p
+                                    id="numbers-three-progress"
+                                    class="numbers-three-detective__progress"
+                                    aria-live="polite"
+                                >
+                                    Number 1 of 3
+                                </p>
+                                <div
+                                    id="numbers-three-target"
+                                    class="numbers-three-detective__target"
+                                    aria-label="Number to identify"
+                                >
+                                    30
+                                </div>
+                                <p class="numbers-three-detective__prompt">
+                                    Which Russian spelling is correct?
+                                </p>
+                                <div
+                                    id="numbers-three-choice-bank"
+                                    class="numbers-three-detective__choices"
+                                >
+                            <button
+                                class="numbers-three-choice"
+                                type="button"
+                                data-choice-slot="1"
+                                aria-pressed="false"
+                            >
+                                тридцать
+                            </button>
+                            <button
+                                class="numbers-three-choice"
+                                type="button"
+                                data-choice-slot="2"
+                                aria-pressed="false"
+                            >
+                                тринадцать
+                            </button>
+                            <button
+                                class="numbers-three-choice"
+                                type="button"
+                                data-choice-slot="3"
+                                aria-pressed="false"
+                            >
+                                триста
+                            </button>
+                                </div>
+                                <p
+                                    id="numbers-three-feedback"
+                                    class="numbers-three-detective__feedback"
+                                    role="status"
+                                    aria-live="polite"
+                                >
+                                    Select an answer to begin.
+                                </p>
+                                <div class="numbers-three-detective__actions">
+                                    <button
+                                        id="numbers-three-check"
+                                        type="button"
+                                    >
+                                        Check Answer
+                                    </button>
+                                    <button
+                                        id="numbers-three-next"
+                                        type="button"
+                                        disabled
+                                    >
+                                        Next Number →
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-                <h2>
-                    Lesson 3
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell &mdash; content pending
-                </span>
-                <label class="numbers-placeholder__completion">
-                    <input class="mark-complete" data-completion="lesson-3" type="checkbox" />
-                    Mark Complete
+
+                <label class="numbers-lesson-three__completion">
+                    <input
+                        class="mark-complete"
+                        data-completion="lesson-3"
+                        type="checkbox"
+                    />
+                    Mark Lesson 3 as complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="learn" id="lesson-4">
-                <div class="eyebrow">
-                    Lesson 4 &mdash; &Ucy;&rcy;&ocy;&kcy; &chcy;&iecy;&tcy;&vcy;&iocy;&rcy;&tcy;&ycy;&jcy;
+            <!-- ============================================================
+                 LEARN — LESSON 4: HUNDREDS 100–900
+                 All interactive buttons are defined here in HTML.
+                 ============================================================ -->
+            <section class="numbers-lesson-four" data-progress-item="learn" id="lesson-4">
+                <header class="numbers-lesson-four__header">
+                    <p class="eyebrow">Lesson 4 · <span lang="ru">УРОК ЧЕТВЁРТЫЙ</span></p>
+                    <h2>Hundreds — 100, 200, 300 … 900</h2>
+                    <p>Meet the hundreds and discover how their endings change.</p>
+                </header>
+
+                <div class="numbers-lesson-four__columns">
+                    <div class="numbers-lesson-four__left">
+                        <section aria-labelledby="numbers-four-hear-title">
+                            <h3 id="numbers-four-hear-title">Hear It – Say It</h3>
+                            <p>Select Hear, listen carefully, and repeat each Russian number aloud.</p>
+                            <table class="numbers-four-vocabulary-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Number</th>
+                                        <th scope="col">Cyrillic</th>
+                                        <th scope="col">Pronunciation guide</th>
+                                        <th scope="col">Listen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>100</td>
+                                    <td lang="ru">сто</td>
+                                    <td>sto</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="сто"
+                                            aria-label="Hear сто"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>200</td>
+                                    <td lang="ru">двести</td>
+                                    <td>DVYE-stee</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="двести"
+                                            aria-label="Hear двести"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>300</td>
+                                    <td lang="ru">триста</td>
+                                    <td>TREE-sta</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="триста"
+                                            aria-label="Hear триста"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>400</td>
+                                    <td lang="ru">четыреста</td>
+                                    <td>che-TY-re-sta</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="четыреста"
+                                            aria-label="Hear четыреста"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>500</td>
+                                    <td lang="ru">пятьсот</td>
+                                    <td>pyat-SOT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="пятьсот"
+                                            aria-label="Hear пятьсот"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>600</td>
+                                    <td lang="ru">шестьсот</td>
+                                    <td>shest-SOT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="шестьсот"
+                                            aria-label="Hear шестьсот"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>700</td>
+                                    <td lang="ru">семьсот</td>
+                                    <td>syem-SOT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="семьсот"
+                                            aria-label="Hear семьсот"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>800</td>
+                                    <td lang="ru">восемьсот</td>
+                                    <td>vo-syem-SOT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="восемьсот"
+                                            aria-label="Hear восемьсот"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>900</td>
+                                    <td lang="ru">девятьсот</td>
+                                    <td>dye-vyat-SOT</td>
+                                    <td>
+                                        <button
+                                            class="numbers-four-listen"
+                                            type="button"
+                                            data-say="девятьсот"
+                                            aria-label="Hear девятьсот"
+                                        >
+                                            ▶ Hear
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="numbers-four-audio-actions">
+                                <button id="numbers-four-play-all" type="button">▶ Play All 100–900</button>
+                                <button id="numbers-four-stop" type="button">■ Stop</button>
+                                <p id="numbers-four-audio-status" role="status" aria-live="polite">
+                                    Uses your browser's Russian speech voice when available.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section class="numbers-four-hints" aria-labelledby="numbers-four-hints-title">
+                            <h3 id="numbers-four-hints-title">Grammar &amp; Helpful Hints</h3>
+                            <ul>
+                                <li><strong>One hundred stands alone:</strong> <span lang="ru">сто</span>.</li>
+                                <li><strong>Two hundred:</strong> <span lang="ru">двести</span>. Notice the special ending <span lang="ru">-сти</span>.</li>
+                                <li><strong>Three and four hundred:</strong> <span lang="ru">триста</span> and <span lang="ru">четыреста</span>. Look for <span lang="ru">-ста</span>.</li>
+                                <li><strong>Five through nine hundred:</strong> <span lang="ru">пятьсот, шестьсот, семьсот, восемьсот, девятьсот</span>. They share <span lang="ru">-сот</span>.</li>
+                                <li><strong>Listen for stress:</strong> <span lang="ru">пятьсо́т</span> through <span lang="ru">девятьсо́т</span> stress the final syllable.</li>
+                            </ul>
+                        </section>
+                    </div>
+
+                    <div class="numbers-lesson-four__right">
+                        <section aria-labelledby="numbers-four-microscope-title">
+                            <h3 id="numbers-four-microscope-title">Under the Microscope</h3>
+                            <figure class="numbers-four-microscope-figure">
+                                <img
+                                    src="../../Images/numbers/utm-hundreds-in-russian.png"
+                                    alt="Under the Microscope: the forms and patterns of Russian hundreds"
+                                    loading="lazy"
+                                />
+                                <figcaption>See the pieces. Find the pattern. Understand the whole.</figcaption>
+                            </figure>
+                        </section>
+
+                        <section class="numbers-four-workshop" aria-labelledby="numbers-four-workshop-title">
+                            <div class="numbers-four-workshop__header">
+                                <div>
+                                    <h3 id="numbers-four-workshop-title">Micro Practice — The Hundreds Workshop</h3>
+                                    <p lang="ru">Мастерская сотен!</p>
+                                </div>
+                                <button id="numbers-four-reset" type="button">↻ Reset &amp; New Numbers</button>
+                            </div>
+                            <p>
+                                Identify the correct Russian spelling for three hundreds.
+                                Check each answer, then continue. Reset generates a different
+                                set of three numbers and shuffles the answer choices.
+                            </p>
+                            <div class="numbers-four-workshop__workspace">
+                                <p id="numbers-four-progress" class="numbers-four-workshop__progress" aria-live="polite">Number 1 of 3</p>
+                                <div id="numbers-four-target" class="numbers-four-workshop__target">300</div>
+                                <p>Which Russian spelling matches this number?</p>
+                                <div id="numbers-four-choice-bank" class="numbers-four-workshop__choices">
+                                    <button
+                                        type="button"
+                                        class="numbers-four-choice"
+                                        aria-pressed="false"
+                                        data-choice-slot="1"
+                                    >
+                                        триста
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="numbers-four-choice"
+                                        aria-pressed="false"
+                                        data-choice-slot="2"
+                                    >
+                                        тридцать
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="numbers-four-choice"
+                                        aria-pressed="false"
+                                        data-choice-slot="3"
+                                    >
+                                        тринадцать
+                                    </button>
+                                </div>
+                                <p id="numbers-four-feedback" class="numbers-four-workshop__feedback" role="status" aria-live="polite">
+                                    Select an answer to begin.
+                                </p>
+                                <div class="numbers-four-workshop__actions">
+                                    <button id="numbers-four-check" type="button">Check Answer</button>
+                                    <button id="numbers-four-next" type="button" disabled>Next Number →</button>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-                <h2>
-                    Lesson 4
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell &mdash; content pending
-                </span>
-                <label class="numbers-placeholder__completion">
+
+                <label class="numbers-lesson-four__completion">
                     <input class="mark-complete" data-completion="lesson-4" type="checkbox" />
-                    Mark Complete
+                    Mark Lesson 4 as complete
                 </label>
             </section>
         </section>

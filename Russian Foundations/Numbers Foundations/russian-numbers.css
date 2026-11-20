@@ -1230,3 +1230,871 @@ button:hover {
 .numbers-lesson-one .match-choice {
     font-size: 1.05rem;
 }
+
+
+/* ============================================================
+   NUMBERS FOUNDATION — LEARN / LESSON 2
+   Mirrors Lesson 1 layout. All controls are authored in HTML.
+   ============================================================ */
+
+.numbers-lesson-two {
+    box-sizing: border-box;
+    width: calc(100% - 48px);
+    max-width: 1240px;
+    margin: 24px auto;
+    padding: 24px;
+    font-size: 1rem;
+    line-height: 1.5;
+    background: #ffffff;
+    border: 1px solid #cbdbe8;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(28, 55, 86, 0.07);
+}
+
+.numbers-lesson-two__header h2 {
+    margin: 6px 0;
+    font-size: 1.75rem;
+}
+
+.numbers-lesson-two__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: 22px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.numbers-lesson-two__right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+.numbers-lesson-two__intro h3,
+.numbers-two-builder h3 {
+    margin: 0 0 10px;
+    color: #163c66;
+}
+
+.numbers-two-vocabulary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 1rem;
+}
+
+.numbers-two-vocabulary-table th,
+.numbers-two-vocabulary-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #dfe8f1;
+    text-align: left;
+}
+
+.numbers-two-vocabulary-table th {
+    background: #eaf4ff;
+    color: #153b65;
+}
+
+.numbers-two-vocabulary-table td[lang="ru"] {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.numbers-two-listen,
+#numbers-two-play-all,
+#numbers-two-stop,
+#numbers-two-reset {
+    padding: 9px 12px;
+    border: 1px solid #7ea9d0;
+    border-radius: 8px;
+    background: #e9f4ff;
+    color: #154c7a;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.numbers-two-listen:hover,
+#numbers-two-play-all:hover,
+#numbers-two-stop:hover,
+#numbers-two-reset:hover {
+    background: #cce7ff;
+}
+
+.numbers-two-audio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+#numbers-two-audio-status {
+    flex-basis: 100%;
+    margin: 0;
+    color: #4c5f70;
+}
+
+.numbers-lesson-two__microscope figure {
+    margin: 0;
+}
+
+.numbers-lesson-two__microscope img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #cbdbe8;
+    border-radius: 10px;
+}
+
+.numbers-lesson-two__microscope figcaption {
+    margin: 9px 0;
+    color: #52647a;
+}
+
+.numbers-two-builder {
+    margin-top: 24px;
+    padding: 18px 22px;
+    border: 1px solid #cdb9e3;
+    border-radius: 12px;
+    background: #faf6ff;
+}
+
+.numbers-two-builder__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.numbers-two-builder__heading p {
+    margin: 0;
+    color: #563284;
+    font-weight: 700;
+}
+
+.numbers-two-builder__workspace {
+    max-width: 720px;
+    margin: 16px auto 0;
+    padding: 20px;
+    border: 1px solid #d6c5e9;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.numbers-two-builder__progress {
+    margin: 0 0 10px;
+    color: #563284;
+    font-weight: 700;
+}
+
+.numbers-two-builder__target {
+    margin: 0 auto 16px;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #153b65;
+}
+
+.numbers-two-builder__answer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto 20px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #2f2350;
+}
+
+.numbers-two-builder__answer span {
+    min-width: 120px;
+    padding: 12px;
+    border: 2px solid #a991c8;
+    border-radius: 9px;
+    background: #f1e9fb;
+}
+
+.numbers-two-builder__choice-label {
+    margin: 18px 0 8px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.numbers-two-builder__stem-bank,
+.numbers-two-builder__ending-bank {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+}
+
+.numbers-two-stem,
+.numbers-two-ending {
+    padding: 10px 14px;
+    border: 1px solid #aa8dcb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #372151;
+    font-size: 1.05rem;
+}
+
+.numbers-two-stem:hover,
+.numbers-two-ending:hover {
+    background: #e9dcf8;
+}
+
+.numbers-two-stem[aria-pressed="true"],
+.numbers-two-ending[aria-pressed="true"] {
+    outline: 3px solid #6e36a7;
+    background: #e8d7f7;
+}
+
+.numbers-two-builder__feedback {
+    min-height: 30px;
+    margin: 18px 0 10px;
+    font-weight: 700;
+    color: #563284;
+}
+
+.numbers-two-builder__actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+#numbers-two-check,
+#numbers-two-next {
+    padding: 11px 18px;
+    border: 1px solid #6e36a7;
+    border-radius: 8px;
+    background: #6e36a7;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+#numbers-two-next:disabled,
+#numbers-two-check:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.numbers-lesson-two__completion {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px;
+    border: 1px solid #a7c7b0;
+    border-radius: 8px;
+    background: #f0f9f1;
+    cursor: pointer;
+}
+
+.numbers-lesson-two p,
+.numbers-lesson-two li,
+.numbers-lesson-two figcaption,
+.numbers-lesson-two button,
+.numbers-lesson-two label,
+.numbers-lesson-two th,
+.numbers-lesson-two td {
+    font-size: max(1rem, 16px);
+}
+
+@media (max-width: 1050px) {
+    .numbers-lesson-two__intro {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .numbers-lesson-two {
+        width: calc(100% - 24px);
+        padding: 14px;
+    }
+
+    .numbers-two-vocabulary-table th,
+    .numbers-two-vocabulary-table td {
+        padding: 6px 4px;
+    }
+
+    .numbers-two-builder {
+        padding: 14px;
+    }
+
+    .numbers-two-builder__answer span {
+        min-width: 90px;
+    }
+}
+
+
+/* ============================================================
+   NUMBERS FOUNDATION — LEARN / LESSON 3
+   Tens Detective. Lesson 1 and Lesson 2 styling is unchanged.
+   ============================================================ */
+
+.numbers-lesson-three {
+    box-sizing: border-box;
+    width: calc(100% - 48px);
+    max-width: 1240px;
+    margin: 24px auto;
+    padding: 24px;
+    border: 1px solid #cbdbe8;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 5px 20px rgba(28, 55, 86, 0.07);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.numbers-lesson-three__header h2 {
+    margin: 6px 0;
+    font-size: 1.75rem;
+    color: #153b65;
+}
+
+.numbers-lesson-three__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: 22px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.numbers-lesson-three__left,
+.numbers-lesson-three__right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.numbers-lesson-three h3 {
+    margin: 0 0 8px;
+    color: #163c66;
+}
+
+.numbers-three-vocabulary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 1rem;
+}
+
+.numbers-three-vocabulary-table th,
+.numbers-three-vocabulary-table td {
+    padding: 8px 9px;
+    border-bottom: 1px solid #dfe8f1;
+    text-align: left;
+}
+
+.numbers-three-vocabulary-table th {
+    background: #eaf4ff;
+    color: #153b65;
+}
+
+.numbers-three-vocabulary-table td[lang="ru"] {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.numbers-three-listen,
+#numbers-three-play-all,
+#numbers-three-stop {
+    padding: 8px 11px;
+    border: 1px solid #7ea9d0;
+    border-radius: 8px;
+    background: #e9f4ff;
+    color: #154c7a;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.numbers-three-listen:hover,
+#numbers-three-play-all:hover,
+#numbers-three-stop:hover {
+    background: #cce7ff;
+}
+
+.numbers-three-audio-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+#numbers-three-audio-status {
+    flex-basis: 100%;
+    margin: 0;
+    color: #4c5f70;
+}
+
+.numbers-three-hints {
+    padding: 16px 18px;
+    border: 1px solid #8ebca0;
+    border-radius: 12px;
+    background: #f1f8f2;
+}
+
+.numbers-three-hints ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.numbers-three-hints li + li {
+    margin-top: 8px;
+}
+
+.numbers-lesson-three__microscope figure {
+    margin: 0;
+}
+
+.numbers-lesson-three__microscope img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #cbdbe8;
+    border-radius: 10px;
+}
+
+.numbers-lesson-three__microscope figcaption {
+    margin: 8px 0 0;
+    color: #52647a;
+}
+
+.numbers-three-detective {
+    padding: 17px;
+    border: 1px solid #cdb9e3;
+    border-radius: 12px;
+    background: #faf6ff;
+}
+
+.numbers-three-detective__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.numbers-three-detective__header p {
+    margin: 0;
+    color: #563284;
+    font-weight: 700;
+}
+
+#numbers-three-reset {
+    padding: 9px 12px;
+    border: 1px solid #9c7abf;
+    border-radius: 8px;
+    background: #f1e8fc;
+    color: #563284;
+    font-size: 1rem;
+}
+
+.numbers-three-detective__instructions {
+    margin: 12px 0;
+}
+
+.numbers-three-detective__workspace {
+    padding: 16px;
+    border: 1px solid #d6c5e9;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.numbers-three-detective__progress {
+    margin: 0;
+    color: #563284;
+    font-weight: 700;
+}
+
+.numbers-three-detective__target {
+    margin: 8px 0;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #153b65;
+}
+
+.numbers-three-detective__prompt {
+    margin: 8px 0 12px;
+    font-weight: 700;
+}
+
+.numbers-three-detective__choices {
+    display: grid;
+    gap: 8px;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.numbers-three-choice {
+    padding: 10px 12px;
+    border: 1px solid #aa8dcb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #372151;
+    font-size: 1.08rem;
+    text-align: left;
+}
+
+.numbers-three-choice:hover {
+    background: #eee1fa;
+}
+
+.numbers-three-choice[aria-pressed="true"] {
+    outline: 2px solid #6e36a7;
+    background: #e8d7f7;
+}
+
+.numbers-three-detective__feedback {
+    min-height: 50px;
+    margin: 12px 0;
+    font-weight: 700;
+    color: #563284;
+}
+
+.numbers-three-detective__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#numbers-three-check,
+#numbers-three-next {
+    padding: 10px 14px;
+    border: 1px solid #6e36a7;
+    border-radius: 8px;
+    background: #6e36a7;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+#numbers-three-check:disabled,
+#numbers-three-next:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.numbers-lesson-three__completion {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px;
+    border: 1px solid #a7c7b0;
+    border-radius: 8px;
+    background: #f0f9f1;
+    cursor: pointer;
+}
+
+.numbers-lesson-three p,
+.numbers-lesson-three li,
+.numbers-lesson-three figcaption,
+.numbers-lesson-three button,
+.numbers-lesson-three label,
+.numbers-lesson-three th,
+.numbers-lesson-three td {
+    font-size: max(1rem, 16px);
+}
+
+@media (max-width: 1050px) {
+    .numbers-lesson-three__columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .numbers-lesson-three {
+        width: calc(100% - 24px);
+        padding: 14px;
+    }
+
+    .numbers-three-vocabulary-table th,
+    .numbers-three-vocabulary-table td {
+        padding: 6px 4px;
+    }
+
+    .numbers-three-detective {
+        padding: 12px;
+    }
+}
+
+/* ============================================================
+   NUMBERS FOUNDATION — LESSON 4: HUNDREDS
+   Independent selectors preserve the earlier lessons' styles.
+   ============================================================ */
+
+.numbers-lesson-four {
+    width: calc(100% - 48px);
+    max-width: 1240px;
+    margin: 24px auto;
+    padding: 24px;
+    border: 1px solid #cbdbe8;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 5px 20px rgba(28, 55, 86, 0.07);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.numbers-lesson-four__header h2 {
+    margin: 6px 0;
+    font-size: 1.75rem;
+    color: #153b65;
+}
+
+.numbers-lesson-four__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    gap: 22px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.numbers-lesson-four__left,
+.numbers-lesson-four__right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.numbers-lesson-four h3 {
+    margin: 0 0 8px;
+    color: #163c66;
+}
+
+.numbers-four-vocabulary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+.numbers-four-vocabulary-table th,
+.numbers-four-vocabulary-table td {
+    padding: 8px 9px;
+    border-bottom: 1px solid #dfe8f1;
+    text-align: left;
+}
+
+.numbers-four-vocabulary-table th {
+    background: #eaf4ff;
+    color: #153b65;
+}
+
+.numbers-four-vocabulary-table td[lang="ru"] {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.numbers-four-listen,
+#numbers-four-play-all,
+#numbers-four-stop {
+    padding: 8px 11px;
+    border: 1px solid #7ea9d0;
+    border-radius: 8px;
+    background: #e9f4ff;
+    color: #154c7a;
+    font-weight: 700;
+}
+
+.numbers-four-audio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+#numbers-four-audio-status {
+    flex-basis: 100%;
+    margin: 0;
+    color: #4c5f70;
+}
+
+.numbers-four-hints {
+    padding: 16px 18px;
+    border: 1px solid #8ebca0;
+    border-radius: 12px;
+    background: #f1f8f2;
+}
+
+.numbers-four-hints ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.numbers-four-hints li + li {
+    margin-top: 8px;
+}
+
+.numbers-four-microscope-figure {
+    margin: 0;
+}
+
+.numbers-four-microscope-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #cbdbe8;
+    border-radius: 10px;
+}
+
+.numbers-four-microscope-figure figcaption {
+    margin: 8px 0 0;
+    color: #52647a;
+}
+
+.numbers-four-workshop {
+    padding: 17px;
+    border: 1px solid #cdb9e3;
+    border-radius: 12px;
+    background: #faf6ff;
+}
+
+.numbers-four-workshop__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.numbers-four-workshop__header p {
+    margin: 0;
+    color: #563284;
+    font-weight: 700;
+}
+
+#numbers-four-reset {
+    padding: 9px 12px;
+    border: 1px solid #9c7abf;
+    border-radius: 8px;
+    background: #f1e8fc;
+    color: #563284;
+}
+
+.numbers-four-workshop__workspace {
+    padding: 16px;
+    border: 1px solid #d6c5e9;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.numbers-four-workshop__progress {
+    margin: 0;
+    color: #563284;
+    font-weight: 700;
+}
+
+.numbers-four-workshop__target {
+    margin: 8px 0;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #153b65;
+}
+
+.numbers-four-workshop__choices {
+    display: grid;
+    gap: 8px;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.numbers-four-choice {
+    padding: 10px 12px;
+    border: 1px solid #aa8dcb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #372151;
+    text-align: left;
+    font-size: 1.08rem;
+}
+
+.numbers-four-choice:hover {
+    background: #eee1fa;
+}
+
+.numbers-four-choice[aria-pressed="true"] {
+    outline: 2px solid #6e36a7;
+    background: #e8d7f7;
+}
+
+.numbers-four-workshop__feedback {
+    min-height: 50px;
+    margin: 12px 0;
+    font-weight: 700;
+    color: #563284;
+}
+
+.numbers-four-workshop__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#numbers-four-check,
+#numbers-four-next {
+    padding: 10px 14px;
+    border: 1px solid #6e36a7;
+    border-radius: 8px;
+    background: #6e36a7;
+    color: #ffffff;
+}
+
+#numbers-four-check:disabled,
+#numbers-four-next:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.numbers-lesson-four__completion {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px;
+    border: 1px solid #a7c7b0;
+    border-radius: 8px;
+    background: #f0f9f1;
+    cursor: pointer;
+}
+
+.numbers-lesson-four p,
+.numbers-lesson-four li,
+.numbers-lesson-four figcaption,
+.numbers-lesson-four button,
+.numbers-lesson-four label,
+.numbers-lesson-four th,
+.numbers-lesson-four td {
+    font-size: max(1rem, 16px);
+}
+
+@media (max-width: 1050px) {
+    .numbers-lesson-four__columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .numbers-lesson-four {
+        width: calc(100% - 24px);
+        padding: 14px;
+    }
+
+    .numbers-four-vocabulary-table th,
+    .numbers-four-vocabulary-table td {
+        padding: 6px 4px;
+    }
+
+    .numbers-four-workshop {
+        padding: 12px;
+    }
+}
