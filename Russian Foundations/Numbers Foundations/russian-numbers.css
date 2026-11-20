@@ -2098,3 +2098,54 @@ button:hover {
         padding: 12px;
     }
 }
+
+/* =============================================================
+   BUILD EXERCISE 1 — NUMBER CONSTRUCTION WORKSHOP (21–99)
+   Scoped styles preserve the completed LEARN lessons.
+============================================================= */
+.build-one { max-width: 1100px; margin: 28px auto; padding: 30px; background: #fff; border: 1px solid #cfddcf; border-radius: 14px; box-shadow: 0 3px 12px #00000012; font-size: 1rem; }
+.build-one h2 { color: #2e6340; font-size: 2rem; margin: 4px 0; }
+.build-one h3 { color: #2e6340; font-size: 1.45rem; margin: 0 0 10px; }
+.build-one h4 { color: #315d45; margin: 0 0 10px; font-size: 1.1rem; }
+.build-one p { line-height: 1.6; }
+.build-one-subtitle { font-weight: 700; color: #527b59; }
+.build-one-nav { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0; }
+.build-one-nav a { text-decoration: none; color: #28583b; background: #eaf4eb; border: 1px solid #c9ddcb; padding: 8px 12px; border-radius: 7px; font-weight: 700; }
+.build-one-part { scroll-margin-top: 20px; padding: 23px; margin: 20px 0; border: 1px solid #d5e3d7; border-radius: 12px; background: #fcfefc; }
+.build-one-actions { display: flex; flex-wrap: wrap; gap: 9px; margin: 15px 0; }
+.build-one-actions button, .build-one-lab > button { background: #376e4a; color: #fff; border-color: #376e4a; }
+.build-one-actions button:hover, .build-one-lab > button:hover { background: #285839; color: #fff; }
+.build-one-rule { border: 1px solid #d4e2d5; background: #fff; border-radius: 8px; margin: 10px 0; }
+.build-one-rule summary { cursor: pointer; padding: 13px 15px; color: #2d6140; font-weight: 800; font-size: 1.04rem; }
+.build-one-rule[open] summary { border-bottom: 1px solid #e1e9e1; background: #eef7ee; }
+.build-one-rule__body { padding: 12px 17px 18px; }
+.build-one-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.build-one-example { border: 1px solid #e0e8e1; padding: 10px; border-radius: 7px; background: #f7faf7; }
+.build-one-tens { color: #1c629c; font-weight: 700; }
+.build-one-units { color: #a15c15; font-weight: 700; }
+.build-one-tip { background: #fff6e5; border-left: 4px solid #d49b22; padding: 10px; }
+.build-one-lab, .build-one-bank, .build-one-translation { background: #f0f7f1; border: 1px solid #d0e2d2; padding: 18px; border-radius: 10px; margin: 18px 0; }
+.build-one-controls { display: flex; flex-wrap: wrap; gap: 14px; margin: 15px 0; }
+.build-one-controls label, .build-one-living-top label { display: flex; flex-direction: column; gap: 6px; font-weight: 700; flex: 1; min-width: 190px; }
+.build-one select { padding: 10px; font: inherit; border: 1px solid #a5bba9; border-radius: 7px; background: #fff; color: #172235; max-width: 100%; }
+.build-one-result { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin: 15px 0; }
+.build-one-result strong { font-size: 2.4rem; color: #2d6340; }
+.build-one-result span { font-size: 1.5rem; font-weight: 700; }
+.build-one-note { color: #526c59; }
+.build-one-question { font-size: 1.4rem; padding: 12px; background: #eef7ee; border-radius: 7px; }
+.build-one-question strong { font-size: 2rem; }
+.build-one-feedback { min-height: 25px; color: #375f43; font-weight: 700; }
+.build-one-word-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.build-one-word { padding: 9px 12px; border-color: #aac5b1; color: #2c6040; }
+.build-one-word.is-selected { background: #2e6d44; color: #fff; }
+.build-one-answer-row { display: grid; grid-template-columns: 65px minmax(0, 1fr) auto; gap: 10px; align-items: center; border: 2px solid #d8e5da; border-radius: 9px; padding: 11px; margin: 10px 0; cursor: pointer; }
+.build-one-answer-row.is-active { border-color: #367b4e; background: #eff8f0; }
+.build-one-target { font-size: 1.6rem; font-weight: 800; color: #2b5f3c; }
+.build-one-answer { display: flex; flex-wrap: wrap; gap: 8px; font-size: 1.05rem; }
+.build-one-answer span { padding: 6px 9px; background: #fff; border: 1px dashed #aac7af; border-radius: 5px; }
+.build-one-row-feedback { grid-column: 1 / -1; font-size: .95rem; }
+.build-one-living-top { display: flex; gap: 15px; align-items: end; justify-content: space-between; flex-wrap: wrap; }
+.build-one-label { font-size: .78rem; font-weight: 800; letter-spacing: .1em; color: #42684b; margin-bottom: 4px; }
+#build-one-living-english, #build-one-living-russian { font-size: 1.15rem; margin: 4px 0 16px; }
+.build-one-completion { margin-top: 24px; }
+@media(max-width: 800px) { .build-one { margin: 12px; padding: 16px; } .build-one-part { padding: 14px; } .build-one-examples { grid-template-columns: 1fr; } .build-one-answer-row { grid-template-columns: 55px 1fr; } .build-one-row-clear { grid-column: 2; justify-self: start; } }

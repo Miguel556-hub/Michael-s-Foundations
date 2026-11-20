@@ -1230,3 +1230,278 @@ if (lessonFourTarget && lessonFourChoiceButtons.length === 3) {
     newLessonFourRound();
     showLessonFourQuestion();
 }
+
+// =============================================================
+// BUILD EXERCISE 1 — 21–99: interactive workshops
+// All interactive controls and word-bank tiles are authored in HTML.
+// =============================================================
+(() => {
+    const root = document.getElementById("exercise-1");
+    if (!root) return;
+
+    const tensWords = ["двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"];
+    const unitWords = ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"];
+    const $ = (id) => document.getElementById(id);
+    const teens = { 11: "одиннадцать", 12: "двенадцать", 13: "тринадцать", 14: "четырнадцать", 15: "пятнадцать", 16: "шестнадцать", 17: "семнадцать", 18: "восемнадцать", 19: "девятнадцать" };
+    const smallWords = ["ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять"];
+    const word = (number) => {
+        if (number <= 10) return smallWords[number];
+        if (teens[number]) return teens[number];
+        const tens = Math.floor(number / 10);
+        const units = number % 10;
+        return `${tensWords[tens - 2]}${units ? " " + unitWords[units] : ""}`;
+    };
+    const say = (text) => {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) return false;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.83;
+        const voice = window.speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) utterance.voice = voice;
+        window.speechSynthesis.speak(utterance);
+        return true;
+    };
+    const randomNumber = (except = []) => {
+        const available = [];
+        for (let number = 21; number <= 99; number += 1) {
+            if (number % 10 !== 0 && !except.includes(number)) available.push(number);
+        }
+        return available[Math.floor(Math.random() * available.length)];
+    };
+
+    const rules = Array.from(root.querySelectorAll(".build-one-rule"));
+    $("build-one-expand").addEventListener("click", () => rules.forEach((rule) => rule.open = true));
+    $("build-one-collapse").addEventListener("click", () => rules.forEach((rule) => rule.open = false));
+
+    $("build-one-demo-tens").value = "30";
+    $("build-one-demo-units").value = "7";
+    const updateDemo = () => {
+        const number = Number($("build-one-demo-tens").value) + Number($("build-one-demo-units").value);
+        $("build-one-demo-number").textContent = String(number);
+        $("build-one-demo-russian").textContent = word(number);
+        $("build-one-demo-note").textContent = `${Math.floor(number / 10) * 10} + ${number % 10} = ${number}. In Russian: ${word(number)}.`;
+    };
+    $("build-one-demo-tens").addEventListener("change", updateDemo);
+    $("build-one-demo-units").addEventListener("change", updateDemo);
+    $("build-one-demo-hear").addEventListener("click", () => say($("build-one-demo-russian").textContent));
+    updateDemo();
+
+    let guidedTarget = 47;
+    const nextGuided = () => {
+        guidedTarget = randomNumber([guidedTarget]);
+        $("build-one-guided-target").textContent = String(guidedTarget);
+        $("build-one-guided-tens").value = "";
+        $("build-one-guided-units").value = "";
+        $("build-one-guided-feedback").textContent = "New number! Select its tens and units.";
+    };
+    $("build-one-guided-check").addEventListener("click", () => {
+        const t = Number($("build-one-guided-tens").value);
+        const u = Number($("build-one-guided-units").value);
+        if (!t || !u) {
+            $("build-one-guided-feedback").textContent = "Choose both parts before checking.";
+        } else if (t + u === guidedTarget) {
+            $("build-one-guided-feedback").textContent = `Correct! ${guidedTarget} = ${t} + ${u}: ${word(guidedTarget)}.`;
+            say(word(guidedTarget));
+        } else {
+            $("build-one-guided-feedback").textContent = `Not quite. Break ${guidedTarget} into ${Math.floor(guidedTarget / 10) * 10} and ${guidedTarget % 10}, then try again.`;
+        }
+    });
+    $("build-one-guided-hint").addEventListener("click", () => {
+        $("build-one-guided-feedback").textContent = `Hint: ${guidedTarget} = ${Math.floor(guidedTarget / 10) * 10} + ${guidedTarget % 10}. Which Russian words match those parts?`;
+    });
+    $("build-one-guided-next").addEventListener("click", nextGuided);
+    $("build-one-guided-hear").addEventListener("click", () => say(word(guidedTarget)));
+
+    let listenTarget = randomNumber();
+    const nextListening = () => {
+        listenTarget = randomNumber([listenTarget]);
+        $("build-one-listen-tens").value = "";
+        $("build-one-listen-units").value = "";
+        $("build-one-listen-prompt").textContent = "?";
+        $("build-one-listen-feedback").textContent = "Press Play Russian Number, then choose the two parts you hear.";
+    };
+    $("build-one-listen-play").addEventListener("click", () => {
+        if (!say(word(listenTarget))) $("build-one-listen-feedback").textContent = "Speech is not supported here. Select Show Written Hint.";
+    });
+    $("build-one-listen-hint").addEventListener("click", () => {
+        $("build-one-listen-prompt").textContent = word(listenTarget);
+        $("build-one-listen-feedback").textContent = "Look at the two Russian words and match their tens and units.";
+    });
+    $("build-one-listen-check").addEventListener("click", () => {
+        const t = Number($("build-one-listen-tens").value);
+        const u = Number($("build-one-listen-units").value);
+        if (!t || !u) $("build-one-listen-feedback").textContent = "Choose both parts first.";
+        else if (t + u === listenTarget) {
+            $("build-one-listen-feedback").textContent = `Correct! You heard ${word(listenTarget)} (${listenTarget}).`;
+            $("build-one-listen-prompt").textContent = word(listenTarget);
+        } else $("build-one-listen-feedback").textContent = `Not quite. Replay the number. Listen for the tens word first, then the units word.`;
+    });
+    $("build-one-listen-next").addEventListener("click", nextListening);
+
+    // Independent four-number challenge: fixed HTML rows, shuffled targets.
+    const rows = Array.from(root.querySelectorAll(".build-one-answer-row"));
+    const tiles = Array.from(root.querySelectorAll(".build-one-word"));
+    let independentNumbers = [37, 54, 68, 91];
+    let independentAnswers = Array.from({ length: 4 }, () => ({ tens: null, units: null }));
+    let activeRow = 0;
+    const drawIndependent = () => {
+        rows.forEach((row, index) => {
+            row.classList.toggle("is-active", index === activeRow);
+            row.querySelector(".build-one-target").textContent = independentNumbers[index];
+            const answer = independentAnswers[index];
+            row.querySelector('[data-piece="tens"]').textContent = answer.tens ? tensWords[answer.tens / 10 - 2] : "Choose tens";
+            row.querySelector('[data-piece="units"]').textContent = answer.units ? unitWords[answer.units] : "Choose units";
+        });
+        tiles.forEach((tile) => {
+            tile.classList.toggle("is-selected", independentAnswers[activeRow][tile.dataset.part] === Number(tile.dataset.value));
+            tile.setAttribute("aria-pressed", String(tile.classList.contains("is-selected")));
+        });
+    };
+    rows.forEach((row, index) => {
+        row.addEventListener("click", () => { activeRow = index; drawIndependent(); });
+        row.querySelector(".build-one-row-clear").addEventListener("click", (event) => {
+            event.stopPropagation();
+            independentAnswers[index] = { tens: null, units: null };
+            row.querySelector(".build-one-row-feedback").textContent = "";
+            drawIndependent();
+        });
+    });
+    tiles.forEach((tile) => tile.addEventListener("click", () => {
+        independentAnswers[activeRow][tile.dataset.part] = Number(tile.dataset.value);
+        rows[activeRow].querySelector(".build-one-row-feedback").textContent = "";
+        drawIndependent();
+    }));
+    $("build-one-independent-check").addEventListener("click", () => {
+        let correct = 0;
+        rows.forEach((row, index) => {
+            const answer = independentAnswers[index];
+            const target = independentNumbers[index];
+            const complete = answer.tens !== null && answer.units !== null;
+            const success = complete && answer.tens + answer.units === target;
+            if (success) correct += 1;
+            row.querySelector(".build-one-row-feedback").textContent = success
+                ? `✓ Correct! ${word(target)}.`
+                : complete
+                    ? `Try again: ${target} = ${Math.floor(target / 10) * 10} + ${target % 10}.`
+                    : "Choose a tens word and a units word.";
+        });
+        $("build-one-independent-feedback").textContent = `${correct} of 4 correct. ${correct === 4 ? "Excellent! Reset for four new numbers." : "Review the hints and try again."}`;
+        if (correct === 4) say(word(independentNumbers[activeRow]));
+    });
+    $("build-one-independent-reset").addEventListener("click", () => {
+        const oldSet = [...independentNumbers].sort((a, b) => a - b).join(",");
+        let nextSet;
+        do {
+            nextSet = [];
+            for (let i = 0; i < 4; i += 1) nextSet.push(randomNumber(nextSet));
+        } while ([...nextSet].sort((a, b) => a - b).join(",") === oldSet);
+        independentNumbers = nextSet;
+        independentAnswers = Array.from({ length: 4 }, () => ({ tens: null, units: null }));
+        activeRow = 0;
+        rows.forEach((row) => row.querySelector(".build-one-row-feedback").textContent = "");
+        $("build-one-independent-feedback").textContent = "Four new numbers are ready. Select a row to begin.";
+        drawIndependent();
+    });
+    drawIndependent();
+
+    const situations = [{"title": "Apples", "en": "I have {a} apples, and you have {b}.", "ru": "У меня {a} {an}, а у тебя {b} {bn}.", "forms": ["яблоко", "яблока", "яблок"], "a": 2, "b": 32}, {"title": "Pencils", "en": "I have {a} pencils, and you have {b}.", "ru": "У меня {a} {an}, а у тебя {b} {bn}.", "forms": ["карандаш", "карандаша", "карандашей"], "a": 24, "b": 36}, {"title": "Books", "en": "There are {a} books on my shelf, and {b} on yours.", "ru": "На моей полке {a} {an}, а на твоей — {b} {bn}.", "forms": ["книга", "книги", "книг"], "a": 47, "b": 29}, {"title": "Chairs", "en": "We have {a} chairs, and they have {b}.", "ru": "У нас {a} {an}, а у них — {b} {bn}.", "forms": ["стул", "стула", "стульев"], "a": 53, "b": 64}, {"title": "Photographs", "en": "I have {a} photographs, and you have {b}.", "ru": "У меня {a} {an}, а у тебя {b} {bn}.", "forms": ["фотография", "фотографии", "фотографий"], "a": 68, "b": 21}, {"title": "Students", "en": "Our school has {a} students, and theirs has {b}.", "ru": "В нашей школе {a} {an}, а в их школе — {b} {bn}.", "forms": ["ученик", "ученика", "учеников"], "a": 91, "b": 75}, {"title": "Trees", "en": "Our park has {a} trees, and their park has {b}.", "ru": "В нашем парке {a} {an}, а в их парке — {b} {bn}.", "forms": ["дерево", "дерева", "деревьев"], "a": 75, "b": 47}, {"title": "Flowers", "en": "I have {a} flowers, and you have {b}.", "ru": "У меня {a} {an}, а у тебя {b} {bn}.", "forms": ["цветок", "цветка", "цветов"], "a": 29, "b": 54}, {"title": "Windows", "en": "Our building has {a} windows, and theirs has {b}.", "ru": "В нашем здании {a} {an}, а в их здании — {b} {bn}.", "forms": ["окно", "окна", "окон"], "a": 82, "b": 36}, {"title": "Cars", "en": "There are {a} cars in our parking lot, and {b} in theirs.", "ru": "На нашей парковке {a} {an}, а на их парковке — {b} {bn}.", "forms": ["машина", "машины", "машин"], "a": 64, "b": 32}];
+    // In nominative quantity expressions, 1 and 2 agree with the noun's gender.
+    // These 10 nouns are masculine, feminine, or neuter as appropriate.
+    const genders = ["n", "m", "f", "m", "f", "m", "n", "m", "n", "f"];
+    const oneWords = { m: "один", f: "одна", n: "одно" };
+    const twoWords = { m: "два", f: "две", n: "два" };
+    const quantityWord = (number, gender) => {
+        const unit = number % 10;
+        const base = word(number);
+        if (unit === 1) return base.replace(/один$/, oneWords[gender]);
+        if (unit === 2) return base.replace(/два$/, twoWords[gender]);
+        return base;
+    };
+    const nounForm = (number, forms) => {
+        const lastTwo = number % 100;
+        const last = number % 10;
+        if (lastTwo >= 11 && lastTwo <= 14) return forms[2];
+        if (last === 1) return forms[0];
+        if (last >= 2 && last <= 4) return forms[1];
+        return forms[2];
+    };
+    let situationIndex = 0;
+    let revealed = false;
+    const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 17, 19, 21, 22, 23, 24, 25, 29, 31, 32, 34, 35, 36, 37, 41, 42, 44, 47, 51, 53, 54, 55, 59, 61, 64, 68, 71, 75, 79, 81, 82, 84, 89, 91, 92, 94, 99];
+    [$("build-one-living-a"), $("build-one-living-b")].forEach((select) => {
+        quantities.forEach((number) => {
+            const option = document.createElement("option");
+            option.value = String(number);
+            option.textContent = String(number);
+            select.appendChild(option);
+        });
+    });
+    const renderLiving = () => {
+        const s = situations[situationIndex];
+        const a = Number($("build-one-living-a").value);
+        const b = Number($("build-one-living-b").value);
+        const gender = genders[situationIndex];
+        $("build-one-situation-progress").textContent = `Situation ${situationIndex + 1} of 10`;
+        $("build-one-situation-title").textContent = s.title;
+        $("build-one-living-english").textContent = s.en.replace("{a}", a).replace("{b}", b)
+            .replace(/\b1 apples\b/g, "1 apple")
+            .replace(/\b1 pencils\b/g, "1 pencil")
+            .replace(/\b1 books\b/g, "1 book")
+            .replace(/\b1 chairs\b/g, "1 chair")
+            .replace(/\b1 photographs\b/g, "1 photograph")
+            .replace(/\b1 students\b/g, "1 student")
+            .replace(/\b1 trees\b/g, "1 tree")
+            .replace(/\b1 flowers\b/g, "1 flower")
+            .replace(/\b1 windows\b/g, "1 window")
+            .replace(/\b1 cars\b/g, "1 car");
+        const russian = $("build-one-living-russian");
+        russian.replaceChildren();
+        if (!revealed) {
+            russian.textContent = "Select Reveal Russian to see the sentence.";
+            return;
+        }
+        const parts = s.ru.split(/(\{a\}|\{b\}|\{an\}|\{bn\})/g);
+        parts.forEach((part) => {
+            if (part === "{a}" || part === "{b}") {
+                const bold = document.createElement("strong");
+                bold.textContent = quantityWord(part === "{a}" ? a : b, gender);
+                russian.appendChild(bold);
+            } else if (part === "{an}" || part === "{bn}") {
+                russian.appendChild(document.createTextNode(nounForm(part === "{an}" ? a : b, s.forms)));
+            } else {
+                russian.appendChild(document.createTextNode(part));
+            }
+        });
+    };
+    const setSituation = (index) => {
+        situationIndex = (index + situations.length) % situations.length;
+        const s = situations[situationIndex];
+        $("build-one-situation").value = String(situationIndex);
+        $("build-one-living-a").value = String(s.a);
+        $("build-one-living-b").value = String(s.b);
+        revealed = false;
+        renderLiving();
+    };
+    $("build-one-situation").addEventListener("change", (event) => setSituation(Number(event.target.value)));
+    [$("build-one-living-a"), $("build-one-living-b")].forEach((select) => select.addEventListener("change", () => {
+        revealed = false;
+        renderLiving();
+    }));
+    $("build-one-switch").addEventListener("click", () => {
+        const a = $("build-one-living-a").value;
+        $("build-one-living-a").value = $("build-one-living-b").value;
+        $("build-one-living-b").value = a;
+        revealed = false;
+        renderLiving();
+    });
+    $("build-one-reveal").addEventListener("click", () => { revealed = true; renderLiving(); });
+    $("build-one-living-hear").addEventListener("click", () => {
+        if (!revealed) { revealed = true; renderLiving(); }
+        say($("build-one-living-russian").textContent);
+    });
+    $("build-one-living-reset").addEventListener("click", () => setSituation(situationIndex));
+    $("build-one-previous").addEventListener("click", () => setSituation(situationIndex - 1));
+    $("build-one-next").addEventListener("click", () => setSituation(situationIndex + 1));
+    setSituation(0);
+})();
