@@ -1443,7 +1443,7 @@
                                     Select an answer to begin.
                                 </p>
                                 <div class="numbers-four-workshop__actions">
-                                    <button id="numbers-four-check" type="button">Check Answer</button>
+                                    <button id="numbers-four-check" type="button">Reveal Meaning</button>
                                     <button id="numbers-four-next" type="button" disabled>Next Number →</button>
                                 </div>
                             </div>
@@ -1802,7 +1802,8 @@
                     <h3>5 · The Living Numbers Workshop</h3>
                     <p><strong>У кого сколько? — Who Has How Many?</strong> Explore ten everyday situations. Change
                         either quantity or switch who has how many. Then reveal the updated Russian sentence.
-                        <strong>Only the number words appear in bold.</strong></p>
+                        <strong>Only the number words appear in bold.</strong>
+                    </p>
                     <div class="build-one-living-top"><label>Situation <select id="build-one-situation">
                                 <option value="0">1 · Apples</option>
                                 <option value="1">2 · Pencils</option>
@@ -1843,7 +1844,8 @@
                             <p>Numbers ending in 11–14 take the same plural form as 5: <strong>двенадцать
                                     яблок</strong>. Numbers ending in 21, 31, 41, and so on use the one-form:
                                 <strong>двадцать одно яблоко</strong> (for a neuter noun). This workshop uses the
-                                correct noun gender in the sentence.</p>
+                                correct noun gender in the sentence.
+                            </p>
                         </div>
                     </details>
                 </section>
@@ -1924,7 +1926,8 @@
                                         lang="ru">восемьсот</b></span><span>900 — <b lang="ru">девятьсот</b></span>
                             </div>
                             <p>Read them aloud. Pay attention to the changing shape and stress of each word, especially
-                                <span lang="ru">двести, триста, четыреста</span>.</p>
+                                <span lang="ru">двести, триста, четыреста</span>.
+                            </p>
                         </div>
                     </details>
                     <details class="build-two-rule">
@@ -2124,30 +2127,39 @@
             <section class="numbers-placeholder number-lock-activity" data-progress-item="practice" id="practice-1">
                 <header class="number-lock-activity__header">
                     <p class="eyebrow">Activity 1 · <span lang="ru">ЗАДАНИЕ ПЕРВОЕ</span></p>
-                    <h2>Recognize and Select</h2>
+                    <h2>1-10 The Combination Lock</h2>
                     <p>Read or listen to a Russian number. Turn the lock to select the matching digit.</p>
                 </header>
                 <div class="number-lock-activity__instructions">
                     <h3>How to Play</h3>
-                    <p>Turn the dial left or right to reveal a random number in its center. Watch the Russian word change to match the number. Select <strong>Reveal Meaning</strong> when you are ready to continue.</p>
+                    <p>Turn the dial left or right to reveal a random number in its center. Watch the Russian word
+                        change to match the number. Select <strong>Reveal Meaning</strong> when you are ready to
+                        continue.</p>
                 </div>
                 <div class="number-lock-activity__workspace">
                     <div class="number-lock-activity__lock-column">
                         <div class="number-lock-activity__frame">
                             <div class="number-lock-activity__mechanism" id="number-lock-mechanism">
-                                <img class="number-lock-activity__dial" id="number-lock-dial" src="../../Images/numbers/red-lock-dial.png" alt="" draggable="false" />
-                                <img class="number-lock-activity__housing" src="../../Images/numbers/red-lock.png" alt="Red combination lock housing with fixed gold pointer" draggable="false" />
+                                <img class="number-lock-activity__dial" id="number-lock-dial"
+                                    src="../../Images/numbers/red-lock-dial.png" alt="" draggable="false" />
+                                <img class="number-lock-activity__housing" src="../../Images/numbers/red-lock.png"
+                                    alt="Red combination lock housing with fixed gold pointer" draggable="false" />
                                 <!-- Editable center display: number is text, not part of the PNG. -->
                                 <div class="number-lock-activity__center-display" aria-hidden="true">
-                                    <span class="number-lock-activity__center-number" id="number-lock-center-number">0</span>
+                                    <span class="number-lock-activity__center-number"
+                                        id="number-lock-center-number">0</span>
                                 </div>
-                                <button class="number-lock-activity__drag-target" id="number-lock-drag" type="button" aria-label="Spin the lock dial; use left and right arrow keys" aria-describedby="number-lock-selected"></button>
+                                <button class="number-lock-activity__drag-target" id="number-lock-drag" type="button"
+                                    aria-label="Spin the lock dial; use left and right arrow keys"
+                                    aria-describedby="number-lock-selected"></button>
                             </div>
                         </div>
                         <div class="number-lock-activity__dial-controls">
-                            <button id="number-lock-left" type="button" aria-label="Spin dial left and reveal a random number">◀ Turn Left</button>
+                            <button id="number-lock-left" type="button"
+                                aria-label="Spin dial left and reveal a random number">◀ Turn Left</button>
                             <span id="number-lock-selected" aria-live="polite">Selected: 0</span>
-                            <button id="number-lock-right" type="button" aria-label="Spin dial right and reveal a random number">Turn Right ▶</button>
+                            <button id="number-lock-right" type="button"
+                                aria-label="Spin dial right and reveal a random number">Turn Right ▶</button>
                         </div>
                     </div>
                     <div class="number-lock-activity__challenge">
@@ -2155,13 +2167,15 @@
                         <p class="number-lock-activity__prompt-label">Discover this Russian number:</p>
                         <div class="number-lock-activity__word" id="number-lock-word" lang="ru">семь</div>
                         <button id="number-lock-hear" type="button">▶ Hear the Number</button>
-                        <p class="number-lock-activity__tip">The Russian word always matches the number in the lock. Say it aloud, listen, then reveal its English meaning.</p>
+                        <p class="number-lock-activity__tip">The Russian word always matches the number in the lock. Say
+                            it aloud, listen, then reveal its English meaning.</p>
                         <div class="number-lock-activity__actions">
                             <button id="number-lock-check" type="button">Reveal Meaning</button>
                             <button id="number-lock-next" type="button" disabled>Next Challenge →</button>
                             <button id="number-lock-reset" type="button">Reset &amp; Shuffle</button>
                         </div>
-                        <p class="number-lock-activity__feedback" id="number-lock-feedback" role="status" aria-live="polite">Turn the dial to begin.</p>
+                        <p class="number-lock-activity__feedback" id="number-lock-feedback" role="status"
+                            aria-live="polite">Turn the dial to begin.</p>
                         <p class="number-lock-activity__answer" id="number-lock-answer" hidden></p>
                         <div class="number-lock-activity__success" id="number-lock-success" hidden>
                             <strong>Lock opened! Excellent work!</strong>
@@ -2174,74 +2188,320 @@
                     Mark Complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="practice" id="practice-2">
-                <div class="eyebrow">
-                    Activity 2 — Задание второе
+            <!-- PRACTICE ACTIVITY 2 — GOLD LOCK: NUMBERS 11–19 -->
+            <section class="numbers-placeholder gold-lock-activity" data-progress-item="practice" id="practice-2">
+                <header class="gold-lock-activity__header">
+                    <p class="eyebrow">Activity 2 · <span lang="ru">ЗАДАНИЕ ВТОРОЕ</span></p>
+                    <h2>11-19 The Golden Cipher Lock</h2>
+                    <p>Discover the Russian teens by changing the ones digit of an antique gold lock.</p>
+                </header>
+                <div class="gold-lock-activity__instructions">
+                    <h3>How to Play</h3>
+                    <p>The left wheel stays on <strong>1</strong>. Select <strong>Up</strong> or <strong>Down</strong>
+                        to turn the right wheel through 1–9. Read the matching Russian number, listen, and reveal its
+                        meaning. Explore all nine numbers to open the lock.</p>
                 </div>
-                <h2>
-                    Practice Activity 2
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell — content pending
-                </span>
+                <div class="gold-lock-activity__workspace">
+                    <div class="gold-lock-activity__lock-column">
+                        <div class="gold-lock-activity__frame">
+                            <div class="gold-lock-activity__mechanism">
+                                <img class="gold-lock-activity__lock-image" src="../../Images/numbers/gold-lock.png"
+                                    alt="Antique gold combination lock with two number windows" draggable="false" />
+                                <div class="gold-lock-activity__digit gold-lock-activity__digit--tens"
+                                    aria-hidden="true">1</div>
+                                <div class="gold-lock-activity__digit gold-lock-activity__digit--ones"
+                                    id="gold-lock-ones" aria-hidden="true">1</div>
+                            </div>
+                        </div>
+                        <div class="gold-lock-activity__controls">
+                            <button id="gold-lock-down" type="button" aria-label="Turn right wheel down">▼ Down</button>
+                            <span id="gold-lock-selected" aria-live="polite">Selected: 11</span>
+                            <button id="gold-lock-up" type="button" aria-label="Turn right wheel up">▲ Up</button>
+                        </div>
+                    </div>
+                    <div class="gold-lock-activity__challenge">
+                        <p class="gold-lock-activity__round" id="gold-lock-progress">Discovered 0 of 9 numbers</p>
+                        <p class="gold-lock-activity__prompt-label">Discover this Russian number:</p>
+                        <div class="gold-lock-activity__word" id="gold-lock-word" lang="ru">одиннадцать</div>
+                        <button id="gold-lock-hear" type="button">▶ Hear the Number</button>
+                        <p class="gold-lock-activity__tip">The Russian word changes with the lock. Say it aloud and
+                            listen for the <span lang="ru">-надцать</span> ending.</p>
+                        <div class="gold-lock-activity__actions">
+                            <button id="gold-lock-reveal" type="button">Reveal Meaning</button>
+                            <button id="gold-lock-reset" type="button">Reset Activity</button>
+                        </div>
+                        <p class="gold-lock-activity__feedback" id="gold-lock-feedback" role="status"
+                            aria-live="polite">Turn the right wheel to explore numbers 11–19.</p>
+                        <p class="gold-lock-activity__answer" id="gold-lock-answer" hidden></p>
+                        <div class="gold-lock-activity__success" id="gold-lock-success" hidden>
+                            <strong>Gold lock opened!</strong>
+                            <p>You have discovered all nine Russian numbers from 11 to 19. You can reset and explore
+                                them again.</p>
+                        </div>
+                    </div>
+                </div>
                 <label class="numbers-placeholder__completion">
                     <input class="mark-complete" data-completion="practice-2" type="checkbox" />
                     Mark Complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="practice" id="practice-3">
-                <div class="eyebrow">
-                    Activity 3 — Задание третье
+            <!-- PRACTICE ACTIVITY 3 — THE TENS BAG LOCK -->
+            <section class="numbers-placeholder tens-bag-activity" data-progress-item="practice" id="practice-3">
+                <header class="tens-bag-activity__header">
+                    <p class="eyebrow">Activity 3 · <span lang="ru">ЗАДАНИЕ ТРЕТЬЕ</span></p>
+                    <h2>The Tens — The Brass Suitcase Lock</h2>
+                    <p>Turn the suitcase lock to discover Russian tens words.</p>
+                </header>
+                <div class="tens-bag-activity__instructions">
+                    <h3>How to Play</h3>
+                    <p>Use the two arrows to the <strong>left of the tens wheel</strong> to select the tens digit. The
+                        right wheel stays at <strong>0</strong> because we are practicing 10, 20, 30, and so on through
+                        90. Turn the tens wheel, read and listen to its Russian word, then reveal the meaning.</p>
                 </div>
-                <h2>
-                    Practice Activity 3
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell — content pending
-                </span>
+                <div class="tens-bag-activity__workspace">
+                    <div class="tens-bag-activity__lock-column">
+                        <div class="tens-bag-activity__scene" role="group" aria-label="Two-wheel brass suitcase lock">
+                            <img class="tens-bag-activity__bag" src="../../Images/numbers/number-bag.png"
+                                alt="Antique leather suitcase with a brass combination lock" draggable="false" />
+                            <div class="tens-bag-activity__wheel tens-bag-activity__wheel--tens"
+                                aria-label="Tens digit">
+                                <span class="tens-bag-activity__neighbor" id="tens-bag-tens-prev"
+                                    aria-hidden="true">9</span>
+                                <span class="tens-bag-activity__current" id="tens-bag-tens-current">1</span>
+                                <span class="tens-bag-activity__neighbor" id="tens-bag-tens-next"
+                                    aria-hidden="true">2</span>
+                            </div>
+                            <div class="tens-bag-activity__wheel tens-bag-activity__wheel--ones"
+                                aria-label="Ones digit, fixed at zero">
+                                <span class="tens-bag-activity__neighbor" aria-hidden="true">9</span>
+                                <span class="tens-bag-activity__current">0</span>
+                                <span class="tens-bag-activity__neighbor" aria-hidden="true">1</span>
+                            </div>
+                            <button class="tens-bag-activity__arrow tens-bag-activity__arrow--tens-up"
+                                id="tens-bag-tens-up" type="button" aria-label="Increase tens digit">▲</button>
+                            <button class="tens-bag-activity__arrow tens-bag-activity__arrow--tens-down"
+                                id="tens-bag-tens-down" type="button" aria-label="Decrease tens digit">▼</button>
+                        </div>
+                        <p class="tens-bag-activity__selected" id="tens-bag-selected" aria-live="polite">Selected: 10
+                        </p>
+                    </div>
+                    <div class="tens-bag-activity__challenge">
+                        <p class="tens-bag-activity__progress" id="tens-bag-progress">Discovery 1 of 9</p>
+                        <p>Discover this Russian number:</p>
+                        <div class="tens-bag-activity__word" id="tens-bag-word" lang="ru">двадцать</div>
+                        <button type="button" id="tens-bag-hear">▶ Hear the Number</button>
+                        <p class="tens-bag-activity__tip">Turn the wheel to change the number and its matching Russian
+                            word.</p>
+                        <div class="tens-bag-activity__actions">
+                            <button type="button" id="tens-bag-check">Reveal Meaning</button>
+                            <button type="button" id="tens-bag-next" disabled>Next Discovery →</button>
+                            <button type="button" id="tens-bag-reset">Reset &amp; Shuffle</button>
+                        </div>
+                        <p class="tens-bag-activity__feedback" id="tens-bag-feedback" role="status" aria-live="polite">
+                            Turn the left wheel to choose a tens number.</p>
+                        <p class="tens-bag-activity__success" id="tens-bag-success" hidden>Suitcase unlocked! You've
+                            matched all nine Russian tens numbers.</p>
+                    </div>
+                </div>
                 <label class="numbers-placeholder__completion">
                     <input class="mark-complete" data-completion="practice-3" type="checkbox" />
                     Mark Complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="practice" id="practice-4">
-                <div class="eyebrow">
-                    Activity 4 — Задание
-                    четвёртое
+            <!-- ACTIVITY 4 — THE BRONZE CODEBREAKER -->
+            <section class="numbers-placeholder bronze-codebreaker" data-progress-item="practice" id="practice-4">
+                <header class="bronze-codebreaker__header">
+                    <div>
+                        <p class="eyebrow">Activity 4 · Задание четвёртое</p>
+                        <h2>The Bronze Codebreaker</h2>
+                        <p>Numbers 21–99 · Listen, Decode, Unlock!</p>
+                    </div>
+                    <div class="bronze-codebreaker__progress" aria-live="polite">
+                        <strong id="bronze-progress-label">Challenge 1 of 5</strong>
+                        <div class="bronze-codebreaker__progress-dots" id="bronze-progress-dots"
+                            aria-label="Five challenges">
+                            <span class="is-current"></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="bronze-codebreaker__workspace">
+                    <aside class="bronze-codebreaker__instructions" aria-label="How to play">
+                        <h3>Crack the Code</h3>
+                        <p><b>1. Hear the Clue:</b> Press <strong>Hear the Clue</strong> to listen to a number spoken in
+                            Russian.</p>
+                        <p><b>2. Dial the Number:</b> Use the arrow buttons to set both number wheels to the number you
+                            heard.</p>
+                        <p><b>3. Check Your Answer:</b> Press <strong>Unlock</strong> to see whether you cracked the
+                            code!</p>
+                        <p class="bronze-codebreaker__instruction-note">Need help? Press <strong>Slower</strong> to hear
+                            the number again, or <strong>Hint</strong> for a clue.</p>
+                    </aside>
+
+                    <div class="bronze-codebreaker__lock-area">
+                        <div class="bronze-codebreaker__scene" role="group"
+                            aria-label="Bronze lock with independently adjustable tens and ones wheels">
+                            <img class="bronze-codebreaker__lock" src="../../Images/numbers/bronze-lock.png"
+                                alt="Antique bronze lock with rope and tassel" />
+                            <div class="bronze-codebreaker__wheel bronze-codebreaker__wheel--tens"
+                                aria-label="Tens wheel">
+                                <span class="bronze-codebreaker__neighbor" id="bronze-tens-previous"
+                                    aria-hidden="true">9</span>
+                                <span class="bronze-codebreaker__digit" id="bronze-tens-current">2</span>
+                                <span class="bronze-codebreaker__neighbor" id="bronze-tens-next"
+                                    aria-hidden="true">3</span>
+                            </div>
+                            <div class="bronze-codebreaker__wheel bronze-codebreaker__wheel--ones"
+                                aria-label="Ones wheel">
+                                <span class="bronze-codebreaker__neighbor" id="bronze-ones-previous"
+                                    aria-hidden="true">9</span>
+                                <span class="bronze-codebreaker__digit" id="bronze-ones-current">0</span>
+                                <span class="bronze-codebreaker__neighbor" id="bronze-ones-next"
+                                    aria-hidden="true">1</span>
+                            </div>
+                            <button class="bronze-codebreaker__arrow bronze-codebreaker__arrow--tens-up"
+                                id="bronze-tens-up" type="button" aria-label="Increase tens">▲</button>
+                            <button class="bronze-codebreaker__arrow bronze-codebreaker__arrow--tens-down"
+                                id="bronze-tens-down" type="button" aria-label="Decrease tens">▼</button>
+                            <button class="bronze-codebreaker__arrow bronze-codebreaker__arrow--ones-up"
+                                id="bronze-ones-up" type="button" aria-label="Increase ones">▲</button>
+                            <button class="bronze-codebreaker__arrow bronze-codebreaker__arrow--ones-down"
+                                id="bronze-ones-down" type="button" aria-label="Decrease ones">▼</button>
+                        </div>
+                        <p class="bronze-codebreaker__dial-readout" id="bronze-dial-readout" aria-live="polite">Your
+                            combination: 20</p>
+                    </div>
+
+                    <div class="bronze-codebreaker__right-column">
+                        <aside class="bronze-codebreaker__discovery" aria-live="polite">
+                            <h3>Discovery</h3>
+                            <div id="bronze-discovery-locked" class="bronze-codebreaker__discovery-locked">
+                                <span aria-hidden="true">🔒</span>
+                                <p>Unlock the correct combination to reveal its meaning.</p>
+                            </div>
+                            <div id="bronze-discovery-unlocked" hidden>
+                                <strong class="bronze-codebreaker__discovery-number"
+                                    id="bronze-discovery-number"></strong>
+                                <p class="bronze-codebreaker__russian" id="bronze-discovery-russian" lang="ru"></p>
+                                <p class="bronze-codebreaker__breakdown" id="bronze-discovery-breakdown"></p>
+                                <p class="bronze-codebreaker__discovery-message">Combination unlocked!</p>
+                            </div>
+                        </aside>
+                        <aside class="bronze-codebreaker__replay-note" aria-label="Play another round">
+                            <h3>Keep Practicing!</h3>
+                            <p>Complete all five challenges, then press <strong>Reset &amp; Shuffle</strong> to practice
+                                with a new set of numbers!</p>
+                            <p>Each new round selects five random numbers. Some numbers may appear again.</p>
+                        </aside>
+                    </div>
                 </div>
-                <h2>
-                    Practice Activity 4
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell — content pending
-                </span>
+
+                <div class="bronze-codebreaker__controls">
+                    <button id="bronze-hear" type="button">🔊 Hear the Clue</button>
+                    <button id="bronze-slower" type="button">🐢 Slower</button>
+                    <button id="bronze-unlock" class="bronze-codebreaker__unlock" type="button">🔓 Unlock</button>
+                    <button id="bronze-hint" type="button">💡 Hint</button>
+                    <button id="bronze-next" type="button" disabled>Next Challenge →</button>
+                    <button id="bronze-reset" type="button">Reset &amp; Shuffle</button>
+                </div>
+                <p class="bronze-codebreaker__feedback" id="bronze-feedback" role="status" aria-live="polite">Listen to
+                    the clue, then dial your answer.</p>
+                <p class="bronze-codebreaker__hint" id="bronze-hint-text" aria-live="polite" hidden></p>
                 <label class="numbers-placeholder__completion">
                     <input class="mark-complete" data-completion="practice-4" type="checkbox" />
                     Mark Complete
                 </label>
             </section>
-            <section class="numbers-placeholder" data-progress-item="practice" id="practice-5">
-                <div class="eyebrow">
-                    Activity 5 — Задание пятое
+            <!-- PRACTICE ACTIVITY 5 — THE HUNDREDS COMBINATION LOCK -->
+            <section class="numbers-placeholder hundreds-lock-activity" data-progress-item="practice" id="practice-5">
+                <header class="hundreds-lock-activity__header">
+                    <div class="hundreds-lock-activity__header-copy">
+                        <p class="eyebrow">Activity 5 · <span lang="ru">ЗАДАНИЕ ПЯТОЕ</span></p>
+                        <h2>The Hundreds — The Blue Combination Lock</h2>
+                        <p>Numbers 100–999 · Listen, Build, Unlock!</p>
+                    </div>
+                    <div class="hundreds-lock-activity__progress" aria-live="polite">
+                        <strong id="hundreds-lock-progress">Challenge 1 of 9</strong>
+                        <div class="hundreds-lock-activity__progress-dots" id="hundreds-lock-progress-dots"
+                            aria-label="Nine challenges">
+                            <span class="is-current"></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="hundreds-lock-activity__challenge">
+                    <p class="hundreds-lock-activity__clue-label">
+                        LISTEN &amp; READ
+                    </p>
+
+                    <p class="hundreds-lock-activity__instruction">
+                        Turn the gold arrows to match the Russian number below.
+                        Then select Unlock!
+                    </p>
+
+                    <p class="hundreds-lock-activity__clue" id="hundreds-lock-clue" lang="ru">
+                        сто
+                    </p>
                 </div>
-                <h2>
-                    Practice Activity 5
-                </h2>
-                <p>
-                    Content will be developed from the Numbers Foundation blueprint.
-                </p>
-                <span class="numbers-placeholder__status">
-                    Foundation shell — content pending
-                </span>
+
+                <div class="hundreds-lock-activity__scene" role="group" aria-label="Three-wheel blue combination lock">
+                    <img class="hundreds-lock-activity__image" src="../../Images/numbers/blue-lock.png"
+                        alt="Blue and gold combination lock with three empty number windows" draggable="false" />
+                    <div class="hundreds-lock-activity__controls">
+                        <button class="hundreds-lock-activity__hotspot" id="hundreds-lock-h-up" type="button"
+                            aria-label="Increase hundreds digit"></button>
+                        <button class="hundreds-lock-activity__hotspot" id="hundreds-lock-t-up" type="button"
+                            aria-label="Increase tens digit"></button>
+                        <button class="hundreds-lock-activity__hotspot" id="hundreds-lock-u-up" type="button"
+                            aria-label="Increase ones digit"></button>
+                        <output class="hundreds-lock-activity__digit" id="hundreds-lock-h"
+                            aria-label="Hundreds digit">1</output>
+                        <output class="hundreds-lock-activity__digit" id="hundreds-lock-t"
+                            aria-label="Tens digit">0</output>
+                        <output class="hundreds-lock-activity__digit" id="hundreds-lock-u"
+                            aria-label="Ones digit">0</output>
+                        <button class="hundreds-lock-activity__hotspot" id="hundreds-lock-h-down" type="button"
+                            aria-label="Decrease hundreds digit"></button>
+                        <button class="hundreds-lock-activity__hotspot" id="hundreds-lock-t-down" type="button"
+                            aria-label="Decrease tens digit"></button>
+                        <button class="hundreds-lock-activity__hotspot" id="hundreds-lock-u-down" type="button"
+                            aria-label="Decrease ones digit"></button>
+                    </div>
+                </div>
+
+                <div class="hundreds-lock-activity__actions">
+                    <button id="hundreds-lock-hear" type="button">▶ Hear the Number</button>
+                    <button id="hundreds-lock-slow" type="button">🐢 Slower</button>
+                    <button id="hundreds-lock-check" type="button">🔓 Unlock</button>
+                    <button id="hundreds-lock-next" type="button" disabled>Next Challenge →</button>
+                    <button id="hundreds-lock-reset" type="button">Reset &amp; Shuffle</button>
+                </div>
+                <p class="hundreds-lock-activity__feedback" id="hundreds-lock-feedback" role="status"
+                    aria-live="polite">Listen, turn the wheels, and unlock the number.</p>
+
+                <!-- Activity 5 feedback panel: authored in HTML, shown after Unlock. -->
+                <div class="hundreds-lock-activity__result" id="hundreds-lock-result"
+                    role="status" aria-live="polite" aria-atomic="true" hidden>
+                    <div class="hundreds-lock-activity__result-heading">
+                        <span class="hundreds-lock-activity__result-icon" id="hundreds-lock-result-icon"
+                            aria-hidden="true"></span>
+                        <strong id="hundreds-lock-result-title"></strong>
+                    </div>
+                    <p class="hundreds-lock-activity__result-answer" id="hundreds-lock-result-answer"></p>
+                    <p class="hundreds-lock-activity__result-message" id="hundreds-lock-result-message"></p>
+                </div>
                 <label class="numbers-placeholder__completion">
                     <input class="mark-complete" data-completion="practice-5" type="checkbox" />
                     Mark Complete

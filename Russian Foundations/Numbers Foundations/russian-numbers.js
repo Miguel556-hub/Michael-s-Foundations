@@ -2642,3 +2642,743 @@ if (lessonFourTarget && lessonFourChoiceButtons.length === 3) {
 
     resetChallenge();
 })();
+
+
+// ============================================================
+// PRACTICE ACTIVITY 2 — GOLDEN NUMBER LOCK (11–19)
+// The left digit stays at 1; the right digit moves from 1 to 9.
+// All controls and display elements are authored in HTML.
+// ============================================================
+(function initializeGoldenNumberLock() {
+    const root = document.getElementById("practice-2");
+
+    if (!root) {
+        return;
+    }
+
+    const elements = {
+        ones: document.getElementById("gold-lock-ones"),
+        selected: document.getElementById("gold-lock-selected"),
+        progress: document.getElementById("gold-lock-progress"),
+        word: document.getElementById("gold-lock-word"),
+        up: document.getElementById("gold-lock-up"),
+        down: document.getElementById("gold-lock-down"),
+        hear: document.getElementById("gold-lock-hear"),
+        reveal: document.getElementById("gold-lock-reveal"),
+        reset: document.getElementById("gold-lock-reset"),
+        feedback: document.getElementById("gold-lock-feedback"),
+        answer: document.getElementById("gold-lock-answer"),
+        success: document.getElementById("gold-lock-success")
+    };
+
+    const russianTeens = [
+        "одиннадцать",
+        "двенадцать",
+        "тринадцать",
+        "четырнадцать",
+        "пятнадцать",
+        "шестнадцать",
+        "семнадцать",
+        "восемнадцать",
+        "девятнадцать"
+    ];
+
+    let onesDigit = 1;
+    const discovered = new Set();
+
+    function updateDisplay() {
+        const number = 10 + onesDigit;
+        elements.ones.textContent = String(onesDigit);
+        elements.selected.textContent = `Selected: ${number}`;
+        elements.word.textContent = russianTeens[onesDigit - 1];
+        elements.progress.textContent = `Discovered ${discovered.size} of 9 numbers`;
+        elements.answer.hidden = true;
+        elements.answer.textContent = "";
+        elements.feedback.textContent = "Say the Russian word, then reveal its meaning.";
+        elements.success.hidden = discovered.size !== 9;
+    }
+
+    function turnWheel(direction) {
+        onesDigit = ((onesDigit - 1 + direction + 9) % 9) + 1;
+        elements.ones.classList.remove("is-turning");
+        void elements.ones.offsetWidth;
+        elements.ones.classList.add("is-turning");
+        updateDisplay();
+    }
+
+    function revealMeaning() {
+        const number = 10 + onesDigit;
+        discovered.add(number);
+        elements.answer.textContent = `${russianTeens[onesDigit - 1]} = ${number} (${number} in English)`;
+        elements.answer.hidden = false;
+        elements.progress.textContent = `Discovered ${discovered.size} of 9 numbers`;
+        elements.feedback.textContent = discovered.size === 9
+            ? "All nine numbers discovered! The golden lock is open."
+            : "Excellent! Turn the right wheel to discover another number.";
+        elements.success.hidden = discovered.size !== 9;
+    }
+
+    function hearNumber() {
+        if (!( "speechSynthesis" in window) || !window.SpeechSynthesisUtterance) {
+            elements.feedback.textContent = "Russian speech playback is unavailable in this browser.";
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(russianTeens[onesDigit - 1]);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = window.speechSynthesis.getVoices().find((candidate) => {
+            return candidate.lang.toLowerCase().startsWith("ru");
+        });
+
+        if (voice) {
+            utterance.voice = voice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function resetActivity() {
+        discovered.clear();
+        onesDigit = 1;
+        elements.ones.classList.remove("is-turning");
+        updateDisplay();
+        elements.feedback.textContent = "Turn the right wheel to explore numbers 11–19.";
+    }
+
+    elements.up.addEventListener("click", () => turnWheel(1));
+    elements.down.addEventListener("click", () => turnWheel(-1));
+    elements.hear.addEventListener("click", hearNumber);
+    elements.reveal.addEventListener("click", revealMeaning);
+    elements.reset.addEventListener("click", resetActivity);
+
+    resetActivity();
+})();
+
+
+// ============================================================
+// PRACTICE ACTIVITY 3 — THE TENS (10–90)
+// The tens wheel is interactive; the ones wheel stays at zero.
+// The four arrow buttons and all number displays exist in HTML.
+// ============================================================
+(function initializeTensBagActivity() {
+    const root = document.getElementById("practice-3");
+
+    if (!root) {
+        return;
+    }
+
+    const elements = {
+        wheel: root.querySelector(".tens-bag-activity__wheel--tens"),
+        previous: document.getElementById("tens-bag-tens-prev"),
+        current: document.getElementById("tens-bag-tens-current"),
+        next: document.getElementById("tens-bag-tens-next"),
+        up: document.getElementById("tens-bag-tens-up"),
+        down: document.getElementById("tens-bag-tens-down"),
+        selected: document.getElementById("tens-bag-selected"),
+        progress: document.getElementById("tens-bag-progress"),
+        word: document.getElementById("tens-bag-word"),
+        hear: document.getElementById("tens-bag-hear"),
+        check: document.getElementById("tens-bag-check"),
+        nextChallenge: document.getElementById("tens-bag-next"),
+        reset: document.getElementById("tens-bag-reset"),
+        feedback: document.getElementById("tens-bag-feedback"),
+        success: document.getElementById("tens-bag-success")
+    };
+
+    const russianTens = {
+        1: "десять",
+        2: "двадцать",
+        3: "тридцать",
+        4: "сорок",
+        5: "пятьдесят",
+        6: "шестьдесят",
+        7: "семьдесят",
+        8: "восемьдесят",
+        9: "девяносто"
+    };
+
+    let tensDigit = 1;
+    let challengeIndex = 0;
+    let challenges = [];
+    let answered = false;
+
+    function shuffleChallenges() {
+        const values = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        for (let index = values.length - 1; index > 0; index -= 1) {
+            const randomIndex = Math.floor(Math.random() * (index + 1));
+            [values[index], values[randomIndex]] = [values[randomIndex], values[index]];
+        }
+
+        return values;
+    }
+
+    function wrapDigit(value) {
+        return ((value - 1 + 9) % 9) + 1;
+    }
+
+    function updateWheel() {
+        elements.previous.textContent = String(wrapDigit(tensDigit - 1));
+        elements.current.textContent = String(tensDigit);
+        elements.next.textContent = String(wrapDigit(tensDigit + 1));
+        elements.selected.textContent = `Selected: ${tensDigit * 10}`;
+
+        // The Russian word always describes the number visible on the bag.
+        elements.word.textContent = russianTens[tensDigit];
+    }
+
+    function turnWheel(direction) {
+        tensDigit = wrapDigit(tensDigit + direction);
+        answered = false;
+        elements.wheel.classList.remove("is-rolling-up", "is-rolling-down");
+        void elements.wheel.offsetWidth;
+        elements.wheel.classList.add(direction > 0 ? "is-rolling-up" : "is-rolling-down");
+        elements.check.disabled = false;
+        elements.nextChallenge.disabled = true;
+        elements.success.hidden = true;
+        updateWheel();
+        elements.feedback.textContent = "Read and say the Russian word, then check its meaning.";
+    }
+
+    function showChallenge() {
+        answered = false;
+        elements.progress.textContent = `Discovery ${challengeIndex + 1} of 9`;
+        elements.feedback.textContent = "Turn the tens wheel to discover its Russian word.";
+        elements.check.disabled = false;
+        elements.nextChallenge.disabled = true;
+        elements.up.disabled = false;
+        elements.down.disabled = false;
+        elements.success.hidden = true;
+        updateWheel();
+    }
+
+    function checkAnswer() {
+        if (answered) {
+            return;
+        }
+
+        answered = true;
+        elements.check.disabled = true;
+        elements.nextChallenge.disabled = challengeIndex >= 8;
+        elements.feedback.textContent = `${russianTens[tensDigit]} means ${tensDigit * 10} in English. Well done!`;
+
+        if (challengeIndex === 8) {
+            elements.success.hidden = false;
+            elements.feedback.textContent += " You have completed all nine discoveries!";
+        }
+    }
+
+    function hearNumber() {
+        if (!( "speechSynthesis" in window) || !window.SpeechSynthesisUtterance) {
+            elements.feedback.textContent = "Russian audio is unavailable in this browser.";
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(russianTens[tensDigit]);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = window.speechSynthesis.getVoices().find((candidate) => {
+            return candidate.lang.toLowerCase().startsWith("ru");
+        });
+
+        if (voice) {
+            utterance.voice = voice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function resetActivity() {
+        challengeIndex = 0;
+        tensDigit = 1;
+        elements.wheel.classList.remove("is-rolling-up", "is-rolling-down");
+        showChallenge();
+    }
+
+    elements.up.addEventListener("click", () => turnWheel(1));
+    elements.down.addEventListener("click", () => turnWheel(-1));
+    elements.hear.addEventListener("click", hearNumber);
+    elements.check.addEventListener("click", checkAnswer);
+    elements.nextChallenge.addEventListener("click", () => {
+        if (!answered || challengeIndex >= 8) {
+            return;
+        }
+
+        challengeIndex += 1;
+        tensDigit = wrapDigit(tensDigit + 1);
+        showChallenge();
+    });
+    elements.reset.addEventListener("click", resetActivity);
+
+    resetActivity();
+})();
+
+
+// ============================================================
+// PRACTICE ACTIVITY 4 — THE BRONZE CODEBREAKER (21–99)
+// All controls and wheel displays are authored directly in HTML.
+// ============================================================
+
+(() => {
+    const root = document.getElementById("practice-4");
+
+    if (!root) {
+        return;
+    }
+
+    const byId = (id) => document.getElementById(id);
+    const elements = {
+        tensPrevious: byId("bronze-tens-previous"),
+        tensCurrent: byId("bronze-tens-current"),
+        tensNext: byId("bronze-tens-next"),
+        onesPrevious: byId("bronze-ones-previous"),
+        onesCurrent: byId("bronze-ones-current"),
+        onesNext: byId("bronze-ones-next"),
+        tensUp: byId("bronze-tens-up"),
+        tensDown: byId("bronze-tens-down"),
+        onesUp: byId("bronze-ones-up"),
+        onesDown: byId("bronze-ones-down"),
+        readout: byId("bronze-dial-readout"),
+        hear: byId("bronze-hear"),
+        slower: byId("bronze-slower"),
+        unlock: byId("bronze-unlock"),
+        hint: byId("bronze-hint"),
+        hintText: byId("bronze-hint-text"),
+        next: byId("bronze-next"),
+        reset: byId("bronze-reset"),
+        feedback: byId("bronze-feedback"),
+        progress: byId("bronze-progress-label"),
+        dots: [...root.querySelectorAll(".bronze-codebreaker__progress-dots span")],
+        locked: byId("bronze-discovery-locked"),
+        unlocked: byId("bronze-discovery-unlocked"),
+        number: byId("bronze-discovery-number"),
+        russian: byId("bronze-discovery-russian"),
+        breakdown: byId("bronze-discovery-breakdown")
+    };
+
+    const tensWords = {
+        2: "двадцать",
+        3: "тридцать",
+        4: "сорок",
+        5: "пятьдесят",
+        6: "шестьдесят",
+        7: "семьдесят",
+        8: "восемьдесят",
+        9: "девяносто"
+    };
+
+    const onesWords = {
+        0: "",
+        1: "один",
+        2: "два",
+        3: "три",
+        4: "четыре",
+        5: "пять",
+        6: "шесть",
+        7: "семь",
+        8: "восемь",
+        9: "девять"
+    };
+
+    let tens = 2;
+    let ones = 0;
+    let targets = [];
+    let challengeIndex = 0;
+    let solved = false;
+    let hintLevel = 0;
+
+    function russianNumber(number) {
+        const tensPart = Math.floor(number / 10);
+        const onesPart = number % 10;
+        return `${tensWords[tensPart]} ${onesWords[onesPart]}`.trim();
+    }
+
+    function wrap(value, minimum, maximum) {
+        const length = maximum - minimum + 1;
+        return ((value - minimum + length) % length) + minimum;
+    }
+
+    function updateWheels() {
+        elements.tensPrevious.textContent = wrap(tens - 1, 2, 9);
+        elements.tensCurrent.textContent = tens;
+        elements.tensNext.textContent = wrap(tens + 1, 2, 9);
+        elements.onesPrevious.textContent = wrap(ones - 1, 0, 9);
+        elements.onesCurrent.textContent = ones;
+        elements.onesNext.textContent = wrap(ones + 1, 0, 9);
+        elements.readout.textContent = `Your combination: ${tens * 10 + ones}`;
+    }
+
+    function speakClue(rate) {
+        if (!( "speechSynthesis" in window) || !window.SpeechSynthesisUtterance) {
+            elements.feedback.textContent = "Russian speech playback is unavailable in this browser.";
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(russianNumber(targets[challengeIndex]));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+
+        const voice = window.speechSynthesis.getVoices().find((candidate) => {
+            return candidate.lang.toLowerCase().startsWith("ru");
+        });
+
+        if (voice) {
+            utterance.voice = voice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function updateProgress() {
+        elements.progress.textContent = `Challenge ${challengeIndex + 1} of 5`;
+        elements.dots.forEach((dot, index) => {
+            dot.classList.toggle("is-complete", index < challengeIndex || (index === challengeIndex && solved));
+            dot.classList.toggle("is-current", index === challengeIndex);
+        });
+    }
+
+    function startChallenge() {
+        solved = false;
+        hintLevel = 0;
+        elements.locked.hidden = false;
+        elements.unlocked.hidden = true;
+        elements.hintText.hidden = true;
+        elements.hintText.textContent = "";
+        elements.unlock.disabled = false;
+        elements.next.disabled = true;
+        elements.next.textContent = challengeIndex === 4 ? "Finish Round ✓" : "Next Challenge →";
+        elements.feedback.textContent = "Listen to the Russian clue, then dial your answer.";
+        updateProgress();
+        updateWheels();
+    }
+
+    function turnWheel(place, direction) {
+        if (solved) {
+            return;
+        }
+
+        if (place === "tens") {
+            tens = wrap(tens + direction, 2, 9);
+        } else {
+            ones = wrap(ones + direction, 0, 9);
+        }
+
+        updateWheels();
+    }
+
+    function checkCombination() {
+        if (solved) {
+            return;
+        }
+
+        const selected = tens * 10 + ones;
+        const target = targets[challengeIndex];
+
+        if (selected !== target) {
+            elements.feedback.textContent = "Not quite! Listen again, adjust your number wheels, and press Unlock to try once more.";
+            return;
+        }
+
+        solved = true;
+        elements.unlock.disabled = true;
+        elements.locked.hidden = true;
+        elements.unlocked.hidden = false;
+        elements.number.textContent = target;
+        elements.russian.textContent = russianNumber(target);
+        elements.breakdown.textContent = `${tensWords[tens]} (${tens * 10}) + ${onesWords[ones]} (${ones})`;
+        elements.feedback.textContent = challengeIndex === 4
+            ? "All five combinations unlocked! Select Reset & Shuffle to play again."
+            : "You cracked the code! Отлично! Select Next Challenge to continue.";
+        elements.next.disabled = challengeIndex === 4;
+        updateProgress();
+    }
+
+    function showHint() {
+        if (solved) {
+            elements.feedback.textContent = "You've already unlocked this combination!";
+            return;
+        }
+
+        hintLevel = Math.min(hintLevel + 1, 3);
+        const target = targets[challengeIndex];
+        const targetTens = Math.floor(target / 10);
+        const targetOnes = target % 10;
+
+        if (hintLevel === 1) {
+            elements.hintText.textContent = `The tens word is «${tensWords[targetTens]}».`;
+        } else if (hintLevel === 2) {
+            elements.hintText.textContent = `The ones word is «${onesWords[targetOnes]}».`;
+        } else {
+            elements.hintText.textContent = `The full clue is «${russianNumber(target)}». Try dialing it now!`;
+        }
+
+        elements.hintText.hidden = false;
+    }
+
+    function resetRound() {
+        const previous = targets.join(",");
+        let nextTargets;
+
+        do {
+            const pool = [];
+
+            for (let number = 21; number <= 99; number += 1) {
+                if (number % 10 !== 0) {
+                    pool.push(number);
+                }
+            }
+
+            for (let index = pool.length - 1; index > 0; index -= 1) {
+                const randomIndex = Math.floor(Math.random() * (index + 1));
+                [pool[index], pool[randomIndex]] = [pool[randomIndex], pool[index]];
+            }
+
+            nextTargets = pool.slice(0, 5);
+        } while (nextTargets.join(",") === previous);
+
+        targets = nextTargets;
+        challengeIndex = 0;
+        tens = 2;
+        ones = 0;
+        startChallenge();
+    }
+
+    elements.tensUp.addEventListener("click", () => turnWheel("tens", 1));
+    elements.tensDown.addEventListener("click", () => turnWheel("tens", -1));
+    elements.onesUp.addEventListener("click", () => turnWheel("ones", 1));
+    elements.onesDown.addEventListener("click", () => turnWheel("ones", -1));
+    elements.hear.addEventListener("click", () => speakClue(0.85));
+    elements.slower.addEventListener("click", () => speakClue(0.65));
+    elements.unlock.addEventListener("click", checkCombination);
+    elements.hint.addEventListener("click", showHint);
+    elements.next.addEventListener("click", () => {
+        if (!solved || challengeIndex >= 4) {
+            return;
+        }
+
+        challengeIndex += 1;
+        startChallenge();
+    });
+    elements.reset.addEventListener("click", resetRound);
+
+    resetRound();
+})();
+
+
+// ============================================================
+// PRACTICE ACTIVITY 5 — THE HUNDREDS COMBINATION LOCK
+// Six arrow hotspots and three digit windows exist in HTML.
+// JavaScript attaches behavior without creating any hotspots.
+// ============================================================
+(function initializeHundredsLockActivity() {
+    const root = document.getElementById("practice-5");
+
+    if (!root) {
+        return;
+    }
+
+    const hundredsWords = ["", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"];
+    const tensWords = ["", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"];
+    const teenWords = ["десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"];
+    const onesWords = ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"];
+
+    const displays = [
+        document.getElementById("hundreds-lock-h"),
+        document.getElementById("hundreds-lock-t"),
+        document.getElementById("hundreds-lock-u")
+    ];
+    const progress = document.getElementById("hundreds-lock-progress");
+    const progressDots = Array.from(document.querySelectorAll("#hundreds-lock-progress-dots span"));
+    const clue = document.getElementById("hundreds-lock-clue");
+    const feedback = document.getElementById("hundreds-lock-feedback");
+    const result = document.getElementById("hundreds-lock-result");
+    const resultIcon = document.getElementById("hundreds-lock-result-icon");
+    const resultTitle = document.getElementById("hundreds-lock-result-title");
+    const resultAnswer = document.getElementById("hundreds-lock-result-answer");
+    const resultMessage = document.getElementById("hundreds-lock-result-message");
+    const check = document.getElementById("hundreds-lock-check");
+    const next = document.getElementById("hundreds-lock-next");
+    const digits = [1, 0, 0];
+
+    let challenges = [];
+    let index = 0;
+    let solved = false;
+
+    function hideResult() {
+        result.hidden = true;
+        result.classList.remove("is-success", "is-retry");
+        resultTitle.textContent = "";
+        resultAnswer.textContent = "";
+        resultMessage.textContent = "";
+    }
+
+    function showResult(type, title, answer, message) {
+        result.classList.remove("is-success", "is-retry");
+        result.classList.add(type === "success" ? "is-success" : "is-retry");
+        resultIcon.textContent = type === "success" ? "🔓" : "🔒";
+        resultTitle.textContent = title;
+        resultAnswer.textContent = answer;
+        resultAnswer.hidden = !answer;
+        resultMessage.textContent = message;
+        result.hidden = false;
+    }
+
+    function russianNumber(value) {
+        const hundreds = Math.floor(value / 100);
+        const remainder = value % 100;
+        const tens = Math.floor(remainder / 10);
+        const ones = remainder % 10;
+        const parts = [hundredsWords[hundreds]];
+
+        if (remainder >= 10 && remainder <= 19) {
+            parts.push(teenWords[remainder - 10]);
+        } else {
+            if (tens > 0) {
+                parts.push(tensWords[tens]);
+            }
+            if (ones > 0) {
+                parts.push(onesWords[ones]);
+            }
+        }
+
+        return parts.join(" ");
+    }
+
+    function selectedNumber() {
+        return digits[0] * 100 + digits[1] * 10 + digits[2];
+    }
+
+    function updateDigits() {
+        displays.forEach((display, position) => {
+            display.textContent = String(digits[position]);
+        });
+    }
+
+    function turnDigit(position, direction) {
+        const minimum = position === 0 ? 1 : 0;
+        const range = position === 0 ? 9 : 10;
+        digits[position] = minimum + ((digits[position] - minimum + direction + range) % range);
+        solved = false;
+        check.disabled = false;
+        next.disabled = true;
+        hideResult();
+        feedback.textContent = "Combination: " + selectedNumber() + ". Listen to the clue and try to unlock.";
+        updateDigits();
+    }
+
+    function speakClue(slow) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            feedback.textContent = "Speech playback is unavailable in this browser.";
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(russianNumber(challenges[index]));
+        utterance.lang = "ru-RU";
+        utterance.rate = slow ? 0.6 : 0.85;
+        const russianVoice = window.speechSynthesis.getVoices().find((voice) => voice.lang.toLowerCase().startsWith("ru"));
+
+        if (russianVoice) {
+            utterance.voice = russianVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function showChallenge() {
+        digits[0] = 1;
+        digits[1] = 0;
+        digits[2] = 0;
+        solved = false;
+        progress.textContent = "Challenge " + (index + 1) + " of " + challenges.length;
+        progressDots.forEach((dot, dotIndex) => {
+            dot.classList.toggle("is-current", dotIndex === index);
+            dot.classList.toggle("is-complete", dotIndex < index);
+        });
+        clue.textContent = russianNumber(challenges[index]);
+        hideResult();
+        feedback.textContent = "Listen, turn the wheels, and unlock the number.";
+        check.disabled = false;
+        next.disabled = true;
+        next.textContent = index === challenges.length - 1 ? "Finish Round ✓" : "Next Challenge →";
+        updateDigits();
+    }
+
+    function shuffleChallenges() {
+        const values = [105, 218, 326, 409, 537, 641, 754, 862, 993];
+
+        for (let position = values.length - 1; position > 0; position -= 1) {
+            const randomIndex = Math.floor(Math.random() * (position + 1));
+            [values[position], values[randomIndex]] = [values[randomIndex], values[position]];
+        }
+
+        challenges = values;
+        index = 0;
+        showChallenge();
+    }
+
+    ["h", "t", "u"].forEach((part, position) => {
+        document.getElementById("hundreds-lock-" + part + "-up").addEventListener("click", () => turnDigit(position, 1));
+        document.getElementById("hundreds-lock-" + part + "-down").addEventListener("click", () => turnDigit(position, -1));
+    });
+
+    document.getElementById("hundreds-lock-hear").addEventListener("click", () => speakClue(false));
+    document.getElementById("hundreds-lock-slow").addEventListener("click", () => speakClue(true));
+
+    check.addEventListener("click", () => {
+        if (selectedNumber() === challenges[index]) {
+            solved = true;
+            check.disabled = true;
+            next.disabled = false;
+            feedback.textContent = "";
+            showResult(
+                "success",
+                "COMBINATION UNLOCKED!",
+                challenges[index] + " — " + russianNumber(challenges[index]),
+                "Excellent! You've cracked the Russian number."
+            );
+        } else {
+            feedback.textContent = "";
+            showResult(
+                "retry",
+                "NOT QUITE — STILL LOCKED!",
+                "",
+                "Listen again, read the Russian number, and adjust the wheels."
+            );
+        }
+    });
+
+    next.addEventListener("click", () => {
+        if (!solved) {
+            return;
+        }
+
+        if (index === challenges.length - 1) {
+            feedback.textContent = "";
+            showResult(
+                "success",
+                "ALL NINE COMBINATIONS UNLOCKED!",
+                "",
+                "Excellent work! Select Reset & Shuffle to play again."
+            );
+            next.disabled = true;
+            return;
+        }
+
+        index += 1;
+        showChallenge();
+    });
+
+    document.getElementById("hundreds-lock-reset").addEventListener("click", () => {
+        if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+        }
+        shuffleChallenges();
+    });
+
+    shuffleChallenges();
+})();

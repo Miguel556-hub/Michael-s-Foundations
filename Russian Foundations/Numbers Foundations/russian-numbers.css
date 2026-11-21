@@ -3916,3 +3916,1236 @@ h1 {
     font-family: "Times New Roman", Times, serif;
     font-weight: 400;
 }
+
+/* ============================================================
+   PRACTICE ACTIVITY 2 — GOLDEN NUMBER LOCK (11–19)
+   Lock artwork stays fixed. Both number windows use editable text.
+   ============================================================ */
+.gold-lock-activity {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #d4e0d8;
+    border-radius: 12px;
+}
+
+.gold-lock-activity__header h2,
+.gold-lock-activity__instructions h3 {
+    color: #245c42;
+}
+
+.gold-lock-activity__header h2 {
+    margin: 5px 0;
+}
+
+.gold-lock-activity__instructions {
+    margin: 18px 0;
+    padding: 12px 18px;
+    border: 1px solid #c8dcca;
+    border-radius: 8px;
+    background: #f4f9f4;
+}
+
+.gold-lock-activity__instructions h3,
+.gold-lock-activity__instructions p {
+    margin: 0 0 4px;
+}
+
+.gold-lock-activity__workspace {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr);
+    gap: 22px;
+}
+
+.gold-lock-activity__lock-column,
+.gold-lock-activity__challenge {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #d9e3de;
+    border-radius: 9px;
+    background: #fbfdfb;
+}
+
+.gold-lock-activity__frame {
+    display: grid;
+    place-items: center;
+    min-height: 290px;
+    border-radius: 8px;
+    background: #432b1d url("../../Images/numbers/gold-lock-background.png") center / cover no-repeat;
+}
+
+.gold-lock-activity__mechanism {
+    position: relative;
+    width: min(95%, 360px);
+    aspect-ratio: 1.9;
+    user-select: none;
+}
+
+.gold-lock-activity__lock-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Position the editable digit overlays over the two gold number windows.
+   Percentages can be fine-tuned to the final gold-lock.png dimensions. */
+.gold-lock-activity__digit {
+    position: absolute;
+    top: 49%;
+    width: 15%;
+    height: 30%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #d99a2c, #f8d276 45%, #e5a83e);
+    color: #16110b;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(26px, 3.2vw, 49px);
+    font-weight: 400;
+    line-height: 1;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.gold-lock-activity__digit--tens {
+    left: 46%;
+}
+
+.gold-lock-activity__digit--ones {
+    left: 64%;
+}
+
+.gold-lock-activity__digit--ones.is-turning {
+    animation: gold-lock-digit-turn 230ms ease-in-out;
+}
+
+@keyframes gold-lock-digit-turn {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(0.72);
+        transform: translate(-50%, -50%) scaleY(0.8);
+    }
+}
+
+.gold-lock-activity__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.gold-lock-activity__controls span,
+.gold-lock-activity__round,
+.gold-lock-activity__feedback {
+    font-weight: 700;
+    color: #245c42;
+}
+
+.gold-lock-activity__prompt-label {
+    margin: 22px 0 4px;
+}
+
+.gold-lock-activity__word {
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(2.3rem, 4vw, 3.8rem);
+    font-weight: 400;
+    color: #245c42;
+}
+
+.gold-lock-activity__tip {
+    color: #52665d;
+}
+
+.gold-lock-activity__actions {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+#gold-lock-reveal {
+    background: #276e4b;
+    border-color: #276e4b;
+    color: #ffffff;
+}
+
+.gold-lock-activity__success {
+    margin-top: 16px;
+    padding: 15px;
+    border: 1px solid #96c6a1;
+    border-radius: 8px;
+    background: #eaf6ec;
+    color: #205a34;
+}
+
+.gold-lock-activity__answer[hidden],
+.gold-lock-activity__success[hidden] {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .gold-lock-activity__workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .gold-lock-activity {
+        padding: 16px;
+    }
+}
+
+
+/* ============================================================
+   PRACTICE ACTIVITY 3 — TENS SUITCASE LOCK
+   All text and controls are editable HTML, not part of artwork.
+   Position percentages refer to the number-bag.png image itself.
+   ============================================================ */
+.tens-bag-activity {
+    max-width: 1100px;
+    padding: 28px;
+}
+
+.tens-bag-activity__header h2 {
+    margin: 7px 0;
+}
+
+.tens-bag-activity__instructions {
+    padding: 12px 15px;
+    margin: 14px 0;
+    border: 1px solid #cbded0;
+    border-radius: 7px;
+    background: #f2f8f3;
+}
+
+.tens-bag-activity__instructions h3 {
+    margin: 0 0 5px;
+}
+
+.tens-bag-activity__instructions p {
+    margin: 0;
+}
+
+.tens-bag-activity__workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+.tens-bag-activity__lock-column,
+.tens-bag-activity__challenge {
+    min-width: 0;
+    padding: 16px;
+    min-height: 355px;
+    border: 1px solid #d6e1d9;
+    border-radius: 8px;
+    background: #fbfdfb;
+}
+
+.tens-bag-activity__scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 975 / 650;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.tens-bag-activity__bag {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    user-select: none;
+    pointer-events: none;
+}
+
+.tens-bag-activity__wheel {
+    position: absolute;
+    top: 44.2%;
+    width: 9.6%;
+    height: 29.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+    border: 2px solid #a77732;
+    border-radius: 7px;
+    background: #141313;
+    color: #ffffff;
+    font-family: "Times New Roman", Times, serif;
+    line-height: 1;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
+    transform: translateX(-50%);
+}
+
+.tens-bag-activity__wheel--tens {
+    left: 52.1%;
+}
+
+.tens-bag-activity__wheel--ones {
+    left: 63.5%;
+}
+
+.tens-bag-activity__wheel span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85%;
+    flex: 1;
+}
+
+.tens-bag-activity__neighbor {
+    font-size: clamp(9px, 1.2vw, 15px);
+    color: #a5a1a0;
+    opacity: 0.65;
+}
+
+.tens-bag-activity__current {
+    font-size: clamp(16px, 2.2vw, 30px);
+    border-top: 1px solid #564332;
+    border-bottom: 1px solid #564332;
+    text-shadow: 0 1px 2px #000000;
+}
+
+.tens-bag-activity__wheel.is-rolling-up span {
+    animation: tens-bag-roll-up 210ms ease-out;
+}
+
+.tens-bag-activity__wheel.is-rolling-down span {
+    animation: tens-bag-roll-down 210ms ease-out;
+}
+
+@keyframes tens-bag-roll-up {
+    from {
+        transform: translateY(15%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes tens-bag-roll-down {
+    from {
+        transform: translateY(-15%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.tens-bag-activity__arrow {
+    position: absolute;
+    width: 7.28%;
+    height: 9%;
+    min-width: 25px;
+    min-height: 28px;
+    padding: 0;
+    border: 2px solid #c48b45;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #946239 0%, #58331e 48%, #321a11 100%);
+    color: #fff0d2;
+    font-family: Arial, sans-serif;
+    font-size: clamp(17px, 2vw, 25px);
+    font-weight: 700;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #27140b, 0 5px 8px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 235, 179, 0.55);
+    transform: translateX(-50%);
+    transition: background 150ms ease, box-shadow 150ms ease;
+}
+
+.tens-bag-activity__arrow:hover:not(:disabled),
+.tens-bag-activity__arrow:focus-visible:not(:disabled) {
+    background: linear-gradient(180deg, #b88046, #6e4124 60%, #3a2114);
+    box-shadow: 0 3px 0 #27140b, 0 6px 11px rgba(0, 0, 0, 0.65), inset 0 1px 3px rgba(255, 235, 179, 0.7);
+    outline: 2px solid #f5cf7c;
+    outline-offset: 2px;
+}
+
+.tens-bag-activity__arrow:active:not(:disabled) {
+    box-shadow: 0 1px 0 #27140b, 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.tens-bag-activity__arrow:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+}
+
+/* Both controls sit to the left of the tens window.
+   The ones wheel remains fixed at zero and has no buttons. */
+.tens-bag-activity__arrow--tens-up {
+    left: 42.0%;
+    top: 49.5%;
+}
+
+.tens-bag-activity__arrow--tens-down {
+    left: 42.0%;
+    top: 61.5%;
+}
+
+.tens-bag-activity__selected,
+.tens-bag-activity__progress {
+    color: #245c42;
+    font-weight: 700;
+}
+
+.tens-bag-activity__selected {
+    text-align: center;
+    margin: 8px 0 0;
+}
+
+.tens-bag-activity__word {
+    margin: 18px 0 10px;
+    color: #245c42;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(2rem, 3.4vw, 3.4rem);
+    font-weight: 400;
+    overflow-wrap: anywhere;
+}
+
+.tens-bag-activity__tip {
+    color: #52665d;
+}
+
+.tens-bag-activity__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+#tens-bag-check {
+    background: #276e4b;
+    border-color: #276e4b;
+    color: #ffffff;
+}
+
+.tens-bag-activity__feedback {
+    color: #245c42;
+    font-weight: 600;
+}
+
+.tens-bag-activity__success:not([hidden]) {
+    padding: 12px;
+    border-radius: 7px;
+    background: #eaf6ec;
+    color: #205a34;
+}
+
+@media (max-width: 760px) {
+    .tens-bag-activity__workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .tens-bag-activity__lock-column,
+    .tens-bag-activity__challenge {
+        min-height: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tens-bag-activity__wheel span {
+        animation: none !important;
+    }
+}
+
+/* ============================================================
+   PRACTICE ACTIVITY 4 — THE BRONZE CODEBREAKER
+   Bronze artwork and walnut background are separate images.
+   Wheel digits and all four arrow controls remain HTML elements.
+   ============================================================ */
+
+.bronze-codebreaker {
+    max-width: 1100px;
+    padding: 28px;
+    background: #24140e url("../../Images/numbers/bronze-lock-background.png") center / cover no-repeat;
+    border: 3px solid #9d5c2c;
+    color: #fff0d6;
+}
+
+.bronze-codebreaker__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 12px 18px;
+    background: #0c1d38;
+    border: 2px solid #b77a39;
+    border-radius: 12px;
+}
+
+.bronze-codebreaker__header h2 {
+    color: #ffe1a1;
+    margin: 2px 0;
+    font-family: Georgia, serif;
+}
+
+.bronze-codebreaker__header p {
+    margin: 4px 0;
+}
+
+.bronze-codebreaker__header .eyebrow {
+    color: #e5ba74;
+}
+
+.bronze-codebreaker__progress {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #b77a39;
+    border-radius: 8px;
+}
+
+.bronze-codebreaker__progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 9px;
+}
+
+.bronze-codebreaker__progress-dots span {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #d9a75c;
+    border-radius: 50%;
+}
+
+.bronze-codebreaker__progress-dots span.is-current,
+.bronze-codebreaker__progress-dots span.is-complete {
+    background: #f4bd51;
+}
+
+.bronze-codebreaker__workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.6fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.bronze-codebreaker__instructions,
+.bronze-codebreaker__discovery {
+    min-width: 0;
+    min-height: 225px;
+    padding: 16px;
+    background: #f6e6bf;
+    color: #2f2017;
+    border: 3px solid #a86b32;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px #0008;
+}
+
+.bronze-codebreaker__instructions h3,
+.bronze-codebreaker__discovery h3 {
+    margin: 0 0 12px;
+    color: #583116;
+    font-family: Georgia, serif;
+    text-align: center;
+}
+
+.bronze-codebreaker__instructions p {
+    font-size: 0.9rem;
+    margin: 12px 0;
+}
+
+.bronze-codebreaker__instruction-note {
+    border-top: 1px solid #c59c65;
+    padding-top: 10px;
+}
+
+.bronze-codebreaker__lock-area {
+    min-width: 0;
+    text-align: center;
+}
+
+.bronze-codebreaker__scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 680 / 550;
+}
+
+.bronze-codebreaker__lock {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bronze-codebreaker__wheel {
+    position: absolute;
+    top: 49%;
+    height: 28%;
+    width: 13.2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+    background: #111;
+    border: 2px solid #a96a32;
+    border-radius: 7px;
+    transform: translateX(-50%);
+    color: #fff;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.bronze-codebreaker__wheel--tens {
+    left: 43%;
+}
+
+.bronze-codebreaker__wheel--ones {
+    left: 61%;
+}
+
+.bronze-codebreaker__wheel span {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    line-height: 1;
+}
+
+.bronze-codebreaker__neighbor {
+    color: #858585;
+    font-size: clamp(9px, 1.2vw, 15px);
+}
+
+.bronze-codebreaker__digit {
+    border-top: 1px solid #60452b;
+    border-bottom: 1px solid #60452b;
+    font-size: clamp(18px, 2.4vw, 32px);
+}
+
+.bronze-codebreaker__arrow {
+    position: absolute;
+    width: 7.2%;
+    height: 7%;
+    padding: 0;
+    border: 1px solid #e0a24f;
+    border-radius: 5px;
+    background: linear-gradient(#704023, #2e1b15);
+    color: #ffe0a0;
+    font-size: clamp(10px, 1.5vw, 20px);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+}
+
+.bronze-codebreaker__arrow:hover:not(:disabled) {
+    background: #9b612e;
+    color: #fff;
+}
+
+.bronze-codebreaker__arrow--tens-up {
+    left: 28%;
+    top: 54%;
+}
+
+.bronze-codebreaker__arrow--tens-down {
+    left: 28%;
+    top: 65%;
+}
+
+.bronze-codebreaker__arrow--ones-up {
+    left: 77%;
+    top: 54%;
+}
+
+.bronze-codebreaker__arrow--ones-down {
+    left: 77%;
+    top: 65%;
+}
+
+.bronze-codebreaker__dial-readout {
+    margin: 4px 0 0;
+    font-weight: 700;
+}
+
+.bronze-codebreaker__discovery {
+    text-align: center;
+}
+
+.bronze-codebreaker__discovery-locked span {
+    font-size: 2.4rem;
+}
+
+.bronze-codebreaker__discovery-number {
+    display: block;
+    color: #0c264b;
+    font-size: 3rem;
+}
+
+.bronze-codebreaker__russian {
+    color: #0c264b;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+}
+
+.bronze-codebreaker__breakdown {
+    font-size: 0.85rem;
+}
+
+.bronze-codebreaker__discovery-message {
+    color: #1a7435;
+    font-weight: 700;
+}
+
+.bronze-codebreaker__controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.bronze-codebreaker__controls button {
+    background: linear-gradient(#173965, #07172e);
+    color: #fff0d5;
+    border: 2px solid #c28c46;
+    border-radius: 9px;
+    box-shadow: 0 3px 5px #0008;
+}
+
+.bronze-codebreaker__controls button:hover:not(:disabled) {
+    background: #29588d;
+}
+
+.bronze-codebreaker__controls .bronze-codebreaker__unlock {
+    background: linear-gradient(#277b26, #0b4018);
+}
+
+.bronze-codebreaker__controls button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.bronze-codebreaker__feedback,
+.bronze-codebreaker__hint {
+    text-align: center;
+    font-weight: 700;
+    margin: 12px 0;
+}
+
+.bronze-codebreaker__hint {
+    color: #ffe19e;
+}
+
+.bronze-codebreaker .numbers-placeholder__completion {
+    color: #2d231b;
+}
+
+@media (max-width: 850px) {
+    .bronze-codebreaker__workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .bronze-codebreaker__header {
+        flex-wrap: wrap;
+    }
+
+    .bronze-codebreaker__instructions,
+    .bronze-codebreaker__discovery {
+        min-height: 0;
+    }
+
+    .bronze-codebreaker__lock-area {
+        max-width: 580px;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+
+/* ============================================================
+   ACTIVITY 4 — RESET & SHUFFLE LEARNER GUIDANCE
+   ============================================================ */
+
+.bronze-codebreaker__reset-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    max-width: 290px;
+}
+
+.bronze-codebreaker__reset-note {
+    margin: 0;
+    color: #f5e2bf;
+    font-size: 0.78rem;
+    line-height: 1.4;
+}
+
+.bronze-codebreaker__reset-note strong {
+    color: #fff0d1;
+}
+
+
+/* ============================================================
+   ACTIVITY 4 — COMPACT DISCOVERY / REPLAY PANELS AND BUTTONS
+   ============================================================ */
+
+.bronze-codebreaker__right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.bronze-codebreaker__right-column .bronze-codebreaker__discovery {
+    min-height: 175px;
+    padding: 12px;
+}
+
+.bronze-codebreaker__replay-note {
+    padding: 12px;
+    background: #f6e6bf;
+    color: #2f2017;
+    border: 3px solid #a86b32;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px #0008;
+    text-align: center;
+}
+
+.bronze-codebreaker__replay-note h3 {
+    margin: 0 0 7px;
+    color: #583116;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+}
+
+.bronze-codebreaker__replay-note p {
+    margin: 6px 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.bronze-codebreaker__controls {
+    align-items: center;
+}
+
+.bronze-codebreaker__controls>button {
+    flex: 0 0 auto;
+    height: 44px;
+    min-height: 44px;
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+
+/* Align the right-side arrow pair with the lock's bronze gear,
+   mirroring the inset of the left-side arrow pair. */
+.bronze-codebreaker__arrow--ones-up {
+    left: 70.5%;
+}
+
+.bronze-codebreaker__arrow--ones-down {
+    left: 70.5%;
+}
+
+/* ============================================================
+   ACTIVITY 4 — CENTER THE DIGIT PANELS IN THE BRONZE WINDOWS
+   Shift the digit panels only; preserve arrow positions.
+   ============================================================ */
+
+.bronze-codebreaker__wheel {
+    top: 46%;
+}
+
+.bronze-codebreaker__wheel--tens {
+    left: 40.4%;
+}
+
+.bronze-codebreaker__wheel--ones {
+    left: 58.4%;
+}
+
+
+/* ============================================================
+   PRACTICE ACTIVITY 5 — BLUE HUNDREDS COMBINATION LOCK
+   The PNG artwork remains unchanged. All six arrow hotspots
+   and all three digit outputs are authored directly in HTML.
+   Percentages are relative to the entire transparent lock PNG.
+   ============================================================ */
+
+/* ============================================================
+   ACTIVITY 5 — THE HUNDREDS: THREE APPROVED DESIGN CHANGES
+   1. 100 starting combination / 1–9 hundreds wheel (in JS).
+   2. Activity 4-inspired banner and full-width presentation.
+   3. Deep-blue gradient across the Activity 5 card.
+   Existing lock artwork, scene ratio, and nine independent
+   hotspot/digit coordinates below are deliberately unchanged.
+   ============================================================ */
+
+.hundreds-lock-activity {
+    max-width: 1100px;
+    padding: 28px;
+    background: linear-gradient(135deg, #071426 0%, #123455 48%, #050e20 100%);
+    border: 3px solid #a77837;
+    color: #f5e9d6;
+}
+
+.hundreds-lock-activity__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 18px;
+    margin-bottom: 18px;
+    background: #0c1d38;
+    border: 2px solid #b77a39;
+    border-radius: 12px;
+}
+
+.hundreds-lock-activity__header-copy {
+    min-width: 0;
+}
+
+.hundreds-lock-activity__header .eyebrow {
+    color: #e5ba74;
+    margin: 4px 0;
+}
+
+.hundreds-lock-activity__header h2 {
+    color: #ffe1a1;
+    font-family: Georgia, serif;
+    margin: 2px 0;
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+}
+
+.hundreds-lock-activity__header p {
+    margin: 4px 0;
+}
+
+.hundreds-lock-activity__progress {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #b77a39;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.hundreds-lock-activity__progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 9px;
+}
+
+.hundreds-lock-activity__progress-dots span {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border: 1px solid #e5af4d;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.hundreds-lock-activity__progress-dots span.is-current,
+.hundreds-lock-activity__progress-dots span.is-complete {
+    background: #e5af4d;
+}
+
+.hundreds-lock-activity__clue {
+    color: #f9e0a4;
+}
+
+.hundreds-lock-activity__feedback {
+    color: #f5e9d6;
+}
+
+.hundreds-lock-activity .numbers-placeholder__completion {
+    color: #172235;
+}
+
+@media (max-width: 640px) {
+    .hundreds-lock-activity {
+        padding: 14px;
+    }
+
+    .hundreds-lock-activity__header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hundreds-lock-activity__progress {
+        align-self: flex-start;
+    }
+}
+
+.hundreds-lock-activity__challenge {
+    text-align: center;
+    margin: 16px auto 8px;
+}
+
+.hundreds-lock-activity__clue-label {
+    margin: 0 0 4px;
+    color: #f9e0a4;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.hundreds-lock-activity__clue {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 3.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #f9e0a4;
+    text-align: center;
+    margin: 24px 0 12px;
+}
+
+.hundreds-lock-activity__instruction {
+    margin: 6px 0;
+}
+
+.hundreds-lock-activity__scene {
+    position: relative;
+    width: min(100%, 760px);
+    aspect-ratio: 492 / 258;
+    margin: 12px auto;
+    background: #123a65 url("../../Images/numbers/blue-lock-background.png") center / cover no-repeat;
+    overflow: hidden;
+}
+
+.hundreds-lock-activity__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+.hundreds-lock-activity__controls {
+    position: absolute;
+    inset: 0;
+}
+
+.hundreds-lock-activity__hotspot,
+.hundreds-lock-activity__digit {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 6.7%;
+    height: 12%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+}
+
+.hundreds-lock-activity__hotspot {
+    z-index: 2;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.hundreds-lock-activity__hotspot:hover {
+    background: rgba(255, 221, 140, 0.12);
+}
+
+.hundreds-lock-activity__hotspot:focus-visible {
+    outline: 2px solid #fff3bd;
+    outline-offset: 1px;
+}
+
+.hundreds-lock-activity__digit {
+    z-index: 1;
+    height: 12.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: clamp(16px, 3.3vw, 35px);
+    line-height: 1;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0 1px 2px #000;
+    pointer-events: none;
+}
+
+/* ==========================================================
+   ACTIVITY 5 — INDEPENDENT LOCK POSITION CONTROLS
+   Change LEFT to move horizontally; TOP to move vertically.
+   1 percentage point = approximately 6 pixels at 608px width.
+   Each of the NINE elements has its own position.
+   All hotspots remain explicitly authored in the HTML.
+   ========================================================== */
+
+/* Hundreds (left) — UP ARROW */
+#hundreds-lock-h-up {
+    left: 44.5%;
+    top: 35%;
+}
+
+/* Tens (middle) — UP ARROW */
+#hundreds-lock-t-up {
+    left: 55%;
+    top: 35%;
+}
+
+/* Ones (right) — UP ARROW */
+#hundreds-lock-u-up {
+    left: 65.5%;
+    top: 35%;
+}
+
+/* Hundreds (left) — NUMBER DISPLAY */
+#hundreds-lock-h {
+    left: 44.5%;
+    top: 52%;
+}
+
+/* Tens (middle) — NUMBER DISPLAY */
+#hundreds-lock-t {
+    left: 55%;
+    top: 52%;
+}
+
+/* Ones (right) — NUMBER DISPLAY */
+#hundreds-lock-u {
+    left: 65.5%;
+    top: 52%;
+}
+
+/* Hundreds (left) — DOWN ARROW */
+#hundreds-lock-h-down {
+    left: 44.5%;
+    top: 68%;
+}
+
+/* Tens (middle) — DOWN ARROW */
+#hundreds-lock-t-down {
+    left: 55%;
+    top: 68%;
+}
+
+/* Ones (right) — DOWN ARROW */
+#hundreds-lock-u-down {
+    left: 65.5%;
+    top: 68%;
+}
+
+.hundreds-lock-activity__actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 14px 0;
+}
+
+.hundreds-lock-activity__feedback {
+    min-height: 2em;
+    text-align: center;
+    font-weight: 700;
+    color: #f5e9d6;
+}
+
+/* ============================================================
+   ACTIVITY 5 — COMBINATION LOCK FEEDBACK PANELS
+   These styles affect Activity 5 only; no hotspot positions change.
+   ============================================================ */
+
+.hundreds-lock-activity__result[hidden] {
+    display: none;
+}
+
+.hundreds-lock-activity__result {
+    max-width: 740px;
+    margin: 14px auto 18px;
+    padding: 17px 22px;
+    border: 2px solid transparent;
+    border-radius: 11px;
+    text-align: center;
+    animation: hundreds-lock-result-appear 240ms ease-out both;
+}
+
+.hundreds-lock-activity__result.is-success {
+    background: #123e34;
+    border-color: #55c993;
+    color: #d1f5e1;
+}
+
+.hundreds-lock-activity__result.is-retry {
+    background: #4b281c;
+    border-color: #e8a35a;
+    color: #ffe0b5;
+}
+
+.hundreds-lock-activity__result-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    letter-spacing: 0.025em;
+}
+
+.hundreds-lock-activity__result.is-success .hundreds-lock-activity__result-heading {
+    color: #c3f5d7;
+}
+
+.hundreds-lock-activity__result.is-retry .hundreds-lock-activity__result-heading {
+    color: #ffd49b;
+}
+
+.hundreds-lock-activity__result-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.hundreds-lock-activity__result-answer {
+    margin: 9px 0 5px;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.hundreds-lock-activity__result-message {
+    margin: 7px 0 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+@keyframes hundreds-lock-result-appear {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hundreds-lock-activity__result {
+        animation: none;
+    }
+}
