@@ -2415,3 +2415,230 @@ if (lessonFourTarget && lessonFourChoiceButtons.length === 3) {
     });
 })();
 // END THE LISTENING ROOM
+
+
+// ============================================================
+// PRACTICE ACTIVITY 1 — RED COMBINATION LOCK
+// All interaction elements are explicitly authored in HTML.
+// Edit instructional wording in HTML and feedback strings here.
+// ============================================================
+(function initializeRedNumberLock() {
+    const root = document.getElementById("practice-1");
+
+    if (!root) {
+        return;
+    }
+
+    const elements = {
+        dial: document.getElementById("number-lock-dial"),
+        centerNumber: document.getElementById("number-lock-center-number"),
+        drag: document.getElementById("number-lock-drag"),
+        selected: document.getElementById("number-lock-selected"),
+        progress: document.getElementById("number-lock-progress"),
+        word: document.getElementById("number-lock-word"),
+        hear: document.getElementById("number-lock-hear"),
+        left: document.getElementById("number-lock-left"),
+        right: document.getElementById("number-lock-right"),
+        check: document.getElementById("number-lock-check"),
+        next: document.getElementById("number-lock-next"),
+        reset: document.getElementById("number-lock-reset"),
+        feedback: document.getElementById("number-lock-feedback"),
+        answer: document.getElementById("number-lock-answer"),
+        success: document.getElementById("number-lock-success")
+    };
+
+    const words = [
+        "ноль", "один", "два", "три", "четыре", "пять",
+        "шесть", "семь", "восемь", "девять", "десять"
+    ];
+
+    // The dial PNG contains tick marks only. It rotates as a rigid image.
+    // The center number is an independent, stationary HTML text element.
+    const degreesPerSpin = 45;
+    let currentDialRotation = 0;
+    let selectedNumber = 0;
+    let round = [];
+    let roundIndex = 0;
+    let answerAccepted = false;
+    let dragStartAngle = null;
+    let dragPreviousAngle = null;
+    let dragAccumulatedDegrees = 0;
+
+    function shuffledNumbers() {
+        const values = words.map((word, number) => number);
+
+        for (let index = values.length - 1; index > 0; index -= 1) {
+            const randomIndex = Math.floor(Math.random() * (index + 1));
+            [values[index], values[randomIndex]] = [values[randomIndex], values[index]];
+        }
+
+        return values;
+    }
+
+    function displaySelectedNumber(number) {
+        selectedNumber = number;
+        elements.centerNumber.textContent = String(number);
+        elements.selected.textContent = `Selected: ${number}`;
+        // Keep the Russian word synchronized with the center number.
+        elements.word.textContent = words[number];
+        elements.drag.setAttribute("aria-label", `Spin the dial. Selected number ${number}. Use arrow keys.`);
+    }
+
+    function chooseDifferentRandomNumber() {
+        // Eleven possibilities (0–10), excluding the currently displayed value.
+        const offset = 1 + Math.floor(Math.random() * 10);
+        return (selectedNumber + offset) % 11;
+    }
+
+    function spinDial(direction) {
+        if (answerAccepted) {
+            return;
+        }
+
+        currentDialRotation += direction * degreesPerSpin;
+        elements.dial.style.transform =
+            `translate(-50%, -50%) rotate(${currentDialRotation}deg)`;
+        displaySelectedNumber(chooseDifferentRandomNumber());
+    }
+
+    function setFeedback(message, status) {
+        elements.feedback.textContent = message;
+        elements.feedback.classList.toggle("is-correct", status === "correct");
+        elements.feedback.classList.toggle("is-incorrect", status === "incorrect");
+    }
+
+    function showChallenge() {
+        answerAccepted = false;
+        elements.progress.textContent = `Challenge ${roundIndex + 1} of ${round.length}`;
+        elements.check.disabled = false;
+        elements.next.disabled = true;
+        elements.next.textContent = roundIndex === round.length - 1
+            ? "Open the Lock →"
+            : "Next Challenge →";
+        elements.answer.hidden = true;
+        elements.success.hidden = true;
+        displaySelectedNumber(round[roundIndex]);
+        setFeedback("Turn the dial to discover a number and its Russian word.");
+    }
+
+    function checkAnswer() {
+        if (answerAccepted) {
+            return;
+        }
+
+        // Synchronized discovery: the word always matches the selected number.
+        // Checking reveals the English meaning and advances the activity.
+        answerAccepted = true;
+        elements.check.disabled = true;
+        elements.next.disabled = false;
+        elements.answer.textContent = `${words[selectedNumber]} = ${selectedNumber}`;
+        elements.answer.hidden = false;
+        setFeedback("Correct! You revealed the Russian number and its meaning.", "correct");
+    }
+
+    function advanceChallenge() {
+        if (!answerAccepted) {
+            return;
+        }
+
+        if (roundIndex === round.length - 1) {
+            elements.success.hidden = false;
+            elements.next.disabled = true;
+            elements.check.disabled = true;
+            setFeedback("All eleven discovery rounds completed!", "correct");
+            return;
+        }
+
+        roundIndex += 1;
+        showChallenge();
+    }
+
+    function resetChallenge() {
+        round = shuffledNumbers();
+        roundIndex = 0;
+        showChallenge();
+    }
+
+    function speakChallenge() {
+        if (!("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) {
+            setFeedback("Speech playback is unavailable in this browser.", "incorrect");
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(words[selectedNumber]);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const russianVoice = window.speechSynthesis.getVoices().find((voice) => {
+            return voice.lang.toLowerCase().startsWith("ru");
+        });
+
+        if (russianVoice) {
+            utterance.voice = russianVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function pointerAngle(event) {
+        const rectangle = elements.drag.getBoundingClientRect();
+        const centerX = rectangle.left + rectangle.width / 2;
+        const centerY = rectangle.top + rectangle.height / 2;
+        return Math.atan2(event.clientY - centerY, event.clientX - centerX);
+    }
+
+    elements.drag.addEventListener("pointerdown", (event) => {
+        if (event.button !== 0) {
+            return;
+        }
+
+        dragStartAngle = pointerAngle(event);
+        dragPreviousAngle = dragStartAngle;
+        dragAccumulatedDegrees = 0;
+        elements.drag.setPointerCapture(event.pointerId);
+    });
+
+    elements.drag.addEventListener("pointermove", (event) => {
+        if (dragStartAngle === null) {
+            return;
+        }
+
+        const currentAngle = pointerAngle(event);
+        let angleDifference = currentAngle - dragPreviousAngle;
+        angleDifference = Math.atan2(Math.sin(angleDifference), Math.cos(angleDifference));
+        dragAccumulatedDegrees += angleDifference * 180 / Math.PI;
+        dragPreviousAngle = currentAngle;
+
+        // Each complete gesture step spins the dial and reveals a new value.
+        if (Math.abs(dragAccumulatedDegrees) >= degreesPerSpin) {
+            spinDial(dragAccumulatedDegrees > 0 ? 1 : -1);
+            dragAccumulatedDegrees = 0;
+        }
+    });
+
+    function finishDragging() {
+        dragStartAngle = null;
+        dragPreviousAngle = null;
+        dragAccumulatedDegrees = 0;
+    }
+
+    elements.drag.addEventListener("pointerup", finishDragging);
+    elements.drag.addEventListener("pointercancel", finishDragging);
+    elements.drag.addEventListener("lostpointercapture", finishDragging);
+
+    elements.drag.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            event.preventDefault();
+            spinDial(event.key === "ArrowRight" ? 1 : -1);
+        }
+    });
+
+    elements.left.addEventListener("click", () => spinDial(-1));
+    elements.right.addEventListener("click", () => spinDial(1));
+    elements.check.addEventListener("click", checkAnswer);
+    elements.next.addEventListener("click", advanceChallenge);
+    elements.reset.addEventListener("click", resetChallenge);
+    elements.hear.addEventListener("click", speakChallenge);
+
+    resetChallenge();
+})();

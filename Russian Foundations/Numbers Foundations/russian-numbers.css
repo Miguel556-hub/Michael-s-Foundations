@@ -3649,3 +3649,270 @@ h1 {
 #explore-phase .numbers-four-doors {
     margin-top: 16px;
 }
+
+/* ============================================================
+   PRACTICE ACTIVITY 1 — RECOGNIZE AND SELECT
+   All instructional text remains in HTML / JavaScript.
+   Images are decorative layers, never text-bearing UI panels.
+   ============================================================ */
+.number-lock-activity {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #d4e0d8;
+    border-radius: 12px;
+}
+
+.number-lock-activity__header h2 {
+    margin: 5px 0;
+    color: #245c42;
+}
+
+.number-lock-activity__instructions {
+    margin: 18px 0;
+    padding: 12px 18px;
+    border: 1px solid #c8dcca;
+    border-radius: 8px;
+    background: #f4f9f4;
+}
+
+.number-lock-activity__instructions h3 {
+    margin: 0 0 4px;
+    color: #245c42;
+}
+
+.number-lock-activity__instructions p {
+    margin: 0;
+}
+
+.number-lock-activity__workspace {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr);
+    gap: 22px;
+    align-items: stretch;
+}
+
+.number-lock-activity__lock-column,
+.number-lock-activity__challenge {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #d9e3de;
+    border-radius: 9px;
+    background: #fbfdfb;
+}
+
+.number-lock-activity__frame {
+    display: grid;
+    place-items: center;
+    min-height: 365px;
+    background: #0c347a url("../../Images/numbers/lock-background.png") center / 100% 100% no-repeat;
+    border-radius: 8px;
+}
+
+.number-lock-activity__mechanism {
+    position: relative;
+    width: min(85%, 290px);
+    aspect-ratio: 0.8;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.number-lock-activity__housing {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.number-lock-activity__dial {
+    position: absolute;
+    width: 66%;
+    height: auto;
+    left: 50%;
+    top: 66%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    transform-origin: 50% 50%;
+    /* The entire transparent PNG rotates together; never distort its shape. */
+    aspect-ratio: 164 / 162;
+    object-fit: contain;
+    transition: transform 260ms ease-out;
+    will-change: transform;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* PRACTICE ACTIVITY 1 — Fixed, editable number display over the spinning dial. */
+.number-lock-activity__center-display {
+    position: absolute;
+    left: 50%;
+    top: 66%;
+    width: 24%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 2px solid #a7aab0;
+    background: radial-gradient(circle at 35% 28%, #fffef8 0%, #f0eee7 55%, #d4d0c8 100%);
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 3px rgba(45, 45, 45, 0.12);
+    pointer-events: none;
+}
+
+.number-lock-activity__center-number {
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(24px, 3vw, 44px);
+    font-weight: 700;
+    line-height: 1;
+    color: #202126;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.number-lock-activity__drag-target {
+    position: absolute;
+    left: 17%;
+    top: 40%;
+    width: 66%;
+    height: 53%;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+    z-index: 4;
+}
+
+.number-lock-activity__drag-target:active {
+    cursor: grabbing;
+}
+
+.number-lock-activity__drag-target:focus-visible {
+    outline: 3px solid #f6d46a;
+    outline-offset: 3px;
+}
+
+.number-lock-activity__dial-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.number-lock-activity__dial-controls span {
+    font-weight: 800;
+    color: #234e40;
+}
+
+.number-lock-activity__round {
+    color: #4e6e5a;
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.number-lock-activity__prompt-label {
+    margin: 22px 0 4px;
+}
+
+/* PRACTICE ACTIVITY 1 — RUSSIAN WORD DISPLAY */
+
+.number-lock-activity__word {
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(2.3rem, 4vw, 3.8rem);
+    font-weight: 400;
+    color: #245c42;
+}
+
+.number-lock-activity__tip {
+    color: #52665d;
+}
+
+.number-lock-activity__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 22px;
+}
+
+#number-lock-check,
+#number-lock-next {
+    background: #276e4b;
+    border-color: #276e4b;
+    color: #ffffff;
+}
+
+.number-lock-activity button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.number-lock-activity__feedback {
+    min-height: 24px;
+    font-weight: 700;
+}
+
+.number-lock-activity__feedback.is-correct {
+    color: #24753d;
+}
+
+.number-lock-activity__feedback.is-incorrect {
+    color: #a25a13;
+}
+
+.number-lock-activity__success {
+    margin-top: 16px;
+    padding: 15px;
+    border: 1px solid #96c6a1;
+    border-radius: 8px;
+    background: #eaf6ec;
+    color: #205a34;
+}
+
+.number-lock-activity__success[hidden],
+.number-lock-activity__answer[hidden] {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .number-lock-activity__workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .number-lock-activity {
+        padding: 16px;
+    }
+}
+
+/* PRACTICE ACTIVITY 1 — Keep the transparent dial control invisible on hover.
+   The global button:hover rule must not paint over the lock artwork. */
+.number-lock-activity .number-lock-activity__drag-target,
+.number-lock-activity .number-lock-activity__drag-target:hover,
+.number-lock-activity .number-lock-activity__drag-target:active,
+.number-lock-activity .number-lock-activity__drag-target:focus {
+    background: transparent;
+    background-color: transparent;
+    box-shadow: none;
+    filter: none;
+}
+
+/* PRACTICE ACTIVITY 1 — RUSSIAN NUMBER DISPLAY */
+
+#practice-1 .numbers-lock__target,
+#practice-1 .numbers-lock__russian {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 400;
+}
+
+/* PRACTICE ACTIVITY 1 — RUSSIAN NUMBER TYPOGRAPHY */
+
+.numbers-lock__russian {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 400;
+}
