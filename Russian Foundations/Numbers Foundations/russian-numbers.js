@@ -29,7 +29,7 @@ function updateNumbersProgress() {
         learn: { complete: 0, total: 4, id: "lesson-progress-count" },
         build: { complete: 0, total: 2, id: "exercise-progress-count" },
         practice: { complete: 0, total: 6, id: "practice-progress-count" },
-        use: { complete: 0, total: 4, id: "use-progress-count" }
+        use: { complete: 0, total: 1, id: "use-progress-count" }
     };
 
     document.querySelectorAll("[data-progress-item]").forEach((section) => {
@@ -1929,493 +1929,261 @@ if (lessonFourTarget && lessonFourChoiceButtons.length === 3) {
 })();
 
 
-// ==================================================
-// THE LISTENING ROOM — 6-ENCOUNTER LISTEN/BUILD/RESPOND VERSION
-// Replaces the old "Part A/B/C" Listening Room JS.
-// Wrapped in an IIFE to match this file's existing scoping convention.
-// NOTE 1: .feedback class renamed to .encounter-feedback throughout to
-// avoid colliding with the site-wide .feedback class used elsewhere.
-// NOTE 2 (2026-09-10 fix): scrollTo(top:0) calls changed to scroll the
-// .listening-room wrapper into view instead of the whole page — see
-// integration notes for why.
-// ==================================================
+// ============================================================
+// NUMBERS LISTENING ROOM — FIFTEEN-EXPERIENCE NAVIGATION
+// Navigation only: content and completion logic come later.
+// All navigation buttons are explicitly authored in HTML.
+// ============================================================
 (() => {
-    // Content-free data placeholders: navigation and interactions remain testable.
-    // Replace these six objects with Days of the Week content later.
-    const encounters = Array.from({ length: 6 }, (_, index) => ({
-        primary: "",
-        variation: "",
-        catch: ["Content pending"],
-        meaningQuestion: `Encounter ${index + 1} — meaning activity pending`,
-        meaningChoices: ["Continue through the shell"],
-        meaningAnswer: 0,
-        inferQuestion: "Inference activity pending",
-        inferChoices: ["Continue through the shell"],
-        inferAnswer: 0,
-        respondQuestion: "Response activity pending",
-        respondChoices: ["Continue through the shell"],
-        respondAnswer: 0,
-        support: "Numbers listening content will be added here.",
-        transcript: "Content pending."
-    }));
+    const room = document.querySelector(".listening-room");
+    const landing = document.getElementById("landingScreen");
+    const experience = document.getElementById("experienceScreen");
+    const completion = document.getElementById("completionScreen");
+    const enterButton = document.getElementById("enterButton");
+    const restartButton = document.getElementById("restartButton");
+    const buttons = Array.from(document.querySelectorAll(".encounter-nav-button"));
+    const label = document.getElementById("moveLabel");
+    const prompt = document.getElementById("movePrompt");
+    const title = document.getElementById("encounterTitle");
+    const hotel = document.getElementById("lr-hotel");
+    const numberExperiences = Array.from(document.querySelectorAll(".lr-number"));
+    const placeholder = document.getElementById("lr-placeholder");
+    const cafe = document.getElementById("lr-cafe");
+    const station = document.getElementById("lr-station");
+    const remainingConversations = ["market", "pharmacy", "bus", "tools", "airport"].map((slug) => document.getElementById(`lr-${slug}`));
 
-    const moves = [
-        {
-            label: "HEAR",
-            prompt: "Listen once. Do not try to catch every word.",
-            purpose: "First, listen for the overall shape of the message."
-        },
-        {
-            label: "CATCH",
-            prompt: "What did your ears catch?",
-            purpose: "Recognize familiar Russian without requiring the whole sentence."
-        },
-        {
-            label: "LISTEN AGAIN",
-            prompt: "Listen again with a purpose.",
-            purpose: "This time, listen for the numbers and the context."
-        },
-        {
-            label: "BUILD MEANING",
-            prompt: "Put the pieces together.",
-            purpose: "Use what you understood to decide what the message means."
-        },
-        {
-            label: "INFER",
-            prompt: "Listen for what changed.",
-            purpose: "The Russian changed naturally. Follow the meaning, not a memorized sentence."
-        },
-        {
-            label: "RESPOND",
-            prompt: "Respond to what you understood.",
-            purpose: "Use the meaning you built to choose the response that fits."
-        }
+    const experienceNames = [
+        "Hotel Room Number",
+        "Train Number",
+        "Team Score",
+        "High Card",
+        "Locker Number",
+        "Seat Ticket Number",
+        "Book Number",
+        "Favorite Runner Number",
+        "At the Café",
+        "At the Train Station",
+        "At the Market",
+        "At the Pharmacy",
+        "Taking the Bus",
+        "At the Tool Shop",
+        "At the Airport"
     ];
 
-    const el = {
-        room: document.querySelector(".listening-room"),
-        landing: document.getElementById("landingScreen"),
-        experience: document.getElementById("experienceScreen"),
-        completion: document.getElementById("completionScreen"),
-        enter: document.getElementById("enterButton"),
-        listen: document.getElementById("listenButton"),
-        slower: document.getElementById("slowerButton"),
-        audioStatus: document.getElementById("audioStatus"),
+    function selectExperience(index) {
+        if (!Number.isInteger(index) || index < 0 || index >= experienceNames.length) {
+            return;
+        }
 
-        navigator: document.getElementById("encounterNavigator"),
-        navigatorButtons: [...document.querySelectorAll(".encounter-nav-button")],
-        navigatorStatus: document.getElementById("encounterNavigatorStatus"),
-        moveLabel: document.getElementById("moveLabel"),
-        movePrompt: document.getElementById("movePrompt"),
-        movePurpose: document.getElementById("movePurpose"),
-        catchPanel: document.getElementById("catchPanel"),
-        catchGrid: document.getElementById("catchGrid"),
-        catchContinue: document.getElementById("catchContinueButton"),
-        meaningPanel: document.getElementById("meaningPanel"),
-        meaningQuestion: document.getElementById("meaningQuestion"),
-        meaningChoices: document.getElementById("meaningChoices"),
-        meaningFeedback: document.getElementById("meaningFeedback"),
-        inferPanel: document.getElementById("inferPanel"),
-        inferQuestion: document.getElementById("inferQuestion"),
-        inferChoices: document.getElementById("inferChoices"),
-        inferFeedback: document.getElementById("inferFeedback"),
-        respondPanel: document.getElementById("respondPanel"),
-        respondQuestion: document.getElementById("respondQuestion"),
-        respondChoices: document.getElementById("respondChoices"),
-        respondFeedback: document.getElementById("respondFeedback"),
-        supportPanel: document.getElementById("supportPanel"),
-        supportText: document.getElementById("supportText"),
-        supportButton: document.getElementById("supportButton"),
-        revealTranscript: document.getElementById("revealTranscriptButton"),
-        transcript: document.getElementById("transcriptText"),
-        nextMove: document.getElementById("nextMoveButton"),
-        nextEncounter: document.getElementById("nextEncounterButton"),
-        reset: document.getElementById("resetButton"),
-        restart: document.getElementById("restartButton")
-    };
+        window.speechSynthesis?.cancel();
+        label.textContent = `EXPERIENCE ${index + 1}`;
+        prompt.textContent = experienceNames[index];
+        title.textContent = "Listening For Meaning";
+        hotel.hidden = index !== 0;
+        numberExperiences.forEach((section) => {
+            section.hidden = section.id !== `lr-number-${index + 1}`;
+        });
+        cafe.hidden = index !== 8;
+        station.hidden = index !== 9;
+        remainingConversations.forEach((section, offset) => {
+            section.hidden = index !== offset + 10;
+        });
+        placeholder.hidden = true;
 
-    let encounterIndex = 0;
-    let moveIndex = 0;
-    let lastSpokenText = "";
-    let lastRate = 0.86;
-
-    // Completion belongs to individual encounters, not to their position
-    // in a forced sequence. A learner may jump around freely; an encounter
-    // is earned only after its final RESPOND choice is completed successfully.
-    const completedEncounters = new Set();
-
-    function updateEncounterNavigator() {
-        el.navigatorButtons.forEach((button) => {
-            const index = Number(button.dataset.encounterIndex);
-            const isCurrent = index === encounterIndex;
-            const isComplete = completedEncounters.has(index);
+        buttons.forEach((button) => {
+            const selected = Number(button.dataset.encounterIndex) === index;
+            button.classList.toggle("encounter-nav-button--current", selected);
+            button.setAttribute("aria-pressed", String(selected));
             const state = button.querySelector(".encounter-nav-button__state");
-
-            button.classList.toggle("encounter-nav-button--current", isCurrent);
-            button.classList.toggle("encounter-nav-button--complete", isComplete);
-
-            if (isCurrent) {
-                button.setAttribute("aria-current", "step");
-            } else {
-                button.removeAttribute("aria-current");
-            }
-
             if (state) {
-                if (isCurrent && isComplete) {
-                    state.textContent = "✓ Complete • You are here";
-                } else if (isCurrent) {
-                    state.textContent = "You are here";
-                } else if (isComplete) {
-                    state.textContent = "✓ Complete";
-                } else {
-                    state.textContent = "Open";
-                }
+                state.textContent = selected ? "You are here" : "Open";
             }
         });
-
-        if (el.navigatorStatus) {
-            el.navigatorStatus.textContent =
-                `You are in Encounter ${encounterIndex + 1}. Completed: ${completedEncounters.size} of ${encounters.length}.`;
-        }
     }
 
-    function jumpToEncounter(index) {
-        if (index < 0 || index >= encounters.length) {
-            return;
-        }
-
-        window.speechSynthesis?.cancel();
-        encounterIndex = index;
-
-        // Version 1 rule: if a learner leaves an unfinished encounter midway,
-        // returning to it restarts that encounter at HEAR rather than preserving
-        // every internal Listening Move state.
-        moveIndex = 0;
-        renderMove();
-    }
-
-    function markCurrentEncounterComplete() {
-        completedEncounters.add(encounterIndex);
-        updateEncounterNavigator();
-
-        el.nextMove.hidden = true;
-        el.nextEncounter.hidden = false;
-        el.nextEncounter.textContent =
-            completedEncounters.size === encounters.length
-                ? "Finish Listening Room"
-                : "Next Encounter";
-    }
-
-    function nextRecommendedEncounterIndex() {
-        // Keep the normal recommended forward path when possible. If the learner
-        // is at Encounter 6 but earlier encounters remain unfinished, wrap to the
-        // first unfinished encounter instead of falsely completing the Room.
-        for (let offset = 1; offset <= encounters.length; offset += 1) {
-            const candidate = (encounterIndex + offset) % encounters.length;
-            if (!completedEncounters.has(candidate)) {
-                return candidate;
-            }
-        }
-
-        return null;
-    }
-
-    function speak(text, rate = 0.86) {
-        if (!("speechSynthesis" in window)) {
-            el.audioStatus.textContent = "Speech synthesis is not available in this browser.";
-            return;
-        }
-
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "ru-RU";
-        utterance.rate = rate;
-
-        const voices = window.speechSynthesis.getVoices();
-        const russianVoice = voices.find((voice) => voice.lang && voice.lang.toLowerCase().startsWith("ru"));
-        if (russianVoice) {
-            utterance.voice = russianVoice;
-        }
-
-        utterance.onstart = () => {
-            el.audioStatus.textContent = "Listening...";
-        };
-
-        utterance.onend = () => {
-            el.audioStatus.textContent = "Ready to listen again.";
-        };
-
-        utterance.onerror = () => {
-            el.audioStatus.textContent = "The browser could not play this Russian audio.";
-        };
-
-        lastSpokenText = text;
-        lastRate = rate;
-        if (text && text.trim()) {
-            window.speechSynthesis.speak(utterance);
-        } else {
-            el.audioStatus.textContent = "Audio content pending.";
-        }
-    }
-
-    function clearPanels() {
-        [
-            el.catchPanel,
-            el.meaningPanel,
-            el.inferPanel,
-            el.respondPanel,
-            el.supportPanel
-        ].forEach((panel) => {
-            panel.hidden = true;
-        });
-
-        el.slower.hidden = true;
-        el.supportButton.hidden = true;
-        el.nextMove.hidden = true;
-        el.nextEncounter.hidden = true;
-
-        el.meaningFeedback.textContent = "";
-        el.meaningFeedback.className = "encounter-feedback";
-        el.inferFeedback.textContent = "";
-        el.inferFeedback.className = "encounter-feedback";
-        el.respondFeedback.textContent = "";
-        el.respondFeedback.className = "encounter-feedback";
-    }
-
-    function makeChoiceButtons(
-        container,
-        choices,
-        answerIndex,
-        feedbackEl,
-        successText,
-        acceptAny = false,
-        onSuccess = null,
-        showNextMove = true
-    ) {
-        container.innerHTML = "";
-
-        choices.forEach((choice, index) => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "choice-button";
-            button.textContent = choice;
-
-            button.addEventListener("click", () => {
-                if (acceptAny || index === answerIndex) {
-                    feedbackEl.textContent = successText;
-                    feedbackEl.className = "encounter-feedback encounter-feedback--success";
-                    [...container.querySelectorAll("button")].forEach((item) => {
-                        item.disabled = true;
-                    });
-                    if (showNextMove) {
-                        el.nextMove.hidden = false;
-                    }
-
-                    if (onSuccess) {
-                        onSuccess();
-                    }
-                } else {
-                    feedbackEl.textContent = "Not quite. Listen again and use what you do understand.";
-                    feedbackEl.className = "encounter-feedback encounter-feedback--try";
-                }
-            });
-
-            container.appendChild(button);
-        });
-    }
-
-    function renderCatch(encounter) {
-        el.catchGrid.innerHTML = "";
-
-        encounter.catch.forEach((word) => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = "catch-chip";
-            button.textContent = word;
-            button.setAttribute("aria-pressed", "false");
-
-            button.addEventListener("click", () => {
-                const pressed = button.getAttribute("aria-pressed") === "true";
-                button.setAttribute("aria-pressed", String(!pressed));
-            });
-
-            el.catchGrid.appendChild(button);
-        });
-    }
-
-    function renderMove() {
-        const encounter = encounters[encounterIndex];
-        const move = moves[moveIndex];
-
-        clearPanels();
-
-        updateEncounterNavigator();
-        el.moveLabel.textContent = move.label;
-        el.movePrompt.textContent = move.prompt;
-        el.movePurpose.textContent = move.purpose;
-        el.audioStatus.textContent = "Ready when you are.";
-
-        if (moveIndex === 0) {
-            el.listen.onclick = () => speak(encounter.primary, 0.86);
-            el.nextMove.hidden = false;
-        }
-
-        if (moveIndex === 1) {
-            renderCatch(encounter);
-            el.catchPanel.hidden = false;
-            el.listen.onclick = () => speak(encounter.primary, 0.86);
-            el.catchContinue.onclick = () => {
-                moveIndex += 1;
-                renderMove();
-            };
-        }
-
-        if (moveIndex === 2) {
-            el.listen.onclick = () => speak(encounter.primary, 0.86);
-            el.slower.hidden = false;
-            el.slower.onclick = () => speak(encounter.primary, 0.68);
-            el.supportButton.hidden = false;
-            el.nextMove.hidden = false;
-        }
-
-        if (moveIndex === 3) {
-            el.meaningPanel.hidden = false;
-            el.meaningQuestion.textContent = encounter.meaningQuestion;
-            makeChoiceButtons(
-                el.meaningChoices,
-                encounter.meaningChoices,
-                encounter.meaningAnswer,
-                el.meaningFeedback,
-                "Yes. You followed the meaning."
-            );
-            el.listen.onclick = () => speak(encounter.primary, 0.86);
-            el.supportButton.hidden = false;
-        }
-
-        if (moveIndex === 4) {
-            el.inferPanel.hidden = false;
-            el.inferQuestion.textContent = encounter.inferQuestion;
-            makeChoiceButtons(
-                el.inferChoices,
-                encounter.inferChoices,
-                encounter.inferAnswer,
-                el.inferFeedback,
-                "Exactly. You followed the change without needing the original wording."
-            );
-            el.listen.onclick = () => speak(encounter.variation, 0.86);
-            el.slower.hidden = false;
-            el.slower.onclick = () => speak(encounter.variation, 0.68);
-            el.supportButton.hidden = false;
-        }
-
-        if (moveIndex === 5) {
-            el.respondPanel.hidden = false;
-            el.respondQuestion.textContent = encounter.respondQuestion;
-            makeChoiceButtons(
-                el.respondChoices,
-                encounter.respondChoices,
-                encounter.respondAnswer,
-                el.respondFeedback,
-                "Well done. You responded to what you understood.",
-                Boolean(encounter.respondAcceptsAny),
-                markCurrentEncounterComplete,
-                false
-            );
-            el.listen.onclick = () => speak(encounter.variation, 0.86);
-            el.supportButton.hidden = false;
-        }
-
-        el.supportText.textContent = encounter.support;
-        el.transcript.textContent = encounter.transcript;
-        el.transcript.hidden = true;
-
-        if (moveIndex === 5) {
-            el.nextMove.hidden = true;
-        }
-    }
-
-    function advanceMove() {
-        if (moveIndex < moves.length - 1) {
-            moveIndex += 1;
-            renderMove();
-            return;
-        }
-
-        el.nextEncounter.hidden = false;
-    }
-
-
-    function showCompletion() {
-        window.speechSynthesis?.cancel();
-        el.landing.hidden = true;
-        el.experience.hidden = true;
-        el.completion.hidden = false;
-        el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function resetRoom() {
-        window.speechSynthesis?.cancel();
-        completedEncounters.clear();
-        encounterIndex = 0;
-        moveIndex = 0;
-        updateEncounterNavigator();
-        el.completion.hidden = true;
-        el.landing.hidden = false;
-        el.experience.hidden = true;
-        el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    el.enter.addEventListener("click", () => {
-        el.landing.hidden = true;
-        el.completion.hidden = true;
-        el.experience.hidden = false;
-        completedEncounters.clear();
-        encounterIndex = 0;
-        moveIndex = 0;
-        renderMove();
-        el.room?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    el.nextMove.addEventListener("click", advanceMove);
-
-    el.nextEncounter.addEventListener("click", () => {
-        if (completedEncounters.size === encounters.length) {
-            showCompletion();
-            return;
-        }
-
-        const nextIndex = nextRecommendedEncounterIndex();
-        if (nextIndex !== null) {
-            jumpToEncounter(nextIndex);
-        }
-    });
-
-    el.navigatorButtons.forEach((button) => {
+    buttons.forEach((button) => {
         button.addEventListener("click", () => {
-            jumpToEncounter(Number(button.dataset.encounterIndex));
+            selectExperience(Number(button.dataset.encounterIndex));
         });
     });
 
-    el.supportButton.addEventListener("click", () => {
-        el.supportPanel.hidden = false;
+    enterButton?.addEventListener("click", () => {
+        landing.hidden = true;
+        completion.hidden = true;
+        experience.hidden = false;
+        selectExperience(0);
+        room?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    el.revealTranscript.addEventListener("click", () => {
-        el.transcript.hidden = false;
-    });
-
-    el.reset.addEventListener("click", resetRoom);
-    el.restart.addEventListener("click", resetRoom);
-
-    el.slower.addEventListener("click", () => {
-        if (lastSpokenText) {
-            speak(lastSpokenText, 0.68);
-        }
+    restartButton?.addEventListener("click", () => {
+        completion.hidden = true;
+        experience.hidden = true;
+        landing.hidden = false;
+        room?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 })();
 // END THE LISTENING ROOM
 
+// ============================================================
+// LISTENING ROOM — EXPERIENCE 1: HOTEL ROOM NUMBER
+// All answer hotspots and vocabulary buttons are in the HTML.
+// ============================================================
+(() => {
+    const hotel = document.getElementById("lr-hotel");
+    if (!hotel) return;
+
+    const listen = document.getElementById("lr-hotel-listen");
+    const reveal = document.getElementById("lr-hotel-reveal");
+    const reset = document.getElementById("lr-hotel-reset");
+    const transcript = document.getElementById("lr-hotel-transcript");
+    const status = document.getElementById("lr-hotel-status");
+    const feedback = document.getElementById("lr-hotel-feedback");
+    const meaning = document.getElementById("lr-hotel-meaning");
+    const choices = Array.from(hotel.querySelectorAll(".lr-hotel__hotspot"));
+
+    listen.addEventListener("click", () => {
+        if (!("speechSynthesis" in window)) {
+            status.textContent = "Russian speech is not available in this browser.";
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance("Ваш номер — четыреста семнадцать.");
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = window.speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) utterance.voice = voice;
+        utterance.onstart = () => { status.textContent = "Listen carefully, then choose a room."; };
+        utterance.onerror = () => { status.textContent = "Audio could not be played. Try Listen again."; };
+        window.speechSynthesis.speak(utterance);
+    });
+
+    choices.forEach((button) => {
+        button.addEventListener("click", () => {
+            choices.forEach((choice) => {
+                choice.classList.remove("lr-hotel__hotspot--correct", "lr-hotel__hotspot--incorrect");
+                choice.setAttribute("aria-pressed", String(choice === button));
+            });
+            const correct = button.dataset.room === "417";
+            button.classList.add(correct ? "lr-hotel__hotspot--correct" : "lr-hotel__hotspot--incorrect");
+            feedback.textContent = correct ? "Correct! Your room number is 417. Отлично!" : `Not quite. You chose ${button.dataset.room}. Listen again and try another room.`;
+            feedback.classList.toggle("lr-hotel__feedback--correct", correct);
+        });
+    });
+
+    reveal.addEventListener("click", () => {
+        transcript.hidden = !transcript.hidden;
+        reveal.textContent = transcript.hidden ? "Reveal the Text" : "Hide the Text";
+        reveal.setAttribute("aria-expanded", String(!transcript.hidden));
+    });
+
+    hotel.querySelectorAll(".lr-hotel__word").forEach((button) => {
+        button.addEventListener("click", () => { meaning.textContent = button.dataset.meaning; });
+    });
+
+    reset.addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        choices.forEach((choice) => {
+            choice.classList.remove("lr-hotel__hotspot--correct", "lr-hotel__hotspot--incorrect");
+            choice.setAttribute("aria-pressed", "false");
+        });
+        transcript.hidden = true;
+        reveal.textContent = "Reveal the Text";
+        reveal.setAttribute("aria-expanded", "false");
+        feedback.textContent = "";
+        feedback.classList.remove("lr-hotel__feedback--correct");
+        meaning.textContent = "Select an underlined Russian word for its meaning.";
+        status.textContent = "Press Listen to hear your room number.";
+    });
+})();
+
+
+
+
+
+// ============================================================
+// LISTENING ROOM — EXPERIENCES 2–8
+// All answer hotspots and vocabulary buttons are authored in HTML.
+// ============================================================
+(() => {
+    document.querySelectorAll(".lr-number").forEach((section) => {
+        const listen = section.querySelector(".lr-number__listen");
+        const reveal = section.querySelector(".lr-number__reveal");
+        const reset = section.querySelector(".lr-number__reset");
+        const transcript = section.querySelector(".lr-number__transcript");
+        const status = section.querySelector(".lr-number__status");
+        const feedback = section.querySelector(".lr-number__feedback");
+        const meaning = section.querySelector(".lr-number__meaning");
+        const choices = Array.from(section.querySelectorAll(".lr-number__hotspot"));
+
+        listen.addEventListener("click", () => {
+            if (!("speechSynthesis" in window)) {
+                status.textContent = "Russian speech is not available in this browser.";
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(section.dataset.spoken);
+            utterance.lang = "ru-RU";
+            utterance.rate = 0.85;
+            const voice = window.speechSynthesis.getVoices().find((item) => {
+                return item.lang.toLowerCase().startsWith("ru");
+            });
+            if (voice) {
+                utterance.voice = voice;
+            }
+            utterance.onstart = () => {
+                status.textContent = "Listen carefully, then choose an answer.";
+            };
+            utterance.onerror = () => {
+                status.textContent = "Audio could not be played. Try again.";
+            };
+            window.speechSynthesis.speak(utterance);
+        });
+
+        choices.forEach((button) => {
+            button.addEventListener("click", () => {
+                choices.forEach((choice) => {
+                    choice.classList.remove("lr-number__hotspot--correct", "lr-number__hotspot--incorrect");
+                    choice.setAttribute("aria-pressed", String(choice === button));
+                });
+
+                const correct = button.dataset.answer === section.dataset.correct;
+                button.classList.add(correct ? "lr-number__hotspot--correct" : "lr-number__hotspot--incorrect");
+                feedback.textContent = correct
+                    ? `Correct! ${button.dataset.answer}. Отлично!`
+                    : `Not quite. You chose ${button.dataset.answer}. Listen again and try another answer.`;
+                feedback.classList.toggle("lr-hotel__feedback--correct", correct);
+            });
+        });
+
+        reveal.addEventListener("click", () => {
+            transcript.hidden = !transcript.hidden;
+            reveal.textContent = transcript.hidden ? "Reveal the Text" : "Hide the Text";
+            reveal.setAttribute("aria-expanded", String(!transcript.hidden));
+        });
+
+        section.querySelectorAll(".lr-hotel__word").forEach((button) => {
+            button.addEventListener("click", () => {
+                meaning.textContent = button.dataset.meaning;
+            });
+        });
+
+        reset.addEventListener("click", () => {
+            window.speechSynthesis?.cancel();
+            choices.forEach((choice) => {
+                choice.classList.remove("lr-number__hotspot--correct", "lr-number__hotspot--incorrect");
+                choice.setAttribute("aria-pressed", "false");
+            });
+            transcript.hidden = true;
+            reveal.textContent = "Reveal the Text";
+            reveal.setAttribute("aria-expanded", "false");
+            feedback.textContent = "";
+            feedback.classList.remove("lr-hotel__feedback--correct");
+            meaning.textContent = "Select an underlined Russian word for its meaning.";
+            status.textContent = "Press Listen, then choose your answer.";
+        });
+    });
+})();
 
 // ============================================================
 // PRACTICE ACTIVITY 1 — RED COMBINATION LOCK
@@ -3381,4 +3149,2317 @@ if (lessonFourTarget && lessonFourChoiceButtons.length === 3) {
     });
 
     shuffleChallenges();
+})();
+
+
+// ============================================================
+// ACTIVITY 6 — THE GRAND NUMBERS CHALLENGE
+// Three independent experiences; controls are authored in HTML.
+// ============================================================
+(() => {
+    const root = document.getElementById("practice-6");
+    if (!root) {
+        return;
+    }
+
+    const hundreds = ["", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"];
+    const teens = ["десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"];
+    const tens = ["", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"];
+    const ones = ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"];
+    const roundSize = 8;
+
+    function partsFor(number) {
+        if (number === 0) {
+            return { hundreds: "", tens: "", ones: "ноль" };
+        }
+        const remainder = number % 100;
+        return {
+            hundreds: hundreds[Math.floor(number / 100)],
+            tens: remainder >= 10 && remainder <= 19 ? teens[remainder - 10] : tens[Math.floor(remainder / 10)],
+            ones: remainder >= 10 && remainder <= 19 ? "" : ones[remainder % 10]
+        };
+    }
+
+    function russianNumber(number) {
+        return Object.values(partsFor(number)).filter(Boolean).join(" ");
+    }
+
+    function shuffled(items) {
+        const result = [...items];
+        for (let index = result.length - 1; index > 0; index -= 1) {
+            const other = Math.floor(Math.random() * (index + 1));
+            [result[index], result[other]] = [result[other], result[index]];
+        }
+        return result;
+    }
+
+    function speak(number, rate = 0.85) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            return false;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(russianNumber(number));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const russianVoice = window.speechSynthesis.getVoices().find((voice) => {
+            return voice.lang.toLowerCase().startsWith("ru");
+        });
+        if (russianVoice) {
+            utterance.voice = russianVoice;
+        }
+        window.speechSynthesis.speak(utterance);
+        return true;
+    }
+
+    function feedback(id, message, type = "") {
+        const element = document.getElementById(id);
+        element.textContent = message;
+        element.classList.remove("is-success", "is-retry");
+        if (type) {
+            element.classList.add(`is-${type}`);
+        }
+    }
+
+    // Tabs: retain independent progress when changing experiences.
+    const tabs = [...root.querySelectorAll("[data-grand-tab]")];
+    function activateTab(name) {
+        tabs.forEach((tab) => {
+            const active = tab.dataset.grandTab === name;
+            tab.classList.toggle("is-active", active);
+            tab.setAttribute("aria-selected", String(active));
+            tab.tabIndex = active ? 0 : -1;
+            document.getElementById(`grand-panel-${tab.dataset.grandTab}`).hidden = !active;
+        });
+        window.speechSynthesis?.cancel();
+    }
+    tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activateTab(tab.dataset.grandTab));
+        tab.addEventListener("keydown", (event) => {
+            if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) {
+                return;
+            }
+            event.preventDefault();
+            const target = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 :
+                (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+            activateTab(tabs[target].dataset.grandTab);
+            tabs[target].focus();
+        });
+    });
+
+    // TAB 1 — Listen without a written clue.
+    const listenPool = [407, 470, 704, 18, 81, 108, 309, 930, 56, 65, 215, 512, 900, 90, 19, 119, 606, 660, 77, 707];
+    let listenRound = [];
+    let listenIndex = 0;
+    let listenSolved = false;
+    const listenButtons = [...root.querySelectorAll("[data-listen-choice]")];
+
+    function updateListenDots() {
+        const dots = root.querySelectorAll(".grand-six__listen-dots span");
+        dots.forEach((dot, index) => {
+            dot.classList.toggle("is-complete", index < listenIndex);
+            dot.classList.toggle("is-current", index === listenIndex);
+        });
+    }
+
+    function showListen() {
+        const target = listenRound[listenIndex];
+        listenSolved = false;
+        const distractors = shuffled(listenPool.filter((value) => value !== target &&
+            String(value).length === String(target).length &&
+            value !== target)).slice(0, 2);
+        const choices = shuffled([target, ...distractors]);
+        listenButtons.forEach((button, index) => {
+            button.textContent = choices[index];
+            button.dataset.value = String(choices[index]);
+            button.disabled = false;
+            button.classList.remove("is-picked");
+        });
+        document.getElementById("grand-listen-next").disabled = true;
+        document.getElementById("grand-listen-progress").textContent = `Challenge ${listenIndex + 1} of ${roundSize}`;
+        updateListenDots();
+        feedback("grand-listen-feedback", "");
+    }
+
+    function resetListen() {
+        listenRound = shuffled(listenPool).slice(0, roundSize);
+        listenIndex = 0;
+        window.speechSynthesis?.cancel();
+        showListen();
+    }
+
+    listenButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            if (listenSolved) {
+                return;
+            }
+            const correct = Number(button.dataset.value) === listenRound[listenIndex];
+            listenButtons.forEach((choice) => choice.classList.remove("is-picked"));
+            button.classList.add("is-picked");
+            if (correct) {
+                listenSolved = true;
+                listenButtons.forEach((choice) => { choice.disabled = true; });
+                document.getElementById("grand-listen-next").disabled = false;
+                feedback("grand-listen-feedback", "✓ Correct! You identified the spoken number. " +
+                    (listenIndex === roundSize - 1 ? "All eight listening challenges solved!" : "Continue to the next challenge."), "success");
+            } else {
+                feedback("grand-listen-feedback", "Not quite — listen again and try another number.", "retry");
+            }
+        });
+    });
+    document.getElementById("grand-listen-hear").addEventListener("click", () => {
+        if (!speak(listenRound[listenIndex])) {
+            feedback("grand-listen-feedback", "Russian speech playback is unavailable in this browser.", "retry");
+        }
+    });
+    document.getElementById("grand-listen-slow").addEventListener("click", () => {
+        if (!speak(listenRound[listenIndex], 0.65)) {
+            feedback("grand-listen-feedback", "Russian speech playback is unavailable in this browser.", "retry");
+        }
+    });
+    document.getElementById("grand-listen-next").addEventListener("click", () => {
+        if (!listenSolved) { return; }
+        if (listenIndex === roundSize - 1) {
+            feedback("grand-listen-feedback", "🏆 Listening round complete! Select Reset & Shuffle to play again.", "success");
+            document.getElementById("grand-listen-next").disabled = true;
+            return;
+        }
+        listenIndex += 1;
+        showListen();
+    });
+    document.getElementById("grand-listen-reset").addEventListener("click", resetListen);
+
+    // TAB 2 — Construct the Russian expression using HTML-authored word tiles.
+    const buildPool = [526, 318, 745, 219, 94, 17, 600, 408, 901, 570, 82, 11, 999, 150, 260, 705];
+    let buildRound = [];
+    let buildIndex = 0;
+    let buildSolved = false;
+    let chosen = { hundreds: null, tens: null, ones: null };
+    const wordButtons = [...root.querySelectorAll(".grand-six__word")];
+
+    function updateAssembled() {
+        const words = ["hundreds", "tens", "ones"]
+            .map((part) => chosen[part]?.dataset.word)
+            .filter(Boolean);
+        document.getElementById("grand-build-assembled").textContent = words.join(" ") || "Select a word from each column to build your answer";
+    }
+
+    function updateGrandHeaderDots(panelId, currentIndex) {
+        const panel = document.getElementById(panelId);
+        if (!panel) {
+            return;
+        }
+        panel.querySelectorAll(".grand-six__listen-dots span").forEach((dot, index) => {
+            dot.classList.toggle("is-current", index === currentIndex);
+            dot.classList.toggle("is-complete", index < currentIndex);
+        });
+    }
+
+    function showBuild() {
+        buildSolved = false;
+        chosen = { hundreds: null, tens: null, ones: null };
+        wordButtons.forEach((button) => {
+            button.disabled = false;
+            button.classList.remove("is-picked");
+            button.setAttribute("aria-pressed", "false");
+        });
+        document.getElementById("grand-build-target").textContent = buildRound[buildIndex];
+        document.getElementById("grand-build-next").disabled = true;
+        document.getElementById("grand-build-check").disabled = false;
+        document.getElementById("grand-build-progress").textContent = `Challenge ${buildIndex + 1} of ${roundSize}`;
+        updateGrandHeaderDots("grand-panel-build", buildIndex);
+        feedback("grand-build-feedback", "");
+        updateAssembled();
+    }
+
+    wordButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", "false");
+        button.addEventListener("click", () => {
+            if (buildSolved) { return; }
+            const part = button.dataset.part;
+            root.querySelectorAll(`.grand-six__word[data-part="${part}"]`).forEach((tile) => {
+                tile.classList.remove("is-picked");
+                tile.setAttribute("aria-pressed", "false");
+            });
+            chosen[part] = button;
+            button.classList.add("is-picked");
+            button.setAttribute("aria-pressed", "true");
+            updateAssembled();
+            feedback("grand-build-feedback", "Ready? Select Check My Russian to test your construction.");
+        });
+    });
+    document.getElementById("grand-build-check").addEventListener("click", () => {
+        if (Object.values(chosen).some((value) => value === null)) {
+            feedback("grand-build-feedback", "Choose one option in each column, including (none) where appropriate.", "retry");
+            return;
+        }
+        const expected = partsFor(buildRound[buildIndex]);
+        const correct = Object.keys(expected).every((part) => chosen[part].dataset.word === expected[part]);
+        if (correct) {
+            buildSolved = true;
+            wordButtons.forEach((button) => { button.disabled = true; });
+            document.getElementById("grand-build-next").disabled = false;
+            document.getElementById("grand-build-check").disabled = true;
+            feedback("grand-build-feedback", `✓ Excellent! ${buildRound[buildIndex]} — ${russianNumber(buildRound[buildIndex])}`, "success");
+        } else {
+            feedback("grand-build-feedback", "Not quite. Recheck the hundreds, tens, and ones. Try again!", "retry");
+        }
+    });
+    document.getElementById("grand-build-hear").addEventListener("click", () => {
+        if (!buildSolved) {
+            feedback("grand-build-feedback", "Build and check your answer first; then hear the correct pronunciation.");
+            return;
+        }
+        speak(buildRound[buildIndex]);
+    });
+    document.getElementById("grand-build-next").addEventListener("click", () => {
+        if (!buildSolved) { return; }
+        if (buildIndex === roundSize - 1) {
+            feedback("grand-build-feedback", "🏆 Russian construction round complete! Reset & Shuffle to play again.", "success");
+            document.getElementById("grand-build-next").disabled = true;
+            return;
+        }
+        buildIndex += 1;
+        showBuild();
+    });
+    document.getElementById("grand-build-reset").addEventListener("click", () => {
+        buildRound = shuffled(buildPool).slice(0, roundSize);
+        buildIndex = 0;
+        showBuild();
+    });
+
+    // TAB 3 — Zeros, including omitted tens or ones and round hundreds.
+    const zeroPool = [708, 305, 901, 670, 400, 509, 802, 190, 60, 204, 700, 103, 980, 406, 90, 101];
+    let zeroRound = [];
+    let zeroIndex = 0;
+    let zeroSolved = false;
+    const zeroButtons = [...root.querySelectorAll("[data-zero-choice]")];
+
+    function showZero() {
+        zeroSolved = false;
+        const target = zeroRound[zeroIndex];
+        const alternatives = shuffled(zeroPool.filter((value) => value !== target && russianNumber(value) !== russianNumber(target))).slice(0, 2);
+        const choices = shuffled([target, ...alternatives]);
+        zeroButtons.forEach((button, index) => {
+            button.textContent = russianNumber(choices[index]);
+            button.dataset.value = String(choices[index]);
+            button.disabled = false;
+            button.classList.remove("is-picked");
+        });
+        document.getElementById("grand-zero-target").textContent = target;
+        document.getElementById("grand-zero-progress").textContent = `Challenge ${zeroIndex + 1} of ${roundSize}`;
+        updateGrandHeaderDots("grand-panel-zero", zeroIndex);
+        document.getElementById("grand-zero-next").disabled = true;
+        feedback("grand-zero-feedback", "Choose the expression that matches the digits.");
+    }
+
+    zeroButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            if (zeroSolved) { return; }
+            const correct = Number(button.dataset.value) === zeroRound[zeroIndex];
+            zeroButtons.forEach((choice) => choice.classList.remove("is-picked"));
+            button.classList.add("is-picked");
+            if (correct) {
+                zeroSolved = true;
+                zeroButtons.forEach((choice) => { choice.disabled = true; });
+                document.getElementById("grand-zero-next").disabled = false;
+                feedback("grand-zero-feedback", "✓ Correct! A zero place does not require the word ноль inside a compound number.", "success");
+            } else {
+                feedback("grand-zero-feedback", "Not quite — look for the missing place value and try again.", "retry");
+            }
+        });
+    });
+    document.getElementById("grand-zero-hear").addEventListener("click", () => {
+        if (!speak(zeroRound[zeroIndex])) {
+            feedback("grand-zero-feedback", "Russian speech playback is unavailable in this browser.", "retry");
+        }
+    });
+    document.getElementById("grand-zero-next").addEventListener("click", () => {
+        if (!zeroSolved) { return; }
+        if (zeroIndex === roundSize - 1) {
+            feedback("grand-zero-feedback", "🏆 Zero Challenge complete! Reset & Shuffle to play again.", "success");
+            document.getElementById("grand-zero-next").disabled = true;
+            return;
+        }
+        zeroIndex += 1;
+        showZero();
+    });
+    document.getElementById("grand-zero-reset").addEventListener("click", () => {
+        zeroRound = shuffled(zeroPool).slice(0, roundSize);
+        zeroIndex = 0;
+        showZero();
+    });
+
+    resetListen();
+    document.getElementById("grand-build-reset").click();
+    document.getElementById("grand-zero-reset").click();
+})();
+
+// ============================================================
+// USE ACTIVITY 1 — THE NOUN EXCHANGE
+// Hotspot SVG paths are explicitly authored in HTML.
+// JavaScript attaches interactions to the existing elements.
+// ============================================================
+
+const nounExchangeObjects = {
+    chair: {
+        name: "Chair",
+        russian: "стул",
+        gender: "Masculine · nominative singular"
+    },
+    book: {
+        name: "Book",
+        russian: "книга",
+        gender: "Feminine · nominative singular"
+    },
+    apple: {
+        name: "Apple",
+        russian: "яблоко",
+        gender: "Neuter · nominative singular"
+    }
+};
+
+const nounExchangeLanding = document.getElementById("noun-exchange-landing");
+const nounExchangeDestination = document.getElementById("noun-exchange-destination");
+const nounExchangePlaque = document.getElementById("noun-exchange-plaque");
+
+function showNounExchangePlaque(nounKey) {
+    const noun = nounExchangeObjects[nounKey];
+
+    if (!noun || !nounExchangePlaque) {
+        return;
+    }
+
+    document.getElementById("noun-exchange-plaque-name").textContent = noun.name;
+    document.getElementById("noun-exchange-plaque-russian").textContent = noun.russian;
+    document.getElementById("noun-exchange-plaque-gender").textContent = noun.gender;
+    nounExchangePlaque.hidden = false;
+}
+
+function hideNounExchangePlaque() {
+    if (nounExchangePlaque) {
+        nounExchangePlaque.hidden = true;
+    }
+}
+
+function openNounExchangeObject(nounKey) {
+    const noun = nounExchangeObjects[nounKey];
+
+    if (!noun || !nounExchangeLanding || !nounExchangeDestination) {
+        return;
+    }
+
+    hideNounExchangePlaque();
+    nounExchangeLanding.hidden = true;
+    nounExchangeDestination.hidden = false;
+
+    document.getElementById("noun-exchange-destination-title").innerHTML =
+        `<span class="noun-exchange__title-english">${noun.name}</span>` +
+        `<span class="noun-exchange__title-russian" lang="ru">${noun.russian}</span>`;
+    document.getElementById("noun-exchange-destination-description").innerHTML =
+        `${noun.gender}.<br>Change the number to see its Russian form.`;
+    nounExchangeCurrentObject = nounKey;
+    updateNounExchangeSentence();
+}
+
+document.querySelectorAll(".noun-exchange__hotspot").forEach((hotspot) => {
+    hotspot.addEventListener("mouseenter", () => {
+        showNounExchangePlaque(hotspot.dataset.noun);
+    });
+
+    hotspot.addEventListener("mouseleave", hideNounExchangePlaque);
+    hotspot.addEventListener("focus", () => {
+        showNounExchangePlaque(hotspot.dataset.noun);
+    });
+
+    hotspot.addEventListener("blur", hideNounExchangePlaque);
+    hotspot.addEventListener("click", (event) => {
+        event.preventDefault();
+        openNounExchangeObject(hotspot.dataset.noun);
+    });
+});
+
+document.getElementById("noun-exchange-back")?.addEventListener("click", () => {
+    nounExchangeDestination.hidden = true;
+    nounExchangeLanding.hidden = false;
+    hideNounExchangePlaque();
+});
+
+
+// ============================================================
+// THE NOUN EXCHANGE — LIVE NUMBER AND NOUN AGREEMENT
+// The controls and discovery buttons are defined in HTML.
+// ============================================================
+
+let nounExchangeCurrentObject = "chair";
+
+const nounExchangeForms = {
+    chair: ["стул", "стула", "стульев"],
+    book: ["книга", "книги", "книг"],
+    apple: ["яблоко", "яблока", "яблок"]
+};
+
+const nounExchangeEnglish = {
+    chair: ["chair", "chairs"],
+    book: ["book", "books"],
+    apple: ["apple", "apples"]
+};
+
+const nounExchangePersonEnglish = {
+    "меня": "I have",
+    "тебя": "You have",
+    "него": "He has",
+    "неё": "She has",
+    "нас": "We have",
+    "вас": "You have",
+    "них": "They have"
+};
+
+function nounExchangeNumberWords(number, gender) {
+    const units = ["ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"];
+    const teens = ["десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"];
+    const tens = ["", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"];
+    const hundreds = ["", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"];
+
+    function underThousand(value, formGender) {
+        const words = [];
+        if (value >= 100) {
+            words.push(hundreds[Math.floor(value / 100)]);
+            value %= 100;
+        }
+        if (value >= 10 && value < 20) {
+            words.push(teens[value - 10]);
+        } else {
+            if (value >= 20) {
+                words.push(tens[Math.floor(value / 10)]);
+                value %= 10;
+            }
+            if (value > 0) {
+                if (value === 1 && formGender === "feminine") {
+                    words.push("одна");
+                } else if (value === 1 && formGender === "neuter") {
+                    words.push("одно");
+                } else if (value === 2 && formGender === "feminine") {
+                    words.push("две");
+                } else {
+                    words.push(units[value]);
+                }
+            }
+        }
+        return words.join(" ");
+    }
+
+    if (number === 0) {
+        return units[0];
+    }
+    const thousands = Math.floor(number / 1000);
+    const remainder = number % 1000;
+    const parts = [];
+    if (thousands > 0) {
+        const thousandForm = thousands === 1 ? "тысяча" : thousands >= 2 && thousands <= 4 ? "тысячи" : "тысяч";
+        parts.push(`${underThousand(thousands, "feminine")} ${thousandForm}`);
+    }
+    if (remainder > 0) {
+        parts.push(underThousand(remainder, gender));
+    }
+    return parts.join(" ");
+}
+
+function nounExchangeFormIndex(number) {
+    const lastTwo = number % 100;
+    const lastOne = number % 10;
+    if (lastTwo >= 11 && lastTwo <= 14) {
+        return 2;
+    }
+    if (lastOne === 1) {
+        return 0;
+    }
+    if (lastOne >= 2 && lastOne <= 4) {
+        return 1;
+    }
+    return 2;
+}
+
+function updateNounExchangeSentence() {
+    const input = document.getElementById("noun-exchange-number");
+    const person = document.getElementById("noun-exchange-person").value;
+    const raw = input.value.trim();
+    const number = Number(raw);
+    const numberOutput = document.getElementById("noun-exchange-number-result");
+    const nounOutput = document.getElementById("noun-exchange-form-result");
+
+    document.getElementById("noun-exchange-person-result").textContent = person;
+    if (raw === "" || !Number.isInteger(number) || number < 0 || number > 999) {
+        numberOutput.textContent = "—";
+        nounOutput.textContent = "";
+        return;
+    }
+
+    const noun = nounExchangeObjects[nounExchangeCurrentObject];
+    const gender = noun.gender.split(" ")[0].toLowerCase();
+    const index = nounExchangeFormIndex(number);
+    const form = nounExchangeForms[nounExchangeCurrentObject][index];
+    numberOutput.textContent = nounExchangeNumberWords(number, gender);
+    nounOutput.textContent = form;
+}
+
+document.getElementById("noun-exchange-number")?.addEventListener("input", updateNounExchangeSentence);
+document.getElementById("noun-exchange-person")?.addEventListener("change", updateNounExchangeSentence);
+
+[
+    ["noun-exchange-why-est", "noun-exchange-est-note"],
+    ["noun-exchange-why-teens", "noun-exchange-teens-note"]
+].forEach(([buttonId, noteId]) => {
+    document.getElementById(buttonId)?.addEventListener("click", () => {
+        const button = document.getElementById(buttonId);
+        const note = document.getElementById(noteId);
+        note.hidden = !note.hidden;
+        button.setAttribute("aria-expanded", String(!note.hidden));
+    });
+});
+
+// ==========================================================
+// UNCLE MISHA — NUMBER CYCLE INTRODUCTORY LEARNING SCREEN
+// ==========================================================
+const mishaCycleScreen = document.getElementById("misha-cycle");
+const mishaCycleVideo = document.getElementById("misha-cycle-video");
+const openMishaCycleButton = document.getElementById("open-misha-cycle");
+const closeMishaCycleButton = document.getElementById("close-misha-cycle");
+
+if (mishaCycleScreen && openMishaCycleButton && closeMishaCycleButton) {
+    openMishaCycleButton.addEventListener("click", () => {
+        mishaCycleScreen.hidden = false;
+        document.body.style.overflow = "hidden";
+        closeMishaCycleButton.focus();
+    });
+
+    closeMishaCycleButton.addEventListener("click", () => {
+        if (mishaCycleVideo) {
+            mishaCycleVideo.pause();
+        }
+
+        mishaCycleScreen.hidden = true;
+        document.body.style.overflow = "";
+        openMishaCycleButton.focus();
+    });
+}
+
+
+// ============================================================
+// FOUR DOORS — LANDING PAGE NAVIGATION
+// Hotspots and return buttons are explicitly defined in HTML.
+// ============================================================
+
+const numbersFourDoorsHub = document.getElementById("numbers-four-doors");
+const numbersDoorLandings = document.querySelectorAll(".numbers-door-landing");
+
+document.querySelectorAll("[data-door-open]").forEach((button) => {
+    button.addEventListener("click", () => {
+        const destination = document.getElementById(
+            `numbers-door-${button.dataset.doorOpen}-landing`
+        );
+
+        if (!destination || !numbersFourDoorsHub) {
+            return;
+        }
+
+        document.getElementById("numbers-rover-landing").hidden = true;
+        numbersFourDoorsHub.hidden = true;
+
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = landing !== destination;
+        });
+
+        destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+});
+
+document.querySelectorAll("[data-door-back]").forEach((button) => {
+    button.addEventListener("click", () => {
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = true;
+        });
+
+        if (numbersFourDoorsHub) {
+            numbersFourDoorsHub.hidden = false;
+            numbersFourDoorsHub.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    });
+});
+
+// ============================================================
+// LISTENING ROOM — EXPERIENCE 9: AT THE CAFÉ
+// All choices and vocabulary buttons are authored in HTML.
+// ============================================================
+(() => {
+    const root = document.getElementById("lr-cafe");
+    if (!root) {
+        return;
+    }
+
+    const lines = [
+        { speaker: "customer", text: "Сколько стоит чай?" },
+        { speaker: "server", text: "Сто рублей." },
+        { speaker: "customer", text: "А кофе?" },
+        { speaker: "server", text: "Сто пятьдесят рублей." },
+        { speaker: "customer", text: "Спасибо!" }
+    ];
+    const questions = [
+        { question: "How much does the tea cost?", correct: "100" },
+        { question: "Which drink costs more?", correct: "coffee" },
+        { question: "How much do both drinks cost together?", correct: "250" }
+    ];
+
+    const status = document.getElementById("lr-cafe-status");
+    const step = document.getElementById("lr-cafe-step");
+    const question = document.getElementById("lr-cafe-question");
+    const feedback = document.getElementById("lr-cafe-feedback");
+    const next = document.getElementById("lr-cafe-next");
+    const reveal = document.getElementById("lr-cafe-reveal");
+    const transcript = document.getElementById("lr-cafe-transcript");
+    const meaning = document.getElementById("lr-cafe-meaning");
+    const customerIndicator = document.getElementById("lr-cafe-customer");
+    const serverIndicator = document.getElementById("lr-cafe-server");
+    const answerGroups = [1, 2, 3].map((number) => {
+        return document.getElementById(`lr-cafe-answers-${number}`);
+    });
+
+    let questionIndex = 0;
+    let playbackToken = 0;
+    let answered = false;
+
+    function clearSpeaker() {
+        customerIndicator.classList.remove("lr-cafe__speaker--speaking");
+        serverIndicator.classList.remove("lr-cafe__speaker--speaking");
+    }
+
+    function stopPlayback() {
+        playbackToken += 1;
+        window.speechSynthesis?.cancel();
+        clearSpeaker();
+    }
+
+    function playLines(selectedLines) {
+        stopPlayback();
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            status.textContent = "Russian speech is not available in this browser.";
+            return;
+        }
+
+        const token = playbackToken;
+        let position = 0;
+        status.textContent = "Listening to Russian conversation…";
+
+        function playNext() {
+            if (token !== playbackToken) {
+                return;
+            }
+            if (position >= selectedLines.length) {
+                clearSpeaker();
+                status.textContent = "Finished listening. Choose your answer, or replay the dialogue.";
+                return;
+            }
+
+            const line = selectedLines[position];
+            position += 1;
+            const utterance = new SpeechSynthesisUtterance(line.text);
+            utterance.lang = "ru-RU";
+            utterance.rate = 0.85;
+            const russianVoice = window.speechSynthesis.getVoices().find((voice) => {
+                return voice.lang.toLowerCase().startsWith("ru");
+            });
+            if (russianVoice) {
+                utterance.voice = russianVoice;
+            }
+            utterance.onstart = () => {
+                if (token !== playbackToken) {
+                    return;
+                }
+                clearSpeaker();
+                const indicator = line.speaker === "customer" ? customerIndicator : serverIndicator;
+                indicator.classList.add("lr-cafe__speaker--speaking");
+            };
+            utterance.onend = () => {
+                if (token === playbackToken) {
+                    playNext();
+                }
+            };
+            utterance.onerror = () => {
+                if (token === playbackToken) {
+                    clearSpeaker();
+                    status.textContent = "Speech playback was interrupted. Try Listen again.";
+                }
+            };
+            window.speechSynthesis.speak(utterance);
+        }
+
+        playNext();
+    }
+
+    function showQuestion() {
+        answered = false;
+        step.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
+        question.textContent = questions[questionIndex].question;
+        feedback.textContent = "";
+        feedback.classList.remove("lr-cafe__feedback--correct");
+        next.hidden = true;
+        answerGroups.forEach((group, index) => {
+            group.hidden = index !== questionIndex;
+            group.querySelectorAll(".lr-cafe__answer").forEach((button) => {
+                button.disabled = false;
+                button.classList.remove("lr-cafe__answer--correct", "lr-cafe__answer--incorrect");
+            });
+        });
+    }
+
+    root.querySelectorAll(".lr-cafe__answer").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (answered) {
+                return;
+            }
+            const correct = button.dataset.cafeAnswer === questions[questionIndex].correct;
+            button.classList.add(correct ? "lr-cafe__answer--correct" : "lr-cafe__answer--incorrect");
+            feedback.textContent = correct
+                ? "Correct! Отлично!"
+                : "Not quite. Listen again and choose another answer.";
+            feedback.classList.toggle("lr-cafe__feedback--correct", correct);
+            if (correct) {
+                answered = true;
+                answerGroups[questionIndex].querySelectorAll(".lr-cafe__answer").forEach((choice) => {
+                    choice.disabled = true;
+                });
+                next.textContent = questionIndex === 2 ? "Finish Experience" : "Next Question";
+                next.hidden = false;
+            }
+        });
+    });
+
+    next.addEventListener("click", () => {
+        if (questionIndex === questions.length - 1) {
+            feedback.textContent = "All three questions complete! Отлично! You can replay or reset anytime.";
+            next.hidden = true;
+            return;
+        }
+        questionIndex += 1;
+        showQuestion();
+    });
+
+    document.getElementById("lr-cafe-listen").addEventListener("click", () => playLines(lines));
+    document.getElementById("lr-cafe-replay-customer").addEventListener("click", () => {
+        playLines(lines.filter((line) => line.speaker === "customer"));
+    });
+    document.getElementById("lr-cafe-replay-server").addEventListener("click", () => {
+        playLines(lines.filter((line) => line.speaker === "server"));
+    });
+
+    reveal.addEventListener("click", () => {
+        transcript.hidden = !transcript.hidden;
+        reveal.textContent = transcript.hidden ? "Reveal the Text" : "Hide the Text";
+        reveal.setAttribute("aria-expanded", String(!transcript.hidden));
+    });
+
+    root.querySelectorAll(".lr-cafe__word").forEach((button) => {
+        button.addEventListener("click", () => {
+            meaning.textContent = `${button.textContent.trim()}: ${button.dataset.meaning}`;
+        });
+    });
+
+    document.getElementById("lr-cafe-reset").addEventListener("click", () => {
+        stopPlayback();
+        questionIndex = 0;
+        showQuestion();
+        transcript.hidden = true;
+        reveal.textContent = "Reveal the Text";
+        reveal.setAttribute("aria-expanded", "false");
+        meaning.textContent = "Select an underlined Russian word for its meaning.";
+        status.textContent = "Listen to the whole conversation first.";
+    });
+
+    document.querySelectorAll(".encounter-nav-button").forEach((button) => {
+        button.addEventListener("click", stopPlayback);
+    });
+
+    showQuestion();
+})();
+
+
+// ============================================================
+// LISTENING ROOM — EXPERIENCE 10: AT THE TRAIN STATION
+// All choices and vocabulary buttons are authored in HTML.
+// ============================================================
+(() => {
+    const root = document.getElementById("lr-station");
+    if (!root) {
+        return;
+    }
+
+    const lines = [
+        { speaker: "passenger", text: "Скажите, пожалуйста, какая платформа?" },
+        { speaker: "attendant", text: "Платформа номер семь." },
+        { speaker: "passenger", text: "Во сколько отправление?" },
+        { speaker: "attendant", text: "В четырнадцать тридцать." },
+        { speaker: "passenger", text: "А когда прибытие?" },
+        { speaker: "attendant", text: "В шестнадцать сорок пять." },
+        { speaker: "passenger", text: "Спасибо!" }
+    ];
+    const questions = [
+        { question: "Which platform?", correct: "7" },
+        { question: "What time does the train depart?", correct: "14:30" },
+        { question: "What time does the train arrive?", correct: "16:45" }
+    ];
+
+    const status = document.getElementById("lr-station-status");
+    const step = document.getElementById("lr-station-step");
+    const question = document.getElementById("lr-station-question");
+    const feedback = document.getElementById("lr-station-feedback");
+    const next = document.getElementById("lr-station-next");
+    const reveal = document.getElementById("lr-station-reveal");
+    const transcript = document.getElementById("lr-station-transcript");
+    const meaning = document.getElementById("lr-station-meaning");
+    const passengerIndicator = document.getElementById("lr-station-passenger");
+    const attendantIndicator = document.getElementById("lr-station-attendant");
+    const answerGroups = [1, 2, 3].map((number) => {
+        return document.getElementById(`lr-station-answers-${number}`);
+    });
+
+    let questionIndex = 0;
+    let playbackToken = 0;
+    let answered = false;
+
+    function clearSpeaker() {
+        passengerIndicator.classList.remove("lr-cafe__speaker--speaking");
+        attendantIndicator.classList.remove("lr-cafe__speaker--speaking");
+    }
+
+    function stopPlayback() {
+        playbackToken += 1;
+        window.speechSynthesis?.cancel();
+        clearSpeaker();
+    }
+
+    function playLines(selectedLines) {
+        stopPlayback();
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            status.textContent = "Russian speech is not available in this browser.";
+            return;
+        }
+
+        const token = playbackToken;
+        let position = 0;
+        status.textContent = "Listening to Russian conversation…";
+
+        function playNext() {
+            if (token !== playbackToken) {
+                return;
+            }
+            if (position >= selectedLines.length) {
+                clearSpeaker();
+                status.textContent = "Finished listening. Choose your answer, or replay the dialogue.";
+                return;
+            }
+
+            const line = selectedLines[position];
+            position += 1;
+            const utterance = new SpeechSynthesisUtterance(line.text);
+            utterance.lang = "ru-RU";
+            utterance.rate = 0.85;
+            const russianVoice = window.speechSynthesis.getVoices().find((voice) => {
+                return voice.lang.toLowerCase().startsWith("ru");
+            });
+            if (russianVoice) {
+                utterance.voice = russianVoice;
+            }
+            utterance.onstart = () => {
+                if (token !== playbackToken) {
+                    return;
+                }
+                clearSpeaker();
+                const indicator = line.speaker === "passenger" ? passengerIndicator : attendantIndicator;
+                indicator.classList.add("lr-cafe__speaker--speaking");
+            };
+            utterance.onend = () => {
+                if (token === playbackToken) {
+                    playNext();
+                }
+            };
+            utterance.onerror = () => {
+                if (token === playbackToken) {
+                    clearSpeaker();
+                    status.textContent = "Speech playback was interrupted. Try Listen again.";
+                }
+            };
+            window.speechSynthesis.speak(utterance);
+        }
+
+        playNext();
+    }
+
+    function showQuestion() {
+        answered = false;
+        step.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
+        question.textContent = questions[questionIndex].question;
+        feedback.textContent = "";
+        feedback.classList.remove("lr-cafe__feedback--correct");
+        next.hidden = true;
+        answerGroups.forEach((group, index) => {
+            group.hidden = index !== questionIndex;
+            group.querySelectorAll(".lr-cafe__answer").forEach((button) => {
+                button.disabled = false;
+                button.classList.remove("lr-cafe__answer--correct", "lr-cafe__answer--incorrect");
+            });
+        });
+    }
+
+    root.querySelectorAll(".lr-cafe__answer").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (answered) {
+                return;
+            }
+            const correct = button.dataset.stationAnswer === questions[questionIndex].correct;
+            button.classList.add(correct ? "lr-cafe__answer--correct" : "lr-cafe__answer--incorrect");
+            feedback.textContent = correct
+                ? "Correct! Отлично!"
+                : "Not quite. Listen again and choose another answer.";
+            feedback.classList.toggle("lr-cafe__feedback--correct", correct);
+            if (correct) {
+                answered = true;
+                answerGroups[questionIndex].querySelectorAll(".lr-cafe__answer").forEach((choice) => {
+                    choice.disabled = true;
+                });
+                next.textContent = questionIndex === 2 ? "Finish Experience" : "Next Question";
+                next.hidden = false;
+            }
+        });
+    });
+
+    next.addEventListener("click", () => {
+        if (questionIndex === questions.length - 1) {
+            feedback.textContent = "All three questions complete! Отлично! You can replay or reset anytime.";
+            next.hidden = true;
+            return;
+        }
+        questionIndex += 1;
+        showQuestion();
+    });
+
+    document.getElementById("lr-station-listen").addEventListener("click", () => playLines(lines));
+    document.getElementById("lr-station-replay-passenger").addEventListener("click", () => {
+        playLines(lines.filter((line) => line.speaker === "passenger"));
+    });
+    document.getElementById("lr-station-replay-attendant").addEventListener("click", () => {
+        playLines(lines.filter((line) => line.speaker === "attendant"));
+    });
+
+    reveal.addEventListener("click", () => {
+        transcript.hidden = !transcript.hidden;
+        reveal.textContent = transcript.hidden ? "Reveal the Text" : "Hide the Text";
+        reveal.setAttribute("aria-expanded", String(!transcript.hidden));
+    });
+
+    root.querySelectorAll(".lr-cafe__word").forEach((button) => {
+        button.addEventListener("click", () => {
+            meaning.textContent = `${button.textContent.trim()}: ${button.dataset.meaning}`;
+        });
+    });
+
+    document.getElementById("lr-station-reset").addEventListener("click", () => {
+        stopPlayback();
+        questionIndex = 0;
+        showQuestion();
+        transcript.hidden = true;
+        reveal.textContent = "Reveal the Text";
+        reveal.setAttribute("aria-expanded", "false");
+        meaning.textContent = "Select an underlined Russian word for its meaning.";
+        status.textContent = "Listen to the whole conversation first.";
+    });
+
+    document.querySelectorAll(".encounter-nav-button").forEach((button) => {
+        button.addEventListener("click", stopPlayback);
+    });
+
+    showQuestion();
+})();
+
+
+// ============================================================
+// LISTENING ROOM — EXPERIENCES 11–15: CONVERSATION ENGINE
+// All answer choices and vocabulary hotspots are authored in HTML.
+// ============================================================
+initializeNumbersConversation("market", [
+    {
+        "speaker": 0,
+        "text": "Здравствуйте! Сколько стоят два яблока?"
+    },
+    {
+        "speaker": 1,
+        "text": "Два яблока стоят восемьдесят рублей."
+    },
+    {
+        "speaker": 0,
+        "text": "А три груши?"
+    },
+    {
+        "speaker": 1,
+        "text": "Три груши стоят сто двадцать рублей."
+    },
+    {
+        "speaker": 0,
+        "text": "Сколько всего?"
+    },
+    {
+        "speaker": 1,
+        "text": "Всего двести рублей."
+    }
+], [
+    {
+        "question": "How many apples does the customer want?",
+        "correct": "2"
+    },
+    {
+        "question": "How much do three pears cost?",
+        "correct": "120 ₽"
+    },
+    {
+        "question": "What is the total price?",
+        "correct": "200 ₽"
+    }
+]);
+
+initializeNumbersConversation("pharmacy", [
+    {
+        "speaker": 0,
+        "text": "Здравствуйте! Сколько стоит эта упаковка?"
+    },
+    {
+        "speaker": 1,
+        "text": "Сто восемьдесят рублей."
+    },
+    {
+        "speaker": 0,
+        "text": "Сколько таблеток в упаковке?"
+    },
+    {
+        "speaker": 1,
+        "text": "Десять таблеток."
+    },
+    {
+        "speaker": 0,
+        "text": "Мне нужны две упаковки."
+    },
+    {
+        "speaker": 1,
+        "text": "Тогда триста шестьдесят рублей."
+    }
+], [
+    {
+        "question": "How much is one package?",
+        "correct": "180 ₽"
+    },
+    {
+        "question": "How many tablets are in one package?",
+        "correct": "10"
+    },
+    {
+        "question": "How much do two packages cost?",
+        "correct": "360 ₽"
+    }
+]);
+
+initializeNumbersConversation("bus", [
+    {
+        "speaker": 0,
+        "text": "Здравствуйте! Это автобус номер двадцать четыре?"
+    },
+    {
+        "speaker": 1,
+        "text": "Да, номер двадцать четыре."
+    },
+    {
+        "speaker": 0,
+        "text": "Во сколько мы приедем?"
+    },
+    {
+        "speaker": 1,
+        "text": "В девять сорок."
+    },
+    {
+        "speaker": 0,
+        "text": "Сколько стоит билет?"
+    },
+    {
+        "speaker": 1,
+        "text": "Пятьдесят рублей."
+    }
+], [
+    {
+        "question": "Which bus route is this?",
+        "correct": "24"
+    },
+    {
+        "question": "What time will they arrive?",
+        "correct": "9:40"
+    },
+    {
+        "question": "How much is the fare?",
+        "correct": "50 ₽"
+    }
+]);
+
+initializeNumbersConversation("tools", [
+    {
+        "speaker": 0,
+        "text": "Здравствуйте! Где молоток?"
+    },
+    {
+        "speaker": 1,
+        "text": "Проход семь, секция двенадцать."
+    },
+    {
+        "speaker": 0,
+        "text": "А где отвёртки?"
+    },
+    {
+        "speaker": 1,
+        "text": "Проход восемь, секция пять."
+    },
+    {
+        "speaker": 0,
+        "text": "Спасибо!"
+    }
+], [
+    {
+        "question": "Which aisle has the hammer?",
+        "correct": "7"
+    },
+    {
+        "question": "Which section has the hammer?",
+        "correct": "12"
+    },
+    {
+        "question": "Where are the screwdrivers?",
+        "correct": "Aisle 8, section 5"
+    }
+]);
+
+initializeNumbersConversation("airport", [
+    {
+        "speaker": 0,
+        "text": "Здравствуйте! Какой номер рейса?"
+    },
+    {
+        "speaker": 1,
+        "text": "Рейс двести сорок шесть."
+    },
+    {
+        "speaker": 0,
+        "text": "Какой выход?"
+    },
+    {
+        "speaker": 1,
+        "text": "Выход двенадцать."
+    },
+    {
+        "speaker": 0,
+        "text": "Во сколько посадка?"
+    },
+    {
+        "speaker": 1,
+        "text": "В шестнадцать двадцать."
+    },
+    {
+        "speaker": 0,
+        "text": "Спасибо!"
+    }
+], [
+    {
+        "question": "What is the flight number?",
+        "correct": "246"
+    },
+    {
+        "question": "Which departure gate?",
+        "correct": "12"
+    },
+    {
+        "question": "What time does boarding begin?",
+        "correct": "16:20"
+    }
+]);
+
+function initializeNumbersConversation(slug, lines, questions) {
+    const id = `lr-${slug}`;
+    const root = document.getElementById(id);
+    if (!root) {
+        return;
+    }
+
+    const speech = window.speechSynthesis;
+    const status = document.getElementById(`${id}-status`);
+    const step = document.getElementById(`${id}-step`);
+    const question = document.getElementById(`${id}-question`);
+    const feedback = document.getElementById(`${id}-feedback`);
+    const next = document.getElementById(`${id}-next`);
+    const reveal = document.getElementById(`${id}-reveal`);
+    const transcript = document.getElementById(`${id}-transcript`);
+    const meaning = document.getElementById(`${id}-meaning`);
+    const speakers = [0, 1].map((index) => document.getElementById(`${id}-speaker-${index}`));
+    const answerGroups = [1, 2, 3].map((number) => document.getElementById(`${id}-answers-${number}`));
+
+    let questionIndex = 0;
+    let playbackToken = 0;
+    let answered = false;
+
+    function clearSpeakers() {
+        speakers.forEach((speaker) => speaker.classList.remove("lr-cafe__speaker--speaking"));
+    }
+
+    function stopPlayback() {
+        playbackToken += 1;
+        speech?.cancel();
+        clearSpeakers();
+    }
+
+    function playLines(selectedLines) {
+        stopPlayback();
+        if (!speech || !window.SpeechSynthesisUtterance) {
+            status.textContent = "Russian speech is not available in this browser.";
+            return;
+        }
+
+        const token = playbackToken;
+        let position = 0;
+        status.textContent = "Listening to Russian conversation…";
+
+        function playNext() {
+            if (token !== playbackToken) {
+                return;
+            }
+            if (position >= selectedLines.length) {
+                clearSpeakers();
+                status.textContent = "Finished listening. Choose an answer, or replay the conversation.";
+                return;
+            }
+
+            const line = selectedLines[position];
+            position += 1;
+            const utterance = new SpeechSynthesisUtterance(line.text);
+            utterance.lang = "ru-RU";
+            utterance.rate = 0.85;
+            const russianVoice = speech.getVoices().find((voice) => voice.lang.toLowerCase().startsWith("ru"));
+            if (russianVoice) {
+                utterance.voice = russianVoice;
+            }
+
+            utterance.onstart = () => {
+                if (token !== playbackToken) {
+                    return;
+                }
+                clearSpeakers();
+                speakers[line.speaker].classList.add("lr-cafe__speaker--speaking");
+            };
+            utterance.onend = () => {
+                if (token === playbackToken) {
+                    playNext();
+                }
+            };
+            utterance.onerror = () => {
+                if (token === playbackToken) {
+                    clearSpeakers();
+                    status.textContent = "Speech was interrupted. Try listening again.";
+                }
+            };
+            speech.speak(utterance);
+        }
+
+        playNext();
+    }
+
+    function showQuestion() {
+        answered = false;
+        step.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
+        question.textContent = questions[questionIndex].question;
+        feedback.textContent = "";
+        feedback.classList.remove("lr-cafe__feedback--correct");
+        next.hidden = true;
+
+        answerGroups.forEach((group, index) => {
+            group.hidden = index !== questionIndex;
+            group.querySelectorAll(".lr-cafe__answer").forEach((button) => {
+                button.disabled = false;
+                button.classList.remove("lr-cafe__answer--correct", "lr-cafe__answer--incorrect");
+            });
+        });
+    }
+
+    root.querySelectorAll(".lr-cafe__answer").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (answered) {
+                return;
+            }
+            const correct = button.dataset.conversationAnswer === questions[questionIndex].correct;
+            button.classList.add(correct ? "lr-cafe__answer--correct" : "lr-cafe__answer--incorrect");
+            feedback.textContent = correct
+                ? "Correct! Отлично!"
+                : "Not quite. Listen again and choose another answer.";
+            feedback.classList.toggle("lr-cafe__feedback--correct", correct);
+
+            if (correct) {
+                answered = true;
+                answerGroups[questionIndex].querySelectorAll(".lr-cafe__answer").forEach((choice) => {
+                    choice.disabled = true;
+                });
+                next.textContent = questionIndex === questions.length - 1 ? "Finish Experience" : "Next Question";
+                next.hidden = false;
+            }
+        });
+    });
+
+    next.addEventListener("click", () => {
+        if (questionIndex === questions.length - 1) {
+            feedback.textContent = "All three questions complete! Отлично! You can replay or reset anytime.";
+            next.hidden = true;
+            return;
+        }
+        questionIndex += 1;
+        showQuestion();
+    });
+
+    document.getElementById(`${id}-listen`).addEventListener("click", () => playLines(lines));
+    [0, 1].forEach((index) => {
+        document.getElementById(`${id}-replay-${index}`).addEventListener("click", () => {
+            playLines(lines.filter((line) => line.speaker === index));
+        });
+    });
+
+    reveal.addEventListener("click", () => {
+        transcript.hidden = !transcript.hidden;
+        reveal.textContent = transcript.hidden ? "Reveal the Text" : "Hide the Text";
+        reveal.setAttribute("aria-expanded", String(!transcript.hidden));
+    });
+
+    root.querySelectorAll(".lr-cafe__word").forEach((button) => {
+        button.addEventListener("click", () => {
+            meaning.textContent = `${button.textContent.trim()}: ${button.dataset.meaning}`;
+        });
+    });
+
+    document.getElementById(`${id}-reset`).addEventListener("click", () => {
+        stopPlayback();
+        questionIndex = 0;
+        showQuestion();
+        transcript.hidden = true;
+        reveal.textContent = "Reveal the Text";
+        reveal.setAttribute("aria-expanded", "false");
+        meaning.textContent = "Select an underlined Russian word for its meaning.";
+        status.textContent = "Listen to the whole conversation first.";
+    });
+
+    document.querySelectorAll(".encounter-nav-button").forEach((button) => {
+        button.addEventListener("click", stopPlayback);
+    });
+
+    showQuestion();
+}
+
+// PLANETARY EXPLORATION — HTML-authored waypoints and navigation
+(() => {
+    const words = [
+        {
+                "ordinal": "пе́рвый",
+                "cardinal": "оди́н",
+                "english": "first",
+                "phonetic": "PYER-vy",
+                "note": "A new word: first is not formed from один."
+        },
+        {
+                "ordinal": "второ́й",
+                "cardinal": "два",
+                "english": "second",
+                "phonetic": "fta-ROY",
+                "note": "Second has a different stem from два."
+        },
+        {
+                "ordinal": "тре́тий",
+                "cardinal": "три",
+                "english": "third",
+                "phonetic": "TRYE-tee",
+                "note": "Third has the distinctive ending -ий."
+        },
+        {
+                "ordinal": "четвёртый",
+                "cardinal": "четы́ре",
+                "english": "fourth",
+                "phonetic": "che-TVYOR-ty",
+                "note": "Notice ё: it carries the stress."
+        },
+        {
+                "ordinal": "пя́тый",
+                "cardinal": "пять",
+                "english": "fifth",
+                "phonetic": "PYA-ty",
+                "note": "The final soft sign in пять disappears."
+        },
+        {
+                "ordinal": "шесто́й",
+                "cardinal": "шесть",
+                "english": "sixth",
+                "phonetic": "shes-TOY",
+                "note": "Compare шесть with шесто́й: stress moves to the ending."
+        },
+        {
+                "ordinal": "седьмо́й",
+                "cardinal": "семь",
+                "english": "seventh",
+                "phonetic": "seed-MOY",
+                "note": "Notice the spelling седь- and the stressed ending -ой."
+        },
+        {
+                "ordinal": "восьмо́й",
+                "cardinal": "во́семь",
+                "english": "eighth",
+                "phonetic": "vas-MOY",
+                "note": "Compare во́семь with восьмо́й: the stem and stress change."
+        },
+        {
+                "ordinal": "девя́тый",
+                "cardinal": "де́вять",
+                "english": "ninth",
+                "phonetic": "dye-VYA-ty",
+                "note": "Notice the stress on я."
+        },
+        {
+                "ordinal": "деся́тый",
+                "cardinal": "де́сять",
+                "english": "tenth",
+                "phonetic": "dye-SYA-ty",
+                "note": "Notice the stress on я, unlike де́сять."
+        }
+];
+    const root = document.getElementById("numbers-rover-landing");
+    const door = document.getElementById("numbers-door-one-landing");
+    const hub = document.getElementById("numbers-four-doors");
+    const get = (id) => document.getElementById(id);
+    const beacons = Array.from(root.querySelectorAll("[data-rover-waypoint]"));
+    const visited = new Set();
+    let selected = 0;
+    let round = [];
+    let step = 0;
+    let mode = "discover";
+    let answered = false;
+
+    function speak(word) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("rover-insight").textContent = "Russian audio is unavailable in this browser.";
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+
+    function briefing(heading, status, instruction, insight) {
+        get("rover-heading").textContent = heading;
+        get("rover-status").textContent = status;
+        get("rover-instruction").textContent = instruction;
+        get("rover-insight").textContent = insight;
+    }
+
+    function showExamples(index) {
+        get("rover-examples").hidden = index === null;
+        root.querySelectorAll("[data-rover-examples]").forEach((group) => {
+            group.hidden = Number(group.dataset.roverExamples) !== index;
+        });
+    }
+
+    function discover(index) {
+        selected = index;
+        showExamples(index);
+        const word = words[index];
+        visited.add(index);
+        beacons.forEach((button, i) => {
+            button.classList.toggle("is-visited", visited.has(i));
+            button.setAttribute("aria-pressed", String(i === index));
+        });
+        get("rover-cardinal").disabled = false;
+        get("rover-ordinal").disabled = false;
+        get("rover-cardinal").textContent = word.cardinal;
+        get("rover-ordinal").textContent = word.ordinal;
+        get("rover-pronunciation").textContent = `${word.english} · ${word.phonetic}`;
+        get("rover-discovery").firstElementChild.textContent = "How many? → Which position?";
+        get("rover-progress").textContent = `Waypoints discovered: ${visited.size} / 10`;
+        get("rover-start").disabled = visited.size !== 10;
+        briefing("Language Discovery", `WAYPOINT ${String(index + 1).padStart(2, "0")}`, `This beacon is ${word.english} in our route. Listen and repeat. Select either Russian word to hear it.`, word.note);
+        speak(word.ordinal);
+    }
+
+    function question() {
+        showExamples(null);
+        answered = false;
+        get("rover-next").hidden = true;
+        get("rover-listen").disabled = false;
+        get("rover-question").textContent = `Signal ${step + 1} of 5`;
+        beacons.forEach((button) => button.setAttribute("aria-pressed", "false"));
+        briefing("Mission Instructions", "LISTENING CHECK", "Listen to the Russian ordinal and select its numbered flag.", "Replay the signal as often as needed.");
+    }
+
+    function reset() {
+        showExamples(null);
+        mode = "discover";
+        visited.clear();
+        get("rover-discovery").hidden = false;
+        get("rover-quiz").hidden = true;
+        get("rover-start").hidden = false;
+        get("rover-start").disabled = true;
+        get("rover-cardinal").disabled = true;
+        get("rover-ordinal").disabled = true;
+        get("rover-cardinal").textContent = "—";
+        get("rover-ordinal").textContent = "—";
+        get("rover-pronunciation").textContent = "";
+        get("rover-discovery").firstElementChild.textContent = "Select your first waypoint.";
+        get("rover-progress").textContent = "Waypoints discovered: 0 / 10";
+        beacons.forEach((button) => {
+            button.classList.remove("is-visited");
+            button.setAttribute("aria-pressed", "false");
+        });
+        briefing("Mission Briefing", "BASE CAMP // DISCOVERY", "Cardinal numbers tell us how many. Ordinal numbers tell us position or order. Select a waypoint to discover its Russian ordinal.", "Listen to each word and repeat it aloud. Explore all ten beacons before your listening mission.");
+    }
+
+    beacons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const index = Number(button.dataset.roverWaypoint);
+            if (mode === "discover") {
+                discover(index);
+            } else if (mode === "complete") {
+                showExamples(index);
+                beacons.forEach((beacon, i) => {
+                    beacon.setAttribute("aria-pressed", String(i === index));
+                });
+                speak(words[index].ordinal);
+            } else if (mode === "quiz" && !answered) {
+                if (index === round[step]) {
+                    answered = true;
+                    button.setAttribute("aria-pressed", "true");
+                    briefing("Mission Feedback", "SIGNAL CONFIRMED", "Correct! Отлично!", `${words[index].ordinal} means ${words[index].english}.`);
+                    get("rover-next").textContent = step === 4 ? "Finish Mission" : "Next Signal";
+                    get("rover-next").hidden = false;
+                } else {
+                    get("rover-insight").textContent = "Not quite. Replay the signal and try another flag.";
+                }
+            }
+        });
+    });
+    get("rover-cardinal").addEventListener("click", () => speak(words[selected].cardinal));
+    get("rover-ordinal").addEventListener("click", () => speak(words[selected].ordinal));
+    get("rover-start").addEventListener("click", () => {
+        round = Array.from({ length: 10 }, (_, i) => i);
+        for (let i = round.length - 1; i > 0; i--) {
+            const k = Math.floor(Math.random() * (i + 1));
+            [round[i], round[k]] = [round[k], round[i]];
+        }
+        round = round.slice(0, 5);
+        step = 0;
+        mode = "quiz";
+        get("rover-start").hidden = true;
+        get("rover-discovery").hidden = true;
+        get("rover-quiz").hidden = false;
+        question();
+    });
+    get("rover-listen").addEventListener("click", () => speak(words[round[step]].ordinal));
+    get("rover-next").addEventListener("click", () => {
+        if (step === 4) {
+            mode = "complete";
+            showExamples(round[step]);
+            get("rover-next").hidden = true;
+            get("rover-listen").disabled = true;
+            get("rover-question").textContent = "Mission accomplished — 5 of 5 signals confirmed!";
+            briefing("Mission Accomplished", "EXPLORATION COMPLETE", "You discovered ten ordinals and identified five Russian signals.", "Explore a bonus hatch or reset the mission to practice again.");
+        } else {
+            step++;
+            question();
+        }
+    });
+    get("rover-reset").addEventListener("click", reset);
+    // Bonus Hatch 2 — all question and answer controls are authored in HTML.
+    const trap = get("rover-hatch-two");
+    const trapState = {};
+    const trapBriefs = [
+        ["Under the Microscope", "COMPARE THE SIGNALS", "Select the Russian words to hear the cardinal and ordinal forms.", "Gold letters draw attention to spelling changes. Notice how the stem and stress can change."],
+        ["Stress Detective", "LISTEN AND IDENTIFY", "Listen to the ordinal, then select its stressed vowel.", "Replay the audio as often as needed. The letter ё always carries stress in these words."],
+        ["Repair the Signal", "SPELLING CHALLENGE", "Choose the correctly spelled Russian ordinal for the English clue.", "Pay attention to stems, soft signs and endings. Incorrect choices can be retried."]
+    ];
+
+    function trapReset(mode) {
+        const order = Array.from({ length: 10 }, (_, index) => index);
+        for (let index = order.length - 1; index > 0; index--) {
+            const other = Math.floor(Math.random() * (index + 1));
+            [order[index], order[other]] = [order[other], order[index]];
+        }
+        trapState[mode] = { order, step: 0, answered: false };
+        trapQuestion(mode);
+    }
+
+    function trapQuestion(mode) {
+        const state = trapState[mode];
+        state.answered = false;
+        trap.querySelectorAll(`[data-trap-question^="${mode}-"]`).forEach((question) => {
+            question.hidden = question.dataset.trapQuestion !== `${mode}-${state.order[state.step]}`;
+            question.querySelectorAll("[data-trap-answer]").forEach((button) => {
+                button.disabled = false;
+                button.removeAttribute("aria-pressed");
+            });
+        });
+        get(`trap-progress-${mode}`).textContent = `Signal ${state.step + 1} / 10`;
+        get(`trap-feedback-${mode}`).textContent = "";
+        trap.querySelector(`[data-trap-next="${mode}"]`).hidden = true;
+    }
+
+    function trapTab(mode) {
+        trap.querySelectorAll("[data-trap-tab]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.trapTab) === mode));
+        });
+        trap.querySelectorAll("[data-trap-panel]").forEach((panel) => {
+            panel.hidden = Number(panel.dataset.trapPanel) !== mode;
+        });
+        briefing(...trapBriefs[mode]);
+        if (mode && !trapState[mode]) {
+            trapReset(mode);
+        }
+    }
+
+    trap.querySelectorAll("[data-trap-tab]").forEach((button) => {
+        button.addEventListener("click", () => trapTab(Number(button.dataset.trapTab)));
+    });
+    trap.querySelectorAll("[data-trap-answer]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const mode = Number(button.closest("[data-trap-panel]").dataset.trapPanel);
+            const state = trapState[mode];
+            if (state.answered) {
+                return;
+            }
+            const word = words[state.order[state.step]];
+            const feedback = get(`trap-feedback-${mode}`);
+            if (button.dataset.trapAnswer === "true") {
+                state.answered = true;
+                button.setAttribute("aria-pressed", "true");
+                feedback.textContent = `Correct! ${word.ordinal}`;
+                get("rover-insight").textContent = word.note;
+                speak(word.ordinal);
+                const next = trap.querySelector(`[data-trap-next="${mode}"]`);
+                next.textContent = state.step === 9 ? "Finish Challenge" : "Next Signal";
+                next.hidden = false;
+            } else {
+                feedback.textContent = mode === 1 ? "Not quite. Listen again and try another vowel." : "Signal corrupted. Check the spelling and try again.";
+            }
+        });
+    });
+    trap.querySelectorAll("[data-trap-next]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const mode = Number(button.dataset.trapNext);
+            const state = trapState[mode];
+            if (state.step === 9) {
+                trap.querySelectorAll(`[data-trap-question^="${mode}-"]`).forEach((question) => {
+                    question.hidden = true;
+                });
+                get(`trap-feedback-${mode}`).textContent = "Mission accomplished! All ten signals confirmed.";
+                button.hidden = true;
+                briefing("Mission Accomplished", "10 / 10 SIGNALS CONFIRMED", "Excellent work! You completed the challenge.", "Replay the challenge or explore another experience.");
+            } else {
+                state.step++;
+                trapQuestion(mode);
+                briefing(...trapBriefs[mode]);
+            }
+        });
+    });
+    trap.querySelectorAll("[data-trap-reset]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const mode = Number(button.dataset.trapReset);
+            trapReset(mode);
+            briefing(...trapBriefs[mode]);
+        });
+    });
+    // BONUS HATCH 1 — adjective agreement discovery.
+    const secret = get("rover-hatch-one");
+    const secretForms = [
+        ["пе́рв", "ый", "ая", "ое", "ые"],
+        ["втор", "о́й", "а́я", "о́е", "ы́е"],
+        ["тре́т", "ий", "ья", "ье", "ьи"],
+        ["четвёрт", "ый", "ая", "ое", "ые"],
+        ["пя́т", "ый", "ая", "ое", "ые"],
+        ["шест", "о́й", "а́я", "о́е", "ы́е"],
+        ["седьм", "о́й", "а́я", "о́е", "ы́е"],
+        ["восьм", "о́й", "а́я", "о́е", "ы́е"],
+        ["девя́т", "ый", "ая", "ое", "ые"],
+        ["деся́т", "ый", "ая", "ое", "ые"]
+    ];
+    const secretNouns = [
+        [["автомоби́ль", "car"], ["кни́га", "book"], ["ме́сто", "place"], ["кни́ги", "books"]],
+        [["дом", "house"], ["ко́мната", "room"], ["окно́", "window"], ["ко́мнаты", "rooms"]],
+        [["уро́к", "lesson"], ["неде́ля", "week"], ["зада́ние", "assignment"], ["зада́ния", "assignments"]]
+    ];
+    const secretGenders = ["masculine", "feminine", "neuter", "plural"];
+    let secretNumber = 0;
+    let secretGender = 0;
+    let secretMode = 0;
+    let secretRound = [];
+    let secretStep = 0;
+    let secretSolved = false;
+
+    function secretNoun(number, gender) {
+        return secretNouns[number < 3 ? 0 : number < 6 ? 1 : 2][gender];
+    }
+
+    function secretWord(number, gender) {
+        return secretForms[number][0] + secretForms[number][gender + 1];
+    }
+
+    function secretRender() {
+        const form = secretForms[secretNumber];
+        secret.querySelectorAll("[data-secret-number]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.secretNumber) === secretNumber));
+        });
+        secret.querySelectorAll("[data-secret-form]").forEach((button) => {
+            const gender = Number(button.dataset.secretForm);
+            button.children[0].textContent = form[0];
+            button.children[1].textContent = form[gender + 1];
+        });
+        secret.querySelectorAll("[data-secret-example]").forEach((button) => {
+            const gender = Number(button.dataset.secretExample);
+            button.children[0].textContent = form[0];
+            button.children[1].textContent = form[gender + 1];
+            button.children[2].textContent = " " + secretNoun(secretNumber, gender)[0];
+        });
+        secret.querySelectorAll("[data-secret-noun]").forEach((button) => {
+            const gender = Number(button.dataset.secretNoun);
+            const noun = secretNoun(secretNumber, gender);
+            button.textContent = noun.join(" — ");
+            button.setAttribute("aria-pressed", String(gender === secretGender));
+        });
+        const phrase = get("secret-phrase");
+        phrase.children[0].textContent = form[0];
+        phrase.children[1].textContent = form[secretGender + 1];
+        phrase.children[2].textContent = " " + secretNoun(secretNumber, secretGender)[0];
+        get("secret-translation").textContent = words[secretNumber].english + " " + secretNoun(secretNumber, secretGender)[1];
+        if (secretMode === 1) {
+            get("rover-insight").textContent = `The noun is ${secretGenders[secretGender]}. The ordinal takes the ending -${form[secretGender + 1]} to agree with it.`;
+        }
+    }
+
+    function secretQuestion() {
+        const { number, gender } = secretRound[secretStep];
+        secretSolved = false;
+        get("secret-progress").textContent = `Challenge ${secretStep + 1} of 10`;
+        get("secret-prompt").textContent = "? " + secretNoun(number, gender)[0];
+        get("secret-english").textContent = words[number].english + " " + secretNoun(number, gender)[1];
+        get("secret-feedback").textContent = "";
+        get("secret-next").hidden = true;
+        const choices = [0, 1, 2, 3];
+        for (let i = 3; i > 0; i--) {
+            const k = Math.floor(Math.random() * (i + 1));
+            [choices[i], choices[k]] = [choices[k], choices[i]];
+        }
+        secret.querySelectorAll("[data-secret-answer]").forEach((button, i) => {
+            button.dataset.gender = choices[i];
+            button.textContent = secretWord(number, choices[i]);
+            button.disabled = false;
+            button.setAttribute("aria-pressed", "false");
+        });
+    }
+
+    function secretReset() {
+        secretRound = secretForms.map((form, number) => ({ number, gender: number % 4 }));
+        for (let i = 9; i > 0; i--) {
+            const k = Math.floor(Math.random() * (i + 1));
+            [secretRound[i], secretRound[k]] = [secretRound[k], secretRound[i]];
+        }
+        secretStep = 0;
+        secretQuestion();
+    }
+
+    function secretTab(tab) {
+        secretMode = tab;
+        secret.querySelectorAll("[data-secret-tab]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.secretTab) === tab));
+        });
+        secret.querySelectorAll("[data-secret-panel]").forEach((panel) => {
+            panel.hidden = Number(panel.dataset.secretPanel) !== tab;
+        });
+        get("secret-picker").hidden = tab === 2;
+        const briefs = [
+            ["Discover the Secret", "LANGUAGE DISCOVERY", "Choose an ordinal and listen to its four forms. Compare the gold endings.", "Russian ordinals behave like adjectives. They agree with nouns in gender and number."],
+            ["The Perfect Partnership", "WATCH THE TRANSFORMATION", "Choose an ordinal, then select a familiar noun. Listen to the resulting phrase.", ""],
+            ["Find the Perfect Match", "AGREEMENT CHALLENGE", "Choose the correct ordinal for the noun. Complete ten challenges.", "Look at the noun and decide which form agrees with it."]
+        ];
+        briefing(...briefs[tab]);
+        secretRender();
+        if (tab === 2 && !secretRound.length) {
+            secretReset();
+        }
+    }
+
+    secret.querySelectorAll("[data-secret-tab]").forEach((button) => {
+        button.addEventListener("click", () => secretTab(Number(button.dataset.secretTab)));
+    });
+    secret.querySelectorAll("[data-secret-number]").forEach((button) => {
+        button.addEventListener("click", () => {
+            secretNumber = Number(button.dataset.secretNumber);
+            secretRender();
+        });
+    });
+    secret.querySelectorAll("[data-secret-form], [data-secret-example]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.textContent.trim()));
+    });
+    secret.querySelectorAll("[data-secret-noun]").forEach((button) => {
+        button.addEventListener("click", () => {
+            secretGender = Number(button.dataset.secretNoun);
+            secretRender();
+            speak(get("secret-phrase").textContent.trim());
+        });
+    });
+    get("secret-phrase").addEventListener("click", () => speak(get("secret-phrase").textContent.trim()));
+    secret.querySelectorAll("[data-secret-answer]").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (secretSolved) {
+                return;
+            }
+            const { number, gender } = secretRound[secretStep];
+            if (Number(button.dataset.gender) !== gender) {
+                get("secret-feedback").textContent = `Try again. The noun is ${secretGenders[gender]}.`;
+                return;
+            }
+            secretSolved = true;
+            button.setAttribute("aria-pressed", "true");
+            const phrase = secretWord(number, gender) + " " + secretNoun(number, gender)[0];
+            get("secret-feedback").textContent = "Correct! " + phrase;
+            get("rover-insight").textContent = `Both forms agree: ${secretGenders[gender]}.`;
+            speak(phrase);
+            get("secret-next").textContent = secretStep === 9 ? "Finish Challenge" : "Next Challenge";
+            get("secret-next").hidden = false;
+        });
+    });
+    get("secret-next").addEventListener("click", () => {
+        if (secretStep === 9) {
+            get("secret-progress").textContent = "10 / 10 complete";
+            get("secret-feedback").textContent = "Mission accomplished!";
+            get("secret-next").hidden = true;
+            briefing("Mission Accomplished", "10 / 10 COMPLETE", "You matched all ten ordinals correctly.", "Explore the full agreement system at the Energy Core.");
+        } else {
+            secretStep++;
+            secretQuestion();
+        }
+    });
+    get("secret-reset").addEventListener("click", () => {
+        secretReset();
+        secretTab(2);
+    });
+    let savedBriefing = null;
+    root.querySelectorAll("[data-rover-hatch]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const target = button.dataset.roverHatch;
+            if (!get("rover-main").hidden) {
+                savedBriefing = ["rover-heading", "rover-status", "rover-instruction", "rover-insight"].map((id) => get(id).textContent);
+            }
+            get("rover-main").hidden = target !== "main";
+            get("rover-hatch-one").hidden = target !== "one";
+            get("rover-hatch-two").hidden = target !== "two";
+            if (target === "main" && savedBriefing) {
+                briefing(...savedBriefing);
+            } else if (target === "one") {
+                secretTab(0);
+            } else if (target === "two") {
+                trapTab(0);
+            } else if (target !== "main") {
+                briefing("Bonus Exploration", "OPTIONAL DISCOVERY", "Investigate the language clues in this hatch.", "Select a Russian word to hear it, then return to your mission.");
+            }
+        });
+    });
+    root.querySelectorAll("[data-rover-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.roverSay));
+    });
+    door.querySelector(".numbers-rover-open").addEventListener("click", () => {
+        door.hidden = true;
+        root.hidden = false;
+        root.scrollIntoView({ block: "start" });
+    });
+    root.querySelectorAll("[data-rover-back]").forEach((button) => {
+        button.addEventListener("click", () => {
+            window.speechSynthesis?.cancel();
+            root.hidden = true;
+            const destination = button.dataset.roverBack === "door" ? door : hub;
+            destination.hidden = false;
+            destination.scrollIntoView({ block: "start" });
+        });
+    });
+})();
+
+// Ultimate Rover Challenge — all interactive controls are authored in HTML.
+(() => {
+    const get = (id) => document.getElementById(id);
+    const root = get("ultimate-rover");
+    const rover = get("numbers-rover-landing");
+    const words = ["пе́рвый", "второ́й", "тре́тий", "четвёртый", "пя́тый", "шесто́й", "седьмо́й", "восьмо́й", "девя́тый", "деся́тый"];
+    const english = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
+    const titles = ["Recall the Signal", "Reconstruct the Signal", "Decode the Signal"];
+    const instructions = ["Click Speak It and say the Russian ordinal aloud.", "Type the Russian ordinal from memory.", "Listen to the Russian ordinal and type what you hear."];
+    let phase = 0;
+    let step = 0;
+    let order = [];
+    let scores = [0, 0, 0];
+    let locked = false;
+    const input = get("ultimate-answer");
+
+    function normalize(word) {
+        return word.toLowerCase().normalize("NFC").replace(/\u0301/g, "").trim();
+    }
+
+    function speak() {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("ultimate-feedback").textContent = "Russian audio is unavailable in this browser.";
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(normalize(words[order[step]]));
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = window.speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function shuffle() {
+        order = Array.from({ length: 10 }, (_, index) => index);
+        for (let index = 9; index > 0; index -= 1) {
+            const other = Math.floor(Math.random() * (index + 1));
+            [order[index], order[other]] = [order[other], order[index]];
+        }
+    }
+
+    function showQuestion() {
+        locked = false;
+        input.value = "";
+        input.disabled = false;
+        get("ultimate-check").disabled = false;
+        get("ultimate-title").textContent = titles[phase];
+        get("ultimate-progress").textContent = `Challenge ${phase + 1} of 3 · Signal ${step + 1} of 10`;
+        get("ultimate-instruction").textContent = instructions[phase];
+        get("ultimate-prompt").textContent = phase === 2 ? "Incoming Russian signal" : english[order[step]];
+        get("ultimate-writing").hidden = phase === 0;
+        get("ultimate-listen").hidden = phase !== 2;
+        stopRecognition();
+        get("ultimate-speech").hidden = phase !== 0;
+        get("ultimate-speak").disabled = false;
+        get("ultimate-heard").textContent = "I heard: —";
+        get("ultimate-next").hidden = true;
+        get("ultimate-feedback").textContent = "";
+    }
+
+    function start() {
+        phase = 0;
+        step = 0;
+        scores = [0, 0, 0];
+        get("ultimate-center").querySelectorAll("button, input").forEach((button) => {
+            button.disabled = false;
+        });
+        resetSequence();
+        resetAgreement();
+        selectInput(agreementInput);
+        shuffle();
+        get("ultimate-brief").hidden = true;
+        get("ultimate-results").hidden = true;
+        get("ultimate-task").hidden = false;
+        showQuestion();
+    }
+
+    function finishAnswer(correct) {
+        if (locked) {
+            return;
+        }
+        locked = true;
+        scores[phase] += Number(correct);
+        input.disabled = true;
+        get("ultimate-check").disabled = true;
+        get("ultimate-speak").disabled = true;
+        get("ultimate-feedback").textContent = `${correct ? "Correct!" : "Keep practicing."} ${words[order[step]]}`;
+        get("ultimate-next").hidden = false;
+        get("ultimate-next").textContent = step === 9 ? (phase === 2 ? "View Results" : "Next Challenge") : "Next Signal";
+    }
+
+    get("ultimate-open").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        rover.hidden = true;
+        root.hidden = false;
+        get("ultimate-brief").hidden = false;
+        get("ultimate-task").hidden = true;
+        get("ultimate-results").hidden = true;
+        root.scrollIntoView({ block: "start" });
+    });
+    get("ultimate-back").addEventListener("click", () => {
+        stopRecognition();
+        window.speechSynthesis?.cancel();
+        root.hidden = true;
+        rover.hidden = false;
+        rover.scrollIntoView({ block: "start" });
+    });
+    get("ultimate-accept").addEventListener("click", start);
+    get("ultimate-restart").addEventListener("click", start);
+    get("ultimate-listen").addEventListener("click", speak);
+    let recognition = null;
+
+    function stopRecognition() {
+        if (recognition) {
+            const previous = recognition;
+            recognition = null;
+            previous.abort();
+        }
+    }
+
+    get("ultimate-speak").addEventListener("click", () => {
+        if (locked || phase !== 0 || recognition) {
+            return;
+        }
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const heard = get("ultimate-heard");
+        const button = get("ultimate-speak");
+        if (!SpeechRecognition) {
+            heard.textContent = "Speech recognition is unavailable in this browser.";
+            return;
+        }
+        window.speechSynthesis?.cancel();
+        const session = new SpeechRecognition();
+        recognition = session;
+        session.lang = "ru-RU";
+        session.interimResults = false;
+        session.continuous = false;
+        button.disabled = true;
+        heard.textContent = "I heard: Listening…";
+        get("ultimate-feedback").textContent = "";
+        let received = false;
+        session.onresult = (event) => {
+            if (recognition !== session || locked || phase !== 0) {
+                return;
+            }
+            received = true;
+            const transcript = event.results[0][0].transcript;
+            heard.textContent = `I heard: ${transcript}`;
+            const speechForm = (value) => normalize(value).replace(/[.!?,…]/g, "").replace(/ё/g, "е").trim();
+            if (speechForm(transcript) === speechForm(words[order[step]])) {
+                finishAnswer(true);
+            } else {
+                get("ultimate-feedback").textContent = "Not quite. Click Speak It to try again.";
+            }
+        };
+        session.onerror = (event) => {
+            if (recognition !== session) {
+                return;
+            }
+            received = true;
+            heard.textContent = `Speech recognition unavailable (${event.error}). Please retry.`;
+        };
+        session.onend = () => {
+            if (recognition !== session) {
+                return;
+            }
+            recognition = null;
+            button.disabled = locked;
+            if (!received) {
+                heard.textContent = "I heard: No speech detected. Try again.";
+            }
+        };
+        try {
+            session.start();
+        } catch (error) {
+            recognition = null;
+            button.disabled = false;
+            heard.textContent = "Could not start microphone. Please retry.";
+        }
+    });
+    const agreementInput = get("agreement-answer");
+    let activeInput = null;
+    function selectInput(field) {
+        activeInput = field;
+        [input, agreementInput].forEach((item) => {
+            item.classList.toggle("ultimate-active-input", item === field);
+        });
+        get("keyboard-target").textContent = field === input ? "Keyboard → Signal Operations" : "Keyboard → Agreement Challenge";
+    }
+    [input, agreementInput].forEach((field) => {
+        field.addEventListener("focus", () => selectInput(field));
+    });
+    function editKey(key) {
+        if (!activeInput || activeInput.disabled || activeInput.closest("[hidden]")) {
+            return;
+        }
+        const field = activeInput;
+        const start = field.selectionStart;
+        const end = field.selectionEnd;
+        if (key === "clear") {
+            field.value = "";
+        } else if (key === "delete") {
+            field.setRangeText("", start === end ? Math.max(0, start - 1) : start, end, "end");
+        } else {
+            field.setRangeText(key, start, end, "end");
+        }
+        field.focus();
+    }
+    root.querySelectorAll("[data-ultimate-key]").forEach((button) => {
+        button.addEventListener("click", () => editKey(button.dataset.ultimateKey));
+    });
+    get("ultimate-delete").addEventListener("click", () => editKey("delete"));
+    get("ultimate-clear").addEventListener("click", () => editKey("clear"));
+    get("ultimate-space").addEventListener("click", () => editKey(" "));
+    const sequence = get("ultimate-sequence");
+    const sequenceTiles = () => Array.from(sequence.querySelectorAll("button[data-sequence]"));
+    function placeTiles(tiles) {
+        Array.from(sequence.children).forEach((slot, index) => {
+            slot.appendChild(tiles[index]);
+        });
+    }
+    let selected = null;
+    function swap(first, second) {
+        if (first && second && first !== second) {
+            const tiles = sequenceTiles();
+            const a = tiles.indexOf(first);
+            const b = tiles.indexOf(second);
+            [tiles[a], tiles[b]] = [tiles[b], tiles[a]];
+            placeTiles(tiles);
+        }
+        selected?.classList.remove("selected");
+        selected = null;
+        get("sequence-feedback").textContent = "";
+    }
+    sequenceTiles().forEach((tile) => {
+        tile.addEventListener("dragstart", (event) => {
+            event.dataTransfer.setData("text/plain", tile.dataset.sequence);
+        });
+        tile.addEventListener("dragover", (event) => event.preventDefault());
+        tile.addEventListener("drop", (event) => {
+            event.preventDefault();
+            swap(sequenceTiles().find((item) => item.dataset.sequence === event.dataTransfer.getData("text/plain")), tile);
+        });
+        tile.addEventListener("click", () => {
+            if (selected) {
+                swap(selected, tile);
+            } else {
+                selected = tile;
+                tile.classList.add("selected");
+            }
+        });
+    });
+    function resetSequence() {
+        const tiles = sequenceTiles();
+        for (let i = tiles.length - 1; i > 0; i -= 1) {
+            const k = Math.floor(Math.random() * (i + 1));
+            [tiles[i], tiles[k]] = [tiles[k], tiles[i]];
+        }
+        placeTiles(tiles);
+        selected?.classList.remove("selected");
+        selected = null;
+        get("sequence-feedback").textContent = "";
+    }
+    get("sequence-reset").addEventListener("click", resetSequence);
+    get("sequence-check").addEventListener("click", () => {
+        const count = sequenceTiles().filter((tile, index) => Number(tile.dataset.sequence) === index).length;
+        get("sequence-feedback").textContent = count === 10 ? "★ Sequence complete!" : `${count}/10 in position. Try again.`;
+    });
+    const agreement = [
+        ["First car", "автомоби́ль", "пе́рвый"],
+        ["Second book", "кни́га", "втора́я"],
+        ["Third place", "ме́сто", "тре́тье"],
+        ["Fourth room", "ко́мната", "четвёртая"],
+        ["Fifth house", "дом", "пя́тый"],
+        ["Sixth window", "окно́", "шесто́е"],
+        ["Seventh lessons", "уро́ки", "седьмы́е"],
+        ["Eighth week", "неде́ля", "восьма́я"],
+        ["Ninth assignment", "зада́ние", "девя́тое"],
+        ["Tenth assignments", "зада́ния", "деся́тые"]
+    ];
+    let agreementOrder = [];
+    let agreementStep = 0;
+    let agreementScore = 0;
+    function showAgreement() {
+        const item = agreementOrder[agreementStep];
+        get("agreement-progress").textContent = `Signal ${agreementStep + 1}/10`;
+        get("agreement-prompt").textContent = item[0];
+        get("agreement-noun").textContent = item[1];
+        agreementInput.value = "";
+        agreementInput.disabled = false;
+        get("agreement-check").disabled = false;
+        get("agreement-next").hidden = true;
+        get("agreement-feedback").textContent = "";
+    }
+    function resetAgreement() {
+        agreementOrder = [...agreement];
+        for (let i = 9; i > 0; i -= 1) {
+            const k = Math.floor(Math.random() * (i + 1));
+            [agreementOrder[i], agreementOrder[k]] = [agreementOrder[k], agreementOrder[i]];
+        }
+        agreementStep = 0;
+        agreementScore = 0;
+        showAgreement();
+    }
+    function checkAgreement() {
+        if (agreementInput.disabled || !agreementInput.value.trim()) {
+            return;
+        }
+        const answer = agreementOrder[agreementStep][2];
+        const correct = normalize(agreementInput.value) === normalize(answer);
+        agreementScore += Number(correct);
+        get("agreement-feedback").textContent = `${correct ? "Correct!" : "Correct form:"} ${answer}`;
+        agreementInput.disabled = true;
+        get("agreement-check").disabled = true;
+        get("agreement-next").hidden = false;
+    }
+    get("agreement-check").addEventListener("click", checkAgreement);
+    agreementInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkAgreement();
+        }
+    });
+    get("agreement-next").addEventListener("click", () => {
+        agreementStep += 1;
+        if (agreementStep === 10) {
+            get("agreement-progress").textContent = `★ Complete: ${agreementScore}/10`;
+            get("agreement-next").hidden = true;
+        } else {
+            showAgreement();
+        }
+    });
+    function check() {
+        if (!locked && input.value.trim()) {
+            finishAnswer(normalize(input.value) === normalize(words[order[step]]));
+        }
+    }
+    get("ultimate-check").addEventListener("click", check);
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            check();
+        }
+    });
+    get("ultimate-next").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        step += 1;
+        if (step === 10) {
+            phase += 1;
+            step = 0;
+            if (phase === 3) {
+                get("ultimate-center").querySelectorAll("button, input").forEach((button) => { button.disabled = true; });
+                get("ultimate-title").textContent = "Signal Operations Complete ★";
+                get("ultimate-next").hidden = true;
+                get("ultimate-feedback").textContent = `Speaking: ${scores[0]}/10 · Spelling: ${scores[1]}/10 · Listening: ${scores[2]}/10`;
+                return;
+            }
+            shuffle();
+        }
+        showQuestion();
+    });
 })();

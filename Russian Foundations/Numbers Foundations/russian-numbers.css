@@ -3240,7 +3240,7 @@ h1 {
 
 .encounter-navigator__buttons {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0.6rem;
 }
 
@@ -5148,4 +5148,2739 @@ h1 {
     .hundreds-lock-activity__result {
         animation: none;
     }
+}
+
+
+/* ============================================================
+   ACTIVITY 6 — THE GRAND NUMBERS CHALLENGE
+   All interaction targets are explicitly authored in HTML.
+   ============================================================ */
+.grand-six {
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #d8e1eb;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px #00000010;
+}
+.grand-six__banner {
+    background: #050505;
+    border: 2px solid #f4c934;
+    border-radius: 17px;
+    padding: 20px 24px;
+    color: #ffffff;
+}
+.grand-six__banner p {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+.grand-six__banner h2 {
+    margin: 0;
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4.2vw, 3.7rem);
+    line-height: 1.15;
+}
+.grand-six__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 8px 0 12px;
+}
+.grand-six__tab {
+    min-height: 82px;
+    padding: 12px 8px;
+    border: 0;
+    border-radius: 13px;
+    background: #f8f8f8;
+    color: #171717;
+    font-size: 1.1rem;
+    line-height: 1.45;
+    text-align: center;
+}
+.grand-six__tab span {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+}
+.grand-six__tab.is-active {
+    color: #ffffff;
+    background: linear-gradient(180deg, #b97e88, #812435 65%);
+}
+.grand-six__tab[data-grand-tab="build"].is-active {
+    background: linear-gradient(180deg, #a882c9, #68439a 70%);
+}
+.grand-six__tab[data-grand-tab="zero"].is-active {
+    background: linear-gradient(180deg, #72c2b2, #117e77 70%);
+}
+.grand-six__tab:focus-visible,
+.grand-six button:focus-visible {
+    outline: 3px solid #ffd77a;
+    outline-offset: 3px;
+}
+.grand-six__panel {
+    padding: 26px clamp(14px, 3vw, 32px);
+    border-radius: 19px;
+    color: #ffffff;
+    text-align: center;
+}
+.grand-six__panel[hidden] {
+    display: none;
+}
+.grand-six__panel--listen {
+    background: linear-gradient(135deg, #330a17, #812435 52%, #4a1020);
+}
+.grand-six__panel--build {
+    background: linear-gradient(135deg, #28123e, #68439a 52%, #321c58);
+}
+.grand-six__panel--zero {
+    background: linear-gradient(135deg, #073a3d, #117e77 52%, #092f4d);
+}
+.grand-six__eyebrow {
+    color: #f7d995;
+    font-weight: 800;
+    margin: 0 0 10px;
+}
+.grand-six__panel h3 {
+    color: #ffe2a2;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    margin: 0 0 8px;
+}
+.grand-six__panel > p:not(.grand-six__eyebrow):not(.grand-six__progress) {
+    margin: 0 0 18px;
+}
+.grand-six__glass {
+    padding: 20px;
+    border-radius: 19px;
+    background: rgba(255, 255, 255, 0.25);
+}
+.grand-six__symbol {
+    font-size: 2.3rem;
+}
+.grand-six__glass h4 {
+    margin: 12px 0 16px;
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+.grand-six__inner {
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.08);
+}
+.grand-six__choices {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+.grand-six .grand-six__choice,
+.grand-six .grand-six__zero-choice,
+.grand-six .grand-six__word {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+.grand-six .grand-six__choice {
+    min-height: 75px;
+    font-size: 1.75rem;
+}
+.grand-six .grand-six__choice:hover,
+.grand-six .grand-six__zero-choice:hover,
+.grand-six .grand-six__word:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+.grand-six .is-picked {
+    border-color: #ffe2a2;
+    background: rgba(255, 226, 162, 0.32);
+}
+.grand-six__target {
+    margin: 8px 0 16px;
+    color: #ffe2a2;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+.grand-six__prompt {
+    margin: 0;
+}
+.grand-six__assembled {
+    font-family: "Times New Roman", serif;
+    font-size: 1.5rem;
+    min-height: 65px;
+}
+.grand-six__banks {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+    text-align: left;
+}
+.grand-six__bank {
+    display: flex;
+    align-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.grand-six__bank-title {
+    flex-basis: 100%;
+    margin: 0 0 4px;
+    font-weight: 800;
+    color: #ffe2a2;
+}
+.grand-six .grand-six__word {
+    padding: 6px 9px;
+    font-family: "Times New Roman", serif;
+    font-size: 1.05rem;
+}
+.grand-six__zero-choices {
+    display: grid;
+    gap: 10px;
+}
+.grand-six .grand-six__zero-choice {
+    min-height: 55px;
+    padding: 12px;
+    font-family: "Times New Roman", serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.grand-six__actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+.grand-six__actions button {
+    background: #ffffff;
+    color: #143d67;
+}
+.grand-six__actions button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+.grand-six__progress {
+    margin: 12px 0 6px;
+    color: #ffe2a2;
+    font-weight: 700;
+}
+.grand-six__feedback {
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-weight: 600;
+}
+.grand-six__feedback.is-success {
+    background: #164c39;
+    border: 2px solid #6de0a2;
+}
+.grand-six__feedback.is-retry {
+    background: #54301d;
+    border: 2px solid #f5bd79;
+}
+.grand-six__completion {
+    display: block;
+    margin-top: 15px;
+}
+@media (max-width: 700px) {
+    .grand-six__tabs {
+        gap: 4px;
+    }
+    .grand-six__tab {
+        font-size: .85rem;
+    }
+    .grand-six__banks {
+        grid-template-columns: 1fr;
+    }
+    .grand-six__glass {
+        padding: 12px;
+    }
+    .grand-six__choice {
+        font-size: 1.2rem;
+    }
+}
+
+/* ============================================================
+   ACTIVITY 6 — COLOR-MATCHED GRAND CHALLENGE LOCKS
+   Transparent decorative PNGs; existing challenges are unchanged.
+   ============================================================ */
+
+.grand-six__panel {
+    position: relative;
+}
+
+.grand-six__lock {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: clamp(110px, 12vw, 150px);
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+@media (max-width: 700px) {
+    .grand-six__lock {
+        top: 0;
+        left: 10px;
+        width: 80px;
+    }
+
+    .grand-six__panel > .grand-six__eyebrow,
+    .grand-six__panel > h3,
+    .grand-six__panel > p:not(.grand-six__progress) {
+        padding-left: 70px;
+    }
+}
+
+/* ============================================================
+   ACTIVITY 6 / TAB 1 — LISTEN WITHOUT LOOKING
+   Compact screenshot-inspired crimson layout. Tabs 2 and 3 unchanged.
+   ============================================================ */
+.grand-six__panel--listen {
+    min-height: 390px;
+    padding: 24px 20px 26px;
+    overflow: hidden;
+}
+.grand-six__panel--listen .grand-six__lock {
+    top: 0;
+    left: 18px;
+    width: clamp(105px, 12vw, 150px);
+}
+.grand-six__listen-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(125px, 1fr) minmax(0, 2.6fr) minmax(135px, 1fr);
+    align-items: start;
+    min-height: 138px;
+    gap: 10px;
+}
+.grand-six__listen-heading {
+    grid-column: 2;
+    text-align: center;
+    padding-top: 5px;
+}
+.grand-six__panel--listen .grand-six__listen-heading h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(1.65rem, 2.7vw, 2.3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    margin: 0;
+    color: #ffe2a2;
+}
+.grand-six__listen-subtitle {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin: 1px 0 0;
+}
+.grand-six__listen-instruction {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .88rem;
+    line-height: 1.35;
+    margin: 2px 0 0;
+}
+.grand-six__listen-counter {
+    grid-column: 3;
+    justify-self: end;
+    min-width: 136px;
+    border: 1px solid #efb624;
+    border-radius: 7px;
+    background: rgba(56, 0, 14, .48);
+    padding: 7px 9px;
+    text-align: center;
+    color: white;
+    font-size: .8rem;
+}
+.grand-six__listen-dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+.grand-six__listen-dots span {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #fff;
+}
+.grand-six__listen-dots span.is-current {
+    background: #ffc42c;
+}
+.grand-six__listen-dots span.is-complete {
+    background: #e9a657;
+}
+.grand-six__listen-choice-panel {
+    background: rgba(38, 0, 12, .40);
+    border-radius: 9px;
+    padding: 16px clamp(14px, 4vw, 55px);
+}
+.grand-six__panel--listen .grand-six__choices {
+    margin: 0;
+    gap: clamp(12px, 4vw, 55px);
+}
+.grand-six__panel--listen .grand-six__choice {
+    min-height: 64px;
+    border-radius: 9px;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 400;
+    font-size: 2.05rem;
+}
+.grand-six__listen-actions {
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 12px;
+}
+.grand-six__listen-actions button {
+    border: 1px solid #f1b924;
+    border-radius: 5px;
+    background: rgba(88, 0, 23, .65);
+    color: #fff;
+    font-weight: 400;
+    padding: 8px 12px;
+}
+.grand-six__listen-actions button:hover:not(:disabled) {
+    background: rgba(157, 40, 62, .85);
+}
+.grand-six__listen-actions button:disabled {
+    background: rgba(110, 72, 84, .45);
+    color: #d7c1c7;
+}
+.grand-six__listen-feedback {
+    margin-top: 12px;
+    min-height: 34px;
+    padding: 7px 12px;
+    background: transparent;
+    font-size: .92rem;
+}
+.grand-six__listen-feedback:empty {
+    visibility: hidden;
+}
+@media (max-width: 760px) {
+    .grand-six__listen-header {
+        grid-template-columns: 95px minmax(0, 1fr);
+        min-height: 185px;
+    }
+    .grand-six__panel--listen .grand-six__lock {
+        width: 95px;
+        left: 6px;
+    }
+    .grand-six__listen-heading {
+        grid-column: 2;
+        padding-top: 0;
+    }
+    .grand-six__listen-counter {
+        grid-column: 2;
+        justify-self: center;
+        margin-top: 8px;
+    }
+    .grand-six__panel--listen .grand-six__choices {
+        gap: 8px;
+    }
+    .grand-six__panel--listen .grand-six__choice {
+        min-height: 54px;
+        font-size: 1.5rem;
+    }
+    .grand-six__listen-actions {
+        justify-content: center;
+    }
+}
+
+/* ============================================================
+   ACTIVITY 6 / TAB 1 — BUTTON ALIGNMENT AND VISIBILITY
+   Keep the two central controls together under the middle choice.
+   Disabled controls remain visually identical, but not clickable.
+   ============================================================ */
+.grand-six__listen-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 10px;
+    row-gap: 10px;
+    width: 100%;
+}
+
+.grand-six__listen-actions #grand-listen-reset {
+    justify-self: start;
+}
+
+.grand-six__listen-actions #grand-listen-hear,
+.grand-six__listen-actions #grand-listen-next {
+    justify-self: center;
+}
+
+.grand-six__listen-actions #grand-listen-slow {
+    justify-self: end;
+}
+
+.grand-six__listen-actions button,
+.grand-six__listen-actions button:disabled,
+.grand-six__listen-actions button:hover:disabled {
+    opacity: 1;
+    background: rgba(88, 0, 23, 0.85);
+    color: #ffffff;
+    border: 1px solid #f1b924;
+    box-shadow: none;
+}
+
+.grand-six__listen-actions button:disabled {
+    cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+    .grand-six__listen-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+/* ============================================================
+   ACTIVITY 6 — MATCH TAB 1 HEADER ON PURPLE AND TEAL TABS
+   Same layout, serif typography, top-edge lock and eight dots.
+   The completed crimson Tab 1 remains unchanged.
+   ============================================================ */
+
+.grand-six__panel--build,
+.grand-six__panel--zero {
+    overflow: hidden;
+    padding: 24px 20px 26px;
+}
+
+.grand-six__panel--build .grand-six__lock,
+.grand-six__panel--zero .grand-six__lock {
+    top: 0;
+    left: 18px;
+    width: clamp(105px, 12vw, 150px);
+}
+
+.grand-six__shared-header .grand-six__listen-heading h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(1.65rem, 2.7vw, 2.3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    margin: 0;
+    color: #ffe2a2;
+}
+
+.grand-six__shared-header .grand-six__listen-heading p {
+    padding-left: 0;
+}
+
+.grand-six__panel--build .grand-six__listen-counter {
+    background: rgba(31, 9, 57, 0.55);
+}
+
+.grand-six__panel--zero .grand-six__listen-counter {
+    background: rgba(4, 47, 48, 0.55);
+}
+
+@media (max-width: 760px) {
+    .grand-six__panel--build .grand-six__lock,
+    .grand-six__panel--zero .grand-six__lock {
+        width: 95px;
+        left: 6px;
+    }
+}
+
+/* ============================================================
+   ACTIVITY 6 — TAB 2: ORDERED WORD BANK AND SINGLE INSTRUCTION
+   ============================================================ */
+.grand-six__panel--build .grand-six__bank-instructions {
+    margin: 14px auto 12px;
+    max-width: 850px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.grand-six__panel--build .grand-six__bank-instructions span {
+    display: block;
+    font-weight: 400;
+}
+
+.grand-six__panel--build .grand-six__banks {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    align-items: start;
+    margin-top: 12px;
+}
+
+.grand-six__panel--build .grand-six__bank {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    align-items: stretch;
+    gap: 8px;
+    min-width: 0;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.grand-six__panel--build .grand-six__bank-title {
+    grid-column: 1 / -1;
+    margin: 0 0 5px;
+    color: #ffe2a2;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.grand-six__panel--build .grand-six__word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 43px;
+    padding: 8px 4px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(0.91rem, 1.25vw, 1.13rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.grand-six__panel--build .grand-six__build-feedback:empty {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .grand-six__panel--build .grand-six__banks {
+        grid-template-columns: 1fr;
+    }
+
+    .grand-six__panel--build .grand-six__word {
+        font-size: 1.1rem;
+    }
+}
+
+/* Activity 6, Tab 2: hide the redundant assembled-word instruction box. */
+#grand-build-assembled {
+    display: none;
+}
+
+/* ============================================================
+   USE ACTIVITY 1 — THE NOUN EXCHANGE LANDING
+   Full-width presentation; invisible HTML-defined SVG hotspots.
+   ============================================================ */
+
+.noun-exchange {
+    max-width: 1100px;
+    width: calc(100% - 64px);
+    margin: 32px auto;
+    padding: 16px;
+}
+
+.noun-exchange__scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1648 / 895;
+    overflow: hidden;
+    background: #162234;
+    border-radius: 10px;
+}
+
+.noun-exchange__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.noun-exchange__hotspots {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.noun-exchange__hotspot {
+    cursor: pointer;
+    outline: none;
+}
+
+.noun-exchange__hotspot path {
+    fill: transparent;
+    stroke: none;
+    pointer-events: all;
+}
+
+.noun-exchange__hotspot:hover path,
+.noun-exchange__hotspot:focus path {
+    fill: transparent;
+    stroke: none;
+    filter: none;
+}
+
+.noun-exchange__plaque {
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    padding: 10px 22px;
+    border: 1px solid #d6b477;
+    border-radius: 8px;
+    background: rgba(10, 28, 49, 0.94);
+    color: #fff5e5;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-size: clamp(13px, 1.25vw, 19px);
+}
+
+.noun-exchange__plaque[hidden],
+.noun-exchange__destination[hidden],
+.noun-exchange__landing[hidden] {
+    display: none;
+}
+
+.noun-exchange__plaque strong {
+    color: #f3cc8a;
+}
+
+.noun-exchange__hint {
+    text-align: center;
+}
+
+.noun-exchange__destination {
+    padding: 36px 24px;
+    min-height: 300px;
+    text-align: center;
+    background: #f5f8fc;
+    border: 1px solid #d8e1eb;
+    border-radius: 10px;
+}
+
+.noun-exchange__destination h3 {
+    font-size: 2rem;
+    color: #125d9d;
+}
+
+.noun-exchange__coming-soon {
+    font-weight: 700;
+    color: #566a7d;
+}
+
+@media (max-width: 700px) {
+    .noun-exchange {
+        width: calc(100% - 32px);
+        padding: 12px;
+    }
+
+    .noun-exchange__plaque {
+        bottom: 2%;
+        padding: 5px 8px;
+        gap: 5px;
+        font-size: 11px;
+    }
+}
+
+/* ==========================================================
+   UNCLE MISHA — NUMBER CYCLE INTRODUCTION AND VIDEO SCREEN
+   ========================================================== */
+.misha-introduction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 24px auto 14px;
+    padding: 0 20px;
+}
+
+.misha-introduction__image-button {
+    display: block;
+    width: min(760px, 100%);
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 180ms ease;
+}
+
+.misha-introduction__image-button img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.misha-introduction__image-button:hover,
+.misha-introduction__image-button:focus-visible {
+    transform: translateY(-5px) scale(1.025);
+    background: transparent;
+}
+
+.misha-introduction__image-button:focus-visible {
+    outline: 3px solid #1768b2;
+    outline-offset: 5px;
+}
+
+.misha-cycle__return {
+    background: #183c67;
+    color: #fff;
+    border: 1px solid #d5ad57;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 700;
+}
+
+.misha-cycle__return:hover {
+    background: #285587;
+    color: #fff;
+}
+
+.misha-cycle[hidden] {
+    display: none;
+}
+
+.misha-cycle {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #edf3f9;
+    overflow: auto;
+    padding: 18px;
+}
+
+.misha-cycle__shell {
+    width: min(1500px, 100%);
+    min-height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.misha-cycle__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #d8e1eb;
+}
+
+.misha-cycle__header h2 {
+    color: #183c67;
+    margin: 0;
+    font-size: clamp(1.4rem, 2.3vw, 2.1rem);
+}
+
+.misha-cycle__header p {
+    margin: 3px 0;
+}
+
+.misha-cycle__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .78rem;
+    font-weight: 800;
+    color: #456b92;
+}
+
+/* The video is centered above two large, side-by-side grammar references. */
+.misha-cycle__content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+}
+
+.misha-cycle__video-panel,
+.misha-cycle__explanations figure {
+    margin: 0;
+    border: 1px solid #d8e1eb;
+    border-radius: 12px;
+    background: #fff;
+    padding: 10px;
+}
+
+.misha-cycle__video-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+}
+
+.misha-cycle__video-panel video {
+    display: block;
+    width: min(760px, 100%);
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #10213a;
+    border-radius: 8px;
+}
+
+.misha-cycle__video-panel p {
+    margin: 0;
+    text-align: center;
+    color: #52677d;
+    font-size: .9rem;
+}
+
+.misha-cycle__explanations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+}
+
+.misha-cycle__explanations figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.misha-cycle__explanations img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* On narrower screens, prioritize legibility over forcing two tiny images. */
+@media (max-width: 850px) {
+    .misha-cycle__header {
+        flex-wrap: wrap;
+    }
+
+    .misha-cycle__explanations {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   NOUN EXCHANGE — LIVE GRAMMAR WORKBENCH
+========================================== */
+.noun-exchange__workbench {
+    max-width: 1000px;
+    margin: 18px auto;
+    padding: 20px;
+    background: #f5f9ff;
+    border: 1px solid #c9d9eb;
+    border-radius: 12px;
+}
+
+.noun-exchange__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.noun-exchange__controls label {
+    font-weight: 700;
+    color: #123d69;
+}
+
+.noun-exchange__controls select,
+.noun-exchange__controls input {
+    padding: 10px 12px;
+    border: 1px solid #7899bd;
+    border-radius: 7px;
+    font-size: 1.1rem;
+    background: white;
+}
+
+.noun-exchange__controls input {
+    width: 130px;
+}
+
+.noun-exchange__sentence {
+    padding: 22px 12px;
+    border-radius: 10px;
+    background: white;
+    text-align: center;
+    font-size: clamp(1.35rem, 2.7vw, 2.5rem);
+    line-height: 1.6;
+}
+
+.noun-exchange__sentence strong {
+    color: #145ca2;
+}
+
+.noun-exchange__est {
+    color: #9aa4b0;
+}
+
+.noun-exchange__meaning,
+.noun-exchange__pattern {
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+.noun-exchange__pattern {
+    color: #245f35;
+    font-weight: 700;
+}
+
+.noun-exchange__discoveries {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.noun-exchange__discoveries button {
+    background: #285fae;
+    color: white;
+    border: 1px solid #1c4886;
+}
+
+.noun-exchange__discoveries button:hover {
+    background: #174779;
+}
+
+.noun-exchange__note {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: #fff9e9;
+    border-left: 4px solid #c89b39;
+    border-radius: 6px;
+}
+
+.noun-exchange__note[hidden] {
+    display: none;
+}
+
+
+/* ==============================================================
+   THE NOUN EXCHANGE — MODERN RED / CHARCOAL EXPERIENCE
+   Applies only to the three object detail pages, not the landing.
+   Background supplied by the project in Images/numbers.
+   ============================================================== */
+
+.noun-exchange__destination:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    column-gap: 24px;
+    align-content: start;
+    position: relative;
+    width: 100%;
+    min-height: 570px;
+    padding: 24px clamp(20px, 4.5%, 64px) 26px;
+    overflow: hidden;
+    border: 1px solid #171717;
+    border-radius: 0;
+    color: #fff4d7;
+    text-align: left;
+    background-color: #0b0b0c;
+    background-image: url("../../Images/numbers/numbers-background-noun-exchange.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    isolation: isolate;
+}
+
+.noun-exchange__destination h3 {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    margin: 0 0 6px;
+    color: #fff1cf;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 3.5vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.15;
+    text-shadow: 0 2px 3px #000;
+}
+
+/* Keep both title words aligned to the two left-hand background panels.
+   The Russian word is positioned independently so other content does not move. */
+.noun-exchange__destination h3 {
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.noun-exchange__title-english {
+    display: block;
+}
+
+.noun-exchange__title-russian {
+    display: block;
+    position: absolute;
+    top: 135px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.noun-exchange__destination > p {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 400px;
+    margin: 34px 0 0;
+    transform: translateY(20px);
+    color: #fff1d4;
+    font-size: clamp(0.9rem, 1.25vw, 1.12rem);
+    line-height: 1.35;
+    text-align: center;
+    text-shadow: 0 1px 2px #000;
+}
+
+.noun-exchange__workbench {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: 2 / 4;
+    grid-template-rows: auto auto auto auto 1fr;
+    justify-items: center;
+    align-content: start;
+    width: 100%;
+    max-width: none;
+    min-height: 405px;
+    margin: 26px 0 0;
+    padding: 0 0 55px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.noun-exchange__instructions {
+    top: 20px;
+    position: relative;
+    left: 0;
+    transform: translateX(225px);
+    margin: 0 0 30px;
+    color: #fff;
+    font-size: clamp(0.95rem, 1.25vw, 1.16rem);
+    line-height: 1.4;
+    text-align: center;
+    text-shadow: 0 1px 2px #000;
+}
+
+.noun-exchange__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    margin: 35px 0 30px;
+}
+
+.noun-exchange__controls label {
+    color: #fff;
+    font-size: clamp(1.05rem, 1.65vw, 1.5rem);
+    font-weight: 500;
+    text-shadow: 0 1px 2px #000;
+}
+
+.noun-exchange__controls select,
+.noun-exchange__controls input {
+    min-height: 50px;
+    padding: 8px 12px;
+    border: 1px solid #d7e1ee;
+    border-radius: 9px;
+    background: #f8faff;
+    color: #111;
+    font-size: clamp(1.15rem, 2vw, 1.65rem);
+    box-shadow: inset 0 1px 2px #0002;
+}
+
+.noun-exchange__controls select {
+    max-width: min(100%, 265px);
+}
+
+.noun-exchange__controls input {
+    width: 125px;
+}
+
+.noun-exchange__sentence {
+    width: min(100%, 880px);
+    min-height: 80px;
+    padding: 11px 18px;
+    border: 3px double #a7a7a7;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.89);
+    color: #fff0cb;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.4rem, 3.2vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    text-shadow: 0 1px 2px #000;
+}
+
+.noun-exchange__sentence strong {
+    color: #fff0cb;
+    font-weight: 700;
+}
+
+.noun-exchange__sentence #noun-exchange-form-result {
+    color: #ffd279;
+}
+
+.noun-exchange__sentence .noun-exchange__est {
+    color: #8e8e91;
+}
+
+.noun-exchange__meaning {
+    margin: 5px 0 0;
+    color: #fff;
+    font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+    line-height: 1.35;
+    text-align: center;
+}
+
+.noun-exchange__pattern {
+    margin: 4px 0 0;
+    color: #ffe3a5;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.noun-exchange__discoveries {
+    position: absolute;
+    bottom: 16px;
+    left: clamp(16px, 4%, 55px);
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    z-index: 2;
+}
+
+.noun-exchange__destination .noun-exchange__discoveries button,
+.noun-exchange__destination #noun-exchange-back {
+    padding: 10px 18px;
+    border: 1px solid #8d1b2b;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #ec6570 0%, #a61c32 38%, #5c0818 75%, #26050b 100%);
+    box-shadow: inset 0 2px 1px #ffffff65, 0 4px 8px #0009;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 650;
+    text-shadow: 0 1px 2px #000;
+    transition: transform 160ms ease, filter 160ms ease;
+}
+
+.noun-exchange__destination .noun-exchange__discoveries button:hover,
+.noun-exchange__destination #noun-exchange-back:hover {
+    background: linear-gradient(180deg, #ff7b82 0%, #c52a43 40%, #780e21 80%, #36050f 100%);
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+}
+
+.noun-exchange__destination #noun-exchange-back {
+    position: absolute;
+    right: clamp(16px, 4%, 55px);
+    bottom: 16px;
+    z-index: 2;
+}
+
+.noun-exchange__note:not([hidden]) {
+    position: absolute;
+    bottom: 74px;
+    left: 5%;
+    width: min(90%, 660px);
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 4;
+    margin: 0;
+    padding: 15px 20px;
+    border: 1px solid #e6ac66;
+    border-left: 5px solid #d74653;
+    border-radius: 9px;
+    background: #17191ef5;
+    box-shadow: 0 8px 24px #000a;
+    color: #fff4df;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+@media (max-width: 900px) {
+    .noun-exchange__destination:not([hidden]) {
+        grid-template-columns: 1fr;
+        min-height: 640px;
+        padding: 24px 20px 96px;
+        background-size: cover;
+    }
+
+    .noun-exchange__destination h3,
+    .noun-exchange__destination > p {
+        grid-column: 1;
+        text-align: center;
+    }
+
+    .noun-exchange__destination > p {
+    position: relative;
+    top: 20px;
+        grid-row: 2;
+        max-width: none;
+        margin: 6px 0 0;
+    }
+
+    .noun-exchange__workbench {
+        grid-row: 3;
+        min-height: 0;
+        margin-top: 26px;
+        padding-bottom: 30px;
+    }
+
+    .noun-exchange__discoveries {
+        bottom: 62px;
+        left: 16px;
+        right: 16px;
+        justify-content: center;
+    }
+
+    .noun-exchange__destination #noun-exchange-back {
+        right: 50%;
+        bottom: 12px;
+        transform: translateX(50%);
+    }
+
+    .noun-exchange__destination #noun-exchange-back:hover {
+        transform: translateX(50%) translateY(-2px);
+    }
+}
+
+/* Noun Exchange: align both titles with the centers of the left background panels. */
+.noun-exchange__destination h3 {
+    transform: translateX(-90px);
+}
+
+.noun-exchange__title-russian {
+    top: 105px;
+}
+
+
+/* ============================================================
+   NUMBERS FOUNDATION — FOUR DOORS LANDING NAVIGATION
+   Each clickable door and back button is authored in HTML.
+   ============================================================ */
+
+.numbers-four-doors__door {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.numbers-four-doors__door:focus-visible {
+    outline: 3px solid #fff2b0;
+    outline-offset: 4px;
+}
+
+.numbers-four-doors__door:hover {
+    background: transparent;
+}
+
+.numbers-door-landing {
+    width: min(1600px, calc(100% - 48px));
+    margin: 16px auto 28px;
+    text-align: center;
+    position: relative;
+}
+
+.numbers-door-landing[hidden] {
+    display: none;
+}
+
+.numbers-door-landing > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Invisible HTML hotspot aligned over the illustrated return button. */
+.numbers-door-landing__hotspot {
+    position: absolute;
+    z-index: 20;
+    left: 3%;
+    bottom: 1%;
+    width: 41%;
+    height: 22%;
+    display: block;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    appearance: none;
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.numbers-door-landing__hotspot:hover,
+.numbers-door-landing__hotspot:focus,
+.numbers-door-landing__hotspot:active {
+    background: transparent !important;
+    border: 0;
+    box-shadow: none;
+    opacity: 0;
+}
+
+/* Explicitly respect hidden state even when other CSS defines display. */
+#numbers-four-doors[hidden],
+.numbers-door-landing[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 760px) {
+    .numbers-door-landing {
+        width: calc(100% - 24px);
+    }
+}
+
+/* Four Doors: transparent clickable area above each illustrated return button. */
+.numbers-door-landing > .numbers-door-landing__hotspot {
+    position: absolute !important;
+    z-index: 999 !important;
+    left: 37.5% !important;
+    bottom: 3.5% !important;
+    width: 29% !important;
+    height: 14.5% !important;
+    min-height: 40px;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+.numbers-door-landing > .numbers-door-landing__hotspot:hover,
+.numbers-door-landing > .numbers-door-landing__hotspot:focus,
+.numbers-door-landing > .numbers-door-landing__hotspot:active {
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+}
+
+/* ============================================================
+   LISTENING ROOM — EXPERIENCE 1: HOTEL ROOM NUMBER
+   Four transparent HTML hotspots align with the four plaques.
+   ============================================================ */
+.lr-hotel__instruction { color: #e6edf6; margin: 0.5rem 0 1rem; }
+.lr-hotel__actions { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 0.8rem; }
+.lr-hotel__status { color: #d6e6fb; min-height: 1.5em; }
+.lr-hotel__choices { position: relative; width: min(100%, 660px); margin: 0.8rem auto; }
+.lr-hotel__choices img { display: block; width: 100%; height: auto; }
+.lr-hotel__hotspot {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 25%;
+    padding: 0;
+    background: transparent;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.lr-hotel__hotspot:nth-of-type(1) { left: 0; }
+.lr-hotel__hotspot:nth-of-type(2) { left: 25%; }
+.lr-hotel__hotspot:nth-of-type(3) { left: 50%; }
+.lr-hotel__hotspot:nth-of-type(4) { left: 75%; }
+.lr-hotel__hotspot:hover, .lr-hotel__hotspot:focus-visible { background: rgba(255,255,255,0.10); border-color: #f4c56a; }
+.lr-hotel__hotspot--correct { border-color: #64df95 !important; background: rgba(55, 190, 102, 0.16) !important; }
+.lr-hotel__hotspot--incorrect { border-color: #f7a57e !important; background: rgba(220, 87, 60, 0.12) !important; }
+.lr-hotel__feedback { min-height: 1.5em; color: #ffd1b4; font-weight: 700; }
+.lr-hotel__feedback--correct { color: #91f2b6; }
+.lr-hotel__transcript { margin-top: 0.75rem; padding: 0.8rem 1rem; background: rgba(4, 12, 25, 0.8); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: white; }
+.lr-hotel__transcript p { margin: 0.35rem 0; }
+.lr-hotel__word { display: inline; padding: 0 2px; border: 0; border-bottom: 1px dashed #f4c56a; border-radius: 0; background: transparent; color: #f4d28a; font: inherit; }
+.lr-hotel__translation, .lr-hotel__meaning { color: #c6d6e9; }
+
+/* ============================================================
+   LISTENING ROOM — EXPERIENCES 2–8
+   Responsive illustrated answer hotspots, defined in HTML.
+   ============================================================ */
+.lr-number__choices {
+    position: relative;
+    width: min(100%, 700px);
+    margin: 0.8rem auto;
+}
+
+.lr-number__choices img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.lr-number__hotspot {
+    position: absolute;
+    padding: 0;
+    background: transparent;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.lr-number__choices--train .lr-number__hotspot,
+.lr-number__choices--score .lr-number__hotspot {
+    top: 0;
+    height: 100%;
+    width: 33.333333%;
+}
+
+.lr-number__choices--horizontal .lr-number__hotspot {
+    top: 0;
+    height: 100%;
+    width: 25%;
+}
+
+.lr-number__choices--vertical {
+    width: min(100%, 370px);
+}
+
+.lr-number__choices--vertical .lr-number__hotspot {
+    left: 0;
+    width: 100%;
+    height: 25%;
+}
+
+.lr-number__choices--runners .lr-number__hotspot {
+    top: 0;
+    height: 100%;
+    width: 16.666667%;
+}
+
+.lr-number__choices--train .lr-number__hotspot:nth-of-type(1),
+.lr-number__choices--score .lr-number__hotspot:nth-of-type(1),
+.lr-number__choices--horizontal .lr-number__hotspot:nth-of-type(1),
+.lr-number__choices--runners .lr-number__hotspot:nth-of-type(1) { left: 0; }
+
+.lr-number__choices--train .lr-number__hotspot:nth-of-type(2),
+.lr-number__choices--score .lr-number__hotspot:nth-of-type(2) { left: 33.333333%; }
+
+.lr-number__choices--train .lr-number__hotspot:nth-of-type(3),
+.lr-number__choices--score .lr-number__hotspot:nth-of-type(3) { left: 66.666667%; }
+
+.lr-number__choices--horizontal .lr-number__hotspot:nth-of-type(2) { left: 25%; }
+.lr-number__choices--horizontal .lr-number__hotspot:nth-of-type(3) { left: 50%; }
+.lr-number__choices--horizontal .lr-number__hotspot:nth-of-type(4) { left: 75%; }
+
+.lr-number__choices--vertical .lr-number__hotspot:nth-of-type(1) { top: 0; }
+.lr-number__choices--vertical .lr-number__hotspot:nth-of-type(2) { top: 25%; }
+.lr-number__choices--vertical .lr-number__hotspot:nth-of-type(3) { top: 50%; }
+.lr-number__choices--vertical .lr-number__hotspot:nth-of-type(4) { top: 75%; }
+
+.lr-number__choices--runners .lr-number__hotspot:nth-of-type(2) { left: 16.666667%; }
+.lr-number__choices--runners .lr-number__hotspot:nth-of-type(3) { left: 33.333333%; }
+.lr-number__choices--runners .lr-number__hotspot:nth-of-type(4) { left: 50%; }
+.lr-number__choices--runners .lr-number__hotspot:nth-of-type(5) { left: 66.666667%; }
+.lr-number__choices--runners .lr-number__hotspot:nth-of-type(6) { left: 83.333333%; }
+
+.lr-number__hotspot:hover,
+.lr-number__hotspot:focus-visible {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: #f4c56a;
+}
+
+.lr-number__hotspot--correct {
+    border-color: #64df95 !important;
+    background: rgba(55, 190, 102, 0.16) !important;
+}
+
+.lr-number__hotspot--incorrect {
+    border-color: #f7a57e !important;
+    background: rgba(220, 87, 60, 0.12) !important;
+}
+
+
+/* ============================================================
+   LISTENING ROOM — EXPERIENCE 5 LOCKER HOTSPOT ALIGNMENT
+   Align four narrower HTML-authored buttons with the actual
+   lockers, accounting for whitespace in the illustration.
+   ============================================================ */
+#lr-number-5 .lr-number__choices--horizontal .lr-number__hotspot {
+    width: 19%;
+    top: 0;
+    height: 100%;
+}
+
+#lr-number-5 .lr-number__hotspot:nth-of-type(1) { left: 11.3%; }
+#lr-number-5 .lr-number__hotspot:nth-of-type(2) { left: 31.5%; }
+#lr-number-5 .lr-number__hotspot:nth-of-type(3) { left: 50.6%; }
+#lr-number-5 .lr-number__hotspot:nth-of-type(4) { left: 70.8%; }
+
+
+/* ============================================================
+   LISTENING ROOM — EXPERIENCE 7 NUMBER-ONLY HOTSPOTS
+   Small, unrotated answer areas around each book's number.
+   ============================================================ */
+#lr-number-7 .lr-number__choices--vertical .lr-number__hotspot {
+    left: 30%;
+    width: 38%;
+    height: 13%;
+    transform: none;
+    border-radius: 8px;
+}
+
+#lr-number-7 .lr-number__hotspot:nth-of-type(1) {
+    top: 15%;
+}
+
+#lr-number-7 .lr-number__hotspot:nth-of-type(2) {
+    top: 38%;
+}
+
+#lr-number-7 .lr-number__hotspot:nth-of-type(3) {
+    top: 58%;
+}
+
+#lr-number-7 .lr-number__hotspot:nth-of-type(4) {
+    top: 81%;
+}
+
+/* ============================================================
+   LISTENING ROOM — EXPERIENCE 9: AT THE CAFÉ
+   Scoped styling preserves Experiences 1–8 and their hotspots.
+   ============================================================ */
+#lr-cafe .lr-cafe__instruction {
+    margin: 6px 0 14px;
+}
+
+#lr-cafe .lr-cafe__scene {
+    max-width: 650px;
+    margin: 0 auto 12px;
+}
+
+#lr-cafe .lr-cafe__scene img {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+#lr-cafe .lr-cafe__speaker-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+#lr-cafe .lr-cafe__speaker {
+    border: 1px solid #70859e;
+    border-radius: 999px;
+    padding: 4px 15px;
+    color: #e5edf7;
+    background: #182a42;
+    font-size: 0.85rem;
+}
+
+#lr-cafe .lr-cafe__speaker--speaking {
+    color: #081a30;
+    background: #f2c36d;
+    border-color: #f2c36d;
+    font-weight: 800;
+}
+
+#lr-cafe .lr-cafe__actions,
+#lr-cafe .lr-cafe__answers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+#lr-cafe .lr-cafe__answers[hidden] {
+    display: none;
+}
+
+#lr-cafe .lr-cafe__status,
+#lr-cafe .lr-cafe__feedback {
+    min-height: 22px;
+    font-size: 0.9rem;
+}
+
+#lr-cafe .lr-cafe__challenge {
+    border: 1px solid #3a516a;
+    border-radius: 12px;
+    padding: 14px 18px;
+    background: rgba(8, 22, 41, 0.84);
+}
+
+#lr-cafe .lr-cafe__step {
+    color: #f2c36d;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+#lr-cafe .lr-cafe__challenge h4 {
+    color: #fff;
+    margin: 5px 0;
+}
+
+#lr-cafe .lr-cafe__answer {
+    background: #1c3858;
+    color: #fff;
+    border: 1px solid #7a9dbb;
+    border-radius: 8px;
+    padding: 9px 18px;
+}
+
+#lr-cafe .lr-cafe__answer:hover:not(:disabled) {
+    background: #2d527b;
+}
+
+#lr-cafe .lr-cafe__answer--correct {
+    background: #205e46;
+    border-color: #83d5ac;
+}
+
+#lr-cafe .lr-cafe__answer--incorrect {
+    background: #66382e;
+    border-color: #f1aa87;
+}
+
+#lr-cafe .lr-cafe__feedback--correct {
+    color: #91e6b9;
+}
+
+#lr-cafe .lr-cafe__transcript {
+    margin-top: 12px;
+    border: 1px solid #536983;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background: #10243b;
+    color: #fff;
+}
+
+#lr-cafe .lr-cafe__transcript-heading {
+    color: #f2c36d;
+    font-weight: 700;
+}
+
+#lr-cafe .lr-cafe__transcript p {
+    margin: 5px 0;
+}
+
+#lr-cafe .lr-cafe__word {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px dotted #f2c36d;
+    border-radius: 0;
+    color: #f7dca2;
+    padding: 0 2px;
+    font-weight: inherit;
+}
+
+#lr-cafe .lr-cafe__word:hover {
+    background: #2c425e;
+}
+
+#lr-cafe .lr-cafe__meaning {
+    color: #cce3f7;
+    font-size: 0.88rem;
+}
+
+/* EXPERIENCE 10 — Train Station; same tested layout as the café. */
+#lr-station .lr-cafe__instruction {
+    margin: 6px 0 14px;
+}
+
+#lr-station .lr-cafe__scene {
+    max-width: 650px;
+    margin: 0 auto 12px;
+}
+
+#lr-station .lr-cafe__scene img {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+#lr-station .lr-cafe__speaker-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+#lr-station .lr-cafe__speaker {
+    border: 1px solid #70859e;
+    border-radius: 999px;
+    padding: 4px 15px;
+    color: #e5edf7;
+    background: #182a42;
+    font-size: 0.85rem;
+}
+
+#lr-station .lr-cafe__speaker--speaking {
+    color: #081a30;
+    background: #f2c36d;
+    border-color: #f2c36d;
+    font-weight: 800;
+}
+
+#lr-station .lr-cafe__actions,
+#lr-station .lr-cafe__answers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+#lr-station .lr-cafe__answers[hidden] {
+    display: none;
+}
+
+#lr-station .lr-cafe__status,
+#lr-station .lr-cafe__feedback {
+    min-height: 22px;
+    font-size: 0.9rem;
+}
+
+#lr-station .lr-cafe__challenge {
+    border: 1px solid #3a516a;
+    border-radius: 12px;
+    padding: 14px 18px;
+    background: rgba(8, 22, 41, 0.84);
+}
+
+#lr-station .lr-cafe__step {
+    color: #f2c36d;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+#lr-station .lr-cafe__challenge h4 {
+    color: #fff;
+    margin: 5px 0;
+}
+
+#lr-station .lr-cafe__answer {
+    background: #1c3858;
+    color: #fff;
+    border: 1px solid #7a9dbb;
+    border-radius: 8px;
+    padding: 9px 18px;
+}
+
+#lr-station .lr-cafe__answer:hover:not(:disabled) {
+    background: #2d527b;
+}
+
+#lr-station .lr-cafe__answer--correct {
+    background: #205e46;
+    border-color: #83d5ac;
+}
+
+#lr-station .lr-cafe__answer--incorrect {
+    background: #66382e;
+    border-color: #f1aa87;
+}
+
+#lr-station .lr-cafe__feedback--correct {
+    color: #91e6b9;
+}
+
+#lr-station .lr-cafe__transcript {
+    margin-top: 12px;
+    border: 1px solid #536983;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background: #10243b;
+    color: #fff;
+}
+
+#lr-station .lr-cafe__transcript-heading {
+    color: #f2c36d;
+    font-weight: 700;
+}
+
+#lr-station .lr-cafe__transcript p {
+    margin: 5px 0;
+}
+
+#lr-station .lr-cafe__word {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px dotted #f2c36d;
+    border-radius: 0;
+    color: #f7dca2;
+    padding: 0 2px;
+    font-weight: inherit;
+}
+
+#lr-station .lr-cafe__word:hover {
+    background: #2c425e;
+}
+
+#lr-station .lr-cafe__meaning {
+    color: #cce3f7;
+    font-size: 0.88rem;
+}
+
+
+/* Experiences 11–15 share the proven conversation styling. */
+.lr-conversation .lr-cafe__instruction {
+    margin: 6px 0 14px;
+}
+
+.lr-conversation .lr-cafe__scene {
+    max-width: 650px;
+    margin: 0 auto 12px;
+}
+
+.lr-conversation .lr-cafe__scene img {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.lr-conversation .lr-cafe__speaker-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.lr-conversation .lr-cafe__speaker {
+    border: 1px solid #70859e;
+    border-radius: 999px;
+    padding: 4px 15px;
+    color: #e5edf7;
+    background: #182a42;
+    font-size: 0.85rem;
+}
+
+.lr-conversation .lr-cafe__speaker--speaking {
+    color: #081a30;
+    background: #f2c36d;
+    border-color: #f2c36d;
+    font-weight: 800;
+}
+
+.lr-conversation .lr-cafe__actions,
+.lr-conversation .lr-cafe__answers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.lr-conversation .lr-cafe__answers[hidden] {
+    display: none;
+}
+
+.lr-conversation .lr-cafe__status,
+.lr-conversation .lr-cafe__feedback {
+    min-height: 22px;
+    font-size: 0.9rem;
+}
+
+.lr-conversation .lr-cafe__challenge {
+    border: 1px solid #3a516a;
+    border-radius: 12px;
+    padding: 14px 18px;
+    background: rgba(8, 22, 41, 0.84);
+}
+
+.lr-conversation .lr-cafe__step {
+    color: #f2c36d;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.lr-conversation .lr-cafe__challenge h4 {
+    color: #fff;
+    margin: 5px 0;
+}
+
+.lr-conversation .lr-cafe__answer {
+    background: #1c3858;
+    color: #fff;
+    border: 1px solid #7a9dbb;
+    border-radius: 8px;
+    padding: 9px 18px;
+}
+
+.lr-conversation .lr-cafe__answer:hover:not(:disabled) {
+    background: #2d527b;
+}
+
+.lr-conversation .lr-cafe__answer--correct {
+    background: #205e46;
+    border-color: #83d5ac;
+}
+
+.lr-conversation .lr-cafe__answer--incorrect {
+    background: #66382e;
+    border-color: #f1aa87;
+}
+
+.lr-conversation .lr-cafe__feedback--correct {
+    color: #91e6b9;
+}
+
+.lr-conversation .lr-cafe__transcript {
+    margin-top: 12px;
+    border: 1px solid #536983;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background: #10243b;
+    color: #fff;
+}
+
+.lr-conversation .lr-cafe__transcript-heading {
+    color: #f2c36d;
+    font-weight: 700;
+}
+
+.lr-conversation .lr-cafe__transcript p {
+    margin: 5px 0;
+}
+
+.lr-conversation .lr-cafe__word {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px dotted #f2c36d;
+    border-radius: 0;
+    color: #f7dca2;
+    padding: 0 2px;
+    font-weight: inherit;
+}
+
+.lr-conversation .lr-cafe__word:hover {
+    background: #2c425e;
+}
+
+.lr-conversation .lr-cafe__meaning {
+    color: #cce3f7;
+    font-size: 0.88rem;
+}
+
+/* PLANETARY EXPLORATION — secondary landing */
+.numbers-rover {
+    position: relative;
+    width: min(1600px, calc(100% - 48px));
+    margin: 16px auto 28px;
+    container-type: inline-size;
+    color: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.numbers-rover[hidden], .numbers-rover [hidden] {
+    display: none !important;
+}
+.numbers-rover__art {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+}
+.numbers-rover-open {
+    position: absolute;
+    left: 4%;
+    top: 24%;
+    width: 30%;
+    height: 51%;
+    background: transparent !important;
+    border: 0;
+    z-index: 21;
+}
+.numbers-rover-open:focus-visible, .numbers-rover__back:focus-visible {
+    outline: 3px solid #ffce78;
+}
+.numbers-rover__panels {
+    position: absolute;
+    inset: 23.6% 2% 16.5% 3.9%;
+    display: grid;
+    grid-template-columns: 35% 65%;
+    padding: 1.2%;
+    border: 2px solid #d99532;
+    border-radius: 5cqw;
+    background: rgba(63, 68, 103, .79);
+    font-size: clamp(10px, 1.35cqw, 20px);
+    line-height: 1.3;
+}
+.numbers-rover__brief {
+    padding: 1% 5%;
+}
+.numbers-rover__brief h2 {
+    font-family: Georgia, serif;
+    font-size: 2.4cqw;
+    margin: 0 0 .4em;
+}
+#rover-status, #rover-progress {
+    font-family: Consolas, monospace;
+    color: #ffce78;
+    font-size: .85em;
+}
+.numbers-rover__core {
+    border: 2px solid #d99532;
+    border-radius: 4cqw;
+    background: rgba(54, 59, 91, .58);
+    padding: 1.4% 4%;
+    text-align: center;
+    min-width: 0;
+}
+.numbers-rover__core h3 {
+    margin: 0 0 .5em;
+    color: #ffce78;
+    font-size: 1.7cqw;
+}
+.numbers-rover__core p {
+    margin: .4em 0;
+}
+.numbers-rover__beacons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: .5cqw;
+}
+.numbers-rover button:not(.numbers-rover__back) {
+    background: #20364e;
+    border: 1px solid #d99532;
+    color: #fff;
+    padding: .45cqw .7cqw;
+    font-size: inherit;
+}
+.numbers-rover button:not(.numbers-rover__back):hover:not(:disabled), .numbers-rover button[aria-pressed="true"] {
+    background: #78572e;
+}
+.numbers-rover button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+.numbers-rover__beacons button.is-visited {
+    border-color: #a9e2b8;
+}
+.numbers-rover__comparison {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1cqw;
+    font-size: 2cqw;
+}
+.numbers-rover__comparison #rover-ordinal {
+    color: #ffce78;
+}
+.numbers-rover__back, .numbers-rover__hatch {
+    position: absolute;
+    bottom: 4%;
+    height: 10%;
+}
+.numbers-rover__back {
+    background: transparent !important;
+    border: 0;
+}
+.numbers-rover__back--door {
+    left: 2%;
+    width: 24%;
+}
+.numbers-rover__back--hub {
+    right: 2%;
+    width: 26%;
+}
+.numbers-rover .numbers-rover__hatch {
+    width: 16%;
+    bottom: 5.8%;
+    background: rgba(63, 68, 103, .85);
+    border-radius: 1cqw;
+    font-size: 1.4cqw;
+}
+.numbers-rover__hatch--one {
+    left: 32.7%;
+}
+.numbers-rover__hatch--two {
+    left: 50.7%;
+}
+.numbers-rover__hatch small {
+    display: block;
+    font-style: italic;
+    font-size: .78em;
+}
+@media (max-width: 760px) {
+    .numbers-rover__panels {
+        position: relative;
+        inset: auto;
+        grid-template-columns: 1fr;
+        font-size: 14px;
+    }
+    .numbers-rover__brief h2, .numbers-rover__core h3 {
+        font-size: 20px;
+    }
+    .numbers-rover__back, .numbers-rover__hatch {
+        top: 0;
+        bottom: auto;
+        position: relative;
+        height: auto;
+        width: auto;
+        left: auto;
+        right: auto;
+    }
+    .numbers-rover__back::after {
+        content: attr(aria-label);
+        color: #20364e;
+    }
+}
+
+
+/* PLANETARY EXPLORATION — larger briefing and ordinal phrase examples */
+.numbers-rover__brief {
+    font-size: clamp(14px, 1.65cqw, 25px);
+    line-height: 1.32;
+}
+
+.numbers-rover__brief h2 {
+    font-size: 2.5cqw;
+}
+
+.numbers-rover__brief #rover-status,
+.numbers-rover__brief #rover-progress {
+    font-size: .85em;
+}
+
+.numbers-rover__examples {
+    margin: .8cqw auto 0;
+    width: fit-content;
+    max-width: 100%;
+    text-align: left;
+}
+
+.numbers-rover__examples-title {
+    color: #ffce78;
+    font-size: .95em;
+    text-align: center;
+}
+
+.numbers-rover__example-row {
+    display: grid;
+    grid-template-columns: 15cqw minmax(max-content, 1fr);
+    align-items: baseline;
+    gap: .55cqw;
+    font-size: clamp(13px, 1.65cqw, 25px);
+    line-height: 1.2;
+}
+
+.numbers-rover__example-label {
+    color: #ffce78;
+    text-align: right;
+}
+
+.numbers-rover .numbers-rover__example-row button:not(.numbers-rover__back) {
+    background: transparent;
+    border: 0;
+    padding: .15cqw .2cqw;
+    font-weight: 400;
+    text-align: left;
+}
+
+.numbers-rover__ending {
+    color: #ffce78;
+    font-weight: 700;
+}
+
+@media (max-width: 760px) {
+    .numbers-rover__brief {
+        font-size: 18px;
+    }
+
+    .numbers-rover__brief h2 {
+        font-size: 22px;
+    }
+}
+
+
+/* PLANETARY EXPLORATION — single-line bilingual examples */
+.numbers-rover__examples {
+    width: max-content;
+    max-width: 100%;
+}
+
+.numbers-rover__example-label,
+.numbers-rover__example-row button {
+    white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+    .numbers-rover__example-row {
+        grid-template-columns: max-content max-content;
+    }
+}
+
+/* BONUS HATCH 2 — aligned discovery and challenge controls */
+#rover-hatch-two .trap-tabs,
+#rover-hatch-two .trap-choices {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .5cqw;
+}
+#rover-hatch-two .trap-tabs button {
+    font-size: 1.05cqw;
+    white-space: nowrap;
+    padding: .5cqw .2cqw;
+}
+#rover-hatch-two .trap-panel {
+    margin-top: .8cqw;
+}
+#rover-hatch-two .trap-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2.2fr;
+    align-items: center;
+    gap: .45cqw .7cqw;
+    text-align: left;
+}
+#rover-hatch-two .trap-table strong {
+    color: #ffce78;
+    text-align: center;
+}
+#rover-hatch-two .trap-table span {
+    font-size: 1.15cqw;
+}
+#rover-hatch-two .trap-vowels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .2cqw;
+    font-size: 2.3cqw;
+    margin: .8cqw 0;
+}
+#rover-hatch-two .trap-vowels button {
+    font-size: inherit;
+}
+#rover-hatch-two .trap-feedback {
+    min-height: 1.5em;
+    color: #ffce78;
+}
+#rover-hatch-two .trap-return {
+    margin-top: .8cqw;
+}
+
+
+/* Stress Detective - persistent learner instruction */
+#rover-hatch-two .trap-stress-instruction {
+    color: #ffce78;
+    text-align: center;
+    font-size: clamp(14px, 1.2cqw, 20px);
+    margin: .5cqw 0 0;
+}
+
+/* BONUS HATCH 1 — The Adjective Secret */
+#rover-hatch-one .secret-tabs,
+#rover-hatch-one .secret-picker,
+#rover-hatch-one .secret-grid,
+#rover-hatch-one .secret-answers {
+    display: grid;
+    gap: .45cqw;
+    margin: .55cqw 0;
+}
+#rover-hatch-one .secret-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+#rover-hatch-one .secret-picker {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+#rover-hatch-one .secret-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+#rover-hatch-one .secret-answers {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+#rover-hatch-one [hidden] {
+    display: none !important;
+}
+#rover-hatch-one .secret-tabs button,
+#rover-hatch-one .secret-picker button {
+    white-space: nowrap;
+    padding: .35cqw .15cqw;
+    font-size: clamp(11px, 1.05cqw, 18px);
+}
+#rover-hatch-one .secret-card {
+    display: grid;
+    gap: .2cqw;
+    border: 1px solid #b99150;
+    border-radius: 6px;
+    padding: .3cqw;
+}
+#rover-hatch-one .secret-card strong,
+#rover-hatch-one .secret-instruction,
+#secret-feedback {
+    color: #ffce78;
+}
+#rover-hatch-one .secret-card button {
+    padding: .15cqw;
+    white-space: nowrap;
+}
+#rover-hatch-one [data-secret-form],
+#secret-phrase,
+#secret-prompt {
+    font-size: clamp(18px, 1.8cqw, 30px);
+}
+#rover-hatch-one .secret-return {
+    margin-top: .5cqw;
+}
+
+/* Ultimate Rover Challenge */
+.numbers-rover .ultimate-invite {
+    position: absolute;
+    top: 5.8%;
+    right: 3.5%;
+    width: 23%;
+    padding: .7cqw;
+    background: rgba(63, 68, 103, .79);
+    border: 2px solid #d99532;
+    border-radius: 1.5cqw;
+    font-size: 1.45cqw;
+    font-weight: 500;
+    line-height: 1.25;
+}
+.ultimate-rover {
+    position: relative;
+    width: min(1600px, calc(100% - 48px));
+    margin: 16px auto 28px;
+    container-type: inline-size;
+    color: white;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.ultimate-rover[hidden],
+.ultimate-rover [hidden] {
+    display: none !important;
+}
+.ultimate-workspace {
+    position: absolute;
+    inset: 11.2% 11.2% 28.8% 10.3%;
+    border: 2px solid #d99532;
+    border-radius: 4cqw;
+    background: rgba(63, 68, 103, .85);
+    padding: 1.4cqw 2cqw;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    font-size: 1.5cqw;
+    line-height: 1.3;
+}
+.ultimate-workspace h2,
+.ultimate-workspace h3 {
+    color: #ffce78;
+    margin: .25em 0;
+}
+.ultimate-workspace p {
+    margin: .35em 0;
+}
+.ultimate-workspace button {
+    background: #20364a;
+    color: white;
+    border: 1px solid #d99532;
+    padding: .35cqw .8cqw;
+    font-size: 1.35cqw;
+}
+.ultimate-workspace button:hover {
+    background: #75552d;
+}
+#ultimate-prompt {
+    font-size: 2.5cqw;
+    font-weight: 700;
+    color: #ffce78;
+}
+#ultimate-answer {
+    width: 55%;
+    text-align: center;
+    font-size: 2cqw;
+    margin: .3cqw;
+    border: 1px solid #d99532;
+    border-radius: 5px;
+}
+.ultimate-keyrow {
+    display: flex;
+    justify-content: center;
+    gap: .25cqw;
+    margin: .25cqw 0;
+}
+.ultimate-keyrow button {
+    width: 3.5cqw;
+    padding: .25cqw;
+}
+#ultimate-feedback {
+    min-height: 1.5em;
+    color: #ffce78;
+}
+#ultimate-back {
+    position: absolute;
+    left: 1%;
+    bottom: 2.5%;
+    width: 26%;
+    height: 9%;
+    background: transparent;
+    border: 0;
+}
+#ultimate-back:focus-visible {
+    outline: 3px solid #ffce78;
+}
+
+/* Three-station command console and mechanical keyboard */
+.ultimate-workspace:has(#ultimate-task:not([hidden])) {
+    inset: 11.2% 7% 24% 7%;
+    padding: .65cqw;
+    border-radius: 1.5cqw;
+    font-size: 1.05cqw;
+    align-items: stretch;
+}
+#ultimate-task {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: .45cqw;
+    min-height: 0;
+}
+.ultimate-stations {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1fr;
+    gap: .5cqw;
+    min-height: 0;
+}
+.ultimate-station {
+    border: 1px solid #c99b50;
+    border-radius: .7cqw;
+    background: rgba(18, 34, 53, .65);
+    padding: .45cqw;
+    min-width: 0;
+    font-size: 1.05cqw;
+}
+.ultimate-station h2,
+.ultimate-station h3 {
+    font-size: 1.4cqw;
+}
+.ultimate-station button {
+    font-size: 1cqw;
+    padding: .2cqw .45cqw;
+}
+#ultimate-sequence {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .2cqw;
+    margin: .3cqw 0;
+}
+#ultimate-sequence button {
+    cursor: grab;
+    font-size: 1.1cqw;
+}
+#ultimate-sequence .selected {
+    background: #75552d;
+    outline: 2px solid #ffce78;
+}
+#ultimate-answer,
+#agreement-answer {
+    width: 90%;
+    font-size: 1.55cqw;
+    text-align: center;
+    border: 2px solid #8295ac;
+    border-radius: 5px;
+}
+#ultimate-task .ultimate-active-input {
+    border-color: #ffce78;
+    outline: 2px solid #ffce78;
+}
+#agreement-noun {
+    font-size: 1.6cqw;
+    margin: .3cqw;
+}
+#ultimate-prompt {
+    font-size: 1.7cqw;
+}
+.ultimate-shared {
+    background: #17283b;
+    border: 1px solid #c99b50;
+    border-radius: .7cqw;
+    padding: .2cqw .5cqw .45cqw;
+}
+.ultimate-shared #keyboard-target {
+    color: #ffce78;
+    margin: 0;
+}
+.ultimate-shared .ultimate-keyrow {
+    gap: .35cqw;
+    margin: .22cqw 0 .4cqw;
+}
+.ultimate-shared button {
+    background: linear-gradient(180deg, #7892ad, #405b77 48%, #253b54);
+    color: #fff4db;
+    border: 1px solid #9baec0;
+    border-bottom: 3px solid #142438;
+    border-radius: .4cqw;
+    box-shadow: inset 0 1px 1px #c9d6e3, 0 2px 1px #091421;
+    font-size: 1.15cqw;
+    padding: .12cqw .5cqw;
+    transition: transform .08s, box-shadow .08s;
+}
+.ultimate-shared .ultimate-keyrow button {
+    width: 5.2cqw;
+}
+.ultimate-shared button:hover {
+    background: linear-gradient(180deg, #a2b7ca, #45617d);
+}
+.ultimate-shared button:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 3px #142438;
+}
+
+/* Fixed numbered sequence positions and speech recognition */
+#ultimate-sequence {
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
+}
+.ultimate-sequence-slot {
+    display: flex;
+    align-items: center;
+    gap: .2cqw;
+    min-width: 0;
+}
+.ultimate-sequence-slot span {
+    color: #ffce78;
+    font-weight: 700;
+    width: 1.4cqw;
+    flex-shrink: 0;
+    text-align: right;
+}
+#ultimate-sequence .ultimate-sequence-slot button {
+    flex: 1;
+    min-width: 0;
+    padding-inline: .15cqw;
+}
+#ultimate-heard {
+    color: #ffce78;
+    overflow-wrap: anywhere;
+    min-height: 1.5em;
+}
+#ultimate-speech[hidden] {
+    display: none;
+}
+
+
+/* PLANETARY EXPLORATION — three-dimensional mission controls */
+.numbers-rover button.numbers-rover__hatch--one {
+    --mission-top: #b58b43;
+    --mission-middle: #76501e;
+    --mission-bottom: #49300f;
+}
+
+.numbers-rover button.numbers-rover__hatch--two {
+    --mission-top: #b97852;
+    --mission-middle: #87452d;
+    --mission-bottom: #50251b;
+}
+
+.numbers-rover button.ultimate-invite {
+    --mission-top: #a94c50;
+    --mission-middle: #76242f;
+    --mission-bottom: #43121d;
+}
+
+.numbers-rover button.numbers-rover__hatch:not(.numbers-rover__back),
+.numbers-rover button.ultimate-invite:not(.numbers-rover__back) {
+    background: linear-gradient(180deg, var(--mission-top), var(--mission-middle) 48%, var(--mission-bottom));
+    border: 2px solid #d9ad62;
+    border-radius: .85cqw;
+    color: #fff5dc;
+    font-weight: 700;
+    text-shadow: 0 1px 2px #241509;
+    box-shadow: inset 0 2px 1px #ffffff55,
+                inset 2px 0 2px #ffffff22,
+                inset 0 -3px 3px #00000055,
+                0 4px 0 #392919,
+                0 6px 5px #00000055;
+    transition: filter .15s ease, transform .12s ease, box-shadow .12s ease;
+}
+
+.numbers-rover button.numbers-rover__hatch:not(.numbers-rover__back):hover:not(:disabled),
+.numbers-rover button.ultimate-invite:not(.numbers-rover__back):hover:not(:disabled) {
+    background: linear-gradient(180deg, var(--mission-top), var(--mission-middle) 48%, var(--mission-bottom));
+    filter: brightness(1.14);
+}
+
+.numbers-rover button.numbers-rover__hatch:not(.numbers-rover__back):active,
+.numbers-rover button.ultimate-invite:not(.numbers-rover__back):active {
+    transform: translateY(3px);
+    box-shadow: inset 0 2px 4px #00000066, 0 1px 0 #392919;
+}
+
+.numbers-rover button.numbers-rover__hatch:focus-visible,
+.numbers-rover button.ultimate-invite:focus-visible {
+    outline: 2px solid #fff1bd;
+    outline-offset: 3px;
+}
+
+.numbers-rover .numbers-rover__hatch small,
+.numbers-rover .ultimate-invite em {
+    color: #fff0c9;
+    font-weight: 500;
+}
+
+
+/* ULTIMATE ROVER CHALLENGE - panoramic floating displays */
+.ultimate-workspace:has(#ultimate-task:not([hidden])) {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+#ultimate-task .ultimate-station {
+    background: rgba(18, 34, 53, 0.25);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+
+/* PLANETARY EXPLORATION — Bonus Hatch lettering */
+.numbers-rover button.numbers-rover__hatch:not(.numbers-rover__back) {
+    font-size: 1.68cqw;
+}
+
+.numbers-rover button.numbers-rover__hatch small {
+    font-size: 0.8125em;
 }
