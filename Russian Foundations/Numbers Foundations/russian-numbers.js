@@ -5463,3 +5463,587 @@ function initializeNumbersConversation(slug, lines, questions) {
         showQuestion();
     });
 })();
+
+// DOOR TWO — integrated teaching and activation.
+(() => {
+    const get = (id) => document.getElementById(id);
+    const door = get("numbers-door-two-landing");
+    const lab = get("math-android-landing");
+    const challenge = get("math-challenge-landing");
+    const tasks = [
+        { prompt: "Listen. Which equation did you hear?", audio: "семь плюс три равно десять", choices: ["7 − 3 = 4", "7 + 3 = 10", "3 + 4 = 7"], correct: 1, answer: "семь плюс три равно десять" },
+        { prompt: "Listen. Identify the subtraction.", audio: "девять минус два будет семь", choices: ["9 − 2 = 7", "9 + 2 = 11", "7 − 2 = 5"], correct: 0, answer: "девять минус два будет семь" },
+        { prompt: "Construct 4 + 2 = 6. Choose the Russian expression.", audio: "четыре плюс два равно шесть", choices: ["четыре минус два равно два", "два плюс три равно пять", "четыре плюс два равно шесть"], correct: 2, answer: "четыре плюс два равно шесть" },
+        { prompt: "Listen to the question. Which question is it?", audio: "Сколько будет восемь минус три?", choices: ["How much is 8 + 3?", "How much is 8 − 3?", "How much is 3 + 5?"], correct: 1, answer: "Сколько будет восемь минус три?" },
+        { prompt: "Listen, choose the Russian answer, then say it aloud.", audio: "Сколько будет шесть плюс два?", choices: ["Будет восемь.", "Будет четыре.", "Будет девять."], correct: 0, answer: "Будет восемь." }
+    ];
+    let step = 0;
+    let locked = false;
+    const choices = Array.from(lab.querySelectorAll("[data-math-choice]"));
+    function show(destination) {
+        window.speechSynthesis?.cancel();
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = landing !== destination;
+        });
+        destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    function speak(word) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("math-feedback").textContent = "Audio unavailable. Use Show Russian text.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function render() {
+        locked = false;
+        const task = tasks[step];
+        get("math-task-count").textContent = `Activation task ${step + 1} of 5`;
+        get("math-task-prompt").textContent = task.prompt;
+        get("math-transcript").textContent = task.audio;
+        get("math-transcript").hidden = true;
+        get("math-feedback").textContent = "";
+        get("math-next").hidden = true;
+        choices.forEach((button, index) => {
+            button.textContent = task.choices[index];
+            button.disabled = false;
+        });
+    }
+    function power(value) {
+        get("math-portrait").dataset.power = value;
+        get("math-power").value = value;
+        get("math-power-label").textContent = `${value * 20}% · ${value === 5 ? "Fully online" : value === 0 ? "Offline" : "Activating"}`;
+    }
+    choices.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            if (locked) {
+                return;
+            }
+            const task = tasks[step];
+            if (index !== task.correct) {
+                get("math-feedback").textContent = "Try again. Listen for the operator and numbers.";
+                return;
+            }
+            locked = true;
+            power(step + 1);
+            choices.forEach((choice) => { choice.disabled = true; });
+            get("math-feedback").textContent = `Correct! ${task.answer} ${step === 4 ? "— Android fully activated!" : "— Repeat aloud."}`;
+            speak(task.answer);
+            get("math-next").hidden = step === 4;
+        });
+    });
+    get("math-next").addEventListener("click", () => {
+        step += 1;
+        render();
+    });
+    get("math-reset").addEventListener("click", () => {
+        step = 0;
+        power(0);
+        render();
+    });
+    get("math-listen").addEventListener("click", () => speak(tasks[step].audio));
+    get("math-reveal").addEventListener("click", () => {
+        get("math-transcript").hidden = !get("math-transcript").hidden;
+    });
+    lab.querySelectorAll("[data-math-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.mathSay));
+    });
+    get("math-android-open").addEventListener("click", () => show(lab));
+    get("math-door-two").addEventListener("click", () => show(door));
+    get("math-challenge-open").addEventListener("click", () => show(challenge));
+    get("math-challenge-back").addEventListener("click", () => show(lab));
+    render();
+})();
+
+// Door Two — full-body activation, independent of the head challenge.
+(() => {
+    const get = (id) => document.getElementById(id);
+    const tasks = [
+        ["Listen. Identify the equation.", "двенадцать плюс семь равно девятнадцать", ["12 + 7 = 19", "12 − 7 = 5", "12 + 6 = 18"], 0],
+        ["Listen. Identify the equation.", "двадцать минус восемь равно двенадцать", ["20 + 8 = 28", "20 − 8 = 12", "20 − 9 = 11"], 1],
+        ["Choose the Russian expression for 15 + 6 = 21.", "пятнадцать плюс шесть равно двадцать один", ["пятнадцать минус шесть равно девять", "пятнадцать плюс пять равно двадцать", "пятнадцать плюс шесть равно двадцать один"], 2],
+        ["Listen and answer in Russian.", "Сколько будет тридцать минус семь?", ["Будет двадцать три.", "Будет двадцать семь.", "Будет тридцать семь."], 0],
+        ["Listen. Which question did you hear?", "Сколько будет сорок плюс девять?", ["How much is 40 − 9?", "How much is 40 + 9?", "How much is 14 + 9?"], 1],
+        ["Listen and answer in Russian.", "Сколько будет пятьдесят плюс двадцать?", ["Будет тридцать.", "Будет шестьдесят.", "Будет семьдесят."], 2],
+        ["Choose the Russian expression for 80 − 30 = 50.", "восемьдесят минус тридцать равно пятьдесят", ["восемьдесят минус тридцать равно пятьдесят", "восемьдесят плюс тридцать равно сто десять", "восемьдесят минус двадцать равно шестьдесят"], 0],
+        ["Listen. Identify the equation.", "сто плюс двадцать пять равно сто двадцать пять", ["100 − 25 = 75", "100 + 25 = 125", "100 + 15 = 115"], 1],
+        ["Listen and answer in Russian.", "Сколько будет двести минус пятьдесят?", ["Будет двести пятьдесят.", "Будет сто пять.", "Будет сто пятьдесят."], 2],
+        ["Final activation: listen, answer and repeat aloud.", "Сколько будет триста плюс двести?", ["Будет пятьсот.", "Будет сто.", "Будет шестьсот."], 0]
+    ];
+    const choices = Array.from(document.querySelectorAll("[data-full-choice]"));
+    const lights = Array.from(document.querySelectorAll("[data-full-light]"));
+    let step = 0;
+    let locked = false;
+    function speak(word) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("math-full-feedback").textContent = "Audio unavailable. Use Show Russian text.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.85;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    const portrait = get("math-full-portrait");
+    const turn = get("math-full-turn");
+    const rewardTimers = [];
+    let rewardRun = 0;
+    function stopReward() {
+        rewardRun += 1;
+        rewardTimers.forEach(clearTimeout);
+        rewardTimers.length = 0;
+        portrait.classList.remove("is-surging", "is-turning", "is-final-pulse");
+        turn.hidden = true;
+        turn.removeAttribute("src");
+    }
+    function completionReward() {
+        stopReward();
+        const run = rewardRun;
+        const later = (callback, delay) => {
+            rewardTimers.push(setTimeout(() => {
+                if (run === rewardRun && !get("math-full-core").hidden && !portrait.closest("[hidden]")) {
+                    callback();
+                }
+            }, delay));
+        };
+        const finish = () => {
+            portrait.classList.remove("is-turning", "is-surging");
+            turn.hidden = true;
+            portrait.classList.add("is-final-pulse");
+            get("math-full-label").textContent = "100% · Fully operational";
+            speak("Системы активированы. Я готов к работе!");
+        };
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            later(finish, 1400);
+            return;
+        }
+        lights.forEach((light) => {
+            const top = parseFloat(light.style.top);
+            light.style.setProperty("--surge-delay", `${Math.round((65 - top) * 12)}ms`);
+        });
+        portrait.classList.add("is-surging");
+        later(() => {
+            portrait.classList.remove("is-surging");
+            turn.onload = () => {
+                if (run !== rewardRun || get("math-full-core").hidden || portrait.closest("[hidden]")) {
+                    return;
+                }
+                turn.hidden = false;
+                portrait.classList.add("is-turning");
+                later(finish, 2240);
+            };
+            turn.onerror = finish;
+            turn.src = "../../Images/numbers/door-2-android-turn.gif?run=" + run;
+        }, 1500);
+    }
+    function power(value) {
+        lights.forEach((light) => {
+            light.classList.toggle("is-online", Number(light.dataset.fullLight) <= value);
+        });
+        get("math-full-power").value = value;
+        get("math-full-label").textContent = `${value * 10}% · ${value === 10 ? "Fully online" : value === 0 ? "Offline" : "Activating"}`;
+    }
+    function render() {
+        locked = false;
+        const task = tasks[step];
+        get("math-full-count").textContent = `Activation task ${step + 1} of 10`;
+        get("math-full-prompt").textContent = task[0];
+        get("math-full-transcript").textContent = task[1];
+        get("math-full-transcript").hidden = true;
+        get("math-full-feedback").textContent = "";
+        get("math-full-next").hidden = true;
+        choices.forEach((button, index) => {
+            button.textContent = task[2][index];
+            button.disabled = false;
+        });
+    }
+    choices.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            if (locked) {
+                return;
+            }
+            const task = tasks[step];
+            if (index !== task[3]) {
+                get("math-full-feedback").textContent = "Try again. Listen for the numbers and operator.";
+                return;
+            }
+            locked = true;
+            power(step + 1);
+            choices.forEach((choice) => {
+                choice.disabled = true;
+            });
+            get("math-full-feedback").textContent = step === 9 ? "Correct! Full android activation complete!" : "Correct! Repeat aloud.";
+            speak(/^[А-Яа-яЁё]/.test(task[2][index]) ? task[2][index] : task[1]);
+            get("math-full-next").hidden = step === 9;
+            if (step === 9) {
+                completionReward();
+            }
+        });
+    });
+    get("math-full-next").addEventListener("click", () => {
+        step += 1;
+        render();
+    });
+    get("math-full-reset").addEventListener("click", () => {
+        stopReward();
+        window.speechSynthesis?.cancel();
+        step = 0;
+        power(0);
+        render();
+    });
+    get("math-full-listen").addEventListener("click", () => speak(tasks[step][1]));
+    get("math-full-reveal").addEventListener("click", () => {
+        get("math-full-transcript").hidden = !get("math-full-transcript").hidden;
+    });
+    get("math-full-open").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        get("math-head-core").hidden = true;
+        get("math-full-core").hidden = false;
+    });
+    get("math-full-back").addEventListener("click", () => {
+        stopReward();
+        window.speechSynthesis?.cancel();
+        get("math-full-core").hidden = true;
+        get("math-head-core").hidden = false;
+    });
+    render();
+})();
+
+// Door Two — Conversational Math. All interactive controls are authored in HTML.
+(() => {
+    const get = (id) => document.getElementById(id);
+    const hatch = get("math-conversation-hatch");
+    const tasks = Array.from(hatch.querySelectorAll(".cm-task"));
+    let index = 0;
+    let selected = [];
+    let locked = false;
+    function speak(text, rate = 0.85) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("cm-meaning").textContent = "Russian audio is unavailable in this browser.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function show(destination) {
+        window.speechSynthesis?.cancel();
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = landing !== destination;
+        });
+        destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    get("cm-open").addEventListener("click", () => show(hatch));
+    get("cm-back").addEventListener("click", () => show(get("math-android-landing")));
+    hatch.querySelectorAll(".cm-word").forEach((button) => {
+        button.addEventListener("click", () => {
+            hatch.querySelectorAll(".cm-word").forEach((word) => word.setAttribute("aria-pressed", String(word === button)));
+            get("cm-meaning").textContent = `${button.textContent} — ${button.dataset.meaning}`;
+            speak(button.textContent);
+        });
+    });
+    hatch.querySelectorAll("[data-cm-audio]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.cmAudio, button.hasAttribute("data-cm-slow") ? 0.6 : 0.85));
+    });
+    function check(task, value) {
+        if (locked) {
+            return;
+        }
+        const feedback = task.querySelector(".cm-feedback");
+        if (value !== task.dataset.key) {
+            feedback.textContent = "Not quite. Try again. For a sentence builder, clear your selection first.";
+            return;
+        }
+        locked = true;
+        feedback.textContent = "Correct! — Правильно!";
+        task.querySelector(".cm-explanation").hidden = false;
+        speak(task.dataset.answer.split(" — ")[0]);
+        task.querySelectorAll("[data-cm-choice], [data-cm-check], [data-cm-clear]").forEach((button) => {
+            button.disabled = true;
+        });
+        get("cm-progress").value = index + 1;
+        get("cm-next").hidden = index === tasks.length - 1;
+        get("cm-done").hidden = index !== tasks.length - 1;
+    }
+    function clear(task) {
+        selected = [];
+        task.querySelectorAll("[data-cm-choice]").forEach((button) => {
+            button.disabled = false;
+        });
+        const built = task.querySelector(".cm-built");
+        if (built) {
+            built.textContent = "";
+        }
+    }
+    tasks.forEach((task) => {
+        task.querySelectorAll("[data-cm-choice]").forEach((button) => {
+            button.addEventListener("click", () => {
+                if (locked) {
+                    return;
+                }
+                if (task.dataset.key.includes(",")) {
+                    selected.push(button.dataset.cmChoice);
+                    button.disabled = true;
+                    task.querySelector(".cm-built").textContent += `${button.textContent} `;
+                } else {
+                    check(task, button.dataset.cmChoice);
+                }
+            });
+        });
+        task.querySelector("[data-cm-clear]")?.addEventListener("click", () => clear(task));
+        task.querySelector("[data-cm-check]")?.addEventListener("click", () => check(task, selected.join(",")));
+    });
+    function render() {
+        locked = false;
+        selected = [];
+        tasks.forEach((task, position) => {
+            task.hidden = position !== index;
+            clear(task);
+            task.querySelector(".cm-feedback").textContent = "";
+            task.querySelector(".cm-explanation").hidden = true;
+            task.querySelectorAll("details").forEach((detail) => {
+                detail.open = false;
+            });
+            task.querySelectorAll("[data-cm-check], [data-cm-clear]").forEach((button) => {
+                button.disabled = false;
+            });
+        });
+        get("cm-count").textContent = `Exercise ${index + 1} of ${tasks.length}`;
+        get("cm-next").hidden = true;
+        get("cm-done").hidden = true;
+    }
+    get("cm-next").addEventListener("click", () => {
+        if (locked && index < tasks.length - 1) {
+            index += 1;
+            render();
+        }
+    });
+    get("cm-reset").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        index = 0;
+        get("cm-progress").value = 0;
+        render();
+    });
+})();
+
+// Door Two — Above & Below Zero. Controls are authored in HTML.
+(() => {
+    const get = (id) => document.getElementById(id);
+    const root = get("zero-lab");
+    const units = [["по", "ло", "жи́", "тель", "ное"], ["от", "ри", "ца́", "тель", "ное"]];
+    const numbers = ["ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать", "двадцать"];
+    const tasks = [5, -5, 0, 10, -10, 20, -20, 30, -15, 25];
+    let number = 0;
+    let word = 0;
+    let stage = 0;
+    let task = 0;
+    let solved = false;
+    function russian(value) {
+        const magnitude = Math.abs(value);
+        const name = magnitude <= 20 ? numbers[magnitude] : magnitude === 30 ? "тридцать" : "двадцать " + numbers[magnitude - 20];
+        return value === 0 ? name : (value < 0 ? "минус " : "плюс ") + name;
+    }
+    function signed(value) {
+        return value > 0 ? `+${value}` : String(value);
+    }
+    function speak(text, rate = 0.85) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("zero-meaning").textContent = "Russian audio is unavailable in this browser.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function show(destination) {
+        window.speechSynthesis?.cancel();
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = landing !== destination;
+        });
+        destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    function renderNumber(value, audio = true) {
+        number = Math.max(-5, Math.min(5, value));
+        get("zero-value").textContent = signed(number);
+        get("zero-value").style.color = number < 0 ? "#91caff" : number > 0 ? "#ff9e81" : "white";
+        get("zero-russian").textContent = russian(number);
+        get("zero-definition").textContent = number < 0 ? "Negative: less than zero." : number > 0 ? "Positive: greater than zero." : "Zero is neither positive nor negative.";
+        root.querySelectorAll("[data-zero-number]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.zeroNumber) === number));
+        });
+        get("zero-left").disabled = number === -5;
+        get("zero-right").disabled = number === 5;
+        if (audio) {
+            speak(russian(number));
+        }
+    }
+    function chain() {
+        return units[word].slice(4 - stage).join("");
+    }
+    function renderGuide(audio = true) {
+        get("zero-stage").textContent = `Stage ${stage + 1} of 5`;
+        get("zero-full-word").querySelectorAll("span").forEach((span, index) => {
+            span.textContent = units[word][index];
+            span.classList.toggle("active-unit", index >= 4 - stage);
+        });
+        root.querySelectorAll(".zero-units span").forEach((span, index) => {
+            span.textContent = index >= 4 - stage ? units[word][index] : "··";
+            span.classList.toggle("new-unit", index >= 4 - stage);
+        });
+        root.querySelectorAll("[data-zero-guide]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.zeroGuide) === word));
+        });
+        get("zero-prev").disabled = stage === 0;
+        get("zero-add").disabled = stage === 4;
+        get("zero-phrase").hidden = stage !== 4;
+        get("zero-phrase").textContent = `${chain()} число́ — ${word === 0 ? "positive" : "negative"} number. Now say the full expression.`;
+        if (audio) {
+            speak(chain(), 1);
+        }
+    }
+    function renderTemperature() {
+        const value = Number(get("zero-temp").value);
+        get("zero-temp-value").textContent = `${signed(value)}°C`;
+        get("zero-temp-value").style.color = value < 0 ? "#91caff" : value > 0 ? "#ff9e81" : "white";
+        get("zero-marker").style.top = `${(30 - value) * 2}%`;
+    }
+    function renderTask() {
+        solved = false;
+        get("zero-progress").textContent = `Exercise ${task + 1} of ${tasks.length}`;
+        get("zero-clue").textContent = `${russian(tasks[task])} — ${signed(tasks[task])}°C`;
+        get("zero-hint").open = false;
+        get("zero-temp").value = 0;
+        get("zero-temp").disabled = false;
+        get("zero-check").disabled = false;
+        get("zero-next").hidden = true;
+        get("zero-feedback").textContent = "Set the temperature, then check your answer.";
+        renderTemperature();
+    }
+    get("zero-open").addEventListener("click", () => show(root));
+    get("zero-back").addEventListener("click", () => show(get("math-android-landing")));
+    root.querySelectorAll("[data-zero-number]").forEach((button) => {
+        button.addEventListener("click", () => renderNumber(Number(button.dataset.zeroNumber)));
+    });
+    get("zero-left").addEventListener("click", () => renderNumber(number - 1));
+    get("zero-right").addEventListener("click", () => renderNumber(number + 1));
+    get("zero-reset").addEventListener("click", () => renderNumber(0));
+    get("zero-listen").addEventListener("click", () => speak(russian(number)));
+    get("zero-slow").addEventListener("click", () => speak(russian(number), 0.6));
+    root.querySelectorAll("[data-zero-word]").forEach((button) => {
+        button.addEventListener("click", () => {
+            get("zero-meaning").textContent = `${button.textContent} — ${button.dataset.meaning}`;
+            speak(button.dataset.zeroWord);
+        });
+    });
+    get("zero-pronounce").addEventListener("click", () => {
+        get("zero-teach").hidden = true;
+        get("zero-guide").hidden = false;
+        renderGuide();
+    });
+    get("zero-guide-back").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        get("zero-guide").hidden = true;
+        get("zero-teach").hidden = false;
+    });
+    root.querySelectorAll("[data-zero-guide]").forEach((button) => {
+        button.addEventListener("click", () => {
+            word = Number(button.dataset.zeroGuide);
+            stage = 0;
+            renderGuide();
+        });
+    });
+    root.querySelectorAll("[data-zero-rate]").forEach((button) => {
+        button.addEventListener("click", () => speak(chain(), Number(button.dataset.zeroRate)));
+    });
+    get("zero-prev").addEventListener("click", () => {
+        stage = Math.max(0, stage - 1);
+        renderGuide();
+    });
+    get("zero-add").addEventListener("click", () => {
+        stage = Math.min(4, stage + 1);
+        renderGuide();
+    });
+    get("zero-temp").addEventListener("input", renderTemperature);
+    get("zero-question").addEventListener("click", () => speak("Какая сегодня температура?"));
+    get("zero-task-listen").addEventListener("click", () => speak(russian(tasks[task])));
+    get("zero-task-slow").addEventListener("click", () => speak(russian(tasks[task]), 0.6));
+    get("zero-check").addEventListener("click", () => {
+        if (solved) {
+            return;
+        }
+        if (Number(get("zero-temp").value) !== tasks[task]) {
+            get("zero-feedback").textContent = "Not quite. Listen again and adjust the thermometer.";
+            return;
+        }
+        solved = true;
+        get("zero-check").disabled = true;
+        get("zero-temp").disabled = true;
+        get("zero-feedback").textContent = task === tasks.length - 1 ? "Отлично! All ten exercises complete!" : "Верно! Correct. Say the temperature aloud.";
+        get("zero-next").hidden = task === tasks.length - 1;
+        speak(russian(tasks[task]));
+    });
+    get("zero-next").addEventListener("click", () => {
+        if (solved && task < tasks.length - 1) {
+            task += 1;
+            renderTask();
+        }
+    });
+    get("zero-practice-reset").addEventListener("click", () => {
+        task = 0;
+        renderTask();
+    });
+    renderNumber(0, false);
+    renderGuide(false);
+    renderTask();
+})();
+
+// Quantum Math Reactor — navigation only. All controls are authored in HTML.
+(() => {
+    const hub = document.getElementById("reactor-landing");
+    const door = document.getElementById("numbers-door-two-landing");
+
+    function show(destination) {
+        if (!destination) {
+            return;
+        }
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = landing !== destination;
+        });
+        destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.getElementById("reactor-open").addEventListener("click", () => show(hub));
+    document.getElementById("reactor-door-back").addEventListener("click", () => show(door));
+    hub.querySelectorAll("[data-reactor-target]").forEach((button) => {
+        button.addEventListener("click", () => {
+            show(document.getElementById(`reactor-${button.dataset.reactorTarget}`));
+        });
+    });
+    document.querySelectorAll(".reactor-return").forEach((button) => {
+        button.addEventListener("click", () => show(hub));
+    });
+})();

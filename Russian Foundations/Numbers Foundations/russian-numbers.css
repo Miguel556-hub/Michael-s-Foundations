@@ -5962,7 +5962,8 @@ h1 {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: #edf3f9;
+    background: #10213a;
+    color: #f1f5fa;
     overflow: auto;
     padding: 18px;
 }
@@ -5983,12 +5984,12 @@ h1 {
     gap: 20px;
     padding: 12px 18px;
     border-radius: 12px;
-    background: #fff;
-    border: 1px solid #d8e1eb;
+    background: #18304d;
+    border: 1px solid #46617e;
 }
 
 .misha-cycle__header h2 {
-    color: #183c67;
+    color: #f2cf88;
     margin: 0;
     font-size: clamp(1.4rem, 2.3vw, 2.1rem);
 }
@@ -6002,7 +6003,7 @@ h1 {
     letter-spacing: .12em;
     font-size: .78rem;
     font-weight: 800;
-    color: #456b92;
+    color: #b8d0e8;
 }
 
 /* The video is centered above two large, side-by-side grammar references. */
@@ -6018,9 +6019,9 @@ h1 {
 .misha-cycle__video-panel,
 .misha-cycle__explanations figure {
     margin: 0;
-    border: 1px solid #d8e1eb;
+    border: 1px solid #46617e;
     border-radius: 12px;
-    background: #fff;
+    background: #18304d;
     padding: 10px;
 }
 
@@ -6045,7 +6046,7 @@ h1 {
 .misha-cycle__video-panel p {
     margin: 0;
     text-align: center;
-    color: #52677d;
+    color: #d5e2ef;
     font-size: .9rem;
 }
 
@@ -7883,4 +7884,1070 @@ h1 {
 
 .numbers-rover button.numbers-rover__hatch small {
     font-size: 0.8125em;
+}
+
+/* DOOR TWO — MATH LAB */
+.math-lab {
+    container-type: inline-size;
+    color: white;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.math-lab [hidden] {
+    display: none !important;
+}
+.math-lab__panels {
+    position: absolute;
+    inset: 23.5% 2% 17% 4%;
+    display: grid;
+    grid-template-columns: 41% 59%;
+    padding: 1.2%;
+    border: 2px solid #d99532;
+    border-radius: 5cqw;
+    background: rgba(100, 31, 41, .82);
+    font-size: 1.35cqw;
+    line-height: 1.3;
+    text-align: left;
+}
+.math-lab__brief {
+    padding: 3% 6%;
+}
+.math-lab__brief h2 {
+    font: 2.4cqw Georgia, serif;
+    margin: 0 0 .5em;
+}
+.math-lab__core {
+    border: 2px solid #d99532;
+    border-radius: 4cqw;
+    background: rgba(100, 31, 41, .65);
+    padding: 2%;
+    text-align: center;
+    min-width: 0;
+}
+.math-lab__core h3 {
+    margin: 0 0 .5em;
+    color: #ffda88;
+    font-size: 1.8cqw;
+}
+.math-lab__stations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2%;
+    align-items: stretch;
+}
+.math-lab__stations button,
+.math-lab__words button,
+#math-stations-back,
+.math-lab__hatches button,
+.math-lab__challenge {
+    color: white;
+    background: linear-gradient(#82464a, #47151e);
+    border: 1px solid #d99532;
+    border-radius: 1cqw;
+    font-size: 1.2cqw;
+    padding: .5cqw;
+}
+.math-lab__stations button:disabled,
+.math-lab__hatches button:disabled {
+    opacity: .7;
+    cursor: default;
+}
+.math-lab__stations img {
+    display: block;
+    width: 100%;
+    height: 12cqw;
+    object-fit: contain;
+}
+.math-lab__stations small {
+    display: block;
+}
+.math-lab__equipment {
+    display: grid;
+    grid-template-columns: 36% 64%;
+    align-items: center;
+}
+.math-lab__android {
+    width: 100%;
+    max-height: 19cqw;
+    object-fit: contain;
+}
+.math-lab__console {
+    position: relative;
+}
+.math-lab__console img {
+    display: block;
+    width: 100%;
+}
+.math-lab__console button,
+.math-lab__nav {
+    position: absolute;
+    background: transparent !important;
+    border: 0;
+    padding: 0;
+}
+.math-lab__console button {
+    top: 24%;
+    width: 24%;
+    height: 48%;
+    border-radius: 50%;
+}
+.math-lab__console button:first-of-type {
+    left: 23%;
+}
+.math-lab__console button:last-of-type {
+    left: 54%;
+}
+.math-lab__nav {
+    bottom: 3%;
+    width: 25%;
+    height: 11%;
+}
+.math-lab__nav--left {
+    left: 1.5%;
+}
+.math-lab__nav--right {
+    right: 1.5%;
+}
+.math-lab__challenge {
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    width: 23%;
+}
+.math-lab__hatches {
+    position: absolute;
+    bottom: 6%;
+    left: 33%;
+    width: 34%;
+    display: flex;
+    gap: 5%;
+}
+.math-lab__hatches button {
+    flex: 1;
+}
+.math-lab button:focus-visible {
+    outline: 3px solid #ffda88;
+}
+#math-word-feedback {
+    margin: .4em 0;
+}
+
+/* Door Two — transparent Android Head navigation hotspot. */
+#numbers-door-two-landing > .math-door-android-open {
+    position: absolute;
+    left: 15%;
+    top: 46%;
+    width: 19%;
+    height: 32%;
+    z-index: 21;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+#numbers-door-two-landing > .math-door-android-open:focus-visible {
+    outline: 2px solid #ffda88;
+}
+
+
+
+/* Integrated Station One teaching and activation. */
+.math-lab__brief {
+    padding: 1% 5%;
+}
+.math-lab__brief p {
+    margin: .35em 0;
+}
+.math-lab__brief h2 {
+    margin-bottom: .2em;
+}
+.math-teach-words {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .35cqw;
+}
+.math-lab__brief button,
+.math-task button {
+    background: linear-gradient(#82464a, #47151e);
+    color: white;
+    border: 1px solid #d99532;
+    border-radius: .5cqw;
+    padding: .35cqw .5cqw;
+    font-size: 1.15cqw;
+    line-height: 1.2;
+}
+.math-teach-words small {
+    display: block;
+}
+.math-example {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-bottom: .35cqw;
+}
+.math-activation-grid {
+    display: grid;
+    grid-template-columns: 43% 57%;
+    align-items: center;
+    gap: .5cqw;
+}
+.math-portrait {
+    position: relative;
+    width: 100%;
+}
+.math-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.math-light {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse, #fff5d5 0%, #ff321b 35%, transparent 72%);
+    transition: opacity .6s ease;
+    transform: translate(-50%, -50%);
+}
+.math-light--eye1 { left: 57.5%; top: 30.5%; width: 5%; height: 5%; }
+.math-light--eye2 { left: 74%; top: 32%; width: 4%; height: 4%; }
+.math-light--ear { left: 28%; top: 35%; width: 10%; height: 10%; }
+.math-light--neck { left: 43%; top: 68%; width: 7%; height: 24%; }
+.math-light--chest { left: 66%; top: 91%; width: 12%; height: 10%; }
+.math-portrait:not([data-power="0"]) .math-light--eye1,
+.math-portrait:is([data-power="2"], [data-power="3"], [data-power="4"], [data-power="5"]) .math-light--eye2,
+.math-portrait:is([data-power="3"], [data-power="4"], [data-power="5"]) .math-light--ear,
+.math-portrait:is([data-power="4"], [data-power="5"]) .math-light--neck,
+.math-portrait[data-power="5"] .math-light--chest {
+    opacity: 1;
+}
+#math-power {
+    width: 90%;
+    accent-color: #ffb43e;
+}
+.math-task {
+    text-align: left;
+    padding: .4cqw;
+    font-size: 1.2cqw;
+}
+.math-task p {
+    margin: .35em 0;
+}
+#math-choices {
+    display: grid;
+    gap: .35cqw;
+    margin-top: .5cqw;
+}
+#math-feedback {
+    color: #ffda88;
+    min-height: 2.5em;
+}
+
+
+/* Door Two — mechanical vocabulary operator icons */
+.math-lab__brief .math-teach-words button {
+    display: grid;
+    grid-template-columns: 2.45cqw 1fr;
+    align-items: center;
+    gap: .45cqw;
+    padding: .2cqw .5cqw;
+}
+
+.math-operator-icon {
+    display: block;
+    width: 2.45cqw;
+    height: 2.45cqw;
+    object-fit: contain;
+}
+
+.math-operator-label {
+    display: block;
+    text-align: center;
+    min-width: 0;
+}
+
+/* Door Two — independent full-body activation challenge. */
+#math-full-open {
+    margin-left: .5cqw;
+    min-width: 40%;
+}
+.math-full-portrait {
+    width: 100%;
+    max-width: 19cqw;
+    margin: auto;
+}
+.math-full-portrait .math-light {
+    border-radius: 50%;
+    background: radial-gradient(ellipse, #ffe0b0 0%, #ff5932 25%, #e51c10 55%, transparent 78%);
+    filter: drop-shadow(0 0 2px #ff351d);
+}
+.math-full-portrait .math-light.is-online {
+    opacity: 1;
+}
+.math-full-choices {
+    display: grid;
+    gap: .35cqw;
+    margin-top: .5cqw;
+}
+#math-full-power {
+    width: 90%;
+    accent-color: #ffb43e;
+}
+#math-full-feedback {
+    color: #ffda88;
+    min-height: 2em;
+}
+
+
+/* Full Android Activation — compact layout with overlapping artwork. */
+.math-lab__panels:has(.math-full-core:not([hidden])) {
+    grid-template-rows: minmax(0, 1fr);
+}
+
+.math-full-core {
+    position: relative;
+    min-height: 0;
+    overflow: visible;
+    padding: 1cqw;
+}
+
+.math-full-core h3 {
+    margin: 0 0 .8cqw 44%;
+    text-align: center;
+}
+
+.math-full-core .math-activation-grid {
+    display: block;
+}
+
+.math-full-figure {
+    position: absolute;
+    left: -4%;
+    bottom: 2%;
+    width: 49%;
+    pointer-events: none;
+}
+
+.math-full-core .math-full-portrait {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+.math-full-core .math-task {
+    position: absolute;
+    top: 4.1cqw;
+    right: 1cqw;
+    bottom: 1cqw;
+    width: 54%;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    column-gap: .3cqw;
+    row-gap: .2cqw;
+}
+
+.math-full-core .math-task > strong,
+.math-full-core .math-task > p,
+.math-full-core .math-full-choices {
+    width: 100%;
+    margin: 0;
+}
+
+.math-full-core .math-full-choices {
+    gap: .3cqw;
+}
+
+.math-full-core #math-full-feedback {
+    min-height: 1.3em;
+    margin: .2cqw 0;
+}
+
+.math-full-progress {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+    padding-top: .5cqw;
+}
+
+.math-full-progress #math-full-power {
+    width: 70%;
+    display: block;
+    margin: 0 auto .2cqw;
+}
+
+/* Full android — one-time completion reward. */
+.math-full-portrait .math-full-turn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.math-full-turn[hidden] {
+    display: none;
+}
+.math-full-portrait.is-turning > img:first-child,
+.math-full-portrait.is-turning .math-light {
+    visibility: hidden;
+}
+.math-full-portrait.is-surging .math-light.is-online {
+    animation: math-full-surge 700ms ease-in-out both;
+    animation-delay: var(--surge-delay, 0ms);
+}
+@keyframes math-full-surge {
+    0%, 100% {
+        filter: drop-shadow(0 0 2px #ff351d);
+    }
+    50% {
+        filter: brightness(1.8) drop-shadow(0 0 7px #ff9c43);
+    }
+}
+.math-full-portrait.is-final-pulse {
+    animation: math-full-final-pulse 650ms ease-in-out;
+}
+@keyframes math-full-final-pulse {
+    50% {
+        filter: drop-shadow(0 0 9px #ff8a35);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .math-full-portrait.is-surging .math-light.is-online,
+    .math-full-portrait.is-final-pulse {
+        animation: none;
+    }
+}
+
+/* Full android only: center the ear illumination on its circular module. */
+.math-full-portrait .math-light[data-full-light="3"] {
+    left: 39.4% !important;
+    top: 7.95% !important;
+}
+
+/* Door Two — Conversational Math hatch */
+.cm-panel {
+    position: absolute;
+    inset: 19% 4% 12%;
+    background: rgba(66, 20, 27, .96);
+    border: 2px solid #d99532;
+    border-radius: 2cqw;
+    padding: 1.2cqw;
+    font-size: 1.1cqw;
+    line-height: 1.3;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.cm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1cqw;
+}
+.cm-panel h2, .cm-panel h3, .cm-panel p {
+    margin: .3em 0;
+}
+.cm-panel h2 {
+    font-size: 1.65cqw;
+    color: #ffda85;
+}
+.cm-panel h3 {
+    font-size: 1.3cqw;
+    color: #ffda85;
+}
+.cm-columns {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    flex: 1;
+    min-height: 0;
+}
+.cm-teaching, .cm-practice {
+    padding: .6cqw;
+    min-width: 0;
+    overflow: auto;
+}
+.cm-practice {
+    border-left: 1px solid #b77e43;
+}
+.cm-dialogue {
+    background: #562831;
+    border: 1px solid #a66e40;
+    border-radius: .6cqw;
+    padding: .45cqw;
+    margin: .4cqw 0;
+}
+.cm-dialogue small {
+    display: block;
+    color: #edc678;
+}
+.cm-words, .cm-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25cqw;
+    margin: .3cqw 0;
+}
+.cm-panel button {
+    color: #fff;
+    background: linear-gradient(#82464a, #47151e);
+    border: 1px solid #d99532;
+    border-radius: .4cqw;
+    padding: .3cqw .55cqw;
+    font-size: 1.05cqw;
+}
+.cm-panel button:hover, .cm-panel button[aria-pressed="true"] {
+    background: #98613e;
+    color: #fff4ca;
+}
+.cm-panel button:disabled {
+    opacity: .55;
+}
+.cm-panel summary {
+    cursor: pointer;
+    color: #ffda85;
+}
+#cm-meaning, .cm-grammar {
+    background: #35171c;
+    padding: .5cqw;
+    margin: .3cqw 0;
+    border-radius: .4cqw;
+}
+.cm-panel progress {
+    width: 100%;
+    accent-color: #e9b94f;
+}
+.cm-feedback {
+    color: #ffda85;
+    min-height: 2em;
+}
+.cm-built {
+    min-height: 2em;
+    border-bottom: 1px solid #d99532;
+}
+
+/* Conversational Math — guided practice readability */
+.cm-practice {
+    font-size: 1.35cqw;
+    line-height: 1.4;
+}
+.cm-practice h2 {
+    font-size: 1.85cqw;
+}
+.cm-practice h3 {
+    font-size: 1.55cqw;
+}
+.cm-practice button {
+    font-size: 1.3cqw;
+    padding: .4cqw .65cqw;
+}
+.cm-practice .cm-choices {
+    gap: .45cqw;
+    margin: .55cqw 0;
+}
+.cm-feedback {
+    min-height: 0;
+    font-weight: 700;
+}
+.cm-explanation {
+    background: #35171c;
+    border-left: 3px solid #d99532;
+    border-radius: .4cqw;
+    padding: .65cqw;
+    margin: .5cqw 0;
+}
+.cm-explanation .cm-answer {
+    font-size: 1.65cqw;
+    font-weight: 700;
+}
+.cm-explanation .cm-english {
+    color: #ffda85;
+    font-weight: 700;
+}
+.cm-explanation[hidden],
+#cm-done[hidden] {
+    display: none !important;
+}
+
+/* Conversational Math - literal word order */
+.cm-explanation .cm-literal {
+    color: #b9d9ff;
+    font-style: italic;
+}
+
+/* Door Two — Above & Below Zero */
+.zero-lab {
+    background: linear-gradient(135deg, #202c39, #101b29);
+    border: 2px solid #b78b50;
+    border-radius: 18px;
+    padding: 1.5cqw;
+    text-align: left;
+    font-size: clamp(13px, 1.25cqw, 19px);
+    line-height: 1.35;
+}
+.zero-header, .zero-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.zero-header h2, .zero-card h3 {
+    color: #f0ce91;
+    margin: 0 0 8px;
+}
+.zero-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+}
+.zero-card {
+    background: #172431;
+    border: 1px solid #526477;
+    border-radius: 12px;
+    padding: 14px;
+    min-width: 0;
+}
+.zero-card p {
+    margin: 8px 0;
+}
+.zero-lab button {
+    background: #293b4c;
+    border: 1px solid #8296a8;
+    color: #fff;
+    padding: 6px 9px;
+    font-size: inherit;
+}
+.zero-lab button:hover, .zero-lab button[aria-pressed="true"] {
+    background: #526477;
+    border-color: #f0ce91;
+}
+.zero-lab button:disabled {
+    opacity: .45;
+    cursor: default;
+}
+.zero-axis {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 2px;
+    border-top: 5px solid transparent;
+    border-image: linear-gradient(90deg, #499ce9, white, #ef7652) 1;
+    margin: 20px 0 12px;
+}
+.zero-axis button {
+    padding: 5px 0;
+    min-width: 0;
+}
+.zero-axis button:nth-child(-n+5), .zero-negative {
+    color: #91caff;
+}
+.zero-axis button:nth-child(n+7), .zero-positive {
+    color: #ff9e81;
+}
+.zero-reading {
+    display: grid;
+    text-align: center;
+    background: #0d1823;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+}
+#zero-value, #zero-temp-value {
+    font-size: 2.6em;
+    line-height: 1.1;
+}
+#zero-russian {
+    font-size: 1.65em;
+    font-weight: bold;
+}
+#zero-pronounce {
+    background: #59452c;
+    border-color: #d8b36a;
+    color: #ffe2a7;
+    width: 100%;
+}
+.zero-units {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin: 20px 0;
+}
+.zero-units span {
+    background: #293b4c;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 1.4em;
+}
+.zero-units .new-unit {
+    background: #78572e;
+    color: #ffe09b;
+}
+.zero-thermal {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 14px;
+}
+.zero-meter {
+    position: relative;
+    height: 290px;
+    margin: 12px 0;
+}
+.zero-track {
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    border-radius: 12px;
+    background: linear-gradient(to bottom, #ef7652, #e6e7e9 60%, #459ee8);
+}
+#zero-marker {
+    position: absolute;
+    left: -6px;
+    width: 30px;
+    height: 7px;
+    border: 2px solid white;
+    background: #172431;
+    border-radius: 4px;
+    transform: translateY(-50%);
+}
+.zero-ticks {
+    position: absolute;
+    left: 43px;
+    inset-block: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: .9em;
+}
+#zero-temp {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 18px;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    accent-color: #e5c58a;
+    margin: 0;
+}
+#zero-meaning, #zero-feedback {
+    color: #f0ce91;
+    min-height: 1.5em;
+}
+.zero-task details {
+    margin: 10px 0;
+}
+@media (max-width: 1000px) {
+    .zero-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Above & Below Zero — cumulative pronunciation highlighting */
+#zero-full-word {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #f5f5f5;
+}
+#zero-full-word .active-unit {
+    color: #ffce76;
+}
+#zero-guide [data-zero-rate="1"] {
+    background: #78572e;
+    border-color: #d8b36a;
+    color: #ffe09b;
+}
+
+/* Hatch navigation — transparent hotspots over the illustrated buttons. */
+#cm-back {
+    z-index: 20;
+    left: 1.5%;
+    bottom: 2%;
+    width: 27%;
+    height: 11%;
+}
+
+/* Above & Below Zero — learning panels on the orbital station artwork. */
+#zero-lab {
+    padding: 0;
+    border: 0;
+    background: none;
+}
+
+#zero-lab .zero-columns {
+    position: absolute;
+    inset: 16% 3% 13% 27%;
+    margin: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1cqw;
+    font-size: clamp(11px, 1.05cqw, 17px);
+}
+
+#zero-lab .zero-card {
+    background: rgba(23, 36, 49, 0.95);
+    overflow: auto;
+    min-height: 0;
+    padding: 1cqw;
+}
+
+#zero-lab .zero-landing-back {
+    z-index: 20;
+    left: 1.8%;
+    bottom: 2.8%;
+    width: 24.6%;
+    height: 8.7%;
+    border: 0;
+    padding: 0;
+}
+
+#cm-back:focus-visible,
+#zero-back:focus-visible {
+    outline: 3px solid #ffe09b;
+    outline-offset: 2px;
+}
+
+/* Quantum Math Reactor — navigation shell */
+#reactor-open,
+#reactor-door-back {
+    position: absolute;
+    border: 0;
+    background: transparent !important;
+    box-shadow: none;
+    padding: 0;
+    z-index: 22;
+}
+#reactor-open {
+    left: 36%;
+    top: 58%;
+    width: 26%;
+    height: 34%;
+}
+#reactor-door-back {
+    left: 1%;
+    bottom: 2%;
+    width: 18%;
+    height: 12%;
+}
+#reactor-open:focus-visible,
+#reactor-door-back:focus-visible {
+    outline: 2px solid gold;
+}
+/* Layered reactor artwork — positions relative to the landing image. */
+.reactor-scene {
+    container-type: inline-size;
+}
+.reactor-artwork {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.reactor-artwork img {
+    position: absolute;
+    display: block;
+    height: auto;
+    object-fit: contain;
+}
+.reactor-machine {
+    left: 26%;
+    top: 15.5%;
+    width: 49%;
+    z-index: 2;
+}
+.reactor-nodule {
+    width: 23%;
+    z-index: 1;
+}
+.reactor-nodule--multiply {
+    left: calc(15% - 5px);
+    top: calc(30.5% - 30px);
+}
+.reactor-nodule--divide {
+    right: calc(14% - 5px);
+    top: calc(30.5% - 30px);
+    width: 24%;
+}
+.reactor-nodule--fractions {
+    left: calc(14.5% - 5px);
+    top: calc(54% - 35px);
+}
+.reactor-nodule--percent {
+    right: calc(14% - 5px);
+    top: calc(54% - 35px);
+}
+.reactor-core {
+    position: absolute;
+    left: 35.25%;
+    top: 23%;
+    width: 30.5%;
+    height: 49%;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    padding: 2.2%;
+    border-radius: 50%;
+    background: #030b16c9;
+    color: white;
+    font-size: 1.65cqw;
+    line-height: 1.35;
+    text-align: center;
+}
+.reactor-module,
+.reactor-module:hover,
+.reactor-module:active {
+    position: absolute;
+    width: 16%;
+    height: 19%;
+    z-index: 5;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+}
+.reactor-module:focus-visible {
+    outline: 2px solid gold;
+    outline-offset: 3px;
+}
+.reactor-multiply {
+    left: calc(15.5% - 5px);
+    top: calc(32% - 30px);
+}
+.reactor-divide {
+    right: calc(14.5% - 5px);
+    top: calc(32% - 30px);
+    width: 17%;
+    height: 20%;
+}
+.reactor-fractions {
+    left: calc(15% - 5px);
+    top: calc(55% - 35px);
+}
+.reactor-percent {
+    right: calc(14.5% - 5px);
+    top: calc(55% - 35px);
+}
+.reactor-return {
+    position: absolute;
+    left: 50%;
+    bottom: 4%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    border: 3px solid #e8b54b;
+    border-radius: 14px;
+    padding: .65em 1.5em;
+    background: linear-gradient(#344c65, #101d2e 48%, #050b14 52%, #17283d);
+    color: #ffe6ad;
+    font: bold clamp(.8rem, 1.6vw, 1.4rem) Georgia, serif;
+    box-shadow: inset 0 2px 3px #ffffff70, 0 5px 0 #795017, 0 8px 12px #000a;
+}
+.reactor-return:hover {
+    background: linear-gradient(#45637e, #102238);
+}
+
+/* Individual reactor experience — corner identification artwork. */
+.numbers-door-landing > img.reactor-experience-nodule {
+    position: absolute;
+    top: 2%;
+    width: 23%;
+    height: auto;
+    border-radius: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.reactor-experience-nodule--left {
+    left: 2%;
+}
+
+.reactor-experience-nodule--right {
+    right: 2%;
+}
+
+
+/* Keep each return button directly beneath its identification nodule. */
+.reactor-corner {
+    position: absolute;
+    top: 2%;
+    width: 23%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.reactor-corner--left {
+    left: 2%;
+}
+
+.reactor-corner--right {
+    right: 2%;
+}
+
+.reactor-corner > .reactor-experience-nodule {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+
+.reactor-corner > .reactor-return {
+    position: static;
+    transform: none;
+}
+
+
+/* Quantum Math Reactor — individual content placeholders. */
+.reactor-experience {
+    container-type: inline-size;
+}
+
+.reactor-workspace {
+    position: absolute;
+    top: 7%;
+    bottom: 5%;
+    width: 73%;
+    z-index: 1;
+    border: 2px solid #e99b00;
+    border-radius: 2cqw;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+}
+
+.reactor-workspace--right {
+    right: 2%;
+}
+
+.reactor-workspace--left {
+    left: 2.75%;
+}
+
+.reactor-workspace__instructions {
+    margin: 0;
+    padding: 2.2cqw 1.2cqw;
+    font: 1.8cqw Georgia, serif;
+}
+
+.reactor-workspace__core {
+    position: absolute;
+    top: 26%;
+    right: 2.5%;
+    bottom: 2.75%;
+    left: 2.5%;
+    display: grid;
+    place-items: center;
+    border: 2px solid #e99b00;
+    border-radius: 2cqw;
+    background: rgba(0, 0, 0, 0.75);
+    font-size: 1.7cqw;
+    text-align: center;
+}
+
+.reactor-workspace__core p {
+    margin: 0;
 }
