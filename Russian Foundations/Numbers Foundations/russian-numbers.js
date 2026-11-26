@@ -6047,3 +6047,458 @@ function initializeNumbersConversation(slug, lines, questions) {
         button.addEventListener("click", () => show(hub));
     });
 })();
+
+// Multiplication — persistent two-stage energy activation.
+(() => {
+    const questions = [
+        {
+            "instruction": "Identify the Russian expression for multiplication.",
+            "prompt": "Which expression means “multiply by”?",
+            "audio": "умножить на",
+            "meaning": "The preposition на introduces the multiplier.",
+            "choices": [
+                "плюс",
+                "умножить на",
+                "минус"
+            ],
+            "correct": 1,
+            "model": "умножить на"
+        },
+        {
+            "instruction": "Complete the expression with the correct preposition.",
+            "prompt": "Три умножить ___ четыре.",
+            "audio": "три умножить на четыре",
+            "meaning": "Three multiplied by four.",
+            "choices": [
+                "в",
+                "с",
+                "на"
+            ],
+            "correct": 2,
+            "model": "три умножить на четыре"
+        },
+        {
+            "instruction": "Match the Russian expression to its notation.",
+            "prompt": "Пять умножить на два.",
+            "audio": "пять умножить на два",
+            "meaning": "Five multiplied by two.",
+            "choices": [
+                "5 × 2",
+                "5 + 2",
+                "5 − 2"
+            ],
+            "correct": 0,
+            "model": "пять умножить на два равно десять"
+        },
+        {
+            "instruction": "Listen first, then choose the expression you heard.",
+            "prompt": "🎧 Listen to the expression.",
+            "audio": "семь умножить на три",
+            "meaning": "Seven multiplied by three.",
+            "choices": [
+                "3 × 7",
+                "7 × 3",
+                "7 + 3"
+            ],
+            "correct": 1,
+            "model": "семь умножить на три равно двадцать один"
+        },
+        {
+            "instruction": "Choose the Russian reading of the equation.",
+            "prompt": "4 × 6",
+            "audio": "четыре умножить на шесть",
+            "meaning": "Four multiplied by six.",
+            "choices": [
+                "шесть плюс четыре",
+                "четыре минус шесть",
+                "четыре умножить на шесть"
+            ],
+            "correct": 2,
+            "model": "четыре умножить на шесть равно двадцать четыре"
+        },
+        {
+            "instruction": "Identify the multiplier (the number after на).",
+            "prompt": "Восемь умножить на пять.",
+            "audio": "восемь умножить на пять",
+            "meaning": "Eight multiplied by five.",
+            "choices": [
+                "пять",
+                "восемь",
+                "сорок"
+            ],
+            "correct": 0,
+            "model": "восемь умножить на пять равно сорок"
+        },
+        {
+            "instruction": "Complete the equation in Russian.",
+            "prompt": "Девять умножить на два равно ___.",
+            "audio": "девять умножить на два равно",
+            "meaning": "Nine multiplied by two equals…",
+            "choices": [
+                "девятнадцать",
+                "восемнадцать",
+                "одиннадцать"
+            ],
+            "correct": 1,
+            "model": "девять умножить на два равно восемнадцать"
+        },
+        {
+            "instruction": "Recognize a conversational question.",
+            "prompt": "Сколько будет шесть умножить на три?",
+            "audio": "сколько будет шесть умножить на три",
+            "meaning": "How much is six times three?",
+            "choices": [
+                "Будет девять.",
+                "Будет шестнадцать.",
+                "Будет восемнадцать."
+            ],
+            "correct": 2,
+            "model": "будет восемнадцать"
+        },
+        {
+            "instruction": "Listen and identify the complete equation.",
+            "prompt": "🎧 Listen to the complete equation.",
+            "audio": "десять умножить на четыре равно сорок",
+            "meaning": "Ten times four equals forty.",
+            "choices": [
+                "10 × 4 = 40",
+                "10 + 4 = 14",
+                "4 × 4 = 16"
+            ],
+            "correct": 0,
+            "model": "десять умножить на четыре равно сорок"
+        },
+        {
+            "instruction": "Choose the correct Russian instruction for 12 × 3.",
+            "prompt": "12 × 3",
+            "audio": "двенадцать умножить на три",
+            "meaning": "Multiply twelve by three.",
+            "choices": [
+                "три плюс двенадцать",
+                "двенадцать умножить на три",
+                "двенадцать умножить три"
+            ],
+            "correct": 1,
+            "model": "двенадцать умножить на три равно тридцать шесть"
+        },
+        {
+            "instruction": "Interpret the groups and select the equation.",
+            "prompt": "В каждой коробке четыре яблока. Всего три коробки.",
+            "audio": "в каждой коробке четыре яблока. всего три коробки",
+            "meaning": "Four apples in each box; three boxes altogether.",
+            "choices": [
+                "4 + 3",
+                "4 − 3",
+                "4 × 3"
+            ],
+            "correct": 2,
+            "model": "четыре умножить на три равно двенадцать"
+        },
+        {
+            "instruction": "Calculate the total cost and choose a Russian answer.",
+            "prompt": "Один билет стоит двадцать рублей. Нужно пять билетов. Сколько всего?",
+            "audio": "один билет стоит двадцать рублей. нужно пять билетов. сколько всего",
+            "meaning": "One ticket costs 20 rubles; five tickets are needed.",
+            "choices": [
+                "Сто рублей.",
+                "Двадцать пять рублей.",
+                "Пятьдесят рублей."
+            ],
+            "correct": 0,
+            "model": "двадцать умножить на пять равно сто. сто рублей"
+        },
+        {
+            "instruction": "Listen to the order and identify the total.",
+            "prompt": "🎧 Listen to the order.",
+            "audio": "три пакета, в каждом по шесть яблок. сколько всего яблок",
+            "meaning": "Three bags, six apples in each.",
+            "choices": [
+                "девять яблок",
+                "восемнадцать яблок",
+                "шестнадцать яблок"
+            ],
+            "correct": 1,
+            "model": "восемнадцать яблок"
+        },
+        {
+            "instruction": "Interpret the repeated daily quantity.",
+            "prompt": "Каждый день я читаю десять страниц. Сколько страниц за семь дней?",
+            "audio": "каждый день я читаю десять страниц. сколько страниц за семь дней",
+            "meaning": "I read ten pages each day. How many in seven days?",
+            "choices": [
+                "семнадцать страниц",
+                "шестьдесят страниц",
+                "семьдесят страниц"
+            ],
+            "correct": 2,
+            "model": "десять умножить на семь равно семьдесят"
+        },
+        {
+            "instruction": "Choose the instruction that doubles the quantity.",
+            "prompt": "Увеличьте число восемь в два раза.",
+            "audio": "увеличьте число восемь в два раза",
+            "meaning": "Increase eight twofold (double it).",
+            "choices": [
+                "Восемь умножить на два.",
+                "Восемь плюс два.",
+                "Восемь минус два."
+            ],
+            "correct": 0,
+            "model": "восемь умножить на два равно шестнадцать"
+        },
+        {
+            "instruction": "Find the total number of seats.",
+            "prompt": "В зале шесть рядов, в каждом ряду по десять мест.",
+            "audio": "в зале шесть рядов, в каждом ряду по десять мест",
+            "meaning": "Six rows, ten seats in each row.",
+            "choices": [
+                "шестнадцать мест",
+                "шестьдесят мест",
+                "семьдесят мест"
+            ],
+            "correct": 1,
+            "model": "шестьдесят мест"
+        },
+        {
+            "instruction": "Interpret the price question.",
+            "prompt": "Две книги стоят по сто рублей. Сколько стоят обе книги?",
+            "audio": "две книги стоят по сто рублей. сколько стоят обе книги",
+            "meaning": "Two books cost 100 rubles each. How much for both?",
+            "choices": [
+                "сто два рубля",
+                "сто рублей",
+                "двести рублей"
+            ],
+            "correct": 2,
+            "model": "сто умножить на два равно двести"
+        },
+        {
+            "instruction": "Listen to the work schedule and choose the total.",
+            "prompt": "🎧 Listen to the schedule.",
+            "audio": "он работает по восемь часов в день, пять дней в неделю. сколько часов в неделю",
+            "meaning": "He works eight hours a day, five days a week.",
+            "choices": [
+                "сорок часов",
+                "тринадцать часов",
+                "пятьдесят часов"
+            ],
+            "correct": 0,
+            "model": "сорок часов"
+        },
+        {
+            "instruction": "Choose the correct response to a quantity question.",
+            "prompt": "В каждой упаковке по двенадцать бутылок. Сколько бутылок в четырёх упаковках?",
+            "audio": "в каждой упаковке по двенадцать бутылок. сколько бутылок в четырёх упаковках",
+            "meaning": "Twelve bottles per pack; how many in four packs?",
+            "choices": [
+                "шестнадцать бутылок",
+                "сорок восемь бутылок",
+                "сорок бутылок"
+            ],
+            "correct": 1,
+            "model": "двенадцать умножить на четыре равно сорок восемь"
+        },
+        {
+            "instruction": "Final reactor challenge: interpret the delivery.",
+            "prompt": "Привезли девять ящиков, в каждом по двадцать деталей. Сколько всего деталей?",
+            "audio": "привезли девять ящиков, в каждом по двадцать деталей. сколько всего деталей",
+            "meaning": "Nine crates arrived, each containing twenty parts.",
+            "choices": [
+                "двадцать девять деталей",
+                "девяносто деталей",
+                "сто восемьдесят деталей"
+            ],
+            "correct": 2,
+            "model": "девять умножить на двадцать равно сто восемьдесят"
+        }
+    ];
+    const get = (id) => document.getElementById(id);
+    const root = get("reactor-multiplication");
+    const key = "numbers-reactor-multiplication-v1";
+    let counts = [0, 0];
+    try {
+        const stored = JSON.parse(localStorage.getItem(key) || "0");
+        counts = Array.isArray(stored) ? [0, 1].map(i => Math.max(0, Math.min(10, Math.floor(Number(stored[i]) || 0)))) : [Math.min(10, Math.max(0, Number(stored) || 0)), Math.min(10, Math.max(0, (Number(stored) || 0) - 10))];
+    } catch (error) {
+        console.warn("Multiplication progress unavailable", error);
+    }
+    let activeSet = 0;
+    let index = Math.min(counts[0], 9);
+    let solved = counts[0] === 10;
+    let stage = 0;
+    const units = ["у", "мно́", "жить", " на"];
+    function speak(text, rate = 1) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("mul-feedback").textContent = "Russian audio is unavailable. Use Help to continue.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function save() {
+        try {
+            localStorage.setItem(key, JSON.stringify(counts));
+        } catch (error) {
+            console.warn("Multiplication progress could not be saved", error);
+        }
+    }
+    function energy() {
+        root.querySelectorAll("[data-mul-wheel]").forEach((wheel) => {
+            const set = Number(wheel.dataset.mulWheel) - 1;
+            wheel.hidden = set !== activeSet;
+            wheel.classList.toggle("is-complete", counts[set] === 10);
+            wheel.querySelectorAll("[data-mul-cell]").forEach((cell) => {
+                cell.classList.toggle("is-lit", Number(cell.dataset.mulCell) <= counts[set]);
+            });
+        });
+        const complete = counts.every(count => count === 10);
+        document.querySelector(".reactor-nodule--multiply").classList.toggle("is-energized", complete);
+        document.querySelector(".reactor-multiply").setAttribute("aria-label", complete ? "Multiplication — fully energized" : "Multiplication");
+    }
+    function renderVocabulary() {
+        const step = index % 10 + 1;
+        const panel = root.querySelector(".mul-vocab-scroll");
+        let newest = null;
+        panel.querySelectorAll("[data-vocab-set]").forEach((entry) => {
+            const sameSet = Number(entry.dataset.vocabSet) === activeSet + 1;
+            const introduced = Number(entry.dataset.vocabStep);
+            const visible = sameSet && introduced <= step;
+            entry.hidden = !visible;
+            entry.classList.toggle("is-new", visible && introduced === step);
+            if (visible && introduced === step && !newest) {
+                newest = entry;
+            }
+        });
+        requestAnimationFrame(() => {
+            if (newest && panel.clientHeight) {
+                panel.scrollTop = newest.offsetTop;
+            } else if (panel.clientHeight) {
+                panel.scrollTop = panel.scrollHeight;
+            }
+        });
+    }
+    function render() {
+        renderVocabulary();
+        const question = questions[index];
+        get("mul-title").textContent = `${activeSet === 0 ? "Foundational Understanding" : "Applied Understanding"} · ${index % 10 + 1}/10`;
+        get("mul-instruction").textContent = question.instruction;
+        get("mul-prompt").textContent = question.prompt;
+        get("mul-meaning").textContent = question.meaning + " — " + question.audio;
+        get("mul-meaning").hidden = true;
+        get("mul-feedback").textContent = "";
+        root.querySelectorAll("[data-mul-choice]").forEach((button) => {
+            button.textContent = question.choices[Number(button.dataset.mulChoice)];
+            button.disabled = solved;
+        });
+        root.querySelectorAll("[data-mul-set]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.mulSet) === activeSet + 1));
+        });
+        get("mul-reset").textContent = `Restart Set ${activeSet + 1}`;
+        get("mul-switch").textContent = `Go to Set ${2 - activeSet}`;
+        get("mul-next").hidden = true;
+        get("mul-model").hidden = !solved;
+        energy();
+    }
+    function selectSet(set) {
+        activeSet = set;
+        index = set * 10 + Math.min(counts[set], 9);
+        solved = counts[set] === 10;
+        get("mul-guide").hidden = true;
+        get("mul-exercises").hidden = false;
+        render();
+    }
+    root.querySelectorAll("[data-mul-set]").forEach((button) => {
+        button.addEventListener("click", () => selectSet(Number(button.dataset.mulSet) - 1));
+    });
+    get("mul-switch").addEventListener("click", () => selectSet(1 - activeSet));
+    root.querySelectorAll("[data-mul-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (solved) {
+                return;
+            }
+            if (Number(button.dataset.mulChoice) !== questions[index].correct) {
+                get("mul-feedback").textContent = "Попробуйте ещё раз.";
+                return;
+            }
+            solved = true;
+            counts[activeSet] = index % 10 + 1;
+            save();
+            energy();
+            root.querySelectorAll("[data-mul-choice]").forEach((choice) => {
+                choice.disabled = true;
+            });
+            get("mul-model").hidden = false;
+            get("mul-feedback").textContent = "Верно!";
+            get("mul-next").hidden = counts[activeSet] === 10;
+            get("mul-next").textContent = "Next exercise →";
+            speak(questions[index].model);
+        });
+    });
+    get("mul-next").addEventListener("click", () => selectSet(activeSet));
+    get("mul-reset").addEventListener("click", () => {
+        if (!window.confirm(`Restart Set ${activeSet + 1}?`)) {
+            return;
+        }
+        counts[activeSet] = 0;
+        save();
+        selectSet(activeSet);
+    });
+    get("mul-listen").addEventListener("click", () => speak(questions[index].audio));
+    get("mul-slow").addEventListener("click", () => speak(questions[index].audio, 0.55));
+    get("mul-model").addEventListener("click", () => speak(questions[index].model));
+    get("mul-help").addEventListener("click", () => {
+        get("mul-meaning").hidden = !get("mul-meaning").hidden;
+    });
+    root.querySelectorAll("[data-mul-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.mulSay));
+    });
+    function chain() {
+        return units.slice(3 - stage).join("").trim();
+    }
+    function guide(audio = true) {
+        get("mul-stage").textContent = `Stage ${stage + 1} of 4`;
+        get("mul-full-word").querySelectorAll("span").forEach((span, i) => {
+            span.classList.toggle("active-unit", i >= 3 - stage);
+        });
+        get("mul-guide").querySelectorAll(".zero-units span").forEach((span, i) => {
+            span.textContent = i >= 3 - stage ? units[i] : "··";
+            span.classList.toggle("new-unit", i >= 3 - stage);
+        });
+        get("mul-prev").disabled = stage === 0;
+        get("mul-add").disabled = stage === 3;
+        if (audio) {
+            speak(chain());
+        }
+    }
+    get("mul-guide-open").addEventListener("click", () => {
+        get("mul-exercises").hidden = true;
+        get("mul-guide").hidden = false;
+        stage = 0;
+        guide();
+    });
+    get("mul-guide-back").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        get("mul-guide").hidden = true;
+        get("mul-exercises").hidden = false;
+    });
+    get("mul-prev").addEventListener("click", () => {
+        stage = Math.max(0, stage - 1);
+        guide();
+    });
+    get("mul-add").addEventListener("click", () => {
+        stage = Math.min(3, stage + 1);
+        guide();
+    });
+    root.querySelectorAll("[data-mul-rate]").forEach((button) => {
+        button.addEventListener("click", () => speak(chain(), Number(button.dataset.mulRate)));
+    });
+    root.querySelector(".reactor-return").addEventListener("click", () => window.speechSynthesis?.cancel());
+    render();
+})();
