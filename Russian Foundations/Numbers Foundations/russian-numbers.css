@@ -10918,3 +10918,406 @@ h1 {
         animation: none;
     }
 }
+
+/* SERVER RACK — isolated layout and activation layers */
+.sr-scene {
+    container-type: inline-size;
+}
+.sr-hotspot {
+    position: absolute;
+    z-index: 23;
+    padding: 0;
+    border: 0;
+    background: transparent !important;
+    box-shadow: none;
+    cursor: pointer;
+}
+.sr-hotspot:focus-visible {
+    outline: 2px solid cyan;
+}
+#server-room-open {
+    left: 64%;
+    top: 46%;
+    width: 24%;
+    height: 32%;
+}
+.sr-open-verification {
+    left: 13%;
+    top: 38%;
+    width: 26%;
+    height: 32%;
+}
+.sr-open-diagnostic {
+    left: 40%;
+    top: 42%;
+    width: 23%;
+    height: 27%;
+}
+.sr-open-conversion {
+    left: 64%;
+    top: 43%;
+    width: 22%;
+    height: 26%;
+}
+.sr-room-back {
+    left: 4%;
+    top: 86%;
+    width: 17%;
+    height: 12%;
+}
+.sr-rack {
+    position: absolute;
+    left: 0;
+    top: 15%;
+    width: 14%;
+    height: 68%;
+}
+.sr-rack img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.sr-light {
+    opacity: 0;
+    filter: brightness(2.6) saturate(1.6);
+    transition: opacity 700ms ease;
+}
+.sr-light-1 {
+    clip-path: polygon(29% 23%, 94% 32%, 94% 40%, 29% 32%);
+}
+.sr-light-2 {
+    clip-path: polygon(29% 32%, 94% 40%, 94% 47%, 29% 40%);
+}
+.sr-light-3 {
+    clip-path: polygon(29% 40%, 94% 47%, 94% 54%, 29% 48%);
+}
+.sr-light-4 {
+    clip-path: polygon(29% 48%, 94% 54%, 94% 61%, 29% 56%);
+}
+.sr-light-5 {
+    clip-path: polygon(29% 56%, 94% 61%, 94% 68%, 29% 64%);
+}
+.sr-light-6 {
+    clip-path: polygon(29% 64%, 94% 68%, 94% 75%, 29% 72%);
+}
+.sr-light-7 {
+    clip-path: polygon(29% 72%, 94% 75%, 94% 81%, 29% 80%);
+}
+.sr-light-8 {
+    clip-path: polygon(29% 80%, 94% 81%, 94% 88%, 29% 90%);
+}
+.sr-rack.is-complete .sr-rack-base {
+    filter: brightness(1.65) saturate(1.3);
+}
+.sr-light.is-lit {
+    opacity: 1;
+}
+.sr-console {
+    position: absolute;
+    inset: 5% 1.5% 7.5% 15%;
+    display: grid;
+    grid-template-columns: 22% 1fr;
+    gap: 2%;
+    padding: 1.5%;
+    background: rgba(0, 0, 0, .7);
+    border-radius: 2cqw;
+    color: white;
+}
+.sr-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: .6cqw;
+    min-height: 0;
+}
+.sr-icon {
+    width: 80%;
+    height: 19%;
+    object-fit: contain;
+    align-self: center;
+}
+.sr-vocabulary, .sr-content {
+    background: rgba(0, 0, 0, .7);
+    border: 1px solid #00cdd4;
+    border-radius: 1cqw;
+    min-height: 0;
+}
+.sr-vocabulary {
+    flex: 1;
+    overflow: auto;
+}
+.sr-vocabulary h3 {
+    color: #00dce5;
+    font-size: 1.35cqw;
+    font-weight: 400;
+    margin: .6cqw 0;
+}
+.sr-content {
+    position: relative;
+    margin-top: 2.2cqw;
+}
+.sr-tabs {
+    position: absolute;
+    top: -1.5cqw;
+    left: 3%;
+    right: 24%;
+    display: flex;
+    gap: 1cqw;
+}
+.sr-tabs button, .sr-back {
+    border: 1px solid #00cdd4;
+    border-radius: 1.2cqw;
+    padding: .35cqw .5cqw;
+    font-size: 1.4cqw;
+    font-weight: 400;
+    line-height: 1.2;
+}
+.sr-tabs button {
+    flex: 1;
+    color: #001719;
+    background: linear-gradient(#63ffff, #00d6df 40%, #009ca8);
+}
+.sr-tabs button[aria-selected="true"] {
+    box-shadow: inset 0 0 0 1px #a5ffff;
+}
+.sr-back,
+.sr-back:hover,
+.sr-back:active {
+    color: white;
+    background: linear-gradient(#40e8e8, #008c92 40%, #00464d);
+}
+.sr-tab-panel {
+    position: absolute;
+    inset: 2cqw 1cqw 1cqw;
+    overflow: auto;
+}
+.sr-tab-panel[hidden] {
+    display: none;
+}
+.sr-test {
+    position: absolute;
+    bottom: .5cqw;
+    right: .5cqw;
+    font-size: 1cqw;
+    color: #b9e4e7;
+}
+
+/* DATA VERIFICATION — scoped to this terminal only. */
+#server-verification [hidden] {
+    display: none !important;
+}
+#server-verification .sr-tabs {
+    left: 40%;
+    right: 3%;
+    gap: .8cqw;
+}
+#server-verification .sr-tabs button {
+    font-size: 1.15cqw;
+    white-space: nowrap;
+}
+#server-verification .sr-tabs button:last-child {
+    flex: 1.5;
+}
+#server-verification .dv-tab-done {
+    box-shadow: inset 0 0 0 2px #9effc4;
+}
+#server-verification .dv-complete {
+    position: relative;
+    width: 34%;
+    margin: 0 0 1cqw 2%;
+    border: 1px solid cyan;
+    border-radius: 1cqw;
+    background: #082d36;
+    color: cyan;
+    text-align: center;
+    font-size: 1cqw;
+    padding: .5cqw;
+    box-shadow: 0 0 12px #00cde788;
+    animation: dv-completion-glow 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes dv-completion-glow {
+    from {
+        box-shadow: 0 0 6px #00cde755;
+    }
+    to {
+        box-shadow: 0 0 18px #00cde7dd;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #server-verification .dv-complete {
+        animation: none;
+    }
+}
+#server-verification small {
+    display: block;
+    font-size: 1.15cqw;
+}
+#server-verification .dv-complete small {
+    color: white;
+    font-size: .95cqw;
+}
+#server-verification .dv-home h3,
+#server-verification .dv-practice h3 {
+    color: #00dce5;
+    font-size: 1.6cqw;
+    margin: 0 0 1cqw;
+    text-align: left;
+}
+#server-verification .dv-row {
+    display: grid;
+    grid-template-columns: 11% 22% 1fr;
+    gap: 1.2cqw;
+    align-items: center;
+    margin: 0 0 2.3cqw;
+    color: #00dce5;
+    text-align: left;
+}
+#server-verification .dv-symbol {
+    display: grid;
+    place-items: center;
+    min-height: 5.3cqw;
+    border: 1px solid cyan;
+    border-radius: 1cqw;
+    background: #092d35;
+    font-size: 3cqw;
+}
+#server-verification .dv-expand {
+    display: grid;
+    grid-template-columns: 8% 27% 1fr;
+    align-items: center;
+    min-height: 5cqw;
+    background: #07545c;
+    border: 1px solid cyan;
+    border-radius: 1cqw;
+    color: white;
+    font-size: 1.45cqw;
+    font-weight: 400;
+    padding: .6cqw;
+}
+#server-verification .dv-expand span:first-child {
+    color: #00dce5;
+}
+#server-verification .dv-expand span:last-child {
+    border-left: 1px solid cyan;
+    padding-left: .7cqw;
+    font-family: "Times New Roman", serif;
+}
+#server-verification .dv-discovery {
+    grid-column: 1 / -1;
+    padding: 1cqw;
+    border: 1px solid #00aab5;
+    border-radius: .8cqw;
+    background: #06262e;
+    color: white;
+    font-size: 1.35cqw;
+}
+#server-verification .dv-discovery p {
+    margin: .5cqw 0;
+}
+#server-verification .dv-say,
+#server-verification .dv-say:hover {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font-size: 1.55cqw;
+    font-family: "Times New Roman", serif;
+}
+#server-verification mark {
+    background: transparent;
+    color: #ffd46b;
+}
+#server-verification .dv-vocab-item {
+    padding: .4cqw .8cqw;
+    border-bottom: 1px solid #00cdd433;
+    text-align: center;
+}
+#server-verification .dv-new .dv-say {
+    color: #ffd46b;
+}
+#server-verification .dv-practice {
+    font-size: 1.5cqw;
+    text-align: center;
+}
+#server-verification .dv-prompt {
+    font-size: 2cqw;
+    margin: 1.5cqw 0;
+}
+#server-verification .dv-choices {
+    display: grid;
+    gap: .7cqw;
+    margin: 1cqw auto;
+    max-width: 90%;
+}
+#server-verification .dv-practice button {
+    background: #07545c;
+    color: white;
+    border: 1px solid #00cdd4;
+    font-size: 1.4cqw;
+    padding: .65cqw 1cqw;
+}
+#server-verification .dv-choices button {
+    font-family: "Times New Roman", serif;
+    font-size: 1.9cqw;
+}
+#server-verification .dv-choices .dv-correct {
+    border-color: #91ffbd;
+    color: #91ffbd;
+}
+#server-verification .dv-feedback {
+    color: #ffd46b;
+    min-height: 2cqw;
+}
+#server-verification .dv-reset {
+    margin-top: 1cqw;
+}
+#server-verification .dv-perimeter {
+    opacity: 0;
+    filter: brightness(2.3) saturate(1.7);
+    pointer-events: none;
+}
+#server-verification .dv-perimeter-top {
+    clip-path: polygon(0 0, 100% 0, 100% 24%, 0 15%);
+}
+#server-verification .dv-perimeter-bottom {
+    clip-path: polygon(0 90%, 100% 87%, 100% 100%, 0 100%);
+}
+#server-verification .dv-perimeter-left {
+    clip-path: polygon(0 15%, 22% 15%, 22% 90%, 0 90%);
+}
+#server-verification .dv-perimeter-right {
+    clip-path: polygon(94% 24%, 100% 24%, 100% 87%, 94% 87%);
+}
+#server-verification.dv-all-complete .dv-perimeter {
+    opacity: 1;
+    animation: dv-perimeter-pulse 2.4s ease-in-out infinite alternate;
+}
+@keyframes dv-perimeter-pulse {
+    from { opacity: .45; }
+    to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #server-verification.dv-all-complete .dv-perimeter {
+        animation: none;
+    }
+}
+
+/* Data Verification — compact exercise navigation. */
+#server-verification .dv-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1cqw;
+    margin-top: .6cqw;
+}
+
+#server-verification .dv-actions .dv-reset {
+    margin-top: 0;
+}
+
+#server-verification .dv-actions [hidden],
+#server-verification .dv-complete[hidden] {
+    display: none !important;
+}

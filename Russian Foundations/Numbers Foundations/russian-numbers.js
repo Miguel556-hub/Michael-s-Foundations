@@ -8015,3 +8015,248 @@ function initializeNumbersConversation(slug, lines, questions) {
     });
     updateQuantumReactorIllumination();
 })();
+
+
+// SERVER RACK — navigation, independent tab state and temporary completion tests.
+(() => {
+    const key = "numbers-server-rack-progress-v1";
+    let progress = {};
+    try {
+        progress = JSON.parse(localStorage.getItem(key) || "{}") || {};
+    } catch (error) {
+        progress = {};
+    }
+    function show(id) {
+        const destination = document.getElementById(id);
+        if (!destination) {
+            return;
+        }
+        window.speechSynthesis?.cancel();
+        numbersDoorLandings.forEach((landing) => {
+            landing.hidden = landing !== destination;
+        });
+        destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    document.getElementById("server-room-open").addEventListener("click", () => {
+        show("server-room-landing");
+    });
+    document.querySelectorAll("[data-sr-target]").forEach((button) => {
+        button.addEventListener("click", () => show(button.dataset.srTarget));
+    });
+    document.querySelectorAll(".sr-workspace:not(#server-verification)").forEach((workspace) => {
+        const tabs = Array.from(workspace.querySelectorAll("[data-sr-tab]"));
+        const panels = workspace.querySelectorAll("[data-sr-panel]");
+        const checks = Array.from(workspace.querySelectorAll("[data-sr-complete]"));
+        const lights = workspace.querySelectorAll(".sr-light");
+        function selectTab(number) {
+            tabs.forEach((tab) => {
+                tab.setAttribute("aria-selected", String(tab.dataset.srTab === number));
+            });
+            panels.forEach((panel) => {
+                panel.hidden = panel.dataset.srPanel !== number;
+            });
+        }
+        function updateLights() {
+            const count = checks.filter((check) => check.checked).length;
+            lights.forEach((light, index) => {
+                light.classList.toggle("is-lit", index < count * 2 || count === 3);
+            });
+            workspace.querySelector(".sr-rack").classList.toggle("is-complete", count === 3);
+        }
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", () => selectTab(tab.dataset.srTab));
+        });
+        checks.forEach((check) => {
+            const id = `${workspace.id}-${check.dataset.srComplete}`;
+            check.checked = progress[id] === true;
+            check.addEventListener("change", () => {
+                progress[id] = check.checked;
+                try {
+                    localStorage.setItem(key, JSON.stringify(progress));
+                } catch (error) {
+                    console.warn("Server Rack progress could not be saved.", error);
+                }
+                updateLights();
+            });
+        });
+        updateLights();
+    });
+})();
+
+// Data Verification — all interactive elements are authored in HTML.
+(() => {
+    const root = document.getElementById("server-verification");
+    const key = "numbers-data-verification-v1";
+    const views = [...root.querySelectorAll("[data-dv-view]")];
+    const bank = [...root.querySelectorAll("[data-dv-vocab]")];
+    let state = { words: [], solved: [[], [], []] };
+    try {
+        const saved = JSON.parse(localStorage.getItem(key));
+        if (saved && Array.isArray(saved.words) && Array.isArray(saved.solved)) {
+            state = saved;
+        }
+    } catch (error) {
+        console.warn("Data Verification progress unavailable.", error);
+    }
+    function save() {
+        try {
+            localStorage.setItem(key, JSON.stringify(state));
+        } catch (error) {
+            console.warn("Data Verification progress could not be saved.", error);
+        }
+    }
+    function discover(text) {
+        const normalized = text.toLowerCase();
+        const tokens = normalized.split(/[^а-яё]+/u);
+        bank.forEach((item) => {
+            const word = item.dataset.dvVocab;
+            if ((tokens.includes(word) || (word === "не равно" && normalized.includes(word))) && !state.words.includes(word)) {
+                state.words.push(word);
+                item.hidden = false;
+                item.classList.add("dv-new");
+            }
+        });
+        save();
+    }
+    bank.forEach((item) => {
+        item.hidden = !state.words.includes(item.dataset.dvVocab);
+    });
+    function speak(text, slow = false) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "ru-RU";
+        utterance.rate = slow ? 0.55 : 0.85;
+        const voice = window.speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        window.speechSynthesis.speak(utterance);
+    }
+    const totals = [6, 6, 12];
+    function lights() {
+        const done = totals.map((total, index) => state.solved[index].length === total);
+        root.querySelectorAll(".sr-light").forEach((light, index) => {
+            light.classList.toggle("is-lit", done[index < 4 ? 0 : 1]);
+        });
+        root.classList.toggle("dv-all-complete", done.every(Boolean));
+        root.querySelector(".dv-complete").hidden = !done.every(Boolean) || views[0].hidden;
+        root.querySelectorAll("[data-dv-tab]").forEach((tab, index) => {
+            tab.classList.toggle("dv-tab-done", done[index]);
+        });
+    }
+    const rounds = views.slice(1).map((view, index) => {
+        const questions = [...view.querySelectorAll(".dv-question")];
+        if (index === 2) {
+            for (let i = questions.length - 1; i > 0; i -= 1) {
+                const other = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[other]] = [questions[other], questions[i]];
+            }
+        }
+        return questions;
+    });
+    function render(index) {
+        const view = views[index + 1];
+        const solved = state.solved[index];
+        const question = rounds[index].find((item) => !solved.includes(item.dataset.dvQuestion));
+        rounds[index].forEach((item) => {
+            item.hidden = item !== question;
+            item.querySelectorAll("[data-dv-answer]").forEach((button) => {
+                button.disabled = false;
+                button.classList.remove("dv-correct");
+            });
+            item.querySelector(".dv-feedback").textContent = "";
+        });
+        view.querySelector(".dv-next").hidden = true;
+        view.querySelector(".dv-count").textContent = `${solved.length} of ${totals[index]} completed`;
+        view.querySelector(".dv-finished").hidden = Boolean(question);
+        if (question && index !== 2) {
+            discover(question.dataset.dvModel);
+        }
+        lights();
+    }
+    function show(number) {
+        window.speechSynthesis?.cancel();
+        views.forEach((view) => {
+            view.hidden = Number(view.dataset.dvView) !== number;
+        });
+        root.querySelector(".dv-back").hidden = number === 0;
+        root.querySelector("[data-sr-target]").hidden = number !== 0;
+        root.querySelectorAll("[data-dv-tab]").forEach((tab) => {
+            tab.setAttribute("aria-selected", String(Number(tab.dataset.dvTab) === number));
+        });
+        lights();
+        if (number) {
+            render(number - 1);
+        } else {
+            root.querySelectorAll(".dv-row").forEach((row) => discover(row.dataset.dvWords));
+        }
+    }
+    root.querySelectorAll("[data-dv-tab]").forEach((tab) => {
+        tab.addEventListener("click", () => show(Number(tab.dataset.dvTab)));
+    });
+    root.querySelector(".dv-back").addEventListener("click", () => show(0));
+    document.querySelectorAll('[data-sr-target="server-verification"]').forEach((button) => {
+        button.addEventListener("click", () => show(0));
+    });
+    root.querySelectorAll(".dv-expand").forEach((button) => {
+        button.addEventListener("click", () => {
+            const panel = document.getElementById(button.getAttribute("aria-controls"));
+            const open = panel.hidden;
+            root.querySelectorAll(".dv-discovery").forEach((item) => { item.hidden = true; });
+            root.querySelectorAll(".dv-expand").forEach((item) => { item.setAttribute("aria-expanded", "false"); });
+            panel.hidden = !open;
+            button.setAttribute("aria-expanded", String(open));
+            if (open) {
+                panel.querySelectorAll("[data-dv-say]").forEach((item) => discover(item.dataset.dvSay));
+            }
+        });
+    });
+    root.querySelectorAll("[data-dv-say]").forEach((button) => {
+        button.addEventListener("click", () => {
+            speak(button.dataset.dvSay, button.dataset.dvSlow === "true");
+        });
+    });
+    rounds.forEach((questions, index) => {
+        questions.forEach((question) => {
+            const choices = [...question.querySelectorAll("[data-dv-answer]")];
+            for (let i = choices.length - 1; i > 0; i -= 1) {
+                const other = Math.floor(Math.random() * (i + 1));
+                [choices[i], choices[other]] = [choices[other], choices[i]];
+            }
+            choices.forEach((button) => question.querySelector(".dv-choices").appendChild(button));
+            choices.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const feedback = question.querySelector(".dv-feedback");
+                    if (button.dataset.dvAnswer !== "true") {
+                        feedback.textContent = "Not quite. Try again.";
+                        return;
+                    }
+                    if (!state.solved[index].includes(question.dataset.dvQuestion)) {
+                        state.solved[index].push(question.dataset.dvQuestion);
+                    }
+                    save();
+                    choices.forEach((item) => { item.disabled = true; });
+                    button.classList.add("dv-correct");
+                    feedback.textContent = `Верно! ${question.dataset.dvModel}`;
+                    speak(question.dataset.dvModel);
+                    views[index + 1].querySelector(".dv-count").textContent = `${state.solved[index].length} of ${totals[index]} completed`;
+                    views[index + 1].querySelector(".dv-next").hidden = false;
+                    views[index + 1].querySelector(".dv-next").textContent = state.solved[index].length === totals[index] ? "Finish tab" : "Next exercise →";
+                    lights();
+                });
+            });
+        });
+        views[index + 1].querySelector(".dv-next").addEventListener("click", () => render(index));
+        views[index + 1].querySelector(".dv-reset").addEventListener("click", () => {
+            if (window.confirm("Restart this tab?")) {
+                state.solved[index] = [];
+                save();
+                render(index);
+            }
+        });
+    });
+    lights();
+})();
