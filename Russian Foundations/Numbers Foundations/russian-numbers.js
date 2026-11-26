@@ -1,3 +1,27 @@
+// Main reactor: use the exact same completion signals as the operator nodules.
+function updateQuantumReactorIllumination() {
+    const scene = document.getElementById("reactor-landing");
+    if (!scene) {
+        return;
+    }
+
+    const operators = ["multiply", "divide", "fractions", "percent"];
+    let completed = 0;
+    for (const operator of operators) {
+        const nodule = scene.querySelector(`.reactor-nodule--${operator}`);
+        const energized = nodule.classList.contains("is-energized");
+        scene.classList.toggle(`has-${operator}`, energized);
+        if (energized) {
+            completed += 1;
+        }
+    }
+
+    scene.classList.toggle("is-fully-energized", completed === 4);
+    scene.querySelector(".reactor-activation-status").textContent = completed === 4
+        ? "Quantum Math Reactor fully energized!"
+        : `${completed} of 4 reactor segments energized.`;
+}
+
 // ==================================================
 // NUMBERS FOUNDATION — FR-STYLE SHELL NAVIGATION
 // This shell does not yet contain completed lesson activities.
@@ -6033,6 +6057,9 @@ function initializeNumbersConversation(slug, lines, questions) {
         numbersDoorLandings.forEach((landing) => {
             landing.hidden = landing !== destination;
         });
+        if (destination === hub) {
+            updateQuantumReactorIllumination();
+        }
         destination.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
@@ -6360,6 +6387,7 @@ function initializeNumbersConversation(slug, lines, questions) {
         });
         const complete = counts.every(count => count === 10);
         document.querySelector(".reactor-nodule--multiply").classList.toggle("is-energized", complete);
+        updateQuantumReactorIllumination();
         document.querySelector(".reactor-multiply").setAttribute("aria-label", complete ? "Multiplication — fully energized" : "Multiplication");
     }
     function renderVocabulary() {
@@ -6384,6 +6412,31 @@ function initializeNumbersConversation(slug, lines, questions) {
             }
         });
     }
+    function renderMathSupport() {
+        const support = get("mul-math-support");
+        const button = get("mul-math-help");
+        let available = false;
+        support.querySelectorAll("[data-math-index]").forEach((entry) => {
+            const current = Number(entry.dataset.mathIndex) === index;
+            entry.hidden = !current;
+            entry.querySelector(".reactor-math-hint").hidden = true;
+            available = available || current;
+        });
+        support.hidden = !available;
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = ([0, 1, 2, 3, 4, 5, 8, 9, 10, 14].includes(index) ? "Help — Understand It" : "Help — Solve It");
+    }
+    get("mul-math-help").addEventListener("click", () => {
+        const entry = get("mul-math-support").querySelector("[data-math-index]:not([hidden])");
+        if (!entry) {
+            return;
+        }
+        const hint = entry.querySelector(".reactor-math-hint");
+        hint.hidden = !hint.hidden;
+        const button = get("mul-math-help");
+        button.setAttribute("aria-expanded", String(!hint.hidden));
+        button.textContent = hint.hidden ? ([0, 1, 2, 3, 4, 5, 8, 9, 10, 14].includes(index) ? "Help — Understand It" : "Help — Solve It") : "Close Math Help";
+    });
     function render() {
         renderVocabulary();
         const question = questions[index];
@@ -6392,6 +6445,7 @@ function initializeNumbersConversation(slug, lines, questions) {
         get("mul-prompt").textContent = question.prompt;
         get("mul-meaning").textContent = question.meaning + " — " + question.audio;
         get("mul-meaning").hidden = true;
+        renderMathSupport();
         get("mul-feedback").textContent = "";
         root.querySelectorAll("[data-mul-choice]").forEach((button) => {
             button.textContent = question.choices[Number(button.dataset.mulChoice)];
@@ -6501,4 +6555,1463 @@ function initializeNumbersConversation(slug, lines, questions) {
     });
     root.querySelector(".reactor-return").addEventListener("click", () => window.speechSynthesis?.cancel());
     render();
+})();
+
+
+// Division — persistent two-stage energy activation.
+(() => {
+    const questions = [
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Шесть разделить на два.",
+            "audio": "Шесть разделить на два.",
+            "meaning": "Six divided by two.",
+            "choices": [
+                "три",
+                "четыре",
+                "восемь"
+            ],
+            "correct": 0,
+            "model": "три"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Десять разделить на пять.",
+            "audio": "Десять разделить на пять.",
+            "meaning": "Ten divided by five.",
+            "choices": [
+                "пятнадцать",
+                "два",
+                "пять"
+            ],
+            "correct": 1,
+            "model": "два"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Двенадцать разделить на четыре.",
+            "audio": "Двенадцать разделить на четыре.",
+            "meaning": "Twelve divided by four.",
+            "choices": [
+                "четыре",
+                "восемь",
+                "три"
+            ],
+            "correct": 2,
+            "model": "три"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Восемнадцать разделить на три равно ___.",
+            "audio": "Восемнадцать разделить на три равно .",
+            "meaning": "Eighteen divided by three equals…",
+            "choices": [
+                "шесть",
+                "девять",
+                "пятнадцать"
+            ],
+            "correct": 0,
+            "model": "шесть"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Сколько будет двадцать разделить на четыре?",
+            "audio": "Сколько будет двадцать разделить на четыре?",
+            "meaning": "How much is twenty divided by four?",
+            "choices": [
+                "восемь",
+                "пять",
+                "шесть"
+            ],
+            "correct": 1,
+            "model": "пять"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Двадцать четыре разделить на шесть.",
+            "audio": "Двадцать четыре разделить на шесть.",
+            "meaning": "Twenty-four divided by six.",
+            "choices": [
+                "шесть",
+                "восемь",
+                "четыре"
+            ],
+            "correct": 2,
+            "model": "четыре"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Тридцать разделить на пять.",
+            "audio": "Тридцать разделить на пять.",
+            "meaning": "Thirty divided by five.",
+            "choices": [
+                "шесть",
+                "пять",
+                "десять"
+            ],
+            "correct": 0,
+            "model": "шесть"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Уменьшите число сорок в два раза.",
+            "audio": "Уменьшите число сорок в два раза.",
+            "meaning": "Halve the number forty.",
+            "choices": [
+                "восемьдесят",
+                "двадцать",
+                "тридцать восемь"
+            ],
+            "correct": 1,
+            "model": "двадцать"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Сорок девять разделить на семь.",
+            "audio": "Сорок девять разделить на семь.",
+            "meaning": "Forty-nine divided by seven.",
+            "choices": [
+                "восемь",
+                "девять",
+                "семь"
+            ],
+            "correct": 2,
+            "model": "семь"
+        },
+        {
+            "instruction": "Calculate and choose the Russian answer.",
+            "prompt": "Сто разделить на десять.",
+            "audio": "Сто разделить на десять.",
+            "meaning": "One hundred divided by ten.",
+            "choices": [
+                "десять",
+                "двадцать",
+                "пятьдесят"
+            ],
+            "correct": 0,
+            "model": "десять"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Разделите двенадцать яблок поровну между тремя детьми. Сколько каждому?",
+            "audio": "Разделите двенадцать яблок поровну между тремя детьми. Сколько каждому?",
+            "meaning": "Share twelve apples equally among three children. How many for each?",
+            "choices": [
+                "шесть",
+                "четыре",
+                "три"
+            ],
+            "correct": 1,
+            "model": "четыре"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Шесть билетов стоят триста рублей. Сколько стоит один билет?",
+            "audio": "Шесть билетов стоят триста рублей. Сколько стоит один билет?",
+            "meaning": "Six tickets cost 300 rubles. How much is one?",
+            "choices": [
+                "шестьдесят рублей",
+                "сто рублей",
+                "пятьдесят рублей"
+            ],
+            "correct": 2,
+            "model": "пятьдесят рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "В коробке двадцать четыре карандаша. Разложите их в четыре пакета поровну.",
+            "audio": "В коробке двадцать четыре карандаша. Разложите их в четыре пакета поровну.",
+            "meaning": "There are 24 pencils in a box. Put them equally into four bags.",
+            "choices": [
+                "шесть",
+                "восемь",
+                "десять"
+            ],
+            "correct": 0,
+            "model": "шесть"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "За пять дней он прочитал пятьдесят страниц. Сколько в день в среднем?",
+            "audio": "За пять дней он прочитал пятьдесят страниц. Сколько в день в среднем?",
+            "meaning": "He read fifty pages in five days. How many per day on average?",
+            "choices": [
+                "двадцать",
+                "десять",
+                "пять"
+            ],
+            "correct": 1,
+            "model": "десять"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Автобус проехал сто двадцать километров за три часа. Какова средняя скорость?",
+            "audio": "Автобус проехал сто двадцать километров за три часа. Какова средняя скорость?",
+            "meaning": "A bus traveled 120 km in three hours. What was its average speed?",
+            "choices": [
+                "30 км/ч",
+                "60 км/ч",
+                "40 км/ч"
+            ],
+            "correct": 2,
+            "model": "40 км/ч"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "В зале восемьдесят мест в десяти одинаковых рядах. Сколько мест в ряду?",
+            "audio": "В зале восемьдесят мест в десяти одинаковых рядах. Сколько мест в ряду?",
+            "meaning": "A hall has 80 seats in ten identical rows. How many per row?",
+            "choices": [
+                "восемь",
+                "десять",
+                "двенадцать"
+            ],
+            "correct": 0,
+            "model": "восемь"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Четыре друга делят счёт на восемьсот рублей поровну. Сколько платит каждый?",
+            "audio": "Четыре друга делят счёт на восемьсот рублей поровну. Сколько платит каждый?",
+            "meaning": "Four friends split an 800-ruble bill equally. How much does each pay?",
+            "choices": [
+                "четыреста рублей",
+                "двести рублей",
+                "сто рублей"
+            ],
+            "correct": 1,
+            "model": "двести рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "На складе девяносто бутылок. В каждый ящик кладут по десять. Сколько ящиков нужно?",
+            "audio": "На складе девяносто бутылок. В каждый ящик кладут по десять. Сколько ящиков нужно?",
+            "meaning": "There are 90 bottles in storage. Ten go into each crate. How many crates are needed?",
+            "choices": [
+                "десять",
+                "восемь",
+                "девять"
+            ],
+            "correct": 2,
+            "model": "девять"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Уменьшите число девяносто в три раза.",
+            "audio": "Уменьшите число девяносто в три раза.",
+            "meaning": "Reduce ninety by a factor of three.",
+            "choices": [
+                "тридцать",
+                "восемьдесят семь",
+                "двадцать"
+            ],
+            "correct": 0,
+            "model": "тридцать"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Рабочие изготовили двести сорок деталей за восемь часов. Сколько деталей в час в среднем?",
+            "audio": "Рабочие изготовили двести сорок деталей за восемь часов. Сколько деталей в час в среднем?",
+            "meaning": "Workers made 240 parts in eight hours. How many per hour on average?",
+            "choices": [
+                "двадцать",
+                "тридцать",
+                "сорок"
+            ],
+            "correct": 1,
+            "model": "тридцать"
+        }
+    ];
+    const get = (id) => document.getElementById(id);
+    const root = get("reactor-division");
+    const key = "numbers-reactor-division-v1";
+    let counts = [0, 0];
+    try {
+        const stored = JSON.parse(localStorage.getItem(key) || "0");
+        counts = Array.isArray(stored) ? [0, 1].map(i => Math.max(0, Math.min(10, Math.floor(Number(stored[i]) || 0)))) : [Math.min(10, Math.max(0, Number(stored) || 0)), Math.min(10, Math.max(0, (Number(stored) || 0) - 10))];
+    } catch (error) {
+        console.warn("Division progress unavailable", error);
+    }
+    let activeSet = 0;
+    let index = Math.min(counts[0], 9);
+    let solved = counts[0] === 10;
+    let stage = 0;
+    const units = ["раз", "де", "ли́ть", " на"];
+    function speak(text, rate = 1) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("div-feedback").textContent = "Russian audio is unavailable. Use Help to continue.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function save() {
+        try {
+            localStorage.setItem(key, JSON.stringify(counts));
+        } catch (error) {
+            console.warn("Division progress could not be saved", error);
+        }
+    }
+    function energy() {
+        root.querySelectorAll("[data-div-wheel]").forEach((wheel) => {
+            const set = Number(wheel.dataset.divWheel) - 1;
+            wheel.hidden = set !== activeSet;
+            wheel.classList.toggle("is-complete", counts[set] === 10);
+            wheel.querySelectorAll("[data-div-cell]").forEach((cell) => {
+                cell.classList.toggle("is-lit", Number(cell.dataset.divCell) <= counts[set]);
+            });
+        });
+        const complete = counts.every(count => count === 10);
+        document.querySelector(".reactor-nodule--divide").classList.toggle("is-energized", complete);
+        updateQuantumReactorIllumination();
+        document.querySelector(".reactor-divide").setAttribute("aria-label", complete ? "Division — fully energized" : "Division");
+    }
+    function renderVocabulary() {
+        const step = index % 10 + 1;
+        const panel = root.querySelector(".div-vocab-scroll");
+        let newest = null;
+        panel.querySelectorAll("[data-vocab-set]").forEach((entry) => {
+            const sameSet = Number(entry.dataset.vocabSet) === activeSet + 1;
+            const introduced = Number(entry.dataset.vocabStep);
+            const visible = sameSet && introduced <= step;
+            entry.hidden = !visible;
+            entry.classList.toggle("is-new", visible && introduced === step);
+            if (visible && introduced === step && !newest) {
+                newest = entry;
+            }
+        });
+        requestAnimationFrame(() => {
+            if (newest && panel.clientHeight) {
+                panel.scrollTop = newest.offsetTop;
+            } else if (panel.clientHeight) {
+                panel.scrollTop = panel.scrollHeight;
+            }
+        });
+    }
+    function renderMathSupport() {
+        const support = get("div-math-support");
+        const button = get("div-math-help");
+        let available = false;
+        support.querySelectorAll("[data-math-index]").forEach((entry) => {
+            const current = Number(entry.dataset.mathIndex) === index;
+            entry.hidden = !current;
+            entry.querySelector(".reactor-math-hint").hidden = true;
+            available = available || current;
+        });
+        support.hidden = !available;
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = "Help — Solve It";
+    }
+    get("div-math-help").addEventListener("click", () => {
+        const entry = get("div-math-support").querySelector("[data-math-index]:not([hidden])");
+        if (!entry) {
+            return;
+        }
+        const hint = entry.querySelector(".reactor-math-hint");
+        hint.hidden = !hint.hidden;
+        const button = get("div-math-help");
+        button.setAttribute("aria-expanded", String(!hint.hidden));
+        button.textContent = hint.hidden ? "Help — Solve It" : "Close Math Help";
+    });
+    function render() {
+        renderVocabulary();
+        const question = questions[index];
+        get("div-title").textContent = `${activeSet === 0 ? "Foundational Understanding" : "Applied Understanding"} · ${index % 10 + 1}/10`;
+        get("div-instruction").textContent = question.instruction;
+        get("div-prompt").textContent = question.prompt;
+        get("div-meaning").textContent = question.meaning + " — " + question.audio;
+        get("div-meaning").hidden = true;
+        renderMathSupport();
+        get("div-feedback").textContent = "";
+        root.querySelectorAll("[data-div-choice]").forEach((button) => {
+            button.textContent = question.choices[Number(button.dataset.divChoice)];
+            button.disabled = solved;
+        });
+        root.querySelectorAll("[data-div-set]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.divSet) === activeSet + 1));
+        });
+        get("div-reset").textContent = `Restart Set ${activeSet + 1}`;
+        get("div-switch").textContent = `Go to Set ${2 - activeSet}`;
+        get("div-next").hidden = true;
+        get("div-model").hidden = !solved;
+        energy();
+    }
+    function selectSet(set) {
+        activeSet = set;
+        index = set * 10 + Math.min(counts[set], 9);
+        solved = counts[set] === 10;
+        get("div-guide").hidden = true;
+        get("div-exercises").hidden = false;
+        render();
+    }
+    root.querySelectorAll("[data-div-set]").forEach((button) => {
+        button.addEventListener("click", () => selectSet(Number(button.dataset.divSet) - 1));
+    });
+    get("div-switch").addEventListener("click", () => selectSet(1 - activeSet));
+    root.querySelectorAll("[data-div-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (solved) {
+                return;
+            }
+            if (Number(button.dataset.divChoice) !== questions[index].correct) {
+                get("div-feedback").textContent = "Попробуйте ещё раз.";
+                return;
+            }
+            solved = true;
+            counts[activeSet] = index % 10 + 1;
+            save();
+            energy();
+            root.querySelectorAll("[data-div-choice]").forEach((choice) => {
+                choice.disabled = true;
+            });
+            get("div-model").hidden = false;
+            get("div-feedback").textContent = "Верно!";
+            get("div-next").hidden = counts[activeSet] === 10;
+            get("div-next").textContent = "Next exercise →";
+            speak(questions[index].model);
+        });
+    });
+    get("div-next").addEventListener("click", () => selectSet(activeSet));
+    get("div-reset").addEventListener("click", () => {
+        if (!window.confirm(`Restart Set ${activeSet + 1}?`)) {
+            return;
+        }
+        counts[activeSet] = 0;
+        save();
+        selectSet(activeSet);
+    });
+    get("div-listen").addEventListener("click", () => speak(questions[index].audio));
+    get("div-slow").addEventListener("click", () => speak(questions[index].audio, 0.55));
+    get("div-model").addEventListener("click", () => speak(questions[index].model));
+    get("div-help").addEventListener("click", () => {
+        get("div-meaning").hidden = !get("div-meaning").hidden;
+    });
+    root.querySelectorAll("[data-div-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.divSay));
+    });
+    function chain() {
+        return units.slice(3 - stage).join("").trim();
+    }
+    function guide(audio = true) {
+        get("div-stage").textContent = `Stage ${stage + 1} of 4`;
+        get("div-full-word").querySelectorAll("span").forEach((span, i) => {
+            span.classList.toggle("active-unit", i >= 3 - stage);
+        });
+        get("div-guide").querySelectorAll(".zero-units span").forEach((span, i) => {
+            span.textContent = i >= 3 - stage ? units[i] : "··";
+            span.classList.toggle("new-unit", i >= 3 - stage);
+        });
+        get("div-prev").disabled = stage === 0;
+        get("div-add").disabled = stage === 3;
+        if (audio) {
+            speak(chain());
+        }
+    }
+    get("div-guide-open").addEventListener("click", () => {
+        get("div-exercises").hidden = true;
+        get("div-guide").hidden = false;
+        stage = 0;
+        guide();
+    });
+    get("div-guide-back").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        get("div-guide").hidden = true;
+        get("div-exercises").hidden = false;
+    });
+    get("div-prev").addEventListener("click", () => {
+        stage = Math.max(0, stage - 1);
+        guide();
+    });
+    get("div-add").addEventListener("click", () => {
+        stage = Math.min(3, stage + 1);
+        guide();
+    });
+    root.querySelectorAll("[data-div-rate]").forEach((button) => {
+        button.addEventListener("click", () => speak(chain(), Number(button.dataset.divRate)));
+    });
+    root.querySelector(".reactor-return").addEventListener("click", () => window.speechSynthesis?.cancel());
+    render();
+})();
+
+
+// Fractions — persistent two-stage energy activation.
+(() => {
+    const questions = [
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Одна вторая.",
+            "audio": "Одна вторая.",
+            "meaning": "One half.",
+            "choices": [
+                "1/2",
+                "1/3",
+                "2/1"
+            ],
+            "correct": 0,
+            "model": "1/2"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Одна третья.",
+            "audio": "Одна третья.",
+            "meaning": "One third.",
+            "choices": [
+                "1/4",
+                "1/3",
+                "3/1"
+            ],
+            "correct": 1,
+            "model": "1/3"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Две третьих.",
+            "audio": "Две третьих.",
+            "meaning": "Two thirds.",
+            "choices": [
+                "3/2",
+                "2/4",
+                "2/3"
+            ],
+            "correct": 2,
+            "model": "2/3"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Одна четвёртая.",
+            "audio": "Одна четвёртая.",
+            "meaning": "One fourth.",
+            "choices": [
+                "1/4",
+                "4/1",
+                "1/5"
+            ],
+            "correct": 0,
+            "model": "1/4"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Три четвёртых.",
+            "audio": "Три четвёртых.",
+            "meaning": "Three fourths.",
+            "choices": [
+                "3/5",
+                "3/4",
+                "4/3"
+            ],
+            "correct": 1,
+            "model": "3/4"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Две пятых.",
+            "audio": "Две пятых.",
+            "meaning": "Two fifths.",
+            "choices": [
+                "5/2",
+                "2/6",
+                "2/5"
+            ],
+            "correct": 2,
+            "model": "2/5"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Пять шестых.",
+            "audio": "Пять шестых.",
+            "meaning": "Five sixths.",
+            "choices": [
+                "5/6",
+                "6/5",
+                "5/7"
+            ],
+            "correct": 0,
+            "model": "5/6"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Три восьмых.",
+            "audio": "Три восьмых.",
+            "meaning": "Three eighths.",
+            "choices": [
+                "3/7",
+                "3/8",
+                "8/3"
+            ],
+            "correct": 1,
+            "model": "3/8"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Семь десятых.",
+            "audio": "Семь десятых.",
+            "meaning": "Seven tenths.",
+            "choices": [
+                "10/7",
+                "7/9",
+                "7/10"
+            ],
+            "correct": 2,
+            "model": "7/10"
+        },
+        {
+            "instruction": "Choose the matching fraction.",
+            "prompt": "Девять сотых.",
+            "audio": "Девять сотых.",
+            "meaning": "Nine hundredths.",
+            "choices": [
+                "9/100",
+                "9/10",
+                "100/9"
+            ],
+            "correct": 0,
+            "model": "9/100"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Половина от двадцати яблок.",
+            "audio": "Половина от двадцати яблок.",
+            "meaning": "Half of twenty apples.",
+            "choices": [
+                "двадцать",
+                "десять",
+                "пять"
+            ],
+            "correct": 1,
+            "model": "десять"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Четверть от сорока рублей.",
+            "audio": "Четверть от сорока рублей.",
+            "meaning": "A quarter of forty rubles.",
+            "choices": [
+                "двадцать рублей",
+                "пять рублей",
+                "десять рублей"
+            ],
+            "correct": 2,
+            "model": "десять рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Треть от тридцати страниц.",
+            "audio": "Треть от тридцати страниц.",
+            "meaning": "A third of thirty pages.",
+            "choices": [
+                "десять",
+                "двадцать",
+                "три"
+            ],
+            "correct": 0,
+            "model": "десять"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Две третьих от двенадцати литров.",
+            "audio": "Две третьих от двенадцати литров.",
+            "meaning": "Two thirds of twelve liters.",
+            "choices": [
+                "шесть",
+                "восемь",
+                "четыре"
+            ],
+            "correct": 1,
+            "model": "восемь"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Три четвёртых от двадцати билетов.",
+            "audio": "Три четвёртых от двадцати билетов.",
+            "meaning": "Three quarters of twenty tickets.",
+            "choices": [
+                "пять",
+                "десять",
+                "пятнадцать"
+            ],
+            "correct": 2,
+            "model": "пятнадцать"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Мы съели половину пиццы. Какая часть осталась?",
+            "audio": "Мы съели половину пиццы. Какая часть осталась?",
+            "meaning": "We ate half the pizza. What fraction remains?",
+            "choices": [
+                "1/2",
+                "1/4",
+                "3/4"
+            ],
+            "correct": 0,
+            "model": "1/2"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Из десяти заданий выполнено семь. Какая часть выполнена?",
+            "audio": "Из десяти заданий выполнено семь. Какая часть выполнена?",
+            "meaning": "Seven of ten tasks are completed. What fraction is completed?",
+            "choices": [
+                "7/100",
+                "7/10",
+                "3/10"
+            ],
+            "correct": 1,
+            "model": "7/10"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "В бутылке литр воды. Выпили одну четвёртую. Какая часть осталась?",
+            "audio": "В бутылке литр воды. Выпили одну четвёртую. Какая часть осталась?",
+            "meaning": "A bottle contains a liter of water. One quarter was drunk. What fraction remains?",
+            "choices": [
+                "1/4",
+                "1/2",
+                "3/4"
+            ],
+            "correct": 2,
+            "model": "3/4"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Две пятых от пятидесяти деталей.",
+            "audio": "Две пятых от пятидесяти деталей.",
+            "meaning": "Two fifths of fifty parts.",
+            "choices": [
+                "двадцать",
+                "десять",
+                "тридцать"
+            ],
+            "correct": 0,
+            "model": "двадцать"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Из восьмидесяти мест заняты три четвёртых. Сколько мест занято?",
+            "audio": "Из восьмидесяти мест заняты три четвёртых. Сколько мест занято?",
+            "meaning": "Three quarters of eighty seats are occupied. How many seats are occupied?",
+            "choices": [
+                "сорок",
+                "шестьдесят",
+                "двадцать"
+            ],
+            "correct": 1,
+            "model": "шестьдесят"
+        }
+    ];
+    const get = (id) => document.getElementById(id);
+    const root = get("reactor-fractions");
+    const key = "numbers-reactor-fractions-v1";
+    let counts = [0, 0];
+    try {
+        const stored = JSON.parse(localStorage.getItem(key) || "0");
+        counts = Array.isArray(stored) ? [0, 1].map(i => Math.max(0, Math.min(10, Math.floor(Number(stored[i]) || 0)))) : [Math.min(10, Math.max(0, Number(stored) || 0)), Math.min(10, Math.max(0, (Number(stored) || 0) - 10))];
+    } catch (error) {
+        console.warn("Fractions progress unavailable", error);
+    }
+    let activeSet = 0;
+    let index = Math.min(counts[0], 9);
+    let solved = counts[0] === 10;
+    let stage = 0;
+    const units = ["две", " тре́", "ть", "их"];
+    function speak(text, rate = 1) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("fra-feedback").textContent = "Russian audio is unavailable. Use Help to continue.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function save() {
+        try {
+            localStorage.setItem(key, JSON.stringify(counts));
+        } catch (error) {
+            console.warn("Fractions progress could not be saved", error);
+        }
+    }
+    function energy() {
+        root.querySelectorAll("[data-fra-wheel]").forEach((wheel) => {
+            const set = Number(wheel.dataset.fraWheel) - 1;
+            wheel.hidden = set !== activeSet;
+            wheel.classList.toggle("is-complete", counts[set] === 10);
+            wheel.querySelectorAll("[data-fra-cell]").forEach((cell) => {
+                cell.classList.toggle("is-lit", Number(cell.dataset.fraCell) <= counts[set]);
+            });
+        });
+        const complete = counts.every(count => count === 10);
+        document.querySelector(".reactor-nodule--fractions").classList.toggle("is-energized", complete);
+        updateQuantumReactorIllumination();
+        document.querySelector(".reactor-fractions").setAttribute("aria-label", complete ? "Fractions — fully energized" : "Fractions");
+    }
+    function renderVocabulary() {
+        const step = index % 10 + 1;
+        const panel = root.querySelector(".fra-vocab-scroll");
+        let newest = null;
+        panel.querySelectorAll("[data-vocab-set]").forEach((entry) => {
+            const sameSet = Number(entry.dataset.vocabSet) === activeSet + 1;
+            const introduced = Number(entry.dataset.vocabStep);
+            const visible = sameSet && introduced <= step;
+            entry.hidden = !visible;
+            entry.classList.toggle("is-new", visible && introduced === step);
+            if (visible && introduced === step && !newest) {
+                newest = entry;
+            }
+        });
+        requestAnimationFrame(() => {
+            if (newest && panel.clientHeight) {
+                panel.scrollTop = newest.offsetTop;
+            } else if (panel.clientHeight) {
+                panel.scrollTop = panel.scrollHeight;
+            }
+        });
+    }
+    function renderMathSupport() {
+        const support = get("fra-math-support");
+        const button = get("fra-math-help");
+        let available = false;
+        support.querySelectorAll("[data-math-index]").forEach((entry) => {
+            const current = Number(entry.dataset.mathIndex) === index;
+            entry.hidden = !current;
+            entry.querySelector(".reactor-math-hint").hidden = true;
+            available = available || current;
+        });
+        support.hidden = !available;
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(index) ? "Help — Understand It" : "Help — Solve It");
+    }
+    get("fra-math-help").addEventListener("click", () => {
+        const entry = get("fra-math-support").querySelector("[data-math-index]:not([hidden])");
+        if (!entry) {
+            return;
+        }
+        const hint = entry.querySelector(".reactor-math-hint");
+        hint.hidden = !hint.hidden;
+        const button = get("fra-math-help");
+        button.setAttribute("aria-expanded", String(!hint.hidden));
+        button.textContent = hint.hidden ? ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(index) ? "Help — Understand It" : "Help — Solve It") : "Close Math Help";
+    });
+    function render() {
+        renderVocabulary();
+        const question = questions[index];
+        get("fra-title").textContent = `${activeSet === 0 ? "Foundational Understanding" : "Applied Understanding"} · ${index % 10 + 1}/10`;
+        get("fra-instruction").textContent = question.instruction;
+        get("fra-prompt").textContent = question.prompt;
+        get("fra-meaning").textContent = question.meaning + " — " + question.audio;
+        get("fra-meaning").hidden = true;
+        renderMathSupport();
+        get("fra-feedback").textContent = "";
+        root.querySelectorAll("[data-fra-choice]").forEach((button) => {
+            button.textContent = question.choices[Number(button.dataset.fraChoice)];
+            button.disabled = solved;
+        });
+        root.querySelectorAll("[data-fra-set]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.fraSet) === activeSet + 1));
+        });
+        get("fra-reset").textContent = `Restart Set ${activeSet + 1}`;
+        get("fra-switch").textContent = `Go to Set ${2 - activeSet}`;
+        get("fra-next").hidden = true;
+        get("fra-model").hidden = !solved;
+        energy();
+    }
+    function selectSet(set) {
+        activeSet = set;
+        index = set * 10 + Math.min(counts[set], 9);
+        solved = counts[set] === 10;
+        get("fra-guide").hidden = true;
+        get("fra-exercises").hidden = false;
+        render();
+    }
+    root.querySelectorAll("[data-fra-set]").forEach((button) => {
+        button.addEventListener("click", () => selectSet(Number(button.dataset.fraSet) - 1));
+    });
+    get("fra-switch").addEventListener("click", () => selectSet(1 - activeSet));
+    root.querySelectorAll("[data-fra-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (solved) {
+                return;
+            }
+            if (Number(button.dataset.fraChoice) !== questions[index].correct) {
+                get("fra-feedback").textContent = "Попробуйте ещё раз.";
+                return;
+            }
+            solved = true;
+            counts[activeSet] = index % 10 + 1;
+            save();
+            energy();
+            root.querySelectorAll("[data-fra-choice]").forEach((choice) => {
+                choice.disabled = true;
+            });
+            get("fra-model").hidden = false;
+            get("fra-feedback").textContent = "Верно!";
+            get("fra-next").hidden = counts[activeSet] === 10;
+            get("fra-next").textContent = "Next exercise →";
+            speak(questions[index].model);
+        });
+    });
+    get("fra-next").addEventListener("click", () => selectSet(activeSet));
+    get("fra-reset").addEventListener("click", () => {
+        if (!window.confirm(`Restart Set ${activeSet + 1}?`)) {
+            return;
+        }
+        counts[activeSet] = 0;
+        save();
+        selectSet(activeSet);
+    });
+    get("fra-listen").addEventListener("click", () => speak(questions[index].audio));
+    get("fra-slow").addEventListener("click", () => speak(questions[index].audio, 0.55));
+    get("fra-model").addEventListener("click", () => speak(questions[index].model));
+    get("fra-help").addEventListener("click", () => {
+        get("fra-meaning").hidden = !get("fra-meaning").hidden;
+    });
+    root.querySelectorAll("[data-fra-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.fraSay));
+    });
+    function chain() {
+        return units.slice(3 - stage).join("").trim();
+    }
+    function guide(audio = true) {
+        get("fra-stage").textContent = `Stage ${stage + 1} of 4`;
+        get("fra-full-word").querySelectorAll("span").forEach((span, i) => {
+            span.classList.toggle("active-unit", i >= 3 - stage);
+        });
+        get("fra-guide").querySelectorAll(".zero-units span").forEach((span, i) => {
+            span.textContent = i >= 3 - stage ? units[i] : "··";
+            span.classList.toggle("new-unit", i >= 3 - stage);
+        });
+        get("fra-prev").disabled = stage === 0;
+        get("fra-add").disabled = stage === 3;
+        if (audio) {
+            speak(chain());
+        }
+    }
+    get("fra-guide-open").addEventListener("click", () => {
+        get("fra-exercises").hidden = true;
+        get("fra-guide").hidden = false;
+        stage = 0;
+        guide();
+    });
+    get("fra-guide-back").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        get("fra-guide").hidden = true;
+        get("fra-exercises").hidden = false;
+    });
+    get("fra-prev").addEventListener("click", () => {
+        stage = Math.max(0, stage - 1);
+        guide();
+    });
+    get("fra-add").addEventListener("click", () => {
+        stage = Math.min(3, stage + 1);
+        guide();
+    });
+    root.querySelectorAll("[data-fra-rate]").forEach((button) => {
+        button.addEventListener("click", () => speak(chain(), Number(button.dataset.fraRate)));
+    });
+    root.querySelector(".reactor-return").addEventListener("click", () => window.speechSynthesis?.cancel());
+    render();
+})();
+
+
+// Percentages — persistent two-stage energy activation.
+(() => {
+    const questions = [
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Один процент.",
+            "audio": "Один процент.",
+            "meaning": "One percent.",
+            "choices": [
+                "1%",
+                "10%",
+                "11%"
+            ],
+            "correct": 0,
+            "model": "1%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Два процента.",
+            "audio": "Два процента.",
+            "meaning": "Two percent.",
+            "choices": [
+                "20%",
+                "2%",
+                "12%"
+            ],
+            "correct": 1,
+            "model": "2%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Пять процентов.",
+            "audio": "Пять процентов.",
+            "meaning": "Five percent.",
+            "choices": [
+                "15%",
+                "50%",
+                "5%"
+            ],
+            "correct": 2,
+            "model": "5%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Одиннадцать процентов.",
+            "audio": "Одиннадцать процентов.",
+            "meaning": "Eleven percent.",
+            "choices": [
+                "11%",
+                "1%",
+                "21%"
+            ],
+            "correct": 0,
+            "model": "11%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Двадцать один процент.",
+            "audio": "Двадцать один процент.",
+            "meaning": "Twenty-one percent.",
+            "choices": [
+                "20%",
+                "21%",
+                "12%"
+            ],
+            "correct": 1,
+            "model": "21%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Двадцать четыре процента.",
+            "audio": "Двадцать четыре процента.",
+            "meaning": "Twenty-four percent.",
+            "choices": [
+                "42%",
+                "14%",
+                "24%"
+            ],
+            "correct": 2,
+            "model": "24%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Пятьдесят процентов.",
+            "audio": "Пятьдесят процентов.",
+            "meaning": "Fifty percent.",
+            "choices": [
+                "50%",
+                "15%",
+                "5%"
+            ],
+            "correct": 0,
+            "model": "50%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Семьдесят пять процентов.",
+            "audio": "Семьдесят пять процентов.",
+            "meaning": "Seventy-five percent.",
+            "choices": [
+                "70%",
+                "75%",
+                "57%"
+            ],
+            "correct": 1,
+            "model": "75%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Девяносто процентов.",
+            "audio": "Девяносто процентов.",
+            "meaning": "Ninety percent.",
+            "choices": [
+                "19%",
+                "9%",
+                "90%"
+            ],
+            "correct": 2,
+            "model": "90%"
+        },
+        {
+            "instruction": "Choose the matching percentage.",
+            "prompt": "Сто процентов.",
+            "audio": "Сто процентов.",
+            "meaning": "One hundred percent.",
+            "choices": [
+                "100%",
+                "10%",
+                "1%"
+            ],
+            "correct": 0,
+            "model": "100%"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Десять процентов от двухсот рублей.",
+            "audio": "Десять процентов от двухсот рублей.",
+            "meaning": "Ten percent of 200 rubles.",
+            "choices": [
+                "сто рублей",
+                "двадцать рублей",
+                "десять рублей"
+            ],
+            "correct": 1,
+            "model": "двадцать рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Половина — это сколько процентов?",
+            "audio": "Половина — это сколько процентов?",
+            "meaning": "Half is what percentage?",
+            "choices": [
+                "25%",
+                "10%",
+                "50%"
+            ],
+            "correct": 2,
+            "model": "50%"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Четверть — это сколько процентов?",
+            "audio": "Четверть — это сколько процентов?",
+            "meaning": "A quarter is what percentage?",
+            "choices": [
+                "25%",
+                "50%",
+                "75%"
+            ],
+            "correct": 0,
+            "model": "25%"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Цена сто рублей. Скидка двадцать процентов. Какова новая цена?",
+            "audio": "Цена сто рублей. Скидка двадцать процентов. Какова новая цена?",
+            "meaning": "Price is 100 rubles. Discount is 20%. What is the new price?",
+            "choices": [
+                "сто двадцать рублей",
+                "восемьдесят рублей",
+                "двадцать рублей"
+            ],
+            "correct": 1,
+            "model": "восемьдесят рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Цена двести рублей. Она выросла на десять процентов.",
+            "audio": "Цена двести рублей. Она выросла на десять процентов.",
+            "meaning": "Price is 200 rubles. It increased by 10%.",
+            "choices": [
+                "сто восемьдесят рублей",
+                "двести десять рублей",
+                "двести двадцать рублей"
+            ],
+            "correct": 2,
+            "model": "двести двадцать рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Из ста учеников восемьдесят сдали экзамен. Какой процент сдал экзамен?",
+            "audio": "Из ста учеников восемьдесят сдали экзамен. Какой процент сдал экзамен?",
+            "meaning": "Eighty out of 100 students passed the exam. What percentage passed?",
+            "choices": [
+                "80%",
+                "20%",
+                "8%"
+            ],
+            "correct": 0,
+            "model": "80%"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Батарея заряжена на семьдесят процентов. Сколько процентов не хватает до ста?",
+            "audio": "Батарея заряжена на семьдесят процентов. Сколько процентов не хватает до ста?",
+            "meaning": "Battery is charged to 70%. How many percentage points remain to 100%?",
+            "choices": [
+                "20%",
+                "30%",
+                "70%"
+            ],
+            "correct": 1,
+            "model": "30%"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "В магазине скидка пятьдесят процентов на товар за шестьсот рублей. Сколько стоит товар со скидкой?",
+            "audio": "В магазине скидка пятьдесят процентов на товар за шестьсот рублей. Сколько стоит товар со скидкой?",
+            "meaning": "A shop offers 50% off an item priced at 600 rubles. What is the sale price?",
+            "choices": [
+                "пятьсот рублей",
+                "сто рублей",
+                "триста рублей"
+            ],
+            "correct": 2,
+            "model": "триста рублей"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Двадцать пять процентов от восьмидесяти мест свободны. Сколько свободных мест?",
+            "audio": "Двадцать пять процентов от восьмидесяти мест свободны. Сколько свободных мест?",
+            "meaning": "25% of 80 seats are free. How many free seats?",
+            "choices": [
+                "двадцать",
+                "сорок",
+                "шестьдесят"
+            ],
+            "correct": 0,
+            "model": "двадцать"
+        },
+        {
+            "instruction": "Interpret the Russian and choose the correct answer.",
+            "prompt": "Из четырёхсот деталей пять процентов бракованные. Сколько бракованных деталей?",
+            "audio": "Из четырёхсот деталей пять процентов бракованные. Сколько бракованных деталей?",
+            "meaning": "Five percent of 400 parts are defective. How many defective parts?",
+            "choices": [
+                "пять",
+                "двадцать",
+                "сорок"
+            ],
+            "correct": 1,
+            "model": "двадцать"
+        }
+    ];
+    const get = (id) => document.getElementById(id);
+    const root = get("reactor-percentages");
+    const key = "numbers-reactor-percentages-v1";
+    let counts = [0, 0];
+    try {
+        const stored = JSON.parse(localStorage.getItem(key) || "0");
+        counts = Array.isArray(stored) ? [0, 1].map(i => Math.max(0, Math.min(10, Math.floor(Number(stored[i]) || 0)))) : [Math.min(10, Math.max(0, Number(stored) || 0)), Math.min(10, Math.max(0, (Number(stored) || 0) - 10))];
+    } catch (error) {
+        console.warn("Percentages progress unavailable", error);
+    }
+    let activeSet = 0;
+    let index = Math.min(counts[0], 9);
+    let solved = counts[0] === 10;
+    let stage = 0;
+    const units = ["про", "це́н", "т", "ов"];
+    function speak(text, rate = 1) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            get("pct-feedback").textContent = "Russian audio is unavailable. Use Help to continue.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.rate = rate;
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (voice) {
+            utterance.voice = voice;
+        }
+        speechSynthesis.speak(utterance);
+    }
+    function save() {
+        try {
+            localStorage.setItem(key, JSON.stringify(counts));
+        } catch (error) {
+            console.warn("Percentages progress could not be saved", error);
+        }
+    }
+    function energy() {
+        root.querySelectorAll("[data-pct-wheel]").forEach((wheel) => {
+            const set = Number(wheel.dataset.pctWheel) - 1;
+            wheel.hidden = set !== activeSet;
+            wheel.classList.toggle("is-complete", counts[set] === 10);
+            wheel.querySelectorAll("[data-pct-cell]").forEach((cell) => {
+                cell.classList.toggle("is-lit", Number(cell.dataset.pctCell) <= counts[set]);
+            });
+        });
+        const complete = counts.every(count => count === 10);
+        document.querySelector(".reactor-nodule--percent").classList.toggle("is-energized", complete);
+        updateQuantumReactorIllumination();
+        document.querySelector(".reactor-percent").setAttribute("aria-label", complete ? "Percentages — fully energized" : "Percentages");
+    }
+    function renderVocabulary() {
+        const step = index % 10 + 1;
+        const panel = root.querySelector(".pct-vocab-scroll");
+        let newest = null;
+        panel.querySelectorAll("[data-vocab-set]").forEach((entry) => {
+            const sameSet = Number(entry.dataset.vocabSet) === activeSet + 1;
+            const introduced = Number(entry.dataset.vocabStep);
+            const visible = sameSet && introduced <= step;
+            entry.hidden = !visible;
+            entry.classList.toggle("is-new", visible && introduced === step);
+            if (visible && introduced === step && !newest) {
+                newest = entry;
+            }
+        });
+        requestAnimationFrame(() => {
+            if (newest && panel.clientHeight) {
+                panel.scrollTop = newest.offsetTop;
+            } else if (panel.clientHeight) {
+                panel.scrollTop = panel.scrollHeight;
+            }
+        });
+    }
+    function renderMathSupport() {
+        const support = get("pct-math-support");
+        const button = get("pct-math-help");
+        let available = false;
+        support.querySelectorAll("[data-math-index]").forEach((entry) => {
+            const current = Number(entry.dataset.mathIndex) === index;
+            entry.hidden = !current;
+            entry.querySelector(".reactor-math-hint").hidden = true;
+            available = available || current;
+        });
+        support.hidden = !available;
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(index) ? "Help — Understand It" : "Help — Solve It");
+    }
+    get("pct-math-help").addEventListener("click", () => {
+        const entry = get("pct-math-support").querySelector("[data-math-index]:not([hidden])");
+        if (!entry) {
+            return;
+        }
+        const hint = entry.querySelector(".reactor-math-hint");
+        hint.hidden = !hint.hidden;
+        const button = get("pct-math-help");
+        button.setAttribute("aria-expanded", String(!hint.hidden));
+        button.textContent = hint.hidden ? ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(index) ? "Help — Understand It" : "Help — Solve It") : "Close Math Help";
+    });
+    function render() {
+        renderVocabulary();
+        const question = questions[index];
+        get("pct-title").textContent = `${activeSet === 0 ? "Foundational Understanding" : "Applied Understanding"} · ${index % 10 + 1}/10`;
+        get("pct-instruction").textContent = question.instruction;
+        get("pct-prompt").textContent = question.prompt;
+        get("pct-meaning").textContent = question.meaning + " — " + question.audio;
+        get("pct-meaning").hidden = true;
+        renderMathSupport();
+        get("pct-feedback").textContent = "";
+        root.querySelectorAll("[data-pct-choice]").forEach((button) => {
+            button.textContent = question.choices[Number(button.dataset.pctChoice)];
+            button.disabled = solved;
+        });
+        root.querySelectorAll("[data-pct-set]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.pctSet) === activeSet + 1));
+        });
+        get("pct-reset").textContent = `Restart Set ${activeSet + 1}`;
+        get("pct-switch").textContent = `Go to Set ${2 - activeSet}`;
+        get("pct-next").hidden = true;
+        get("pct-model").hidden = !solved;
+        energy();
+    }
+    function selectSet(set) {
+        activeSet = set;
+        index = set * 10 + Math.min(counts[set], 9);
+        solved = counts[set] === 10;
+        get("pct-guide").hidden = true;
+        get("pct-exercises").hidden = false;
+        render();
+    }
+    root.querySelectorAll("[data-pct-set]").forEach((button) => {
+        button.addEventListener("click", () => selectSet(Number(button.dataset.pctSet) - 1));
+    });
+    get("pct-switch").addEventListener("click", () => selectSet(1 - activeSet));
+    root.querySelectorAll("[data-pct-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+            if (solved) {
+                return;
+            }
+            if (Number(button.dataset.pctChoice) !== questions[index].correct) {
+                get("pct-feedback").textContent = "Попробуйте ещё раз.";
+                return;
+            }
+            solved = true;
+            counts[activeSet] = index % 10 + 1;
+            save();
+            energy();
+            root.querySelectorAll("[data-pct-choice]").forEach((choice) => {
+                choice.disabled = true;
+            });
+            get("pct-model").hidden = false;
+            get("pct-feedback").textContent = "Верно!";
+            get("pct-next").hidden = counts[activeSet] === 10;
+            get("pct-next").textContent = "Next exercise →";
+            speak(questions[index].model);
+        });
+    });
+    get("pct-next").addEventListener("click", () => selectSet(activeSet));
+    get("pct-reset").addEventListener("click", () => {
+        if (!window.confirm(`Restart Set ${activeSet + 1}?`)) {
+            return;
+        }
+        counts[activeSet] = 0;
+        save();
+        selectSet(activeSet);
+    });
+    get("pct-listen").addEventListener("click", () => speak(questions[index].audio));
+    get("pct-slow").addEventListener("click", () => speak(questions[index].audio, 0.55));
+    get("pct-model").addEventListener("click", () => speak(questions[index].model));
+    get("pct-help").addEventListener("click", () => {
+        get("pct-meaning").hidden = !get("pct-meaning").hidden;
+    });
+    root.querySelectorAll("[data-pct-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.pctSay));
+    });
+    function chain() {
+        return units.slice(3 - stage).join("").trim();
+    }
+    function guide(audio = true) {
+        get("pct-stage").textContent = `Stage ${stage + 1} of 4`;
+        get("pct-full-word").querySelectorAll("span").forEach((span, i) => {
+            span.classList.toggle("active-unit", i >= 3 - stage);
+        });
+        get("pct-guide").querySelectorAll(".zero-units span").forEach((span, i) => {
+            span.textContent = i >= 3 - stage ? units[i] : "··";
+            span.classList.toggle("new-unit", i >= 3 - stage);
+        });
+        get("pct-prev").disabled = stage === 0;
+        get("pct-add").disabled = stage === 3;
+        if (audio) {
+            speak(chain());
+        }
+    }
+    get("pct-guide-open").addEventListener("click", () => {
+        get("pct-exercises").hidden = true;
+        get("pct-guide").hidden = false;
+        stage = 0;
+        guide();
+    });
+    get("pct-guide-back").addEventListener("click", () => {
+        window.speechSynthesis?.cancel();
+        get("pct-guide").hidden = true;
+        get("pct-exercises").hidden = false;
+    });
+    get("pct-prev").addEventListener("click", () => {
+        stage = Math.max(0, stage - 1);
+        guide();
+    });
+    get("pct-add").addEventListener("click", () => {
+        stage = Math.min(3, stage + 1);
+        guide();
+    });
+    root.querySelectorAll("[data-pct-rate]").forEach((button) => {
+        button.addEventListener("click", () => speak(chain(), Number(button.dataset.pctRate)));
+    });
+    root.querySelector(".reactor-return").addEventListener("click", () => window.speechSynthesis?.cancel());
+    render();
+})();
+
+// Also synchronize after all four operator initializers and on class changes.
+(() => {
+    const scene = document.getElementById("reactor-landing");
+    const observer = new MutationObserver(updateQuantumReactorIllumination);
+    scene.querySelectorAll(".reactor-nodule").forEach((nodule) => {
+        observer.observe(nodule, { attributes: true, attributeFilter: ["class"] });
+    });
+    updateQuantumReactorIllumination();
 })();

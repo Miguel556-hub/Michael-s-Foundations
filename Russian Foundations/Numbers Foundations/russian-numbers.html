@@ -4902,12 +4902,22 @@
                         src="../../Images/numbers/door-2-fractions-nodule.png" alt="" />
                     <img class="reactor-nodule reactor-nodule--percent"
                         src="../../Images/numbers/door-2-percentage-nodule.png" alt="" />
-                    <img class="reactor-machine" src="../../Images/numbers/door-2-reactor.png" alt="" />
+                    <div class="reactor-machine reactor-machine-stack">
+                        <img class="reactor-machine-base" src="../../Images/numbers/door-2-reactor.png" alt="" />
+                        <img class="reactor-machine-light reactor-light-multiply" src="../../Images/numbers/door-2-reactor.png" alt="" />
+                        <img class="reactor-machine-light reactor-light-divide" src="../../Images/numbers/door-2-reactor.png" alt="" />
+                        <img class="reactor-machine-light reactor-light-fractions" src="../../Images/numbers/door-2-reactor.png" alt="" />
+                        <img class="reactor-machine-light reactor-light-percent" src="../../Images/numbers/door-2-reactor.png" alt="" />
+                        <div class="reactor-spinning-core" aria-hidden="true">
+                            <img src="../../Images/numbers/door-2-reactor-core.png" alt="" />
+                        </div>
+                    </div>
                 </div>
                 <div class="reactor-core">
                     The Reactor needs ENERGY. Click on each operator and complete it to give the reactor the energy it
                     needs!
                 </div>
+                <span class="reactor-activation-status" role="status" aria-live="polite"></span>
                 <button type="button" class="reactor-module reactor-multiply" data-reactor-target="multiplication"
                     aria-label="Multiplication"></button>
                 <button type="button" class="reactor-module reactor-divide" data-reactor-target="division"
@@ -5141,6 +5151,148 @@
                             <span class="mul-cell mul-cell-10" data-mul-cell="10" aria-hidden="true"></span>
                             <span class="mul-center" aria-hidden="true"></span>
                         </div>
+                        <div class="reactor-math-support" id="mul-math-support" hidden>
+                            <div data-math-index="0" hidden>
+                                <div class="reactor-math-equation">a × b = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The × symbol means multiply. Think of equal groups. Choose the Russian expression for this operation.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="1" hidden>
+                                <div class="reactor-math-equation">3 × 4 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The × sign connects the two factors. In Russian, a preposition connects the multiplication verb to the second factor. Recall the operator phrase from the lesson.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="2" hidden>
+                                <div class="reactor-math-equation">a ? b</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The first spoken number is the first factor. The second spoken number is the second factor. Choose the symbol for the operation you hear.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="3" hidden>
+                                <div class="reactor-math-equation">a ? b</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Listen for the first number, the operation, and the second number, in that order. Match all three to the choices.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="4" hidden>
+                                <div class="reactor-math-equation">4 × 6 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Read the first factor, then the multiplication phrase, then the second factor. Choose the Russian reading in that order.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="8" hidden>
+                                <div class="reactor-math-equation">a ? b = c</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Listen for the two factors and the operation. The word равно introduces the result. Compare all parts with the choices.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="9" hidden>
+                                <div class="reactor-math-equation">12 × 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Read the first factor, then the multiplication phrase including its preposition, then the second factor.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="10" hidden>
+                                <div class="reactor-math-equation">4 ? 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. There are equal groups of apples. Think about repeated addition: four apples in each of three boxes. Which operation represents equal groups?</p>
+                                </div>
+                            </div>
+                            <div data-math-index="12" hidden>
+                                <div class="reactor-math-equation">6 × 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. There are three bags with six apples each. Add six three times, or multiply six by three. Choose the Russian total.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="14" hidden>
+                                <div class="reactor-math-equation">8 ? 2 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Doubling means making two equal copies of the original quantity. Think about which operation represents two copies rather than adding two.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="17" hidden>
+                                <div class="reactor-math-equation">8 × ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. There are eight hours each day and five working days. Add eight five times, or multiply eight by five. Choose the Russian total.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="5" hidden>
+                                <div class="reactor-math-equation">8 × 5 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Find the number after на.</p>
+                                    <p>2. That number is the multiplier, not the product.</p>
+                                    <p>3. Choose its Russian name.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="6" hidden>
+                                <div class="reactor-math-equation">9 × 2 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 9.</p>
+                                    <p>2. Add 9 a total of 2 times (or multiply by 2).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="7" hidden>
+                                <div class="reactor-math-equation">6 × 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 6.</p>
+                                    <p>2. Add 6 a total of 3 times (or multiply by 3).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="11" hidden>
+                                <div class="reactor-math-equation">20 × 5 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 20.</p>
+                                    <p>2. Add 20 a total of 5 times (or multiply by 5).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="13" hidden>
+                                <div class="reactor-math-equation">10 × 7 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 10.</p>
+                                    <p>2. Add 10 a total of 7 times (or multiply by 7).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="15" hidden>
+                                <div class="reactor-math-equation">6 × 10 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 6.</p>
+                                    <p>2. Add 6 a total of 10 times (or multiply by 10).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="16" hidden>
+                                <div class="reactor-math-equation">2 × 100 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 2.</p>
+                                    <p>2. Add 2 a total of 100 times (or multiply by 100).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="18" hidden>
+                                <div class="reactor-math-equation">12 × 4 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 12.</p>
+                                    <p>2. Add 12 a total of 4 times (or multiply by 4).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="19" hidden>
+                                <div class="reactor-math-equation">9 × 20 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 9.</p>
+                                    <p>2. Add 9 a total of 20 times (or multiply by 20).</p>
+                                    <p>3. Choose the matching Russian number or quantity.</p>
+                                </div>
+                            </div>
+                            <button type="button" id="mul-math-help" aria-expanded="false">Help — Solve It</button>
+                        </div>
+
                         
                     </div>
                     <div class="mul-tabs" aria-label="Exercise sets">
@@ -5199,14 +5351,400 @@
                     <img class="reactor-experience-nodule reactor-experience-nodule--right"
                         src="../../Images/numbers/door-2-division-nodule2.png" alt="Division" />
                     <button type="button" class="reactor-return">« Back to the Reactor</button>
+                    <section class="div-vocab" aria-label="Progressive Vocabulary Bank">
+                        <h3>Vocabulary Bank</h3>
+                        <div class="div-vocab-scroll" tabindex="0" aria-label="Scroll vocabulary">
+                        <div class="div-vocab-entry" data-vocab-set="1" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-div-say="раздели́ть на" aria-label="Hear раздели́ть на">раздели́ть на <span aria-hidden="true">♪</span></button>
+                            <span>to divide by</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="1" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-div-say="равно́" aria-label="Hear равно́">равно́ <span aria-hidden="true">♪</span></button>
+                            <span>equals</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="1" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-div-say="ско́лько бу́дет" aria-label="Hear ско́лько бу́дет">ско́лько бу́дет <span aria-hidden="true">♪</span></button>
+                            <span>how much is</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="1" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-div-say="уме́ньшите" aria-label="Hear уме́ньшите">уме́ньшите <span aria-hidden="true">♪</span></button>
+                            <span>reduce</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="1" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-div-say="в два ра́за" aria-label="Hear в два ра́за">в два ра́за <span aria-hidden="true">♪</span></button>
+                            <span>by a factor of two</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-div-say="поро́вну" aria-label="Hear поро́вну">поро́вну <span aria-hidden="true">♪</span></button>
+                            <span>equally</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-div-say="ме́жду" aria-label="Hear ме́жду">ме́жду <span aria-hidden="true">♪</span></button>
+                            <span>among</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-div-say="де́ти" aria-label="Hear де́ти">де́ти <span aria-hidden="true">♪</span></button>
+                            <span>children</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-div-say="ка́ждому" aria-label="Hear ка́ждому">ка́ждому <span aria-hidden="true">♪</span></button>
+                            <span>to each</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-div-say="биле́т" aria-label="Hear биле́т">биле́т <span aria-hidden="true">♪</span></button>
+                            <span>ticket</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-div-say="сто́ит" aria-label="Hear сто́ит">сто́ит <span aria-hidden="true">♪</span></button>
+                            <span>costs</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-div-say="коро́бка" aria-label="Hear коро́бка">коро́бка <span aria-hidden="true">♪</span></button>
+                            <span>box</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-div-say="каранда́ш" aria-label="Hear каранда́ш">каранда́ш <span aria-hidden="true">♪</span></button>
+                            <span>pencil</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-div-say="разложи́те" aria-label="Hear разложи́те">разложи́те <span aria-hidden="true">♪</span></button>
+                            <span>distribute</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-div-say="паке́т" aria-label="Hear паке́т">паке́т <span aria-hidden="true">♪</span></button>
+                            <span>bag</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-div-say="прочита́л" aria-label="Hear прочита́л">прочита́л <span aria-hidden="true">♪</span></button>
+                            <span>read</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-div-say="страни́ца" aria-label="Hear страни́ца">страни́ца <span aria-hidden="true">♪</span></button>
+                            <span>page</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-div-say="в сре́днем" aria-label="Hear в сре́днем">в сре́днем <span aria-hidden="true">♪</span></button>
+                            <span>on average</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-div-say="прое́хал" aria-label="Hear прое́хал">прое́хал <span aria-hidden="true">♪</span></button>
+                            <span>traveled</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-div-say="ско́рость" aria-label="Hear ско́рость">ско́рость <span aria-hidden="true">♪</span></button>
+                            <span>speed</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-div-say="зал" aria-label="Hear зал">зал <span aria-hidden="true">♪</span></button>
+                            <span>hall</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-div-say="место́" aria-label="Hear место́">место́ <span aria-hidden="true">♪</span></button>
+                            <span>place</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-div-say="ряд" aria-label="Hear ряд">ряд <span aria-hidden="true">♪</span></button>
+                            <span>row</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-div-say="одина́ковый" aria-label="Hear одина́ковый">одина́ковый <span aria-hidden="true">♪</span></button>
+                            <span>identical</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-div-say="счёт" aria-label="Hear счёт">счёт <span aria-hidden="true">♪</span></button>
+                            <span>bill</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-div-say="пла́тит" aria-label="Hear пла́тит">пла́тит <span aria-hidden="true">♪</span></button>
+                            <span>pays</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-div-say="склад" aria-label="Hear склад">склад <span aria-hidden="true">♪</span></button>
+                            <span>warehouse</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-div-say="буты́лка" aria-label="Hear буты́лка">буты́лка <span aria-hidden="true">♪</span></button>
+                            <span>bottle</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-div-say="я́щик" aria-label="Hear я́щик">я́щик <span aria-hidden="true">♪</span></button>
+                            <span>crate</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-div-say="кладу́т" aria-label="Hear кладу́т">кладу́т <span aria-hidden="true">♪</span></button>
+                            <span>put</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="9" hidden>
+                            <button type="button" lang="ru" data-div-say="в три ра́за" aria-label="Hear в три ра́за">в три ра́за <span aria-hidden="true">♪</span></button>
+                            <span>by a factor of three</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-div-say="рабо́чие" aria-label="Hear рабо́чие">рабо́чие <span aria-hidden="true">♪</span></button>
+                            <span>workers</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-div-say="изгото́вили" aria-label="Hear изгото́вили">изгото́вили <span aria-hidden="true">♪</span></button>
+                            <span>produced</span>
+                        </div>
+                        <div class="div-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-div-say="дета́ль" aria-label="Hear дета́ль">дета́ль <span aria-hidden="true">♪</span></button>
+                            <span>part</span>
+                        </div>
+                        </div>
+                    </section>
                 </div>
-                <div class="reactor-workspace reactor-workspace--left">
-                    <p class="reactor-workspace__instructions">&lt;&lt;Instructions here&gt;&gt;</p>
-                    <div class="reactor-workspace__core">
-                        <p>Core Experience here</p>
+                <div class="reactor-workspace reactor-workspace--left div-workspace">
+                    <div class="div-intro">
+                        <h3 lang="ru">Раздели́ть на — divide by</h3>
+                        <p>Russian uses на to introduce the divisor. Learn разделить на as one expression.</p>
+                        <button type="button" data-div-say="двенадцать разделить на три равно четыре">▶ 12 ÷ 3 = 4</button>
+                        <button type="button" id="div-guide-open">Learn to Pronounce</button>
+                    </div>
+                    <div class="div-energy">
+                        
+                        <div class="div-wheel" data-div-wheel="1">
+                            <img src="../../Images/numbers/door-2-multiplication-set-1.png" alt="Bronze energy core" />
+                            <span class="div-cell div-cell-1" data-div-cell="1" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-2" data-div-cell="2" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-3" data-div-cell="3" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-4" data-div-cell="4" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-5" data-div-cell="5" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-6" data-div-cell="6" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-7" data-div-cell="7" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-8" data-div-cell="8" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-9" data-div-cell="9" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-10" data-div-cell="10" aria-hidden="true"></span>
+                            <span class="div-center" aria-hidden="true"></span>
+                        </div>
+                        <div class="div-wheel" data-div-wheel="2" hidden>
+                            <img src="../../Images/numbers/door-2-multiplication-set-2.png" alt="Silver energy core" />
+                            <span class="div-cell div-cell-1" data-div-cell="1" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-2" data-div-cell="2" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-3" data-div-cell="3" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-4" data-div-cell="4" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-5" data-div-cell="5" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-6" data-div-cell="6" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-7" data-div-cell="7" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-8" data-div-cell="8" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-9" data-div-cell="9" aria-hidden="true"></span>
+                            <span class="div-cell div-cell-10" data-div-cell="10" aria-hidden="true"></span>
+                            <span class="div-center" aria-hidden="true"></span>
+                        </div>
+                        <div class="reactor-math-support" id="div-math-support" hidden>
+                            <div data-math-index="0" hidden>
+                                <div class="reactor-math-equation">6 ÷ 2 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 6.</p>
+                                    <p>2. Split it into 2 equal groups, or find the number that multiplied by 2 gives 6.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="1" hidden>
+                                <div class="reactor-math-equation">10 ÷ 5 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 10.</p>
+                                    <p>2. Split it into 5 equal groups, or find the number that multiplied by 5 gives 10.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="2" hidden>
+                                <div class="reactor-math-equation">12 ÷ 4 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 12.</p>
+                                    <p>2. Split it into 4 equal groups, or find the number that multiplied by 4 gives 12.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="3" hidden>
+                                <div class="reactor-math-equation">18 ÷ 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 18.</p>
+                                    <p>2. Split it into 3 equal groups, or find the number that multiplied by 3 gives 18.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="4" hidden>
+                                <div class="reactor-math-equation">20 ÷ 4 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 20.</p>
+                                    <p>2. Split it into 4 equal groups, or find the number that multiplied by 4 gives 20.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="5" hidden>
+                                <div class="reactor-math-equation">24 ÷ 6 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 24.</p>
+                                    <p>2. Split it into 6 equal groups, or find the number that multiplied by 6 gives 24.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="6" hidden>
+                                <div class="reactor-math-equation">30 ÷ 5 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 30.</p>
+                                    <p>2. Split it into 5 equal groups, or find the number that multiplied by 5 gives 30.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="7" hidden>
+                                <div class="reactor-math-equation">40 ÷ 2 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 40.</p>
+                                    <p>2. Split it into 2 equal groups, or find the number that multiplied by 2 gives 40.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="8" hidden>
+                                <div class="reactor-math-equation">49 ÷ 7 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 49.</p>
+                                    <p>2. Split it into 7 equal groups, or find the number that multiplied by 7 gives 49.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="9" hidden>
+                                <div class="reactor-math-equation">100 ÷ 10 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 100.</p>
+                                    <p>2. Split it into 10 equal groups, or find the number that multiplied by 10 gives 100.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="10" hidden>
+                                <div class="reactor-math-equation">12 ÷ 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 12.</p>
+                                    <p>2. Split it into 3 equal groups, or find the number that multiplied by 3 gives 12.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="11" hidden>
+                                <div class="reactor-math-equation">300 ÷ 6 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 300.</p>
+                                    <p>2. Split it into 6 equal groups, or find the number that multiplied by 6 gives 300.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="12" hidden>
+                                <div class="reactor-math-equation">24 ÷ 4 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 24.</p>
+                                    <p>2. Split it into 4 equal groups, or find the number that multiplied by 4 gives 24.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="13" hidden>
+                                <div class="reactor-math-equation">50 ÷ 5 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 50.</p>
+                                    <p>2. Split it into 5 equal groups, or find the number that multiplied by 5 gives 50.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="14" hidden>
+                                <div class="reactor-math-equation">120 ÷ 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 120.</p>
+                                    <p>2. Split it into 3 equal groups, or find the number that multiplied by 3 gives 120.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="15" hidden>
+                                <div class="reactor-math-equation">80 ÷ 10 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 80.</p>
+                                    <p>2. Split it into 10 equal groups, or find the number that multiplied by 10 gives 80.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="16" hidden>
+                                <div class="reactor-math-equation">800 ÷ 4 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 800.</p>
+                                    <p>2. Split it into 4 equal groups, or find the number that multiplied by 4 gives 800.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="17" hidden>
+                                <div class="reactor-math-equation">90 ÷ 10 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 90.</p>
+                                    <p>2. Split it into 10 equal groups, or find the number that multiplied by 10 gives 90.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="18" hidden>
+                                <div class="reactor-math-equation">90 ÷ 3 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 90.</p>
+                                    <p>2. Split it into 3 equal groups, or find the number that multiplied by 3 gives 90.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="19" hidden>
+                                <div class="reactor-math-equation">240 ÷ 8 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with 240.</p>
+                                    <p>2. Split it into 8 equal groups, or find the number that multiplied by 8 gives 240.</p>
+                                    <p>3. Choose the matching answer.</p>
+                                </div>
+                            </div>
+                            <button type="button" id="div-math-help" aria-expanded="false">Help — Solve It</button>
+                        </div>
+
+                        
+                    </div>
+                    <div class="div-tabs" aria-label="Exercise sets">
+                        <button type="button" data-div-set="1" aria-pressed="true">Set 1</button>
+                        <button type="button" data-div-set="2" aria-pressed="false">Set 2</button>
+                    </div>
+                    <div class="reactor-workspace__core div-core">
+                        <div id="div-guide" class="zero-card" hidden>
+                            <h3>Backwards Pronunciation Guide</h3>
+                            <p id="div-stage"></p>
+                            <div id="div-full-word" lang="ru"><span>раз</span><span>де</span><span>ли́ть</span><span> на</span></div>
+                            <div class="zero-units" lang="ru"><span></span><span></span><span></span><span></span></div>
+                            <div class="zero-controls">
+                                <button type="button" data-div-rate="1">▶ Normal</button>
+                                <button type="button" data-div-rate="0.55">▶ Slow</button>
+                                <button type="button" data-div-rate="0.75">▶ Medium</button>
+                            </div>
+                            <p>Listen at normal speed. Practice slowly three to five times, then gradually increase your speed to match the natural pronunciation.</p>
+                            <div class="zero-controls">
+                                <button type="button" id="div-prev">Previous</button>
+                                <button type="button" id="div-add">Add a unit →</button>
+                                <button type="button" id="div-guide-back">Back to Exercises</button>
+                            </div>
+                        </div>
+                        <div id="div-exercises">
+                            <h3 id="div-title">Foundational Understanding</h3>
+                            <p id="div-instruction"></p>
+                            <p id="div-prompt" lang="ru"></p>
+                            <div class="div-actions">
+                                <button type="button" id="div-listen">▶ Listen</button>
+                                <button type="button" id="div-slow">▶ Slow</button>
+                                <button type="button" id="div-help">Help — meaning</button>
+                            </div>
+                            <p id="div-meaning" hidden></p>
+                            <div class="div-choices">
+                                <button type="button" data-div-choice="0"></button>
+                                <button type="button" data-div-choice="1"></button>
+                                <button type="button" data-div-choice="2"></button>
+                            </div>
+                            <p id="div-feedback" aria-live="polite"></p>
+                            <div class="div-actions">
+                                <button type="button" id="div-model" hidden>▶ Hear and repeat answer</button>
+                                <button type="button" id="div-next" hidden>Next exercise →</button>
+                                <button type="button" id="div-reset">Restart Set 1</button>
+                                <button type="button" id="div-switch">Go to Set 2</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
+            
             <section class="numbers-door-landing reactor-experience" id="reactor-fractions"
                 aria-label="Fractions experience" hidden>
                 <img src="../../Images/numbers/door-2-math-operator-icon-landing2.png"
@@ -5215,14 +5753,380 @@
                     <img class="reactor-experience-nodule reactor-experience-nodule--left"
                         src="../../Images/numbers/door-2-fractions-nodule2.png" alt="Fractions" />
                     <button type="button" class="reactor-return">« Back to the Reactor</button>
+                    <section class="fra-vocab" aria-label="Progressive Vocabulary Bank">
+                        <h3>Vocabulary Bank</h3>
+                        <div class="fra-vocab-scroll" tabindex="0" aria-label="Scroll vocabulary">
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-fra-say="одна́ втора́я" aria-label="Hear одна́ втора́я">одна́ втора́я <span aria-hidden="true">♪</span></button>
+                            <span>one half</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-fra-say="дробь" aria-label="Hear дробь">дробь <span aria-hidden="true">♪</span></button>
+                            <span>fraction</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-fra-say="одна́ тре́тья" aria-label="Hear одна́ тре́тья">одна́ тре́тья <span aria-hidden="true">♪</span></button>
+                            <span>one third</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-fra-say="две тре́тьих" aria-label="Hear две тре́тьих">две тре́тьих <span aria-hidden="true">♪</span></button>
+                            <span>two thirds</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-fra-say="одна́ четвёртая" aria-label="Hear одна́ четвёртая">одна́ четвёртая <span aria-hidden="true">♪</span></button>
+                            <span>one fourth</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-fra-say="три четвёртых" aria-label="Hear три четвёртых">три четвёртых <span aria-hidden="true">♪</span></button>
+                            <span>three fourths</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-fra-say="пя́тых" aria-label="Hear пя́тых">пя́тых <span aria-hidden="true">♪</span></button>
+                            <span>fifths</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-fra-say="шесты́х" aria-label="Hear шесты́х">шесты́х <span aria-hidden="true">♪</span></button>
+                            <span>sixths</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-fra-say="восьмы́х" aria-label="Hear восьмы́х">восьмы́х <span aria-hidden="true">♪</span></button>
+                            <span>eighths</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="9" hidden>
+                            <button type="button" lang="ru" data-fra-say="деся́тых" aria-label="Hear деся́тых">деся́тых <span aria-hidden="true">♪</span></button>
+                            <span>tenths</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="1" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-fra-say="со́тых" aria-label="Hear со́тых">со́тых <span aria-hidden="true">♪</span></button>
+                            <span>hundredths</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-fra-say="полови́на" aria-label="Hear полови́на">полови́на <span aria-hidden="true">♪</span></button>
+                            <span>half</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-fra-say="от" aria-label="Hear от">от <span aria-hidden="true">♪</span></button>
+                            <span>of</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-fra-say="че́тверть" aria-label="Hear че́тверть">че́тверть <span aria-hidden="true">♪</span></button>
+                            <span>quarter</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-fra-say="треть" aria-label="Hear треть">треть <span aria-hidden="true">♪</span></button>
+                            <span>third</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-fra-say="страни́ца" aria-label="Hear страни́ца">страни́ца <span aria-hidden="true">♪</span></button>
+                            <span>page</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-fra-say="литр" aria-label="Hear литр">литр <span aria-hidden="true">♪</span></button>
+                            <span>liter</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-fra-say="биле́т" aria-label="Hear биле́т">биле́т <span aria-hidden="true">♪</span></button>
+                            <span>ticket</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-fra-say="съе́ли" aria-label="Hear съе́ли">съе́ли <span aria-hidden="true">♪</span></button>
+                            <span>ate</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-fra-say="часть" aria-label="Hear часть">часть <span aria-hidden="true">♪</span></button>
+                            <span>part</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-fra-say="оста́лась" aria-label="Hear оста́лась">оста́лась <span aria-hidden="true">♪</span></button>
+                            <span>remained</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-fra-say="зада́ние" aria-label="Hear зада́ние">зада́ние <span aria-hidden="true">♪</span></button>
+                            <span>task</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-fra-say="вы́полнено" aria-label="Hear вы́полнено">вы́полнено <span aria-hidden="true">♪</span></button>
+                            <span>completed</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-fra-say="буты́лка" aria-label="Hear буты́лка">буты́лка <span aria-hidden="true">♪</span></button>
+                            <span>bottle</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-fra-say="во́ды" aria-label="Hear во́ды">во́ды <span aria-hidden="true">♪</span></button>
+                            <span>of water</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-fra-say="вы́пили" aria-label="Hear вы́пили">вы́пили <span aria-hidden="true">♪</span></button>
+                            <span>drank</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="9" hidden>
+                            <button type="button" lang="ru" data-fra-say="дета́ль" aria-label="Hear дета́ль">дета́ль <span aria-hidden="true">♪</span></button>
+                            <span>part</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-fra-say="место́" aria-label="Hear место́">место́ <span aria-hidden="true">♪</span></button>
+                            <span>seat</span>
+                        </div>
+                        <div class="fra-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-fra-say="за́нято" aria-label="Hear за́нято">за́нято <span aria-hidden="true">♪</span></button>
+                            <span>occupied</span>
+                        </div>
+                        </div>
+                    </section>
                 </div>
-                <div class="reactor-workspace reactor-workspace--right">
-                    <p class="reactor-workspace__instructions">&lt;&lt;Instructions here&gt;&gt;</p>
-                    <div class="reactor-workspace__core">
-                        <p>Core Experience here</p>
+                <div class="reactor-workspace reactor-workspace--right fra-workspace">
+                    <div class="fra-intro">
+                        <h3 lang="ru">Дро́би — fractions</h3>
+                        <p>Use feminine numerals for the numerator and ordinal forms for the denominator: одна третья, две третьих.</p>
+                        <button type="button" data-fra-say="две третьих">▶ 2/3</button>
+                        <button type="button" id="fra-guide-open">Learn to Pronounce</button>
+                    </div>
+                    <div class="fra-energy">
+                        
+                        <div class="fra-wheel" data-fra-wheel="1">
+                            <img src="../../Images/numbers/door-2-multiplication-set-1.png" alt="Bronze energy core" />
+                            <span class="fra-cell fra-cell-1" data-fra-cell="1" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-2" data-fra-cell="2" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-3" data-fra-cell="3" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-4" data-fra-cell="4" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-5" data-fra-cell="5" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-6" data-fra-cell="6" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-7" data-fra-cell="7" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-8" data-fra-cell="8" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-9" data-fra-cell="9" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-10" data-fra-cell="10" aria-hidden="true"></span>
+                            <span class="fra-center" aria-hidden="true"></span>
+                        </div>
+                        <div class="fra-wheel" data-fra-wheel="2" hidden>
+                            <img src="../../Images/numbers/door-2-multiplication-set-2.png" alt="Silver energy core" />
+                            <span class="fra-cell fra-cell-1" data-fra-cell="1" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-2" data-fra-cell="2" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-3" data-fra-cell="3" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-4" data-fra-cell="4" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-5" data-fra-cell="5" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-6" data-fra-cell="6" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-7" data-fra-cell="7" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-8" data-fra-cell="8" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-9" data-fra-cell="9" aria-hidden="true"></span>
+                            <span class="fra-cell fra-cell-10" data-fra-cell="10" aria-hidden="true"></span>
+                            <span class="fra-center" aria-hidden="true"></span>
+                        </div>
+                        <div class="reactor-math-support" id="fra-math-support" hidden>
+                            <div data-math-index="0" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="1" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="2" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="3" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="4" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="5" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="6" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="7" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="8" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="9" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>a</mi><mi>b</mi></mfrac></math></div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. The top number (numerator) tells how many parts are taken. The bottom number (denominator) tells how many equal parts make up the whole.</p>
+                                    <p>2. In the Russian phrase, the first word gives the numerator; the second names the denominator. Match them to the fraction without reversing them.</p>
+                                    <p>3. For one part, listen for одна and a singular ordinal ending; for several parts, listen for the plural ordinal form.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="10" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>1</mn><mn>2</mn></mfrac></math> × 20 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 20 into 2 equal parts.</p>
+                                    <p>2. Take 1 of those parts (multiply by 1).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="11" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>1</mn><mn>4</mn></mfrac></math> × 40 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 40 into 4 equal parts.</p>
+                                    <p>2. Take 1 of those parts (multiply by 1).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="12" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>1</mn><mn>3</mn></mfrac></math> × 30 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 30 into 3 equal parts.</p>
+                                    <p>2. Take 1 of those parts (multiply by 1).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="13" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>2</mn><mn>3</mn></mfrac></math> × 12 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 12 into 3 equal parts.</p>
+                                    <p>2. Take 2 of those parts (multiply by 2).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="14" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>3</mn><mn>4</mn></mfrac></math> × 20 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 20 into 4 equal parts.</p>
+                                    <p>2. Take 3 of those parts (multiply by 3).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="15" hidden>
+                                <div class="reactor-math-equation">1 − <math><mfrac><mn>1</mn><mn>2</mn></mfrac></math> = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Think of the whole as 2/2.</p>
+                                    <p>2. Subtract one from the numerator.</p>
+                                    <p>3. Keep the denominator 2 and choose the remaining fraction.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="16" hidden>
+                                <div class="reactor-math-equation">7 completed out of 10 → ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Count the completed tasks: 7.</p>
+                                    <p>2. Count all tasks: 10.</p>
+                                    <p>3. Put the completed count above the total count in a fraction.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="17" hidden>
+                                <div class="reactor-math-equation">1 − <math><mfrac><mn>1</mn><mn>4</mn></mfrac></math> = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Think of the whole as 4/4.</p>
+                                    <p>2. Subtract one from the numerator.</p>
+                                    <p>3. Keep the denominator 4 and choose the remaining fraction.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="18" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>2</mn><mn>5</mn></mfrac></math> × 50 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 50 into 5 equal parts.</p>
+                                    <p>2. Take 2 of those parts (multiply by 2).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="19" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>3</mn><mn>4</mn></mfrac></math> × 80 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 80 into 4 equal parts.</p>
+                                    <p>2. Take 3 of those parts (multiply by 3).</p>
+                                    <p>3. Choose the matching quantity.</p>
+                                </div>
+                            </div>
+                            <button type="button" id="fra-math-help" aria-expanded="false">Help — Solve It</button>
+                        </div>
+
+                        
+                    </div>
+                    <div class="fra-tabs" aria-label="Exercise sets">
+                        <button type="button" data-fra-set="1" aria-pressed="true">Set 1</button>
+                        <button type="button" data-fra-set="2" aria-pressed="false">Set 2</button>
+                    </div>
+                    <div class="reactor-workspace__core fra-core">
+                        <div id="fra-guide" class="zero-card" hidden>
+                            <h3>Backwards Pronunciation Guide</h3>
+                            <p id="fra-stage"></p>
+                            <div id="fra-full-word" lang="ru"><span>две</span><span> тре́</span><span>ть</span><span>их</span></div>
+                            <div class="zero-units" lang="ru"><span></span><span></span><span></span><span></span></div>
+                            <div class="zero-controls">
+                                <button type="button" data-fra-rate="1">▶ Normal</button>
+                                <button type="button" data-fra-rate="0.55">▶ Slow</button>
+                                <button type="button" data-fra-rate="0.75">▶ Medium</button>
+                            </div>
+                            <p>Listen at normal speed. Practice slowly three to five times, then gradually increase your speed to match the natural pronunciation.</p>
+                            <div class="zero-controls">
+                                <button type="button" id="fra-prev">Previous</button>
+                                <button type="button" id="fra-add">Add a unit →</button>
+                                <button type="button" id="fra-guide-back">Back to Exercises</button>
+                            </div>
+                        </div>
+                        <div id="fra-exercises">
+                            <h3 id="fra-title">Foundational Understanding</h3>
+                            <p id="fra-instruction"></p>
+                            <p id="fra-prompt" lang="ru"></p>
+                            <div class="fra-actions">
+                                <button type="button" id="fra-listen">▶ Listen</button>
+                                <button type="button" id="fra-slow">▶ Slow</button>
+                                <button type="button" id="fra-help">Help — meaning</button>
+                            </div>
+                            <p id="fra-meaning" hidden></p>
+                            <div class="fra-choices">
+                                <button type="button" data-fra-choice="0"></button>
+                                <button type="button" data-fra-choice="1"></button>
+                                <button type="button" data-fra-choice="2"></button>
+                            </div>
+                            <p id="fra-feedback" aria-live="polite"></p>
+                            <div class="fra-actions">
+                                <button type="button" id="fra-model" hidden>▶ Hear and repeat answer</button>
+                                <button type="button" id="fra-next" hidden>Next exercise →</button>
+                                <button type="button" id="fra-reset">Restart Set 1</button>
+                                <button type="button" id="fra-switch">Go to Set 2</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
+            
             <section class="numbers-door-landing reactor-experience" id="reactor-percentages"
                 aria-label="Percentages experience" hidden>
                 <img src="../../Images/numbers/door-2-math-operator-icon-landing2.png"
@@ -5231,14 +6135,341 @@
                     <img class="reactor-experience-nodule reactor-experience-nodule--right"
                         src="../../Images/numbers/door-2-percentage-nodule2.png" alt="Percentages" />
                     <button type="button" class="reactor-return">« Back to the Reactor</button>
+                    <section class="pct-vocab" aria-label="Progressive Vocabulary Bank">
+                        <h3>Vocabulary Bank</h3>
+                        <div class="pct-vocab-scroll" tabindex="0" aria-label="Scroll vocabulary">
+                        <div class="pct-vocab-entry" data-vocab-set="1" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-pct-say="проце́нт" aria-label="Hear проце́нт">проце́нт <span aria-hidden="true">♪</span></button>
+                            <span>percent</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="1" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-pct-say="проце́нта" aria-label="Hear проце́нта">проце́нта <span aria-hidden="true">♪</span></button>
+                            <span>percent (2–4)</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="1" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-pct-say="проце́нтов" aria-label="Hear проце́нтов">проце́нтов <span aria-hidden="true">♪</span></button>
+                            <span>percent (5–0, 11–14)</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="1" hidden>
+                            <button type="button" lang="ru" data-pct-say="от" aria-label="Hear от">от <span aria-hidden="true">♪</span></button>
+                            <span>of</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-pct-say="полови́на" aria-label="Hear полови́на">полови́на <span aria-hidden="true">♪</span></button>
+                            <span>half</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="2" hidden>
+                            <button type="button" lang="ru" data-pct-say="ско́лько" aria-label="Hear ско́лько">ско́лько <span aria-hidden="true">♪</span></button>
+                            <span>how much</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="3" hidden>
+                            <button type="button" lang="ru" data-pct-say="че́тверть" aria-label="Hear че́тверть">че́тверть <span aria-hidden="true">♪</span></button>
+                            <span>quarter</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-pct-say="цена́" aria-label="Hear цена́">цена́ <span aria-hidden="true">♪</span></button>
+                            <span>price</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-pct-say="ски́дка" aria-label="Hear ски́дка">ски́дка <span aria-hidden="true">♪</span></button>
+                            <span>discount</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="4" hidden>
+                            <button type="button" lang="ru" data-pct-say="но́вая" aria-label="Hear но́вая">но́вая <span aria-hidden="true">♪</span></button>
+                            <span>new</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-pct-say="вы́росла" aria-label="Hear вы́росла">вы́росла <span aria-hidden="true">♪</span></button>
+                            <span>increased</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="5" hidden>
+                            <button type="button" lang="ru" data-pct-say="на" aria-label="Hear на">на <span aria-hidden="true">♪</span></button>
+                            <span>by</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-pct-say="учени́к" aria-label="Hear учени́к">учени́к <span aria-hidden="true">♪</span></button>
+                            <span>student</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="6" hidden>
+                            <button type="button" lang="ru" data-pct-say="сда́ли экза́мен" aria-label="Hear сда́ли экза́мен">сда́ли экза́мен <span aria-hidden="true">♪</span></button>
+                            <span>passed the exam</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-pct-say="батаре́я" aria-label="Hear батаре́я">батаре́я <span aria-hidden="true">♪</span></button>
+                            <span>battery</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-pct-say="заря́жена" aria-label="Hear заря́жена">заря́жена <span aria-hidden="true">♪</span></button>
+                            <span>charged</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="7" hidden>
+                            <button type="button" lang="ru" data-pct-say="не хвата́ет" aria-label="Hear не хвата́ет">не хвата́ет <span aria-hidden="true">♪</span></button>
+                            <span>is lacking</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-pct-say="магази́н" aria-label="Hear магази́н">магази́н <span aria-hidden="true">♪</span></button>
+                            <span>shop</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-pct-say="това́р" aria-label="Hear това́р">това́р <span aria-hidden="true">♪</span></button>
+                            <span>item</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="8" hidden>
+                            <button type="button" lang="ru" data-pct-say="со ски́дкой" aria-label="Hear со ски́дкой">со ски́дкой <span aria-hidden="true">♪</span></button>
+                            <span>at a discount</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="9" hidden>
+                            <button type="button" lang="ru" data-pct-say="свобо́дны" aria-label="Hear свобо́дны">свобо́дны <span aria-hidden="true">♪</span></button>
+                            <span>available</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="9" hidden>
+                            <button type="button" lang="ru" data-pct-say="место́" aria-label="Hear место́">место́ <span aria-hidden="true">♪</span></button>
+                            <span>seat</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-pct-say="дета́ль" aria-label="Hear дета́ль">дета́ль <span aria-hidden="true">♪</span></button>
+                            <span>part</span>
+                        </div>
+                        <div class="pct-vocab-entry" data-vocab-set="2" data-vocab-step="10" hidden>
+                            <button type="button" lang="ru" data-pct-say="брако́ванные" aria-label="Hear брако́ванные">брако́ванные <span aria-hidden="true">♪</span></button>
+                            <span>defective</span>
+                        </div>
+                        </div>
+                    </section>
                 </div>
-                <div class="reactor-workspace reactor-workspace--left">
-                    <p class="reactor-workspace__instructions">&lt;&lt;Instructions here&gt;&gt;</p>
-                    <div class="reactor-workspace__core">
-                        <p>Core Experience here</p>
+                <div class="reactor-workspace reactor-workspace--left pct-workspace">
+                    <div class="pct-intro">
+                        <h3 lang="ru">Проце́нт — percent</h3>
+                        <p>Use процент after 1, процента after 2–4, процентов after 5–0 and 11–14 (including compound numbers).</p>
+                        <button type="button" data-pct-say="двадцать пять процентов">▶ 25%</button>
+                        <button type="button" id="pct-guide-open">Learn to Pronounce</button>
+                    </div>
+                    <div class="pct-energy">
+                        
+                        <div class="pct-wheel" data-pct-wheel="1">
+                            <img src="../../Images/numbers/door-2-multiplication-set-1.png" alt="Bronze energy core" />
+                            <span class="pct-cell pct-cell-1" data-pct-cell="1" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-2" data-pct-cell="2" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-3" data-pct-cell="3" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-4" data-pct-cell="4" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-5" data-pct-cell="5" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-6" data-pct-cell="6" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-7" data-pct-cell="7" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-8" data-pct-cell="8" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-9" data-pct-cell="9" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-10" data-pct-cell="10" aria-hidden="true"></span>
+                            <span class="pct-center" aria-hidden="true"></span>
+                        </div>
+                        <div class="pct-wheel" data-pct-wheel="2" hidden>
+                            <img src="../../Images/numbers/door-2-multiplication-set-2.png" alt="Silver energy core" />
+                            <span class="pct-cell pct-cell-1" data-pct-cell="1" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-2" data-pct-cell="2" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-3" data-pct-cell="3" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-4" data-pct-cell="4" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-5" data-pct-cell="5" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-6" data-pct-cell="6" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-7" data-pct-cell="7" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-8" data-pct-cell="8" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-9" data-pct-cell="9" aria-hidden="true"></span>
+                            <span class="pct-cell pct-cell-10" data-pct-cell="10" aria-hidden="true"></span>
+                            <span class="pct-center" aria-hidden="true"></span>
+                        </div>
+                        <div class="reactor-math-support" id="pct-math-support" hidden>
+                            <div data-math-index="0" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="1" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="2" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="3" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="4" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="5" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="6" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="7" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="8" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="9" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mi>n</mi><mn>100</mn></mfrac></math> = n%</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Percent means out of one hundred. The number before процент, процента or процентов is the percentage.</p>
+                                    <p>2. Listen to the entire Russian number before the percent word. Match that number to the digits followed by %.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="10" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>10</mn><mn>100</mn></mfrac></math> × 200 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 200 by 100 to find one percent.</p>
+                                    <p>2. Multiply that amount by 10.</p>
+                                    <p>3. Choose the matching price.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="11" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>1</mn><mn>2</mn></mfrac></math> × 100% = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 100 by 2.</p>
+                                    <p>2. Express the result as a percentage.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="12" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>1</mn><mn>4</mn></mfrac></math> × 100% = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 100 by 4.</p>
+                                    <p>2. Express the result as a percentage.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="13" hidden>
+                                <div class="reactor-math-equation">100 − (<math><mfrac><mn>20</mn><mn>100</mn></mfrac></math> × 100) = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 100 by 100, then multiply by 20 to find the discount.</p>
+                                    <p>2. Subtract the discount from the original 100 rubles.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="14" hidden>
+                                <div class="reactor-math-equation">200 + (<math><mfrac><mn>10</mn><mn>100</mn></mfrac></math> × 200) = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 200 by 100, then multiply by 10 to find the increase.</p>
+                                    <p>2. Add the increase to the original 200 rubles.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="15" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>80</mn><mn>100</mn></mfrac></math> × 100% = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide the number who passed (80) by the total (100).</p>
+                                    <p>2. Multiply by 100 and attach the percent sign.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="16" hidden>
+                                <div class="reactor-math-equation">100% − 70% = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Start with a full charge of 100%.</p>
+                                    <p>2. Subtract the current charge of 70%.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="17" hidden>
+                                <div class="reactor-math-equation">600 − (<math><mfrac><mn>50</mn><mn>100</mn></mfrac></math> × 600) = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 600 by 100 and multiply by 50 to find the discount.</p>
+                                    <p>2. Subtract that amount from 600.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="18" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>25</mn><mn>100</mn></mfrac></math> × 80 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 80 by 100.</p>
+                                    <p>2. Multiply by 25 to find the free seats.</p>
+                                </div>
+                            </div>
+                            <div data-math-index="19" hidden>
+                                <div class="reactor-math-equation"><math><mfrac><mn>5</mn><mn>100</mn></mfrac></math> × 400 = ?</div>
+                                <div class="reactor-math-hint" hidden>
+                                    <p>1. Divide 400 by 100.</p>
+                                    <p>2. Multiply by 5 to find the defective parts.</p>
+                                </div>
+                            </div>
+                            <button type="button" id="pct-math-help" aria-expanded="false">Help — Solve It</button>
+                        </div>
+
+                        
+                    </div>
+                    <div class="pct-tabs" aria-label="Exercise sets">
+                        <button type="button" data-pct-set="1" aria-pressed="true">Set 1</button>
+                        <button type="button" data-pct-set="2" aria-pressed="false">Set 2</button>
+                    </div>
+                    <div class="reactor-workspace__core pct-core">
+                        <div id="pct-guide" class="zero-card" hidden>
+                            <h3>Backwards Pronunciation Guide</h3>
+                            <p id="pct-stage"></p>
+                            <div id="pct-full-word" lang="ru"><span>про</span><span>це́н</span><span>т</span><span>ов</span></div>
+                            <div class="zero-units" lang="ru"><span></span><span></span><span></span><span></span></div>
+                            <div class="zero-controls">
+                                <button type="button" data-pct-rate="1">▶ Normal</button>
+                                <button type="button" data-pct-rate="0.55">▶ Slow</button>
+                                <button type="button" data-pct-rate="0.75">▶ Medium</button>
+                            </div>
+                            <p>Listen at normal speed. Practice slowly three to five times, then gradually increase your speed to match the natural pronunciation.</p>
+                            <div class="zero-controls">
+                                <button type="button" id="pct-prev">Previous</button>
+                                <button type="button" id="pct-add">Add a unit →</button>
+                                <button type="button" id="pct-guide-back">Back to Exercises</button>
+                            </div>
+                        </div>
+                        <div id="pct-exercises">
+                            <h3 id="pct-title">Foundational Understanding</h3>
+                            <p id="pct-instruction"></p>
+                            <p id="pct-prompt" lang="ru"></p>
+                            <div class="pct-actions">
+                                <button type="button" id="pct-listen">▶ Listen</button>
+                                <button type="button" id="pct-slow">▶ Slow</button>
+                                <button type="button" id="pct-help">Help — meaning</button>
+                            </div>
+                            <p id="pct-meaning" hidden></p>
+                            <div class="pct-choices">
+                                <button type="button" data-pct-choice="0"></button>
+                                <button type="button" data-pct-choice="1"></button>
+                                <button type="button" data-pct-choice="2"></button>
+                            </div>
+                            <p id="pct-feedback" aria-live="polite"></p>
+                            <div class="pct-actions">
+                                <button type="button" id="pct-model" hidden>▶ Hear and repeat answer</button>
+                                <button type="button" id="pct-next" hidden>Next exercise →</button>
+                                <button type="button" id="pct-reset">Restart Set 1</button>
+                                <button type="button" id="pct-switch">Go to Set 2</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
+            
             <section class="numbers-door-landing math-lab" id="math-android-landing" aria-label="Math Operations"
                 hidden>
                 <img src="../../Images/numbers/door-2-android-head-landing-page.png"

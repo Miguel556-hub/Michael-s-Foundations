@@ -8723,7 +8723,7 @@ h1 {
 }
 #reactor-open {
     left: 36%;
-    top: 58%;
+    top: calc(58% - 65px);
     width: 26%;
     height: 34%;
 }
@@ -9386,4 +9386,1535 @@ h1 {
 
 .mul-vocab-scroll {
     position: relative;
+}
+
+
+/* Multiplication — Bronze and Silver energy cores */
+#reactor-division [hidden] {
+    display: none !important;
+}
+.div-intro {
+    position: absolute;
+    top: 2%;
+    left: 2.5%;
+    width: 68%;
+    font-size: 1.18cqw;
+    line-height: 1.3;
+}
+.div-intro h3, .div-core h3 {
+    color: #ffda94;
+    margin: 0 0 .4em;
+}
+.div-intro p {
+    margin: .3em 0;
+}
+.div-energy {
+    position: absolute;
+    top: 1%;
+    right: 2.5%;
+    width: 23%;
+    z-index: 4;
+    text-align: center;
+    font-size: 1.05cqw;
+    color: #ffe1a4;
+    pointer-events: none;
+}
+.div-wheel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+.div-wheel img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+.div-cell, .div-center {
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    width: 14%;
+    aspect-ratio: 1;
+    background: #08090b9c;
+    box-shadow: inset 0 0 5px #000;
+    transition: background .35s, box-shadow .35s;
+}
+.div-cell.is-lit {
+    background: #ffbc421c;
+    box-shadow: 0 0 9px 3px #ffdf78, inset 0 0 5px #ffcf65;
+}
+.div-center {
+    left: 50%;
+    top: 50%;
+    width: 31%;
+    background: #09090a85;
+}
+.div-wheel.is-complete .div-center {
+    background: transparent;
+    animation: div-energy-pulse 1.2s infinite alternate;
+}
+@keyframes div-energy-pulse {
+    from { box-shadow: 0 0 8px #ff532e; }
+    to { box-shadow: 0 0 28px 9px #ffcb70, inset 0 0 12px #ff9e38; }
+}
+.reactor-nodule--divide.is-energized {
+    animation: div-nodule-pulse 1.5s infinite alternate;
+}
+@keyframes div-nodule-pulse {
+    from { filter: brightness(1.12) drop-shadow(0 0 5px #ff3322); }
+    to { filter: brightness(1.55) drop-shadow(0 0 17px #ff4a25); }
+}
+.div-core {
+    top: 36%;
+    padding: 1.2cqw;
+    display: block;
+    overflow: auto;
+    font-size: 1.35cqw;
+}
+.div-core p {
+    margin: .4em 0;
+}
+#div-prompt, #div-full-word {
+    font-family: "Times New Roman", serif;
+    font-size: 2.15cqw;
+    line-height: 1.2;
+}
+.div-actions, .div-choices, #div-guide .zero-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5cqw;
+    margin: .6cqw 0;
+}
+.div-workspace button {
+    background: #293b4c;
+    border: 1px solid #c2a16a;
+    color: white;
+    font-size: 1.15cqw;
+    padding: .35em .7em;
+}
+.div-workspace button:hover {
+    background: #526477;
+}
+.div-workspace button:disabled {
+    opacity: .55;
+    cursor: default;
+}
+.div-choices button {
+    font-family: "Times New Roman", serif;
+    font-size: 1.65cqw;
+}
+#div-guide-open, #div-guide [data-div-rate="1"] {
+    background: #78572e;
+    color: #ffe09b;
+}
+#div-full-word .active-unit {
+    color: #ffce76;
+}
+#div-feedback {
+    color: #ffda94;
+}
+#div-guide .zero-units {
+    margin: .5cqw 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .reactor-nodule--divide.is-energized, .div-wheel.is-complete .div-center {
+        animation: none;
+        filter: brightness(1.4) drop-shadow(0 0 9px #ff4a25);
+    }
+}
+
+[data-div-wheel="1"] .div-cell-1 {
+    left: 50%;
+    top: 14%;
+}
+
+[data-div-wheel="1"] .div-cell-2 {
+    left: 73%;
+    top: 23%;
+}
+
+[data-div-wheel="1"] .div-cell-3 {
+    left: 85%;
+    top: 42%;
+}
+
+[data-div-wheel="1"] .div-cell-4 {
+    left: 84%;
+    top: 64%;
+}
+
+[data-div-wheel="1"] .div-cell-5 {
+    left: 72%;
+    top: 82%;
+}
+
+[data-div-wheel="1"] .div-cell-6 {
+    left: 50%;
+    top: 87%;
+}
+
+[data-div-wheel="1"] .div-cell-7 {
+    left: 28%;
+    top: 81%;
+}
+
+[data-div-wheel="1"] .div-cell-8 {
+    left: 16%;
+    top: 64%;
+}
+
+[data-div-wheel="1"] .div-cell-9 {
+    left: 15%;
+    top: 42%;
+}
+
+[data-div-wheel="1"] .div-cell-10 {
+    left: 26%;
+    top: 23%;
+}
+
+[data-div-wheel="2"] .div-cell-1 {
+    left: 50%;
+    top: 12%;
+}
+
+[data-div-wheel="2"] .div-cell-2 {
+    left: 73%;
+    top: 21%;
+}
+
+[data-div-wheel="2"] .div-cell-3 {
+    left: 84%;
+    top: 42%;
+}
+
+[data-div-wheel="2"] .div-cell-4 {
+    left: 82%;
+    top: 65%;
+}
+
+[data-div-wheel="2"] .div-cell-5 {
+    left: 70%;
+    top: 82%;
+}
+
+[data-div-wheel="2"] .div-cell-6 {
+    left: 50%;
+    top: 88%;
+}
+
+[data-div-wheel="2"] .div-cell-7 {
+    left: 29%;
+    top: 82%;
+}
+
+[data-div-wheel="2"] .div-cell-8 {
+    left: 18%;
+    top: 65%;
+}
+
+[data-div-wheel="2"] .div-cell-9 {
+    left: 16%;
+    top: 42%;
+}
+
+[data-div-wheel="2"] .div-cell-10 {
+    left: 27%;
+    top: 21%;
+}
+
+/* Multiplication layout — two interchangeable cores */
+.div-intro {
+    top: 4%;
+    left: 2.5%;
+    width: 95%;
+    text-align: center;
+    font-size: 1.05cqw;
+}
+.div-intro h3, .div-core h3 {
+    color: #ffc400;
+    font-size: 2.1cqw;
+    margin: 0;
+}
+.div-intro button, #div-guide-open {
+    background: #8793a2aa;
+    color: white;
+    border: 0;
+    min-width: 16%;
+    margin: .5cqw;
+    padding: .15em .7em;
+}
+.div-core {
+    top: 31%;
+    padding: 4.8cqw 1.2cqw 1cqw;
+    overflow: auto;
+}
+.div-tabs {
+    position: absolute;
+    top: 31%;
+    right: 7.5%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 1cqw;
+    z-index: 6;
+}
+.div-tabs button {
+    width: 10cqw;
+    padding: .1em .5em;
+    border: 0;
+    background: linear-gradient(#b87b48, #713509);
+    font-weight: normal;
+}
+.div-tabs button[aria-pressed="true"] {
+    background: linear-gradient(#ffb16b, #b74b00);
+}
+.div-energy {
+    top: auto;
+    bottom: 10%;
+    left: 6%;
+    right: auto;
+    width: 22%;
+}
+.div-cell {
+    background: #08090b30;
+}
+.div-center {
+    background: transparent;
+}
+#div-exercises {
+    position: relative;
+    z-index: 5;
+}
+#div-prompt {
+    margin-top: 2cqw;
+}
+.div-choices button {
+    font-size: 2.1cqw;
+    border-radius: 1.2cqw;
+}
+#div-feedback:empty {
+    display: none;
+}
+.div-workspace:has(#div-guide:not([hidden])) .div-energy {
+    display: none;
+}
+
+/* Multiplication — reserve a separate column for both energy cores. */
+.div-energy {
+    top: 35%;
+    bottom: auto;
+    left: 5%;
+    right: auto;
+    width: 22%;
+}
+
+#div-exercises {
+    margin-left: 25%;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+#div-exercises .div-choices button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+
+/* Multiplication — progressive vocabulary, independent of exercise layout. */
+#reactor-division .reactor-corner {
+    bottom: 5%;
+    min-height: 0;
+}
+
+#reactor-division .reactor-corner > img,
+#reactor-division .reactor-return {
+    flex-shrink: 0;
+}
+
+.div-vocab {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #c68c49;
+    border-radius: 1cqw;
+    background: rgba(10, 19, 30, 0.94);
+    color: white;
+    overflow: hidden;
+    text-align: left;
+}
+
+.div-vocab h3 {
+    flex-shrink: 0;
+    margin: 0;
+    padding: .5cqw .3cqw;
+    text-align: center;
+    font-size: clamp(12px, 1.45cqw, 22px);
+    color: #efb96b;
+    border-bottom: 1px solid #956b38;
+}
+
+.div-vocab-scroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: #b98743 #17212d;
+    scrollbar-width: thin;
+    padding: 0 .7cqw;
+}
+
+.div-vocab-entry {
+    padding: .35cqw 0;
+    border-bottom: 1px solid #34404b;
+    overflow-wrap: anywhere;
+}
+
+.div-vocab-entry[hidden] {
+    display: none;
+}
+
+.div-vocab-entry button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font: normal clamp(14px, 1.65cqw, 24px) / 1.2 "Times New Roman", serif;
+}
+
+.div-vocab-entry button span {
+    color: #efb96b;
+    font-size: .8em;
+}
+
+.div-vocab-entry button:hover,
+.div-vocab-entry button:focus-visible,
+.div-vocab-entry.is-new button {
+    color: #efb96b;
+}
+
+.div-vocab-entry > span {
+    display: block;
+    font-size: clamp(11px, 1.1cqw, 17px);
+    color: #d4dce5;
+    line-height: 1.25;
+}
+
+.div-vocab-entry.is-new {
+    animation: div-vocab-reveal 1.2s ease-out;
+}
+
+@keyframes div-vocab-reveal {
+    from {
+        background: #8c5d2866;
+    }
+    to {
+        background: transparent;
+    }
+}
+
+.div-vocab-scroll {
+    position: relative;
+}
+
+
+/* Multiplication — Bronze and Silver energy cores */
+#reactor-fractions [hidden] {
+    display: none !important;
+}
+.fra-intro {
+    position: absolute;
+    top: 2%;
+    left: 2.5%;
+    width: 68%;
+    font-size: 1.18cqw;
+    line-height: 1.3;
+}
+.fra-intro h3, .fra-core h3 {
+    color: #ffda94;
+    margin: 0 0 .4em;
+}
+.fra-intro p {
+    margin: .3em 0;
+}
+.fra-energy {
+    position: absolute;
+    top: 1%;
+    right: 2.5%;
+    width: 23%;
+    z-index: 4;
+    text-align: center;
+    font-size: 1.05cqw;
+    color: #ffe1a4;
+    pointer-events: none;
+}
+.fra-wheel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+.fra-wheel img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+.fra-cell, .fra-center {
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    width: 14%;
+    aspect-ratio: 1;
+    background: #08090b9c;
+    box-shadow: inset 0 0 5px #000;
+    transition: background .35s, box-shadow .35s;
+}
+.fra-cell.is-lit {
+    background: #ffbc421c;
+    box-shadow: 0 0 9px 3px #ffdf78, inset 0 0 5px #ffcf65;
+}
+.fra-center {
+    left: 50%;
+    top: 50%;
+    width: 31%;
+    background: #09090a85;
+}
+.fra-wheel.is-complete .fra-center {
+    background: transparent;
+    animation: fra-energy-pulse 1.2s infinite alternate;
+}
+@keyframes fra-energy-pulse {
+    from { box-shadow: 0 0 8px #ff532e; }
+    to { box-shadow: 0 0 28px 9px #ffcb70, inset 0 0 12px #ff9e38; }
+}
+.reactor-nodule--fractions.is-energized {
+    animation: fra-nodule-pulse 1.5s infinite alternate;
+}
+@keyframes fra-nodule-pulse {
+    from { filter: brightness(1.12) drop-shadow(0 0 5px #ff3322); }
+    to { filter: brightness(1.55) drop-shadow(0 0 17px #ff4a25); }
+}
+.fra-core {
+    top: 36%;
+    padding: 1.2cqw;
+    display: block;
+    overflow: auto;
+    font-size: 1.35cqw;
+}
+.fra-core p {
+    margin: .4em 0;
+}
+#fra-prompt, #fra-full-word {
+    font-family: "Times New Roman", serif;
+    font-size: 2.15cqw;
+    line-height: 1.2;
+}
+.fra-actions, .fra-choices, #fra-guide .zero-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5cqw;
+    margin: .6cqw 0;
+}
+.fra-workspace button {
+    background: #293b4c;
+    border: 1px solid #c2a16a;
+    color: white;
+    font-size: 1.15cqw;
+    padding: .35em .7em;
+}
+.fra-workspace button:hover {
+    background: #526477;
+}
+.fra-workspace button:disabled {
+    opacity: .55;
+    cursor: default;
+}
+.fra-choices button {
+    font-family: "Times New Roman", serif;
+    font-size: 1.65cqw;
+}
+#fra-guide-open, #fra-guide [data-fra-rate="1"] {
+    background: #78572e;
+    color: #ffe09b;
+}
+#fra-full-word .active-unit {
+    color: #ffce76;
+}
+#fra-feedback {
+    color: #ffda94;
+}
+#fra-guide .zero-units {
+    margin: .5cqw 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .reactor-nodule--fractions.is-energized, .fra-wheel.is-complete .fra-center {
+        animation: none;
+        filter: brightness(1.4) drop-shadow(0 0 9px #ff4a25);
+    }
+}
+
+[data-fra-wheel="1"] .fra-cell-1 {
+    left: 50%;
+    top: 14%;
+}
+
+[data-fra-wheel="1"] .fra-cell-2 {
+    left: 73%;
+    top: 23%;
+}
+
+[data-fra-wheel="1"] .fra-cell-3 {
+    left: 85%;
+    top: 42%;
+}
+
+[data-fra-wheel="1"] .fra-cell-4 {
+    left: 84%;
+    top: 64%;
+}
+
+[data-fra-wheel="1"] .fra-cell-5 {
+    left: 72%;
+    top: 82%;
+}
+
+[data-fra-wheel="1"] .fra-cell-6 {
+    left: 50%;
+    top: 87%;
+}
+
+[data-fra-wheel="1"] .fra-cell-7 {
+    left: 28%;
+    top: 81%;
+}
+
+[data-fra-wheel="1"] .fra-cell-8 {
+    left: 16%;
+    top: 64%;
+}
+
+[data-fra-wheel="1"] .fra-cell-9 {
+    left: 15%;
+    top: 42%;
+}
+
+[data-fra-wheel="1"] .fra-cell-10 {
+    left: 26%;
+    top: 23%;
+}
+
+[data-fra-wheel="2"] .fra-cell-1 {
+    left: 50%;
+    top: 12%;
+}
+
+[data-fra-wheel="2"] .fra-cell-2 {
+    left: 73%;
+    top: 21%;
+}
+
+[data-fra-wheel="2"] .fra-cell-3 {
+    left: 84%;
+    top: 42%;
+}
+
+[data-fra-wheel="2"] .fra-cell-4 {
+    left: 82%;
+    top: 65%;
+}
+
+[data-fra-wheel="2"] .fra-cell-5 {
+    left: 70%;
+    top: 82%;
+}
+
+[data-fra-wheel="2"] .fra-cell-6 {
+    left: 50%;
+    top: 88%;
+}
+
+[data-fra-wheel="2"] .fra-cell-7 {
+    left: 29%;
+    top: 82%;
+}
+
+[data-fra-wheel="2"] .fra-cell-8 {
+    left: 18%;
+    top: 65%;
+}
+
+[data-fra-wheel="2"] .fra-cell-9 {
+    left: 16%;
+    top: 42%;
+}
+
+[data-fra-wheel="2"] .fra-cell-10 {
+    left: 27%;
+    top: 21%;
+}
+
+/* Multiplication layout — two interchangeable cores */
+.fra-intro {
+    top: 4%;
+    left: 2.5%;
+    width: 95%;
+    text-align: center;
+    font-size: 1.05cqw;
+}
+.fra-intro h3, .fra-core h3 {
+    color: #ffc400;
+    font-size: 2.1cqw;
+    margin: 0;
+}
+.fra-intro button, #fra-guide-open {
+    background: #8793a2aa;
+    color: white;
+    border: 0;
+    min-width: 16%;
+    margin: .5cqw;
+    padding: .15em .7em;
+}
+.fra-core {
+    top: 31%;
+    padding: 4.8cqw 1.2cqw 1cqw;
+    overflow: auto;
+}
+.fra-tabs {
+    position: absolute;
+    top: 31%;
+    right: 7.5%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 1cqw;
+    z-index: 6;
+}
+.fra-tabs button {
+    width: 10cqw;
+    padding: .1em .5em;
+    border: 0;
+    background: linear-gradient(#b87b48, #713509);
+    font-weight: normal;
+}
+.fra-tabs button[aria-pressed="true"] {
+    background: linear-gradient(#ffb16b, #b74b00);
+}
+.fra-energy {
+    top: auto;
+    bottom: 10%;
+    left: 6%;
+    right: auto;
+    width: 22%;
+}
+.fra-cell {
+    background: #08090b30;
+}
+.fra-center {
+    background: transparent;
+}
+#fra-exercises {
+    position: relative;
+    z-index: 5;
+}
+#fra-prompt {
+    margin-top: 2cqw;
+}
+.fra-choices button {
+    font-size: 2.1cqw;
+    border-radius: 1.2cqw;
+}
+#fra-feedback:empty {
+    display: none;
+}
+.fra-workspace:has(#fra-guide:not([hidden])) .fra-energy {
+    display: none;
+}
+
+/* Multiplication — reserve a separate column for both energy cores. */
+.fra-energy {
+    top: 35%;
+    bottom: auto;
+    left: 5%;
+    right: auto;
+    width: 22%;
+}
+
+#fra-exercises {
+    margin-left: 25%;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+#fra-exercises .fra-choices button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+
+/* Multiplication — progressive vocabulary, independent of exercise layout. */
+#reactor-fractions .reactor-corner {
+    bottom: 5%;
+    min-height: 0;
+}
+
+#reactor-fractions .reactor-corner > img,
+#reactor-fractions .reactor-return {
+    flex-shrink: 0;
+}
+
+.fra-vocab {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #c68c49;
+    border-radius: 1cqw;
+    background: rgba(10, 19, 30, 0.94);
+    color: white;
+    overflow: hidden;
+    text-align: left;
+}
+
+.fra-vocab h3 {
+    flex-shrink: 0;
+    margin: 0;
+    padding: .5cqw .3cqw;
+    text-align: center;
+    font-size: clamp(12px, 1.45cqw, 22px);
+    color: #efb96b;
+    border-bottom: 1px solid #956b38;
+}
+
+.fra-vocab-scroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: #b98743 #17212d;
+    scrollbar-width: thin;
+    padding: 0 .7cqw;
+}
+
+.fra-vocab-entry {
+    padding: .35cqw 0;
+    border-bottom: 1px solid #34404b;
+    overflow-wrap: anywhere;
+}
+
+.fra-vocab-entry[hidden] {
+    display: none;
+}
+
+.fra-vocab-entry button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font: normal clamp(14px, 1.65cqw, 24px) / 1.2 "Times New Roman", serif;
+}
+
+.fra-vocab-entry button span {
+    color: #efb96b;
+    font-size: .8em;
+}
+
+.fra-vocab-entry button:hover,
+.fra-vocab-entry button:focus-visible,
+.fra-vocab-entry.is-new button {
+    color: #efb96b;
+}
+
+.fra-vocab-entry > span {
+    display: block;
+    font-size: clamp(11px, 1.1cqw, 17px);
+    color: #d4dce5;
+    line-height: 1.25;
+}
+
+.fra-vocab-entry.is-new {
+    animation: fra-vocab-reveal 1.2s ease-out;
+}
+
+@keyframes fra-vocab-reveal {
+    from {
+        background: #8c5d2866;
+    }
+    to {
+        background: transparent;
+    }
+}
+
+.fra-vocab-scroll {
+    position: relative;
+}
+
+
+/* Multiplication — Bronze and Silver energy cores */
+#reactor-percentages [hidden] {
+    display: none !important;
+}
+.pct-intro {
+    position: absolute;
+    top: 2%;
+    left: 2.5%;
+    width: 68%;
+    font-size: 1.18cqw;
+    line-height: 1.3;
+}
+.pct-intro h3, .pct-core h3 {
+    color: #ffda94;
+    margin: 0 0 .4em;
+}
+.pct-intro p {
+    margin: .3em 0;
+}
+.pct-energy {
+    position: absolute;
+    top: 1%;
+    right: 2.5%;
+    width: 23%;
+    z-index: 4;
+    text-align: center;
+    font-size: 1.05cqw;
+    color: #ffe1a4;
+    pointer-events: none;
+}
+.pct-wheel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+}
+.pct-wheel img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+.pct-cell, .pct-center {
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    width: 14%;
+    aspect-ratio: 1;
+    background: #08090b9c;
+    box-shadow: inset 0 0 5px #000;
+    transition: background .35s, box-shadow .35s;
+}
+.pct-cell.is-lit {
+    background: #ffbc421c;
+    box-shadow: 0 0 9px 3px #ffdf78, inset 0 0 5px #ffcf65;
+}
+.pct-center {
+    left: 50%;
+    top: 50%;
+    width: 31%;
+    background: #09090a85;
+}
+.pct-wheel.is-complete .pct-center {
+    background: transparent;
+    animation: pct-energy-pulse 1.2s infinite alternate;
+}
+@keyframes pct-energy-pulse {
+    from { box-shadow: 0 0 8px #ff532e; }
+    to { box-shadow: 0 0 28px 9px #ffcb70, inset 0 0 12px #ff9e38; }
+}
+.reactor-nodule--percent.is-energized {
+    animation: pct-nodule-pulse 1.5s infinite alternate;
+}
+@keyframes pct-nodule-pulse {
+    from { filter: brightness(1.12) drop-shadow(0 0 5px #ff3322); }
+    to { filter: brightness(1.55) drop-shadow(0 0 17px #ff4a25); }
+}
+.pct-core {
+    top: 36%;
+    padding: 1.2cqw;
+    display: block;
+    overflow: auto;
+    font-size: 1.35cqw;
+}
+.pct-core p {
+    margin: .4em 0;
+}
+#pct-prompt, #pct-full-word {
+    font-family: "Times New Roman", serif;
+    font-size: 2.15cqw;
+    line-height: 1.2;
+}
+.pct-actions, .pct-choices, #pct-guide .zero-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5cqw;
+    margin: .6cqw 0;
+}
+.pct-workspace button {
+    background: #293b4c;
+    border: 1px solid #c2a16a;
+    color: white;
+    font-size: 1.15cqw;
+    padding: .35em .7em;
+}
+.pct-workspace button:hover {
+    background: #526477;
+}
+.pct-workspace button:disabled {
+    opacity: .55;
+    cursor: default;
+}
+.pct-choices button {
+    font-family: "Times New Roman", serif;
+    font-size: 1.65cqw;
+}
+#pct-guide-open, #pct-guide [data-pct-rate="1"] {
+    background: #78572e;
+    color: #ffe09b;
+}
+#pct-full-word .active-unit {
+    color: #ffce76;
+}
+#pct-feedback {
+    color: #ffda94;
+}
+#pct-guide .zero-units {
+    margin: .5cqw 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .reactor-nodule--percent.is-energized, .pct-wheel.is-complete .pct-center {
+        animation: none;
+        filter: brightness(1.4) drop-shadow(0 0 9px #ff4a25);
+    }
+}
+
+[data-pct-wheel="1"] .pct-cell-1 {
+    left: 50%;
+    top: 14%;
+}
+
+[data-pct-wheel="1"] .pct-cell-2 {
+    left: 73%;
+    top: 23%;
+}
+
+[data-pct-wheel="1"] .pct-cell-3 {
+    left: 85%;
+    top: 42%;
+}
+
+[data-pct-wheel="1"] .pct-cell-4 {
+    left: 84%;
+    top: 64%;
+}
+
+[data-pct-wheel="1"] .pct-cell-5 {
+    left: 72%;
+    top: 82%;
+}
+
+[data-pct-wheel="1"] .pct-cell-6 {
+    left: 50%;
+    top: 87%;
+}
+
+[data-pct-wheel="1"] .pct-cell-7 {
+    left: 28%;
+    top: 81%;
+}
+
+[data-pct-wheel="1"] .pct-cell-8 {
+    left: 16%;
+    top: 64%;
+}
+
+[data-pct-wheel="1"] .pct-cell-9 {
+    left: 15%;
+    top: 42%;
+}
+
+[data-pct-wheel="1"] .pct-cell-10 {
+    left: 26%;
+    top: 23%;
+}
+
+[data-pct-wheel="2"] .pct-cell-1 {
+    left: 50%;
+    top: 12%;
+}
+
+[data-pct-wheel="2"] .pct-cell-2 {
+    left: 73%;
+    top: 21%;
+}
+
+[data-pct-wheel="2"] .pct-cell-3 {
+    left: 84%;
+    top: 42%;
+}
+
+[data-pct-wheel="2"] .pct-cell-4 {
+    left: 82%;
+    top: 65%;
+}
+
+[data-pct-wheel="2"] .pct-cell-5 {
+    left: 70%;
+    top: 82%;
+}
+
+[data-pct-wheel="2"] .pct-cell-6 {
+    left: 50%;
+    top: 88%;
+}
+
+[data-pct-wheel="2"] .pct-cell-7 {
+    left: 29%;
+    top: 82%;
+}
+
+[data-pct-wheel="2"] .pct-cell-8 {
+    left: 18%;
+    top: 65%;
+}
+
+[data-pct-wheel="2"] .pct-cell-9 {
+    left: 16%;
+    top: 42%;
+}
+
+[data-pct-wheel="2"] .pct-cell-10 {
+    left: 27%;
+    top: 21%;
+}
+
+/* Multiplication layout — two interchangeable cores */
+.pct-intro {
+    top: 4%;
+    left: 2.5%;
+    width: 95%;
+    text-align: center;
+    font-size: 1.05cqw;
+}
+.pct-intro h3, .pct-core h3 {
+    color: #ffc400;
+    font-size: 2.1cqw;
+    margin: 0;
+}
+.pct-intro button, #pct-guide-open {
+    background: #8793a2aa;
+    color: white;
+    border: 0;
+    min-width: 16%;
+    margin: .5cqw;
+    padding: .15em .7em;
+}
+.pct-core {
+    top: 31%;
+    padding: 4.8cqw 1.2cqw 1cqw;
+    overflow: auto;
+}
+.pct-tabs {
+    position: absolute;
+    top: 31%;
+    right: 7.5%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 1cqw;
+    z-index: 6;
+}
+.pct-tabs button {
+    width: 10cqw;
+    padding: .1em .5em;
+    border: 0;
+    background: linear-gradient(#b87b48, #713509);
+    font-weight: normal;
+}
+.pct-tabs button[aria-pressed="true"] {
+    background: linear-gradient(#ffb16b, #b74b00);
+}
+.pct-energy {
+    top: auto;
+    bottom: 10%;
+    left: 6%;
+    right: auto;
+    width: 22%;
+}
+.pct-cell {
+    background: #08090b30;
+}
+.pct-center {
+    background: transparent;
+}
+#pct-exercises {
+    position: relative;
+    z-index: 5;
+}
+#pct-prompt {
+    margin-top: 2cqw;
+}
+.pct-choices button {
+    font-size: 2.1cqw;
+    border-radius: 1.2cqw;
+}
+#pct-feedback:empty {
+    display: none;
+}
+.pct-workspace:has(#pct-guide:not([hidden])) .pct-energy {
+    display: none;
+}
+
+/* Multiplication — reserve a separate column for both energy cores. */
+.pct-energy {
+    top: 35%;
+    bottom: auto;
+    left: 5%;
+    right: auto;
+    width: 22%;
+}
+
+#pct-exercises {
+    margin-left: 25%;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+#pct-exercises .pct-choices button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+
+/* Multiplication — progressive vocabulary, independent of exercise layout. */
+#reactor-percentages .reactor-corner {
+    bottom: 5%;
+    min-height: 0;
+}
+
+#reactor-percentages .reactor-corner > img,
+#reactor-percentages .reactor-return {
+    flex-shrink: 0;
+}
+
+.pct-vocab {
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #c68c49;
+    border-radius: 1cqw;
+    background: rgba(10, 19, 30, 0.94);
+    color: white;
+    overflow: hidden;
+    text-align: left;
+}
+
+.pct-vocab h3 {
+    flex-shrink: 0;
+    margin: 0;
+    padding: .5cqw .3cqw;
+    text-align: center;
+    font-size: clamp(12px, 1.45cqw, 22px);
+    color: #efb96b;
+    border-bottom: 1px solid #956b38;
+}
+
+.pct-vocab-scroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: #b98743 #17212d;
+    scrollbar-width: thin;
+    padding: 0 .7cqw;
+}
+
+.pct-vocab-entry {
+    padding: .35cqw 0;
+    border-bottom: 1px solid #34404b;
+    overflow-wrap: anywhere;
+}
+
+.pct-vocab-entry[hidden] {
+    display: none;
+}
+
+.pct-vocab-entry button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font: normal clamp(14px, 1.65cqw, 24px) / 1.2 "Times New Roman", serif;
+}
+
+.pct-vocab-entry button span {
+    color: #efb96b;
+    font-size: .8em;
+}
+
+.pct-vocab-entry button:hover,
+.pct-vocab-entry button:focus-visible,
+.pct-vocab-entry.is-new button {
+    color: #efb96b;
+}
+
+.pct-vocab-entry > span {
+    display: block;
+    font-size: clamp(11px, 1.1cqw, 17px);
+    color: #d4dce5;
+    line-height: 1.25;
+}
+
+.pct-vocab-entry.is-new {
+    animation: pct-vocab-reveal 1.2s ease-out;
+}
+
+@keyframes pct-vocab-reveal {
+    from {
+        background: #8c5d2866;
+    }
+    to {
+        background: transparent;
+    }
+}
+
+.pct-vocab-scroll {
+    position: relative;
+}
+
+/* Quantum Reactor — optional mathematical scaffolding beneath each core. */
+.reactor-math-support {
+    position: relative;
+    pointer-events: auto;
+    margin-top: .5cqw;
+    color: #fff1c8;
+    text-align: center;
+}
+.reactor-math-support [hidden],
+.reactor-math-support[hidden] {
+    display: none !important;
+}
+.reactor-math-equation {
+    font-size: 1.45cqw;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+    font-weight: bold;
+}
+.reactor-math-equation math {
+    font-size: 1em;
+    vertical-align: middle;
+}
+.reactor-math-support button {
+    margin-top: .35cqw;
+    font-size: .95cqw;
+    padding: .25em .45em;
+    border: 1px solid #d89a45;
+    color: #fff1c8;
+    background: #392718;
+}
+.reactor-math-hint {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 17cqw;
+    overflow-y: auto;
+    padding: .65cqw;
+    background: #151d29;
+    border: 1px solid #d89a45;
+    border-radius: .5cqw;
+    text-align: left;
+    font-size: 1cqw;
+    z-index: 8;
+}
+.reactor-math-hint p {
+    margin: 0 0 .4em;
+}
+
+.mul-energy,
+.div-energy,
+.fra-energy,
+.pct-energy {
+    z-index: 6;
+}
+
+/* Math support: keep the equation and control in the core's own column. */
+.reactor-math-support:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35cqw;
+    width: 100%;
+    margin-top: 0.6cqw;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.reactor-math-support > [data-math-index]:not([hidden]) {
+    display: block;
+    width: 100%;
+}
+
+.reactor-math-equation {
+    font-size: clamp(16px, 1.65cqw, 28px);
+    color: #ffffff;
+}
+
+.reactor-math-support button {
+    font-size: clamp(12px, 1.05cqw, 17px);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.reactor-math-hint {
+    font-size: clamp(12px, 1.05cqw, 17px);
+    max-height: 18cqw;
+    pointer-events: auto;
+}
+
+
+/* Quantum Reactor — illuminate the actual artwork, not a separate progress system. */
+#reactor-landing .reactor-machine-stack {
+    position: absolute;
+    isolation: isolate;
+}
+#reactor-landing .reactor-machine-base {
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    filter: brightness(.35);
+    transition: filter .7s ease;
+}
+#reactor-landing .reactor-machine-light {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    filter: brightness(1.35) saturate(1.2);
+    transition: opacity .5s ease;
+}
+/* Four diagonal amber lamps, mapped to the supplied 848 × 730 artwork. */
+.reactor-light-multiply {
+    clip-path: polygon(17% 24%, 25% 12%, 33% 15%, 25% 28%, 17% 30%);
+}
+.reactor-light-divide {
+    clip-path: polygon(83% 24%, 75% 12%, 67% 15%, 75% 28%, 83% 30%);
+}
+.reactor-light-fractions {
+    clip-path: polygon(17% 63%, 24% 58%, 34% 70%, 29% 76%, 20% 71%);
+}
+.reactor-light-percent {
+    clip-path: polygon(83% 63%, 76% 58%, 66% 70%, 71% 76%, 80% 71%);
+}
+#reactor-landing.has-multiply .reactor-light-multiply,
+#reactor-landing.has-divide .reactor-light-divide,
+#reactor-landing.has-fractions .reactor-light-fractions,
+#reactor-landing.has-percent .reactor-light-percent {
+    opacity: 1;
+}
+#reactor-landing.is-fully-energized .reactor-machine-base {
+    filter: brightness(1.25) saturate(1.2) drop-shadow(0 0 10px #26bfff);
+}
+#reactor-landing.is-fully-energized .reactor-machine-light {
+    opacity: 0;
+}
+#reactor-landing .reactor-core {
+    transition: opacity .7s ease, visibility .7s ease;
+}
+#reactor-landing.is-fully-energized .reactor-core {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.reactor-activation-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+@media (prefers-reduced-motion: reduce) {
+    #reactor-landing .reactor-machine-base,
+    #reactor-landing .reactor-machine-light,
+    #reactor-landing .reactor-core {
+        transition: none;
+    }
+}
+
+
+/* Quantum Reactor — final spinning atomic core. */
+#reactor-landing .reactor-spinning-core {
+    position: absolute;
+    left: 50%;
+    top: 42.7%;
+    width: 32.4%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border-radius: 50%;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#reactor-landing .reactor-spinning-core img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 50%;
+}
+
+#reactor-landing.is-fully-energized .reactor-spinning-core {
+    visibility: visible;
+    opacity: 1;
+    animation: quantum-core-glow 2s ease-in-out infinite alternate;
+}
+
+#reactor-landing.is-fully-energized .reactor-spinning-core img {
+    animation: quantum-core-spin 4s linear infinite;
+}
+
+@keyframes quantum-core-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes quantum-core-glow {
+    from {
+        filter: drop-shadow(0 0 5px #00bfff);
+    }
+    to {
+        filter: drop-shadow(0 0 15px #00d9ff) brightness(1.2);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #reactor-landing.is-fully-energized .reactor-spinning-core,
+    #reactor-landing.is-fully-energized .reactor-spinning-core img {
+        animation: none;
+    }
 }
