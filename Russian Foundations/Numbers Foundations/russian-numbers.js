@@ -8260,3 +8260,452 @@ function initializeNumbersConversation(slug, lines, questions) {
     });
     lights();
 })();
+
+
+// Door 1 — Podium Chip navigation and placeholder set controls.
+(() => {
+    const experience = document.getElementById("podium-experience");
+    const board = document.getElementById("podium-landing");
+    const door = document.getElementById("numbers-door-one-landing");
+    const sets = experience.querySelectorAll("[data-podium-set]");
+
+    function show(destination) {
+        [door, board, experience].forEach((page) => {
+            page.hidden = page !== destination;
+        });
+        destination.scrollIntoView({ block: "start" });
+    }
+
+    function selectSet(selected) {
+        sets.forEach((button) => {
+            button.setAttribute("aria-pressed", String(button === selected));
+        });
+        const isTeens = experience.dataset.topic === "11th–19th Ordinals";
+        const discovery = isTeens && selected.dataset.podiumSet === "1";
+        sets[0].textContent = isTeens ? "Discover the Pattern" : "Set 1";
+        sets[1].textContent = isTeens ? "Apply the Pattern" : "Set 2";
+        experience.querySelector(".podium-teens:not(.podium-apply)").hidden = !discovery;
+        const placeholder = experience.querySelector(".podium-core-placeholder");
+        placeholder.hidden = isTeens;
+        experience.querySelector(".podium-apply").hidden = !isTeens || discovery;
+        placeholder.textContent = isTeens ? "Apply the Pattern — coming next" : "Core Experience here";
+        experience.querySelector(".podium-instructions").textContent = discovery
+            ? "Select each number. Compare its cardinal and ordinal forms,\nlisten, and discover the pattern."
+            : isTeens ? "Identify hotel floors or listen and recognize ordinals. Complete both challenges." : "<<Instructions here>>";
+    }
+
+    document.querySelectorAll("[data-podium-target]").forEach((button) => {
+        button.addEventListener("click", () => {
+            show(document.getElementById(button.dataset.podiumTarget));
+        });
+    });
+
+    board.querySelectorAll("[data-podium-topic]").forEach((button) => {
+        button.addEventListener("click", () => {
+            experience.dataset.topic = button.dataset.podiumTopic;
+            experience.querySelectorAll("[data-podium-emblem]").forEach((emblem) => {
+                emblem.hidden = emblem.dataset.podiumEmblem !== button.dataset.podiumTopic;
+            });
+            experience.setAttribute("aria-label", button.dataset.podiumTopic);
+            selectSet(sets[0]);
+            show(experience);
+        });
+    });
+
+    sets.forEach((button) => {
+        button.addEventListener("click", () => {
+            selectSet(button);
+        });
+    });
+})();
+
+
+// Podium 11–19: completion is retained during navigation and replay.
+const podiumTeenEnergy = {
+    discover: false,
+    apply: false
+};
+
+function updatePodiumTeenEnergy() {
+    const experience = document.getElementById("podium-experience");
+    const board = document.getElementById("podium-landing");
+    experience.querySelector(".podium-teen-coil").hidden = !podiumTeenEnergy.discover;
+    experience.querySelector(".podium-teen-fan").hidden = !podiumTeenEnergy.apply;
+    board.classList.toggle("is-teens-energized", podiumTeenEnergy.discover && podiumTeenEnergy.apply);
+}
+
+// Podium Chip — 11th–19th guided discovery. All controls are authored in HTML.
+(() => {
+    const panel = document.querySelector(".podium-teens:not(.podium-apply)");
+    const words = [
+        "оди́ннадцать",
+        "двена́дцать",
+        "трина́дцать",
+        "четы́рнадцать",
+        "пятна́дцать",
+        "шестна́дцать",
+        "семна́дцать",
+        "восемна́дцать",
+        "девятна́дцать"
+];
+    const visited = new Set();
+    let index = 0;
+    const status = panel.querySelector("[data-teen-status]");
+
+    function speak(word, rate = 0.85) {
+        if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+            status.textContent = "Russian speech is unavailable in this browser.";
+            return;
+        }
+        const voice = speechSynthesis.getVoices().find((item) => item.lang.toLowerCase().startsWith("ru"));
+        if (!voice) {
+            status.textContent = "A Russian speech voice is required for audio.";
+            return;
+        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word.replace(/\u0301/g, ""));
+        utterance.lang = "ru-RU";
+        utterance.voice = voice;
+        utterance.rate = rate;
+        speechSynthesis.speak(utterance);
+    }
+
+    function select(number, record = true) {
+        index = number;
+        const stem = words[index].slice(0, -1);
+        panel.querySelectorAll("[data-teen-stem]").forEach((element) => {
+            element.textContent = stem;
+        });
+        panel.querySelector("[data-teen-cardinal-number]").textContent = index + 11;
+        panel.querySelector("[data-teen-rank]").textContent = `${index + 11}th`;
+        guideStage = 0;
+        renderGuide();
+        panel.querySelectorAll("[data-teen-index]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(Number(button.dataset.teenIndex) === index));
+        });
+        if (record) {
+            visited.add(index);
+        }
+        status.textContent = visited.size === 9 ? "All nine patterns explored!" : `${visited.size} of 9 patterns explored.`;
+    }
+
+    panel.querySelectorAll("[data-teen-index]").forEach((button) => {
+        button.addEventListener("click", () => select(Number(button.dataset.teenIndex)));
+    });
+    panel.querySelectorAll("[data-teen-audio]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const mode = button.dataset.teenAudio;
+            speak(mode === "cardinal" ? words[index] : words[index].slice(0, -1) + "ый", mode === "slow" ? 0.6 : 0.85);
+        });
+    });
+    panel.querySelectorAll("[data-teen-toggle]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const target = panel.querySelector(`[data-teen-panel="${button.dataset.teenToggle}"]`);
+            const open = target.hidden;
+            panel.querySelectorAll("[data-teen-panel]").forEach((item) => {
+                item.hidden = item !== target || !open;
+            });
+            panel.querySelectorAll("[data-teen-toggle]").forEach((item) => {
+                item.setAttribute("aria-expanded", String(item === button && open));
+            });
+        });
+    });
+    const guideUnits = [
+        ["о", "ди́н", "на", "дца", "тый"],
+        ["две", "на́", "дца", "тый"],
+        ["три", "на́", "дца", "тый"],
+        ["че", "ты́р", "на", "дца", "тый"],
+        ["пят", "на́", "дца", "тый"],
+        ["шест", "на́", "дца", "тый"],
+        ["сем", "на́", "дца", "тый"],
+        ["во", "сем", "на́", "дца", "тый"],
+        ["де", "вят", "на́", "дца", "тый"]
+    ];
+    let guideStage = 0;
+    const guide = panel.querySelector('[data-teen-panel="guide"]');
+    const guideSlots = Array.from(guide.querySelectorAll(".teen-guide-units span"));
+    const previous = guide.querySelector("[data-teen-guide-prev]");
+    const next = guide.querySelector("[data-teen-guide-next]");
+
+    function renderGuide() {
+        const units = guideUnits[index];
+        const split = units.length - guideStage - 1;
+        guide.querySelector("[data-teen-guide-stage]").textContent = `Stage ${guideStage + 1} of ${units.length}`;
+        guide.querySelector("[data-teen-guide-prefix]").textContent = units.slice(0, split).join("");
+        guide.querySelector("[data-teen-guide-suffix]").textContent = units.slice(split).join("");
+        guideSlots.forEach((slot, position) => {
+            slot.hidden = position >= units.length;
+            slot.textContent = position >= split ? units[position] || "" : "··";
+            slot.classList.toggle("is-revealed", position >= split);
+        });
+        previous.disabled = guideStage === 0;
+        next.disabled = guideStage === units.length - 1;
+    }
+
+    previous.addEventListener("click", () => {
+        guideStage = Math.max(0, guideStage - 1);
+        renderGuide();
+    });
+    next.addEventListener("click", () => {
+        guideStage = Math.min(guideUnits[index].length - 1, guideStage + 1);
+        renderGuide();
+    });
+    guide.querySelectorAll("[data-teen-guide-rate]").forEach((button) => {
+        button.addEventListener("click", () => {
+            speak(guideUnits[index].slice(-guideStage - 1).join(""), Number(button.dataset.teenGuideRate));
+        });
+    });
+    guide.querySelector("[data-teen-guide-close]").addEventListener("click", () => {
+        guide.hidden = true;
+        panel.querySelector('[data-teen-toggle="guide"]').setAttribute("aria-expanded", "false");
+    });
+    panel.querySelectorAll("[data-teen-say]").forEach((button) => {
+        button.addEventListener("click", () => speak(button.dataset.teenSay, 0.7));
+    });
+    const inspection = panel.querySelector('[data-teen-panel="inspection"]');
+    const questions = Array.from(inspection.querySelectorAll('[data-inspection-question]'));
+    const inspectionNext = inspection.querySelector('[data-inspection-next]');
+    const inspectionFeedback = inspection.querySelector('[data-inspection-feedback]');
+    const inspectionProgress = panel.querySelector('[data-inspection-progress]');
+    let questionIndex = 0;
+    let correctCount = 0;
+
+    function renderInspection() {
+        questions.forEach((question, position) => {
+            question.hidden = position !== questionIndex || correctCount === questions.length;
+        });
+        inspectionProgress.textContent = correctCount === questions.length
+            ? "✓ Discover the Pattern complete — 5 / 5. Coil activated!"
+            : `Knowledge Check: ${correctCount} / 5`;
+        inspectionNext.disabled = correctCount !== questionIndex + 1 || correctCount === questions.length;
+        inspectionNext.hidden = correctCount === questions.length;
+    }
+
+    questions.forEach((question, position) => {
+        question.querySelectorAll('[data-inspection-answer]').forEach((button) => {
+            button.addEventListener('click', () => {
+                if (position !== questionIndex || correctCount !== questionIndex) {
+                    return;
+                }
+                if (button.dataset.inspectionAnswer !== 'true') {
+                    inspectionFeedback.textContent = 'Not quite. Review the pattern and try again.';
+                    return;
+                }
+                correctCount += 1;
+                question.querySelectorAll('button').forEach((choice) => {
+                    choice.disabled = true;
+                });
+                inspectionFeedback.textContent = correctCount === questions.length
+                    ? 'Excellent! Pattern inspection complete. Coil activated!'
+                    : 'Correct! Continue to the next question.';
+                podiumTeenEnergy.discover = correctCount === questions.length;
+                updatePodiumTeenEnergy();
+                renderInspection();
+            });
+        });
+    });
+    inspectionNext.addEventListener('click', () => {
+        if (correctCount === questionIndex + 1 && correctCount < questions.length) {
+            questionIndex += 1;
+            inspectionFeedback.textContent = '';
+            renderInspection();
+        }
+    });
+    inspection.querySelector('[data-inspection-close]').addEventListener('click', () => {
+        inspection.hidden = true;
+        panel.querySelector('[data-teen-toggle="inspection"]').setAttribute('aria-expanded', 'false');
+    });
+    panel.querySelector('[data-teen-reset]').addEventListener('click', () => {
+        visited.clear();
+        questionIndex = 0;
+        correctCount = 0;
+        podiumTeenEnergy.discover = false;
+        updatePodiumTeenEnergy();
+        questions.forEach((question) => {
+            question.querySelectorAll('button').forEach((button) => {
+                button.disabled = false;
+            });
+        });
+        panel.querySelectorAll('[data-teen-panel]').forEach((item) => {
+            item.hidden = true;
+        });
+        panel.querySelectorAll('[data-teen-toggle]').forEach((button) => {
+            button.setAttribute('aria-expanded', 'false');
+        });
+        inspectionFeedback.textContent = '';
+        renderInspection();
+        select(0, false);
+    });
+    renderInspection();
+    select(0, false);
+})();
+
+// Podium Chip — independent application; all controls are authored in HTML.
+(() => {
+    const panel = document.querySelector('.podium-apply');
+    const words = ['оди́ннадцать', 'двена́дцать', 'трина́дцать', 'четы́рнадцать', 'пятна́дцать', 'шестна́дцать', 'семна́дцать', 'восемна́дцать', 'девятна́дцать'];
+    const find = (selector) => panel.querySelector(selector);
+    const all = (selector) => Array.from(panel.querySelectorAll(selector));
+    const feedback = find('[data-apply-feedback]');
+    const check = find('[data-apply-check]');
+    const next = find('[data-apply-next]');
+    let mode = 'build';
+    let selected = null;
+    function newRound() {
+        const order = shuffleLessonTwoItems(words.map((word, index) => index));
+        const correctPositions = shuffleLessonTwoItems([0, 0, 0, 1, 1, 1, 2, 2, 2]);
+        const choices = order.map((index, questionIndex) => {
+            const other = (index + 1 + Math.floor(Math.random() * 8)) % 9;
+            const distractors = shuffleLessonTwoItems([
+                { text: words[index] + ' этажей', correct: false },
+                { text: words[other].slice(0, -1) + 'ый этаж', correct: false }
+            ]);
+            distractors.splice(correctPositions[questionIndex], 0, {
+                text: words[index].slice(0, -1) + 'ый этаж',
+                correct: true
+            });
+            return distractors;
+        });
+        return { order, position: 0, solved: false, choices };
+    }
+    const rounds = { build: newRound(), listen: newRound() };
+    function render() {
+        const round = rounds[mode];
+        const finished = round.position === 9;
+        const word = words[round.order[round.position]] || '';
+        selected = null;
+        find('[data-apply-build]').hidden = finished || mode !== 'build';
+        find('[data-apply-listen]').hidden = finished || mode !== 'listen';
+        find('[data-apply-progress]').textContent = finished ? '9 of 9 completed!' : `Challenge ${round.position + 1} of 9 · Correct: ${round.position + Number(round.solved)}/9`;
+        panel.classList.toggle('hotel-active', mode === 'build' && !finished);
+        if (mode === 'build' && !finished) {
+            find('[data-hotel-floor]').textContent = round.order[round.position] + 11;
+            all('[data-apply-choice]').forEach((button, index) => {
+                button.textContent = round.choices[round.position][index].text;
+            });
+        }
+        feedback.textContent = finished ? (Object.values(rounds).every(item => item.position === 9) ? 'Excellent! Both challenges complete.' : 'Excellent! Try the other challenge mode.') : round.solved ? 'Correct! Continue to the next challenge.' : '';
+        all('[data-apply-choice], [data-apply-rank]').forEach(button => {
+            button.disabled = round.solved || finished;
+            button.setAttribute('aria-pressed', 'false');
+        });
+        check.disabled = finished || round.solved;
+        next.disabled = finished || !round.solved;
+        next.textContent = round.position === 8 ? 'Finish Challenge' : 'Next Challenge →';
+        all('[data-apply-mode]').forEach((button) => {
+            const item = rounds[button.dataset.applyMode];
+            const count = item.position + Number(item.solved);
+            button.querySelector('span').textContent = count === 9 ? '✓ 9 / 9 — COMPLETE' : `${count} / 9`;
+            button.querySelector('progress').value = count;
+            button.classList.toggle('is-complete', count === 9);
+        });
+        podiumTeenEnergy.apply = Object.values(rounds).every((item) => item.position + Number(item.solved) === 9);
+        find('[data-apply-complete]').hidden = !podiumTeenEnergy.apply;
+        updatePodiumTeenEnergy();
+    }
+    all('[data-apply-mode]').forEach(button => {
+        button.addEventListener('click', () => {
+            mode = button.dataset.applyMode;
+            all('[data-apply-mode]').forEach(item => {
+                item.setAttribute('aria-pressed', String(item === button));
+            });
+            render();
+        });
+    });
+    all('[data-apply-choice], [data-apply-rank]').forEach(button => {
+        button.addEventListener('click', () => {
+            selected = button.dataset.applyChoice || button.dataset.applyRank;
+            all('[data-apply-choice], [data-apply-rank]').forEach(item => {
+                item.setAttribute('aria-pressed', String(item === button));
+            });
+
+        });
+    });
+    check.addEventListener('click', () => {
+        const round = rounds[mode];
+        if (round.solved || round.position === 9) {
+            return;
+        }
+        if (!selected) {
+            feedback.textContent = 'Select an answer first.';
+            return;
+        }
+        const index = round.order[round.position];
+        if (mode === 'build' ? !round.choices[round.position][Number(selected)].correct : selected !== String(index + 11)) {
+            feedback.textContent = mode === 'build' ? 'Look at the display. Choose the matching ordinal floor, not a quantity of floors.' : 'Not quite. Try again!';
+            return;
+        }
+        round.solved = true;
+        render();
+        feedback.textContent = mode === 'build' ? `Верно! ${words[index].slice(0, -1)}ый этаж — floor ${index + 11}. An ordinal identifies a position.` : `Верно! ${words[index].slice(0, -1)}ый — ${index + 11}th.`;
+    });
+    next.addEventListener('click', () => {
+        const round = rounds[mode];
+        if (round.solved && round.position < 9) {
+            round.position++;
+            round.solved = false;
+            render();
+        }
+    });
+    find('[data-apply-reset]').addEventListener('click', () => {
+        rounds[mode] = newRound();
+        render();
+    });
+    find('[data-hotel-vocab]').addEventListener('click', () => {
+        const meaning = find('[data-hotel-meaning]');
+        meaning.hidden = !meaning.hidden;
+        find('[data-hotel-vocab]').setAttribute('aria-expanded', String(!meaning.hidden));
+    });
+    all('[data-hotel-rate]').forEach((button) => {
+        button.addEventListener('click', () => {
+            const round = rounds.build;
+            const options = round.choices[round.position];
+            if (!options) return;
+            if (selected === null && !round.solved) {
+                feedback.textContent = 'Select a phrase to hear it.';
+                return;
+            }
+            if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+                feedback.textContent = 'Russian audio is unavailable.';
+                return;
+            }
+            const phrase = round.solved ? options.find(item => item.correct).text : options[Number(selected)].text;
+            const voice = speechSynthesis.getVoices().find(item => item.lang.toLowerCase().startsWith('ru'));
+            if (!voice) {
+                feedback.textContent = 'A Russian speech voice is required.';
+                return;
+            }
+            speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(phrase.replace(/\u0301/g, ''));
+            utterance.lang = 'ru-RU';
+            utterance.voice = voice;
+            utterance.rate = Number(button.dataset.hotelRate);
+            speechSynthesis.speak(utterance);
+        });
+    });
+    all('[data-apply-rate]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+                feedback.textContent = 'Russian audio is unavailable.';
+                return;
+            }
+            const voice = speechSynthesis.getVoices().find(item => item.lang.toLowerCase().startsWith('ru'));
+            if (!voice) {
+                feedback.textContent = 'A Russian speech voice is required.';
+                return;
+            }
+            const round = rounds.listen;
+            const word = words[round.order[round.position]];
+            if (!word) {
+                return;
+            }
+            speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance((word.slice(0, -1) + 'ый').replace(/\u0301/g, ''));
+            utterance.lang = 'ru-RU';
+            utterance.voice = voice;
+            utterance.rate = Number(button.dataset.applyRate);
+            speechSynthesis.speak(utterance);
+        });
+    });
+    render();
+})();

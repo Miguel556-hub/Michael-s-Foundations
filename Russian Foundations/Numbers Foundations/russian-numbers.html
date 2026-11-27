@@ -4117,8 +4117,239 @@
                 <img src="../../Images/numbers/door-one-landing.png" alt="Door 1 landing page artwork" />
                 <button type="button" class="numbers-rover-open" aria-label="Open Planetary Exploration"
                     title="Planetary Exploration"></button>
+                <button type="button" class="podium-open" data-podium-target="podium-landing"
+                    aria-label="Open The Podium Chip" title="The Podium Chip"></button>
                 <button class="numbers-door-landing__hotspot" type="button" data-door-back="one"
                     aria-label="Back to Four Doors" title="Back to Four Doors"></button>
+            </section>
+            <section class="numbers-door-landing podium-board" id="podium-landing" aria-label="The Podium Chip" hidden>
+                <img src="../../Images/numbers/door-1-secondary-landing-podium-chip.png"
+                    alt="The Podium Chip motherboard" />
+                <svg class="podium-teen-chip-glow" viewBox="0 0 800 450" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M 117,139 L 259,139 L 275,153 L 263,266 L 245,285 L 82,285 L 68,271 L 101,153 Z" />
+                </svg>
+                <button type="button" class="podium-chip podium-chip-one" data-podium-topic="11th–19th Ordinals"
+                    aria-label="11th–19th Ordinals"></button>
+                <button type="button" class="podium-chip podium-chip-two"
+                    data-podium-topic="Tens through 100th Ordinals" aria-label="Tens through 100th Ordinals"></button>
+                <button type="button" class="podium-chip podium-chip-three"
+                    data-podium-topic="Interactive Circuit Builder" aria-label="Interactive Circuit Builder"></button>
+                <button type="button" class="podium-back" data-podium-target="numbers-door-one-landing"
+                    aria-label="Back to Door 1"></button>
+            </section>
+            <section class="numbers-door-landing podium-experience" id="podium-experience"
+                aria-label="Podium Chip learning experience" hidden>
+                <img src="../../Images/numbers/door-1-third-landing-motherboard.png"
+                    alt="Motherboard learning environment" />
+                <div class="podium-teen-animation-layer" aria-hidden="true">
+                    <img class="podium-teen-coil" src="../../Images/numbers/door-1-spinning-coil.gif" alt="" hidden />
+                    <img class="podium-teen-fan" src="../../Images/numbers/door-1-spinning-fan-2.gif" alt="" hidden />
+                </div>
+                <div class="podium-topic-emblem">
+                    <img data-podium-emblem="11th–19th Ordinals" src="../../Images/numbers/door-1-podium-chip-11-19.png"
+                        alt="11th–19th Ordinals" hidden />
+                    <img data-podium-emblem="Tens through 100th Ordinals"
+                        src="../../Images/numbers/door-1-podium-chip-tens-100.png" alt="Tens through 100th Ordinals"
+                        hidden />
+                    <img data-podium-emblem="Interactive Circuit Builder"
+                        src="../../Images/numbers/door-1-podium-chip-IC-builder.png" alt="Interactive Circuit Builder"
+                        hidden />
+                </div>
+                <div class="podium-experience-frame">
+                    <div class="podium-instructions">&lt;&lt;Instructions here&gt;&gt;</div>
+                    <div class="podium-core">
+                        <div class="podium-sets" aria-label="Practice sets">
+                            <button type="button" data-podium-set="1" aria-pressed="true">Set 1</button>
+                            <button type="button" data-podium-set="2" aria-pressed="false">Set 2</button>
+                        </div>
+                        <div class="podium-teens podium-apply" hidden>
+                            <div class="podium-teen-picker">
+                                <button type="button" data-apply-mode="build" aria-pressed="true">Use It <span data-apply-count="build">0 / 9</span><progress max="9" value="0" aria-label="Use It progress"></progress></button>
+                                <button type="button" data-apply-mode="listen" aria-pressed="false">Recognize It <span data-apply-count="listen">0 / 9</span><progress max="9" value="0" aria-label="Recognize It progress"></progress></button>
+                            </div>
+                            <p data-apply-progress aria-live="polite"></p>
+                            <p data-apply-complete role="status" hidden>✓ Apply the Pattern complete — cooling system activated!</p>
+                            <div data-apply-build>
+                                <div class="hotel-elevator">
+                                    <img src="../../Images/numbers/door-1-elevator.png" alt="Hotel elevator" />
+                                    <span data-hotel-floor aria-label="Current floor">14</span>
+                                </div>
+                                <div class="hotel-question">
+                                    <div class="apply-russian" lang="ru">Какой это этаж?</div>
+                                    <p>Which floor is this?</p>
+                                    <div class="podium-teen-picker hotel-choices">
+                                        <button type="button" data-apply-choice="0" lang="ru" aria-pressed="false"></button>
+                                        <button type="button" data-apply-choice="1" lang="ru" aria-pressed="false"></button>
+                                        <button type="button" data-apply-choice="2" lang="ru" aria-pressed="false"></button>
+                                    </div>
+                                    <div class="podium-teen-actions">
+                                        <button type="button" data-hotel-rate="0.85">▶ Hear selected phrase</button>
+                                        <button type="button" data-hotel-rate="0.6">▶ Slow</button>
+                                        <button type="button" data-hotel-vocab aria-expanded="false">Vocabulary</button>
+                                    </div>
+                                    <p data-hotel-meaning hidden>Какой — which; это — this is; этаж — floor; этажей — floors (after 11–19).</p>
+                                </div>
+                            </div>
+                            <div data-apply-listen hidden>
+                                <p>Listen to the ordinal and select its numerical equivalent.</p>
+                                <div class="podium-teen-actions">
+                                    <button type="button" data-apply-rate="0.85">▶ Hear ordinal</button>
+                                    <button type="button" data-apply-rate="0.6">▶ Slow</button>
+                                </div>
+                                <div class="podium-teen-picker apply-ranks">
+                                    <button type="button" data-apply-rank="11" aria-pressed="false">11th</button>
+                                    <button type="button" data-apply-rank="12" aria-pressed="false">12th</button>
+                                    <button type="button" data-apply-rank="13" aria-pressed="false">13th</button>
+                                    <button type="button" data-apply-rank="14" aria-pressed="false">14th</button>
+                                    <button type="button" data-apply-rank="15" aria-pressed="false">15th</button>
+                                    <button type="button" data-apply-rank="16" aria-pressed="false">16th</button>
+                                    <button type="button" data-apply-rank="17" aria-pressed="false">17th</button>
+                                    <button type="button" data-apply-rank="18" aria-pressed="false">18th</button>
+                                    <button type="button" data-apply-rank="19" aria-pressed="false">19th</button>
+                                </div>
+                            </div>
+                            <p data-apply-feedback aria-live="polite"></p>
+                            <div class="podium-teen-actions">
+                                <button type="button" data-apply-check>Check Answer</button>
+                                <button type="button" data-apply-next disabled>Next Challenge →</button>
+                                <button type="button" data-apply-reset>Reset &amp; Shuffle</button>
+                            </div>
+                        </div>
+                        <div class="podium-core-placeholder">Core Experience here</div>
+                        <div class="podium-teens" hidden>
+                            <div class="podium-teen-picker" aria-label="Choose an ordinal">
+                                <button type="button" data-teen-index="0" aria-pressed="false">11th</button>
+                                <button type="button" data-teen-index="1" aria-pressed="false">12th</button>
+                                <button type="button" data-teen-index="2" aria-pressed="false">13th</button>
+                                <button type="button" data-teen-index="3" aria-pressed="false">14th</button>
+                                <button type="button" data-teen-index="4" aria-pressed="false">15th</button>
+                                <button type="button" data-teen-index="5" aria-pressed="false">16th</button>
+                                <button type="button" data-teen-index="6" aria-pressed="false">17th</button>
+                                <button type="button" data-teen-index="7" aria-pressed="false">18th</button>
+                                <button type="button" data-teen-index="8" aria-pressed="false">19th</button>
+                            </div>
+                            <div class="podium-teen-transform">
+                                <div><small>Cardinal · <span data-teen-cardinal-number>11</span></small>
+                                    <div lang="ru"><span data-teen-stem></span><span class="teen-remove">ь</span></div>
+                                </div>
+                                <span aria-hidden="true">→</span>
+                                <div><small>Ordinal · <span data-teen-rank>11th</span></small>
+                                    <div lang="ru"><span data-teen-stem></span><span class="teen-add">ый</span></div>
+                                </div>
+                            </div>
+                            <p class="podium-teen-rule">Remove <b>ь</b> and attach <b>ый</b>. The stress stays in the
+                                same place.</p>
+                            <div class="podium-teen-actions">
+                                <button type="button" data-teen-audio="cardinal">Hear cardinal</button>
+                                <button type="button" data-teen-audio="ordinal">Hear ordinal</button>
+                                <button type="button" data-teen-audio="slow">Slow</button>
+                                <button type="button" data-teen-toggle="guide" aria-expanded="false">Pronunciation
+                                    Guide</button>
+                                <button type="button" data-teen-toggle="bank" aria-expanded="false">Vocabulary
+                                    Bank</button>
+                            </div>
+                            <div class="podium-teen-support" data-teen-panel="guide" hidden>
+                                <h3>Backwards Pronunciation Guide</h3>
+                                <p data-teen-guide-stage aria-live="polite"></p>
+                                <div class="teen-guide-word" lang="ru"><span data-teen-guide-prefix></span><span
+                                        data-teen-guide-suffix></span></div>
+                                <div class="teen-guide-units" lang="ru">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="teen-guide-controls">
+                                    <button type="button" data-teen-guide-rate="1">▶ Normal</button>
+                                    <button type="button" data-teen-guide-rate="0.55">▶ Slow</button>
+                                    <button type="button" data-teen-guide-rate="0.75">▶ Medium</button>
+                                </div>
+                                <p>Listen at normal speed. Practice slowly three to five times, then gradually increase
+                                    your speed to match the natural pronunciation.</p>
+                                <div class="teen-guide-controls">
+                                    <button type="button" data-teen-guide-prev>Previous</button>
+                                    <button type="button" data-teen-guide-next>Add a unit →</button>
+                                </div>
+                                <button type="button" data-teen-guide-close>Back to Discover the Pattern</button>
+                            </div>
+                            <div class="podium-teen-support podium-teen-bank" data-teen-panel="bank" hidden>
+                                <button type="button" data-teen-say="оди́ннадцатый" lang="ru">оди́ннадцатый
+                                    <small>eleventh</small></button>
+                                <button type="button" data-teen-say="двена́дцатый" lang="ru">двена́дцатый
+                                    <small>twelfth</small></button>
+                                <button type="button" data-teen-say="трина́дцатый" lang="ru">трина́дцатый
+                                    <small>thirteenth</small></button>
+                                <button type="button" data-teen-say="четы́рнадцатый" lang="ru">четы́рнадцатый
+                                    <small>fourteenth</small></button>
+                                <button type="button" data-teen-say="пятна́дцатый" lang="ru">пятна́дцатый
+                                    <small>fifteenth</small></button>
+                                <button type="button" data-teen-say="шестна́дцатый" lang="ru">шестна́дцатый
+                                    <small>sixteenth</small></button>
+                                <button type="button" data-teen-say="семна́дцатый" lang="ru">семна́дцатый
+                                    <small>seventeenth</small></button>
+                                <button type="button" data-teen-say="восемна́дцатый" lang="ru">восемна́дцатый
+                                    <small>eighteenth</small></button>
+                                <button type="button" data-teen-say="девятна́дцатый" lang="ru">девятна́дцатый
+                                    <small>nineteenth</small></button>
+                            </div>
+                            <div class="podium-teen-actions">
+                                <button type="button" data-teen-toggle="inspection" aria-expanded="false">Pattern Inspection Challenge</button>
+                                <button type="button" data-teen-reset>Reset Activity</button>
+                            </div>
+                            <p data-inspection-progress role="status">Knowledge Check: 0 / 5</p>
+                            <div class="podium-teen-support podium-inspection" data-teen-panel="inspection" hidden>
+                                <h3>Pattern Inspection Challenge</h3>
+                                <div data-inspection-question="0">
+                                    <p>1. What is removed from the cardinal form?</p>
+                                    <div class="podium-teen-picker">
+                                        <button type="button" data-inspection-answer="false">The first syllable</button>
+                                        <button type="button" data-inspection-answer="true">The final soft sign (ь)</button>
+                                        <button type="button" data-inspection-answer="false">The stressed vowel</button>
+                                    </div>
+                                </div>
+                                <div data-inspection-question="1" hidden>
+                                    <p>2. Which ending forms these masculine ordinals?</p>
+                                    <div class="podium-teen-picker">
+                                        <button type="button" data-inspection-answer="true">-ый</button>
+                                        <button type="button" data-inspection-answer="false">-ой</button>
+                                        <button type="button" data-inspection-answer="false">-ий</button>
+                                    </div>
+                                </div>
+                                <div data-inspection-question="2" hidden>
+                                    <p>3. What happens to the position of the stress?</p>
+                                    <div class="podium-teen-picker">
+                                        <button type="button" data-inspection-answer="false">It always moves to the ending</button>
+                                        <button type="button" data-inspection-answer="false">It disappears</button>
+                                        <button type="button" data-inspection-answer="true">It stays in the same place</button>
+                                    </div>
+                                </div>
+                                <div data-inspection-question="3" hidden>
+                                    <p>4. Which numbers follow this pattern?</p>
+                                    <div class="podium-teen-picker">
+                                        <button type="button" data-inspection-answer="false">Only 11 and 12</button>
+                                        <button type="button" data-inspection-answer="true">All nine numbers from 11 to 19</button>
+                                        <button type="button" data-inspection-answer="false">Only odd numbers</button>
+                                    </div>
+                                </div>
+                                <div data-inspection-question="4" hidden>
+                                    <p>5. What does an ordinal number describe?</p>
+                                    <div class="podium-teen-picker">
+                                        <button type="button" data-inspection-answer="true">A position in a sequence</button>
+                                        <button type="button" data-inspection-answer="false">A quantity of objects</button>
+                                        <button type="button" data-inspection-answer="false">A mathematical operation</button>
+                                    </div>
+                                </div>
+                                <p data-inspection-feedback role="status"></p>
+                                <button type="button" data-inspection-next disabled>Next Question →</button>
+                                <button type="button" data-inspection-close>Back to Discovery</button>
+                            </div>
+                            <p data-teen-status role="status"></p>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="podium-server-back" data-podium-target="podium-landing">Back to Server
+                    Room</button>
             </section>
             <section id="numbers-rover-landing" class="numbers-rover" aria-label="Planetary Exploration" hidden>
                 <img class="numbers-rover__art" src="../../Images/numbers/door-1-the-rover-landing-page.png"
@@ -7583,10 +7814,14 @@
                         alt="" />
                     <img class="sr-light sr-light-8" src="../../Images/numbers/door-2-third-landing-server-panel.png"
                         alt="" />
-                    <img class="dv-perimeter dv-perimeter-top" src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
-                    <img class="dv-perimeter dv-perimeter-bottom" src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
-                    <img class="dv-perimeter dv-perimeter-left" src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
-                    <img class="dv-perimeter dv-perimeter-right" src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
+                    <img class="dv-perimeter dv-perimeter-top"
+                        src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
+                    <img class="dv-perimeter dv-perimeter-bottom"
+                        src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
+                    <img class="dv-perimeter dv-perimeter-left"
+                        src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
+                    <img class="dv-perimeter dv-perimeter-right"
+                        src="../../Images/numbers/door-2-third-landing-server-panel.png" alt="" />
                 </div>
                 <div class="sr-console">
                     <div class="sr-sidebar">
@@ -7594,44 +7829,90 @@
                             alt="Data Verification Terminal" />
                         <aside class="sr-vocabulary">
                             <h3>Vocabulary Bank</h3>
-                            <div class="dv-vocab-item" data-dv-vocab="меньше" hidden><button type="button" class="dv-say" data-dv-say="меньше" lang="ru">меньше</button><small>Less than</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="больше" hidden><button type="button" class="dv-say" data-dv-say="больше" lang="ru">больше</button><small>Greater than</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="равно" hidden><button type="button" class="dv-say" data-dv-say="равно" lang="ru">равно</button><small>Equal to</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="не равно" hidden><button type="button" class="dv-say" data-dv-say="не равно" lang="ru">не равно</button><small>Not equal to</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="плюс" hidden><button type="button" class="dv-say" data-dv-say="плюс" lang="ru">плюс</button><small>plus</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="ноль" hidden><button type="button" class="dv-say" data-dv-say="ноль" lang="ru">ноль</button><small>0</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="нуля" hidden><button type="button" class="dv-say" data-dv-say="нуля" lang="ru">нуля</button><small>0</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="нулю" hidden><button type="button" class="dv-say" data-dv-say="нулю" lang="ru">нулю</button><small>0</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="один" hidden><button type="button" class="dv-say" data-dv-say="один" lang="ru">один</button><small>1</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="одного" hidden><button type="button" class="dv-say" data-dv-say="одного" lang="ru">одного</button><small>1</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="одному" hidden><button type="button" class="dv-say" data-dv-say="одному" lang="ru">одному</button><small>1</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="два" hidden><button type="button" class="dv-say" data-dv-say="два" lang="ru">два</button><small>2</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="двух" hidden><button type="button" class="dv-say" data-dv-say="двух" lang="ru">двух</button><small>2</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="двум" hidden><button type="button" class="dv-say" data-dv-say="двум" lang="ru">двум</button><small>2</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="три" hidden><button type="button" class="dv-say" data-dv-say="три" lang="ru">три</button><small>3</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="трёх" hidden><button type="button" class="dv-say" data-dv-say="трёх" lang="ru">трёх</button><small>3</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="трём" hidden><button type="button" class="dv-say" data-dv-say="трём" lang="ru">трём</button><small>3</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="четыре" hidden><button type="button" class="dv-say" data-dv-say="четыре" lang="ru">четыре</button><small>4</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="четырёх" hidden><button type="button" class="dv-say" data-dv-say="четырёх" lang="ru">четырёх</button><small>4</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="четырём" hidden><button type="button" class="dv-say" data-dv-say="четырём" lang="ru">четырём</button><small>4</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="пять" hidden><button type="button" class="dv-say" data-dv-say="пять" lang="ru">пять</button><small>5</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="пяти" hidden><button type="button" class="dv-say" data-dv-say="пяти" lang="ru">пяти</button><small>5</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="шесть" hidden><button type="button" class="dv-say" data-dv-say="шесть" lang="ru">шесть</button><small>6</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="шести" hidden><button type="button" class="dv-say" data-dv-say="шести" lang="ru">шести</button><small>6</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="семь" hidden><button type="button" class="dv-say" data-dv-say="семь" lang="ru">семь</button><small>7</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="семи" hidden><button type="button" class="dv-say" data-dv-say="семи" lang="ru">семи</button><small>7</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="восемь" hidden><button type="button" class="dv-say" data-dv-say="восемь" lang="ru">восемь</button><small>8</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="восьми" hidden><button type="button" class="dv-say" data-dv-say="восьми" lang="ru">восьми</button><small>8</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="девять" hidden><button type="button" class="dv-say" data-dv-say="девять" lang="ru">девять</button><small>9</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="девяти" hidden><button type="button" class="dv-say" data-dv-say="девяти" lang="ru">девяти</button><small>9</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="десять" hidden><button type="button" class="dv-say" data-dv-say="десять" lang="ru">десять</button><small>10</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="десяти" hidden><button type="button" class="dv-say" data-dv-say="десяти" lang="ru">десяти</button><small>10</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="одиннадцать" hidden><button type="button" class="dv-say" data-dv-say="одиннадцать" lang="ru">одиннадцать</button><small>11</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="одиннадцати" hidden><button type="button" class="dv-say" data-dv-say="одиннадцати" lang="ru">одиннадцати</button><small>11</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="двенадцать" hidden><button type="button" class="dv-say" data-dv-say="двенадцать" lang="ru">двенадцать</button><small>12</small></div>
-                            <div class="dv-vocab-item" data-dv-vocab="двенадцати" hidden><button type="button" class="dv-say" data-dv-say="двенадцати" lang="ru">двенадцати</button><small>12</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="меньше" hidden><button type="button"
+                                    class="dv-say" data-dv-say="меньше" lang="ru">меньше</button><small>Less
+                                    than</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="больше" hidden><button type="button"
+                                    class="dv-say" data-dv-say="больше" lang="ru">больше</button><small>Greater
+                                    than</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="равно" hidden><button type="button" class="dv-say"
+                                    data-dv-say="равно" lang="ru">равно</button><small>Equal to</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="не равно" hidden><button type="button"
+                                    class="dv-say" data-dv-say="не равно" lang="ru">не равно</button><small>Not equal
+                                    to</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="плюс" hidden><button type="button" class="dv-say"
+                                    data-dv-say="плюс" lang="ru">плюс</button><small>plus</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="ноль" hidden><button type="button" class="dv-say"
+                                    data-dv-say="ноль" lang="ru">ноль</button><small>0</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="нуля" hidden><button type="button" class="dv-say"
+                                    data-dv-say="нуля" lang="ru">нуля</button><small>0</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="нулю" hidden><button type="button" class="dv-say"
+                                    data-dv-say="нулю" lang="ru">нулю</button><small>0</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="один" hidden><button type="button" class="dv-say"
+                                    data-dv-say="один" lang="ru">один</button><small>1</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="одного" hidden><button type="button"
+                                    class="dv-say" data-dv-say="одного" lang="ru">одного</button><small>1</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="одному" hidden><button type="button"
+                                    class="dv-say" data-dv-say="одному" lang="ru">одному</button><small>1</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="два" hidden><button type="button" class="dv-say"
+                                    data-dv-say="два" lang="ru">два</button><small>2</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="двух" hidden><button type="button" class="dv-say"
+                                    data-dv-say="двух" lang="ru">двух</button><small>2</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="двум" hidden><button type="button" class="dv-say"
+                                    data-dv-say="двум" lang="ru">двум</button><small>2</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="три" hidden><button type="button" class="dv-say"
+                                    data-dv-say="три" lang="ru">три</button><small>3</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="трёх" hidden><button type="button" class="dv-say"
+                                    data-dv-say="трёх" lang="ru">трёх</button><small>3</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="трём" hidden><button type="button" class="dv-say"
+                                    data-dv-say="трём" lang="ru">трём</button><small>3</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="четыре" hidden><button type="button"
+                                    class="dv-say" data-dv-say="четыре" lang="ru">четыре</button><small>4</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="четырёх" hidden><button type="button"
+                                    class="dv-say" data-dv-say="четырёх" lang="ru">четырёх</button><small>4</small>
+                            </div>
+                            <div class="dv-vocab-item" data-dv-vocab="четырём" hidden><button type="button"
+                                    class="dv-say" data-dv-say="четырём" lang="ru">четырём</button><small>4</small>
+                            </div>
+                            <div class="dv-vocab-item" data-dv-vocab="пять" hidden><button type="button" class="dv-say"
+                                    data-dv-say="пять" lang="ru">пять</button><small>5</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="пяти" hidden><button type="button" class="dv-say"
+                                    data-dv-say="пяти" lang="ru">пяти</button><small>5</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="шесть" hidden><button type="button" class="dv-say"
+                                    data-dv-say="шесть" lang="ru">шесть</button><small>6</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="шести" hidden><button type="button" class="dv-say"
+                                    data-dv-say="шести" lang="ru">шести</button><small>6</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="семь" hidden><button type="button" class="dv-say"
+                                    data-dv-say="семь" lang="ru">семь</button><small>7</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="семи" hidden><button type="button" class="dv-say"
+                                    data-dv-say="семи" lang="ru">семи</button><small>7</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="восемь" hidden><button type="button"
+                                    class="dv-say" data-dv-say="восемь" lang="ru">восемь</button><small>8</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="восьми" hidden><button type="button"
+                                    class="dv-say" data-dv-say="восьми" lang="ru">восьми</button><small>8</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="девять" hidden><button type="button"
+                                    class="dv-say" data-dv-say="девять" lang="ru">девять</button><small>9</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="девяти" hidden><button type="button"
+                                    class="dv-say" data-dv-say="девяти" lang="ru">девяти</button><small>9</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="десять" hidden><button type="button"
+                                    class="dv-say" data-dv-say="десять" lang="ru">десять</button><small>10</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="десяти" hidden><button type="button"
+                                    class="dv-say" data-dv-say="десяти" lang="ru">десяти</button><small>10</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="одиннадцать" hidden><button type="button"
+                                    class="dv-say" data-dv-say="одиннадцать"
+                                    lang="ru">одиннадцать</button><small>11</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="одиннадцати" hidden><button type="button"
+                                    class="dv-say" data-dv-say="одиннадцати"
+                                    lang="ru">одиннадцати</button><small>11</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="двенадцать" hidden><button type="button"
+                                    class="dv-say" data-dv-say="двенадцать"
+                                    lang="ru">двенадцать</button><small>12</small></div>
+                            <div class="dv-vocab-item" data-dv-vocab="двенадцати" hidden><button type="button"
+                                    class="dv-say" data-dv-say="двенадцати"
+                                    lang="ru">двенадцати</button><small>12</small></div>
                         </aside>
-                        <button type="button" class="sr-back" data-sr-target="server-room-landing">Back to Server Room</button>
+                        <button type="button" class="sr-back" data-sr-target="server-room-landing">Back to Server
+                            Room</button>
                         <button type="button" class="sr-back dv-back" hidden>Back to Data Verification</button>
                     </div>
                     <div class="sr-content">
@@ -7644,64 +7925,101 @@
                             <h3>Meet the comparison symbols</h3>
                             <div class="dv-row" data-dv-words="меньше">
                                 <span class="dv-symbol">&lt;</span>
-                                <div><button type="button" class="dv-say" data-dv-say="меньше" lang="ru">меньше</button><small>Less than</small></div>
-                                <button type="button" class="dv-expand" aria-expanded="false" aria-controls="dv-discovery-0"><span>▼</span><span>5 &lt; 8</span><span lang="ru">Пять меньше восьми</span></button>
+                                <div><button type="button" class="dv-say" data-dv-say="меньше"
+                                        lang="ru">меньше</button><small>Less than</small></div>
+                                <button type="button" class="dv-expand" aria-expanded="false"
+                                    aria-controls="dv-discovery-0"><span>▼</span><span>5 &lt; 8</span><span
+                                        lang="ru">Пять меньше восьми</span></button>
                                 <div class="dv-discovery" id="dv-discovery-0" hidden>
                                     <strong>Grammatical discovery — Genitive</strong>
                                     <p>After меньше, the number on the right takes the genitive case.</p>
-                                    <p><button type="button" class="dv-say" data-dv-say="восемь" lang="ru">восемь</button> → <mark><button type="button" class="dv-say" data-dv-say="восьми" lang="ru">восьми</button></mark></p>
-                                    <p><button type="button" class="dv-say" data-dv-say="Пять меньше восьми" lang="ru">Пять меньше восьми</button> </p>
-                                    <p>3 &lt; 5 — <button type="button" class="dv-say" data-dv-say="Три меньше пяти" lang="ru">Три меньше пяти</button></p>
-                                    <p>7 &lt; 10 — <button type="button" class="dv-say" data-dv-say="Семь меньше десяти" lang="ru">Семь меньше десяти</button></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="восемь"
+                                            lang="ru">восемь</button> → <mark><button type="button" class="dv-say"
+                                                data-dv-say="восьми" lang="ru">восьми</button></mark></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="Пять меньше восьми"
+                                            lang="ru">Пять меньше восьми</button> </p>
+                                    <p>3 &lt; 5 — <button type="button" class="dv-say" data-dv-say="Три меньше пяти"
+                                            lang="ru">Три меньше пяти</button></p>
+                                    <p>7 &lt; 10 — <button type="button" class="dv-say" data-dv-say="Семь меньше десяти"
+                                            lang="ru">Семь меньше десяти</button></p>
                                 </div>
                             </div>
                             <div class="dv-row" data-dv-words="больше">
                                 <span class="dv-symbol">&gt;</span>
-                                <div><button type="button" class="dv-say" data-dv-say="больше" lang="ru">больше</button><small>Greater than</small></div>
-                                <button type="button" class="dv-expand" aria-expanded="false" aria-controls="dv-discovery-1"><span>▼</span><span>12 &gt; 7</span><span lang="ru">Двенадцать больше семи</span></button>
+                                <div><button type="button" class="dv-say" data-dv-say="больше"
+                                        lang="ru">больше</button><small>Greater than</small></div>
+                                <button type="button" class="dv-expand" aria-expanded="false"
+                                    aria-controls="dv-discovery-1"><span>▼</span><span>12 &gt; 7</span><span
+                                        lang="ru">Двенадцать больше семи</span></button>
                                 <div class="dv-discovery" id="dv-discovery-1" hidden>
                                     <strong>Grammatical discovery — Genitive</strong>
                                     <p>After больше, the number on the right takes the genitive case.</p>
-                                    <p><button type="button" class="dv-say" data-dv-say="семь" lang="ru">семь</button> → <mark><button type="button" class="dv-say" data-dv-say="семи" lang="ru">семи</button></mark></p>
-                                    <p><button type="button" class="dv-say" data-dv-say="Двенадцать больше семи" lang="ru">Двенадцать больше семи</button> </p>
-                                    <p>8 &gt; 2 — <button type="button" class="dv-say" data-dv-say="Восемь больше двух" lang="ru">Восемь больше двух</button></p>
-                                    <p>9 &gt; 4 — <button type="button" class="dv-say" data-dv-say="Девять больше четырёх" lang="ru">Девять больше четырёх</button></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="семь" lang="ru">семь</button> →
+                                        <mark><button type="button" class="dv-say" data-dv-say="семи"
+                                                lang="ru">семи</button></mark>
+                                    </p>
+                                    <p><button type="button" class="dv-say" data-dv-say="Двенадцать больше семи"
+                                            lang="ru">Двенадцать больше семи</button> </p>
+                                    <p>8 &gt; 2 — <button type="button" class="dv-say" data-dv-say="Восемь больше двух"
+                                            lang="ru">Восемь больше двух</button></p>
+                                    <p>9 &gt; 4 — <button type="button" class="dv-say"
+                                            data-dv-say="Девять больше четырёх" lang="ru">Девять больше четырёх</button>
+                                    </p>
                                 </div>
                             </div>
                             <div class="dv-row" data-dv-words="равно">
                                 <span class="dv-symbol">=</span>
-                                <div><button type="button" class="dv-say" data-dv-say="равно" lang="ru">равно</button><small>Equal to</small></div>
-                                <button type="button" class="dv-expand" aria-expanded="false" aria-controls="dv-discovery-2"><span>▼</span><span>3 + 3 = 6</span><span lang="ru">Три плюс три равно шести</span></button>
+                                <div><button type="button" class="dv-say" data-dv-say="равно"
+                                        lang="ru">равно</button><small>Equal to</small></div>
+                                <button type="button" class="dv-expand" aria-expanded="false"
+                                    aria-controls="dv-discovery-2"><span>▼</span><span>3 + 3 = 6</span><span
+                                        lang="ru">Три плюс три равно шести</span></button>
                                 <div class="dv-discovery" id="dv-discovery-2" hidden>
                                     <strong>Grammatical discovery — Dative</strong>
                                     <p>After равно, the number on the right takes the dative case.</p>
-                                    <p><button type="button" class="dv-say" data-dv-say="шесть" lang="ru">шесть</button> → <mark><button type="button" class="dv-say" data-dv-say="шести" lang="ru">шести</button></mark></p>
-                                    <p><button type="button" class="dv-say" data-dv-say="Три плюс три равно шести" lang="ru">Три плюс три равно шести</button> </p>
-                                    <p>2 = 2 — <button type="button" class="dv-say" data-dv-say="Два равно двум" lang="ru">Два равно двум</button></p>
-                                    <p>4 = 4 — <button type="button" class="dv-say" data-dv-say="Четыре равно четырём" lang="ru">Четыре равно четырём</button></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="шесть" lang="ru">шесть</button>
+                                        → <mark><button type="button" class="dv-say" data-dv-say="шести"
+                                                lang="ru">шести</button></mark></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="Три плюс три равно шести"
+                                            lang="ru">Три плюс три равно шести</button> </p>
+                                    <p>2 = 2 — <button type="button" class="dv-say" data-dv-say="Два равно двум"
+                                            lang="ru">Два равно двум</button></p>
+                                    <p>4 = 4 — <button type="button" class="dv-say" data-dv-say="Четыре равно четырём"
+                                            lang="ru">Четыре равно четырём</button></p>
                                 </div>
                             </div>
                             <div class="dv-row" data-dv-words="не равно">
                                 <span class="dv-symbol">≠</span>
-                                <div><button type="button" class="dv-say" data-dv-say="не равно" lang="ru">не равно</button><small>Not equal to</small></div>
-                                <button type="button" class="dv-expand" aria-expanded="false" aria-controls="dv-discovery-3"><span>▼</span><span>6 ≠ 8</span><span lang="ru">Шесть не равно восьми</span></button>
+                                <div><button type="button" class="dv-say" data-dv-say="не равно" lang="ru">не
+                                        равно</button><small>Not equal to</small></div>
+                                <button type="button" class="dv-expand" aria-expanded="false"
+                                    aria-controls="dv-discovery-3"><span>▼</span><span>6 ≠ 8</span><span lang="ru">Шесть
+                                        не равно восьми</span></button>
                                 <div class="dv-discovery" id="dv-discovery-3" hidden>
                                     <strong>Grammatical discovery — Dative</strong>
                                     <p>After не равно, the number on the right takes the dative case.</p>
-                                    <p><button type="button" class="dv-say" data-dv-say="восемь" lang="ru">восемь</button> → <mark><button type="button" class="dv-say" data-dv-say="восьми" lang="ru">восьми</button></mark></p>
-                                    <p><button type="button" class="dv-say" data-dv-say="Шесть не равно восьми" lang="ru">Шесть не равно восьми</button> </p>
-                                    <p>3 ≠ 4 — <button type="button" class="dv-say" data-dv-say="Три не равно четырём" lang="ru">Три не равно четырём</button></p>
-                                    <p>9 ≠ 2 — <button type="button" class="dv-say" data-dv-say="Девять не равно двум" lang="ru">Девять не равно двум</button></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="восемь"
+                                            lang="ru">восемь</button> → <mark><button type="button" class="dv-say"
+                                                data-dv-say="восьми" lang="ru">восьми</button></mark></p>
+                                    <p><button type="button" class="dv-say" data-dv-say="Шесть не равно восьми"
+                                            lang="ru">Шесть не равно восьми</button> </p>
+                                    <p>3 ≠ 4 — <button type="button" class="dv-say" data-dv-say="Три не равно четырём"
+                                            lang="ru">Три не равно четырём</button></p>
+                                    <p>9 ≠ 2 — <button type="button" class="dv-say" data-dv-say="Девять не равно двум"
+                                            lang="ru">Девять не равно двум</button></p>
                                 </div>
                             </div>
-                            <div class="dv-complete" hidden role="status">DATA VERIFICATION COMPLETE<small>All Systems Operational<br>Все системы работают!</small></div>
+                            <div class="dv-complete" hidden role="status">DATA VERIFICATION COMPLETE<small>All Systems
+                                    Operational<br>Все системы работают!</small></div>
                         </section>
                         <section class="sr-tab-panel dv-practice" data-dv-view="1" hidden>
                             <h3>Greater Than & Less Than</h3>
                             <p class="dv-count" aria-live="polite"></p>
                             <article class="dv-question" data-dv-question="0" data-dv-model="Два меньше семи" hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 2 &lt; 7</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Два меньше семи">▶ Listen</button><button type="button" data-dv-say="Два меньше семи" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Два меньше семи">▶
+                                        Listen</button><button type="button" data-dv-say="Два меньше семи"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Два меньше семи</button>
                                     <button type="button" data-dv-answer="false">Два меньше семь</button>
@@ -7711,7 +8029,9 @@
                             </article>
                             <article class="dv-question" data-dv-question="1" data-dv-model="Девять больше трёх" hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 9 &gt; 3<br>Девять больше …</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Девять больше трёх">▶ Listen</button><button type="button" data-dv-say="Девять больше трёх" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Девять больше трёх">▶
+                                        Listen</button><button type="button" data-dv-say="Девять больше трёх"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">три</button>
                                     <button type="button" data-dv-answer="true">трёх</button>
@@ -7719,9 +8039,12 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="2" data-dv-model="Четыре меньше восьми" hidden>
+                            <article class="dv-question" data-dv-question="2" data-dv-model="Четыре меньше восьми"
+                                hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 4 &lt; 8</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Четыре меньше восьми">▶ Listen</button><button type="button" data-dv-say="Четыре меньше восьми" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Четыре меньше восьми">▶
+                                        Listen</button><button type="button" data-dv-say="Четыре меньше восьми"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Четыре меньше восьми</button>
                                     <button type="button" data-dv-answer="false">Четыре меньше восемь</button>
@@ -7731,7 +8054,9 @@
                             </article>
                             <article class="dv-question" data-dv-question="3" data-dv-model="Десять больше двух" hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 10 &gt; 2<br>Десять больше …</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Десять больше двух">▶ Listen</button><button type="button" data-dv-say="Десять больше двух" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Десять больше двух">▶
+                                        Listen</button><button type="button" data-dv-say="Десять больше двух"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">два</button>
                                     <button type="button" data-dv-answer="true">двух</button>
@@ -7739,9 +8064,12 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="4" data-dv-model="Шесть меньше девяти" hidden>
+                            <article class="dv-question" data-dv-question="4" data-dv-model="Шесть меньше девяти"
+                                hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 6 &lt; 9</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Шесть меньше девяти">▶ Listen</button><button type="button" data-dv-say="Шесть меньше девяти" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Шесть меньше девяти">▶
+                                        Listen</button><button type="button" data-dv-say="Шесть меньше девяти"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Шесть меньше девяти</button>
                                     <button type="button" data-dv-answer="false">Шесть меньше девять</button>
@@ -7749,9 +8077,12 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="5" data-dv-model="Восемь больше четырёх" hidden>
+                            <article class="dv-question" data-dv-question="5" data-dv-model="Восемь больше четырёх"
+                                hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 8 &gt; 4<br>Восемь больше …</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Восемь больше четырёх">▶ Listen</button><button type="button" data-dv-say="Восемь больше четырёх" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Восемь больше четырёх">▶
+                                        Listen</button><button type="button" data-dv-say="Восемь больше четырёх"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">четыре</button>
                                     <button type="button" data-dv-answer="true">четырёх</button>
@@ -7770,7 +8101,9 @@
                             <p class="dv-count" aria-live="polite"></p>
                             <article class="dv-question" data-dv-question="0" data-dv-model="Пять равно пяти" hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 5 = 5</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Пять равно пяти">▶ Listen</button><button type="button" data-dv-say="Пять равно пяти" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Пять равно пяти">▶
+                                        Listen</button><button type="button" data-dv-say="Пять равно пяти"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Пять равно пяти</button>
                                     <button type="button" data-dv-answer="false">Пять равно пять</button>
@@ -7778,9 +8111,12 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="1" data-dv-model="Два не равно восьми" hidden>
+                            <article class="dv-question" data-dv-question="1" data-dv-model="Два не равно восьми"
+                                hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 2 ≠ 8<br>Два не равно …</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Два не равно восьми">▶ Listen</button><button type="button" data-dv-say="Два не равно восьми" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Два не равно восьми">▶
+                                        Listen</button><button type="button" data-dv-say="Два не равно восьми"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">восемь</button>
                                     <button type="button" data-dv-answer="true">восьми</button>
@@ -7790,7 +8126,9 @@
                             </article>
                             <article class="dv-question" data-dv-question="2" data-dv-model="Семь равно семи" hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 7 = 7</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Семь равно семи">▶ Listen</button><button type="button" data-dv-say="Семь равно семи" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Семь равно семи">▶
+                                        Listen</button><button type="button" data-dv-say="Семь равно семи"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Семь равно семи</button>
                                     <button type="button" data-dv-answer="false">Семь равно семь</button>
@@ -7798,9 +8136,12 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="3" data-dv-model="Четыре не равно девяти" hidden>
+                            <article class="dv-question" data-dv-question="3" data-dv-model="Четыре не равно девяти"
+                                hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 4 ≠ 9<br>Четыре не равно …</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Четыре не равно девяти">▶ Listen</button><button type="button" data-dv-say="Четыре не равно девяти" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Четыре не равно девяти">▶
+                                        Listen</button><button type="button" data-dv-say="Четыре не равно девяти"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">девять</button>
                                     <button type="button" data-dv-answer="true">девяти</button>
@@ -7810,7 +8151,9 @@
                             </article>
                             <article class="dv-question" data-dv-question="4" data-dv-model="Три равно трём" hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 3 = 3</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Три равно трём">▶ Listen</button><button type="button" data-dv-say="Три равно трём" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Три равно трём">▶
+                                        Listen</button><button type="button" data-dv-say="Три равно трём"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Три равно трём</button>
                                     <button type="button" data-dv-answer="false">Три равно три</button>
@@ -7818,9 +8161,12 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="5" data-dv-model="Десять не равно шести" hidden>
+                            <article class="dv-question" data-dv-question="5" data-dv-model="Десять не равно шести"
+                                hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 10 ≠ 6<br>Десять не равно …</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Десять не равно шести">▶ Listen</button><button type="button" data-dv-say="Десять не равно шести" data-dv-slow="true">▶ Slow</button></div>
+                                <div class="dv-audio"><button type="button" data-dv-say="Десять не равно шести">▶
+                                        Listen</button><button type="button" data-dv-say="Десять не равно шести"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">шесть</button>
                                     <button type="button" data-dv-answer="true">шести</button>
@@ -7837,7 +8183,8 @@
                         <section class="sr-tab-panel dv-practice" data-dv-view="3" hidden>
                             <h3>Test Your Knowledge</h3>
                             <p class="dv-count" aria-live="polite"></p>
-                            <article class="dv-question" data-dv-question="0" data-dv-model="Один меньше четырёх" hidden>
+                            <article class="dv-question" data-dv-question="0" data-dv-model="Один меньше четырёх"
+                                hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 1 &lt; 4</p>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Один меньше четырёх</button>
@@ -7855,9 +8202,13 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="2" data-dv-model="Восемь равно восьми" hidden>
-                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Восемь равно восьми">▶ Listen</button><button type="button" data-dv-say="Восемь равно восьми" data-dv-slow="true">▶ Slow</button></div>
+                            <article class="dv-question" data-dv-question="2" data-dv-model="Восемь равно восьми"
+                                hidden>
+                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.
+                                </p>
+                                <div class="dv-audio"><button type="button" data-dv-say="Восемь равно восьми">▶
+                                        Listen</button><button type="button" data-dv-say="Восемь равно восьми"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">8 ≠ 8</button>
                                     <button type="button" data-dv-answer="false">8 &lt; 8</button>
@@ -7865,7 +8216,8 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="3" data-dv-model="Пять не равно девяти" hidden>
+                            <article class="dv-question" data-dv-question="3" data-dv-model="Пять не равно девяти"
+                                hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 5 ≠ 9</p>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Пять не равно девяти</button>
@@ -7884,8 +8236,11 @@
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
                             <article class="dv-question" data-dv-question="5" data-dv-model="Семь больше трёх" hidden>
-                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Семь больше трёх">▶ Listen</button><button type="button" data-dv-say="Семь больше трёх" data-dv-slow="true">▶ Slow</button></div>
+                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.
+                                </p>
+                                <div class="dv-audio"><button type="button" data-dv-say="Семь больше трёх">▶
+                                        Listen</button><button type="button" data-dv-say="Семь больше трёх"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">7 = 3</button>
                                     <button type="button" data-dv-answer="false">7 ≠ 3</button>
@@ -7893,7 +8248,8 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="6" data-dv-model="Четыре равно четырём" hidden>
+                            <article class="dv-question" data-dv-question="6" data-dv-model="Четыре равно четырём"
+                                hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 4 = 4</p>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Четыре равно четырём</button>
@@ -7902,7 +8258,8 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="7" data-dv-model="Восемь не равно трём" hidden>
+                            <article class="dv-question" data-dv-question="7" data-dv-model="Восемь не равно трём"
+                                hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 8 ≠ 3<br>Восемь не равно …</p>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">три</button>
@@ -7912,8 +8269,11 @@
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
                             <article class="dv-question" data-dv-question="8" data-dv-model="Три меньше шести" hidden>
-                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Три меньше шести">▶ Listen</button><button type="button" data-dv-say="Три меньше шести" data-dv-slow="true">▶ Slow</button></div>
+                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.
+                                </p>
+                                <div class="dv-audio"><button type="button" data-dv-say="Три меньше шести">▶
+                                        Listen</button><button type="button" data-dv-say="Три меньше шести"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">3 &gt; 6</button>
                                     <button type="button" data-dv-answer="false">3 = 6</button>
@@ -7921,7 +8281,8 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="9" data-dv-model="Двенадцать больше восьми" hidden>
+                            <article class="dv-question" data-dv-question="9" data-dv-model="Двенадцать больше восьми"
+                                hidden>
                                 <p class="dv-prompt">Choose the Russian comparison: 12 &gt; 8</p>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="true">Двенадцать больше восьми</button>
@@ -7930,7 +8291,8 @@
                                 </div>
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
-                            <article class="dv-question" data-dv-question="10" data-dv-model="Девять равно девяти" hidden>
+                            <article class="dv-question" data-dv-question="10" data-dv-model="Девять равно девяти"
+                                hidden>
                                 <p class="dv-prompt">Complete the Russian sentence: 9 = 9<br>Девять равно …</p>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">девять</button>
@@ -7940,8 +8302,11 @@
                                 <p class="dv-feedback" aria-live="polite"></p>
                             </article>
                             <article class="dv-question" data-dv-question="11" data-dv-model="Два не равно семи" hidden>
-                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.</p>
-                                <div class="dv-audio"><button type="button" data-dv-say="Два не равно семи">▶ Listen</button><button type="button" data-dv-say="Два не равно семи" data-dv-slow="true">▶ Slow</button></div>
+                                <p class="dv-prompt">Listen to the Russian comparison. Choose the matching expression.
+                                </p>
+                                <div class="dv-audio"><button type="button" data-dv-say="Два не равно семи">▶
+                                        Listen</button><button type="button" data-dv-say="Два не равно семи"
+                                        data-dv-slow="true">▶ Slow</button></div>
                                 <div class="dv-choices">
                                     <button type="button" data-dv-answer="false">2 &lt; 7</button>
                                     <button type="button" data-dv-answer="false">2 &gt; 7</button>

@@ -11321,3 +11321,501 @@ h1 {
 #server-verification .dv-complete[hidden] {
     display: none !important;
 }
+
+
+/* Door 1 — Podium Chip stationary landing page framework. */
+.podium-open,
+.podium-chip,
+.podium-back {
+    position: absolute;
+    z-index: 22;
+    background: transparent !important;
+    border: 0;
+    cursor: pointer;
+}
+.podium-open {
+    left: 35%;
+    top: 24%;
+    width: 30%;
+    height: 51%;
+}
+.podium-chip {
+    top: 30%;
+    width: 26%;
+    height: 36%;
+}
+.podium-chip-one {
+    left: 9%;
+}
+.podium-chip-two {
+    left: 38%;
+}
+.podium-chip-three {
+    left: 66%;
+}
+.podium-back {
+    left: 1%;
+    top: 85%;
+    width: 21%;
+    height: 13%;
+}
+.podium-open:focus-visible,
+.podium-chip:focus-visible,
+.podium-back:focus-visible {
+    outline: 2px solid #ffdb65;
+    border-radius: 12px;
+}
+.podium-experience-frame {
+    position: absolute;
+    left: 23%;
+    top: 7%;
+    width: 73%;
+    height: 84%;
+    box-sizing: border-box;
+    border: 1px solid #c58b23;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.68);
+    color: white;
+    text-align: left;
+    container-type: inline-size;
+}
+.podium-instructions {
+    padding: 1.6% 2%;
+    font-family: Georgia, serif;
+    font-size: clamp(12px, 2.5cqw, 26px);
+}
+.podium-core {
+    position: absolute;
+    left: 2.7%;
+    right: 2.7%;
+    top: 16%;
+    bottom: 2.7%;
+    border: 1.5px solid #d89416;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.42);
+    display: grid;
+    place-items: center;
+}
+.podium-core-placeholder {
+    font-size: clamp(12px, 2.3cqw, 24px);
+}
+.podium-sets {
+    position: absolute;
+    top: 0;
+    right: 4.4%;
+    width: 33%;
+    transform: translateY(-55%);
+    display: flex;
+    gap: 5%;
+}
+.podium-sets button,
+.podium-server-back {
+    border: 1px solid #a96221;
+    border-radius: 10px;
+    background: linear-gradient(#e99046, #8b380b);
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+}
+.podium-sets button {
+    flex: 1;
+    padding: 1% 0;
+    font-size: clamp(10px, 2.2cqw, 22px);
+}
+.podium-sets button[aria-pressed="true"] {
+    background: linear-gradient(#c47a44, #74370e);
+}
+.podium-server-back {
+    position: absolute;
+    left: 80.1%;
+    top: 13.5%;
+    transform: translateX(-50%);
+    width: 17.5%;
+    height: 5.5%;
+    padding: 0;
+    border-color: #f5c444;
+    font-size: clamp(9px, 1.5vw, 22px);
+}
+
+/* Keep the Podium Back to Server Room button bronze on hover. */
+.podium-server-back:hover {
+    background: linear-gradient(#e99046, #8b380b);
+    color: white;
+    border-color: #f5c444;
+    box-shadow: none;
+}
+
+/* Door 1 - Topic chip emblem beneath the left motherboard coil. */
+.podium-topic-emblem {
+    position: absolute;
+    left: 5.5%;
+    top: 66%;
+    width: 14.5%;
+    height: 26%;
+    pointer-events: none;
+}
+.podium-topic-emblem img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.podium-topic-emblem img[hidden] {
+    display: none;
+}
+
+/* Podium Chip — first processor, guided discovery only. */
+.podium-experience[data-topic="11th–19th Ordinals"] .podium-sets {
+    width: 55%;
+    gap: 3%;
+}
+.podium-experience[data-topic="11th–19th Ordinals"] .podium-sets button {
+    font-size: clamp(9px, 1.65cqw, 19px);
+    padding: 2% 1%;
+}
+.podium-experience[data-topic="11th–19th Ordinals"] .podium-instructions {
+    max-width: 69%;
+    font-size: clamp(10px, 1.9cqw, 22px);
+}
+.podium-teens {
+    position: absolute;
+    inset: 16.26% 3% 4%;
+    overflow: auto;
+    text-align: center;
+    font-size: clamp(10px, 1.7cqw, 20px);
+}
+.podium-teens[hidden], .podium-teen-support[hidden], .podium-core-placeholder[hidden] {
+    display: none;
+}
+.podium-teen-picker, .podium-teen-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.podium-teens button {
+    background: linear-gradient(#65401e, #301b0d);
+    border: 1px solid #c58b23;
+    color: #fff4d6;
+    font-size: inherit;
+    padding: 0.3em 0.6em;
+}
+.podium-teens button:hover, .podium-teens button[aria-pressed="true"] {
+    background: #a36b23;
+    color: white;
+}
+.podium-teen-transform {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2%;
+    margin-top: 2%;
+}
+.podium-teen-transform [lang="ru"] {
+    font: normal clamp(15px, 3.8cqw, 43px)/1.25 "Times New Roman", serif;
+    white-space: nowrap;
+}
+.teen-remove {
+    color: #ff9b83;
+    text-decoration: line-through;
+}
+.teen-add {
+    color: #ffd65d;
+}
+.podium-teen-rule {
+    margin: 1% 0 2%;
+}
+.podium-teen-support {
+    margin-top: 2%;
+    padding: 2%;
+    border: 1px solid #ad7b32;
+    border-radius: 8px;
+    background: #17120d;
+}
+.podium-teen-support p {
+    margin: 0 0 1%;
+}
+.podium-teen-bank {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+.podium-teen-bank button, [data-teen-part] {
+    font-family: "Times New Roman", serif;
+    font-weight: normal;
+}
+.podium-teen-bank small {
+    display: block;
+    font-family: Arial, sans-serif;
+}
+.podium-sets button:hover {
+    background: linear-gradient(#e99046, #8b380b);
+    color: white;
+}
+
+
+/* Podium header — align return navigation above the second tab. */
+.podium-server-back {
+    left: 85.6%;
+    top: 8.5%;
+}
+
+.podium-experience[data-topic="11th–19th Ordinals"] .podium-server-back {
+    left: 81.8%;
+}
+
+.podium-experience[data-topic="11th–19th Ordinals"] .podium-instructions {
+    white-space: pre-line;
+}
+
+
+/* Podium Chip — backwards pronunciation guide */
+.podium-teen-support[data-teen-panel="guide"] {
+    max-width: 650px;
+    margin-inline: auto;
+    text-align: left;
+    color: #fff4d6;
+}
+.podium-teen-support[data-teen-panel="guide"] h3 {
+    margin: 0 0 0.5em;
+    color: #ffd65d;
+    font-size: 1em;
+}
+.teen-guide-word {
+    text-align: center;
+    font: normal 2em/1.3 "Times New Roman", serif;
+    margin: 0.25em 0;
+}
+[data-teen-guide-suffix] {
+    color: #ffd65d;
+}
+.teen-guide-units {
+    display: flex;
+    justify-content: center;
+    gap: 0.3em;
+    margin: 0.5em 0;
+}
+.teen-guide-units span {
+    background: #392b20;
+    border-radius: 4px;
+    padding: 0.3em 0.5em;
+    font-family: "Times New Roman", serif;
+}
+.teen-guide-units span[hidden] {
+    display: none;
+}
+.teen-guide-units .is-revealed {
+    background: #78501e;
+    color: #ffd65d;
+}
+.teen-guide-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.4em;
+    margin: 0.5em 0;
+}
+.podium-teens .teen-guide-controls button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+
+/* Podium vocabulary bank: emphasize Russian without enlarging English. */
+.podium-teens .podium-teen-bank button {
+    font-size: 1.45em;
+    line-height: 1.25;
+    padding: 0.22em 0.4em;
+}
+.podium-teens .podium-teen-bank small {
+    font-size: 0.575em;
+    line-height: 1.5;
+}
+
+/* Podium Chip — independent application */
+.podium-apply [hidden] {
+    display: none;
+}
+.podium-apply p {
+    margin: 0.5em 0;
+}
+.podium-apply .apply-russian {
+    font: normal 2em/1.25 "Times New Roman", serif;
+    margin: 0.25em 0;
+}
+.podium-apply [data-apply-choice] {
+    font: normal 1.4em/1.2 "Times New Roman", serif;
+    min-width: 3em;
+}
+.podium-apply .apply-ranks {
+    margin-top: 1em;
+}
+.podium-apply [data-apply-feedback] {
+    color: #ffd65d;
+    min-height: 1.5em;
+}
+.podium-apply button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+/* Podium 11–19: independent completion animations. */
+.podium-teen-animation-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+}
+.podium-experience[data-topic="11th–19th Ordinals"] .podium-teen-animation-layer {
+    display: block;
+}
+.podium-teen-animation-layer img {
+    position: absolute;
+    object-fit: fill;
+}
+.podium-teen-animation-layer img[hidden] {
+    display: none;
+}
+.podium-teen-coil {
+    left: 0.9%;
+    top: 38.2%;
+    width: 16.0%;
+    height: 28.3%;
+}
+.podium-teen-fan {
+    left: 3.2%;
+    top: 6%;
+    width: 19.7%;
+    height: 34.5%;
+}
+.podium-board .podium-teen-chip-glow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    visibility: hidden;
+}
+.podium-board.is-teens-energized .podium-teen-chip-glow {
+    visibility: visible;
+    animation: podiumTeenPulse 1.6s ease-in-out infinite alternate;
+}
+.podium-teen-chip-glow path {
+    fill: none;
+    stroke: #ffdf36;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 5px #ffbf00);
+}
+@keyframes podiumTeenPulse {
+    from { opacity: 0.45; }
+    to { opacity: 1; filter: drop-shadow(0 0 7px #ffdc32); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .podium-board.is-teens-energized .podium-teen-chip-glow {
+        animation: none;
+    }
+}
+
+/* Podium inspection and independent completion indicators */
+.podium-inspection [hidden],
+.podium-inspection[hidden],
+.podium-apply [data-apply-complete][hidden] {
+    display: none;
+}
+.podium-inspection button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+.podium-apply [data-apply-mode] {
+    min-width: 36%;
+}
+.podium-apply [data-apply-mode] span,
+.podium-apply [data-apply-mode] progress {
+    display: block;
+    margin: 0.2em auto;
+}
+.podium-apply [data-apply-mode] progress {
+    width: 90%;
+    height: 0.45em;
+    accent-color: #ffd65d;
+}
+.podium-apply [data-apply-mode].is-complete {
+    color: #ffd65d;
+    border-color: #ffd65d;
+    background: #76501b;
+    box-shadow: 0 0 8px #d6a333;
+}
+.podium-apply [data-apply-complete],
+.podium-teens [data-inspection-progress] {
+    color: #ffd65d;
+}
+
+/* Hotel ordinal challenge — keep the elevator separate from the exercise. */
+.podium-apply.hotel-active {
+    padding-left: 45%;
+    overflow: visible;
+}
+.podium-apply .hotel-elevator {
+    position: absolute;
+    left: 0;
+    top: -12%;
+    width: 45%;
+    height: 112%;
+}
+.hotel-elevator img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+.hotel-elevator [data-hotel-floor] {
+    position: absolute;
+    left: 51%;
+    top: 9.5%;
+    width: 11%;
+    color: #ff3024;
+    font: bold clamp(9px, 1.65cqw, 22px)/1 monospace;
+    text-shadow: 0 0 4px #ff3024;
+    text-align: center;
+}
+.hotel-question p {
+    margin: 0.25em 0;
+}
+.hotel-heading {
+    color: #ffd65d;
+}
+.hotel-choices {
+    display: grid;
+    gap: 4px;
+    margin: 0.4em auto;
+    max-width: 95%;
+}
+.hotel-choices button {
+    font-family: "Times New Roman", serif;
+    font-size: 1.15em;
+    font-weight: normal;
+}
+.podium-apply [data-hotel-meaning] {
+    font-size: 0.8em;
+    color: #ffd65d;
+}
+.podium-apply [data-apply-build][hidden],
+.podium-apply [data-hotel-meaning][hidden] {
+    display: none;
+}
+
+/* Hotel-only compact layout; progress remains on the mode buttons. */
+.podium-apply.hotel-active {
+    padding-left: 45%;
+    top: 8%;
+}
+.podium-apply.hotel-active [data-apply-progress] {
+    display: none;
+}
+.podium-apply.hotel-active .hotel-elevator {
+    top: -2%;
+    height: 102%;
+}
+
+/* Shift the hotel layout left without changing elevator dimensions. */
+.podium-apply.hotel-active {
+    transform: translateX(-5%);
+}
